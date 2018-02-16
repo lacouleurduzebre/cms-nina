@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <title>{% block title %}{{ config.nom }}{% endblock %}</title>
+    {% block stylesheets %}
+        <link rel="stylesheet" href="{{ asset('../assets/css/front/knacss/knacss.css') }}" type="text/css">
+        <link rel="stylesheet" href="{{ asset('../assets/css/front/styleFront.css') }}" type="text/css">
+        {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+            <link rel="stylesheet" href="{{ asset('../assets/js/back/jstree/themes/default/style.min.css') }}">
+        {% endif %}
+    {% endblock %}
+    <script src="{{ asset('../assets/js/jquery-3.2.1.min.js') }}"></script>
+    <script src="{{ asset('../assets/js/fontawesome-all.min.js') }}"></script>
+    <link rel="icon" type="image/x-icon" href="{{ asset('..assets/img/front/favicon.ico') }}" />
+</head>
+<body>
+
+{# Menu horizontal du back office #}
+{% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+{% endif %}
+
+{% block header %}
+    <header class="header_front">
+        <div class="mw960p center flex-container">
+            <div>
+                <a href="{{ path('accueil') }}"><img class="logo" src="{{ asset(config.logo) }}" alt="CMS Nina"></a>
+                <p>{{ config.nom }}</p>
+                {{ zone('header') }}
+            </div>
+            {% if langues is not empty %}
+                <div class="txtright flex-item-fluid">
+                    <ul class="flex-container">
+                        {% for langue in langues %}
+                            <li>
+                                <a href="{{ path('changerLangue', {'id':langue.id}) }}">{{ langue.abreviation|upper }}</a>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            {% endif %}
+        </div>
+        <div id="menuBack">
+            <div class="btnMenuBack">
+                <img src="{{ asset('../assets/img/front/miniLogoNina.png') }}" alt="Nina"/>
+                <i class="fas fa-arrow-left"></i></div>
+            <div>
+                <div>
+                    {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+                        <span>Connecté en tant que {{ app.user.username }}</span>
+                        <span> - <a href="{{ path('admin') }}"><i class="fas fa-cogs"></i>Back-office</a></span>
+                        <span id="deconnexion"> - <a href="{{ path('fos_user_security_logout') }}"><i class="fas fa-power-off"></i>Déconnexion</a></span>
+                    {% else %}
+                        <span id="connexion"><a href="{{ path('fos_user_security_login') }}">Connexion</a></span>
+                    {% endif %}
+                </div>
+                {% if is_granted('IS_AUTHENTICATED_REMEMBERED') and page is defined %}
+                <div>
+                    <span><a href="{{ path('admin_app_page_edit', {'id':page.id}) }}"><i class="fas fa-pencil-alt"></i>Editer cette page</a></span>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </header>
+{% endblock %}
+{% block navigation %}
+    <nav class="menu_front">
+        {{ menuFront()|raw }}
+    </nav>
+    {% if menu(region='header') %}
+        <nav>
+            {{ menu(region='header') }}
+        </nav>
+    {% endif %}
+{% endblock %}
+
+{# Arborescence #}
+{% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+{% endif %}
+
+<main class="mw960p center flex-container">
+    {% if zone(region='colonneGauche') or menu(region='colonneGauche') %}
+        <div class="w20">
+            {{ menu(region='colonneGauche') }}
+            {{ zone(region='colonneGauche') }}
+        </div>
+    {% endif %}
+    <div class="flex-item-fluid">
+        {% block body %}{% endblock %}
+    </div>
+    {% if zone(region='colonneDroite') or menu(region='colonneDroite')%}
+        <div class="w20">
+            {{ menu(region='colonneGauche') }}
+            {{ zone(region='colonneDroite') }}
+        </div>
+    {% endif %}
+</main>
+{% block footer %}
+    <footer>
+        {{ zone(region='footer') }}
+        {{ menu(region='footer') }}
+        &#169; {{ config.editeur }} - {{ "now"|date("Y") }}
+    </footer>
+{% endblock %}
+{% block javascripts %}
+    <script src="{{ asset('../assets/js/front/jsFront.js') }}"></script>
+    {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+        <script src="{{ asset('../assets/js/back/jsBack.js') }}"></script>
+        <script src="{{ asset('../assets/js/back/jstree/jstree.min.js') }}"></script>
+        <script src='{{ asset('../assets/js/backfosjsrouting/js/router.js') }}'></script>
+        <script src="{{ asset('../assets/js/backfosjsrouting/js/fos_js_routes.js') }}"></script>
+    {% endif %}
+{% endblock %}
+</body>
+</html>

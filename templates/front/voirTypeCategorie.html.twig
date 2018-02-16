@@ -1,0 +1,14 @@
+{% extends 'front/base.html.twig' %}
+
+{% block title %}{{ parent() }} - {{ typeCategorie.nom }}{% endblock %}
+
+{% block body %}
+<h1>Liste des "{{ typeCategorie.nom }}"</h1>
+    <p class="description">{{ typeCategorie.description }}</p>
+    {% for categorie in categories %}
+    <div class="extrait">
+        <h2><a href="{{ path('voirCategorie', {'urlTypeCategorie':typeCategorie.url, 'urlCategorie':categorie.url}) }}">{{ categorie.nom }}</a></h2>
+        <p>{{ categorie.description }}</p>
+    </div>
+    {% endfor %}
+{% endblock %}

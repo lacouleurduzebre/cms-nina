@@ -1,0 +1,25 @@
+easy_admin:
+    entities:
+        Langue:
+            class: App\Entity\Langue
+            label: 'Langues'
+            list:
+                sort: 'abreviation'
+                fields:
+                    - abreviation
+                    - nom
+                    - active
+            search:
+                sort: 'abreviation'
+                fields:
+                    - nom
+            show:
+                fields:
+                    - abreviation
+                    - nom
+                    - active
+            form:
+                fields:
+                    - nom
+                    - abreviation
+                    - active

@@ -1,0 +1,24 @@
+imports:
+    - { resource: admin/ }
+easy_admin:
+    site_name: '<img src="../../../assets/img/front/logoNina.png" />'
+    list:
+        title: '%%entity_label%%'
+    show:
+        title: '%%entity_label%%'
+    search:
+        title: '%%entity_label%%'
+    edit:
+        title: '%%entity_label%%'
+    design:
+        brand_color: '#A1BB0C'
+        assets:
+            favicon: '../assets/img/front/favicon.ico'
+            css:
+                - '../assets/css/back/styleBack.css'
+            js:
+                - '../assets/js/back/jsBack.js'
+    formats:
+        date: 'd/m/Y'
+        time: 'H:i'
+        datetime: 'd/m/Y H:i'

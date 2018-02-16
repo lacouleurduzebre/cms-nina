@@ -1,0 +1,8 @@
+# FOSUser
+fos_user:
+    db_driver: orm
+    firewall_name: principal
+    user_class: App\Entity\Utilisateur
+    from_email:
+        address: "contact@lacouleurduzebre.com"
+        sender_name: "contact@lacouleurduzebre.com"

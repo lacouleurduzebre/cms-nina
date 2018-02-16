@@ -1,0 +1,26 @@
+easy_admin:
+    entities:
+        TypeCategorie:
+            class: App\Entity\TypeCategorie
+            label: 'Types de catégories'
+            list:
+                fields:
+                    - id
+                    - nom
+                    - description
+                    - url
+            search:
+                fields:
+                    - nom
+                    - description
+            show:
+                fields:
+                    - id
+                    - nom
+                    - description
+                    - url
+            form:
+                fields:
+                    - nom
+                    - description
+                    - url

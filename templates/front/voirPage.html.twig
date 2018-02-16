@@ -1,0 +1,43 @@
+{% extends 'front/base.html.twig' %}
+
+{% block title %}{{ parent() }} - {{ page.titre }}{% endblock %}
+{% block body %}
+    {% for message in app.session.flashbag.get('OK') %}
+        <p class="message">{{ message }}</p>
+    {% endfor %}
+    <h1>{{ page.titre }}</h1>
+    <p>Publié le {{ page.datePublication|date("d/m/Y") }} à {{ page.datePublication|date("G:i") }} par {{ page.auteur }}</p>
+    {% if page.categories is not empty %}
+        {% for categorie in page.categories %}
+            <span class="btnCategorie">{{ categorie.typeCategorie.nom }} : <a href="#">{{ categorie.nom }}</a></span>
+            {% if not loop.last %}
+             -
+            {% endif %}
+        {% endfor %}
+    {% endif %}
+    {% if page.image is not empty %}
+        <p><img class="fl w300p" src="{{ asset(page.image) }}"></p>
+    {% endif %}
+    <p>{{ page.contenu|raw }}</p>
+    {#{% for texte in page.modulesTexte %}
+        <div>
+            {{ texte.contenu|raw }}
+        </div>
+    {% endfor %}#}
+    <aside class="clear blocCommentaires">
+        <h2>Commentaires sur "{{ page.titre }}"</h2>
+        {% for message in app.session.flashbag.get('comOK') %}
+            <p class="message">{{ message }}</p>
+        {% endfor %}
+        <h3>Ajouter un commentaire</h3>
+        {{ form(form) }}
+        {% for commentaire in commentaires %}
+            {% if commentaire.corbeille == false and commentaire.valide == true %}
+            <div class="commentaire">
+                <p>Par <strong>{{ commentaire.auteur }}</strong> le {{ commentaire.date|date("d/m/Y") }} à {{ commentaire.date|date("G:i") }}</p>
+                <p class="pas">{{ commentaire.contenu|raw }}</p>
+            </div>
+            {% endif %}
+        {% endfor %}
+    </aside>
+{% endblock %}

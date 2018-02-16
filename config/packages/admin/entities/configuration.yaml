@@ -1,0 +1,22 @@
+easy_admin:
+    entities:
+        Configuration:
+            class: App\Entity\Configuration
+            list:
+                fields:
+                    - nom
+                    - url
+                    - logo
+                    - editeur
+                    - langueDefaut
+            form:
+                fields:
+                    - nom
+                    - url
+                    - logo
+                    - editeur
+                    - emailContact
+                    - emailMaintenance
+                    - emailNewsletter
+                    - analytics
+                    - langueDefaut

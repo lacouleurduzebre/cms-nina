@@ -1,0 +1,12 @@
+{% for menu in menus %}
+<div>
+    <ul>
+        {% for jointure in menu.menuPage %}
+            <li>
+                <a href="{{ path('voirPage', {'url':jointure.page.seo.url}) }}">{{ jointure.page.titre }}
+                </a>
+            </li>
+        {% endfor %}
+    </ul>
+</div>
+{% endfor %}

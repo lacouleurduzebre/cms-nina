@@ -1,0 +1,53 @@
+easy_admin:
+    entities:
+        Commentaires:
+            class: App\Entity\Commentaire
+            label: 'Commentaires'
+            list:
+                dql_filter: 'entity.corbeille = false'
+                sort: 'page.titre'
+                fields:
+                    - id
+                    - { property: 'page.titre', label: 'Page', sortable: true }
+                    - { property: 'auteur', label: 'Auteur', sortable: true }
+                    - date
+                    - contenu
+                    - { property: 'valide', label: 'Validé', sortable: true }
+            search:
+                sort: 'page.titre'
+                fields:
+                    - page.titre
+                    - auteur.nom
+            show:
+                fields:
+                    - id
+                    - { property: 'page.titre', label: 'Page', sortable: true }
+                    - { property: 'auteur.nom', label: 'Auteur', sortable: true }
+                    - date
+                    - contenu
+                    - { property: 'valide', label: 'Validé', sortable: true }
+            form:
+                fields:
+                    - { property: 'page', label: 'Page', type: 'entity', type_options: { class: 'App\Entity\Page' } }
+                    - { property: 'auteur', label: 'Auteur', type: 'entity', type_options: { class: 'App\Entity\Utilisateur' } }
+                    - email
+                    - site
+                    - date
+                    - contenu
+            edit:
+                fields:
+                    - { property: 'valide', label: 'Validé' }
+                    - { property: 'corbeille', label: 'Activé' }
+
+        CommentairesCorbeille:
+            class: App\Entity\Commentaire
+            label: 'Commentaires à la corbeille'
+            list:
+                  dql_filter: 'entity.corbeille = true'
+                  sort: 'page.titre'
+                  fields:
+                      - id
+                      - { property: 'page.titre', label: 'Page', sortable: true }
+                      - { property: 'auteur.nom', label: 'Auteur', sortable: true }
+                      - date
+                      - contenu

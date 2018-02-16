@@ -1,0 +1,27 @@
+easy_admin:
+    entities:
+        Zone:
+            class: App\Entity\Zone
+            label: 'Zones'
+            list:
+                fields:
+                    - id
+                    - nom
+                    - { property: 'region', label: 'Région'}
+                    - { propert: 'contenu', type: 'raw' }
+            search:
+                fields:
+                    - nom
+                    - region
+                    - contenu
+            show:
+                fields:
+                    - id
+                    - nom
+                    - { property: 'region', label: 'Région'}
+                    - { propert: 'contenu', type: 'raw' }
+            form:
+                fields:
+                    - nom
+                    - { property: 'region', label: 'Région'}
+                    - { propert: 'contenu', type: 'raw' }

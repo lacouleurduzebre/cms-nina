@@ -1,0 +1,22 @@
+easy_admin:
+    entities:
+        TypeModule:
+            class: App\Entity\TypeModule
+            label: 'Types de modules'
+            list:
+                fields:
+                    - id
+                    - nom
+                    - champs
+            search:
+                fields:
+                    - nom
+            show:
+                fields:
+                    - id
+                    - nom
+                    - champs
+            form:
+                fields:
+                    - nom
+                    - champs

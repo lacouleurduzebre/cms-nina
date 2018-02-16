@@ -1,0 +1,31 @@
+easy_admin:
+    entities:
+        Utilisateur:
+            class: App\Entity\Utilisateur
+            label: 'Utilisateurs'
+            list:
+                fields:
+                    - id
+                    - { property: 'username', label: 'Pseudonyme' }
+                    - { property: 'email', label: 'E-mail' }
+                    - { property: 'enabled', label: 'Activé' }
+                    - { property: 'lastLogin', label: 'Dernière connexion' }
+                    - { property: 'roles', label: 'Rôles' }
+            search:
+                fields:
+                    - username
+                    - email
+            show:
+                fields:
+                    - id
+                    - { property: 'username', label: 'Pseudonyme' }
+                    - { property: 'email', label: 'E-mail' }
+                    - { property: 'enabled', label: 'Activé' }
+                    - { property: 'lastLogin', label: 'Dernière connexion' }
+                    - { property: 'roles', label: 'Rôles' }
+            form:
+                fields:
+                    - { property: 'username', label: 'Pseudonyme' }
+                    - { property: 'email', label: 'E-mail' }
+                    - { property: 'enabled', label: 'Activé' }
+                    - { property: 'roles', label: 'Rôles' }

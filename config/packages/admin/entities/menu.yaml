@@ -1,0 +1,5 @@
+easy_admin:
+    entities:
+        Menu:
+            class: App\Entity\Menu
+            label: 'Menus'

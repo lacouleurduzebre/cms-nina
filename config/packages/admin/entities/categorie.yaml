@@ -1,0 +1,34 @@
+easy_admin:
+    entities:
+        Categorie:
+            class: App\Entity\Categorie
+            label: 'Catégories'
+            list:
+                sort: 'nom'
+                fields:
+                    - id
+                    - nom
+                    - description
+                    - { property: 'url', type: 'url'}
+                    - { property : 'categorieParent', label: 'Catégorie parent', sortable: true}
+                    - { property : 'typeCategorie.nom', label: 'Type', sortable: true}
+            search:
+                sort: 'nom'
+                fields:
+                    - nom
+                    - typeCategorie.nom
+            show:
+                fields:
+                    - id
+                    - nom
+                    - description
+                    - url
+                    - { property : 'categorieParent', label: 'Catégorie parent' }
+                    - { property : 'typeCategorie.nom', label: 'Type'}
+            form:
+                fields:
+                    - nom
+                    - description
+                    - { property: 'url' }
+                    - { property : 'categorieParent', label: 'Catégorie parent', type: 'entity', type_options: { class: 'App\Entity\Categorie' } }
+                    - { property : 'typeCategorie', label: 'Type' }
