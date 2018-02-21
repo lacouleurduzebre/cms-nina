@@ -1,0 +1,112 @@
+<header>
+    <div class="txtcenter arbo-titre"><i class="fas fa-sitemap"></i> {% trans %}Arborescence{% endtrans %}</div>
+    <div class="arbo-langues">
+        {% for langue in langues %}
+            <span><a href="{{ path('changerLangue', {'id' : langue.id}) }}">{{ langue.abreviation|upper }}</a></span>
+        {% endfor %}
+    </div>
+</header>
+<div id="jstree">
+    <ul>
+        <li id="racine"><a href="{{ path('accueil') }}">{% trans %}Accueil{% endtrans %}</a>
+            <ul>
+                {% include 'back/menu/pages.html.twig' with{'pages' : pages} only %}
+            </ul>
+        </li>
+    </ul>
+</div>
+
+<script>
+    $(document).ready(function(){
+        //Initialisation JSTree
+        $('#jstree').jstree({
+            "plugins" : [
+                "dnd", "state", "types", "contextmenu"
+            ],
+            "contextmenu":{
+                "items": function(node){
+                    return{
+                        "edit":{
+                            "icon": "fa fa-pencil-alt",
+                            "label": "Éditer",
+                            "action": function(){
+                                idPage = $('#'+node.id).find('span').attr('id');
+                                window.location.href = "{{ app.request.baseUrl }}"+Routing.generate('admin_nina_page_page_edit', { id: idPage });
+                            }
+                        },
+                        "create":{
+                            "icon": "fa fa-plus",
+                            "label": "Ajouter une page enfant",
+                            "action": function(){
+                                idPage = $('#'+node.id).find('span').attr('id');
+                                window.location.href = "{{ app.request.baseUrl }}"+Routing.generate('admin_nina_page_page_create', { idPageParent: idPage });
+                            }
+                        },
+                        "delete":{
+                            "icon": "fa fa-trash-alt",
+                            "label": "Supprimer",
+                            "action": function(){
+                                idPage = $('#'+node.id).find('span').attr('id');
+                                window.location.href = "{{ app.request.baseUrl }}"+Routing.generate('admin_nina_page_page_corbeille', { id: idPage });
+                            }
+                        }
+                    };
+                }
+            },
+            "state" : { "key" : "menuVertical"},
+            "types" : {
+                "#" : {
+                    "max_children" : 1,
+                    "valid_children" : ["root"]
+                },
+                "root" : {
+                    "icon" : "fa fa-home"
+                },
+                "default" : {
+                    "icon" : "far fa-xs fa-file-alt"
+                }
+            },
+            "core" : {
+                "animation" : 0,
+                "check_callback" : true,
+                "themes" : { "stripes" : true }
+            }
+        });
+
+        //Drag'n'drop menu vertical - enregistrement de la position de chaque page en bdd
+        $('#jstree').on('move_node.jstree', function(e, data){
+            $('#loader-arbo').fadeIn().html("<i class='fas fa-sync fa-spin'></i>");
+            arbo = [];
+            $('#jstree').jstree('open_node', data.node.parent);
+            $('#racine li').each(function(){
+                position = $(this).index();
+                idLiPage = $(this).attr('id');
+                if(idLiPage == 'racine'){
+                    idPage = 'accueil';
+                }else{
+                    idPage = $('#'+idLiPage).find('span').attr('id');
+                }
+                PageParent = $(this).parent('ul').parent('li').attr('id');
+                if(PageParent == 'racine'){
+                    idPageParent = null;
+                }else{
+                    idPageParent = $('#'+PageParent).find('span').attr('id');
+                }
+                page = [idPage, position, idPageParent];
+                arbo.push(page);
+            });
+            $.ajax({
+                url: "{{ path('enregistrerArbo') }}",
+                method: "post",
+                data: {arbo: arbo}
+            })
+                .done(function(){
+                    $('#loader-arbo').fadeIn().html("<i class='fas fa-check'></i>").delay(600).fadeOut();
+                    console.log(arbo);
+                })
+                .fail(function(){
+                    $('#loader-arbo').fadeIn().html("<i class='fas fa-times'></i>").delay(600).fadeOut();
+                });
+        });
+    });
+</script>

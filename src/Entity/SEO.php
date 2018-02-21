@@ -47,6 +47,11 @@ class SEO
      */
     private $page;
 
+    public function __toString()
+    {
+        return $this->getMetaTitre();
+    }
+
     /**
      * Get id
      *

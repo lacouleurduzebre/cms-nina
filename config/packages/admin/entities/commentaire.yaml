@@ -1,11 +1,13 @@
 easy_admin:
     entities:
-        Commentaires:
+        Commentaire_Actif:
             class: App\Entity\Commentaire
             label: 'Commentaires'
             list:
                 dql_filter: 'entity.corbeille = false'
                 sort: 'page.titre'
+                actions:
+                    - { name: 'corbeille', label: '', title: 'Mettre à la corbeille', icon: 'trash' }
                 fields:
                     - id
                     - { property: 'page.titre', label: 'Page', sortable: true }
@@ -39,12 +41,14 @@ easy_admin:
                     - { property: 'valide', label: 'Validé' }
                     - { property: 'corbeille', label: 'Activé' }
 
-        CommentairesCorbeille:
+        Commentaire_Corbeille:
             class: App\Entity\Commentaire
             label: 'Commentaires à la corbeille'
             list:
                   dql_filter: 'entity.corbeille = true'
                   sort: 'page.titre'
+                  actions:
+                      - { name: 'corbeille', label: '', title: 'Restaurer', icon: 'recycle' }
                   fields:
                       - id
                       - { property: 'page.titre', label: 'Page', sortable: true }

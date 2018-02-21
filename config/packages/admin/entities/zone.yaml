@@ -2,13 +2,13 @@ easy_admin:
     entities:
         Zone:
             class: App\Entity\Zone
-            label: 'Zones'
+            label: 'Zones éditables'
             list:
                 fields:
                     - id
                     - nom
                     - { property: 'region', label: 'Région'}
-                    - { propert: 'contenu', type: 'raw' }
+                    - { property: 'contenu', type: 'raw' }
             search:
                 fields:
                     - nom
@@ -19,9 +19,9 @@ easy_admin:
                     - id
                     - nom
                     - { property: 'region', label: 'Région'}
-                    - { propert: 'contenu', type: 'raw' }
+                    - { property: 'contenu', type: 'raw' }
             form:
                 fields:
                     - nom
                     - { property: 'region', label: 'Région'}
-                    - { propert: 'contenu', type: 'raw' }
+                    - contenu

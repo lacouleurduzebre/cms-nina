@@ -1,0 +1,10 @@
+{% for page in pages %}
+    <li>
+        <a href="#"><span id="{{ page.id }}"></span>{{ page.titre }}</a>
+        {% if page.pagesEnfants is not empty %}
+            <ul>
+            {% include 'NinaBackBundle:Menu:pages.html.twig' with{'pages':page.pagesEnfants} only %}
+            </ul>
+        {% endif %}
+    </li>
+{% endfor %}

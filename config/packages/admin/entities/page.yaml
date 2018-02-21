@@ -1,11 +1,13 @@
 easy_admin:
     entities:
-        PagesActives:
+        Page_Active:
             class: App\Entity\Page
             label: 'Pages'
             list:
                 dql_filter: 'entity.corbeille = false'
                 sort: 'titre'
+                actions:
+                    - { name: 'corbeille', label: '', title: 'Mettre à la corbeille', icon: 'trash' }
                 fields:
                     - id
                     - titre
@@ -58,14 +60,27 @@ easy_admin:
                     - active
                     - corbeille
                     - { type: 'section', label: 'SEO' }
+                    - { property: 'seo', type: 'entity' }
                     - { type: 'section', label: 'Commentaires' }
                     - { type: 'section', label: 'Traduction' }
                     - langue
                     - pageOriginale
                     - pagesTraduites
 
-        PagesCorbeille:
+        Page_Corbeille:
             class: App\Entity\Page
             label: 'Pages à la corbeille'
             list:
                 dql_filter: 'entity.corbeille = true'
+                sort: 'titre'
+                actions:
+                    - { name: 'corbeille', label: '', title: 'Restaurer', icon: 'recycle' }
+                disabled_actions: ['edit', 'delete']
+                fields:
+                    - id
+                    - titre
+                    - auteur
+                    - { property: 'categories', label: 'Catégories' }
+                    - { property: 'dateCreation', label: 'Date de création' }
+                    - { property: 'seo.url', label: 'Url' }
+                    - langue

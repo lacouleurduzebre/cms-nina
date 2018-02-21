@@ -4,21 +4,56 @@ easy_admin:
     site_name: '<img src="../../../assets/img/front/logoNina.png" />'
     list:
         title: '%%entity_label%%'
+        actions:
+            - { name: 'edit', label: '', title: 'Éditer', icon: 'pencil' }
+            - { name: 'delete', label: '', title: 'Supprimer', icon: 'trash' }
     show:
         title: '%%entity_label%%'
     search:
         title: '%%entity_label%%'
     edit:
         title: '%%entity_label%%'
+    formats:
+        date: 'd/m/Y'
+        time: 'H:i'
+        datetime: 'd/m/Y H:i'
     design:
         brand_color: '#A1BB0C'
         assets:
             favicon: '../assets/img/front/favicon.ico'
             css:
+                - '../assets/css/back/knacss/knacss.css'
                 - '../assets/css/back/styleBack.css'
+                - '../assets/js/back/jstree/themes/default/style.min.css'
             js:
+                - '../assets/js/fontawesome-all.min.js'
                 - '../assets/js/back/jsBack.js'
-    formats:
-        date: 'd/m/Y'
-        time: 'H:i'
-        datetime: 'd/m/Y H:i'
+                - '../assets/js/back/jstree/jstree.min.js'
+        templates:
+            layout: 'back/base.html.twig'
+            menu: 'back/menu/menuPrincipal.html.twig'
+        menu:
+            - { entity: 'Utilisateur', label: 'Comptes', icon: 'users' }
+            - { entity: 'Configuration', icon: 'cog', params: { action: 'edit', id: 1 } }
+            - label: 'Outils'
+              icon: 'wrench'
+              children:
+                - { entity: 'Champ', icon: '' }
+                - { entity: 'TypeModule', icon: '' }
+                - { label: 'Traductions', icon: '' }
+                - { label: 'Corbeille', icon: '' }
+                - { entity: 'Page_Corbeille', icon: '' }
+                - { entity: 'Commentaire_Corbeille', icon: '' }
+            - { label: 'Médiathèque', icon: 'folder' }
+            - { label: 'Newsletter', icon: 'paper-plane' }
+            - label: 'Contenus'
+              icon: 'puzzle-piece'
+              children:
+              - { entity: 'Page_Active', icon: '', default: true }
+              - { entity: 'Commentaire_Actif', icon: '' }
+              - { entity: 'TypeCategorie', icon: '' }
+              - { entity: 'Categorie', icon: '' }
+              - { entity: 'Langue', icon: '' }
+              - { entity: 'Zone', icon: '' }
+              - { entity: 'Menu', icon: '' }
+            - { label: 'Voir le site', route: 'accueil', icon: 'home' }
