@@ -146,7 +146,7 @@ class Page
 
     public function __construct()
     {
-        $this->date = new \DateTime();
+        $this->dateCreation = new \DateTime();
         $this->commentaires = new ArrayCollection();
         $this->categories = new ArrayCollection();
         $this->pagesEnfants = new ArrayCollection();

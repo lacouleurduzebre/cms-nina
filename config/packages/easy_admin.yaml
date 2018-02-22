@@ -26,6 +26,7 @@ easy_admin:
                 - '../assets/css/back/styleBack.css'
                 - '../assets/js/back/jstree/themes/default/style.min.css'
             js:
+                # dans base.html.twig - '../assets/js/jquery-3.2.1.min.js'
                 - '../assets/js/fontawesome-all.min.js'
                 - '../assets/js/back/jsBack.js'
                 - '../assets/js/back/jstree/jstree.min.js'

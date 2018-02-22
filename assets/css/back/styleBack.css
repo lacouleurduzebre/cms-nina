@@ -17,7 +17,9 @@
 /* Header */
 .main-header {
   height: 50px;
-  overflow: hidden; }
+  position: fixed;
+  width: 100%;
+  z-index: 2; }
   .main-header .navbar {
     display: flex; }
 
@@ -29,6 +31,7 @@
     margin: auto;
     display: block; }
 
+/* Menu horizontal */
 .sidebar-menu {
   list-style: none;
   display: flex;
@@ -40,10 +43,22 @@
     color: #fff;
     text-decoration: none; }
   .sidebar-menu > li {
-    margin: auto; }
-
-.sidebar-menu li ul {
-  display: none; }
+    margin: auto;
+    height: 100%;
+    display: flex;
+    align-items: center; }
+  .sidebar-menu ul {
+    background-color: #000;
+    list-style: none;
+    padding: 1rem; }
+  .sidebar-menu li {
+    position: relative; }
+    .sidebar-menu li > ul {
+      display: none;
+      position: absolute;
+      top: 50px; }
+    .sidebar-menu li:hover > ul {
+      display: block; }
 
 /* Sidebar */
 .main-sidebar {
@@ -51,10 +66,14 @@
   height: calc(100vh - 50px);
   position: fixed;
   background-color: #66645F;
-  color: #fff; }
+  color: #fff;
+  top: 50px; }
   .main-sidebar a {
     color: #fff;
     text-decoration: none; }
+  .main-sidebar #jstree {
+    background-color: #7F7D77;
+    padding: 2rem 2rem 5rem 2rem; }
 
 /* Menu compte */
 .navbar-custom-menu ul {
@@ -62,19 +81,37 @@
 
 /* Arborescence */
 .arbo-titre {
-  background-color: #A1BB0C;
   text-transform: uppercase;
   padding: 1rem 0; }
+  .arbo-titre.active {
+    background-color: #A1BB0C; }
+  .arbo-titre.inactive {
+    background-color: #4e5b06;
+    color: #cccccc; }
+  .arbo-titre svg {
+    margin-right: 3rem; }
 
 .arbo-langues {
   background-color: #829609;
   padding: 1rem 2rem; }
   .arbo-langues span {
     border: 1px solid #fff;
-    padding: .5rem; }
+    height: 3.5rem;
+    width: 3.5rem;
+    display: inline-block;
+    opacity: .5; }
+    .arbo-langues span.current, .arbo-langues span:hover {
+      opacity: 1; }
+    .arbo-langues span a {
+      display: flex;
+      height: 100%;
+      width: 100%;
+      align-items: center;
+      justify-content: center; }
 
 /* Centre */
 .content-wrapper {
-  margin-left: 30rem; }
+  margin-left: 30rem;
+  padding: 1rem; }
 
 /*# sourceMappingURL=styleBack.css.map */

@@ -1,19 +1,26 @@
 <header>
-    <div class="txtcenter arbo-titre"><i class="fas fa-sitemap"></i> {% trans %}Arborescence{% endtrans %}</div>
-    <div class="arbo-langues">
-        {% for langue in langues %}
-            <span><a href="{{ path('changerLangue', {'id' : langue.id}) }}">{{ langue.abreviation|upper }}</a></span>
-        {% endfor %}
+    <div class="txtcenter arbo-titre active">
+        <i class="fas fa-sitemap"></i> {% trans %}Arborescence{% endtrans %}
+        <a href="#" id="btnArbo"><i class="fas fa-chevron-circle-down"></i></a>
     </div>
 </header>
-<div id="jstree">
-    <ul>
-        <li id="racine"><a href="{{ path('accueil') }}">{% trans %}Accueil{% endtrans %}</a>
-            <ul>
-                {% include 'back/menu/pages.html.twig' with{'pages' : pages} only %}
-            </ul>
-        </li>
-    </ul>
+<div>
+    <div class="arbo-langues">
+        {% for langue in langues %}
+            <span{{ app.session.get('_locale') == langue.abreviation ? " class='current'" }}>
+                <a href="{{ path('changerLangue', {'id' : langue.id}) }}">{{ langue.abreviation|upper }}</a>
+            </span>
+        {% endfor %}
+    </div>
+    <div id="jstree">
+        <ul>
+            <li id="racine"><a href="{{ path('accueil') }}">{% trans %}Accueil{% endtrans %}</a>
+                <ul>
+                    {% include 'back/menu/pages.html.twig' with{'pages' : pages} only %}
+                </ul>
+            </li>
+        </ul>
+    </div>
 </div>
 
 <script>

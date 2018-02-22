@@ -3,7 +3,9 @@
 /* Header */
 .main-header{
   height: 50px;
-  overflow: hidden;
+  position: fixed;
+  width: 100%;
+  z-index: 2;
   .navbar{
     display: flex;
   }
@@ -19,6 +21,7 @@
   }
 }
 
+  /* Menu horizontal */
 .sidebar-menu{
   list-style: none;
   display: flex;
@@ -32,11 +35,26 @@
   }
   > li{
     margin: auto;
+    height:100%;
+    display: flex;
+    align-items: center;
   }
-}
-
-.sidebar-menu li ul{
-  display: none;
+  ul{
+    background-color: $black;
+    list-style: none;
+    padding:$spacer-small;
+  }
+  li{
+    position: relative;
+    > ul{
+      display: none;
+      position: absolute;
+      top:50px;
+    }
+    &:hover > ul{
+      display: block;
+    }
+  }
 }
 
 /* Sidebar */
@@ -46,9 +64,14 @@
   position: fixed;
   background-color: $color-primary-dark;
   color: $white;
+  top: 50px;
   a{
     color: $white;
     text-decoration: none;
+  }
+  #jstree{
+    background-color: $color-primary-light;
+    padding: 2rem 2rem 5rem 2rem;
   }
 }
 
@@ -61,9 +84,18 @@
 
   /* Arborescence */
 .arbo-titre{
-  background-color: $color-brand;
   text-transform: uppercase;
   padding:1rem 0;
+  &.active{
+    background-color: $color-brand;
+  }
+  &.inactive{
+    background-color: darken($color-brand, 20%);
+    color: darken($white, 20%);
+  }
+  svg {
+    margin-right: 3rem;
+  }
 }
 
 .arbo-langues{
@@ -71,11 +103,25 @@
   padding: 1rem 2rem;
   span{
     border: 1px solid $white;
-    padding:.5rem;
+    height:3.5rem;
+    width:3.5rem;
+    display: inline-block;
+    opacity:.5;
+    &.current, &:hover{
+      opacity:1;
+    }
+    a{
+      display: flex;
+      height: 100%;
+      width: 100%;
+      align-items: center;
+      justify-content: center;
+    }
   }
 }
 
 /* Centre */
 .content-wrapper{
   margin-left: 30rem;
+  padding: $spacer-small;
 }

@@ -57,6 +57,7 @@ easy_admin:
                     - { type: 'section', label: 'Arborescence' }
                     - categories
                     - pageParent
+                    - position
                     - active
                     - corbeille
                     - { type: 'section', label: 'SEO' }
