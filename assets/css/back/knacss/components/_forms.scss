@@ -55,7 +55,8 @@ textarea {
 }
 
 [type="submit"] {
-  background-color: $forms-color;
+  background-color: $color-brand;
+  border-radius:5px;
   color: $white;
   cursor: pointer;
 }

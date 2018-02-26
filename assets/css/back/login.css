@@ -1,0 +1,31 @@
+/* Page de login */
+body {
+  margin: 0; }
+
+#loginPage {
+  height: 100vh;
+  width: 100vw;
+  background-image: url("../../img/back/fondLogin.png");
+  display: flex;
+  align-items: center; }
+  #loginPage form {
+    background-color: rgba(255, 255, 255, 0.8);
+    border-radius: 1rem;
+    display: flex;
+    flex-direction: column;
+    padding: 2rem 6rem; }
+    #loginPage form img {
+      margin: 0 auto; }
+    #loginPage form label {
+      color: #007492;
+      font-size: 1.4rem;
+      margin-top: 1.5rem; }
+    #loginPage form input {
+      border-radius: 5px;
+      box-shadow: none;
+      width: 35rem; }
+      #loginPage form input[type="submit"] {
+        margin: 3.5rem auto 0 auto;
+        width: 16rem; }
+
+/*# sourceMappingURL=login.css.map */

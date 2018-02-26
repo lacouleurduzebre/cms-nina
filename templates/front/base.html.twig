@@ -79,6 +79,8 @@
 {% endif %}
 
 <main class="mw960p center flex-container">
+    {% block fos_user_content %}
+    {% endblock %}
     {% if zone(region='colonneGauche') or menu(region='colonneGauche') %}
         <div class="w20">
             {{ menu(region='colonneGauche') }}

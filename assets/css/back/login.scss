@@ -1,0 +1,36 @@
+/* Page de login */
+body{
+  margin:0;
+}
+
+#loginPage{
+  height:100vh;
+  width:100vw;
+  background-image:url('../../img/back/fondLogin.png');
+  display: flex;
+  align-items: center;
+  form{
+    background-color: rgba(255,255,255,.8);
+    border-radius: 1rem;
+    display: flex;
+    flex-direction: column;
+    padding:2rem 6rem;
+    img{
+      margin:0 auto;
+    }
+    label{
+      color: #007492;
+      font-size: 1.4rem;
+      margin-top: 1.5rem;
+    }
+    input{
+      border-radius: 5px;
+      box-shadow: none;
+      width: 35rem;
+      &[type="submit"]{
+        margin: 3.5rem auto 0 auto;
+        width:16rem;
+      }
+    }
+  }
+}

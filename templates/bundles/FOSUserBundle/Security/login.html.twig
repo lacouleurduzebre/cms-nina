@@ -1,0 +1,7 @@
+{% extends "bundles/FOSUserBundle/layout.html.twig" %}
+
+{% block fos_user_content %}
+    <div id="loginPage">
+        {{ include('bundles/FOSUserBundle/Security/login_content.html.twig') }}
+    </div>
+{% endblock fos_user_content %}
