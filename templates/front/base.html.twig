@@ -7,17 +7,19 @@
         <link rel="stylesheet" href="{{ asset('../assets/css/front/knacss/knacss.css') }}" type="text/css">
         <link rel="stylesheet" href="{{ asset('../assets/css/front/styleFront.css') }}" type="text/css">
         {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
-            <link rel="stylesheet" href="{{ asset('../assets/js/back/jstree/themes/default/style.min.css') }}">
+            <link rel="stylesheet" href="{{ asset('../assets/js/back/jstree/themes/default-dark/style.min.css') }}">
+            <link rel="stylesheet" href="{{ asset('../assets/css/back/headerAsideBack.css') }}">
         {% endif %}
     {% endblock %}
     <script src="{{ asset('../assets/js/jquery-3.2.1.min.js') }}"></script>
     <script src="{{ asset('../assets/js/fontawesome-all.min.js') }}"></script>
     <link rel="icon" type="image/x-icon" href="{{ asset('..assets/img/front/favicon.ico') }}" />
 </head>
-<body>
+<body {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}class="connected"{% endif %}>
 
 {# Menu horizontal du back office #}
 {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+    {{ include('back/header.html.twig') }}
 {% endif %}
 
 {% block header %}
@@ -40,7 +42,7 @@
                 </div>
             {% endif %}
         </div>
-        <div id="menuBack">
+        {#<div id="menuBack">
             <div class="btnMenuBack">
                 <img src="{{ asset('../assets/img/front/miniLogoNina.png') }}" alt="Nina"/>
                 <i class="fas fa-arrow-left"></i></div>
@@ -60,7 +62,7 @@
                 </div>
                 {% endif %}
             </div>
-        </div>
+        </div>#}
     </header>
 {% endblock %}
 {% block navigation %}
@@ -74,8 +76,9 @@
     {% endif %}
 {% endblock %}
 
-{# Arborescence #}
+{# Colonne de gauche du b/o #}
 {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+    {{ include('back/aside.html.twig') }}
 {% endif %}
 
 <main class="mw960p center flex-container">

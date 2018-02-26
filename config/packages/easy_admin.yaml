@@ -1,7 +1,6 @@
 imports:
     - { resource: admin/ }
 easy_admin:
-    site_name: '<img src="../../../assets/img/front/logoNina.png" />'
     list:
         title: '%%entity_label%%'
         actions:
@@ -23,8 +22,9 @@ easy_admin:
             favicon: '../assets/img/front/favicon.ico'
             css:
                 - '../assets/css/back/knacss/knacss.css'
-                - '../assets/css/back/styleBack.css'
-                - '../assets/js/back/jstree/themes/default/style.min.css'
+                - '../assets/css/back/headerAsideBack.css'
+                - '../assets/css/back/contentBack.css'
+                - '../assets/js/back/jstree/themes/default-dark/style.css'
             js:
                 # dans base.html.twig - '../assets/js/jquery-3.2.1.min.js'
                 - '../assets/js/fontawesome-all.min.js'

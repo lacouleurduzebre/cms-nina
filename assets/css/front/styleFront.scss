@@ -2,6 +2,10 @@
 
 /* HEADER */
 
+body.connected .header_front{
+  padding-top: 5rem;
+}
+
 header:not(.main-header){
   border-bottom:1px solid;
   p{

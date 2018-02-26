@@ -2,10 +2,23 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="91b8f164-87e9-425d-a062-ed2c6c37c9be" name="Default" comment="">
+      <change type="DELETED" beforePath="$PROJECT_DIR$/assets/js/back/jstree/themes/default/32px.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/assets/js/back/jstree/themes/default/40px.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/assets/js/back/jstree/themes/default/style.min.css" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/assets/js/back/jstree/themes/default/throbber.gif" afterPath="" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/assets/css/back/styleBack.css" afterPath="$PROJECT_DIR$/assets/css/back/headerAsideBack.css" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/assets/css/back/styleBack.css.map" afterPath="$PROJECT_DIR$/assets/css/back/headerAsideBack.css.map" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/assets/css/back/styleBack.scss" afterPath="$PROJECT_DIR$/assets/css/back/headerAsideBack.scss" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assets/css/back/knacss/components/_forms.scss" afterPath="$PROJECT_DIR$/assets/css/back/knacss/components/_forms.scss" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assets/css/back/knacss/knacss.css" afterPath="$PROJECT_DIR$/assets/css/back/knacss/knacss.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assets/css/back/knacss/knacss.css.map" afterPath="$PROJECT_DIR$/assets/css/back/knacss/knacss.css.map" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assets/css/front/styleFront.css" afterPath="$PROJECT_DIR$/assets/css/front/styleFront.css" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assets/css/front/styleFront.css.map" afterPath="$PROJECT_DIR$/assets/css/front/styleFront.css.map" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assets/css/front/styleFront.scss" afterPath="$PROJECT_DIR$/assets/css/front/styleFront.scss" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assets/js/back/fosjsrouting/js/fos_js_routes.js" afterPath="$PROJECT_DIR$/assets/js/back/fosjsrouting/js/fos_js_routes.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assets/js/back/jstree/jstree.min.js" afterPath="$PROJECT_DIR$/assets/js/back/jstree/jstree.min.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/config/packages/easy_admin.yaml" afterPath="$PROJECT_DIR$/config/packages/easy_admin.yaml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/config/packages/fosjsrouting.yaml" afterPath="$PROJECT_DIR$/config/packages/fosjsrouting.yaml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/back/base.html.twig" afterPath="$PROJECT_DIR$/templates/back/base.html.twig" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/back/menu/arborescence.html.twig" afterPath="$PROJECT_DIR$/templates/back/menu/arborescence.html.twig" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/front/base.html.twig" afterPath="$PROJECT_DIR$/templates/front/base.html.twig" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -21,63 +34,63 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="login.html.twig" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/templates/bundles/FOSUserBundle/Security/login.html.twig">
+      <file leaf-file-name="arborescence.html.twig" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/templates/back/menu/arborescence.html.twig">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="816">
+              <caret line="56" column="78" lean-forward="false" selection-start-line="56" selection-start-column="59" selection-end-line="56" selection-end-column="78" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="header.html.twig" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/templates/back/header.html.twig">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="408">
+              <caret line="24" column="9" lean-forward="false" selection-start-line="24" selection-start-column="9" selection-end-line="24" selection-end-column="9" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="easy_admin.yaml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/config/packages/easy_admin.yaml">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="51">
-              <caret line="3" column="24" lean-forward="false" selection-start-line="3" selection-start-column="24" selection-end-line="3" selection-end-column="24" />
+              <caret line="3" column="9" lean-forward="false" selection-start-line="3" selection-start-column="9" selection-end-line="3" selection-end-column="9" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="login_content.html.twig" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/templates/bundles/FOSUserBundle/Security/login_content.html.twig">
+      <file leaf-file-name="base.html.twig" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/templates/front/base.html.twig">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="323">
-              <caret line="19" column="79" lean-forward="false" selection-start-line="19" selection-start-column="79" selection-end-line="19" selection-end-column="79" />
+            <state relative-caret-position="420">
+              <caret line="61" column="22" lean-forward="false" selection-start-line="44" selection-start-column="8" selection-end-line="64" selection-end-column="16" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="layout.html.twig" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/templates/bundles/FOSUserBundle/layout.html.twig">
+      <file leaf-file-name="styleFront.scss" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/assets/css/front/styleFront.scss">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="68">
-              <caret line="4" column="80" lean-forward="false" selection-start-line="4" selection-start-column="80" selection-end-line="4" selection-end-column="80" />
+            <state relative-caret-position="425">
+              <caret line="25" column="8" lean-forward="false" selection-start-line="25" selection-start-column="8" selection-end-line="25" selection-end-column="8" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="login.scss" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/assets/css/back/login.scss">
+      <file leaf-file-name="headerAsideBack.scss" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/assets/css/back/headerAsideBack.scss">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="391">
-              <caret line="23" column="24" lean-forward="false" selection-start-line="23" selection-start-column="24" selection-end-line="23" selection-end-column="24" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="_forms.scss" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/assets/css/back/knacss/components/_forms.scss">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="374">
-              <caret line="58" column="20" lean-forward="false" selection-start-line="58" selection-start-column="20" selection-end-line="58" selection-end-column="20" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="styleBack.scss" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/assets/css/back/styleBack.scss">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-532">
-              <caret line="2" column="12" lean-forward="false" selection-start-line="2" selection-start-column="12" selection-end-line="2" selection-end-column="12" />
+            <state relative-caret-position="153">
+              <caret line="9" column="18" lean-forward="false" selection-start-line="9" selection-start-column="18" selection-end-line="9" selection-end-column="18" />
               <folding>
-                <marker date="1519653572416" expanded="true" signature="62:82" ph="{...}" />
+                <marker date="1519656088133" expanded="true" signature="62:82" ph="{...}" />
               </folding>
             </state>
           </provider>
@@ -133,11 +146,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/Admin/MenuAdmin.php" />
-        <option value="$PROJECT_DIR$/src/Admin/LangueAdmin.php" />
-        <option value="$PROJECT_DIR$/src/Admin/CategorieAdmin.php" />
-        <option value="$PROJECT_DIR$/src/Repository/CategorieRepository.php" />
-        <option value="$PROJECT_DIR$/config/packages/sonata_admin.yaml" />
         <option value="$PROJECT_DIR$/config/services.yaml" />
         <option value="$PROJECT_DIR$/config/bundles.php" />
         <option value="$PROJECT_DIR$/public/bundles/sonataadmin/treeview.js" />
@@ -172,18 +180,23 @@
         <option value="$PROJECT_DIR$/src/Twig/Back/Arborescence.php" />
         <option value="$PROJECT_DIR$/assets/css/back/knacss/_config/_variables.scss" />
         <option value="$PROJECT_DIR$/templates/back/menu/menuPrincipal.html.twig" />
-        <option value="$PROJECT_DIR$/config/packages/easy_admin.yaml" />
-        <option value="$PROJECT_DIR$/templates/back/base.html.twig" />
-        <option value="$PROJECT_DIR$/templates/back/menu/arborescence.html.twig" />
-        <option value="$PROJECT_DIR$/assets/css/back/styleBack.scss" />
         <option value="$PROJECT_DIR$/templates/bundles/friendsofsymfony/user-bundle/Security/login.html.twig" />
-        <option value="$PROJECT_DIR$/templates/front/base.html.twig" />
         <option value="$PROJECT_DIR$/vendor/friendsofsymfony/user-bundle/Resources/views/layout.html.twig" />
         <option value="$PROJECT_DIR$/templates/bundles/FOSUserBundle/Security/login.html.twig" />
         <option value="$PROJECT_DIR$/templates/bundles/FOSUserBundle/layout.html.twig" />
         <option value="$PROJECT_DIR$/templates/bundles/FOSUserBundle/Security/login_content.html.twig" />
         <option value="$PROJECT_DIR$/assets/css/back/knacss/components/_forms.scss" />
         <option value="$PROJECT_DIR$/assets/css/back/login.scss" />
+        <option value="$PROJECT_DIR$/config/packages/fosjsrouting.yaml" />
+        <option value="$PROJECT_DIR$/templates/back/menu/arborescence.html.twig" />
+        <option value="$PROJECT_DIR$/templates/back/aside.html.twig" />
+        <option value="$PROJECT_DIR$/templates/back/base.html.twig" />
+        <option value="$PROJECT_DIR$/assets/css/back/styleBack.scss" />
+        <option value="$PROJECT_DIR$/assets/css/back/contentBack.scss" />
+        <option value="$PROJECT_DIR$/config/packages/easy_admin.yaml" />
+        <option value="$PROJECT_DIR$/templates/back/header.html.twig" />
+        <option value="$PROJECT_DIR$/assets/css/front/styleFront.scss" />
+        <option value="$PROJECT_DIR$/templates/front/base.html.twig" />
       </list>
     </option>
   </component>
@@ -197,9 +210,10 @@
   </component>
   <component name="PhpWorkspaceProjectConfiguration" backward_compatibility_performed="true" />
   <component name="ProjectFrameBounds">
-    <option name="x" value="960" />
-    <option name="width" value="960" />
-    <option name="height" value="1040" />
+    <option name="x" value="-8" />
+    <option name="y" value="-8" />
+    <option name="width" value="1936" />
+    <option name="height" value="1056" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <ConfirmationsSetting value="1" id="Add" />
@@ -243,7 +257,11 @@
               <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="vendor" />
+              <option name="myItemId" value="templates" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="front" />
               <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
             </PATH_ELEMENT>
           </PATH>
@@ -257,15 +275,7 @@
               <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="vendor" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="friendsofsymfony" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="user-bundle" />
+              <option name="myItemId" value="templates" />
               <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
             </PATH_ELEMENT>
           </PATH>
@@ -279,133 +289,11 @@
               <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="vendor" />
+              <option name="myItemId" value="templates" />
               <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="friendsofsymfony" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="user-bundle" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Resources" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="views" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="NinaSF4" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="NinaSF4" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="vendor" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="friendsofsymfony" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="user-bundle" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Resources" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="views" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Security" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="NinaSF4" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="NinaSF4" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="vendor" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="friendsofsymfony" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="user-bundle" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Resources" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="NinaSF4" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="NinaSF4" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="vendor" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="friendsofsymfony" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="NinaSF4" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="NinaSF4" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="public" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="NinaSF4" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="NinaSF4" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="public" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="bundles" />
+              <option name="myItemId" value="back" />
               <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
             </PATH_ELEMENT>
           </PATH>
@@ -420,6 +308,46 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="assets" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="NinaSF4" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="NinaSF4" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="assets" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="js" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="NinaSF4" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="NinaSF4" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="assets" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="js" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="back" />
               <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
             </PATH_ELEMENT>
           </PATH>
@@ -438,6 +366,10 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="img" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="front" />
               <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
             </PATH_ELEMENT>
           </PATH>
@@ -480,26 +412,8 @@
               <option name="myItemId" value="css" />
               <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
             </PATH_ELEMENT>
-          </PATH>
-          <PATH>
             <PATH_ELEMENT>
-              <option name="myItemId" value="NinaSF4" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="NinaSF4" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="assets" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="css" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="back" />
+              <option name="myItemId" value="front" />
               <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
             </PATH_ELEMENT>
           </PATH>
@@ -522,70 +436,6 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="back" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="knacss" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="NinaSF4" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="NinaSF4" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="assets" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="css" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="back" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="knacss" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="components" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="NinaSF4" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="NinaSF4" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="assets" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="css" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="back" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="knacss" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="_library" />
               <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
             </PATH_ELEMENT>
           </PATH>
@@ -596,7 +446,7 @@
   <component name="PropertiesComponent">
     <property name="settings.editor.selected.configurable" value="Errors" />
     <property name="WebServerToolWindowFactoryState" value="true" />
-    <property name="SearchEverywhereHistoryKey" value="styleBac&#9;FILE&#9;file://C:/Program Files (x86)/EasyPHP-Devserver-17/eds-www/NinaSF4/assets/css/back/styleBack.scss&#10;arboresce&#9;FILE&#9;file://C:/Program Files (x86)/EasyPHP-Devserver-17/eds-www/NinaSF4/templates/back/menu/arborescence.html.twig&#10;page&#9;FILE&#9;file://C:/Program Files (x86)/EasyPHP-Devserver-17/eds-www/NinaSF4/config/packages/admin/entities/page.yaml&#10;Comm&#9;FILE&#9;file://C:/Program Files (x86)/EasyPHP-Devserver-17/eds-www/NinaSF4/src/Entity/Commentaire.php&#10;commentaire&#9;FILE&#9;file://C:/Program Files (x86)/EasyPHP-Devserver-17/eds-www/NinaSF4/config/packages/admin/entities/commentaire.yaml&#10;configuration&#9;FILE&#9;file://C:/Program Files (x86)/EasyPHP-Devserver-17/eds-www/NinaSF4/config/packages/admin/entities/configuration.yaml&#10;SEO.&#9;FILE&#9;file://C:/Program Files (x86)/EasyPHP-Devserver-17/eds-www/NinaSF4/src/Entity/SEO.php&#10;categorie.&#9;FILE&#9;file://C:/Program Files (x86)/EasyPHP-Devserver-17/eds-www/NinaSF4/config/packages/admin/entities/categorie.yaml&#10;page.yaml&#9;FILE&#9;file://C:/Program Files (x86)/EasyPHP-Devserver-17/eds-www/NinaSF4/config/packages/admin/entities/page.yaml&#10;Zone&#9;FILE&#9;file://C:/Program Files (x86)/EasyPHP-Devserver-17/eds-www/NinaSF4/src/Entity/Zone.php&#10;User&#9;null&#9;null&#10;Utilis&#9;FILE&#9;file://C:/Program Files (x86)/EasyPHP-Devserver-17/eds-www/NinaSF4/src/Entity/Utilisateur.php&#10;champ.php&#9;FILE&#9;file://C:/Program Files (x86)/EasyPHP-Devserver-17/eds-www/NinaSF4/src/Entity/Champ.php&#10;typeMod&#9;null&#9;null&#10;typeCatego&#9;FILE&#9;file://C:/Program Files (x86)/EasyPHP-Devserver-17/eds-www/NinaSF4/src/Entity/TypeCategorie.php&#10;SEO&#9;null&#9;null&#10;Categorie&#9;null&#9;null&#10;Categ&#9;FILE&#9;file://C:/Program Files (x86)/EasyPHP-Devserver-17/eds-www/NinaSF4/config/packages/admin/entities/categorie.yaml&#10;Langue&#9;null&#9;null&#10;Page.php&#9;FILE&#9;file://C:/Program Files (x86)/EasyPHP-Devserver-17/eds-www/NinaSF4/src/Entity/Page.php&#10;Page&#9;null&#9;null&#10;Module.php&#9;FILE&#9;file://C:/Program Files (x86)/EasyPHP-Devserver-17/eds-www/NinaSF4/src/Entity/Module.php&#10;Menu&#9;null&#9;null&#10;Configuration&#9;null&#9;null&#10;Utilisateur/&#9;FILE&#9;file://C:/Program Files (x86)/EasyPHP-Devserver-17/eds-www/NinaSF4/src/Entity/Utilisateur.php&#10;Page.p&#9;FILE&#9;file://C:/Program Files (x86)/EasyPHP-Devserver-17/eds-www/NinaSF4/src/Entity/Page.php&#10;Commentaire&#9;null&#9;null&#10;Champ&#9;FILE&#9;file://C:/Program Files (x86)/EasyPHP-Devserver-17/eds-www/NinaSF4/src/Entity/Champ.php&#10;voirPage&#9;FILE&#9;file://C:/Program Files (x86)/EasyPHP-Devserver-17/eds-www/NinaSF4/templates/front/voirPage.html.twig&#10;Kernel&#9;null&#9;null&#10;base&#9;FILE&#9;file://C:/Program Files (x86)/EasyPHP-Devserver-17/eds-www/NinaSF4/templates/front/base.html.twig&#10;sonata_h&#9;FILE&#9;file://C:/Program Files (x86)/EasyPHP-Devserver-17/eds-www/NinaSF4/templates/back/sonata_header.html.twig&#10;base.html&#9;FILE&#9;file://C:/Program Files (x86)/EasyPHP-Devserver-17/eds-www/NinaSF4/templates/front/base.html.twig&#10;Resetting&#9;null&#9;null" />
+    <property name="SearchEverywhereHistoryKey" value="header&#9;FILE&#9;file://C:/Program Files (x86)/EasyPHP-Devserver-17/eds-www/NinaSF4/templates/back/header.html.twig&#10;arbo&#9;FILE&#9;file://C:/Program Files (x86)/EasyPHP-Devserver-17/eds-www/NinaSF4/templates/back/menu/arborescence.html.twig&#10;easy&#9;FILE&#9;file://C:/Program Files (x86)/EasyPHP-Devserver-17/eds-www/NinaSF4/config/packages/easy_admin.yaml&#10;eas&#9;FILE&#9;file://C:/Program Files (x86)/EasyPHP-Devserver-17/eds-www/NinaSF4/config/packages/easy_admin.yaml&#10;arb&#9;FILE&#9;file://C:/Program Files (x86)/EasyPHP-Devserver-17/eds-www/NinaSF4/templates/back/menu/arborescence.html.twig&#10;styleBac&#9;FILE&#9;file://C:/Program Files (x86)/EasyPHP-Devserver-17/eds-www/NinaSF4/assets/css/back/styleBack.scss&#10;arboresce&#9;FILE&#9;file://C:/Program Files (x86)/EasyPHP-Devserver-17/eds-www/NinaSF4/templates/back/menu/arborescence.html.twig&#10;page&#9;FILE&#9;file://C:/Program Files (x86)/EasyPHP-Devserver-17/eds-www/NinaSF4/config/packages/admin/entities/page.yaml&#10;Comm&#9;FILE&#9;file://C:/Program Files (x86)/EasyPHP-Devserver-17/eds-www/NinaSF4/src/Entity/Commentaire.php&#10;commentaire&#9;FILE&#9;file://C:/Program Files (x86)/EasyPHP-Devserver-17/eds-www/NinaSF4/config/packages/admin/entities/commentaire.yaml&#10;configuration&#9;FILE&#9;file://C:/Program Files (x86)/EasyPHP-Devserver-17/eds-www/NinaSF4/config/packages/admin/entities/configuration.yaml&#10;SEO.&#9;FILE&#9;file://C:/Program Files (x86)/EasyPHP-Devserver-17/eds-www/NinaSF4/src/Entity/SEO.php&#10;categorie.&#9;FILE&#9;file://C:/Program Files (x86)/EasyPHP-Devserver-17/eds-www/NinaSF4/config/packages/admin/entities/categorie.yaml&#10;page.yaml&#9;FILE&#9;file://C:/Program Files (x86)/EasyPHP-Devserver-17/eds-www/NinaSF4/config/packages/admin/entities/page.yaml&#10;Zone&#9;FILE&#9;file://C:/Program Files (x86)/EasyPHP-Devserver-17/eds-www/NinaSF4/src/Entity/Zone.php&#10;User&#9;null&#9;null&#10;Utilis&#9;FILE&#9;file://C:/Program Files (x86)/EasyPHP-Devserver-17/eds-www/NinaSF4/src/Entity/Utilisateur.php&#10;champ.php&#9;FILE&#9;file://C:/Program Files (x86)/EasyPHP-Devserver-17/eds-www/NinaSF4/src/Entity/Champ.php&#10;typeMod&#9;null&#9;null&#10;typeCatego&#9;FILE&#9;file://C:/Program Files (x86)/EasyPHP-Devserver-17/eds-www/NinaSF4/src/Entity/TypeCategorie.php&#10;SEO&#9;null&#9;null&#10;Categorie&#9;null&#9;null&#10;Categ&#9;FILE&#9;file://C:/Program Files (x86)/EasyPHP-Devserver-17/eds-www/NinaSF4/config/packages/admin/entities/categorie.yaml&#10;Langue&#9;null&#9;null&#10;Page.php&#9;FILE&#9;file://C:/Program Files (x86)/EasyPHP-Devserver-17/eds-www/NinaSF4/src/Entity/Page.php&#10;Page&#9;null&#9;null&#10;Module.php&#9;FILE&#9;file://C:/Program Files (x86)/EasyPHP-Devserver-17/eds-www/NinaSF4/src/Entity/Module.php&#10;Menu&#9;null&#9;null&#10;Configuration&#9;null&#9;null&#10;Utilisateur/&#9;FILE&#9;file://C:/Program Files (x86)/EasyPHP-Devserver-17/eds-www/NinaSF4/src/Entity/Utilisateur.php&#10;Page.p&#9;FILE&#9;file://C:/Program Files (x86)/EasyPHP-Devserver-17/eds-www/NinaSF4/src/Entity/Page.php&#10;Commentaire&#9;null&#9;null&#10;Champ&#9;FILE&#9;file://C:/Program Files (x86)/EasyPHP-Devserver-17/eds-www/NinaSF4/src/Entity/Champ.php&#10;voirPage&#9;FILE&#9;file://C:/Program Files (x86)/EasyPHP-Devserver-17/eds-www/NinaSF4/templates/front/voirPage.html.twig&#10;Kernel&#9;null&#9;null&#10;base&#9;FILE&#9;file://C:/Program Files (x86)/EasyPHP-Devserver-17/eds-www/NinaSF4/templates/front/base.html.twig&#10;sonata_h&#9;FILE&#9;file://C:/Program Files (x86)/EasyPHP-Devserver-17/eds-www/NinaSF4/templates/back/sonata_header.html.twig&#10;base.html&#9;FILE&#9;file://C:/Program Files (x86)/EasyPHP-Devserver-17/eds-www/NinaSF4/templates/front/base.html.twig&#10;Resetting&#9;null&#9;null" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../myecocar" />
     <property name="WebServerToolWindowPanel.toolwindow.show.size" value="false" />
     <property name="WebServerToolWindowPanel.toolwindow.show.date" value="false" />
@@ -606,18 +456,18 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Program Files (x86)\EasyPHP-Devserver-17\eds-www\NinaSF4\assets\js\back\jstree" />
+      <recent name="C:\Program Files (x86)\EasyPHP-Devserver-17\eds-www\NinaSF4\assets\js\back\jstree\themes" />
+      <recent name="C:\Program Files (x86)\EasyPHP-Devserver-17\eds-www\NinaSF4\assets\js\back\jstree\default" />
       <recent name="C:\Program Files (x86)\EasyPHP-Devserver-17\eds-www\NinaSF4\assets\img\back" />
       <recent name="C:\Program Files (x86)\EasyPHP-Devserver-17\eds-www\NinaSF4\templates\bundles\FOSUserBundle" />
-      <recent name="C:\Program Files (x86)\EasyPHP-Devserver-17\eds-www\NinaSF4\templates\bundles\friendsofsymfony\user-bundle\Security" />
-      <recent name="C:\Program Files (x86)\EasyPHP-Devserver-17\eds-www\NinaSF4\templates\back\menu" />
-      <recent name="C:\Program Files (x86)\EasyPHP-Devserver-17\eds-www\NinaSF4\assets\fonts" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Program Files (x86)\EasyPHP-Devserver-17\eds-www\NinaSF4\assets\js\back\fosjsrouting\js" />
       <recent name="C:\Program Files (x86)\EasyPHP-Devserver-17\eds-www\NinaSF4\templates\bundles\FOSUserBundle" />
       <recent name="C:\Program Files (x86)\EasyPHP-Devserver-17\eds-www\NinaSF4\assets\css\back" />
       <recent name="C:\Program Files (x86)\EasyPHP-Devserver-17\eds-www\NinaSF4\assets\css" />
       <recent name="C:\Program Files (x86)\EasyPHP-Devserver-17\eds-www\NinaSF4\src\Event" />
-      <recent name="C:\Program Files (x86)\EasyPHP-Devserver-17\eds-www\NinaSF4\src\Service" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -723,18 +573,19 @@
       <workItem from="1519209143612" duration="1774000" />
       <workItem from="1519216087729" duration="7779000" />
       <workItem from="1519385721133" duration="155000" />
-      <workItem from="1519649880442" duration="3490000" />
+      <workItem from="1519649880442" duration="7101000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="81700000" />
+    <option name="totallyTimeSpent" value="85311000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="960" y="0" width="960" height="1040" extended-state="0" />
+    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info id="Remote Host" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32995737" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.37666667" sideWeight="0.49613258" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.15458423" sideWeight="0.49613258" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.47339848" sideWeight="0.5042644" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -742,7 +593,7 @@
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32899022" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="npm" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.47955802" sideWeight="0.49573562" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.47882736" sideWeight="0.49573562" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.37333333" sideWeight="0.5038674" order="3" side_tool="true" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -786,55 +637,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/config/packages/admin/entities/typeModule.yaml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="357">
-          <caret line="21" column="28" lean-forward="true" selection-start-line="21" selection-start-column="28" selection-end-line="21" selection-end-column="28" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Entity/TypeCategorie.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="11" column="65" lean-forward="false" selection-start-line="11" selection-start-column="65" selection-end-line="11" selection-end-column="65" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Entity/TypeModule.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="51">
-          <caret line="3" column="0" lean-forward="false" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Entity/Utilisateur.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="408">
-          <caret line="24" column="0" lean-forward="false" selection-start-line="24" selection-start-column="0" selection-end-line="24" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/vendor/friendsofsymfony/user-bundle/Model/User.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="69" column="36" lean-forward="true" selection-start-line="69" selection-start-column="36" selection-end-line="69" selection-end-column="36" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/config/packages/admin/entities/utilisateur.yaml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="15" column="30" lean-forward="false" selection-start-line="15" selection-start-column="30" selection-end-line="15" selection-end-column="30" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Entity/Champ.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="629">
-          <caret line="44" column="31" lean-forward="false" selection-start-line="44" selection-start-column="31" selection-end-line="44" selection-end-column="31" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/Entity/Zone.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="675">
@@ -1021,14 +823,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/config/packages/easy_admin.yaml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="612">
-          <caret line="36" column="51" lean-forward="false" selection-start-line="36" selection-start-column="51" selection-end-line="36" selection-end-column="51" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/vendor/javiereguiluz/easyadmin-bundle/src/Resources/views/default/menu.html.twig">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="782">
@@ -1041,22 +835,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2737">
           <caret line="161" column="28" lean-forward="false" selection-start-line="161" selection-start-column="28" selection-end-line="161" selection-end-column="28" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/back/menu/arborescence.html.twig">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="34">
-          <caret line="2" column="26" lean-forward="false" selection-start-line="2" selection-start-column="26" selection-end-line="2" selection-end-column="26" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/back/base.html.twig">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1513">
-          <caret line="89" column="41" lean-forward="false" selection-start-line="89" selection-start-column="41" selection-end-line="89" selection-end-column="41" />
           <folding />
         </state>
       </provider>
@@ -1101,44 +879,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/templates/front/base.html.twig">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="238">
-          <caret line="82" column="15" lean-forward="false" selection-start-line="82" selection-start-column="15" selection-end-line="82" selection-end-column="15" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/bundles/FOSUserBundle/Security/login.html.twig">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="51">
-          <caret line="3" column="24" lean-forward="false" selection-start-line="3" selection-start-column="24" selection-end-line="3" selection-end-column="24" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/assets/css/back/styleBack.scss">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-532">
-          <caret line="2" column="12" lean-forward="false" selection-start-line="2" selection-start-column="12" selection-end-line="2" selection-end-column="12" />
-          <folding>
-            <marker date="1519653572416" expanded="true" signature="62:82" ph="{...}" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/templates/bundles/FOSUserBundle/Security/login_content.html.twig">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="323">
           <caret line="19" column="79" lean-forward="false" selection-start-line="19" selection-start-column="79" selection-end-line="19" selection-end-column="79" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/bundles/FOSUserBundle/layout.html.twig">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="4" column="80" lean-forward="false" selection-start-line="4" selection-start-column="80" selection-end-line="4" selection-end-column="80" />
           <folding />
         </state>
       </provider>
@@ -1151,10 +895,124 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/assets/js/back/fosjsrouting/js/fos_js_routes.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/config/packages/fosjsrouting.yaml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="1" column="31" lean-forward="false" selection-start-line="1" selection-start-column="31" selection-end-line="1" selection-end-column="31" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/assets/js/back/jstree/themes/default-dark/style.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-4658">
+          <caret line="227" column="24" lean-forward="true" selection-start-line="227" selection-start-column="24" selection-end-line="227" selection-end-column="24" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/bundles/FOSUserBundle/Security/login.html.twig">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="51">
+          <caret line="3" column="24" lean-forward="false" selection-start-line="3" selection-start-column="24" selection-end-line="3" selection-end-column="24" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/bundles/FOSUserBundle/layout.html.twig">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="4" column="80" lean-forward="false" selection-start-line="4" selection-start-column="80" selection-end-line="4" selection-end-column="80" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/assets/css/back/login.scss">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="391">
           <caret line="23" column="24" lean-forward="false" selection-start-line="23" selection-start-column="24" selection-end-line="23" selection-end-column="24" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/back/aside.html.twig">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="867">
+          <caret line="51" column="8" lean-forward="false" selection-start-line="51" selection-start-column="8" selection-end-line="51" selection-end-column="8" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/assets/css/back/contentBack.scss">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="102">
+          <caret line="6" column="1" lean-forward="true" selection-start-line="6" selection-start-column="1" selection-end-line="6" selection-end-column="1" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/assets/css/back/headerAsideBack.scss">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="153">
+          <caret line="9" column="18" lean-forward="false" selection-start-line="9" selection-start-column="18" selection-end-line="9" selection-end-column="18" />
+          <folding>
+            <marker date="1519656088133" expanded="true" signature="62:82" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/config/packages/easy_admin.yaml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="51">
+          <caret line="3" column="9" lean-forward="false" selection-start-line="3" selection-start-column="9" selection-end-line="3" selection-end-column="9" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/back/header.html.twig">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="408">
+          <caret line="24" column="9" lean-forward="false" selection-start-line="24" selection-start-column="9" selection-end-line="24" selection-end-column="9" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/assets/css/front/styleFront.scss">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="425">
+          <caret line="25" column="8" lean-forward="false" selection-start-line="25" selection-start-column="8" selection-end-line="25" selection-end-column="8" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/back/base.html.twig">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="204">
+          <caret line="12" column="22" lean-forward="false" selection-start-line="12" selection-start-column="22" selection-end-line="12" selection-end-column="22" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/back/menu/arborescence.html.twig">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="816">
+          <caret line="56" column="78" lean-forward="false" selection-start-line="56" selection-start-column="59" selection-end-line="56" selection-end-column="78" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/front/base.html.twig">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="420">
+          <caret line="61" column="22" lean-forward="false" selection-start-line="44" selection-start-column="8" selection-end-line="64" selection-end-column="16" />
           <folding />
         </state>
       </provider>

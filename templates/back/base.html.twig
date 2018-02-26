@@ -37,6 +37,9 @@
             {% endblock %}
             <script src="{{ asset('../assets/js/jquery-3.2.1.min.js') }}"></script>
             <script src="{{ asset('bundles/easyadmin/javascript/easyadmin-all.min.js') }}"></script>
+            <script src="{{ asset('bundles/easyadmin/javascript/easyadmin-all.min.js') }}"></script>
+            <script src="{{ asset('../assets/js/back/fosjsrouting/js/router.js') }}"></script>
+            <script src="{{ asset('../assets/js/back/fosjsrouting/js/fos_js_routes.js') }}"></script>
         {% endblock head_javascript %}
 
         {% if easyadmin_config('design.rtl') %}
@@ -49,84 +52,10 @@
     <body id="{% block body_id %}{% endblock %}" class="easyadmin sidebar-mini {% block body_class %}{% endblock %} {{ app.request.cookies.has('_easyadmin_navigation_iscollapsed') ? 'sidebar-collapse' }}">
         <div class="wrapper">
         {% block wrapper %}
-            <header class="main-header">
-            {% block header %}
-                <nav class="navbar" role="navigation">
-                    <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
-                        <span class="sr-only">{{ 'toggle_navigation'|trans(domain = 'EasyAdminBundle') }}</span>
-                    </a>
 
-                    <div id="header-logo">
-                        {% block header_logo %}
-                            <a class="logo {{ easyadmin_config('site_name')|length > 14 ? 'logo-long' }}" title="{{ easyadmin_config('site_name')|striptags }}" href="{{ path('easyadmin') }}">
-                                {{ easyadmin_config('site_name')|raw }}
-                            </a>
-                        {% endblock header_logo %}
-                    </div>
+            {{ include('back/header.html.twig') }}
 
-                    {% block main_menu_wrapper %}
-                        {{ include([
-                        _entity_config is defined ? _entity_config.templates.menu,
-                        easyadmin_config('design.templates.menu'),
-                        '@EasyAdmin/default/menu.html.twig'
-                        ]) }}
-                    {% endblock main_menu_wrapper %}
-                </nav>
-            {% endblock header %}
-            </header>
-
-            <aside class="main-sidebar">
-                <div class="navbar-custom-menu">
-                    {% block header_custom_menu %}
-                        {% set _logout_path = easyadmin_logout_path() %}
-                        <div class="dropdown-menu" role="menu">
-                            {% block user_menu_dropdown %}
-                                <li>
-                                    <a href="{{ _logout_path }}"><i class="fas fa-power-off"></i></a>
-                                </li>
-                                {% if is_granted('ROLE_PREVIOUS_ADMIN') %}
-                                    <li>
-                                        <a href="?_switch_user=_exit"><i class="fas fa-power-off"></i> {{ 'user.exit_impersonation'|trans(domain = 'EasyAdminBundle') }}</a>
-                                    </li>
-                                {% endif %}
-                            {% endblock user_menu_dropdown %}
-                        </div>
-                        <ul class="nav navbar-nav">
-                            <li class="dropdown user user-menu">
-                                {% block user_menu %}
-                                    <span class="sr-only">{{ 'user.logged_in_as'|trans(domain = 'EasyAdminBundle') }}</span>
-
-                                    {% if app.user|default(false) == false %}
-                                        <i class="hidden-xs fa fa-user-times"></i>
-                                        {{ 'user.anonymous'|trans(domain = 'EasyAdminBundle') }}
-                                    {% elseif not _logout_path %}
-                                        <i class="hidden-xs fa fa-user"></i>
-                                        {{ app.user.username|default('user.unnamed'|trans(domain = 'EasyAdminBundle')) }}
-                                    {% else %}
-                                        <div>
-                                            <p>
-                                                <strong>{{ app.user.username|default('user.unnamed'|trans(domain = 'EasyAdminBundle')) }}</strong>
-                                            </p>
-                                            <p>{% trans %}Bienvenue dans votre administration de{% endtrans %}</p>
-                                            <p>{{ config.nom }}</p>
-                                            {#<button type="button" class="btn dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                                                <span class="caret"></span>
-                                            </button>#}
-                                        </div>
-                                    {% endif %}
-                                {% endblock user_menu %}
-                            </li>
-                        </ul>
-                    {% endblock header_custom_menu %}
-                </div>
-            {% block sidebar %}
-                <section class="sidebar">
-                    {% block arborescence %}
-                        {{ menuBack()|raw }}
-                    {% endblock %}
-                </section>
-            {% endblock sidebar %}
-            </aside>
+            {{ include('back/aside.html.twig') }}
 
             <div class="content-wrapper">
             {% block content %}

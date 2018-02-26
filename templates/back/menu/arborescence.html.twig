@@ -38,7 +38,7 @@
                             "label": "Éditer",
                             "action": function(){
                                 idPage = $('#'+node.id).find('span').attr('id');
-                                window.location.href = "{{ app.request.baseUrl }}"+Routing.generate('admin_nina_page_page_edit', { id: idPage });
+                                window.location.href = "{{ app.request.baseUrl }}"+Routing.generate('admin', { action: 'edit', entity: 'Page_Active', id: idPage });
                             }
                         },
                         "create":{
@@ -46,7 +46,7 @@
                             "label": "Ajouter une page enfant",
                             "action": function(){
                                 idPage = $('#'+node.id).find('span').attr('id');
-                                window.location.href = "{{ app.request.baseUrl }}"+Routing.generate('admin_nina_page_page_create', { idPageParent: idPage });
+                                window.location.href = "{{ app.request.baseUrl }}"+Routing.generate('admin', { action: 'new', entity: 'Page_Active', idPageParent: idPage });
                             }
                         },
                         "delete":{
@@ -54,7 +54,7 @@
                             "label": "Supprimer",
                             "action": function(){
                                 idPage = $('#'+node.id).find('span').attr('id');
-                                window.location.href = "{{ app.request.baseUrl }}"+Routing.generate('admin_nina_page_page_corbeille', { id: idPage });
+                                window.location.href = "{{ app.request.baseUrl }}"+Routing.generate('admin', { action: 'corbeille', entity: 'Page_Active', id: idPage });
                             }
                         }
                     };

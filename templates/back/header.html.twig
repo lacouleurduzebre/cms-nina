@@ -1,0 +1,25 @@
+<header class="main-header">
+    {% block header %}
+        <nav class="navbar" role="navigation">
+            <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+                <span class="sr-only">{{ 'toggle_navigation'|trans(domain = 'EasyAdminBundle') }}</span>
+            </a>
+
+            <div id="header-logo">
+                {% block header_logo %}
+                    <a class="logo" href="{{ path('easyadmin') }}">
+                        <img src="{{ app.request.baseUrl }}/../../assets/img/front/logoNina.png" alt="CMS Nina 3.0">
+                    </a>
+                {% endblock header_logo %}
+            </div>
+
+            {% block main_menu_wrapper %}
+                {{ include([
+                _entity_config is defined ? _entity_config.templates.menu,
+                easyadmin_config('design.templates.menu'),
+                '@EasyAdmin/default/menu.html.twig'
+                ]) }}
+            {% endblock main_menu_wrapper %}
+        </nav>
+    {% endblock header %}
+</header>
