@@ -6,6 +6,7 @@ body {
   height: 100vh;
   width: 100vw;
   background-image: url("../../img/back/fondLogin.png");
+  background-size: cover;
   display: flex;
   align-items: center; }
   #loginPage form {

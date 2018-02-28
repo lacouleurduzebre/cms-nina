@@ -7,7 +7,6 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * TypeModule
  *
- * @ORM\Table(name="type_module")
  * @ORM\Entity(repositoryClass="App\Repository\TypeModuleRepository")
  */
 class TypeModule

@@ -7,7 +7,6 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Champ
  *
- * @ORM\Table(name="champ")
  * @ORM\Entity(repositoryClass="App\Repository\ChampRepository")
  */
 class Champ

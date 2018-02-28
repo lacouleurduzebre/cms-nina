@@ -8,7 +8,6 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * page
  *
- * @ORM\Table(name="page")
  * @ORM\Entity(repositoryClass="App\Repository\PageRepository")
  */
 class Page
@@ -135,7 +134,6 @@ class Page
 
     /**
      * @ORM\ManyToMany(targetEntity="App\Entity\Categorie", inversedBy="pages", cascade={"persist"})
-     * @ORM\JoinTable(name="pages_categories")
      */
     private $categories;
 

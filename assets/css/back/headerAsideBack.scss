@@ -32,6 +32,15 @@
   a{
     color:$white;
     text-decoration: none;
+    height: 100%;
+    width: 100%;
+    padding: .5rem 1rem;
+    display: flex;
+    align-items: center;
+    line-height:1.1;
+    span{
+      margin:0 1rem;
+    }
   }
   > li{
     margin: auto;
@@ -42,20 +51,25 @@
   ul{
     background-color: $black;
     list-style: none;
-    padding:$spacer-small;
+    padding:0;
   }
   li{
     position: relative;
+    &:hover {
+      background-color: $color-brand;
+    }
     > ul{
       display: none;
       position: absolute;
       top:50px;
+      left:0;
     }
     &:hover > ul{
       display: block;
     }
   }
 }
+
 
 /* Sidebar */
 .main-sidebar{

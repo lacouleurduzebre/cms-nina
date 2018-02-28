@@ -4,7 +4,7 @@ easy_admin:
     list:
         title: '%%entity_label%%'
         actions:
-            - { name: 'edit', label: '', title: 'Éditer', icon: 'pencil' }
+            - { name: 'edit', label: '', title: 'Éditer', icon: 'pencil-alt' }
             - { name: 'delete', label: '', title: 'Supprimer', icon: 'trash' }
     show:
         title: '%%entity_label%%'
@@ -12,6 +12,8 @@ easy_admin:
         title: '%%entity_label%%'
     edit:
         title: '%%entity_label%%'
+        actions:
+            - { name: 'delete', label: 'Supprimer', title: 'Supprimer', icon: 'trash' }
     formats:
         date: 'd/m/Y'
         time: 'H:i'
@@ -33,6 +35,8 @@ easy_admin:
         templates:
             layout: 'back/base.html.twig'
             menu: 'back/menu/menuPrincipal.html.twig'
+            list: 'back/easyadmin/list.html.twig'
+            field_toggle: 'back/easyadmin/field_toggle.html.twig'
         menu:
             - { entity: 'Utilisateur', label: 'Comptes', icon: 'users' }
             - { entity: 'Configuration', icon: 'cog', params: { action: 'edit', id: 1 } }
@@ -41,12 +45,12 @@ easy_admin:
               children:
                 - { entity: 'Champ', icon: '' }
                 - { entity: 'TypeModule', icon: '' }
-                - { label: 'Traductions', icon: '' }
-                - { label: 'Corbeille', icon: '' }
+                - { label: 'Traductions', icon: '', url: '#' }
+                - { label: 'Corbeille', icon: '', url: '#' }
                 - { entity: 'Page_Corbeille', icon: '' }
                 - { entity: 'Commentaire_Corbeille', icon: '' }
-            - { label: 'Médiathèque', icon: 'folder' }
-            - { label: 'Newsletter', icon: 'paper-plane' }
+            - { label: 'Médiathèque', icon: 'folder', url: '#' }
+            - { label: 'Newsletter', icon: 'paper-plane', url: '#' }
             - label: 'Contenus'
               icon: 'puzzle-piece'
               children:

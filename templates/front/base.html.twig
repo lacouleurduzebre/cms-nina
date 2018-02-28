@@ -13,6 +13,10 @@
     {% endblock %}
     <script src="{{ asset('../assets/js/jquery-3.2.1.min.js') }}"></script>
     <script src="{{ asset('../assets/js/fontawesome-all.min.js') }}"></script>
+    {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+        <script src="{{ asset('../assets/js/back/fosjsrouting/js/router.js') }}"></script>
+        <script src="{{ asset('../assets/js/back/fosjsrouting/js/fos_js_routes.js') }}"></script>
+    {% endif %}
     <link rel="icon" type="image/x-icon" href="{{ asset('..assets/img/front/favicon.ico') }}" />
 </head>
 <body {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}class="connected"{% endif %}>

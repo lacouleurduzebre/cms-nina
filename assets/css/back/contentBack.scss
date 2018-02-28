@@ -3,5 +3,25 @@
 /* Centre */
 .content-wrapper{
   margin-left: 30rem;
-  padding: $spacer-small;
+  padding: 5rem 1rem 1rem 1rem;
+}
+
+/* List & Search */
+.actions a{
+  text-decoration: none;
+}
+
+/* Edit */
+.select2-hidden-accessible{
+  display: none;
+}
+
+#modal-delete{
+  display: none;
+}
+
+body.edit, body.new{
+  input, textarea{
+    width: 100%;
+  }
 }

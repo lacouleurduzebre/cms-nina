@@ -7,7 +7,6 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Menu
  *
- * @ORM\Table(name="menu")
  * @ORM\Entity(repositoryClass="App\Repository\MenuRepository")
  */
 class Menu

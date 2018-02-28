@@ -7,7 +7,6 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * SEO
  *
- * @ORM\Table(name="seo")
  * @ORM\Entity(repositoryClass="App\Repository\SEORepository")
  */
 class SEO

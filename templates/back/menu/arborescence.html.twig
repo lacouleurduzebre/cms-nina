@@ -49,6 +49,14 @@
                                 window.location.href = "{{ app.request.baseUrl }}"+Routing.generate('admin', { action: 'new', entity: 'Page_Active', idPageParent: idPage });
                             }
                         },
+                        "duplicate":{
+                            "icon": "fa fa-copy",
+                            "label": "Dupliquer",
+                            "action": function(){
+                                idPage = $('#'+node.id).find('span').attr('id');
+                                window.location.href = "{{ app.request.baseUrl }}"+Routing.generate('admin', { action: 'new', entity: 'Page_Active', idPageParent: idPage });
+                            }
+                        },
                         "delete":{
                             "icon": "fa fa-trash-alt",
                             "label": "Supprimer",

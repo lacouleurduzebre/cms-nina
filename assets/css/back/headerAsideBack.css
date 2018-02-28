@@ -41,7 +41,15 @@
   text-transform: uppercase; }
   .sidebar-menu a {
     color: #fff;
-    text-decoration: none; }
+    text-decoration: none;
+    height: 100%;
+    width: 100%;
+    padding: .5rem 1rem;
+    display: flex;
+    align-items: center;
+    line-height: 1.1; }
+    .sidebar-menu a span {
+      margin: 0 1rem; }
   .sidebar-menu > li {
     margin: auto;
     height: 100%;
@@ -50,13 +58,16 @@
   .sidebar-menu ul {
     background-color: #000;
     list-style: none;
-    padding: 1rem; }
+    padding: 0; }
   .sidebar-menu li {
     position: relative; }
+    .sidebar-menu li:hover {
+      background-color: #A1BB0C; }
     .sidebar-menu li > ul {
       display: none;
       position: absolute;
-      top: 50px; }
+      top: 50px;
+      left: 0; }
     .sidebar-menu li:hover > ul {
       display: block; }
 
@@ -109,4 +120,4 @@
       align-items: center;
       justify-content: center; }
 
-/*# sourceMappingURL=styleBack.css.map */
+/*# sourceMappingURL=headerAsideBack.css.map */
