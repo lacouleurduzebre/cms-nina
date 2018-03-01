@@ -9,5 +9,5 @@ $(document).ready(function(){
     $('.action-delete').click(function(e){
         e.preventDefault();
         alert($('#modal-delete').html());
-    })
+    });
 });

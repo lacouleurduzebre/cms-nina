@@ -46,24 +46,25 @@ easy_admin:
                     - active
             form:
                 fields:
-                    - { type: 'section', label: 'Contenus' }
+                    - { type: 'tab', label: 'Contenus' }
                     - titre
                     - contenu
-                    - modules
+#                    - { property: 'modules', type: 'App\Form\Type\ModuleType', multipe: true, type_options: { by_reference: false } }
                     - image
-                    - { type: 'section', label: 'Historique' }
+                    - { type: 'tab', label: 'Historique' }
                     - datePublication
                     - dateDepublication
-                    - { type: 'section', label: 'Arborescence' }
+                    - { type: 'tab', label: 'Arborescence' }
                     - categories
                     - pageParent
                     - position
                     - active
                     - corbeille
-                    - { type: 'section', label: 'SEO' }
-                    - { property: 'seo', type: 'entity' }
-                    - { type: 'section', label: 'Commentaires' }
-                    - { type: 'section', label: 'Traduction' }
+                    - { type: 'tab', label: 'SEO' }
+                    - { property: 'SEO', type: 'App\Form\Type\SEOType', type_options: { by_reference: false } }
+                    - { type: 'tab', label: 'Commentaires' }
+                    - { property: 'commentaires', type: 'collection', type_options: { entry_type: 'App\Form\Type\CommentaireType', by_reference: false } }
+                    - { type: 'tab', label: 'Traduction' }
                     - langue
                     - pageOriginale
                     - pagesTraduites

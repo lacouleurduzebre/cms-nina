@@ -20,4 +20,4 @@ easy_admin:
                     - emailMaintenance
                     - emailNewsletter
                     - analytics
-                    - langueDefaut
+                    - { property: 'langueDefaut', label: 'Langue par défaut' }
