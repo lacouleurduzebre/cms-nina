@@ -3,6 +3,7 @@ easy_admin:
         Page_Active:
             class: App\Entity\Page
             label: 'Pages'
+            disabled_actions: ['delete']
             list:
                 dql_filter: 'entity.corbeille = false'
                 sort: 'titre'

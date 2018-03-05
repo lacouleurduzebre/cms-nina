@@ -16,6 +16,9 @@
   src: url(../../../fonts/Mic32New-Bold.otf);
   font-weight: 700; }
 /* Centre */
+.text-danger {
+  color: #D9534F; }
+
 .content-wrapper {
   margin-left: 30rem;
   padding: 5rem 1rem 1rem 1rem; }
@@ -53,18 +56,29 @@ ul.nav-tabs {
   display: none; }
 
 /* ├ël├®ments de formulaire */
-body.edit input, body.edit textarea, body.new input, body.new textarea {
-  width: 100%; }
+body.edit input[type='text'], body.edit input[type='email'], body.edit input[type='tel'], body.edit input[type='url'], body.edit textarea, body.new input[type='text'], body.new input[type='email'], body.new input[type='tel'], body.new input[type='url'], body.new textarea {
+  width: 100% !important; }
 
 .select2-hidden-accessible {
   display: none; }
 
 .select2-container {
   background-color: #fff;
-  width: auto;
   padding: .5rem 2rem .5rem .5rem;
   margin-bottom: 1rem;
   display: inline-block; }
+  .select2-container .selection {
+    width: 100%; }
+  .select2-container ul {
+    list-style: none;
+    padding: 0 1rem;
+    margin: 0; }
+
+.select2-selection__choice__remove {
+  color: #D9534F; }
+
+.select2-search__field {
+  min-width: 20rem; }
 
 .select2-results__options {
   list-style: none;
@@ -77,8 +91,7 @@ body.edit input, body.edit textarea, body.new input, body.new textarea {
   color: #fff; }
 
 .checkbox label, .nullable-control label {
-  display: flex;
-  margin: 1rem 0; }
+  white-space: nowrap; }
   .checkbox label input, .nullable-control label input {
     margin-right: 1rem; }
 

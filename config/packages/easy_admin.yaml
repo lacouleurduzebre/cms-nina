@@ -36,6 +36,7 @@ easy_admin:
             layout: 'back/base.html.twig'
             menu: 'back/menu/menuPrincipal.html.twig'
             list: 'back/easyadmin/list.html.twig'
+            edit: 'back/easyadmin/edit.html.twig'
             field_toggle: 'back/easyadmin/field_toggle.html.twig'
         menu:
             - { entity: 'Utilisateur', label: 'Comptes', icon: 'users' }

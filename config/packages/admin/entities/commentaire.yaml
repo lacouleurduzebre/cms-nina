@@ -3,6 +3,7 @@ easy_admin:
         Commentaire_Actif:
             class: App\Entity\Commentaire
             label: 'Commentaires'
+            disabled_actions: ['delete']
             list:
                 dql_filter: 'entity.corbeille = false'
                 sort: 'page.titre'

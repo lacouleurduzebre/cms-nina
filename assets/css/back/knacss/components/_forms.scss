@@ -55,6 +55,10 @@ textarea,
   appearance: none;
 }
 
+.mce-tinymce{
+  border:1px solid $forms-color !important;
+}
+
 [type="submit"] {
   background-color: $color-brand;
   border-radius:5px;
