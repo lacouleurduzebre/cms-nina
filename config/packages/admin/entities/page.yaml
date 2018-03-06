@@ -48,7 +48,7 @@ easy_admin:
             form:
                 fields:
                     - { type: 'tab', label: 'Contenus' }
-                    - titre
+                    - { property: 'titre', type: 'text' }
                     - contenu
 #                    - { property: 'modules', type: 'App\Form\Type\ModuleType', multipe: true, type_options: { by_reference: false } }
                     - image
@@ -62,9 +62,9 @@ easy_admin:
                     - active
                     - corbeille
                     - { type: 'tab', label: 'SEO' }
-                    - { property: 'SEO', type: 'App\Form\Type\SEOType', type_options: { by_reference: false } }
+                    - { property: 'SEO', type: 'App\Form\Type\SEOType', type_options: { by_reference: true } }
                     - { type: 'tab', label: 'Commentaires' }
-                    - { property: 'commentaires', type: 'collection', type_options: { entry_type: 'App\Form\Type\CommentaireType', by_reference: false } }
+                    - { property: 'commentaires', type: 'collection', type_options: { entry_type: 'App\Form\Type\CommentaireType', by_reference: true } }
                     - { type: 'tab', label: 'Traduction' }
                     - langue
                     - pageOriginale

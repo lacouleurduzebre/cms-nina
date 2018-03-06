@@ -45,6 +45,6 @@ class Arborescence extends \Twig_Extension
             array('position'=>'asc')
         );
 
-        return $this->twig->render('back/menu/arborescence.html.twig', compact('pages','langues'));
+        return $this->twig->render('back/menu/arborescence.html.twig', array('pages' => $pages, 'langues' => $langues));
     }
 }

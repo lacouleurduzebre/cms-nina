@@ -9,6 +9,7 @@
 namespace App\Controller\Back;
 
 
+use App\Entity\Page;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -24,7 +25,7 @@ class ArboController extends Controller
     public function enregistrerAction(Request $request){
         if($request->isXmlHttpRequest()){
             $arbo = $request->get('arbo');
-            $repository = $this->getDoctrine()->getRepository('NinaPageBundle:Page');
+            $repository = $this->getDoctrine()->getRepository(Page::class);
             $em = $this->getDoctrine()->getManager();
 
             foreach($arbo as $item){
