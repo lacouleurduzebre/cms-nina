@@ -57,7 +57,7 @@ easy_admin:
                     - dateDepublication
                     - { type: 'tab', label: 'Arborescence' }
                     - categories
-                    - pageParent
+                    - { property: 'pageParent', type: 'App\Form\Type\PageParentType' }
                     - position
                     - active
                     - corbeille

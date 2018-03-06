@@ -1,0 +1,17 @@
+{% extends 'back/base.html.twig' %}
+
+{% block content %}
+    <h1>Tableau de bord</h1>
+    <div class="grid-2-small-1">
+        <div>
+            <h2>Dernières pages publiées en {{ langue.nom }}</h2>
+                <ul>
+                {% for page in pages %}
+                    <li>
+                        <a href="{{ path('admin', { 'action': 'edit', 'entity': 'Page_Active', 'id': page.id }) }}">{{ page.titre }}</a> par {{ page.auteur }} le {{ page.datePublication|date("d/m/Y") }}
+                    </li>
+                {% endfor %}
+                </ul>
+        </div>
+    </div>
+{% endblock %}

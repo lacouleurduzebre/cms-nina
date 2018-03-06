@@ -18,9 +18,8 @@ fos_user_change_password:
     resource: "@FOSUserBundle/Resources/config/routing/change_password.xml"
     prefix: /profile
 
-easy_admin_bundle:
-    resource: '@EasyAdminBundle/Controller/AdminController.php'
-    prefix: /admin
+controllersBack:
+    resource: "../src/Controller/Back"
     type: annotation
 
 langue:
@@ -37,8 +36,4 @@ page:
 
 accueil:
     resource: "../src/Controller/AccueilController.php"
-    type: annotation
-
-controllersBack:
-    resource: "../src/Controller/Back"
     type: annotation

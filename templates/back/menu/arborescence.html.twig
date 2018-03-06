@@ -55,7 +55,7 @@
                             "label": "Dupliquer",
                             "action": function(){
                                 idPage = $('#'+node.id).find('span').attr('id');
-                                window.location.href = "{{ app.request.baseUrl }}"+Routing.generate('admin', { action: 'new', entity: 'Page_Active', idPageParent: idPage });
+                                window.location.href = "{{ app.request.baseUrl }}"+Routing.generate('admin', { action: 'dupliquer', entity: 'Page_Active', idPageOriginale: idPage });
                             }
                         },
                         "delete":{
@@ -85,7 +85,7 @@
             "core" : {
                 "animation" : 0,
                 "check_callback" : true,
-                "themes" : { "stripes" : true }
+                "themes" : { "stripes" : false }
             }
         });
 

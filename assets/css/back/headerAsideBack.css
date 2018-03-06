@@ -19,7 +19,8 @@
   height: 50px;
   position: fixed;
   width: 100%;
-  z-index: 2; }
+  z-index: 2;
+  background-color: #FFF; }
   .main-header .navbar {
     display: flex; }
 
