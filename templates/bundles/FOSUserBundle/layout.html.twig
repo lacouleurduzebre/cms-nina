@@ -29,5 +29,11 @@
 
         {% block fos_user_content %}
         {% endblock fos_user_content %}
+        <script src="{{ asset('../assets/js/jquery-3.2.1.min.js') }}"></script>
     </body>
+    <script>
+        /* Image aléatoire dans le fond de la page de login */
+        img = Math.floor((Math.random() * 9) + 1);
+        $('#loginPage').css('background-image', 'url({{ app.request.baseUrl }}/../../assets/img/back/login/'+img+'.jpg)');
+    </script>
 </html>

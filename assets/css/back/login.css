@@ -5,28 +5,34 @@ body {
 #loginPage {
   height: 100vh;
   width: 100vw;
-  background-image: url("../../img/back/fondLogin.png");
   background-size: cover;
   display: flex;
   align-items: center; }
-  #loginPage form {
+  #loginPage > * {
     background-color: rgba(255, 255, 255, 0.8);
     border-radius: 1rem;
-    display: flex;
-    flex-direction: column;
-    padding: 2rem 6rem; }
-    #loginPage form img {
-      margin: 0 auto; }
-    #loginPage form label {
+    padding: 2rem 6rem;
+    font-size: 1.4rem; }
+    #loginPage > * > img, #loginPage > * > input {
+      display: block; }
+    #loginPage > * img {
+      margin: 0 auto 1rem auto; }
+    #loginPage > * label {
       color: #007492;
-      font-size: 1.4rem;
       margin-top: 1.5rem; }
-    #loginPage form input {
+    #loginPage > * input {
       border-radius: 5px;
-      box-shadow: none;
-      width: 35rem; }
-      #loginPage form input[type="submit"] {
-        margin: 3.5rem auto 0 auto;
-        width: 16rem; }
+      box-shadow: none; }
+      #loginPage > * input[type="text"], #loginPage > * input[type="password"] {
+        width: 35rem; }
+      #loginPage > * input[type="submit"] {
+        margin: 3.5rem auto 0 auto; }
+
+.mdpOublie {
+  color: #818485;
+  text-decoration: none; }
+  .mdpOublie:hover {
+    color: #000;
+    text-decoration: none; }
 
 /*# sourceMappingURL=login.css.map */

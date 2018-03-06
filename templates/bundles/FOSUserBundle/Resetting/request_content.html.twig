@@ -1,0 +1,7 @@
+{% trans_default_domain 'FOSUserBundle' %}
+
+<form action="{{ path('fos_user_resetting_send_email') }}" method="POST" class="fos_user_resetting_request mw960p center">
+    <label for="username">{{ 'resetting.request.username'|trans }}</label>
+    <input type="text" id="username" name="username" required="required" />
+    <input type="submit" value="{{ 'resetting.request.submit'|trans }}" class="center" />
+</form>

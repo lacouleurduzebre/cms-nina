@@ -16,8 +16,9 @@
     <label for="password">{{ 'security.login.password'|trans }}</label>
     <input type="password" id="password" name="_password" required="required" autocomplete="current-password" />
 
+    <a href="{{ path("fos_user_resetting_request") }}" class="mdpOublie fr">{% trans %}Mot de passe oublié ?{% endtrans %}</a>
     {#<input type="checkbox" id="remember_me" name="_remember_me" value="on" />
     <label for="remember_me">{{ 'security.login.remember_me'|trans }}</label>#}
 
-    <input type="submit" id="_submit" name="_submit" value="{{ 'security.login.submit'|trans }}" />
+    <input type="submit" id="_submit" class="center" name="_submit" value="{{ 'security.login.submit'|trans }}" />
 </form>

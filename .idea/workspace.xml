@@ -2,17 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="91b8f164-87e9-425d-a062-ed2c6c37c9be" name="Default" comment="">
+      <change type="DELETED" beforePath="$PROJECT_DIR$/assets/img/back/fondLogin.png" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assets/css/back/contentBack.css" afterPath="$PROJECT_DIR$/assets/css/back/contentBack.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assets/css/back/contentBack.css.map" afterPath="$PROJECT_DIR$/assets/css/back/contentBack.css.map" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assets/css/back/contentBack.scss" afterPath="$PROJECT_DIR$/assets/css/back/contentBack.scss" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assets/css/back/knacss/components/_checkbox.scss" afterPath="$PROJECT_DIR$/assets/css/back/knacss/components/_checkbox.scss" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assets/css/back/knacss/components/_forms.scss" afterPath="$PROJECT_DIR$/assets/css/back/knacss/components/_forms.scss" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assets/css/back/knacss/knacss.css" afterPath="$PROJECT_DIR$/assets/css/back/knacss/knacss.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assets/css/back/knacss/knacss.css.map" afterPath="$PROJECT_DIR$/assets/css/back/knacss/knacss.css.map" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/config/packages/admin/entities/commentaire.yaml" afterPath="$PROJECT_DIR$/config/packages/admin/entities/commentaire.yaml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/config/packages/admin/entities/page.yaml" afterPath="$PROJECT_DIR$/config/packages/admin/entities/page.yaml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/config/packages/easy_admin.yaml" afterPath="$PROJECT_DIR$/config/packages/easy_admin.yaml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assets/css/back/login.css" afterPath="$PROJECT_DIR$/assets/css/back/login.css" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assets/css/back/login.css.map" afterPath="$PROJECT_DIR$/assets/css/back/login.css.map" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assets/css/back/login.scss" afterPath="$PROJECT_DIR$/assets/css/back/login.scss" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/bundles/FOSUserBundle/Security/login_content.html.twig" afterPath="$PROJECT_DIR$/templates/bundles/FOSUserBundle/Security/login_content.html.twig" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/bundles/FOSUserBundle/layout.html.twig" afterPath="$PROJECT_DIR$/templates/bundles/FOSUserBundle/layout.html.twig" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -88,38 +84,48 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="contentBack.scss" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/assets/css/back/contentBack.scss">
+      <file leaf-file-name="login_content.html.twig" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/templates/bundles/FOSUserBundle/Security/login_content.html.twig">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="17">
-              <caret line="32" column="33" lean-forward="false" selection-start-line="32" selection-start-column="33" selection-end-line="32" selection-end-column="33" />
+            <state relative-caret-position="374">
+              <caret line="22" column="53" lean-forward="false" selection-start-line="22" selection-start-column="53" selection-end-line="22" selection-end-column="53" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="_checkbox.scss" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/assets/css/back/knacss/components/_checkbox.scss">
+      <file leaf-file-name="jsBack.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/assets/js/back/jsBack.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="867">
-              <caret line="51" column="30" lean-forward="false" selection-start-line="51" selection-start-column="30" selection-end-line="51" selection-end-column="30" />
+            <state relative-caret-position="204">
+              <caret line="12" column="0" lean-forward="false" selection-start-line="12" selection-start-column="0" selection-end-line="12" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="bootstrap_3_layout.html.twig" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/templates/bundles/EasyAdminBundle/form/bootstrap_3_layout.html.twig">
+      <file leaf-file-name="login.scss" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/assets/css/back/login.scss">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1411">
-              <caret line="83" column="28" lean-forward="false" selection-start-line="83" selection-start-column="28" selection-end-line="83" selection-end-column="28" />
+            <state relative-caret-position="170">
+              <caret line="10" column="22" lean-forward="false" selection-start-line="10" selection-start-column="22" selection-end-line="10" selection-end-column="22" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="field_date.html.twig" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/vendor/easycorp/easyadmin-bundle/src/Resources/views/default/field_date.html.twig">
+      <file leaf-file-name="check_email.html.twig" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/templates/bundles/FOSUserBundle/Resetting/check_email.html.twig">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="102">
+              <caret line="6" column="27" lean-forward="false" selection-start-line="6" selection-start-column="27" selection-end-line="6" selection-end-column="27" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="email.txt.twig" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/vendor/friendsofsymfony/user-bundle/Resources/views/Resetting/email.txt.twig">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="0">
               <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
@@ -128,51 +134,41 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="field_raw.html.twig" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/vendor/easycorp/easyadmin-bundle/src/Resources/views/default/field_raw.html.twig">
+      <file leaf-file-name="request.html.twig" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/templates/bundles/FOSUserBundle/Resetting/request.html.twig">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="0">
-              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="54" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="bootstrap_3_layout.html.twig" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/vendor/easycorp/easyadmin-bundle/src/Resources/views/form/bootstrap_3_layout.html.twig">
+      <file leaf-file-name="request_content.html.twig" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/templates/bundles/FOSUserBundle/Resetting/request_content.html.twig">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="3332">
-              <caret line="196" column="64" lean-forward="false" selection-start-line="196" selection-start-column="12" selection-end-line="196" selection-end-column="64" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="field_toggle.html.twig" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/templates/back/easyadmin/field_toggle.html.twig">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="153">
-              <caret line="9" column="8" lean-forward="false" selection-start-line="9" selection-start-column="8" selection-end-line="9" selection-end-column="8" />
+            <state relative-caret-position="0">
+              <caret line="0" column="1" lean-forward="false" selection-start-line="0" selection-start-column="1" selection-end-line="0" selection-end-column="42" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
       <file leaf-file-name="layout.html.twig" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/vendor/easycorp/easyadmin-bundle/src/Resources/views/default/layout.html.twig">
+        <entry file="file://$PROJECT_DIR$/templates/bundles/FOSUserBundle/layout.html.twig">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+            <state relative-caret-position="612">
+              <caret line="36" column="81" lean-forward="false" selection-start-line="36" selection-start-column="81" selection-end-line="36" selection-end-column="81" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="list.html.twig" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/vendor/easycorp/easyadmin-bundle/src/Resources/views/default/list.html.twig">
+      <file leaf-file-name="arborescence.html.twig" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/templates/back/menu/arborescence.html.twig">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2431">
-              <caret line="143" column="67" lean-forward="false" selection-start-line="143" selection-start-column="31" selection-end-line="143" selection-end-column="67" />
+            <state relative-caret-position="370">
+              <caret line="56" column="81" lean-forward="false" selection-start-line="56" selection-start-column="56" selection-end-line="56" selection-end-column="81" />
               <folding />
             </state>
           </provider>
@@ -182,12 +178,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>&lt;input type=&quot;checkbox</find>
-      <find>&lt;input type=&quot;checkbox&quot;</find>
-      <find>d</find>
-      <find>di</find>
-      <find>div</find>
-      <find>div c</find>
       <find>div cla</find>
       <find>div clas</find>
       <find>div class=&quot;</find>
@@ -212,6 +202,12 @@
       <find>easyadmin_render_field_for_list_view</find>
       <find>actions</find>
       <find>.checkbox</find>
+      <find>t</find>
+      <find>tr</find>
+      <find>tra</find>
+      <find>tran</find>
+      <find>trans</find>
+      <find>login</find>
     </findStrings>
     <replaceStrings>
       <replace>App</replace>
@@ -234,13 +230,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/templates/back/boutons/toggle.html.twig" />
-        <option value="$PROJECT_DIR$/templates/back/easyadmin/list.html.twig" />
-        <option value="$PROJECT_DIR$/templates/back/easyadmin/includes/_actions.html.twig" />
-        <option value="$PROJECT_DIR$/assets/css/back/knacss/_config/_variables.scss" />
-        <option value="$PROJECT_DIR$/vendor/doctrine/orm/lib/Doctrine/ORM/Mapping/UnderscoreNamingStrategy.php" />
-        <option value="$PROJECT_DIR$/config/packages/doctrine.yaml" />
-        <option value="$PROJECT_DIR$/src/Entity/Categorie.php" />
         <option value="$PROJECT_DIR$/src/Entity/Champ.php" />
         <option value="$PROJECT_DIR$/src/Entity/Commentaire.php" />
         <option value="$PROJECT_DIR$/src/Entity/Configuration.php" />
@@ -269,7 +258,6 @@
         <option value="$PROJECT_DIR$/src/Form/Type/SEOType.php" />
         <option value="$PROJECT_DIR$/templates/back/base.html.twig" />
         <option value="$PROJECT_DIR$/templates/back/menu/arborescence.html.twig" />
-        <option value="$PROJECT_DIR$/assets/js/back/jsBack.js" />
         <option value="$PROJECT_DIR$/src/Form/Type/ModuleType.php" />
         <option value="$PROJECT_DIR$/src/Form/Type/CommentaireType.php" />
         <option value="$PROJECT_DIR$/templates/back/easyadmin/edit.html.twig" />
@@ -285,6 +273,14 @@
         <option value="$PROJECT_DIR$/assets/css/back/knacss/components/_checkbox.scss" />
         <option value="$PROJECT_DIR$/templates/back/easyadmin/field_toggle.html.twig" />
         <option value="$PROJECT_DIR$/assets/css/back/contentBack.scss" />
+        <option value="$PROJECT_DIR$/templates/bundles/FOSUserBundle/Security/login.html.twig" />
+        <option value="$PROJECT_DIR$/templates/bundles/FOSUserBundle/Resetting/request.html.twig" />
+        <option value="$PROJECT_DIR$/assets/js/back/jsBack.js" />
+        <option value="$PROJECT_DIR$/templates/bundles/FOSUserBundle/layout.html.twig" />
+        <option value="$PROJECT_DIR$/templates/bundles/FOSUserBundle/Resetting/request_content.html.twig" />
+        <option value="$PROJECT_DIR$/templates/bundles/FOSUserBundle/Security/login_content.html.twig" />
+        <option value="$PROJECT_DIR$/assets/css/back/login.scss" />
+        <option value="$PROJECT_DIR$/templates/bundles/FOSUserBundle/Resetting/check_email.html.twig" />
       </list>
     </option>
   </component>
@@ -298,8 +294,8 @@
   </component>
   <component name="PhpWorkspaceProjectConfiguration" backward_compatibility_performed="true" />
   <component name="ProjectFrameBounds">
-    <option name="x" value="960" />
-    <option name="width" value="960" />
+    <option name="x" value="592" />
+    <option name="width" value="1328" />
     <option name="height" value="1040" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
@@ -321,7 +317,6 @@
     </navigator>
     <panes>
       <pane id="Scope" />
-      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -362,37 +357,11 @@
               <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="easycorp" />
+              <option name="myItemId" value="friendsofsymfony" />
               <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="easyadmin-bundle" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="NinaSF4" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="NinaSF4" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="vendor" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="easycorp" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="easyadmin-bundle" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
+              <option name="myItemId" value="user-bundle" />
               <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
             </PATH_ELEMENT>
           </PATH>
@@ -410,133 +379,11 @@
               <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="easycorp" />
+              <option name="myItemId" value="friendsofsymfony" />
               <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="easyadmin-bundle" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Resources" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="views" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="form" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="NinaSF4" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="NinaSF4" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="vendor" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="easycorp" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="easyadmin-bundle" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Resources" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="views" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="default" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="NinaSF4" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="NinaSF4" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="vendor" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="easycorp" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="easyadmin-bundle" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Resources" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="views" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="default" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="includes" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="NinaSF4" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="NinaSF4" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="vendor" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="easycorp" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="easyadmin-bundle" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
+              <option name="myItemId" value="user-bundle" />
               <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
@@ -562,15 +409,45 @@
               <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="easycorp" />
+              <option name="myItemId" value="friendsofsymfony" />
               <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="easyadmin-bundle" />
+              <option name="myItemId" value="user-bundle" />
               <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
+              <option name="myItemId" value="Resources" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="views" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Resetting" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="NinaSF4" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="NinaSF4" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="vendor" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="friendsofsymfony" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="user-bundle" />
               <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
@@ -592,41 +469,7 @@
               <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="easycorp" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="easyadmin-bundle" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Resources" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="public" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="NinaSF4" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="NinaSF4" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="vendor" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="easycorp" />
+              <option name="myItemId" value="friendsofsymfony" />
               <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
             </PATH_ELEMENT>
           </PATH>
@@ -684,29 +527,11 @@
               <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="EasyAdminBundle" />
+              <option name="myItemId" value="FOSUserBundle" />
               <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="form" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="NinaSF4" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="NinaSF4" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="templates" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="back" />
+              <option name="myItemId" value="Security" />
               <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
             </PATH_ELEMENT>
           </PATH>
@@ -724,25 +549,15 @@
               <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="back" />
+              <option name="myItemId" value="bundles" />
               <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="easyadmin" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="NinaSF4" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="NinaSF4" />
+              <option name="myItemId" value="FOSUserBundle" />
               <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="config" />
+              <option name="myItemId" value="Resetting" />
               <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
             </PATH_ELEMENT>
           </PATH>
@@ -756,37 +571,11 @@
               <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="config" />
+              <option name="myItemId" value="templates" />
               <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="packages" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="NinaSF4" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="NinaSF4" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="config" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="packages" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="admin" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="entities" />
+              <option name="myItemId" value="bundles" />
               <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
             </PATH_ELEMENT>
           </PATH>
@@ -846,12 +635,13 @@
           </PATH>
         </subPane>
       </pane>
+      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="settings.editor.selected.configurable" value="Errors" />
     <property name="WebServerToolWindowFactoryState" value="true" />
-    <property name="SearchEverywhereHistoryKey" value="c&#9;FILE&#9;file://C:/Program Files (x86)/EasyPHP-Devserver-17/eds-www/NinaSF4/assets/css/back/contentBack.scss&#10;_form&#9;FILE&#9;file://C:/Program Files (x86)/EasyPHP-Devserver-17/eds-www/NinaSF4/assets/css/back/knacss/components/_forms.scss&#10;_check&#9;FILE&#9;file://C:/Program Files (x86)/EasyPHP-Devserver-17/eds-www/NinaSF4/assets/css/back/knacss/components/_checkbox.scss&#10;contentB&#9;FILE&#9;file://C:/Program Files (x86)/EasyPHP-Devserver-17/eds-www/NinaSF4/assets/css/back/contentBack.scss&#10;page&#9;FILE&#9;file://C:/Program Files (x86)/EasyPHP-Devserver-17/eds-www/NinaSF4/config/packages/admin/entities/page.yaml&#10;eas&#9;FILE&#9;file://C:/Program Files (x86)/EasyPHP-Devserver-17/eds-www/NinaSF4/config/packages/easy_admin.yaml&#10;Comme&#9;FILE&#9;file://C:/Program Files (x86)/EasyPHP-Devserver-17/eds-www/NinaSF4/src/Form/Type/CommentaireType.php&#10;Comm&#9;ACTION&#9;CheckinProject&#10;Com&#9;FILE&#9;file://C:/Program Files (x86)/EasyPHP-Devserver-17/eds-www/NinaSF4/src/Form/Type/CommentaireType.php&#10;Page&#9;null&#9;null&#10;arbore&#9;FILE&#9;file://C:/Program Files (x86)/EasyPHP-Devserver-17/eds-www/NinaSF4/templates/back/menu/arborescence.html.twig&#10;Champ&#9;null&#9;null&#10;C&#9;FILE&#9;file://C:/Program Files (x86)/EasyPHP-Devserver-17/eds-www/NinaSF4/src/Form/Type/CommentaireType.php&#10;TypeModu&#9;FILE&#9;file://C:/Program Files (x86)/EasyPHP-Devserver-17/eds-www/NinaSF4/src/Entity/TypeModule.php&#10;Type&#9;FILE&#9;file://C:/Program Files (x86)/EasyPHP-Devserver-17/eds-www/NinaSF4/src/Form/Type/ModuleType.php&#10;base&#9;FILE&#9;file://C:/Program Files (x86)/EasyPHP-Devserver-17/eds-www/NinaSF4/templates/back/base.html.twig&#10;contentBack&#9;FILE&#9;file://C:/Program Files (x86)/EasyPHP-Devserver-17/eds-www/NinaSF4/assets/css/back/contentBack.scss&#10;Utilisa&#9;FILE&#9;file://C:/Program Files (x86)/EasyPHP-Devserver-17/eds-www/NinaSF4/src/Entity/Utilisateur.php&#10;arbores&#9;FILE&#9;file://C:/Program Files (x86)/EasyPHP-Devserver-17/eds-www/NinaSF4/templates/back/menu/arborescence.html.twig&#10;base.ht&#9;FILE&#9;file://C:/Program Files (x86)/EasyPHP-Devserver-17/eds-www/NinaSF4/templates/front/base.html.twig&#10;Unders&#9;FILE&#9;file://C:/Program Files (x86)/EasyPHP-Devserver-17/eds-www/NinaSF4/vendor/doctrine/orm/lib/Doctrine/ORM/Mapping/UnderscoreNamingStrategy.php&#10;field_boo&#9;FILE&#9;file://C:/Program Files (x86)/EasyPHP-Devserver-17/eds-www/NinaSF4/vendor/javiereguiluz/easyadmin-bundle/src/Resources/views/default/field_boolean.html.twig&#10;header&#9;FILE&#9;file://C:/Program Files (x86)/EasyPHP-Devserver-17/eds-www/NinaSF4/templates/back/header.html.twig&#10;arbo&#9;FILE&#9;file://C:/Program Files (x86)/EasyPHP-Devserver-17/eds-www/NinaSF4/templates/back/menu/arborescence.html.twig&#10;easy&#9;FILE&#9;file://C:/Program Files (x86)/EasyPHP-Devserver-17/eds-www/NinaSF4/config/packages/easy_admin.yaml&#10;arb&#9;FILE&#9;file://C:/Program Files (x86)/EasyPHP-Devserver-17/eds-www/NinaSF4/templates/back/menu/arborescence.html.twig&#10;styleBac&#9;FILE&#9;file://C:/Program Files (x86)/EasyPHP-Devserver-17/eds-www/NinaSF4/assets/css/back/styleBack.scss&#10;arboresce&#9;FILE&#9;file://C:/Program Files (x86)/EasyPHP-Devserver-17/eds-www/NinaSF4/templates/back/menu/arborescence.html.twig&#10;commentaire&#9;FILE&#9;file://C:/Program Files (x86)/EasyPHP-Devserver-17/eds-www/NinaSF4/config/packages/admin/entities/commentaire.yaml&#10;configuration&#9;FILE&#9;file://C:/Program Files (x86)/EasyPHP-Devserver-17/eds-www/NinaSF4/config/packages/admin/entities/configuration.yaml&#10;SEO.&#9;FILE&#9;file://C:/Program Files (x86)/EasyPHP-Devserver-17/eds-www/NinaSF4/src/Entity/SEO.php&#10;categorie.&#9;FILE&#9;file://C:/Program Files (x86)/EasyPHP-Devserver-17/eds-www/NinaSF4/config/packages/admin/entities/categorie.yaml&#10;page.yaml&#9;FILE&#9;file://C:/Program Files (x86)/EasyPHP-Devserver-17/eds-www/NinaSF4/config/packages/admin/entities/page.yaml&#10;Zone&#9;FILE&#9;file://C:/Program Files (x86)/EasyPHP-Devserver-17/eds-www/NinaSF4/src/Entity/Zone.php&#10;User&#9;null&#9;null&#10;Utilis&#9;FILE&#9;file://C:/Program Files (x86)/EasyPHP-Devserver-17/eds-www/NinaSF4/src/Entity/Utilisateur.php&#10;champ.php&#9;FILE&#9;file://C:/Program Files (x86)/EasyPHP-Devserver-17/eds-www/NinaSF4/src/Entity/Champ.php&#10;typeMod&#9;null&#9;null&#10;typeCatego&#9;FILE&#9;file://C:/Program Files (x86)/EasyPHP-Devserver-17/eds-www/NinaSF4/src/Entity/TypeCategorie.php&#10;SEO&#9;null&#9;null&#10;Categorie&#9;null&#9;null&#10;Categ&#9;FILE&#9;file://C:/Program Files (x86)/EasyPHP-Devserver-17/eds-www/NinaSF4/config/packages/admin/entities/categorie.yaml&#10;Langue&#9;null&#9;null&#10;Page.php&#9;FILE&#9;file://C:/Program Files (x86)/EasyPHP-Devserver-17/eds-www/NinaSF4/src/Entity/Page.php&#10;Module.php&#9;FILE&#9;file://C:/Program Files (x86)/EasyPHP-Devserver-17/eds-www/NinaSF4/src/Entity/Module.php&#10;Menu&#9;null&#9;null&#10;Configuration&#9;null&#9;null&#10;Utilisateur/&#9;FILE&#9;file://C:/Program Files (x86)/EasyPHP-Devserver-17/eds-www/NinaSF4/src/Entity/Utilisateur.php&#10;Page.p&#9;FILE&#9;file://C:/Program Files (x86)/EasyPHP-Devserver-17/eds-www/NinaSF4/src/Entity/Page.php&#10;Commentaire&#9;null&#9;null" />
+    <property name="SearchEverywhereHistoryKey" value="arb&#9;FILE&#9;file://C:/Program Files (x86)/EasyPHP-Devserver-17/eds-www/NinaSF4/templates/back/menu/arborescence.html.twig&#10;content&#9;FILE&#9;file://C:/Program Files (x86)/EasyPHP-Devserver-17/eds-www/NinaSF4/assets/css/back/contentBack.scss&#10;c&#9;FILE&#9;file://C:/Program Files (x86)/EasyPHP-Devserver-17/eds-www/NinaSF4/assets/css/back/contentBack.scss&#10;_form&#9;FILE&#9;file://C:/Program Files (x86)/EasyPHP-Devserver-17/eds-www/NinaSF4/assets/css/back/knacss/components/_forms.scss&#10;_check&#9;FILE&#9;file://C:/Program Files (x86)/EasyPHP-Devserver-17/eds-www/NinaSF4/assets/css/back/knacss/components/_checkbox.scss&#10;contentB&#9;FILE&#9;file://C:/Program Files (x86)/EasyPHP-Devserver-17/eds-www/NinaSF4/assets/css/back/contentBack.scss&#10;page&#9;FILE&#9;file://C:/Program Files (x86)/EasyPHP-Devserver-17/eds-www/NinaSF4/config/packages/admin/entities/page.yaml&#10;eas&#9;FILE&#9;file://C:/Program Files (x86)/EasyPHP-Devserver-17/eds-www/NinaSF4/config/packages/easy_admin.yaml&#10;Comme&#9;FILE&#9;file://C:/Program Files (x86)/EasyPHP-Devserver-17/eds-www/NinaSF4/src/Form/Type/CommentaireType.php&#10;Comm&#9;ACTION&#9;CheckinProject&#10;Com&#9;FILE&#9;file://C:/Program Files (x86)/EasyPHP-Devserver-17/eds-www/NinaSF4/src/Form/Type/CommentaireType.php&#10;Page&#9;null&#9;null&#10;arbore&#9;FILE&#9;file://C:/Program Files (x86)/EasyPHP-Devserver-17/eds-www/NinaSF4/templates/back/menu/arborescence.html.twig&#10;Champ&#9;null&#9;null&#10;C&#9;FILE&#9;file://C:/Program Files (x86)/EasyPHP-Devserver-17/eds-www/NinaSF4/src/Form/Type/CommentaireType.php&#10;TypeModu&#9;FILE&#9;file://C:/Program Files (x86)/EasyPHP-Devserver-17/eds-www/NinaSF4/src/Entity/TypeModule.php&#10;Type&#9;FILE&#9;file://C:/Program Files (x86)/EasyPHP-Devserver-17/eds-www/NinaSF4/src/Form/Type/ModuleType.php&#10;base&#9;FILE&#9;file://C:/Program Files (x86)/EasyPHP-Devserver-17/eds-www/NinaSF4/templates/back/base.html.twig&#10;contentBack&#9;FILE&#9;file://C:/Program Files (x86)/EasyPHP-Devserver-17/eds-www/NinaSF4/assets/css/back/contentBack.scss&#10;Utilisa&#9;FILE&#9;file://C:/Program Files (x86)/EasyPHP-Devserver-17/eds-www/NinaSF4/src/Entity/Utilisateur.php&#10;arbores&#9;FILE&#9;file://C:/Program Files (x86)/EasyPHP-Devserver-17/eds-www/NinaSF4/templates/back/menu/arborescence.html.twig&#10;base.ht&#9;FILE&#9;file://C:/Program Files (x86)/EasyPHP-Devserver-17/eds-www/NinaSF4/templates/front/base.html.twig&#10;Unders&#9;FILE&#9;file://C:/Program Files (x86)/EasyPHP-Devserver-17/eds-www/NinaSF4/vendor/doctrine/orm/lib/Doctrine/ORM/Mapping/UnderscoreNamingStrategy.php&#10;field_boo&#9;FILE&#9;file://C:/Program Files (x86)/EasyPHP-Devserver-17/eds-www/NinaSF4/vendor/javiereguiluz/easyadmin-bundle/src/Resources/views/default/field_boolean.html.twig&#10;header&#9;FILE&#9;file://C:/Program Files (x86)/EasyPHP-Devserver-17/eds-www/NinaSF4/templates/back/header.html.twig&#10;arbo&#9;FILE&#9;file://C:/Program Files (x86)/EasyPHP-Devserver-17/eds-www/NinaSF4/templates/back/menu/arborescence.html.twig&#10;easy&#9;FILE&#9;file://C:/Program Files (x86)/EasyPHP-Devserver-17/eds-www/NinaSF4/config/packages/easy_admin.yaml&#10;styleBac&#9;FILE&#9;file://C:/Program Files (x86)/EasyPHP-Devserver-17/eds-www/NinaSF4/assets/css/back/styleBack.scss&#10;arboresce&#9;FILE&#9;file://C:/Program Files (x86)/EasyPHP-Devserver-17/eds-www/NinaSF4/templates/back/menu/arborescence.html.twig&#10;commentaire&#9;FILE&#9;file://C:/Program Files (x86)/EasyPHP-Devserver-17/eds-www/NinaSF4/config/packages/admin/entities/commentaire.yaml&#10;configuration&#9;FILE&#9;file://C:/Program Files (x86)/EasyPHP-Devserver-17/eds-www/NinaSF4/config/packages/admin/entities/configuration.yaml&#10;SEO.&#9;FILE&#9;file://C:/Program Files (x86)/EasyPHP-Devserver-17/eds-www/NinaSF4/src/Entity/SEO.php&#10;categorie.&#9;FILE&#9;file://C:/Program Files (x86)/EasyPHP-Devserver-17/eds-www/NinaSF4/config/packages/admin/entities/categorie.yaml&#10;page.yaml&#9;FILE&#9;file://C:/Program Files (x86)/EasyPHP-Devserver-17/eds-www/NinaSF4/config/packages/admin/entities/page.yaml&#10;Zone&#9;FILE&#9;file://C:/Program Files (x86)/EasyPHP-Devserver-17/eds-www/NinaSF4/src/Entity/Zone.php&#10;User&#9;null&#9;null&#10;Utilis&#9;FILE&#9;file://C:/Program Files (x86)/EasyPHP-Devserver-17/eds-www/NinaSF4/src/Entity/Utilisateur.php&#10;champ.php&#9;FILE&#9;file://C:/Program Files (x86)/EasyPHP-Devserver-17/eds-www/NinaSF4/src/Entity/Champ.php&#10;typeMod&#9;null&#9;null&#10;typeCatego&#9;FILE&#9;file://C:/Program Files (x86)/EasyPHP-Devserver-17/eds-www/NinaSF4/src/Entity/TypeCategorie.php&#10;SEO&#9;null&#9;null&#10;Categorie&#9;null&#9;null&#10;Categ&#9;FILE&#9;file://C:/Program Files (x86)/EasyPHP-Devserver-17/eds-www/NinaSF4/config/packages/admin/entities/categorie.yaml&#10;Langue&#9;null&#9;null&#10;Page.php&#9;FILE&#9;file://C:/Program Files (x86)/EasyPHP-Devserver-17/eds-www/NinaSF4/src/Entity/Page.php&#10;Module.php&#9;FILE&#9;file://C:/Program Files (x86)/EasyPHP-Devserver-17/eds-www/NinaSF4/src/Entity/Module.php&#10;Menu&#9;null&#9;null&#10;Configuration&#9;null&#9;null&#10;Utilisateur/&#9;FILE&#9;file://C:/Program Files (x86)/EasyPHP-Devserver-17/eds-www/NinaSF4/src/Entity/Utilisateur.php&#10;Page.p&#9;FILE&#9;file://C:/Program Files (x86)/EasyPHP-Devserver-17/eds-www/NinaSF4/src/Entity/Page.php" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../myecocar" />
     <property name="WebServerToolWindowPanel.toolwindow.show.size" value="false" />
     <property name="WebServerToolWindowPanel.toolwindow.show.date" value="false" />
@@ -860,19 +650,19 @@
     <property name="WebServerToolWindowPanel.toolwindow.highlight.mappings" value="true" />
   </component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Program Files (x86)\EasyPHP-Devserver-17\eds-www\NinaSF4\templates\bundles\FOSUserBundle\Resetting" />
+      <recent name="C:\Program Files (x86)\EasyPHP-Devserver-17\eds-www\NinaSF4\templates\bundles\EasyAdminBundle" />
+      <recent name="C:\Program Files (x86)\EasyPHP-Devserver-17\eds-www\NinaSF4\templates\back\easyadmin" />
+      <recent name="C:\Program Files (x86)\EasyPHP-Devserver-17\eds-www\NinaSF4\src\Form\Type" />
+      <recent name="C:\Program Files (x86)\EasyPHP-Devserver-17\eds-www\NinaSF4\config\packages" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Program Files (x86)\EasyPHP-Devserver-17\eds-www\NinaSF4\src\Form\Type" />
       <recent name="C:\Program Files (x86)\EasyPHP-Devserver-17\eds-www\NinaSF4\templates\back\easyadmin" />
       <recent name="C:\Program Files (x86)\EasyPHP-Devserver-17\eds-www\NinaSF4\assets\js\back\fosjsrouting\js" />
       <recent name="C:\Program Files (x86)\EasyPHP-Devserver-17\eds-www\NinaSF4\templates\bundles\FOSUserBundle" />
       <recent name="C:\Program Files (x86)\EasyPHP-Devserver-17\eds-www\NinaSF4\assets\css\back" />
-    </key>
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\Program Files (x86)\EasyPHP-Devserver-17\eds-www\NinaSF4\templates\bundles\EasyAdminBundle" />
-      <recent name="C:\Program Files (x86)\EasyPHP-Devserver-17\eds-www\NinaSF4\templates\back\easyadmin" />
-      <recent name="C:\Program Files (x86)\EasyPHP-Devserver-17\eds-www\NinaSF4\src\Form\Type" />
-      <recent name="C:\Program Files (x86)\EasyPHP-Devserver-17\eds-www\NinaSF4\config\packages" />
-      <recent name="C:\Program Files (x86)\EasyPHP-Devserver-17\eds-www\NinaSF4\templates\back\easyadmin\forms" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -990,30 +780,43 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="135156000" />
+    <option name="totallyTimeSpent" value="138584000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="960" y="0" width="960" height="1040" extended-state="0" />
+    <frame x="592" y="0" width="1328" height="1040" extended-state="0" />
+    <editor active="true" />
     <layout>
-      <window_info id="Remote Host" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32995737" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.22555555" sideWeight="0.49185666" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4777416" sideWeight="0.5063966" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.42651933" sideWeight="0.51111114" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32899022" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33038673" sideWeight="0.4936034" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="npm" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.42983425" sideWeight="0.4888889" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Remote Host" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32995737" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2555205" sideWeight="0.49185666" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.12100213" sideWeight="0.5081433" order="3" side_tool="true" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4777416" sideWeight="0.5063966" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33116177" sideWeight="0.4936034" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32899022" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="npm" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.42983425" sideWeight="0.4936034" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Remote Host" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32995737" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.22555555" sideWeight="0.49185666" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.12100213" sideWeight="0.5081433" order="3" side_tool="true" content_ui="tabs" />
-      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
     <layout-to-restore>
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -1048,71 +851,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/config/services.yaml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="51">
-          <caret line="3" column="16" lean-forward="true" selection-start-line="3" selection-start-column="16" selection-end-line="3" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/back/easyadmin/forms/bootstrap_3_horizontal_layout.html.twig" />
-    <entry file="file://$PROJECT_DIR$/vendor/easycorp/easyadmin-bundle/src/Controller/AdminController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-289">
-          <caret line="11" column="52" lean-forward="false" selection-start-line="11" selection-start-column="10" selection-end-line="11" selection-end-column="52" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/config/routes/easy_admin.yaml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/config/packages/routing.yaml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/bundles/EasyAdminBundle/form/bootstrap_3_horizontal_layout.html.twig" />
-    <entry file="file://$PROJECT_DIR$/vendor/easycorp/easyadmin-bundle/src/Resources/views/form/bootstrap_3_horizontal_layout.html.twig">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-197">
-          <caret line="35" column="28" lean-forward="false" selection-start-line="35" selection-start-column="24" selection-end-line="35" selection-end-column="28" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/vendor/easycorp/easyadmin-bundle/src/Resources/views/default/edit.html.twig">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-605">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/vendor/easycorp/easyadmin-bundle/src/Resources/views/default/includes/_select2_widget.html.twig">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="272">
-          <caret line="15" column="7" lean-forward="true" selection-start-line="15" selection-start-column="7" selection-end-line="15" selection-end-column="7" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/vendor/easycorp/easyadmin-bundle/src/Resources/views/default/field_association.html.twig">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/bundles/easyadmin/javascript/easyadmin-all.min.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="425">
-          <caret line="1" column="4229" lean-forward="true" selection-start-line="1" selection-start-column="4229" selection-end-line="1" selection-end-column="4229" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/vendor/easycorp/easyadmin-bundle/src/Resources/views/default/field_object.html.twig">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -1150,8 +888,32 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/templates/back/base.html.twig">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="544">
-          <caret line="46" column="47" lean-forward="false" selection-start-line="46" selection-start-column="47" selection-end-line="46" selection-end-column="47" />
+        <state relative-caret-position="187">
+          <caret line="11" column="24" lean-forward="false" selection-start-line="11" selection-start-column="24" selection-end-line="11" selection-end-column="24" />
+          <folding>
+            <marker date="1520321944918" expanded="true" signature="1037:2279" ph="{% block head_javascript ...%}" />
+            <marker date="1520321944918" expanded="true" signature="2289:2565" ph="{% if easyadmin_config('design.rtl') ...%}" />
+            <marker date="1520321944918" expanded="true" signature="2583:4544" ph="{% block body ...%}" />
+            <marker date="1520321944918" expanded="true" signature="2614:2647" ph="{% block body_id ...%}" />
+            <marker date="1520321944918" expanded="true" signature="2679:2715" ph="{% block body_class ...%}" />
+            <marker date="1520321944918" expanded="true" signature="2804:4519" ph="..." />
+            <marker date="1520321944918" expanded="true" signature="2834:4293" ph="..." />
+            <marker date="1520321944918" expanded="true" signature="2844:4279" ph="{% block wrapper ...%}" />
+            <marker date="1520321944918" expanded="true" signature="3008:4247" ph="..." />
+            <marker date="1520321944918" expanded="true" signature="3022:4229" ph="{% block content ...%}" />
+            <marker date="1520321944918" expanded="true" signature="3058:3281" ph="{% block flash_messages ...%}" />
+            <marker date="1520321944918" expanded="true" signature="3330:4062" ph="..." />
+            <marker date="1520321944918" expanded="true" signature="3348:3503" ph="{% block content_header ...%}" />
+            <marker date="1520321944918" expanded="true" signature="3413:3452" ph="{% block content_title ...%}" />
+            <marker date="1520321944918" expanded="true" signature="3520:4036" ph="{% block content_help ...%}" />
+            <marker date="1520321944918" expanded="true" signature="3565:3992" ph="{% if _entity_config is defined and _entity_config[app.request.query.get('action')]['help']|default(false) ...%}" />
+            <marker date="1520321944918" expanded="true" signature="3738:3959" ph="..." />
+            <marker date="1520321944918" expanded="true" signature="3789:3928" ph="..." />
+            <marker date="1520321944918" expanded="true" signature="4115:4193" ph="..." />
+            <marker date="1520321944918" expanded="true" signature="4137:4167" ph="{% block main ...%}" />
+            <marker date="1520321944918" expanded="true" signature="4304:4361" ph="{% block body_javascript ...%}" />
+            <marker date="1520321944918" expanded="true" signature="4371:4508" ph="{% for js_asset in easyadmin_config('design.assets.js') ...%}" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1159,20 +921,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1598">
           <caret line="94" column="29" lean-forward="false" selection-start-line="94" selection-start-column="29" selection-end-line="94" selection-end-column="29" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/assets/js/back/jsBack.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="204">
-          <caret line="12" column="3" lean-forward="false" selection-start-line="12" selection-start-column="3" selection-end-line="12" selection-end-column="3" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/back/menu/arborescence.html.twig">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2091">
-          <caret line="123" column="19" lean-forward="false" selection-start-line="112" selection-start-column="12" selection-end-line="123" selection-end-column="19" />
         </state>
       </provider>
     </entry>
@@ -1262,8 +1010,9 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/config/packages/easy_admin.yaml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="5" column="16" lean-forward="false" selection-start-line="5" selection-start-column="16" selection-end-line="5" selection-end-column="16" />
+        <state relative-caret-position="340">
+          <caret line="20" column="11" lean-forward="false" selection-start-line="20" selection-start-column="11" selection-end-line="20" selection-end-column="11" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1327,7 +1076,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1335,7 +1083,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1343,7 +1090,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="3332">
           <caret line="196" column="64" lean-forward="false" selection-start-line="196" selection-start-column="12" selection-end-line="196" selection-end-column="64" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1351,7 +1097,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1411">
           <caret line="83" column="28" lean-forward="false" selection-start-line="83" selection-start-column="28" selection-end-line="83" selection-end-column="28" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1359,7 +1104,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="153">
           <caret line="9" column="8" lean-forward="false" selection-start-line="9" selection-start-column="8" selection-end-line="9" selection-end-column="8" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1367,7 +1111,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1382,7 +1125,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2431">
           <caret line="143" column="67" lean-forward="false" selection-start-line="143" selection-start-column="31" selection-end-line="143" selection-end-column="67" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1394,10 +1136,114 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/config/packages/filemanager.yaml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="7" column="14" lean-forward="false" selection-start-line="7" selection-start-column="14" selection-end-line="7" selection-end-column="14" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/config/bundles.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/assets/css/back/contentBack.scss">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="32" column="33" lean-forward="false" selection-start-line="32" selection-start-column="33" selection-end-line="32" selection-end-column="33" />
+        <state relative-caret-position="562">
+          <caret line="36" column="21" lean-forward="false" selection-start-line="36" selection-start-column="21" selection-end-line="36" selection-end-column="21" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/bundles/FOSUserBundle/Security/login.html.twig">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="51">
+          <caret line="3" column="4" lean-forward="false" selection-start-line="3" selection-start-column="4" selection-end-line="3" selection-end-column="24" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/assets/js/back/jsBack.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="204">
+          <caret line="12" column="0" lean-forward="false" selection-start-line="12" selection-start-column="0" selection-end-line="12" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/back/menu/arborescence.html.twig">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="370">
+          <caret line="56" column="81" lean-forward="false" selection-start-line="56" selection-start-column="56" selection-end-line="56" selection-end-column="81" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/bundles/FOSUserBundle/layout.html.twig">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="612">
+          <caret line="36" column="81" lean-forward="false" selection-start-line="36" selection-start-column="81" selection-end-line="36" selection-end-column="81" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/bundles/FOSUserBundle/Security/login_content.html.twig">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="374">
+          <caret line="22" column="53" lean-forward="false" selection-start-line="22" selection-start-column="53" selection-end-line="22" selection-end-column="53" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/vendor/friendsofsymfony/user-bundle/Resources/views/Resetting/email.txt.twig">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/vendor/friendsofsymfony/user-bundle/Resources/views/Resetting/check_email.html.twig">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/bundles/FOSUserBundle/Resetting/request.html.twig">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="54" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/bundles/FOSUserBundle/Resetting/request_content.html.twig">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="1" lean-forward="false" selection-start-line="0" selection-start-column="1" selection-end-line="0" selection-end-column="42" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/assets/css/back/login.scss">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="170">
+          <caret line="10" column="22" lean-forward="false" selection-start-line="10" selection-start-column="22" selection-end-line="10" selection-end-column="22" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/bundles/FOSUserBundle/Resetting/check_email.html.twig">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="102">
+          <caret line="6" column="27" lean-forward="false" selection-start-line="6" selection-start-column="27" selection-end-line="6" selection-end-column="27" />
           <folding />
         </state>
       </provider>
