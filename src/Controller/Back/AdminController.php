@@ -8,6 +8,7 @@
 
 namespace App\Controller\Back;
 
+use App\Entity\Commentaire;
 use App\Entity\Langue;
 use App\Entity\Page;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AdminController as BaseAdminController;
@@ -25,14 +26,33 @@ class AdminController extends BaseAdminController
      * @Route("/tableauDeBord", name="tableauDeBord")
      */
     public function tableauDeBordAction(Request $request){
+        $em = $this->getDoctrine()->getManager();
+
+        /* Dernières pages publiées */
         $locale = $request->getLocale();
 
-        $repositoryLangue=$this->getDoctrine()->getManager()->getRepository(Langue::class);
+        $repositoryLangue = $em->getRepository(Langue::class);
         $langue = $repositoryLangue->findOneBy(array('abreviation' => $locale));
 
-        $dernieresPages = $this->getDoctrine()->getManager()->getRepository(Page::class)->pagesPubliees($langue, false);
+        $dernieresPages = $em->getRepository(Page::class)->pagesPubliees($langue, false);
 
-        return $this->render('back/tableauDeBord.html.twig', array('pages' => $dernieresPages, 'langue' => $langue));
+        /* Derniers commentaires en attente de validation */
+        $repositoryCommentaire = $em->getRepository(Commentaire::class);
+
+        $derniersCommentaires = $repositoryCommentaire->commentairesNonValides();
+
+        return $this->render('back/tableauDeBord.html.twig', array(
+            'pages' => $dernieresPages,
+            'langue' => $langue,
+            'commentaires' => $derniersCommentaires
+        ));
+    }
+
+    /**
+     * @Route("/mediatheque", name="mediatheque")
+     */
+    public function mediathequeAction(){
+        return $this->render('back/mediatheque.html.twig');
     }
 
     public function dupliquerAction(){

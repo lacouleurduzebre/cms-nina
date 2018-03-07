@@ -10,4 +10,13 @@ namespace App\Repository;
  */
 class CommentaireRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function commentairesNonValides(){
+        $qb = $this
+            ->createQueryBuilder('c')
+            ->where('c.valide = 0')
+            ->andWhere('c.corbeille = 0')
+            ->orderBy('c.date', 'DESC');
+
+        return $qb->getQuery()->getResult();
+    }
 }

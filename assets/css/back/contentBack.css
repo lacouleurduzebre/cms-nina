@@ -23,6 +23,10 @@
   margin-left: 30rem;
   padding: 5rem 1rem 1rem 1rem; }
 
+/* Tableau de bord */
+tr, td, th {
+  border: 1px solid #000; }
+
 /* List & Search */
 .actions a {
   text-decoration: none; }
@@ -55,7 +59,7 @@ ul.nav-tabs {
 .tab-pane:not(.active) {
   display: none; }
 
-/* ├ël├®ments de formulaire */
+/* Éléments de formulaire */
 body.edit input[type='text'], body.edit input[type='email'], body.edit input[type='tel'], body.edit input[type='url'], body.edit textarea, body.new input[type='text'], body.new input[type='email'], body.new input[type='tel'], body.new input[type='url'], body.new textarea {
   width: 100% !important; }
 
@@ -103,7 +107,8 @@ body.edit input[type='text'], body.edit input[type='email'], body.edit input[typ
 #modal-delete {
   display: none; }
 
-.mce-notification-warning {
-  display: none; }
+/* Médiathèque */
+.iframeMediatheque {
+  height: calc(100vh - 11rem); }
 
 /*# sourceMappingURL=contentBack.css.map */

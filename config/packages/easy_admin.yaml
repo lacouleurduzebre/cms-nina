@@ -50,7 +50,7 @@ easy_admin:
                 - { label: 'Corbeille', icon: '', url: '#' }
                 - { entity: 'Page_Corbeille', icon: '' }
                 - { entity: 'Commentaire_Corbeille', icon: '' }
-            - { label: 'Médiathèque', icon: 'folder', url: '#' }
+            - { label: 'Médiathèque', icon: 'folder', route: 'mediatheque' }
             - { label: 'Newsletter', icon: 'paper-plane', url: '#' }
             - label: 'Contenus'
               icon: 'puzzle-piece'
