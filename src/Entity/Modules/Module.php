@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Entity;
+namespace App\Entity\Modules;
 
 use Doctrine\ORM\Mapping as ORM;
 
@@ -21,12 +21,21 @@ class Module
     private $id;
 
     /**
+     * @var int
+     *
+     * @ORM\Column(name="idModule", type="integer")
+     */
+    private $idModule;
+
+    /**
      * @ORM\ManyToMany(targetEntity="App\Entity\Page", mappedBy="modules")
      */
     private $pages;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\TypeModule", mappedBy="modules")
+     * @var string
+     *
+     * @ORM\Column(name="type", type="string")
      */
     private $type;
 
@@ -38,11 +47,6 @@ class Module
     private $position;
 
     /**
-     * @ORM\Column(name="contenu", type="array")
-     */
-    private $contenu = array();
-
-    /**
      * Get id
      *
      * @return integer
@@ -52,6 +56,29 @@ class Module
         return $this->id;
     }
 
+    /**
+     * Set idModule
+     *
+     * @param int $idModule
+     *
+     * @return ModuleTexte
+     */
+    public function setIdModule($idModule)
+    {
+        $this->idModule = $idModule;
+
+        return $this;
+    }
+
+    /**
+     * Get idModule
+     *
+     * @return int
+     */
+    public function getIdModule()
+    {
+        return $this->idModule;
+    }
     /**
      * Set position
      *
@@ -118,60 +145,24 @@ class Module
     }
 
     /**
-     * Add type
+     * Set type
      *
-     * @param \App\Entity\TypeModule $type
+     * @param string $type
      *
      * @return Module
      */
-    public function addType(\App\Entity\TypeModule $type)
+    public function setType($type = null)
     {
-        $this->type[] = $type;
-    
+        $this->type = $type;
         return $this;
     }
-
-    /**
-     * Remove type
-     *
-     * @param \App\Entity\TypeModule $type
-     */
-    public function removeType(\App\Entity\TypeModule $type)
-    {
-        $this->type->removeElement($type);
-    }
-
     /**
      * Get type
      *
-     * @return \Doctrine\Common\Collections\Collection
+     * @return string
      */
     public function getType()
     {
         return $this->type;
-    }
-
-    /**
-     * Set contenu
-     *
-     * @param array $contenu
-     *
-     * @return Module
-     */
-    public function setContenu($contenu)
-    {
-        $this->contenu = $contenu;
-    
-        return $this;
-    }
-
-    /**
-     * Get contenu
-     *
-     * @return array
-     */
-    public function getContenu()
-    {
-        return $this->contenu;
     }
 }

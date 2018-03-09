@@ -17,7 +17,6 @@
                 <p class="txtcenter"><img src="{{ asset(page.image) }}"></p>
             {% endif %}
             <p class="txtcenter">Par {{ page.auteur }} le {{ page.datePublication|date("d/m/Y") }}</p>
-            <p>{{ page.contenu|raw }}</p>
             <p><a class="btn" href="{{ path('voirPage', {'url':page.seo.url}) }}">{% trans %}Lire la suite{% endtrans %}</a></p>
         </div>
     {% endfor %}

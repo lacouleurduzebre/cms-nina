@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1
--- Généré le :  mar. 06 mars 2018 à 15:50
+-- Généré le :  ven. 09 mars 2018 à 15:44
 -- Version du serveur :  5.7.17
 -- Version de PHP :  7.1.3
 
@@ -38,7 +38,17 @@ CREATE TABLE `migration_versions` (
 
 INSERT INTO `migration_versions` (`version`) VALUES
 ('20180228102732'),
-('20180228103105');
+('20180228103105'),
+('20180308124700'),
+('20180308131635'),
+('20180309075052'),
+('20180309080823'),
+('20180309090736'),
+('20180309090915'),
+('20180309131421'),
+('20180309131648'),
+('20180309132355'),
+('20180309132617');
 
 -- --------------------------------------------------------
 
@@ -61,27 +71,6 @@ CREATE TABLE `nina_categorie` (
 
 INSERT INTO `nina_categorie` (`id`, `type_categorie_id`, `nom`, `description`, `url`, `categorieParent`) VALUES
 (1, 1, 'exemple', 'page d\'exemple', 'exemple', NULL);
-
--- --------------------------------------------------------
-
---
--- Structure de la table `nina_champ`
---
-
-CREATE TABLE `nina_champ` (
-  `id` int(11) NOT NULL,
-  `nom` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `type` varchar(255) COLLATE utf8_unicode_ci NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
---
--- Déchargement des données de la table `nina_champ`
---
-
-INSERT INTO `nina_champ` (`id`, `nom`, `type`) VALUES
-(1, 'source', 'url'),
-(2, 'description', 'text'),
-(3, 'texte', 'textarea');
 
 -- --------------------------------------------------------
 
@@ -192,8 +181,57 @@ CREATE TABLE `nina_menu_page` (
 CREATE TABLE `nina_module` (
   `id` int(11) NOT NULL,
   `position` int(11) NOT NULL,
-  `contenu` longtext COLLATE utf8_unicode_ci NOT NULL COMMENT '(DC2Type:array)'
+  `type` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `idModule` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Déchargement des données de la table `nina_module`
+--
+
+INSERT INTO `nina_module` (`id`, `position`, `type`, `idModule`) VALUES
+(10, 0, 'Texte', 8),
+(11, 1, 'Image', 2),
+(12, 2, 'Texte', 10);
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `nina_module_image`
+--
+
+CREATE TABLE `nina_module_image` (
+  `id` int(11) NOT NULL,
+  `description` longtext COLLATE utf8_unicode_ci NOT NULL,
+  `source` varchar(255) COLLATE utf8_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Déchargement des données de la table `nina_module_image`
+--
+
+INSERT INTO `nina_module_image` (`id`, `description`, `source`) VALUES
+(2, 'Kiwi', 'WP_20170316_07_53_47_Pro_LI.jpg');
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `nina_module_texte`
+--
+
+CREATE TABLE `nina_module_texte` (
+  `id` int(11) NOT NULL,
+  `texte` longtext COLLATE utf8_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Déchargement des données de la table `nina_module_texte`
+--
+
+INSERT INTO `nina_module_texte` (`id`, `texte`) VALUES
+(8, 'zedzef'),
+(9, 'zone de texte 2'),
+(10, 'zone de texte 2');
 
 -- --------------------------------------------------------
 
@@ -210,7 +248,6 @@ CREATE TABLE `nina_page` (
   `langue_id` int(11) DEFAULT NULL,
   `seo_id` int(11) DEFAULT NULL,
   `titre` longtext COLLATE utf8_unicode_ci NOT NULL,
-  `contenu` longtext COLLATE utf8_unicode_ci NOT NULL,
   `date_creation` datetime NOT NULL,
   `date_publication` datetime NOT NULL,
   `date_depublication` datetime DEFAULT NULL,
@@ -224,10 +261,10 @@ CREATE TABLE `nina_page` (
 -- Déchargement des données de la table `nina_page`
 --
 
-INSERT INTO `nina_page` (`id`, `auteur_id`, `auteur_derniere_modification_id`, `page_parent_id`, `page_originale_id`, `langue_id`, `seo_id`, `titre`, `contenu`, `date_creation`, `date_publication`, `date_depublication`, `image`, `position`, `active`, `corbeille`) VALUES
-(1, 1, 1, NULL, NULL, 1, 3, 'Première page', '<p>blablabla contenu</p>', '2018-02-28 14:03:26', '2013-01-28 15:00:00', NULL, NULL, 0, 1, 0),
-(2, 1, 1, 1, NULL, 1, 5, 'Deuxième page bis', '<p>blablablabla</p>\r\n<p><img src=\"../../../../assets/uploads/WP_20170316_07_53_47_Pro_LI.jpg?1520329232148\" alt=\"WP_20170316_07_53_47_Pro_LI\" /></p>', '2018-02-28 15:38:10', '2018-01-28 00:00:00', NULL, NULL, 0, 1, 0),
-(5, 1, 1, 1, NULL, 1, 7, 'Deuxième page bis', '<p>blablablabla</p>\r\n<p><img src=\"../../../../assets/uploads/WP_20170316_07_53_47_Pro_LI.jpg?1520329232148\" alt=\"WP_20170316_07_53_47_Pro_LI\" /></p>', '2018-02-28 15:38:10', '2018-01-28 00:00:00', NULL, NULL, 0, 1, 0);
+INSERT INTO `nina_page` (`id`, `auteur_id`, `auteur_derniere_modification_id`, `page_parent_id`, `page_originale_id`, `langue_id`, `seo_id`, `titre`, `date_creation`, `date_publication`, `date_depublication`, `image`, `position`, `active`, `corbeille`) VALUES
+(1, 1, 1, NULL, NULL, 1, 3, 'Première page n', '2018-02-28 14:03:26', '2013-01-28 15:00:00', NULL, NULL, 0, 1, 0),
+(2, 1, 1, NULL, NULL, 1, 5, 'Deuxième page bis', '2018-02-28 15:38:10', '2018-01-28 00:00:00', NULL, NULL, 1, 1, 0),
+(5, 1, 1, 2, NULL, 1, 7, 'Deuxième page bis', '2018-02-28 15:38:10', '2018-01-28 00:00:00', NULL, NULL, 0, 1, 0);
 
 -- --------------------------------------------------------
 
@@ -257,6 +294,15 @@ CREATE TABLE `nina_page_module` (
   `nina_page_id` int(11) NOT NULL,
   `nina_module_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Déchargement des données de la table `nina_page_module`
+--
+
+INSERT INTO `nina_page_module` (`nina_page_id`, `nina_module_id`) VALUES
+(1, 10),
+(1, 11),
+(1, 12);
 
 -- --------------------------------------------------------
 
@@ -303,46 +349,6 @@ INSERT INTO `nina_type_categorie` (`id`, `nom`, `description`, `url`) VALUES
 -- --------------------------------------------------------
 
 --
--- Structure de la table `nina_type_module`
---
-
-CREATE TABLE `nina_type_module` (
-  `id` int(11) NOT NULL,
-  `modules_id` int(11) DEFAULT NULL,
-  `nom` varchar(255) COLLATE utf8_unicode_ci NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
---
--- Déchargement des données de la table `nina_type_module`
---
-
-INSERT INTO `nina_type_module` (`id`, `modules_id`, `nom`) VALUES
-(1, NULL, 'Image'),
-(2, NULL, 'Texte');
-
--- --------------------------------------------------------
-
---
--- Structure de la table `nina_type_module_champ`
---
-
-CREATE TABLE `nina_type_module_champ` (
-  `nina_type_module_id` int(11) NOT NULL,
-  `nina_champ_id` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
---
--- Déchargement des données de la table `nina_type_module_champ`
---
-
-INSERT INTO `nina_type_module_champ` (`nina_type_module_id`, `nina_champ_id`) VALUES
-(1, 1),
-(1, 2),
-(2, 3);
-
--- --------------------------------------------------------
-
---
 -- Structure de la table `nina_utilisateur`
 --
 
@@ -366,7 +372,7 @@ CREATE TABLE `nina_utilisateur` (
 --
 
 INSERT INTO `nina_utilisateur` (`id`, `username`, `username_canonical`, `email`, `email_canonical`, `enabled`, `salt`, `password`, `last_login`, `confirmation_token`, `password_requested_at`, `roles`) VALUES
-(1, 'nadege', 'nadege', 'nadege@lacouleurduzebre.com', 'nadege@lacouleurduzebre.com', 1, NULL, '$2y$13$4rABh42aH/Oj8g.TmSni0ug/gz2ZZyCYbcPLA9gXrI4b.iYFK26tG', '2018-03-06 09:38:37', 'oX96gkFolLZQ9RQzhTJA39F9WQZi3jA1MfyWRy9sgF4', '2018-03-06 09:35:24', 'a:0:{}');
+(1, 'nadege', 'nadege', 'nadege@lacouleurduzebre.com', 'nadege@lacouleurduzebre.com', 1, NULL, '$2y$13$4rABh42aH/Oj8g.TmSni0ug/gz2ZZyCYbcPLA9gXrI4b.iYFK26tG', '2018-03-09 13:27:40', 'oX96gkFolLZQ9RQzhTJA39F9WQZi3jA1MfyWRy9sgF4', '2018-03-06 09:35:24', 'a:0:{}');
 
 -- --------------------------------------------------------
 
@@ -397,12 +403,6 @@ ALTER TABLE `migration_versions`
 ALTER TABLE `nina_categorie`
   ADD PRIMARY KEY (`id`),
   ADD KEY `IDX_A8C99A693BB65D28` (`type_categorie_id`);
-
---
--- Index pour la table `nina_champ`
---
-ALTER TABLE `nina_champ`
-  ADD PRIMARY KEY (`id`);
 
 --
 -- Index pour la table `nina_commentaire`
@@ -447,6 +447,18 @@ ALTER TABLE `nina_module`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Index pour la table `nina_module_image`
+--
+ALTER TABLE `nina_module_image`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Index pour la table `nina_module_texte`
+--
+ALTER TABLE `nina_module_texte`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Index pour la table `nina_page`
 --
 ALTER TABLE `nina_page`
@@ -487,22 +499,6 @@ ALTER TABLE `nina_type_categorie`
   ADD PRIMARY KEY (`id`);
 
 --
--- Index pour la table `nina_type_module`
---
-ALTER TABLE `nina_type_module`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `UNIQ_5F8C82066C6E55B5` (`nom`),
-  ADD KEY `IDX_5F8C820660D6DC42` (`modules_id`);
-
---
--- Index pour la table `nina_type_module_champ`
---
-ALTER TABLE `nina_type_module_champ`
-  ADD PRIMARY KEY (`nina_type_module_id`,`nina_champ_id`),
-  ADD KEY `IDX_78496CD08F778C1F` (`nina_type_module_id`),
-  ADD KEY `IDX_78496CD069FEEC45` (`nina_champ_id`);
-
---
 -- Index pour la table `nina_utilisateur`
 --
 ALTER TABLE `nina_utilisateur`
@@ -526,11 +522,6 @@ ALTER TABLE `nina_zone`
 --
 ALTER TABLE `nina_categorie`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
---
--- AUTO_INCREMENT pour la table `nina_champ`
---
-ALTER TABLE `nina_champ`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT pour la table `nina_commentaire`
 --
@@ -560,7 +551,17 @@ ALTER TABLE `nina_menu_page`
 -- AUTO_INCREMENT pour la table `nina_module`
 --
 ALTER TABLE `nina_module`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+--
+-- AUTO_INCREMENT pour la table `nina_module_image`
+--
+ALTER TABLE `nina_module_image`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+--
+-- AUTO_INCREMENT pour la table `nina_module_texte`
+--
+ALTER TABLE `nina_module_texte`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 --
 -- AUTO_INCREMENT pour la table `nina_page`
 --
@@ -576,11 +577,6 @@ ALTER TABLE `nina_seo`
 --
 ALTER TABLE `nina_type_categorie`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
---
--- AUTO_INCREMENT pour la table `nina_type_module`
---
-ALTER TABLE `nina_type_module`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT pour la table `nina_utilisateur`
 --
@@ -645,19 +641,6 @@ ALTER TABLE `nina_page_categorie`
 ALTER TABLE `nina_page_module`
   ADD CONSTRAINT `FK_138D1F204E76F9CC` FOREIGN KEY (`nina_module_id`) REFERENCES `nina_module` (`id`) ON DELETE CASCADE,
   ADD CONSTRAINT `FK_138D1F208352D10` FOREIGN KEY (`nina_page_id`) REFERENCES `nina_page` (`id`) ON DELETE CASCADE;
-
---
--- Contraintes pour la table `nina_type_module`
---
-ALTER TABLE `nina_type_module`
-  ADD CONSTRAINT `FK_5F8C820660D6DC42` FOREIGN KEY (`modules_id`) REFERENCES `nina_module` (`id`);
-
---
--- Contraintes pour la table `nina_type_module_champ`
---
-ALTER TABLE `nina_type_module_champ`
-  ADD CONSTRAINT `FK_78496CD069FEEC45` FOREIGN KEY (`nina_champ_id`) REFERENCES `nina_champ` (`id`) ON DELETE CASCADE,
-  ADD CONSTRAINT `FK_78496CD08F778C1F` FOREIGN KEY (`nina_type_module_id`) REFERENCES `nina_type_module` (`id`) ON DELETE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

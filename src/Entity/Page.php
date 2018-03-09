@@ -29,13 +29,6 @@ class Page
     private $titre;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="contenu", type="text")
-     */
-    private $contenu;
-
-    /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Utilisateur", inversedBy="pages")
      */
     private $auteur;
@@ -138,7 +131,7 @@ class Page
     private $categories;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Module", inversedBy="pages", cascade={"persist"})
+     * @ORM\ManyToMany(targetEntity="App\Entity\Modules\Module", inversedBy="pages", cascade={"persist"})
      */
     private $modules;
 
@@ -149,7 +142,7 @@ class Page
         $this->categories = new ArrayCollection();
         $this->pagesEnfants = new ArrayCollection();
         $this->pagesTraduites = new ArrayCollection();
-        $this->modulesTexte = new ArrayCollection();
+        $this->modules = new ArrayCollection();
     }
 
     public function __toString()
@@ -189,30 +182,6 @@ class Page
     public function getTitre()
     {
         return $this->titre;
-    }
-
-    /**
-     * Set contenu
-     *
-     * @param string $contenu
-     *
-     * @return Page
-     */
-    public function setContenu($contenu)
-    {
-        $this->contenu = $contenu;
-
-        return $this;
-    }
-
-    /**
-     * Get contenu
-     *
-     * @return string
-     */
-    public function getContenu()
-    {
-        return $this->contenu;
     }
 
     /**
@@ -667,11 +636,11 @@ class Page
     /**
      * Add module
      *
-     * @param \App\Entity\Module $module
+     * @param \App\Entity\Modules\Module $module
      *
      * @return Page
      */
-    public function addModule(\App\Entity\Module $module)
+    public function addModule(\App\Entity\Modules\Module $module)
     {
         $this->modules[] = $module;
     
@@ -681,9 +650,9 @@ class Page
     /**
      * Remove module
      *
-     * @param \App\Entity\Module $module
+     * @param \App\Entity\Modules\Module $module
      */
-    public function removeModule(\App\Entity\Module $module)
+    public function removeModule(\App\Entity\Modules\Module $module)
     {
         $this->modules->removeElement($module);
     }

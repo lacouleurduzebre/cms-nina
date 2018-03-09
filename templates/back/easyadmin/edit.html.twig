@@ -38,6 +38,23 @@
     {{ parent() }}
 
     <script type="text/javascript">
+        $.fn.serializeObject = function()
+        {
+            var o = {};
+            var a = this.serializeArray();
+            $.each(a, function() {
+                if (o[this.name] !== undefined) {
+                    if (!o[this.name].push) {
+                        o[this.name] = [o[this.name]];
+                    }
+                    o[this.name].push(this.value || '');
+                } else {
+                    o[this.name] = this.value || '';
+                }
+            });
+            return o;
+        };
+
         $(function() {
             $('.edit-form').areYouSure({ 'message': '{{ 'form.are_you_sure'|trans({}, 'EasyAdminBundle')|e('js') }}' });
 
@@ -53,7 +70,42 @@
                     });
             });
 
-            $
+            /* Ajout d'un module dans une page */
+            $("#edit-page_active-form").on('change', "select[id^='page_active_modules']", function(){
+                cible = $(this);
+                $.ajax({
+                    url: "{{ path('choisirTypeModule') }}",
+                    method: "post",
+                    data: {TypeModule: $(this).val()}
+                })
+                    .done(function(msg){
+                        cible.closest("div[id^='page_active_modules']").append(msg);
+                        cible.closest('.form-group').hide();
+                    })
+                    .fail(function(){
+                    });
+            });
+
+            $("#edit-page_active-form").on('click', ".enregistrerModule", function(e){
+                e.preventDefault();
+
+                typeModule = $(this).closest("div[id^='page_active_modules']").find('p').html();
+
+                data = $(this).siblings('form').serializeObject();
+
+                $.ajax({
+                    url: "{{ app.request.baseUrl }}"+Routing.generate('enregistrerModule', { typeModule: typeModule }),
+                    method: "post",
+                    dataType: 'json',
+                    data: data,
+                    typeModule: typeModule
+                })
+                    .done(function(msg){
+                        cible.closest('.field-module').find("input[id$='idModule']").val(msg);
+                    })
+                    .fail(function(){
+                    });
+            });
         });
     </script>
 

@@ -5,8 +5,11 @@
     {% for message in app.session.flashbag.get('OK') %}
         <p class="message">{{ message }}</p>
     {% endfor %}
+
     <h1>{{ page.titre }}</h1>
+
     <p>Publié le {{ page.datePublication|date("d/m/Y") }} à {{ page.datePublication|date("G:i") }} par {{ page.auteur }}</p>
+
     {% if page.categories is not empty %}
         {% for categorie in page.categories %}
             <span class="btnCategorie">{{ categorie.typeCategorie.nom }} : <a href="#">{{ categorie.nom }}</a></span>
@@ -15,15 +18,18 @@
             {% endif %}
         {% endfor %}
     {% endif %}
+
     {% if page.image is not empty %}
         <p><img class="fl w300p" src="{{ asset(page.image) }}"></p>
     {% endif %}
-    <p>{{ page.contenu|raw }}</p>
-    {#{% for texte in page.modulesTexte %}
-        <div>
-            {{ texte.contenu|raw }}
-        </div>
-    {% endfor %}#}
+
+    {# Modules #}
+    <div>
+        {% for module in modules %}
+            {% include 'front/modules/module'~module.type~'.html.twig' with {'module': module.contenu} only %}
+        {% endfor %}
+    </div>
+
     <aside class="clear blocCommentaires">
         <h2>Commentaires sur "{{ page.titre }}"</h2>
         {% for message in app.session.flashbag.get('comOK') %}
@@ -40,4 +46,5 @@
             {% endif %}
         {% endfor %}
     </aside>
+
 {% endblock %}

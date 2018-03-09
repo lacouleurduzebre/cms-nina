@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Commentaire;
 use App\Entity\SEO;
+use App\Service\Front\ContenuModule;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
@@ -22,7 +23,7 @@ class PageController extends Controller
      * @param $url
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
-    public function voirAction(Request $request, $url){
+    public function voirAction(Request $request, ContenuModule $serviceModule, $url){
         $repository = $this->getDoctrine()->getRepository(SEO::class);
         $seo = $repository->findOneByUrl($url);
 
@@ -51,32 +52,49 @@ class PageController extends Controller
             $commentaire->setAuteur('Anonyme');
         }
 
-        $commentaire->setPage($page);
+        /* Modules */
+            $modules = $page->getModules();
+            $contenusModules = [];
+            $i=0;
+            foreach($modules as $module){
+                /* service ContenuModule */
+                 $contenuModule = $serviceModule->getContenuModule($module->getType(), $module->getIdModule());
 
-        $formBuilder = $this->get('form.factory')->createBuilder(FormType::class, $commentaire);
+                 $contenusModules[$i]['type']=$module->getType();
+                 $contenusModules[$i]['contenu']=$contenuModule;
 
-        $formBuilder
-            ->add('auteur', TextType::class, array('label' => 'Votre nom :'))
-            ->add('email', EmailType::class, array('label' => 'Votre adresse e-mail :'))
-            ->add('site', TextType::class, array('label' => 'Votre site web :', 'required' => false))
-            ->add('contenu', TextareaType::class, array('label'=>'Votre commentaire :'))
-            ->add('envoi', SubmitType::class, array('attr'=>array('class'=>'envoiCom')));
-
-        $form=$formBuilder->getForm();
-
-        if($request->isMethod('POST')){
-            $form->handleRequest($request);
-            if($form->isValid()) {
-                $em = $this->getDoctrine()->getManager();
-                $em->persist($commentaire);
-                $em->flush();
-
-                $request->getSession()->getFlashBag()->add('comOK', 'Votre commentaire a été enregistré et sera mis en ligne une fois validé');
-
-                return $this->redirectToRoute('voirPage', array('url' => $seo->getUrl()));
+                 $i++;
             }
-        }
+        /* Fin modules */
 
-        return $this->render('front/voirPage.html.twig', array('page'=>$page, 'form'=>$form->createView(), 'commentaires'=>$commentaires));
+        /* Commentaires */
+            $commentaire->setPage($page);
+
+            $formBuilder = $this->get('form.factory')->createBuilder(FormType::class, $commentaire);
+
+            $formBuilder
+                ->add('auteur', TextType::class, array('label' => 'Votre nom :'))
+                ->add('email', EmailType::class, array('label' => 'Votre adresse e-mail :'))
+                ->add('site', TextType::class, array('label' => 'Votre site web :', 'required' => false))
+                ->add('contenu', TextareaType::class, array('label'=>'Votre commentaire :'))
+                ->add('envoi', SubmitType::class, array('attr'=>array('class'=>'envoiCom')));
+
+            $form=$formBuilder->getForm();
+
+            if($request->isMethod('POST')){
+                $form->handleRequest($request);
+                if($form->isValid()) {
+                    $em = $this->getDoctrine()->getManager();
+                    $em->persist($commentaire);
+                    $em->flush();
+
+                    $request->getSession()->getFlashBag()->add('comOK', 'Votre commentaire a été enregistré et sera mis en ligne une fois validé');
+
+                    return $this->redirectToRoute('voirPage', array('url' => $seo->getUrl()));
+                }
+            }
+        /* Fin commentaires */
+
+        return $this->render('front/voirPage.html.twig', array('page'=>$page, 'form'=>$form->createView(), 'commentaires'=>$commentaires, 'modules'=>$contenusModules));
     }
 }

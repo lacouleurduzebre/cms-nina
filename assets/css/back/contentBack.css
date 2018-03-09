@@ -59,7 +59,7 @@ ul.nav-tabs {
 .tab-pane:not(.active) {
   display: none; }
 
-/* Éléments de formulaire */
+/* ├ël├®ments de formulaire */
 body.edit input[type='text'], body.edit input[type='email'], body.edit input[type='tel'], body.edit input[type='url'], body.edit textarea, body.new input[type='text'], body.new input[type='email'], body.new input[type='tel'], body.new input[type='url'], body.new textarea {
   width: 100% !important; }
 
@@ -99,6 +99,12 @@ body.edit input[type='text'], body.edit input[type='email'], body.edit input[typ
   .checkbox label input, .nullable-control label input {
     margin-right: 1rem; }
 
+/* Formulaire des pages */
+.form-group.field-module {
+  border: 1px solid;
+  padding: 1rem;
+  margin: 1rem 0; }
+
 /* Sauvegarde du formulaire */
 #form-actions-row {
   margin-top: 1rem; }
@@ -107,7 +113,7 @@ body.edit input[type='text'], body.edit input[type='email'], body.edit input[typ
 #modal-delete {
   display: none; }
 
-/* Médiathèque */
+/* M├®diath├¿que */
 .iframeMediatheque {
   height: calc(100vh - 11rem); }
 

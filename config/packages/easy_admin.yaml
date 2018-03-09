@@ -44,8 +44,6 @@ easy_admin:
             - label: 'Outils'
               icon: 'wrench'
               children:
-                - { entity: 'Champ', icon: '' }
-                - { entity: 'TypeModule', icon: '' }
                 - { label: 'Traductions', icon: '', url: '#' }
                 - { label: 'Corbeille', icon: '', url: '#' }
                 - { entity: 'Page_Corbeille', icon: '' }
