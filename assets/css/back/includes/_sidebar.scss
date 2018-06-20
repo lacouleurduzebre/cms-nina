@@ -1,0 +1,66 @@
+/* Sidebar */
+.main-sidebar{
+  width: 300px;
+  height: calc(100vh - 50px);
+  position: fixed;
+  background-color: $color-primary;
+  color: $white;
+  top: 50px;
+  a{
+    color: $white;
+    text-decoration: none;
+  }
+  #jstree{
+    background-color: $color-primary;
+    padding: 2rem 2rem 5rem 2rem;
+  }
+}
+
+/* Menu compte */
+.navbar-custom-menu{
+  ul{
+    list-style: none;
+  }
+}
+
+/* Arborescence */
+.arbo-titre{
+  text-transform: uppercase;
+  padding:1rem 0;
+  &.active{
+    background-color: $color-brand;
+  }
+  &.inactive{
+    background-color: darken($color-brand, 20%);
+    color: darken($white, 20%);
+  }
+  svg {
+    margin-right: 3rem;
+  }
+}
+
+.arbo-langues{
+  background-color: $color-brand-dark;
+  padding: 1rem 2rem;
+  span{
+    border: 1px solid $white;
+    height:3.5rem;
+    width:3.5rem;
+    display: inline-block;
+    opacity:.5;
+    &.current, &:hover{
+      opacity:1;
+    }
+    a{
+      display: flex;
+      height: 100%;
+      width: 100%;
+      align-items: center;
+      justify-content: center;
+    }
+  }
+}
+
+#loader-arbo{
+  margin-top:.5rem;
+}

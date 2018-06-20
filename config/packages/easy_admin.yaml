@@ -21,17 +21,15 @@ easy_admin:
     design:
         brand_color: '#A1BB0C'
         assets:
-            favicon: '../assets/img/front/favicon.ico'
+            favicon: 'assets/img/front/favicon.ico'
             css:
-                - '../assets/css/back/knacss/knacss.css'
-                - '../assets/css/back/headerAsideBack.css'
-                - '../assets/css/back/contentBack.css'
-                - '../assets/js/back/jstree/themes/style.css'
+                - 'assets/css/back/knacss.css'
+                - 'assets/js/back/jstree/themes/style.css'
             js:
                 # dans base.html.twig - '../assets/js/jquery-3.2.1.min.js'
-                - '../assets/js/fontawesome-all.min.js'
-                - '../assets/js/back/jsBack.js'
-                - '../assets/js/back/jstree/jstree.min.js'
+                - 'assets/js/fontawesome-all.min.js'
+                - 'assets/js/back/jsBack.js'
+                - 'assets/js/back/jstree/jstree.min.js'
         templates:
             layout: 'back/base.html.twig'
             menu: 'back/menu/menuPrincipal.html.twig'
