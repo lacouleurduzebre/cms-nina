@@ -63,5 +63,9 @@
 @import "components/badges";     // badges styles
 @import "components/alerts";     // alerts styles
 
-// Nina
+// Nina front
 @import "includes/global";
+
+// Nina back
+@import "../back/includes/header";
+@import "../back/includes/sidebar";

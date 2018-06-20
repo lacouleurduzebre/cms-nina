@@ -7,7 +7,6 @@
         <link rel="stylesheet" href="{{ asset('assets/css/front/knacss.css') }}" type="text/css">
         {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
             <link rel="stylesheet" href="{{ asset('assets/js/back/jstree/themes/style.css') }}">
-            <link rel="stylesheet" href="{{ asset('assets/css/back/headerAsideBack.css') }}">
         {% endif %}
     {% endblock %}
     <script src="{{ asset('assets/js/jquery-3.2.1.min.js') }}"></script>
@@ -115,8 +114,8 @@
     {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
         <script src="{{ asset('assets/js/back/jsBack.js') }}"></script>
         <script src="{{ asset('assets/js/back/jstree/jstree.min.js') }}"></script>
-        <script src='{{ asset('assets/js/backfosjsrouting/js/router.js') }}'></script>
-        <script src="{{ asset('assets/js/backfosjsrouting/js/fos_js_routes.js') }}"></script>
+        <script src='{{ asset('assets/js/back/fosjsrouting/js/router.js') }}'></script>
+        <script src="{{ asset('assets/js/back/fosjsrouting/js/fos_js_routes.js') }}"></script>
     {% endif %}
 {% endblock %}
 </body>

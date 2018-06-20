@@ -133,8 +133,9 @@ $orange-500 : #F0AD4E !default;
 $red-500    : #D9534F !default;
 
 // Semantic colors
-$color-brand    : $green-500;
-$color-primary  : $blue-500;
+$color-brand    : #A1BA1D;
+$color-brand-dark    : darken($color-brand, 10);
+$color-primary  : #5A5853;
 $color-success  : $green-500;
 $color-info     : $blue-300;
 $color-warning  : $orange-500;
