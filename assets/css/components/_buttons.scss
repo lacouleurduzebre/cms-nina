@@ -15,13 +15,18 @@
   vertical-align: middle;
   white-space: nowrap;
   text-decoration: none;
-  color: $color-base;
+  color: $white;
   border: none;
   border-radius: $border-radius;
-  background-color: $color-muted;
+  background-color: $color-brand;
   font-family: inherit;
   font-size: inherit;
   line-height: 1;
+  &:hover{
+    background-color: $color-brand-dark;
+    color: $white;
+    text-decoration: none;
+  }
 }
 
 .btn,

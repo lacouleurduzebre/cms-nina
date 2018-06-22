@@ -2,7 +2,7 @@
 <html>
     <head>
         <meta charset="UTF-8" />
-        <link rel="stylesheet" href="{{ asset('assets/css/back/knacss.css') }}">
+        <link rel="stylesheet" href="{{ asset('assets/css/knacss.css') }}">
     </head>
     <body>
         {#<div>#}
@@ -33,6 +33,6 @@
     <script>
         /* Image aléatoire dans le fond de la page de login */
         img = Math.floor((Math.random() * 9) + 1);
-        $('#loginPage').css('background-image', 'url({{ app.request.baseUrl }}/../../assets/img/back/login/'+img+'.jpg)');
+        $('#loginPage').css('background-image', 'url({{ app.request.baseUrl }}/../../assets/img/login/'+img+'.jpg)');
     </script>
 </html>
