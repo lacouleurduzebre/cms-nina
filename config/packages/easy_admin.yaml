@@ -6,6 +6,7 @@ easy_admin:
         actions:
             - { name: 'edit', label: '', title: 'Éditer', icon: 'pencil-alt' }
             - { name: 'delete', label: '', title: 'Supprimer', icon: 'trash' }
+            - { name: 'new', label: 'Ajouter', title: '', icon: 'plus' }
     show:
         title: '%%entity_label%%'
     search:
@@ -21,7 +22,7 @@ easy_admin:
     design:
         brand_color: '#A1BB0C'
         assets:
-            favicon: 'assets/img/front/favicon.ico'
+            favicon: 'assets/img/favicon.ico'
             css:
                 - 'assets/css/knacss.css'
                 - 'assets/js/jstree/themes/style.css'
@@ -42,8 +43,8 @@ easy_admin:
             - label: 'Outils'
               icon: 'wrench'
               children:
-                - { label: 'Traductions', icon: '', url: '#' }
-                - { label: 'Corbeille', icon: '', url: '#' }
+                #- { label: 'Traductions', icon: '', url: '#' }
+                #- { label: 'Corbeille', icon: '', url: '#' }
                 - { entity: 'Page_Corbeille', icon: '' }
                 - { entity: 'Commentaire_Corbeille', icon: '' }
             - { label: 'Médiathèque', icon: 'folder', route: 'mediatheque' }

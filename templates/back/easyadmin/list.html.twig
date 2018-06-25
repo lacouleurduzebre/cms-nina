@@ -66,9 +66,9 @@
                                         <div class="input-group">
                                             <input class="form-control" type="search" name="query" value="{{ app.request.get('query')|default('') }}">
                                             <span class="input-group-btn">
-                                                <button class="btn" type="submit" formtarget="{{ _action.target }}">
+                                                <button type="submit" formtarget="{{ _action.target }}">
                                                     <i class="fa fa-search"></i>
-                                                    <span class="hidden-xs hidden-sm">{{ _action.label|default('action.search')|trans(_trans_parameters) }}</span>
+                                                    {#<span class="hidden-xs hidden-sm">{{ _action.label|default('action.search')|trans(_trans_parameters) }}</span>#}
                                                 </button>
                                             </span>
                                         </div>
@@ -84,7 +84,7 @@
                             <div class="button-action">
                                 <a class="{{ _action.css_class|default('') }}" href="{{ path('easyadmin', _request_parameters|merge({ action: _action.name })) }}" target="{{ _action.target }}">
                                     {% if _action.icon %}<i class="fas fa-{{ _action.icon }}"></i>{% endif %}
-                                    {{ _action.label is defined and not _action.label is empty ? _action.label|trans(_trans_parameters) }}
+                                    {{ _action.label is defined and not _action.label is empty ? _action.label|trans(_trans_parameters)~' '~_entity_config.name }}
                                 </a>
                             </div>
                         {% endblock new_action %}

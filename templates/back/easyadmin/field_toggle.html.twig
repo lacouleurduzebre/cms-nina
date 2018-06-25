@@ -7,7 +7,7 @@
         <span class="label label-danger">{{ 'label.false'|trans }}</span>
     {% endif %}
 {% else %}
-    <input type="checkbox" {{ value == true ? 'checked' : '' }} class="switch"
+    <input type="checkbox" {{ value == true ? 'checked' : '' }}
        data-toggle="toggle" data-size="mini"
        data-onstyle="success" data-offstyle="danger"
        data-on="{{ 'label.true'|trans }}" data-off="{{ 'label.false'|trans }}">

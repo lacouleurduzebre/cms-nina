@@ -2,6 +2,7 @@ easy_admin:
     entities:
         Utilisateur:
             class: App\Entity\Utilisateur
+            controller: App\Controller\Back\UtilisateurController
             label: 'Utilisateurs'
             list:
                 fields:
@@ -23,7 +24,14 @@ easy_admin:
                     - { property: 'enabled', label: 'Activé' }
                     - { property: 'lastLogin', label: 'Dernière connexion' }
                     - { property: 'roles', label: 'Rôles' }
-            form:
+            new:
+                fields:
+                    - { property: 'username', label: 'Pseudonyme' }
+                    - { property: 'email', label: 'E-mail' }
+                    - { property: 'password', type: 'password', label: 'Mot de passe' }
+                    - { property: 'enabled', label: 'Activé' }
+                    - { property: 'roles', label: 'Rôles' }
+            edit:
                 fields:
                     - { property: 'username', label: 'Pseudonyme' }
                     - { property: 'email', label: 'E-mail' }

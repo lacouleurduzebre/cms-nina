@@ -2,6 +2,9 @@
     <div class="navbar-custom-menu">
         {% block header_custom_menu %}
             {% set _logout_path = easyadmin_logout_path() %}
+            <a href="{{ _logout_path }}"><i class="fas fa-power-off"></i></a>
+            <strong><a href="{{ path('easyadmin', { action: 'edit', entity: 'Utilisateur', id: app.user.id }) }}">{{ app.user.username|default('user.unnamed'|trans(domain = 'EasyAdminBundle')) }}</a></strong>
+            {#{% set _logout_path = easyadmin_logout_path() %}
             <div class="dropdown-menu" role="menu">
                 {% block user_menu_dropdown %}
                     <li>
@@ -32,14 +35,14 @@
                                 </p>
                                 <p>{% trans %}Bienvenue dans votre administration de{% endtrans %}</p>
                                 <p>{{ config.nom }}</p>
-                                {#<button type="button" class="btn dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                <button type="button" class="btn dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
                                     <span class="caret"></span>
-                                </button>#}
+                                </button>#}{#
                             </div>
                         {% endif %}
                     {% endblock user_menu %}
                 </li>
-            </ul>
+            </ul>#}
         {% endblock header_custom_menu %}
     </div>
     {% block sidebar %}
@@ -49,4 +52,12 @@
             {% endblock %}
         </section>
     {% endblock sidebar %}
+
+    <div id="sidebar-logo">
+        {% block sidebar_logo %}
+            <a class="logo" href="{{ path('tableauDeBord') }}">
+                <img src="{{ asset('assets/img/logoNinaBlanc.png') }}" alt="CMS Nina 3.0">
+            </a>
+        {% endblock sidebar_logo %}
+    </div>
 </aside>

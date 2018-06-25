@@ -1,11 +1,11 @@
 {% trans_default_domain 'FOSUserBundle' %}
 
 {% if error %}
-    <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+    <div><i class="fas fa-exclamation-circle"></i>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
 {% endif %}
 
 <form class="mw960p center" action="{{ path("fos_user_security_check") }}" method="post">
-    <img src="{{ asset('../assets/img/back/ninaV3Vertical.png') }}" alt="CMS Nina 3.0">
+    <img src="{{ asset('../assets/img/ninaV3Vertical.png') }}" alt="CMS Nina 3.0">
     {% if csrf_token %}
         <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
     {% endif %}

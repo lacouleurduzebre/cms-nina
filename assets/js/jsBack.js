@@ -8,6 +8,6 @@ $(document).ready(function(){
     /* Pop-up pour confirmer une suppression */
     $('.action-delete').click(function(e){
         e.preventDefault();
-        alert($('#modal-delete').html());
+        $('#modal-delete').css('display', 'flex');
     });
 });

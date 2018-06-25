@@ -1,11 +1,11 @@
 /* Sidebar */
 .main-sidebar{
   width: 300px;
-  height: calc(100vh - 50px);
+  height: 100vh;
   position: fixed;
   background-color: $color-primary;
   color: $white;
-  top: 50px;
+  top: 0;
   a{
     color: $white;
     text-decoration: none;
@@ -18,6 +18,10 @@
 
 /* Menu compte */
 .navbar-custom-menu{
+  padding: 2rem;
+  a{
+    margin-right: 1rem;
+  }
   ul{
     list-style: none;
   }
@@ -63,4 +67,18 @@
 
 #loader-arbo{
   margin-top:.5rem;
+}
+
+/* Logo */
+#sidebar-logo{
+  background-color: $black;
+  padding: 2rem 0;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  img{
+    height: 50px;
+    margin: auto;
+    display: block;
+  }
 }

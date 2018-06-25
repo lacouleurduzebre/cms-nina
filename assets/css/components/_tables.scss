@@ -15,7 +15,6 @@ table,
 .table {
   display: table;
   border: 1px solid $table-border;
-  background: $table-background;
 
   &--zebra {
     & tbody tr:nth-child(odd) {
@@ -42,7 +41,6 @@ table,
   }
 
   & thead {
-    color: $table-head-color;
     background: $table-head-background;
   }
 }

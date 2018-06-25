@@ -1,51 +1,53 @@
 {% extends 'back/base.html.twig' %}
 
 {% block content %}
-    <h1>Tableau de bord</h1>
-    <div class="grid-2-small-1">
-    <div>
-        <h2>{% trans %}Dernières pages publiées en{% endtrans %} {{ langue.nom }}</h2>
-        {% if pages is empty %}
-            <p>{% trans %}Aucune page publiée pour le moment{% endtrans %}</p>
-        {% else %}
-            <ul>
-                {% for page in pages %}
-                    <li>
-                        <a href="{{ path('admin', { 'action': 'edit', 'entity': 'Page_Active', 'id': page.id }) }}">{{ page.titre }}</a>
-                        {{ 'par'|trans }} {{ page.auteur }} {{ 'le'|trans }} {{ page.datePublication|date("d/m/Y") }}
-                    </li>
-                {% endfor %}
-            </ul>
-        {% endif %}
-        </div>
-        <div>
-            <h2>{% trans %}Commentaires en attente de validation{% endtrans %}</h2>
-            {% if commentaires is empty %}
-                <p>{% trans %}Aucun commentaire en attente de validation{% endtrans %}</p>
-            {% else %}
-                <table>
-                    <thead>
-                    <tr>
-                        <th>{{ 'Page'|trans }}</th>
-                        <th>{{ 'Auteur'|trans }}</th>
-                        <th>{{ 'Contenu'|trans }}</th>
-                        <th>{{ 'Date'|trans }}</th>
-                        <th>{{ 'Valider'|trans }}</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    {% for commentaire in commentaires %}
+    <div id="tdb">
+        <h1>Tableau de bord</h1>
+        <div class="grid-2-small-1 has-gutter-xl tdb-blocs">
+            <div class="tdb-bloc">
+                <h2>{% trans %}Dernières pages publiées en{% endtrans %} {{ langue.nom }}</h2>
+                {% if pages is empty %}
+                    <p>{% trans %}Aucune page publiée pour le moment{% endtrans %}</p>
+                {% else %}
+                    <ul>
+                        {% for page in pages %}
+                            <li>
+                                <a href="{{ path('admin', { 'action': 'edit', 'entity': 'Page_Active', 'id': page.id }) }}">{{ page.titre }}</a>
+                                {{ 'par'|trans }} {{ page.auteur }} {{ 'le'|trans }} {{ page.datePublication|date("d/m/Y") }}
+                            </li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+            </div>
+            <div class="tdb-bloc">
+                <h2>{% trans %}Commentaires en attente de validation{% endtrans %}</h2>
+                {% if commentaires is empty %}
+                    <p>{% trans %}Aucun commentaire en attente de validation{% endtrans %}</p>
+                {% else %}
+                    <table>
+                        <thead>
                         <tr>
-                            <td>{{ commentaire.page.titre }}</td>
-                            <td>{{ commentaire.auteur }}</td>
-                            <td>{{ commentaire.contenu }}</td>
-                            <td>{{ commentaire.date|date("d/m/Y") }}</td>
-                            <td>{{ commentaire.valide }}</td>
+                            <th>{{ 'Page'|trans }}</th>
+                            <th>{{ 'Auteur'|trans }}</th>
+                            <th>{{ 'Contenu'|trans }}</th>
+                            <th>{{ 'Date'|trans }}</th>
+                            <th>{{ 'Valider'|trans }}</th>
                         </tr>
-                    {% endfor %}
-                    </tbody>
-                </table>
-            {% endif %}
+                        </thead>
+                        <tbody>
+                        {% for commentaire in commentaires %}
+                            <tr>
+                                <td>{{ commentaire.page.titre }}</td>
+                                <td>{{ commentaire.auteur }}</td>
+                                <td>{{ commentaire.contenu }}</td>
+                                <td>{{ commentaire.date|date("d/m/Y") }}</td>
+                                <td>{{ commentaire.valide }}</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                {% endif %}
+            </div>
         </div>
-        </div>
-        {% endblock %}
+    </div>
+{% endblock %}
