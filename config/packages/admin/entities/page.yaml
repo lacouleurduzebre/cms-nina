@@ -49,8 +49,8 @@ easy_admin:
                 fields:
                     - { type: 'tab', label: 'Contenus' }
                     - { property: 'titre', type: 'text' }
-                    #- contenu
-                    - { property: 'modules', type: 'collection', type_options: { entry_type: 'App\Form\Type\Modules\ModuleType', by_reference: true } }
+                    - contenu
+                    #- { property: 'modules', type: 'collection', type_options: { entry_type: 'App\Form\Type\Modules\ModuleType', by_reference: true } }
                     #- image
                     - { type: 'tab', label: 'Historique' }
                     - datePublication

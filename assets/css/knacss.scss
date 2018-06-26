@@ -34,8 +34,8 @@
 
 // WARNING : you should comment the following @import (variables)
 // and move variables file from knacss folder to your own project folder!
+@import "_config/common";
 @import "_config/variables";
-
 @import "_config/mixins";
 
 // Core Libraries
@@ -65,8 +65,6 @@
 
 // Nina
 @import "includes/login";
-@import "includes/header";
-@import "includes/sidebar";
 @import "includes/contenu";
 @import "includes/tableauDeBord";
 @import "includes/boiteDialogue";

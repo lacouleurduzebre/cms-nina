@@ -25,6 +25,7 @@ easy_admin:
             favicon: 'assets/img/favicon.ico'
             css:
                 - 'assets/css/knacss.css'
+                - 'assets/css/back.css'
                 - 'assets/js/jstree/themes/style.css'
             js:
                 # dans base.html.twig - '../assets/js/jquery-3.2.1.min.js'

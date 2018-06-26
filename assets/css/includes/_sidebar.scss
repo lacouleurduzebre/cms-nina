@@ -1,17 +1,18 @@
 /* Sidebar */
 .main-sidebar{
+  font-family: 'Mic32';
   width: 300px;
   height: 100vh;
   position: fixed;
-  background-color: $color-primary;
-  color: $white;
+  background-color: #5A5853;
+  color: #FFF;
   top: 0;
   a{
-    color: $white;
+    color: #FFF;
     text-decoration: none;
   }
   #jstree{
-    background-color: $color-primary;
+    background-color: #5A5853;
     padding: 2rem 2rem 5rem 2rem;
   }
 }
@@ -32,11 +33,11 @@
   text-transform: uppercase;
   padding:1rem 0;
   &.active{
-    background-color: $color-brand;
+    background-color: #A1BA1D;
   }
   &.inactive{
-    background-color: darken($color-brand, 20%);
-    color: darken($white, 20%);
+    background-color: darken(#A1BA1D, 20%);
+    color: darken(#FFF, 20%);
   }
   svg {
     margin-right: 3rem;
@@ -44,10 +45,10 @@
 }
 
 .arbo-langues{
-  background-color: $color-brand-dark;
+  background-color: darken(#A1BA1D, 10);
   padding: 1rem 2rem;
   span{
-    border: 1px solid $white;
+    border: 1px solid #FFF;
     height:3.5rem;
     width:3.5rem;
     display: inline-block;
@@ -71,7 +72,7 @@
 
 /* Logo */
 #sidebar-logo{
-  background-color: $black;
+  background-color: #000;
   padding: 2rem 0;
   position: absolute;
   bottom: 0;
@@ -81,4 +82,9 @@
     margin: auto;
     display: block;
   }
+}
+
+// Si connecté
+body.connected > *:not(.main-header):not(.main-sidebar){
+  margin-left: 30rem;
 }

@@ -14,7 +14,8 @@ easy_admin:
                 fields:
                     - nom
                     - url
-                    - logo
+                    - { property: 'logo', type: 'file' }
+                    - theme
                     - editeur
                     - emailContact
                     - emailMaintenance

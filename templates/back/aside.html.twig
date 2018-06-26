@@ -2,8 +2,16 @@
     <div class="navbar-custom-menu">
         {% block header_custom_menu %}
             {% set _logout_path = easyadmin_logout_path() %}
-            <a href="{{ _logout_path }}"><i class="fas fa-power-off"></i></a>
-            <strong><a href="{{ path('easyadmin', { action: 'edit', entity: 'Utilisateur', id: app.user.id }) }}">{{ app.user.username|default('user.unnamed'|trans(domain = 'EasyAdminBundle')) }}</a></strong>
+            {% if app.user|default(false) == false %}
+                <i class="hidden-xs fa fa-user-times"></i>
+                {{ 'user.anonymous'|trans(domain = 'EasyAdminBundle') }}
+            {% elseif not _logout_path %}
+                <i class="hidden-xs fa fa-user"></i>
+             {{ app.user.username|default('user.unnamed'|trans(domain = 'EasyAdminBundle')) }}
+            {% else %}
+                <a href="{{ _logout_path }}"><i class="fas fa-power-off"></i></a>
+                <strong><a href="{{ path('easyadmin', { action: 'edit', entity: 'Utilisateur', id: app.user.id }) }}">{{ app.user.username|default('user.unnamed'|trans(domain = 'EasyAdminBundle')) }}</a></strong>
+            {% endif %}
             {#{% set _logout_path = easyadmin_logout_path() %}
             <div class="dropdown-menu" role="menu">
                 {% block user_menu_dropdown %}

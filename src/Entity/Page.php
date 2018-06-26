@@ -131,9 +131,9 @@ class Page
     private $categories;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Modules\Module", inversedBy="pages", cascade={"persist"})
+     * @ORM\Column(type="text", nullable=true)
      */
-    private $modules;
+    private $contenu;
 
     public function __construct()
     {
@@ -633,37 +633,15 @@ class Page
         return $this->dateDepublication;
     }
 
-    /**
-     * Add module
-     *
-     * @param \App\Entity\Modules\Module $module
-     *
-     * @return Page
-     */
-    public function addModule(\App\Entity\Modules\Module $module)
+    public function getContenu(): ?string
     {
-        $this->modules[] = $module;
-    
+        return $this->contenu;
+    }
+
+    public function setContenu(?string $contenu): self
+    {
+        $this->contenu = $contenu;
+
         return $this;
-    }
-
-    /**
-     * Remove module
-     *
-     * @param \App\Entity\Modules\Module $module
-     */
-    public function removeModule(\App\Entity\Modules\Module $module)
-    {
-        $this->modules->removeElement($module);
-    }
-
-    /**
-     * Get modules
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getModules()
-    {
-        return $this->modules;
     }
 }

@@ -1,9 +1,11 @@
 /* Header */
 .main-header{
+  font-family: 'Mic32';
   height: 38px;
   position: fixed;
-  width: 100%;
+  width: calc(100% - 30rem);
   z-index: 2;
+  top: 0;
   left: 30rem;
   .navbar{
     display: flex;
@@ -15,12 +17,12 @@
   list-style: none;
   display: flex;
   flex:1;
-  background-color: $color-primary;
-  color: $white;
+  background-color: #5A5853;
+  color: #FFF;
   margin: 0;
   border-left: 1px solid #FFF;
   a{
-    color:$white;
+    color: #FFF;
     text-decoration: none;
     height: 100%;
     width: 100%;
@@ -39,7 +41,7 @@
     align-items: center;
   }
   ul{
-    background-color: $color-primary;
+    background-color: #5A5853;
     list-style: none;
     padding:0;
   }
@@ -47,7 +49,7 @@
     position: relative;
     white-space: nowrap;
     &:hover {
-      background-color: darken($color-primary, 15);
+      background-color: darken(#5A5853, 15);
     }
     > ul{
       display: none;
@@ -67,4 +69,9 @@
       border: none;
     }
   }
+}
+
+// Si connecté
+body.connected .header_front{
+  margin-top: 3.8rem;
 }

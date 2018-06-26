@@ -4,7 +4,6 @@ namespace App\Controller;
 
 use App\Entity\Commentaire;
 use App\Entity\SEO;
-use App\Service\Front\ContenuModule;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
@@ -23,7 +22,7 @@ class PageController extends Controller
      * @param $url
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
-    public function voirAction(Request $request, ContenuModule $serviceModule, $url){
+    public function voirAction(Request $request, $url){
         $repository = $this->getDoctrine()->getRepository(SEO::class);
         $seo = $repository->findOneByUrl($url);
 
@@ -51,21 +50,6 @@ class PageController extends Controller
         }else{
             $commentaire->setAuteur('Anonyme');
         }
-
-        /* Modules */
-            $modules = $page->getModules();
-            $contenusModules = [];
-            $i=0;
-            foreach($modules as $module){
-                /* service ContenuModule */
-                 $contenuModule = $serviceModule->getContenuModule($module->getType(), $module->getIdModule());
-
-                 $contenusModules[$i]['type']=$module->getType();
-                 $contenusModules[$i]['contenu']=$contenuModule;
-
-                 $i++;
-            }
-        /* Fin modules */
 
         /* Commentaires */
             $commentaire->setPage($page);
@@ -95,6 +79,6 @@ class PageController extends Controller
             }
         /* Fin commentaires */
 
-        return $this->render('front/voirPage.html.twig', array('page'=>$page, 'form'=>$form->createView(), 'commentaires'=>$commentaires, 'modules'=>$contenusModules));
+        return $this->render('front/voirPage.html.twig', array('page'=>$page, 'form'=>$form->createView(), 'commentaires'=>$commentaires));
     }
 }

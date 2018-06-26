@@ -4,9 +4,10 @@
     <meta charset="UTF-8" />
     <title>{% block title %}{{ config.nom }}{% endblock %}</title>
     {% block stylesheets %}
-        <link rel="stylesheet" href="{{ asset('themes/nina/css/knacss.css') }}" type="text/css">
+        <link rel="stylesheet" href="{{ asset('themes/'~theme~'/css/knacss.css') }}" type="text/css">
         {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
             <link rel="stylesheet" href="{{ asset('assets/js/jstree/themes/style.css') }}">
+            <link rel="stylesheet" href="{{ asset('assets/css/back.css') }}">
         {% endif %}
     {% endblock %}
     <script src="{{ asset('assets/js/jquery-3.2.1.min.js') }}"></script>
@@ -22,6 +23,10 @@
 {# Menu horizontal du back office #}
 {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
     {{ include('back/header.html.twig') }}
+{% endif %}
+{# Colonne de gauche du b/o #}
+{% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+    {{ include('back/aside.html.twig') }}
 {% endif %}
 
 {% block header %}
@@ -77,11 +82,6 @@
         </nav>
     {% endif %}
 {% endblock %}
-
-{# Colonne de gauche du b/o #}
-{% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
-    {{ include('back/aside.html.twig') }}
-{% endif %}
 
 <main class="mw960p center flex-container">
     {% block fos_user_content %}

@@ -82,6 +82,11 @@ class Configuration
     private $langueDefaut;
 
     /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $theme;
+
+    /**
      * Get id
      *
      * @return int
@@ -305,5 +310,17 @@ class Configuration
     public function getLangueDefaut()
     {
         return $this->langueDefaut;
+    }
+
+    public function getTheme(): ?string
+    {
+        return $this->theme;
+    }
+
+    public function setTheme(?string $theme): self
+    {
+        $this->theme = $theme;
+
+        return $this;
     }
 }

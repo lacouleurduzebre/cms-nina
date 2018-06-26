@@ -23,11 +23,10 @@
         <p><img class="fl w300p" src="{{ asset(page.image) }}"></p>
     {% endif %}
 
-    {# Modules #}
     <div>
-        {% for module in modules %}
-            {% include 'front/modules/module'~module.type~'.html.twig' with {'module': module.contenu} only %}
-        {% endfor %}
+        {% if page.contenu is not empty %}
+            {{ page.contenu }}
+        {% endif %}
     </div>
 
     <aside class="clear blocCommentaires">

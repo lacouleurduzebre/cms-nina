@@ -6,6 +6,8 @@
 ###> symfony/framework-bundle ###
 .env
 /public/bundles/
+/public/uploads/
+/public/thumbs/
 /var/
 /vendor/
 ###< symfony/framework-bundle ###
