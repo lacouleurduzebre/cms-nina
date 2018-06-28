@@ -62,5 +62,5 @@ easy_admin:
               - { entity: 'Categorie', icon: '' }
               - { entity: 'Langue', icon: '' }
               - { entity: 'Zone', icon: '' }
-              - { entity: 'Menu', icon: '' }
+              #- { entity: 'Menu', icon: '' }
             - { label: 'Voir le site', route: 'accueil', icon: 'home' }
