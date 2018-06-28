@@ -12,7 +12,7 @@
     text-decoration: none;
   }
   #jstree{
-    background-color: #5A5853;
+    background-color: lighten(#5A5853, 10);
     padding: 2rem 2rem 5rem 2rem;
   }
 }
@@ -82,9 +82,4 @@
     margin: auto;
     display: block;
   }
-}
-
-// Si connecté
-body.connected > *:not(.main-header):not(.main-sidebar){
-  margin-left: 30rem;
 }

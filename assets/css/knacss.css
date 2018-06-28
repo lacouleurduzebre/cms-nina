@@ -200,8 +200,7 @@ th {
   text-align: inherit; }
 
 label {
-  display: inline-block;
-  margin-bottom: .5rem; }
+  display: inline-block; }
 
 button {
   border-radius: 0; }
@@ -1591,15 +1590,18 @@ table,
   .table td, .table th {
     padding: 0.3rem 0.6rem;
     min-width: 2rem;
-    vertical-align: top;
     border: 1px #acb3c2 dotted;
     text-align: left;
-    cursor: default; }
+    cursor: default;
+    vertical-align: middle; }
   .table thead {
     background: transparent; }
 
 .table--auto {
   table-layout: auto; }
+
+td.raw * {
+  margin: 0; }
 
 /* ----------------------------- */
 /* ==Forms                       */
@@ -1618,7 +1620,7 @@ fieldset {
     white-space: normal; }
 
 label {
-  display: inline-block;
+  display: block;
   cursor: pointer; }
 
 [type="color"],
@@ -1647,6 +1649,8 @@ textarea {
   margin: 0;
   transition: 0.25s;
   transition-property: box-shadow, background-color, color, border;
+  -webkit-appearance: none;
+  -moz-appearance: none;
   appearance: none; }
 
 [type="submit"] {
@@ -1699,7 +1703,7 @@ progress {
 /* ----------------------------- */
 /* preferably use <button> for buttons !*/
 /* use .btn-- or .button-- classes for variants */
-.btn,
+.btn:not(.toggle),
 .button,
 [type="button"],
 button, .btn--primary,
@@ -1727,7 +1731,7 @@ button, .btn--primary,
   font-family: inherit;
   font-size: inherit;
   line-height: 1; }
-  .btn:hover,
+  .btn:hover:not(.toggle),
   .button:hover,
   [type="button"]:hover,
   button:hover, .btn--primary:hover,
@@ -1742,7 +1746,7 @@ button, .btn--primary,
     color: #fff;
     text-decoration: none; }
 
-.btn:focus,
+.btn:not(.toggle):focus,
 .button:focus,
 [type="button"]:focus,
 button:focus {
@@ -1898,65 +1902,67 @@ button:focus {
 /* use .radio class on input type=radio */
 /* recommended HTML : <input type="radio" class="radio" name="radio" id="r1"><label for="r1">Click here</label> */
 /* use .switch class on input type=checkbox */
-.checkbox {
+.checkbox input {
   border-radius: 4px; }
 
-.switch {
+.toggle input {
   border-radius: 3em; }
 
 .radio {
   border-radius: 50%; }
 
-.switch,
-.checkbox,
+.toggle input,
+.checkbox input,
 .radio {
   appearance: none;
   vertical-align: text-bottom;
   outline: 0;
-  cursor: pointer; }
-  .switch ~ label,
-  .checkbox ~ label,
+  cursor: pointer;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  margin-right: .5rem; }
+  .toggle input ~ label,
+  .checkbox input ~ label,
   .radio ~ label {
     cursor: pointer; }
-  .switch::-ms-check,
-  .checkbox::-ms-check,
+  .toggle input::-ms-check,
+  .checkbox input::-ms-check,
   .radio::-ms-check {
     display: none; }
 
-.switch {
+.toggle input {
   width: 4rem;
   height: 2rem;
   line-height: 2rem;
   font-size: 70%;
-  box-shadow: inset -2rem 0 0 #333, inset 0 0 0 1px #333;
+  box-shadow: inset -2rem 0 0 #D9534F, inset 0 0 0 1px #D9534F;
   transition: box-shadow .15s;
   background-color: #fff; }
-  .switch::before, .switch::after {
+  .toggle input::before, .toggle input::after {
     font-weight: bold;
     color: #fff; }
-  .switch::before {
-    content: "Ô£ò";
+  .toggle input::before {
     float: right;
     margin-right: 0.6666666667rem; }
-  .switch:checked {
+  .toggle input:checked {
     box-shadow: inset 2rem 0 0 #5CB85C, inset 0 0 0 1px #5CB85C; }
-    .switch:checked::before {
-      content: "Ô£ô";
+    .toggle input:checked::before {
       float: left;
       margin-left: 0.6666666667rem; }
 
-.checkbox {
+.checkbox input {
   width: 2rem;
   height: 2rem;
   box-shadow: inset 0 0 0 1px #333;
   background-color: #fff;
   transition: background-color .15s; }
-  .checkbox:checked {
+  .checkbox input:checked {
     background-image: url("data:image/svg+xml,%3C%3Fxml%20version%3D%221.0%22%20encoding%3D%22utf-8%22%3F%3E%0A%3Csvg%20version%3D%221.1%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20xmlns%3Axlink%3D%22http%3A%2F%2Fwww.w3.org%2F1999%2Fxlink%22%20x%3D%220%22%20y%3D%220%22%20viewBox%3D%220%200%208%208%22%20enable-background%3D%22new%200%200%208%208%22%20xml%3Aspace%3D%22preserve%22%3E%20%3Cpath%20fill%3D%22%23FFFFFF%22%20d%3D%22M6.4%2C1L5.7%2C1.7L2.9%2C4.5L2.1%2C3.7L1.4%2C3L0%2C4.4l0.7%2C0.7l1.5%2C1.5l0.7%2C0.7l0.7-0.7l3.5-3.5l0.7-0.7L6.4%2C1L6.4%2C1z%22%20%2F%3E%0A%3C%2Fsvg%3E");
     background-size: 60% 60%;
     background-position: center;
     background-repeat: no-repeat;
-    background-color: #333; }
+    background-color: #A1BA1D;
+    box-shadow: inset 0 0 0 1px #A1BA1D; }
 
 .radio {
   width: 2rem;
@@ -2267,10 +2273,6 @@ html, .content-wrapper, .sf-toolbar-clearer {
 .table {
   background-color: #fff; }
 
-/* M├®diath├¿que */
-.mediatheque {
-  margin: -1rem; }
-
 /* List & Search */
 .global-actions .action-new {
   margin: 2rem 0; }
@@ -2292,81 +2294,124 @@ html, .content-wrapper, .sf-toolbar-clearer {
         font-size: 2rem; }
 
 .actions a {
-  text-decoration: none; }
+  text-decoration: none;
+  font-size: 1.8rem;
+  margin: 0 .5rem; }
+  .actions a:first-of-type {
+    margin-left: 0; }
+
+.action-corbeille .fa-recycle {
+  color: #A1BA1D; }
+  .action-corbeille .fa-recycle:hover {
+    color: #7b8e16; }
+.action-corbeille .fa-trash {
+  color: #D9534F; }
+  .action-corbeille .fa-trash:hover {
+    color: #c9302c; }
 
 /* Edit */
+body.new form, body.edit form {
+  padding: 0 2rem; }
+body.new .content-wrapper, body.new .sf-toolbar-clearer, body.new ul.nav-tabs, body.edit .content-wrapper, body.edit .sf-toolbar-clearer, body.edit ul.nav-tabs {
+  background-color: #8e8c85; }
+body.new .content-wrapper, body.edit .content-wrapper {
+  display: flex;
+  flex-direction: column; }
+body.new #main, body.edit #main {
+  background-color: #e4e3e2;
+  margin: 0 -1rem -1rem;
+  padding-bottom: 2rem;
+  flex: 1; }
+body.new h1, body.edit h1 {
+  color: #FFF;
+  margin-left: 1rem; }
+body.new .tab-content, body.new .form-actions, body.edit .tab-content, body.edit .form-actions {
+  padding: 0 2rem;
+  margin: 0 -2rem; }
+body.new ul.nav-tabs, body.edit ul.nav-tabs {
+  margin: 0 -2rem; }
+
 /* Onglets */
 ul.nav-tabs {
   list-style: none;
   display: flex;
-  border-bottom: 1px solid #A1BA1D;
-  padding: 0; }
+  padding: 0 0 0 2rem; }
   ul.nav-tabs li {
     border-top-left-radius: 1rem;
     border-top-right-radius: 1rem;
-    border: 1px solid #A1BA1D;
-    border-bottom: none; }
+    border: 1px solid #8e8c85;
+    border-bottom: none;
+    background-color: #75726b; }
     ul.nav-tabs li:hover {
       border-color: #7b8e16;
       background-color: #7b8e16; }
       ul.nav-tabs li:hover a {
         color: #fff; }
     ul.nav-tabs li.active {
-      background-color: #A1BA1D; }
-      ul.nav-tabs li.active:hover {
-        border-color: #7b8e16;
-        background-color: #7b8e16; }
+      background-color: #e4e3e2; }
       ul.nav-tabs li.active a {
-        color: #fff; }
+        color: #8e8c85; }
     ul.nav-tabs li a {
       text-decoration: none;
       padding: .5rem 1rem;
-      display: inline-block; }
+      display: inline-block;
+      color: #fff; }
 
 .tab-pane:not(.active) {
   display: none; }
 
 /* ├ël├®ments de formulaire */
+.field-collection-action .text-primary {
+  color: #A1BA1D; }
+
 body.edit input[type='text'], body.edit input[type='email'], body.edit input[type='tel'], body.edit input[type='url'], body.edit textarea, body.new input[type='text'], body.new input[type='email'], body.new input[type='tel'], body.new input[type='url'], body.new textarea {
   width: 100% !important; }
 
-.select2-hidden-accessible {
-  display: none; }
+.select2-container--bootstrap.select2-container--focus .select2-selection, .select2-container--bootstrap.select2-container--open .select2-selection, .select2-container--bootstrap .select2-dropdown {
+  box-shadow: none;
+  border-color: #000; }
 
-.select2-container {
-  background-color: #fff;
-  padding: .5rem 2rem .5rem .5rem;
-  margin-bottom: 1rem;
-  display: inline-block; }
-  .select2-container .selection {
-    width: 100%; }
-  .select2-container ul {
-    list-style: none;
-    padding: 0 1rem;
-    margin: 0; }
+.select2-container--bootstrap .select2-selection {
+  border: 1px solid #000;
+  border-radius: 0; }
 
-.select2-selection__choice__remove {
-  color: #D9534F; }
+.select2-container--bootstrap .select2-selection, .select2-container--bootstrap .select2-selection--single .select2-selection__rendered {
+  color: #000;
+  font-family: 'Mic32';
+  font-size: 1.6rem; }
 
-.select2-search__field {
-  min-width: 20rem; }
+.select2-container--bootstrap .select2-results__option--highlighted[aria-selected] {
+  background-color: #A1BA1D; }
 
-.select2-results__options {
-  list-style: none;
-  padding: 0; }
-  .select2-results__options li {
-    padding: 0 1rem; }
+.select2-container--bootstrap .select2-dropdown {
+  border-bottom: 1px solid; }
 
-.select2-results__option--highlighted {
-  background-color: #A1BA1D;
-  color: #fff; }
+.select2-container--bootstrap .select2-search--dropdown .select2-search__field {
+  border-color: #000; }
+
+.select2-container--bootstrap .select2-selection--multiple .select2-selection__choice {
+  margin: 5px;
+  border: 1px solid #000; }
+
+.select2-container--bootstrap .select2-selection--multiple .select2-selection__rendered {
+  display: flex;
+  align-items: center; }
 
 .checkbox label, .nullable-control label {
   white-space: nowrap; }
   .checkbox label input, .nullable-control label input {
-    margin-right: 1rem; }
+    margin-right: .5rem; }
 
 /* Formulaire des pages */
+textarea {
+  display: block !important;
+  height: 0;
+  min-height: 0;
+  padding: 0; }
+
+.form-group {
+  margin-top: 1rem; }
+
 .form-group.field-module {
   border: 1px solid;
   padding: 1rem;
@@ -2376,13 +2421,43 @@ body.edit input[type='text'], body.edit input[type='email'], body.edit input[typ
 #form-actions-row {
   margin-top: 1rem; }
 
-/* Autres */
-#modal-delete {
-  display: none; }
-
 /* M├®diath├¿que */
 .iframeMediatheque {
   height: calc(100vh - 11rem); }
+
+.mediatheque {
+  margin: -1rem; }
+
+/* T├®l├®chargement d'images (ex: logo) */
+.easyadmin-thumbnail img {
+  max-width: 25rem; }
+
+/* TinyMCE */
+.mce-tinymce {
+  border: 1px solid #000 !important; }
+  .mce-tinymce button {
+    background: transparent; }
+
+/* Lightbox - featherlight */
+.featherlight .featherlight-content {
+  width: 95vw;
+  margin-left: auto;
+  margin-right: auto;
+  height: 95vh; }
+.featherlight img {
+  width: calc(95vw - 5rem);
+  height: calc(95vh - 5rem);
+  object-fit: contain; }
+.featherlight .featherlight-close-icon {
+  font-size: 3rem;
+  color: #5A5853;
+  top: 1rem;
+  right: 1rem; }
+  .featherlight .featherlight-close-icon:hover {
+    color: #3f3e3b; }
+
+.easyadmin-lightbox {
+  display: none; }
 
 #tdb {
   padding: 2rem; }

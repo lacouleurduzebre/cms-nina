@@ -34,10 +34,10 @@ table,
   & th {
     padding: 0.3rem 0.6rem;
     min-width: $spacer-medium;
-    vertical-align: top;
     border: 1px $table-border dotted;
     text-align: left;
     cursor: default;
+    vertical-align: middle;
   }
 
   & thead {
@@ -47,4 +47,8 @@ table,
 
 .table--auto {
   table-layout: auto;
+}
+
+td.raw *{
+  margin: 0;
 }

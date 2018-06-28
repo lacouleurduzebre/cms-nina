@@ -34,7 +34,7 @@
   background-color: #5A5853;
   color: #FFF;
   margin: 0;
-  border-left: 1px solid #FFF; }
+  border-left: 1px solid #75726b; }
   .sidebar-menu a {
     color: #FFF;
     text-decoration: none;
@@ -72,9 +72,6 @@
   .sidebar-menu > li > ul > li:last-of-type > a {
     border: none; }
 
-body.connected .header_front {
-  margin-top: 3.8rem; }
-
 /* Sidebar */
 .main-sidebar {
   font-family: 'Mic32';
@@ -88,7 +85,7 @@ body.connected .header_front {
     color: #FFF;
     text-decoration: none; }
   .main-sidebar #jstree {
-    background-color: #5A5853;
+    background-color: #75726b;
     padding: 2rem 2rem 5rem 2rem; }
 
 /* Menu compte */
@@ -143,8 +140,5 @@ body.connected .header_front {
     height: 50px;
     margin: auto;
     display: block; }
-
-body.connected > *:not(.main-header):not(.main-sidebar) {
-  margin-left: 30rem; }
 
 /*# sourceMappingURL=back.css.map */

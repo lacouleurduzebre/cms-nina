@@ -10,4 +10,9 @@ $(document).ready(function(){
         e.preventDefault();
         $('#modal-delete').css('display', 'flex');
     });
+
+    /* Résolution du problème de textarea vide avec tinymce */
+    $('.action-save').click(function(){
+        tinyMCE.triggerSave();
+    });
 });

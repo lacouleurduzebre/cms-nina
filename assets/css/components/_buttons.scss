@@ -4,6 +4,7 @@
 /* preferably use <button> for buttons !*/
 /* use .btn-- or .button-- classes for variants */
 
+
 %btn {
   display: inline-block;
   padding: $spacer-small $spacer-small-plus;
@@ -29,7 +30,7 @@
   }
 }
 
-.btn,
+.btn:not(.toggle),
 .button,
 [type="button"],
 button {

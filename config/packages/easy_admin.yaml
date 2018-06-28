@@ -21,17 +21,20 @@ easy_admin:
         datetime: 'd/m/Y H:i'
     design:
         brand_color: '#A1BB0C'
+        form_theme: 'back/easyadmin/bootstrap_3_layout.html.twig'
         assets:
             favicon: 'assets/img/favicon.ico'
             css:
+                - 'assets/js/featherlight.min.css'
+                - 'bundles/easyadmin/stylesheet/select2-bootstrap.min.css'
                 - 'assets/css/knacss.css'
                 - 'assets/css/back.css'
                 - 'assets/js/jstree/themes/style.css'
             js:
                 # dans base.html.twig - '../assets/js/jquery-3.2.1.min.js'
                 - 'assets/js/fontawesome-all.min.js'
-                - 'assets/js/jsBack.js'
                 - 'assets/js/jstree/jstree.min.js'
+                - 'assets/js/jsBack.js'
         templates:
             layout: 'back/base.html.twig'
             menu: 'back/menu/menuPrincipal.html.twig'
@@ -49,7 +52,7 @@ easy_admin:
                 - { entity: 'Page_Corbeille', icon: '' }
                 - { entity: 'Commentaire_Corbeille', icon: '' }
             - { label: 'Médiathèque', icon: 'folder', route: 'mediatheque' }
-            - { label: 'Newsletter', icon: 'paper-plane', url: '#' }
+            #- { label: 'Newsletter', icon: 'paper-plane', url: '#' }
             - label: 'Contenus'
               icon: 'puzzle-piece'
               children:

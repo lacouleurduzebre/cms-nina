@@ -2238,40 +2238,6 @@ header:not(.main-header) {
   text-decoration: none;
   color: red; }
 
-/* MENU */
-nav.menu_front {
-  border-bottom: 1px solid #000000;
-  margin-bottom: 2rem; }
-  nav.menu_front ul {
-    list-style: none;
-    background-color: #FFF;
-    padding-left: 5px; }
-    nav.menu_front ul a {
-      text-decoration: none; }
-    nav.menu_front ul ul {
-      display: none; }
-  nav.menu_front li {
-    margin: auto; }
-  nav.menu_front > ul {
-    max-width: 96rem;
-    margin: auto;
-    display: flex; }
-    nav.menu_front > ul > li {
-      padding: 1rem 0;
-      position: relative; }
-      nav.menu_front > ul > li > ul {
-        position: absolute;
-        top: 42px;
-        max-width: none;
-        width: 20rem;
-        padding-left: 1rem; }
-
-.current, .current_ancestor {
-  font-weight: bold; }
-
-.current_ancestor li:not(.current) {
-  font-weight: normal; }
-
 /* ACCUEIL */
 .actuAccueil {
   padding: 1rem;
@@ -2308,9 +2274,6 @@ main {
   border: 1px solid;
   padding: 5px;
   text-decoration: none; }
-  .btn:hover {
-    background-color: #c2c028;
-    color: #FFF; }
 
 .blocCommentaires {
   margin-top: 5rem; }
@@ -2355,5 +2318,56 @@ footer {
   padding: 5px;
   width: 25rem;
   text-align: center; }
+
+/* Menu de langue */
+.menuLangues li.active {
+  font-weight: bold; }
+
+/* Menu principal */
+nav.menu_front {
+  border-bottom: 1px solid #000000;
+  margin-bottom: 2rem; }
+  nav.menu_front ul {
+    list-style: none;
+    background-color: #FFF;
+    padding-left: 5px; }
+    nav.menu_front ul a {
+      text-decoration: none;
+      display: inline-block; }
+    nav.menu_front ul ul {
+      display: none; }
+  nav.menu_front li {
+    margin: auto; }
+
+.current, .current_ancestor {
+  font-weight: bold; }
+
+.current_ancestor li:not(.current) {
+  font-weight: normal; }
+
+nav.menu_front > ul {
+  max-width: 96rem;
+  margin: auto;
+  display: flex; }
+  nav.menu_front > ul > li {
+    position: relative; }
+    nav.menu_front > ul > li:hover > a {
+      background-color: #cdcdcd; }
+    nav.menu_front > ul > li > a {
+      padding: 1rem; }
+
+nav.menu_front > ul > li > ul {
+  position: absolute;
+  top: 42px;
+  max-width: none;
+  width: 20rem;
+  background-color: #cdcdcd;
+  padding: 0; }
+  nav.menu_front > ul > li > ul > li:hover > a {
+    background-color: #b5b5b5; }
+  nav.menu_front > ul > li > ul > li > a {
+    padding: .5rem 0;
+    width: 100%;
+    padding-left: 2rem; }
 
 /*# sourceMappingURL=knacss.css.map */

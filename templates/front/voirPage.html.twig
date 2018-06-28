@@ -12,7 +12,7 @@
 
     {% if page.categories is not empty %}
         {% for categorie in page.categories %}
-            <span class="btnCategorie">{{ categorie.typeCategorie.nom }} : <a href="#">{{ categorie.nom }}</a></span>
+            <span class="btnCategorie">{{ categorie.typeCategorie.nom }} : <a href="{{ path('voirCategorie', {'urlTypeCategorie':categorie.typeCategorie.url, 'urlCategorie':categorie.url}) }}">{{ categorie.nom }}</a></span>
             {% if not loop.last %}
              -
             {% endif %}
@@ -25,7 +25,7 @@
 
     <div>
         {% if page.contenu is not empty %}
-            {{ page.contenu }}
+            {{ page.contenu|raw }}
         {% endif %}
     </div>
 

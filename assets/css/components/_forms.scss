@@ -20,7 +20,7 @@ fieldset {
 }
 
 label {
-  display: inline-block;
+  display: block;
   cursor: pointer;
 }
 
@@ -50,6 +50,8 @@ textarea {
   margin: 0;
   transition: 0.25s;
   transition-property: box-shadow, background-color, color, border;
+  -webkit-appearance: none;
+  -moz-appearance: none;
   appearance: none;
 }
 

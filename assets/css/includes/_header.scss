@@ -20,7 +20,7 @@
   background-color: #5A5853;
   color: #FFF;
   margin: 0;
-  border-left: 1px solid #FFF;
+  border-left: 1px solid #75726b;
   a{
     color: #FFF;
     text-decoration: none;
@@ -69,9 +69,4 @@
       border: none;
     }
   }
-}
-
-// Si connecté
-body.connected .header_front{
-  margin-top: 3.8rem;
 }

@@ -33,15 +33,15 @@
     <header class="header_front">
         <div class="mw960p center flex-container">
             <div>
-                <a href="{{ path('accueil') }}"><img class="logo" src="{{ asset(config.logo) }}" alt="CMS Nina"></a>
+                <a href="{{ path('accueil') }}"><img class="logo" src="{{ asset('uploads/'~config.logo) }}" alt="CMS Nina"></a>
                 <p>{{ config.nom }}</p>
                 {{ zone('header') }}
             </div>
             {% if langues is not empty %}
                 <div class="txtright flex-item-fluid">
-                    <ul class="flex-container">
+                    <ul class="flex-container menuLangues">
                         {% for langue in langues %}
-                            <li>
+                            <li {% if app.request.locale == langue.abreviation %}class="active"{% endif %}>
                                 <a href="{{ path('changerLangue', {'id':langue.id}) }}">{{ langue.abreviation|upper }}</a>
                             </li>
                         {% endfor %}

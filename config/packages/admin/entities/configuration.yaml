@@ -5,20 +5,20 @@ easy_admin:
             disabled_actions: ['new', 'search', 'delete']
             list:
                 fields:
-                    - nom
-                    - url
-                    - logo
-                    - editeur
-                    - langueDefaut
+                    - { property: 'logo', type: 'image', base_path: '/uploads' }
+                    - { property: 'nom', label: 'Nom du site' }
+                    - { property: 'url', type: 'url' }
+                    - { property: 'editeur', label: 'Éditeur' }
+                    - { property: 'langueDefaut', label: 'Langue par défaut' }
             form:
                 fields:
-                    - nom
-                    - url
-                    - { property: 'logo', type: 'file' }
-                    - theme
-                    - editeur
+                    - { property: 'nom', label: 'Nom du site' }
+                    - { property: 'url', type: 'text' }
+                    - { property: 'logoFichier', type: 'vich_image', label: 'Logo' }
+                    - { property: 'theme', label: 'Thème' }
+                    - { property: 'editeur', label: 'Éditeur' }
                     - emailContact
                     - emailMaintenance
                     - emailNewsletter
-                    - analytics
+                    - { property: 'analytics', label: 'Clé Google Analytics' }
                     - { property: 'langueDefaut', label: 'Langue par défaut' }

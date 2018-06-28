@@ -55,7 +55,7 @@ class CategorieController extends Controller
         if($categorie->getTypeCategorie() == $typeCategorie){
             $pages = $categorie->getPages();
 
-            return $this->render('front:voirCategorie.html.twig', compact('pages', 'categorie'));
+            return $this->render('front/voirCategorie.html.twig', compact('pages', 'categorie'));
         }else{
             throw new NotFoundHttpException('Cette page n\'existe pas ou a été supprimée');
         }

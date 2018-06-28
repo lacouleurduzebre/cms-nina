@@ -8,7 +8,7 @@ easy_admin:
                 fields:
                     - id
                     - nom
-                    - description
+                    - { property: 'description', type: 'raw' }
                     - { property: 'url', type: 'url'}
                     - { property : 'categorieParent', label: 'Catégorie parent', sortable: true}
                     - { property : 'typeCategorie.nom', label: 'Type', sortable: true}

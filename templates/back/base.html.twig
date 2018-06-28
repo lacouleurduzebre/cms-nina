@@ -36,7 +36,7 @@
                 </script>
             {% endblock %}
             <script src="{{ asset('assets/js/jquery-3.2.1.min.js') }}"></script>
-            <script src="{{ asset('bundles/easyadmin/javascript/easyadmin-all.min.js') }}"></script>
+            <script src="{{ asset('assets/js/easyadmin/easyadmin-all.min.js') }}"></script>
             <script src="{{ asset('assets/js/fosjsrouting/js/router.js') }}"></script>
             <script src="{{ asset('assets/js/fosjsrouting/js/fos_js_routes.js') }}"></script>
             <script src="{{ asset('assets/js/tinymce/tinymce.min.js') }}"></script>
@@ -51,6 +51,7 @@
                         "table contextmenu directionality emoticons paste textcolor responsivefilemanager "
                     ],
                     relative_urls: false,
+                    menubar: false,
 
                     filemanager_title:"Médiathèque",
                     external_filemanager_path:"/filemanager/",
