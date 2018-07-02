@@ -84,9 +84,6 @@
   .main-sidebar a {
     color: #FFF;
     text-decoration: none; }
-  .main-sidebar #jstree {
-    background-color: #75726b;
-    padding: 2rem 2rem 5rem 2rem; }
 
 /* Menu compte */
 .navbar-custom-menu {
@@ -97,6 +94,16 @@
     list-style: none; }
 
 /* Arborescence */
+.sidebar-menus {
+  padding-bottom: 2rem;
+  background-color: #75726b; }
+  .sidebar-menus p {
+    text-align: center;
+    padding: 2rem 0;
+    margin-bottom: 0; }
+  .sidebar-menus #jstree, .sidebar-menus div[id^='menu'] {
+    padding: 0 1rem; }
+
 .arbo-titre {
   text-transform: uppercase;
   padding: 1rem 0; }

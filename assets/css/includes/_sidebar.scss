@@ -11,10 +11,6 @@
     color: #FFF;
     text-decoration: none;
   }
-  #jstree{
-    background-color: lighten(#5A5853, 10);
-    padding: 2rem 2rem 5rem 2rem;
-  }
 }
 
 /* Menu compte */
@@ -29,6 +25,19 @@
 }
 
 /* Arborescence */
+.sidebar-menus{
+  padding-bottom: 2rem;
+  background-color: lighten(#5A5853, 10);
+  p{
+    text-align: center;
+    padding: 2rem 0;
+    margin-bottom: 0;
+  }
+  #jstree, div[id^='menu']{
+    padding: 0 1rem;
+  }
+}
+
 .arbo-titre{
   text-transform: uppercase;
   padding:1rem 0;

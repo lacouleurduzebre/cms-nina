@@ -4,7 +4,7 @@
         <a href="#" id="btnArbo"><i class="fas fa-chevron-circle-down"></i></a>
     </div>
 </header>
-<div>
+<div class="sidebar-menus">
     <div class="arbo-langues">
         {% for langue in langues %}
             <span{{ app.session.get('_locale') == langue.abreviation ? " class='current'" }}>
@@ -13,7 +13,8 @@
         {% endfor %}
         <div id="loader-arbo" class="fr"></div>
     </div>
-    <div id="jstree">
+    <p>Arborescence</p>
+    <div id="jstree">{# Arborescence #}
         <ul>
             <li id="racine"><a href="{{ path('accueil') }}">{% trans %}Accueil{% endtrans %}</a>
                 <ul>
@@ -21,13 +22,21 @@
                 </ul>
             </li>
         </ul>
-    </div>
+    </div>{# Fin arborescence #}
+    {% for menu in menus %}
+        <p>{{ menu.nom }}</p>
+        <div id="menu-{{ menu.id }}">
+            <ul>
+                {% include 'back/menu/menu.html.twig' with{'menuPages' : menu.menuPage} only %}
+            </ul>
+        </div>
+    {% endfor %}
 </div>
 
 <script>
     $(document).ready(function(){
         //Initialisation JSTree
-        $('#jstree').jstree({
+        options = {
             "plugins" : [
                 "dnd", "state", "types", "contextmenu"
             ],
@@ -87,10 +96,13 @@
                 "check_callback" : true,
                 "themes" : { "stripes" : false }
             }
-        });
+        };
 
-        //Drag'n'drop menu vertical - enregistrement de la position de chaque page en bdd
-        $('#jstree').on('move_node.jstree', function(e, data){
+        $('#jstree').jstree(options);//Arborescence
+        $('div[id^="menu"]').jstree(options);//Menus
+
+        //Drag'n'drop menu vertical - arborescence - enregistrement de la position de chaque page en bdd
+        enregistrementArbo = function(e, data){
             $('#loader-arbo').fadeIn().html("<i class='fas fa-sync fa-spin'></i>");
             arbo = [];
             $('#jstree').jstree('open_node', data.node.parent);
@@ -123,6 +135,8 @@
                 .fail(function(){
                     $('#loader-arbo').fadeIn().html("<i class='fas fa-times'></i>").delay(600).fadeOut();
                 });
-        });
+        };
+
+        $('#jstree').on('move_node.jstree', enregistrementArbo);
     });
 </script>

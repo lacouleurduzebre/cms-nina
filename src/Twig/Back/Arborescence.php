@@ -10,6 +10,7 @@ namespace App\Twig\Back;
 
 
 use App\Entity\Langue;
+use App\Entity\Menu;
 use App\Entity\Page;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
@@ -33,6 +34,7 @@ class Arborescence extends \Twig_Extension
 
     public function menuBack()
     {
+        //Arborescence
         $emPage = $this->doctrine->getRepository(Page::class);
         $emLangue = $this->doctrine->getRepository(Langue::class);
 
@@ -44,7 +46,13 @@ class Arborescence extends \Twig_Extension
             array('pageParent' => null, 'active' => '1', 'corbeille' => '0', 'langue' => $langueActive),
             array('position'=>'asc')
         );
+        //Fin arborescence
 
-        return $this->twig->render('back/menu/arborescence.html.twig', array('pages' => $pages, 'langues' => $langues));
+        //Menus
+        $emMenu = $this->doctrine->getRepository(Menu::class);
+        $menus = $emMenu->findAll();
+        //Fin menus
+
+        return $this->twig->render('back/menu/arborescence.html.twig', array('pages' => $pages, 'langues' => $langues, 'menus' => $menus));
     }
 }

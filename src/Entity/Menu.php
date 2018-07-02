@@ -42,6 +42,14 @@ class Menu
     private $menuPage;
 
     /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->menuPage = new ArrayCollection();
+    }
+
+    /**
      * Get id
      *
      * @return integer
@@ -97,13 +105,6 @@ class Menu
     public function getRegion()
     {
         return $this->region;
-    }
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->menuPage = new ArrayCollection();
     }
 
     /**

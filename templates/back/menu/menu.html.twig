@@ -1,0 +1,8 @@
+{% for menuPage in menuPages %}
+    {% if menuPage.pageParent is empty %}
+        <li>
+            <a href="#"><span id="{{ menuPage.page.id }}"></span>{{ menuPage.page.titre }}</a>
+            {{ sousMenu(menuPage.page.id)|raw }}
+        </li>
+    {% endif %}
+{% endfor %}
