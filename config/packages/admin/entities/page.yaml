@@ -13,7 +13,7 @@ easy_admin:
                     - id
                     - titre
                     - auteur
-                    - { property: 'categories', label: 'Catégories' }
+                    - { property: 'categories', label: 'Catégories', type: 'array' }
                     - { property: 'dateCreation', label: 'Date de création' }
 #                    - { property: 'datePublication', label: 'Date de publication' }
 #                    - { property: 'datedePublication', label: 'Date de dépublication' }

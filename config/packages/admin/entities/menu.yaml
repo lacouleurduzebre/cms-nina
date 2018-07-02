@@ -3,3 +3,17 @@ easy_admin:
         Menu:
             class: App\Entity\Menu
             label: 'Menus'
+            list:
+                fields:
+                    - id
+                    - nom
+                    - { property: 'region', label: 'Région'}
+            search:
+                fields:
+                    - nom
+                    - region
+            form:
+                fields:
+                    - nom
+                    - { property: 'region', label: 'Région', type: 'App\Form\Type\RegionType' }
+                    - { property: 'menuPage', label: 'Pages', type: 'collection', type_options: { entry_type: 'App\Form\Type\MenuPageType', by_reference: false } }

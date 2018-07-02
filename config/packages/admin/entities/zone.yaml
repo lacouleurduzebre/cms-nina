@@ -23,5 +23,5 @@ easy_admin:
             form:
                 fields:
                     - nom
-                    - { property: 'region', label: 'Région'}
+                    - { property: 'region', label: 'Région', type: 'App\Form\Type\RegionType' }
                     - contenu

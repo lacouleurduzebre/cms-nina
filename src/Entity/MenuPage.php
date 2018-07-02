@@ -40,8 +40,8 @@ class MenuPage
     private $page;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Menu", inversedBy="menuPage", cascade={"persist", "remove"})
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\ManyToOne(targetEntity="App\Entity\Menu", inversedBy="menuPage")
+     * @ORM\JoinColumn(referencedColumnName="id", nullable=false)
      */
     private $menu;
 

@@ -63,7 +63,7 @@
     .sidebar-menu li > ul {
       display: none;
       position: absolute;
-      top: 38px;
+      top: 36px;
       left: 0; }
     .sidebar-menu li:hover > ul {
       display: block; }

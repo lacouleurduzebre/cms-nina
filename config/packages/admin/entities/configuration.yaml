@@ -8,6 +8,7 @@ easy_admin:
                     - { property: 'logo', type: 'image', base_path: '/uploads' }
                     - { property: 'nom', label: 'Nom du site' }
                     - { property: 'url', type: 'url' }
+                    - theme
                     - { property: 'editeur', label: 'Éditeur' }
                     - { property: 'langueDefaut', label: 'Langue par défaut' }
             form:
@@ -15,7 +16,7 @@ easy_admin:
                     - { property: 'nom', label: 'Nom du site' }
                     - { property: 'url', type: 'text' }
                     - { property: 'logoFichier', type: 'vich_image', label: 'Logo' }
-                    - { property: 'theme', label: 'Thème' }
+                    - { property: 'theme', label: 'Thème', type: 'App\Form\Type\ThemeType' }
                     - { property: 'editeur', label: 'Éditeur' }
                     - emailContact
                     - emailMaintenance
