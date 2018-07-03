@@ -1,5 +1,5 @@
 {% for zone in zones %}
-    <div>
+    <div class="zone-{{ zone.id }}">
         {{ zone.contenu|raw }}
     </div>
 {% endfor %}

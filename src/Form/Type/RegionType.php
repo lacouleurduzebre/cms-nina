@@ -9,6 +9,8 @@
 namespace App\Form\Type;
 
 
+use App\Entity\Configuration;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -16,10 +18,23 @@ use Symfony\Component\Yaml\Yaml;
 
 class RegionType extends AbstractType
 {
+    public function __construct(EntityManagerInterface $em)
+    {
+        $this->em = $em;
+    }
+
     public function configureOptions(OptionsResolver $resolver)
     {
-        $regions = Yaml::parseFile('../config/regions.yaml');
-        $regions = array_combine(array_values($regions), array_values($regions));
+        $emConfig = $this->em->getRepository(Configuration::class);
+        $theme = $emConfig->findOneBy(array('id' => 1))->getTheme();
+
+        $regions = Yaml::parseFile('../themes/'.$theme.'/config/regions.yaml');
+
+        if(!$regions){
+            $regions = Yaml::parseFile('../config/regions.yaml');
+        }
+
+        $regions = array_combine(array_values($regions), array_keys($regions));
 
         $resolver->setDefaults(array(
             'choices' => $regions

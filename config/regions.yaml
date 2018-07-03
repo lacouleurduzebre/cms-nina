@@ -1,4 +1,4 @@
-- header
-- footer
-- colonneGauche
-- colonneDroite
+header: header
+footer: footer
+colonneGauche : colonne de gauche
+colonneDroite: colonne de droite

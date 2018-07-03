@@ -8,7 +8,7 @@ easy_admin:
                     - id
                     - nom
                     - { property: 'region', label: 'Région'}
-                    - { property: 'contenu', type: 'raw' }
+                    #- { property: 'contenu', type: 'raw' }
             search:
                 fields:
                     - nom
