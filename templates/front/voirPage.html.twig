@@ -1,6 +1,7 @@
 {% extends 'front/base.html.twig' %}
 
-{% block title %}{{ parent() }} - {{ page.titre }}{% endblock %}
+{% block title %}{{ parent() }} - {{ page.seo.metaTitre }}{% endblock %}
+{% block head %}<meta name="description" content="{{ page.seo.metaDescription|raw }}" />{% endblock %}
 {% block body %}
     {% for message in app.session.flashbag.get('OK') %}
         <p class="message">{{ message }}</p>

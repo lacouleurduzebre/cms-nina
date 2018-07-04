@@ -14,7 +14,7 @@
         <div id="loader-arbo" class="fr"></div>
     </div>
     {% for menu in menus %}
-        <p class="menuToggle inactif">{{ menu.nom }} <i class="fas fa-angle-up"></i></p>
+        <p class="menuToggle">{{ menu.nom }} <i class="fas fa-angle-up"></i></p>
         <div id="menu-{{ menu.id }}">
             <ul>
                 {% include 'back/menu/menu.html.twig' with{'menuPages' : menu.menuPage} only %}
@@ -37,23 +37,23 @@
                             "icon": "fa fa-pencil-alt",
                             "label": "Éditer",
                             "action": function(){
-                                idPage = $('#'+node.id).find('span').attr('id');
+                                idPage = $('#'+node.id).find('.page').attr('id');
                                 window.location.href = "{{ app.request.baseUrl }}"+Routing.generate('admin', { action: 'edit', entity: 'Page_Active', id: idPage });
                             }
                         },
-                        "create":{
+                        /*"create":{
                             "icon": "fa fa-plus",
                             "label": "Ajouter une page enfant",
                             "action": function(){
-                                idPage = $('#'+node.id).find('span').attr('id');
+                                idPage = $('#'+node.id).find('.page').attr('id');
                                 window.location.href = "{{ app.request.baseUrl }}"+Routing.generate('admin', { action: 'new', entity: 'Page_Active', idPageParent: idPage });
                             }
-                        },
+                        },*/
                         "duplicate":{
                             "icon": "fa fa-copy",
                             "label": "Dupliquer",
                             "action": function(){
-                                idPage = $('#'+node.id).find('span').attr('id');
+                                idPage = $('#'+node.id).find('.page').attr('id');
                                 window.location.href = "{{ app.request.baseUrl }}"+Routing.generate('admin', { action: 'dupliquer', entity: 'Page_Active', idPageOriginale: idPage });
                             }
                         },
@@ -61,7 +61,7 @@
                             "icon": "fa fa-trash-alt",
                             "label": "Supprimer",
                             "action": function(){
-                                idPage = $('#'+node.id).find('span').attr('id');
+                                idPage = $('#'+node.id).find('.page').attr('id');
                                 window.location.href = "{{ app.request.baseUrl }}"+Routing.generate('admin', { action: 'corbeille', entity: 'Page_Active', id: idPage });
                             }
                         }

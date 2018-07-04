@@ -126,12 +126,10 @@ body.notFull .main-sidebar #toggleColonneGauche svg {
       background-color: #67655f; }
       .sidebar-menus p.inactif svg {
         transform: rotate(180deg); }
-  .sidebar-menus div[id^='menu'] {
-    display: none; }
-    .sidebar-menus div[id^='menu'] a {
-      white-space: initial;
-      display: inline-block;
-      max-width: calc(100% - 2.4rem); }
+  .sidebar-menus div[id^='menu'] a {
+    white-space: initial;
+    display: inline-block;
+    max-width: calc(100% - 2.4rem); }
 
 .arbo-titre {
   text-transform: uppercase;

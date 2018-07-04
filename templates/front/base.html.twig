@@ -17,6 +17,7 @@
         <script src="{{ asset('assets/js/fosjsrouting/js/fos_js_routes.js') }}"></script>
     {% endif %}
     <link rel="icon" type="image/x-icon" href="{{ asset('assets/img/favicon.ico') }}" />
+    {% block head %}{% endblock %}
 </head>
 <body {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}connected {% endif %}{% if accueil is defined %}accueil{% endif %}>
 
