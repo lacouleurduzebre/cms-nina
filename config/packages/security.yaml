@@ -23,7 +23,7 @@ security:
                 login_path: fos_user_security_login
                 check_path: fos_user_security_check
                 always_use_default_target_path: false
-                default_target_path: admin
+                default_target_path: tableauDeBord
                 provider: fos_user
             logout:
                 path: fos_user_security_logout

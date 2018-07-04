@@ -28,31 +28,17 @@ class Arborescence extends \Twig_Extension
     public function getFunctions()
     {
         return array(
-            new \Twig_SimpleFunction('menuBack', array($this, 'menuBack')),
+            new \Twig_SimpleFunction('menusBack', array($this, 'menusBack')),
         );
     }
 
-    public function menuBack()
+    public function menusBack()
     {
-        //Arborescence
-        $emPage = $this->doctrine->getRepository(Page::class);
-        $emLangue = $this->doctrine->getRepository(Langue::class);
-
-        $locale = $this->request->getLocale();
-        $langues = $emLangue->findBy(array('active' => '1'));
-        $langueActive = $emLangue->findBy(array('abreviation' => $locale));
-
-        $pages = $emPage->findBy(
-            array('pageParent' => null, 'active' => '1', 'corbeille' => '0', 'langue' => $langueActive),
-            array('position'=>'asc')
-        );
-        //Fin arborescence
-
         //Menus
         $emMenu = $this->doctrine->getRepository(Menu::class);
         $menus = $emMenu->findAll();
         //Fin menus
 
-        return $this->twig->render('back/menu/arborescence.html.twig', array('pages' => $pages, 'langues' => $langues, 'menus' => $menus));
+        return $this->twig->render('back/menu/arborescence.html.twig', array('menus' => $menus));
     }
 }

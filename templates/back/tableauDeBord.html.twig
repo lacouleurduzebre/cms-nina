@@ -13,7 +13,7 @@
                         {% for page in pages %}
                             <li>
                                 <a href="{{ path('admin', { 'action': 'edit', 'entity': 'Page_Active', 'id': page.id }) }}">{{ page.titre }}</a>
-                                {{ 'par'|trans }} {{ page.auteur }} {{ 'le'|trans }} {{ page.datePublication|date("d/m/Y") }}
+                                {#{{ 'par'|trans }} {{ page.auteur }}#} {{ 'le'|trans }} {{ page.datePublication|date("d/m/Y") }}
                             </li>
                         {% endfor %}
                     </ul>

@@ -25,16 +25,29 @@ class SousMenu extends \Twig_Extension
     {
         return array(
             new \Twig_SimpleFunction('sousMenu', array($this, 'sousMenu')),
+            new \Twig_SimpleFunction('isParent', array($this, 'isParent')),
         );
     }
 
-    public function sousMenu($id)
+    public function sousMenu($id, $office)
     {
         $emMenuPage = $this->doctrine->getRepository(MenuPage::class);
         $menuPages = $emMenuPage->findBy(array('pageParent' => $id));
 
         if ($menuPages){
-            return $this->twig->render('back/menu/sousMenu.html.twig', array('menuPages' => $menuPages));
+            return $this->twig->render($office.'/menu/sousMenu.html.twig', array('menuPages' => $menuPages));
+        }else{
+            return false;
+        }
+    }
+
+    public function isParent($id)
+    {
+        $emMenuPage = $this->doctrine->getRepository(MenuPage::class);
+        $menuPages = $emMenuPage->findBy(array('pageParent' => $id));
+
+        if ($menuPages){
+            return true;
         }else{
             return false;
         }

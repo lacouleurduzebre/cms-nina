@@ -1,4 +1,8 @@
-<ul>
-    <li><a href="{{ path('accueil') }}">{% trans %}Accueil{% endtrans %}</a></li>
-    {% include 'front/menu/pages.html.twig' with{'pages' : pages} only %}
-</ul>
+{% for menuPage in menuPages %}
+    {% if menuPage.pageParent is empty and isPublie(menuPage.page) %}
+        <li {% if isParent(menuPage.page.id) %}class="parent"{% endif %}>
+            <a href="{{ path('voirPage', {'url':menuPage.page.seo.url}) }}">{{ menuPage.page.titre }}</a>
+            {{ sousMenu(menuPage.page.id, 'front')|raw }}
+        </li>
+    {% endif %}
+{% endfor %}

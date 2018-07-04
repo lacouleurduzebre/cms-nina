@@ -1,8 +1,10 @@
 <ul>
     {% for menuPage in menuPages %}
-        <li>
-            <a href="#"><span id="{{ menuPage.page.id }}"></span>{{ menuPage.page.titre }}</a>
-            {{ sousMenu(menuPage.page.id)|raw }}
-        </li>
+        {% if isPublie(menuPage.page) %}
+            <li>
+                <a href="#"><span class="menuPage" id="{{ menuPage.id }}"></span><span class="page" id="{{ menuPage.page.id }}"></span>{{ menuPage.page.titre }}</a>
+                {{ sousMenu(menuPage.page.id, 'back')|raw }}
+            </li>
+        {% endif %}
     {% endfor %}
 </ul>

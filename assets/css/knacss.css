@@ -2259,6 +2259,9 @@ body {
     text-decoration: none; }
 
 /* Centre */
+body.notFull .content-wrapper {
+  margin-left: 30rem; }
+
 html, .content-wrapper, .sf-toolbar-clearer {
   background-color: #e4e3e2; }
 
@@ -2266,7 +2269,6 @@ html, .content-wrapper, .sf-toolbar-clearer {
   color: #D9534F; }
 
 .content-wrapper {
-  margin-left: 30rem;
   padding: 5rem 1rem 1rem 1rem;
   color: #5A5853; }
 
@@ -2361,8 +2363,11 @@ ul.nav-tabs {
   display: none; }
 
 /* ├ël├®ments de formulaire */
-.field-collection-action .text-primary {
-  color: #A1BA1D; }
+.field-collection-action {
+  margin-top: 1rem;
+  font-size: 1.9rem; }
+  .field-collection-action .text-primary {
+    color: #A1BA1D; }
 
 body.edit input[type='text'], body.edit input[type='email'], body.edit input[type='tel'], body.edit input[type='url'], body.edit textarea, body.new input[type='text'], body.new input[type='email'], body.new input[type='tel'], body.new input[type='url'], body.new textarea {
   width: 100% !important; }

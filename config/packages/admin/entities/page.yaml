@@ -30,15 +30,12 @@ easy_admin:
                     - id
                     - titre
                     - contenu
-                    - modules
-                    - image
                     - auteur
                     - auteurDerniereModification
                     - categories
                     - dateCreation
                     - { property: 'datePublication', label: 'Date de publication' }
                     - { property: 'datedePublication', label: 'Date de dépublication' }
-                    - pageParent
                     - langue
                     - pageOriginale
                     - pagesTraduites
@@ -57,9 +54,6 @@ easy_admin:
                     - dateDepublication
                     - { type: 'tab', label: 'Arborescence' }
                     - categories
-                    - pageParent
-                    #- { property: 'pageParent', type: 'App\Form\Type\PageParentType' }
-                    - position
                     - active
                     - corbeille
                     - { type: 'tab', label: 'SEO' }
@@ -67,7 +61,7 @@ easy_admin:
                     - { type: 'tab', label: 'Commentaires' }
                     - { property: 'commentaires', type: 'collection', type_options: { entry_type: 'App\Form\Type\CommentaireType', by_reference: true } }
                     - { type: 'tab', label: 'Traduction' }
-                    - langue
+                    - { property: 'langue', nullable: false }
                     - pageOriginale
                     - pagesTraduites
 

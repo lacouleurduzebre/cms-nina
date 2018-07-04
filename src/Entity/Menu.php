@@ -38,6 +38,7 @@ class Menu
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\MenuPage", mappedBy="menu", cascade={"persist", "remove"})
      * @ORM\JoinColumn(nullable=false)
+     * @ORM\OrderBy({"position" = "ASC"})
      */
     private $menuPage;
 

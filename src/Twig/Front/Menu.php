@@ -11,7 +11,7 @@ namespace App\Twig\Front;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 use Twig\Environment;
 
-class MenusAdmin extends \Twig_Extension
+class Menu extends \Twig_Extension
 {
     public function __construct(RegistryInterface $doctrine, Environment $twig)
     {
@@ -30,6 +30,6 @@ class MenusAdmin extends \Twig_Extension
         $emMenu = $this->doctrine->getRepository(\App\Entity\Menu::class);
         $menus = $emMenu->findBy(array('region' => $region));
 
-        return $this->twig->render('front/menu/menusAdmin.html.twig', array('menus' => $menus));
+        return $this->twig->render('front/menu/menus.html.twig', array('menus' => $menus));
     }
 }

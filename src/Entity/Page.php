@@ -67,25 +67,6 @@ class Page
     private $image;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Page", mappedBy="pageParent")
-     */
-    private $pagesEnfants;
-
-    /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Page", inversedBy="pagesEnfants")
-     * @ORM\JoinColumn(nullable=true)
-     */
-    private $pageParent = null;
-
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="position", type="integer")
-     * @ORM\GeneratedValue(strategy="AUTO")
-     */
-    private $position;
-
-    /**
      * @ORM\OneToMany(targetEntity="App\Entity\Page", mappedBy="pageOriginale")
      */
     private $pagesTraduites = null;
@@ -316,64 +297,6 @@ class Page
     }
 
     /**
-     * Set pageParent
-     *
-     * @param integer $pageParent
-     *
-     * @return Page
-     */
-    public function setPageParent($pageParent)
-    {
-        $this->pageParent = $pageParent;
-
-        return $this;
-    }
-
-    /**
-     * Get pageParent
-     *
-     * @return integer
-     */
-    public function getPageParent()
-    {
-        return $this->pageParent;
-    }
-
-    /**
-     * Add pagesEnfant
-     *
-     * @param \App\Entity\Page $pagesEnfant
-     *
-     * @return Page
-     */
-    public function addPagesEnfant(\App\Entity\Page $pagesEnfant)
-    {
-        $this->pagesEnfants[] = $pagesEnfant;
-
-        return $this;
-    }
-
-    /**
-     * Remove pagesEnfant
-     *
-     * @param \App\Entity\Page $pagesEnfant
-     */
-    public function removePagesEnfant(\App\Entity\Page $pagesEnfant)
-    {
-        $this->pagesEnfants->removeElement($pagesEnfant);
-    }
-
-    /**
-     * Get pagesEnfants
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getPagesEnfants()
-    {
-        return $this->pagesEnfants;
-    }
-
-    /**
      * Add category
      *
      * @param \App\Entity\Categorie $category
@@ -559,30 +482,6 @@ class Page
     public function getAuteurDerniereModification()
     {
         return $this->auteurDerniereModification;
-    }
-
-    /**
-     * Set position
-     *
-     * @param integer $position
-     *
-     * @return Page
-     */
-    public function setPosition($position)
-    {
-        $this->position = $position;
-
-        return $this;
-    }
-
-    /**
-     * Get position
-     *
-     * @return integer
-     */
-    public function getPosition()
-    {
-        return $this->position;
     }
 
     /**

@@ -24,6 +24,8 @@ class AccueilController extends Controller
      */
     public function indexAction(Request $request)
     {
+        $accueil = 'accueil';//Marquer le body
+
         $locale = $request->getLocale();
 
         $repositoryLangue=$this->getDoctrine()->getManager()->getRepository(Langue::class);
@@ -32,6 +34,6 @@ class AccueilController extends Controller
         $repositoryPage = $this->getDoctrine()->getManager()->getRepository(Page::class);
         $pages = $repositoryPage->pagesPubliees($langue, false);
 
-        return $this->render('front/accueil.html.twig', compact('pages'));
+        return $this->render('front/accueil.html.twig', array('pages'=>$pages, 'accueil'=>$accueil));
     }
 }

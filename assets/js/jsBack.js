@@ -1,8 +1,29 @@
 $(document).ready(function(){
+    /* Toggle colonne de gauche */
+    if($.cookie('full') === 'on'){
+        $('body').addClass('full');
+    }else{
+        $('body').addClass('notFull');
+    }
+
+    $('#toggleColonneGauche').click(function(){
+        $('body').toggleClass('full');
+        $('body').toggleClass('notFull');
+        $.cookie('full') === 'on' ? $.cookie('full', 'off') : $.cookie('full', 'on');
+    });
+
     /* Afficher / masquer l'arborescence dans la colonne de gauche */
     $('#btnArbo').click(function(){
         $(this).parent('.arbo-titre').toggleClass('active').toggleClass('inactive');
         $(this).parents('header').siblings('div').slideToggle();
+    });
+
+    /* Toggle des menus de l'arborescence */
+    $('.menuToggle').click(function(){
+        //$(".menuToggle").not(this).addClass('inactif');
+        //$(".menuToggle").not(this).next('div').slideUp();
+        $(this).toggleClass('inactif');
+        $(this).next('div').slideToggle();
     });
 
     /* Pop-up pour confirmer une suppression */
@@ -20,6 +41,7 @@ $(document).ready(function(){
     creationURL = function( event ){
         if($('body').hasClass('new')) {
             var caracteresInterdits = new RegExp('[ \'\"]', 'gi');
+            var caracteresInutiles = new RegExp('[()]', 'i');
             var e = new RegExp('[éèêëÉÈÊË]', 'gi');
             var a = new RegExp('[àÀ]', 'gi');
             var u = new RegExp('[ùûÛ]', 'u');
@@ -27,6 +49,7 @@ $(document).ready(function(){
             var i = new RegExp('[îïÎÏ]', 'i');
             titreOK = $(this).val()
                 .replace(caracteresInterdits, '-')
+                .replace(caracteresInutiles, '')
                 .replace(e, 'e')
                 .replace(a, 'a')
                 .replace(u, 'u')
@@ -34,8 +57,6 @@ $(document).ready(function(){
                 .replace(i, 'i')
                 .toLowerCase();
             url = encodeURIComponent(titreOK);
-            console.log(titreOK);
-            console.log(url);
             $(event.data.cible).val(url);
         }
     };
@@ -54,4 +75,21 @@ $(document).ready(function(){
         $('#typecategorie_nom').on('keyup', {
             cible: '#typecategorie_url'
         }, creationURL );
+
+    /* Méta-titre automatique */
+    $('#page_active_titre').on('keyup', function(){
+        if($('body').hasClass('new')){
+            titre = $(this).val();
+            $('#page_active_SEO_metaTitre').val(titre);
+        }
+    });
+
+    // Méta-description automatique */
+    $('#page_active_contenu_ifr #tinymce').on('DOMSubtreeModified', function(){
+        if($('body').hasClass('new')){
+            contenu = $(this).html();
+            console.log(contenu);
+            $('#page_active_SEO_metaDescription #tinymce').html(contenu);
+        }
+    });
 });

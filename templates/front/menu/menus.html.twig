@@ -1,0 +1,7 @@
+{% for menu in menus %}
+    <div class="menu-{{ menu.id }}">
+        <ul>
+            {% include 'front/menu/menu.html.twig' with{'menuPages' : menu.menuPage} only %}
+        </ul>
+    </div>
+{% endfor %}

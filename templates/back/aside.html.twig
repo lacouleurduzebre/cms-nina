@@ -10,7 +10,8 @@
              {{ app.user.username|default('user.unnamed'|trans(domain = 'EasyAdminBundle')) }}
             {% else %}
                 <a href="{{ _logout_path }}"><i class="fas fa-power-off"></i></a>
-                <strong><a href="{{ path('easyadmin', { action: 'edit', entity: 'Utilisateur', id: app.user.id }) }}">{{ app.user.username|default('user.unnamed'|trans(domain = 'EasyAdminBundle')) }}</a></strong>
+                <strong class="flex-item-fluid"><a href="{{ path('easyadmin', { action: 'edit', entity: 'Utilisateur', id: app.user.id }) }}">{{ app.user.username|default('user.unnamed'|trans(domain = 'EasyAdminBundle')) }}</a></strong>
+                <span id="toggleColonneGauche"><i class="fas fa-chevron-circle-down"></i></span>
             {% endif %}
             {#{% set _logout_path = easyadmin_logout_path() %}
             <div class="dropdown-menu" role="menu">
@@ -56,7 +57,7 @@
     {% block sidebar %}
         <section class="sidebar">
             {% block arborescence %}
-                {{ menuBack()|raw }}
+                {{ menusBack()|raw }}
             {% endblock %}
         </section>
     {% endblock sidebar %}

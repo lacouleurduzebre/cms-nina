@@ -1,8 +1,8 @@
 {% for menuPage in menuPages %}
-    {% if menuPage.pageParent is empty %}
+    {% if menuPage.pageParent is empty and isPublie(menuPage.page) %}
         <li>
-            <a href="#"><span id="{{ menuPage.page.id }}"></span>{{ menuPage.page.titre }}</a>
-            {{ sousMenu(menuPage.page.id)|raw }}
+            <a href="#"><span class="menuPage" id="{{ menuPage.id }}"></span><span class="page" id="{{ menuPage.page.id }}"></span>{{ menuPage.page.titre }}</a>
+            {{ sousMenu(menuPage.page.id, 'back')|raw }}
         </li>
     {% endif %}
 {% endfor %}

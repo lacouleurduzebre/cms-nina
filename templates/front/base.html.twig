@@ -18,7 +18,7 @@
     {% endif %}
     <link rel="icon" type="image/x-icon" href="{{ asset('assets/img/favicon.ico') }}" />
 </head>
-<body {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}class="connected"{% endif %}>
+<body {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}connected {% endif %}{% if accueil is defined %}accueil{% endif %}>
 
 {# Menu horizontal du back office #}
 {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
@@ -73,9 +73,6 @@
     </header>
 {% endblock %}
 {% block navigation %}
-    <nav class="menu_front">
-        {{ menuFront()|raw }}
-    </nav>
     {% if menu(region='header') %}
         <nav>
             {{ menu(region='header') }}
@@ -110,7 +107,7 @@
     </footer>
 {% endblock %}
 {% block javascripts %}
-    <script src="{{ asset('assets/js/jsFront.js') }}"></script>
+    <script src="{{ asset('assets/js/jscookie/cookie.js') }}"></script>
     {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
         <script src="{{ asset('assets/js/jsBack.js') }}"></script>
         <script src="{{ asset('assets/js/jstree/jstree.min.js') }}"></script>

@@ -1,6 +1,6 @@
 <header>
     <div class="txtcenter arbo-titre active">
-        <i class="fas fa-sitemap"></i> {% trans %}Arborescence{% endtrans %}
+        <i class="fas fa-sitemap"></i> {% trans %}Menus{% endtrans %}
         <a href="#" id="btnArbo"><i class="fas fa-chevron-circle-down"></i></a>
     </div>
 </header>
@@ -13,18 +13,8 @@
         {% endfor %}
         <div id="loader-arbo" class="fr"></div>
     </div>
-    <p>Arborescence</p>
-    <div id="jstree">{# Arborescence #}
-        <ul>
-            <li id="racine"><a href="{{ path('accueil') }}">{% trans %}Accueil{% endtrans %}</a>
-                <ul>
-                    {% include 'back/menu/pages.html.twig' with{'pages' : pages} only %}
-                </ul>
-            </li>
-        </ul>
-    </div>{# Fin arborescence #}
     {% for menu in menus %}
-        <p>{{ menu.nom }}</p>
+        <p class="menuToggle inactif">{{ menu.nom }} <i class="fas fa-angle-up"></i></p>
         <div id="menu-{{ menu.id }}">
             <ul>
                 {% include 'back/menu/menu.html.twig' with{'menuPages' : menu.menuPage} only %}
@@ -80,13 +70,6 @@
             },
             "state" : { "key" : "menuVertical"},
             "types" : {
-                "#" : {
-                    "max_children" : 1,
-                    "valid_children" : ["root"]
-                },
-                "root" : {
-                    "icon" : "fa fa-home"
-                },
                 "default" : {
                     "icon" : "far fa-xs fa-file-alt"
                 }
@@ -98,45 +81,47 @@
             }
         };
 
-        $('#jstree').jstree(options);//Arborescence
-        $('div[id^="menu"]').jstree(options);//Menus
+        $('.sidebar-menus div[id^="menu"]').jstree(options);//Menus
 
-        //Drag'n'drop menu vertical - arborescence - enregistrement de la position de chaque page en bdd
-        enregistrementArbo = function(e, data){
+        enregistrementMenu = function(e, data){
             $('#loader-arbo').fadeIn().html("<i class='fas fa-sync fa-spin'></i>");
             arbo = [];
-            $('#jstree').jstree('open_node', data.node.parent);
-            $('#racine li').each(function(){
+            $(this).jstree('open_node', data.node.parent);
+            $(this).find('.jstree-container-ul').find('li').each(function(){
                 position = $(this).index();
-                idLiPage = $(this).attr('id');
-                if(idLiPage == 'racine'){
-                    idPage = 'accueil';
-                }else{
-                    idPage = $('#'+idLiPage).find('span').attr('id');
-                }
-                PageParent = $(this).parent('ul').parent('li').attr('id');
-                if(PageParent == 'racine'){
+
+                idLi = $(this).attr('id');
+                idMenu = $('#'+idLi).parents('div[id^="menu"]').attr('id').substr(5, 1);
+                idMenuPage = $('#'+idLi).find('.menuPage').attr('id');
+                idPage = $('#'+idLi).find('.page').attr('id');
+
+                if($(this).parent('ul').hasClass('jstree-container-ul')){
                     idPageParent = null;
                 }else{
-                    idPageParent = $('#'+PageParent).find('span').attr('id');
+                    idLiParent = $(this).parent('ul').parent('li').attr('id');
+                    idPageParent = $('#'+idLiParent).find('.page').attr('id');
                 }
-                page = [idPage, position, idPageParent];
-                arbo.push(page);
+
+                menuPage = [idMenuPage, idPage, position, idPageParent, idMenu];
+
+                console.log(menuPage);
+
+                arbo.push(menuPage);
             });
             $.ajax({
-                url: "{{ path('enregistrerArbo') }}",
+                url: "{{ path('enregistrerMenu') }}",
                 method: "post",
                 data: {arbo: arbo}
             })
                 .done(function(){
                     $('#loader-arbo').fadeIn().html("<i class='fas fa-check'></i>").delay(600).fadeOut();
-                    console.log(arbo);
                 })
                 .fail(function(){
                     $('#loader-arbo').fadeIn().html("<i class='fas fa-times'></i>").delay(600).fadeOut();
                 });
         };
 
-        $('#jstree').on('move_node.jstree', enregistrementArbo);
+        $('.sidebar-menus div[id^="menu"]').on('move_node.jstree', enregistrementMenu);
+        $('.sidebar-menus div[id^="menu"]').on('copy_node.jstree', enregistrementMenu);
     });
 </script>
