@@ -9,6 +9,9 @@ easy_admin:
                 dql_filter: 'entity.corbeille = false'
                 sort: 'titre'
                 actions:
+                    - { name: 'edit', label: '', title: 'Éditer', icon: 'pencil-alt' }
+                    - { name: 'voir', label: '', title: 'Voir', icon: 'eye' }
+                    - { name: 'dupliquer', label: '', title: 'Dupliquer', icon: 'copy' }
                     - { name: 'corbeille', label: '', title: 'Mettre à la corbeille', icon: 'trash' }
                 fields:
                     - id

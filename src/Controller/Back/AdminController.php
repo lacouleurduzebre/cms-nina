@@ -12,6 +12,7 @@ use App\Entity\Commentaire;
 use App\Entity\Langue;
 use App\Entity\Page;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AdminController as BaseAdminController;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -56,7 +57,7 @@ class AdminController extends BaseAdminController
     }
 
     public function dupliquerAction(){
-        $idPageOriginale = $this->request->query->get('idPageOriginale');
+        $idPageOriginale = $this->request->query->get('id');
         $pageOriginale = $this->em->getRepository(Page::class)->find($idPageOriginale);
 
         $nouvellePage = clone $pageOriginale;
@@ -90,5 +91,14 @@ class AdminController extends BaseAdminController
             'action' => 'list',
             'entity' => $this->request->query->get('entity'),
         ));
+    }
+
+    public function voirAction(){
+        $idPage = $this->request->query->get('id');
+        $page = $this->em->getRepository(Page::class)->find($idPage);
+
+        $url = $page->getSeo()->getUrl();
+
+        return $this->redirectToRoute('voirPage', array('url' => $url));
     }
 }

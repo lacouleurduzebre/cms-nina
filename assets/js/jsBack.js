@@ -84,7 +84,7 @@ $(document).ready(function(){
         }
     });
 
-    // Méta-description automatique */
+    /* Méta-description automatique */
     $('#page_active_contenu_ifr #tinymce').on('DOMSubtreeModified', function(){
         if($('body').hasClass('new')){
             contenu = $(this).html();
@@ -92,4 +92,7 @@ $(document).ready(function(){
             $('#page_active_SEO_metaDescription #tinymce').html(contenu);
         }
     });
+
+    /* Page active colorée dans l'arbo */
+
 });
