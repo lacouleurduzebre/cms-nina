@@ -11,9 +11,15 @@ namespace App\Controller\Back;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AdminController as BaseAdminController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use EasyCorp\Bundle\EasyAdminBundle\Event\EasyAdminEvents;
 
+/**
+ * Class AdminController
+ * @package App\Controller\Back
+ * @Route("/admin")
+ */
 class UtilisateurController extends BaseAdminController
 {
     public function __construct(UserPasswordEncoderInterface $passwordEncoder)

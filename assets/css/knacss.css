@@ -2249,7 +2249,8 @@ body {
     display: flex;
     align-items: center; }
     #loginPage > div svg {
-      font-size: 2rem; }
+      font-size: 2rem;
+      margin-right: 1rem; }
 
 .mdpOublie {
   color: #818485;

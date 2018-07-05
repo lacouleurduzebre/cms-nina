@@ -43,7 +43,7 @@ body{
       }
     }
   }
-  > div{
+  > div{//Message d'erreur
     background-color: rgba(255,0,0,.8);
     color: #FFF;
     font-weight: bold;
@@ -52,6 +52,7 @@ body{
     align-items: center;
     svg{
       font-size: 2rem;
+      margin-right: 1rem;
     }
   }
 }
