@@ -7,7 +7,7 @@
         <p class="message">{{ message }}</p>
     {% endfor %}
 
-    <h1>{{ page.titre }}</h1>
+    <h1 class="titre-page">{{ page.titre }}</h1>
 
     <p>Publié le {{ page.datePublication|date("d/m/Y") }} à {{ page.datePublication|date("G:i") }}{# par {{ page.auteur }}#}</p>
 

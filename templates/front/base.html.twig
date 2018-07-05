@@ -19,7 +19,7 @@
     <link rel="icon" type="image/x-icon" href="{{ asset('assets/img/favicon.ico') }}" />
     {% block head %}{% endblock %}
 </head>
-<body {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}connected {% endif %}{% if accueil is defined %}accueil{% endif %}>
+<body class="front {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}connected {% endif %}{% if accueil is defined %}accueil {% endif %}">
 
 {# Menu horizontal du back office #}
 {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}

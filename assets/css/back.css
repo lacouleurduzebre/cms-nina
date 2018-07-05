@@ -170,6 +170,9 @@ body.notFull .main-sidebar #toggleColonneGauche svg {
 .menuToggle {
   cursor: pointer; }
 
+.main-sidebar .page-active {
+  color: #A1BA1D; }
+
 /* Logo */
 #sidebar-logo {
   background-color: #000;

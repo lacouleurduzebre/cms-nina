@@ -94,5 +94,18 @@ $(document).ready(function(){
     });
 
     /* Page active colorée dans l'arbo */
+    surbrillancePageActive = function(){
+        console.log('triggered');
+        if($('body.front').hasClass('connected')){
+            titre = $('h1.titre-page').html();
+            $('.jstree-anchor').each(function(){
+                if ($(this).text() === titre){
+                    $(this).addClass('page-active');
+                    $(this).parents('div.jstree').prev('p').addClass('page-active');
+                }
+            });
+        }
+    };
 
+    $('.sidebar-menus div[id^="menu"]').on('ready.jstree', surbrillancePageActive);
 });

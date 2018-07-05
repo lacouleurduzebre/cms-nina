@@ -129,6 +129,10 @@ body.notFull .main-sidebar{
   cursor: pointer;
 }
 
+.main-sidebar .page-active{//Mise en avant page active dans les menus
+  color: #A1BA1D;
+}
+
 /* Logo */
 #sidebar-logo{
   background-color: #000;
