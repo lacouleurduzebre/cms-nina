@@ -2,6 +2,7 @@ easy_admin:
     entities:
         Menu:
             class: App\Entity\Menu
+            controller: App\Controller\Back\AdminController
             label: 'Menus'
             list:
                 fields:

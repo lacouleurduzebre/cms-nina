@@ -2,6 +2,7 @@ easy_admin:
     entities:
         Categorie:
             class: App\Entity\Categorie
+            controller: App\Controller\Back\AdminController
             label: 'Catégories'
             list:
                 sort: 'nom'

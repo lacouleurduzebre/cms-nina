@@ -2,6 +2,7 @@ easy_admin:
     entities:
         Langue:
             class: App\Entity\Langue
+            controller: App\Controller\Back\AdminController
             label: 'Langues'
             list:
                 sort: 'abreviation'

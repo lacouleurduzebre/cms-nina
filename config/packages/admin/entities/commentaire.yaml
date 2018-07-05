@@ -2,6 +2,7 @@ easy_admin:
     entities:
         Commentaire_Actif:
             class: App\Entity\Commentaire
+            controller: App\Controller\Back\AdminController
             label: 'Commentaires'
             disabled_actions: ['delete']
             list:

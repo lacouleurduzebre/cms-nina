@@ -2,6 +2,7 @@ easy_admin:
     entities:
         TypeCategorie:
             class: App\Entity\TypeCategorie
+            controller: App\Controller\Back\AdminController
             label: 'Types de catégories'
             list:
                 fields:

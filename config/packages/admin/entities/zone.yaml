@@ -2,6 +2,7 @@ easy_admin:
     entities:
         Zone:
             class: App\Entity\Zone
+            controller: App\Controller\Back\AdminController
             label: 'Zones éditables'
             list:
                 fields:
