@@ -32,7 +32,7 @@ class AccueilController extends Controller
         $langue = $repositoryLangue->findOneBy(array('abreviation' => $locale));
 
         $repositoryPage = $this->getDoctrine()->getManager()->getRepository(Page::class);
-        $pages = $repositoryPage->pagesPubliees($langue, false);
+        $pages = $repositoryPage->pagesPubliees($langue);
 
         return $this->render('front/accueil.html.twig', array('pages'=>$pages, 'accueil'=>$accueil));
     }

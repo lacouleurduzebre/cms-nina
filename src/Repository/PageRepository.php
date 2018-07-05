@@ -1,6 +1,9 @@
 <?php
 
 namespace App\Repository;
+use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\Mapping;
+use Symfony\Component\HttpFoundation\Request;
 
 /**
  * PageRepository
@@ -10,7 +13,17 @@ namespace App\Repository;
  */
 class PageRepository extends \Doctrine\ORM\EntityRepository
 {
-    public function pagesPubliees($langue, $racine){
+    public function pagesPublieesQB(){
+        return $this
+            ->createQueryBuilder('p')
+                ->where('p.corbeille = 0')
+                ->andWhere('p.active = 1')
+                //->andWhere('p.langue = :langue')
+                //->setParameter('langue', $langue)
+                ->orderBy('p.datePublication', 'DESC');
+    }
+
+    public function pagesPubliees($langue){
         $timestamp = new \DateTime();
         $date = $timestamp->format('Y-m-d H:i:s');
 
@@ -24,10 +37,6 @@ class PageRepository extends \Doctrine\ORM\EntityRepository
                     ->setParameters(array('langue' => $langue, 'date' => $date))
             ->orderBy('p.datePublication', 'DESC')
             ->setMaxResults(5);
-
-        if($racine){
-            $qb->andWhere('p.pageParent IS NULL');
-        }
 
         return $qb->getQuery()->getResult();
     }

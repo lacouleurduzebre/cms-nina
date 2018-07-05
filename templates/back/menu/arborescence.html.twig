@@ -11,16 +11,21 @@
                 <a href="{{ path('changerLangue', {'id' : langue.id}) }}">{{ langue.abreviation|upper }}</a>
             </span>
         {% endfor %}
-        <div id="loader-arbo" class="fr"></div>
     </div>
     {% for menu in menus %}
-        <p class="menuToggle">{{ menu.nom }} <i class="fas fa-angle-up"></i></p>
+        <p class="menuToggle">{{ menu.nom }} <i class="fas fa-angle-up"></i><span id="loader-arbo" class="menu-{{ menu.id }}"></span></p>
         <div id="menu-{{ menu.id }}">
             <ul>
                 {% include 'back/menu/menu.html.twig' with{'menuPages' : menu.menuPage} only %}
             </ul>
         </div>
     {% endfor %}
+    <p class="menuToggle">{% trans %}Pages orphelines{% endtrans %}<i class="fas fa-angle-up"></i><span id="loader-arbo" class="menu-0"></span></p>
+    <div id="menu-0">
+        <ul>
+            {{ pagesOrphelines()|raw }}
+        </ul>
+    </div>
 </div>
 
 <script>
@@ -41,20 +46,33 @@
                                 window.location.href = "{{ app.request.baseUrl }}"+Routing.generate('admin', { action: 'edit', entity: 'Page_Active', id: idPage });
                             }
                         },
-                        /*"create":{
-                            "icon": "fa fa-plus",
-                            "label": "Ajouter une page enfant",
-                            "action": function(){
-                                idPage = $('#'+node.id).find('.page').attr('id');
-                                window.location.href = "{{ app.request.baseUrl }}"+Routing.generate('admin', { action: 'new', entity: 'Page_Active', idPageParent: idPage });
-                            }
-                        },*/
                         "duplicate":{
                             "icon": "fa fa-copy",
                             "label": "Dupliquer",
                             "action": function(){
                                 idPage = $('#'+node.id).find('.page').attr('id');
-                                window.location.href = "{{ app.request.baseUrl }}"+Routing.generate('admin', { action: 'dupliquer', entity: 'Page_Active', idPageOriginale: idPage });
+                                window.location.href = "{{ app.request.baseUrl }}"+Routing.generate('admin', { action: 'dupliquer', entity: 'Page_Active', id: idPage });
+                            }
+                        },
+                        "remove":{
+                            "icon": "fa fa-minus",
+                            "label": "Retirer du menu",
+                            "action": function(){
+                                idMenuPage = $('#'+node.id).find('.menuPage').attr('id');
+                                idMenu = $('#'+node.id).parents('div').attr('id');
+                                $('#loader-arbo.'+idMenu).fadeIn().html("<i class='fas fa-sync fa-spin'></i>");
+                                $.ajax({
+                                    url: "{{ path('retirerDuMenu') }}",
+                                    method: "post",
+                                    data: {idMenuPage: idMenuPage}
+                                })
+                                    .done(function(){
+                                        $('#loader-arbo.'+idMenu).fadeIn().html("<i class='fas fa-check'></i>").delay(600).fadeOut();
+                                        $('#'+node.id).remove();
+                                    })
+                                    .fail(function(){
+                                        $('#loader-arbo.'+idMenu).html("<i class='fas fa-times'></i>").delay(600).fadeOut();
+                                    });
                             }
                         },
                         "delete":{
@@ -84,7 +102,8 @@
         $('.sidebar-menus div[id^="menu"]').jstree(options);//Menus
 
         enregistrementMenu = function(e, data){
-            $('#loader-arbo').fadeIn().html("<i class='fas fa-sync fa-spin'></i>");
+            idMenuComplet = $('#'+data.node.id).parents('div').attr('id');
+            $('#loader-arbo.'+idMenuComplet).fadeIn().html("<i class='fas fa-sync fa-spin'></i>");
             arbo = [];
             $(this).jstree('open_node', data.node.parent);
             $(this).find('.jstree-container-ul').find('li').each(function(){
@@ -114,10 +133,10 @@
                 data: {arbo: arbo}
             })
                 .done(function(){
-                    $('#loader-arbo').fadeIn().html("<i class='fas fa-check'></i>").delay(600).fadeOut();
+                    $('#loader-arbo.'+idMenuComplet).fadeIn().html("<i class='fas fa-check'></i>").delay(600).fadeOut();
                 })
                 .fail(function(){
-                    $('#loader-arbo').fadeIn().html("<i class='fas fa-times'></i>").delay(600).fadeOut();
+                    $('#loader-arbo.'+idMenuComplet).fadeIn().html("<i class='fas fa-times'></i>").delay(600).fadeOut();
                 });
         };
 

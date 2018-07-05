@@ -11,6 +11,7 @@ namespace App\Twig\Back;
 
 use App\Entity\Langue;
 use App\Entity\Menu;
+use App\Entity\MenuPage;
 use App\Entity\Page;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
@@ -29,6 +30,7 @@ class Arborescence extends \Twig_Extension
     {
         return array(
             new \Twig_SimpleFunction('menusBack', array($this, 'menusBack')),
+            new \Twig_SimpleFunction('pagesOrphelines', array($this, 'pagesOrphelines')),
         );
     }
 
@@ -40,5 +42,26 @@ class Arborescence extends \Twig_Extension
         //Fin menus
 
         return $this->twig->render('back/menu/arborescence.html.twig', array('menus' => $menus));
+    }
+
+    public function pagesOrphelines()
+    {
+        $langue = $this->request->getLocale();
+
+        $emPage = $this->doctrine->getRepository(Page::class);
+        $emMenuPage = $this->doctrine->getRepository(MenuPage::class);
+
+        $pages = $emPage->findBy(array('active' => 1, 'corbeille' => 0));
+
+        $pagesOrphelines = [];
+        foreach($pages as $page){
+            $menuPage = $emMenuPage->findBy(array('page' => $page));
+
+            if(!$menuPage){
+                $pagesOrphelines[] = $page;
+            }
+        }
+
+        return $this->twig->render('back/menu/pagesOrphelines.html.twig', array('pagesOrphelines' => $pagesOrphelines));
     }
 }

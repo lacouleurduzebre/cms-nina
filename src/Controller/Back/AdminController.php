@@ -10,10 +10,12 @@ namespace App\Controller\Back;
 
 use App\Entity\Commentaire;
 use App\Entity\Langue;
+use App\Entity\MenuPage;
 use App\Entity\Page;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AdminController as BaseAdminController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
@@ -35,7 +37,7 @@ class AdminController extends BaseAdminController
         $repositoryLangue = $em->getRepository(Langue::class);
         $langue = $repositoryLangue->findOneBy(array('abreviation' => $locale));
 
-        $dernieresPages = $em->getRepository(Page::class)->pagesPubliees($langue, false);
+        $dernieresPages = $em->getRepository(Page::class)->pagesPubliees($langue);
 
         /* Derniers commentaires en attente de validation */
         $repositoryCommentaire = $em->getRepository(Commentaire::class);

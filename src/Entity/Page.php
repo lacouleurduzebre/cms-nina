@@ -118,11 +118,12 @@ class Page
 
     public function __construct()
     {
+        $utilisateur =
+
         $this->datePublication = new \DateTime();
         $this->dateCreation = new \DateTime();
         $this->commentaires = new ArrayCollection();
         $this->categories = new ArrayCollection();
-        $this->pagesEnfants = new ArrayCollection();
         $this->pagesTraduites = new ArrayCollection();
     }
 

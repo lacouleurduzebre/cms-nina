@@ -52,4 +52,24 @@ class MenuController extends Controller
         }
         return false;
     }
+
+    /**
+     * @Route("/admin/menu/retirer", name="retirerDuMenu")
+     * @param Request $request
+     * @return bool|Response
+     */
+    public function retirerDuMenuAction(Request $request){
+        if($request->isXmlHttpRequest()){
+            $em = $this->getDoctrine()->getManager();
+
+            $idMenuPage = $request->get('idMenuPage');
+            $menuPage = $this->getDoctrine()->getRepository(MenuPage::class)->find($idMenuPage);
+
+            $em->remove($menuPage);
+            $em->flush();
+
+            return new Response('OK');
+        }
+        return false;
+    }
 }

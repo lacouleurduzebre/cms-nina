@@ -168,7 +168,13 @@ body.notFull .main-sidebar #toggleColonneGauche svg {
   margin-top: .5rem; }
 
 .menuToggle {
-  cursor: pointer; }
+  cursor: pointer;
+  position: relative; }
+  .menuToggle span {
+    position: absolute;
+    right: 1rem;
+    top: calc(50% - 1.6rem);
+    display: inline-block; }
 
 .main-sidebar .page-active {
   color: #A1BA1D; }
@@ -188,5 +194,21 @@ body.notFull .main-sidebar #toggleColonneGauche svg {
 /* Clic droit sur arbo */
 .vakata-context {
   z-index: 1000; }
+
+.vakata-context,
+.vakata-context ul {
+  position: fixed; }
+
+.vakata-context li > a {
+  padding: 0 1rem;
+  color: #5A5853; }
+
+.vakata-context li > a:hover, .vakata-context .vakata-context-hover > a {
+  background-color: #e8f3b0;
+  box-shadow: 0 0 2px #A1BA1D; }
+
+.vakata-context li > a .vakata-contextmenu-sep {
+  background: none;
+  border: none; }
 
 /*# sourceMappingURL=back.css.map */

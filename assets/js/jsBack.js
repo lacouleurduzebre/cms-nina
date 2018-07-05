@@ -95,10 +95,9 @@ $(document).ready(function(){
 
     /* Page active colorée dans l'arbo */
     surbrillancePageActive = function(){
-        console.log('triggered');
         if($('body.front').hasClass('connected')){
             titre = $('h1.titre-page').html();
-            $('.jstree-anchor').each(function(){
+            $(this).find('.jstree-anchor').each(function(){
                 if ($(this).text() === titre){
                     $(this).addClass('page-active');
                     $(this).parents('div.jstree').prev('p').addClass('page-active');
@@ -108,4 +107,6 @@ $(document).ready(function(){
     };
 
     $('.sidebar-menus div[id^="menu"]').on('ready.jstree', surbrillancePageActive);
+    $('.sidebar-menus div[id^="menu"]').on('open_node.jstree', surbrillancePageActive);
+    $('.sidebar-menus div[id^="menu"]').on('move_node.jstree', surbrillancePageActive);
 });
