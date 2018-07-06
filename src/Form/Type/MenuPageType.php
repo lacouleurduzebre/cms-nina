@@ -13,7 +13,7 @@ use App\Repository\PageRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
-use Symfony\Component\Form\Extension\Core\Type\IntegerType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -29,7 +29,7 @@ class MenuPageType extends AbstractType
                     return $pageRepository->pagesPublieesQB();
                 },
             ))
-            ->add('position', IntegerType::class, array('empty_data' => '0'))
+            ->add('position', HiddenType::class, array('data' => '0'))
             ->add('pageParent', EntityType::class, array('class' => 'App\Entity\Page', 'choice_label' => 'titre', 'required' => false));
     }
 

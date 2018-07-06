@@ -129,7 +129,9 @@ body.notFull .main-sidebar #toggleColonneGauche svg {
   .sidebar-menus div[id^='menu'] a {
     white-space: initial;
     display: inline-block;
-    max-width: calc(100% - 2.4rem); }
+    max-width: calc(100% - 2.4rem);
+    font-size: 1.5rem;
+    line-height: 20px; }
 
 .arbo-titre {
   text-transform: uppercase;

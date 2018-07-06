@@ -61,14 +61,20 @@
                                 idMenuPage = $('#'+node.id).find('.menuPage').attr('id');
                                 idMenu = $('#'+node.id).parents('div').attr('id');
                                 $('#loader-arbo.'+idMenu).fadeIn().html("<i class='fas fa-sync fa-spin'></i>");
+
                                 $.ajax({
                                     url: "{{ path('retirerDuMenu') }}",
                                     method: "post",
                                     data: {idMenuPage: idMenuPage}
                                 })
-                                    .done(function(){
+                                    .done(function(data){
                                         $('#loader-arbo.'+idMenu).fadeIn().html("<i class='fas fa-check'></i>").delay(600).fadeOut();
-                                        $('#'+node.id).remove();
+                                        idPage = $('#'+node.id).find('.page').attr('id');
+                                        if(!$('#menu-0').find('span#'+idPage).length > 0 && data === "orpheline"){
+                                            $('#menu-0').jstree("create_node", null, node, 'last', false, false);
+                                            $('#'+node.id).find('.menuPage').id = 0;
+                                        }
+                                        $('#'+idMenu).jstree().delete_node([node.id]);
                                     })
                                     .fail(function(){
                                         $('#loader-arbo.'+idMenu).html("<i class='fas fa-times'></i>").delay(600).fadeOut();
@@ -132,8 +138,13 @@
                 method: "post",
                 data: {arbo: arbo}
             })
-                .done(function(){
+                .done(function(data){
                     $('#loader-arbo.'+idMenuComplet).fadeIn().html("<i class='fas fa-check'></i>").delay(600).fadeOut();
+                    if(data != 'vide'){//A REVOIR
+                        idPage = data.substr(0, data.indexOf('*'));
+                        idMenuPage = data.substr(-1, data.indexOf('*'));
+                        $('#'+idMenuComplet).find('span.page#'+idPage).prev('span').id = idMenuPage;
+                    }
                 })
                 .fail(function(){
                     $('#loader-arbo.'+idMenuComplet).fadeIn().html("<i class='fas fa-times'></i>").delay(600).fadeOut();

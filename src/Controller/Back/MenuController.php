@@ -19,6 +19,20 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class MenuController extends Controller
 {
+    public function requetes($item, $menuPage){
+        $repositoryMenu = $this->getDoctrine()->getRepository(Menu::class);
+        $repositoryPage = $this->getDoctrine()->getRepository(Page::class);
+
+        $menu = $repositoryMenu->findOneBy(array('id'=>$item[4]));
+        $page = $repositoryPage->findOneBy(array('id'=>$item[1]));
+        $pageParent = $repositoryPage->findOneBy(array('id'=>$item[3]));
+
+        $menuPage->setMenu($menu);
+        $menuPage->setPosition($item[2]);
+        $menuPage->setPage($page);
+        $menuPage->setPageParent($pageParent);
+    }
+
     /**
      * @Route("/admin/menu/enregistrer", name="enregistrerMenu")
      * @param Request $request
@@ -27,9 +41,7 @@ class MenuController extends Controller
     public function enregistrerAction(Request $request){
         if($request->isXmlHttpRequest()){
             $arbo = $request->get('arbo');
-            $repositoryMenu = $this->getDoctrine()->getRepository(Menu::class);
             $repositoryMenuPage = $this->getDoctrine()->getRepository(MenuPage::class);
-            $repositoryPage = $this->getDoctrine()->getRepository(Page::class);
             $em = $this->getDoctrine()->getManager();
 
             //$item[0] menuPage
@@ -45,31 +57,39 @@ class MenuController extends Controller
                 if($item['4'] == 0){// Si menuPage existe mais que la page est mise dans les orphelins, on le supprime
                     $menuPage = $repositoryMenuPage->findOneBy(array('id'=>$item[0]));
                     $em->remove($menuPage);
+                    $data = $item['1']."*".'0';//Retour de l'id menuPage
                     continue;
                 }
 
                 if($item['0'] == 0){// menuPage n'existe pas, on le crée
                     $menuPage = new MenuPage();
+
+                    $this->requetes($item, $menuPage);
+
+                    $em->persist($menuPage);
+                    $em->flush();
+                    $em->refresh($menuPage);
+
+                    $idMenupage = $menuPage->getId();
+                    $data = $item['1']."*".$idMenupage;
                 }else{
                     $menuPage = $repositoryMenuPage->findOneBy(array('id'=>$item[0]));
+
+                    $this->requetes($item, $menuPage);
+
+                    $em->persist($menuPage);
                 }
-
-                $menu = $repositoryMenu->findOneBy(array('id'=>$item[4]));
-                $page = $repositoryPage->findOneBy(array('id'=>$item[1]));
-                $pageParent = $repositoryPage->findOneBy(array('id'=>$item[3]));
-
-                $menuPage->setMenu($menu);
-                $menuPage->setPosition($item[2]);
-                $menuPage->setPage($page);
-                $menuPage->setPageParent($pageParent);
-
-                $em->persist($menuPage);
             };
 
             $em->flush();
 
-            return new Response('OK');
-        }
+            if(isset($data)){
+                return new Response($data);
+            }else{
+                return new Response('vide');
+            }
+        };
+
         return false;
     }
 
@@ -81,14 +101,25 @@ class MenuController extends Controller
     public function retirerDuMenuAction(Request $request){
         if($request->isXmlHttpRequest()){
             $em = $this->getDoctrine()->getManager();
+            $emMenuPage = $this->getDoctrine()->getRepository(MenuPage::class);
 
+            /* Recherche du menuPage à supprimer */
             $idMenuPage = $request->get('idMenuPage');
-            $menuPage = $this->getDoctrine()->getRepository(MenuPage::class)->find($idMenuPage);
+            $menuPage = $emMenuPage->find($idMenuPage);
+            $page = $menuPage->getPage();
 
+            /* Suppression menuPage */
             $em->remove($menuPage);
             $em->flush();
 
-            return new Response('OK');
+            /* Page orpheline ? */
+            $pagePasOrpheline = $emMenuPage->findBy(array('page' => $page));
+
+            if($pagePasOrpheline){
+                return new Response('pas orpheline');
+            }else{
+                return new Response('orpheline');
+            }
         }
         return false;
     }

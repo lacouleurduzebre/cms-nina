@@ -377,9 +377,9 @@
   line-height: 24px;
 }
 .jstree-default .jstree-icon {
-  width: 24px;
-  height: 24px;
-  line-height: 24px;
+  width: 16px;
+  height: 20px;
+  line-height: 20px;
 }
 .jstree-default .jstree-icon:empty {
   width: 24px;
