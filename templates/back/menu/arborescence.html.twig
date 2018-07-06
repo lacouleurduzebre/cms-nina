@@ -13,7 +13,7 @@
         {% endfor %}
     </div>
     {% for menu in menus %}
-        <p class="menuToggle">{{ menu.nom }} <i class="fas fa-angle-up"></i><span id="loader-arbo" class="menu-{{ menu.id }}"></span></p>
+        <p class="menuToggle">{{ menu.nom }}<i class="fas fa-angle-up"></i><span id="loader-arbo" class="menu-{{ menu.id }}"></span></p>
         <div id="menu-{{ menu.id }}">
             <ul>
                 {% include 'back/menu/menu.html.twig' with{'menuPages' : menu.menuPage} only %}
@@ -86,7 +86,7 @@
                     };
                 }
             },
-            "state" : { "key" : "menuVertical"},
+            //"state" : { "key" : "menuVertical"},//Pour sauvegarder l'état de l'arbo
             "types" : {
                 "default" : {
                     "icon" : "far fa-xs fa-file-alt"
@@ -140,7 +140,9 @@
                 });
         };
 
-        $('.sidebar-menus div[id^="menu"]').on('move_node.jstree', enregistrementMenu);
-        $('.sidebar-menus div[id^="menu"]').on('copy_node.jstree', enregistrementMenu);
+        $('.sidebar-menus div[id^="menu"]').on('move_node.jstree copy_node.jstree', enregistrementMenu);
+        $('.sidebar-menus div[id^="menu"]').on('ready.jstree', function(){
+            $(this).jstree().open_all();
+        });
     });
 </script>

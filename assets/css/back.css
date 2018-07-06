@@ -175,6 +175,8 @@ body.notFull .main-sidebar #toggleColonneGauche svg {
     right: 1rem;
     top: calc(50% - 1.6rem);
     display: inline-block; }
+  .menuToggle svg {
+    margin-left: .5rem; }
 
 .main-sidebar .page-active {
   color: #A1BA1D; }

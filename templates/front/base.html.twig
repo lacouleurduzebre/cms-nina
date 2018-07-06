@@ -81,7 +81,7 @@
     {% endif %}
 {% endblock %}
 
-<main class="mw960p center flex-container">
+<main {% if page is defined %}id="{{ page.id }}" {% endif %}class="mw960p center flex-container{% if page is defined %} page"{% endif %}">
     {% block fos_user_content %}
     {% endblock %}
     {% if zone(region='colonneGauche') or menu(region='colonneGauche') %}

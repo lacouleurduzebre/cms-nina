@@ -32,9 +32,29 @@ class MenuController extends Controller
             $repositoryPage = $this->getDoctrine()->getRepository(Page::class);
             $em = $this->getDoctrine()->getManager();
 
+            //$item[0] menuPage
+            //$item[1] page
+            //$item[2] position
+            //$item[3] pageParent
+            //$item[4] menu
             foreach($arbo as $item){
+                if($item[0] == 0 && $item[4] == 0){// Si menuPage n'existe pas et que la page est mise dans les orphelins on ne fait rien
+                    continue;
+                }
+
+                if($item['4'] == 0){// Si menuPage existe mais que la page est mise dans les orphelins, on le supprime
+                    $menuPage = $repositoryMenuPage->findOneBy(array('id'=>$item[0]));
+                    $em->remove($menuPage);
+                    continue;
+                }
+
+                if($item['0'] == 0){// menuPage n'existe pas, on le crée
+                    $menuPage = new MenuPage();
+                }else{
+                    $menuPage = $repositoryMenuPage->findOneBy(array('id'=>$item[0]));
+                }
+
                 $menu = $repositoryMenu->findOneBy(array('id'=>$item[4]));
-                $menuPage = $repositoryMenuPage->findOneBy(array('id'=>$item[0]));
                 $page = $repositoryPage->findOneBy(array('id'=>$item[1]));
                 $pageParent = $repositoryPage->findOneBy(array('id'=>$item[3]));
 
@@ -44,7 +64,7 @@ class MenuController extends Controller
                 $menuPage->setPageParent($pageParent);
 
                 $em->persist($menuPage);
-            }
+            };
 
             $em->flush();
 

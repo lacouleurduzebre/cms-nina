@@ -95,18 +95,21 @@ $(document).ready(function(){
 
     /* Page active colorée dans l'arbo */
     surbrillancePageActive = function(){
-        if($('body.front').hasClass('connected')){
-            titre = $('h1.titre-page').html();
-            $(this).find('.jstree-anchor').each(function(){
-                if ($(this).text() === titre){
-                    $(this).addClass('page-active');
-                    $(this).parents('div.jstree').prev('p').addClass('page-active');
-                }
-            });
+        if(!$('body.front').hasClass('connected') && !$('body.easyadmin').hasClass('edit-page_active')) {
+            return false;
         }
+        if($('body').hasClass('front')){
+            idPage = $('main.page').attr('id');
+        }else if($('body').hasClass('easyadmin')){
+            idPage = $('form').attr('data-entity-id');
+        }
+        $(this).find('.jstree-anchor').each(function(){
+            if ($(this).find('.page').attr('id') === idPage){
+                $(this).addClass('page-active');
+                $(this).parents('div.jstree').prev('p').addClass('page-active');
+            }
+        });
     };
 
-    $('.sidebar-menus div[id^="menu"]').on('ready.jstree', surbrillancePageActive);
-    $('.sidebar-menus div[id^="menu"]').on('open_node.jstree', surbrillancePageActive);
-    $('.sidebar-menus div[id^="menu"]').on('move_node.jstree', surbrillancePageActive);
+    $('.sidebar-menus div[id^="menu"]').on('ready.jstree open_node.jstree move_node.jstree', surbrillancePageActive);
 });

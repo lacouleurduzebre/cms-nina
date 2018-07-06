@@ -28,7 +28,6 @@
 .jstree-anchor:hover,
 .jstree-anchor:active {
   text-decoration: none;
-  color: inherit;
 }
 .jstree-icon {
   display: inline-block;

@@ -134,6 +134,9 @@ body.notFull .main-sidebar{
     top: calc(50% - 1.6rem);
     display: inline-block;
   }
+  svg{
+    margin-left: .5rem;
+  }
 }
 
 .main-sidebar .page-active{//Mise en avant page active dans les menus

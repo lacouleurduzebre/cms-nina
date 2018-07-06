@@ -46,12 +46,13 @@ class Arborescence extends \Twig_Extension
 
     public function pagesOrphelines()
     {
-        $langue = $this->request->getLocale();
+        $emLangue = $this->doctrine->getRepository(Langue::class);
+        $langue = $emLangue->findOneBy(array('abreviation' => $this->request->getLocale()));
 
         $emPage = $this->doctrine->getRepository(Page::class);
         $emMenuPage = $this->doctrine->getRepository(MenuPage::class);
 
-        $pages = $emPage->findBy(array('active' => 1, 'corbeille' => 0));
+        $pages = $emPage->findBy(array('active' => 1, 'corbeille' => 0, 'langue' => $langue));
 
         $pagesOrphelines = [];
         foreach($pages as $page){
