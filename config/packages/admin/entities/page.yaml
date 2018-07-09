@@ -14,7 +14,6 @@ easy_admin:
                     - { name: 'dupliquer', label: '', title: 'Dupliquer', icon: 'copy' }
                     - { name: 'corbeille', label: '', title: 'Mettre à la corbeille', icon: 'trash' }
                 fields:
-                    - id
                     - titre
                     - auteur
                     - { property: 'categories', label: 'Catégories', type: 'array' }
@@ -31,7 +30,6 @@ easy_admin:
                     - categories
             show:
                 fields:
-                    - id
                     - titre
                     - contenu
                     - auteur
@@ -79,7 +77,6 @@ easy_admin:
                     - { name: 'corbeille', label: '', title: 'Restaurer', icon: 'recycle' }
                 disabled_actions: ['edit', 'delete']
                 fields:
-                    - id
                     - titre
                     - auteur
                     - { property: 'categories', label: 'Catégories' }

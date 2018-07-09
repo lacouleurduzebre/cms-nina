@@ -43,17 +43,6 @@ easy_admin:
             edit: 'back/easyadmin/edit.html.twig'
             field_toggle: 'back/easyadmin/field_toggle.html.twig'
         menu:
-            - { entity: 'Utilisateur', label: 'Comptes', icon: 'users' }
-            - { entity: 'Configuration', icon: 'cog', params: { action: 'edit', id: 1 } }
-            - label: 'Outils'
-              icon: 'wrench'
-              children:
-                #- { label: 'Traductions', icon: '', url: '#' }
-                #- { label: 'Corbeille', icon: '', url: '#' }
-                - { entity: 'Page_Corbeille', icon: '' }
-                - { entity: 'Commentaire_Corbeille', icon: '' }
-            - { label: 'Médiathèque', icon: 'folder', route: 'mediatheque' }
-            #- { label: 'Newsletter', icon: 'paper-plane', url: '#' }
             - label: 'Contenus'
               icon: 'puzzle-piece'
               children:
@@ -64,4 +53,15 @@ easy_admin:
               - { entity: 'Langue', icon: '' }
               - { entity: 'Zone', icon: '' }
               - { entity: 'Menu', icon: '' }
+            - { label: 'Médiathèque', icon: 'folder', route: 'mediatheque' }
+            - { entity: 'Utilisateur', label: 'Comptes', icon: 'users' }
+            - label: 'Outils'
+              icon: 'wrench'
+              children:
+                - { entity: 'Configuration', label: 'Configuration générale', icon: '', params: { action: 'edit', id: 1 } }
+                #- { label: 'Traductions', icon: '', url: '#' }
+                #- { label: 'Corbeille', icon: '', url: '#' }
+                - { entity: 'Page_Corbeille', icon: '' }
+                - { entity: 'Commentaire_Corbeille', icon: '' }
+            #- { label: 'Newsletter', icon: 'paper-plane', url: '#' }
             - { label: 'Voir le site', route: 'accueil', icon: 'home' }
