@@ -6,7 +6,7 @@ easy_admin:
             label: 'Utilisateurs'
             list:
                 fields:
-                    - id
+                    - { property: 'imageProfil', type: 'image', base_path: '/uploads' }
                     - { property: 'username', label: 'Pseudonyme' }
                     - { property: 'email', label: 'E-mail' }
                     - { property: 'enabled', label: 'Activé' }
@@ -18,7 +18,6 @@ easy_admin:
                     - email
             show:
                 fields:
-                    - id
                     - { property: 'username', label: 'Pseudonyme' }
                     - { property: 'email', label: 'E-mail' }
                     - { property: 'enabled', label: 'Activé' }
@@ -29,11 +28,13 @@ easy_admin:
                     - { property: 'username', label: 'Pseudonyme' }
                     - { property: 'email', label: 'E-mail' }
                     - { property: 'password', type: 'password', label: 'Mot de passe' }
+                    - { property: 'imageProfilFichier', type: 'vich_image', label: 'Image de profil' }
                     - { property: 'enabled', label: 'Activé' }
                     - { property: 'roles', label: 'Rôles' }
             edit:
                 fields:
                     - { property: 'username', label: 'Pseudonyme' }
                     - { property: 'email', label: 'E-mail' }
+                    - { property: 'imageProfilFichier', type: 'vich_image', label: 'Image de profil' }
                     - { property: 'enabled', label: 'Activé' }
                     - { property: 'roles', label: 'Rôles' }

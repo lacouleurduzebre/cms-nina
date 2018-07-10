@@ -1,6 +1,7 @@
 /* Header */
 .main-header{
   font-family: 'Mic32';
+  background-color: #5A5853;
   height: 38px;
   position: fixed;
   width: calc(100% - 30rem);
@@ -9,30 +10,31 @@
   left: 30rem;
   .navbar{
     display: flex;
+    height: 100%;
   }
-}
-
-  /* Menu horizontal */
-.sidebar-menu{
-  list-style: none;
-  display: flex;
-  flex:1;
-  background-color: #5A5853;
-  color: #FFF;
-  margin: 0;
-  border-left: 1px solid #75726b;
   a{
     color: #FFF;
     text-decoration: none;
-    height: 100%;
-    width: 100%;
-    padding: 1rem;
     display: flex;
     align-items: center;
     line-height:1.1;
     span{
       margin:0 1rem;
     }
+  }
+}
+
+  /* Menu horizontal */
+.sidebar-menu{
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex:1;
+  color: #FFF;
+  margin: 0;
+  border-left: 1px solid #75726b;
+  a{
+    padding: 0 1rem;
   }
   > li{
     margin: auto;
@@ -64,9 +66,36 @@
   > li > ul > li{
     > a{
       border-bottom: 1px solid #FFF;
+      padding: 1rem;
     }
     &:last-of-type > a{
       border: none;
     }
   }
+}
+
+/* Menu compte */
+.navbar-custom-menu{
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  width: 25%;
+  strong{
+    margin-right: 2rem;
+  }
+  a{
+    margin-right: 1rem;
+  }
+  ul{
+    list-style: none;
+  }
+}
+
+#header-imageProfil{
+  border-radius: 50%;
+  width: 3.2rem;
+  height: 3.2rem;
+  object-fit: cover;
+  border: 1px solid #FFF;
+  margin-right: 1rem;
 }

@@ -7,7 +7,6 @@ easy_admin:
             list:
                 sort: 'nom'
                 fields:
-                    - id
                     - nom
                     - { property: 'description', type: 'raw' }
                     - { property: 'url', type: 'url'}
@@ -20,7 +19,6 @@ easy_admin:
                     - typeCategorie.nom
             show:
                 fields:
-                    - id
                     - nom
                     - description
                     - url

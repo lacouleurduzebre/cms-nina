@@ -6,7 +6,6 @@ easy_admin:
             label: 'Types de catégories'
             list:
                 fields:
-                    - id
                     - nom
                     - description
                     - url
@@ -16,7 +15,6 @@ easy_admin:
                     - description
             show:
                 fields:
-                    - id
                     - nom
                     - description
                     - url

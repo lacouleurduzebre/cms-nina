@@ -48,24 +48,24 @@ easy_admin:
                 fields:
                     - { type: 'tab', label: 'Contenus' }
                     - { property: 'titre', type: 'text' }
+                    - active
+                    - corbeille
                     - contenu
+                    - { type: 'tab', label: 'SEO' }
+                    - { property: 'SEO', type: 'App\Form\Type\SEOType', type_options: { by_reference: true } }
                     #- { property: 'modules', type: 'collection', type_options: { entry_type: 'App\Form\Type\Modules\ModuleType', by_reference: true } }
                     #- image
+                    - { type: 'tab', label: 'Catégories' }
+                    - categories
                     - { type: 'tab', label: 'Historique' }
                     - datePublication
                     - dateDepublication
-                    - { type: 'tab', label: 'Arborescence' }
-                    - categories
-                    - active
-                    - corbeille
-                    - { type: 'tab', label: 'SEO' }
-                    - { property: 'SEO', type: 'App\Form\Type\SEOType', type_options: { by_reference: true } }
                     - { type: 'tab', label: 'Commentaires' }
                     - { property: 'commentaires', type: 'collection', type_options: { entry_type: 'App\Form\Type\CommentaireType', by_reference: true } }
                     - { type: 'tab', label: 'Traduction' }
-                    - { property: 'langue', nullable: false }
-                    - pageOriginale
-                    - pagesTraduites
+                    - { property: 'langue', label: 'Page en :', nullable: false }
+                    - { property: 'pageOriginale', label: 'Traduction de :'}
+                    - { property: 'pagesTraduites', label: 'Page traduites :'}
 
         Page_Corbeille:
             class: App\Entity\Page

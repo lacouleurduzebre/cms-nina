@@ -11,7 +11,6 @@ easy_admin:
                 actions:
                     - { name: 'corbeille', label: '', title: 'Mettre à la corbeille', icon: 'trash' }
                 fields:
-                    - id
                     - { property: 'page.titre', label: 'Page', sortable: true }
                     - { property: 'auteur', label: 'Auteur', sortable: true }
                     - date
@@ -24,7 +23,6 @@ easy_admin:
                     - auteur.nom
             show:
                 fields:
-                    - id
                     - { property: 'page.titre', label: 'Page', sortable: true }
                     - { property: 'auteur.nom', label: 'Auteur', sortable: true }
                     - date
@@ -37,7 +35,7 @@ easy_admin:
                     - email
                     - site
                     - date
-                    - contenu
+                    - { property: 'contenu', type: 'text' }
             edit:
                 fields:
                     - { property: 'valide', label: 'Validé' }
@@ -52,7 +50,6 @@ easy_admin:
                   actions:
                       - { name: 'corbeille', label: '', title: 'Restaurer', icon: 'recycle' }
                   fields:
-                      - id
                       - { property: 'page.titre', label: 'Page', sortable: true }
                       - { property: 'auteur.nom', label: 'Auteur', sortable: true }
                       - date

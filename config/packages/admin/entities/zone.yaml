@@ -6,7 +6,6 @@ easy_admin:
             label: 'Zones éditables'
             list:
                 fields:
-                    - id
                     - nom
                     - { property: 'region', label: 'Région'}
                     #- { property: 'contenu', type: 'raw' }
@@ -17,7 +16,6 @@ easy_admin:
                     - contenu
             show:
                 fields:
-                    - id
                     - nom
                     - { property: 'region', label: 'Région'}
                     - { property: 'contenu', type: 'raw' }

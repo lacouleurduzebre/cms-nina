@@ -18,40 +18,21 @@ body.notFull .main-sidebar{
 }
 
 /* Toggle colonne gauche */
-#toggleColonneGauche{
-  cursor: pointer;
-  font-size: 1.9rem;
-}
-
 .main-sidebar{
   height: 3.8rem;
-  > section, > #sidebar-logo{
+  .sidebar-menus, > #sidebar-logo{
     display: none;
   }
 }
 
 body.notFull .main-sidebar{
-  > section, > #sidebar-logo{
+  .sidebar-menus, > #sidebar-logo{
     display: block;
   }
-  #toggleColonneGauche svg{
+  #btnArbo svg{
     transform: rotate(180deg);
   }
 }
-
-/* Menu compte */
-.navbar-custom-menu{
-  padding: .4rem 2rem;
-  display: flex;
-  align-items: center;
-  a{
-    margin-right: 1rem;
-  }
-  ul{
-    list-style: none;
-  }
-}
-
 
 /* Arborescence */
 .sidebar-menus{
@@ -82,16 +63,10 @@ body.notFull .main-sidebar{
 
 .arbo-titre{
   text-transform: uppercase;
-  padding:1rem 0;
+  padding: .6rem 0;
+  height: 3.8rem;
   &.active{
     background-color: #A1BA1D;
-    #btnArbo svg{
-      transform: rotate(180deg);
-    }
-  }
-  &.inactive{
-    background-color: darken(#A1BA1D, 20%);
-    color: darken(#FFF, 20%);
   }
   .fa-sitemap {
     margin-right: 3rem;

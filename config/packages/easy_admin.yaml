@@ -43,16 +43,20 @@ easy_admin:
             edit: 'back/easyadmin/edit.html.twig'
             field_toggle: 'back/easyadmin/field_toggle.html.twig'
         menu:
+            - { label: 'Tableau de bord', icon: 'tachometer-alt', route: 'tableauDeBord' }
             - label: 'Contenus'
               icon: 'puzzle-piece'
               children:
               - { entity: 'Page_Active', icon: '', default: true }
+              #- { entity: 'Accueil', icon: '', default: true }
               - { entity: 'Commentaire_Actif', icon: '' }
               - { entity: 'TypeCategorie', icon: '' }
               - { entity: 'Categorie', icon: '' }
               - { entity: 'Langue', icon: '' }
               - { entity: 'Zone', icon: '' }
               - { entity: 'Menu', icon: '' }
+              - { entity: 'Page_Corbeille', icon: '' }
+              - { entity: 'Commentaire_Corbeille', icon: '' }
             - { label: 'Médiathèque', icon: 'folder', route: 'mediatheque' }
             - { entity: 'Utilisateur', label: 'Comptes', icon: 'users' }
             - label: 'Outils'
@@ -61,7 +65,5 @@ easy_admin:
                 - { entity: 'Configuration', label: 'Configuration générale', icon: '', params: { action: 'edit', id: 1 } }
                 #- { label: 'Traductions', icon: '', url: '#' }
                 #- { label: 'Corbeille', icon: '', url: '#' }
-                - { entity: 'Page_Corbeille', icon: '' }
-                - { entity: 'Commentaire_Corbeille', icon: '' }
             #- { label: 'Newsletter', icon: 'paper-plane', url: '#' }
             - { label: 'Voir le site', route: 'accueil', icon: 'home' }

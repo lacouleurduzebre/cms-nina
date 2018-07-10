@@ -2465,6 +2465,20 @@ textarea {
 .easyadmin-lightbox {
   display: none; }
 
+/* Image de profil */
+#utilisateur_imageProfilFichier_file ~ a img {
+  border-radius: 50%;
+  width: 25rem;
+  height: 25rem;
+  object-fit: cover;
+  border: 5px solid #FFF; }
+
+td[data-label="Image profil"] img {
+  border-radius: 50%;
+  width: 5rem;
+  height: 5rem;
+  object-fit: cover; }
+
 #tdb {
   padding: 2rem; }
 

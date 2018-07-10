@@ -6,7 +6,6 @@ easy_admin:
             label: 'Menus'
             list:
                 fields:
-                    - id
                     - nom
                     - { property: 'region', label: 'Région'}
             search:

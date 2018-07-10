@@ -6,16 +6,10 @@ $(document).ready(function(){
         $('body').addClass('notFull');
     }
 
-    $('#toggleColonneGauche').click(function(){
+    $('#btnArbo').click(function(){
         $('body').toggleClass('full');
         $('body').toggleClass('notFull');
         $.cookie('full') === 'on' ? $.cookie('full', 'off') : $.cookie('full', 'on');
-    });
-
-    /* Afficher / masquer l'arborescence dans la colonne de gauche */
-    $('#btnArbo').click(function(){
-        $(this).parent('.arbo-titre').toggleClass('active').toggleClass('inactive');
-        $(this).parents('header').siblings('div').slideToggle();
     });
 
     /* Toggle des menus de l'arborescence */

@@ -118,8 +118,6 @@ class Page
 
     public function __construct()
     {
-        $utilisateur =
-
         $this->datePublication = new \DateTime();
         $this->dateCreation = new \DateTime();
         $this->commentaires = new ArrayCollection();
