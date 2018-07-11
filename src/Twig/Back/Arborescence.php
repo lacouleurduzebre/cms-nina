@@ -49,20 +49,19 @@ class Arborescence extends \Twig_Extension
         $emLangue = $this->doctrine->getRepository(Langue::class);
         $langue = $emLangue->findOneBy(array('abreviation' => $this->request->getLocale()));
 
-        $emPage = $this->doctrine->getRepository(Page::class);
         $emMenuPage = $this->doctrine->getRepository(MenuPage::class);
 
-        $pages = $emPage->findBy(array('active' => 1, 'corbeille' => 0, 'langue' => $langue));
+        $menuPagesOrphelines = $emMenuPage->findBy(array('menu' => null));
 
         $pagesOrphelines = [];
-        foreach($pages as $page){
-            $menuPage = $emMenuPage->findBy(array('page' => $page));
+        foreach($menuPagesOrphelines as $menuPage){
+            $page = $menuPage->getPage();
 
-            if(!$menuPage){
-                $pagesOrphelines[] = $page;
+            if($page->getLangue() == $langue){
+                $pagesOrphelines[] = $menuPage;
             }
         }
 
-        return $this->twig->render('back/menu/pagesOrphelines.html.twig', array('pagesOrphelines' => $pagesOrphelines));
+        return $this->twig->render('back/menu/pagesOrphelines.html.twig', array('menuPagesOrphelines' => $pagesOrphelines));
     }
 }

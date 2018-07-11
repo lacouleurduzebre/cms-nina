@@ -1,5 +1,5 @@
-{% for page in pagesOrphelines %}
+{% for menuPage in menuPagesOrphelines %}
     <li>
-        <a href="#"><span class="menuPage" id="0"></span><span class="page" id="{{ page.id }}"></span>{{ page.titre }}</a>
+        <a href="#"><span class="menuPage" id="{{ menuPage.id }}"></span><span class="page" id="{{ menuPage.page.id }}"></span>{{ menuPage.page.titre }}</a>
     </li>
 {% endfor %}

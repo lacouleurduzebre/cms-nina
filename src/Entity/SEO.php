@@ -37,7 +37,7 @@ class SEO
     /**
      * @var string
      *
-     * @ORM\Column(name="metaDescription", type="text")
+     * @ORM\Column(name="metaDescription", type="text", nullable=true)
      */
     private $metaDescription;
 

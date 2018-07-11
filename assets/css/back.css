@@ -126,15 +126,6 @@ body.notFull .main-sidebar #btnArbo svg {
 .sidebar-menus {
   padding-bottom: 2rem;
   background-color: #75726b; }
-  .sidebar-menus p {
-    text-align: center;
-    padding: 1rem 0;
-    margin: 1rem 0;
-    background-color: #3f3e3b; }
-    .sidebar-menus p.inactif {
-      background-color: #67655f; }
-      .sidebar-menus p.inactif svg {
-        transform: rotate(180deg); }
   .sidebar-menus div[id^='menu'] a {
     white-space: initial;
     display: inline-block;
@@ -172,7 +163,9 @@ body.notFull .main-sidebar #btnArbo svg {
       justify-content: center; }
 
 #loader-arbo {
-  margin-top: .5rem; }
+  position: absolute;
+  top: 1rem;
+  right: 1rem; }
 
 .menuToggle {
   cursor: pointer;
@@ -187,6 +180,21 @@ body.notFull .main-sidebar #btnArbo svg {
 
 .main-sidebar .page-active {
   color: #A1BA1D; }
+
+.menu {
+  margin: 1rem 0;
+  position: relative; }
+  .menu > div > ul > li {
+    background-color: #3f3e3b !important; }
+    .menu > div > ul > li > i {
+      margin-top: 1rem !important; }
+    .menu > div > ul > li > a {
+      font-size: 2rem !important;
+      padding: 1rem 0; }
+      .menu > div > ul > li > a svg {
+        width: 20px; }
+    .menu > div > ul > li > ul {
+      background-color: #75726b; }
 
 /* Logo */
 #sidebar-logo {

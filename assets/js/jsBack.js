@@ -100,7 +100,7 @@ $(document).ready(function(){
         $(this).find('.jstree-anchor').each(function(){
             if ($(this).find('.page').attr('id') === idPage){
                 $(this).addClass('page-active');
-                $(this).parents('div.jstree').prev('p').addClass('page-active');
+                $(this).parents('div.jstree > ul > li > a').addClass('page-active');
             }
         });
     };

@@ -41,7 +41,7 @@ class MenuPage
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Menu", inversedBy="menuPage")
-     * @ORM\JoinColumn(referencedColumnName="id", nullable=false)
+     * @ORM\JoinColumn(referencedColumnName="id", nullable=true)
      */
     private $menu;
 
@@ -113,7 +113,7 @@ class MenuPage
     public function setPage(\App\Entity\Page $page)
     {
         $this->page = $page;
-    
+
         return $this;
     }
 
@@ -134,7 +134,7 @@ class MenuPage
      *
      * @return MenuPage
      */
-    public function setMenu(\App\Entity\Menu $menu)
+    public function setMenu(\App\Entity\Menu $menu = null)
     {
         $this->menu = $menu;
 

@@ -38,18 +38,6 @@ body.notFull .main-sidebar{
 .sidebar-menus{
   padding-bottom: 2rem;
   background-color: lighten(#5A5853, 10);
-  p{
-    text-align: center;
-    padding: 1rem 0;
-    margin: 1rem 0;
-    background-color: darken(#5A5853, 10);
-    &.inactif{
-      background-color: lighten(#5A5853, 5);
-      svg{
-        transform: rotate(180deg);
-      }
-    }
-  }
   div[id^='menu']{
     a{
       white-space: initial;
@@ -99,7 +87,9 @@ body.notFull .main-sidebar{
 }
 
 #loader-arbo{
-  margin-top:.5rem;
+  position: absolute;
+  top:1rem;
+  right:1rem;
 }
 
 .menuToggle{
@@ -118,6 +108,27 @@ body.notFull .main-sidebar{
 
 .main-sidebar .page-active{//Mise en avant page active dans les menus
   color: #A1BA1D;
+}
+
+.menu{
+  margin: 1rem 0;
+  position: relative;
+  > div > ul > li{
+    background-color: darken(#5A5853, 10) !important;
+    > i{
+      margin-top: 1rem !important;
+    }
+    > a{
+      font-size: 2rem !important;
+      padding: 1rem 0;
+      svg{
+        width: 20px;
+      }
+    }
+    > ul{
+      background-color: #75726b;
+    }
+  }
 }
 
 /* Logo */

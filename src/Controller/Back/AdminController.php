@@ -26,7 +26,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class AdminController extends BaseAdminController
 {
     /**
-     * @Route("/tableauDeBord", name="tableauDeBord")
+     * @Route("", name="tableauDeBord")
      */
     public function tableauDeBordAction(Request $request){
         $em = $this->getDoctrine()->getManager();
@@ -67,7 +67,7 @@ class AdminController extends BaseAdminController
         $nouveauSEO = clone $ancienSEO;
         $nouvellePage->setSEO($nouveauSEO);
 
-        $nouvellePage->getSEO()->setUrl($nouvellePage->getSEO()->getUrl().'_copie');
+        $nouvellePage->getSEO()->setUrl($nouvellePage->getSEO()->getUrl().'-copie');
 
         $this->em->persist($nouvellePage);
         $this->em->persist($nouveauSEO);
