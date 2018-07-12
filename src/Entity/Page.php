@@ -116,6 +116,11 @@ class Page
      */
     private $contenu;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Module", inversedBy="page", cascade={"persist", "remove"})
+     */
+    private $modules;
+
     public function __construct()
     {
         $this->datePublication = new \DateTime();
@@ -539,6 +544,18 @@ class Page
     public function setContenu(?string $contenu): self
     {
         $this->contenu = $contenu;
+
+        return $this;
+    }
+
+    public function getModules(): ?Module
+    {
+        return $this->modules;
+    }
+
+    public function setModules(?Module $modules): self
+    {
+        $this->modules = $modules;
 
         return $this;
     }

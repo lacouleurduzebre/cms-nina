@@ -66,4 +66,4 @@ easy_admin:
                 #- { label: 'Traductions', icon: '', url: '#' }
                 #- { label: 'Corbeille', icon: '', url: '#' }
             #- { label: 'Newsletter', icon: 'paper-plane', url: '#' }
-            - { label: 'Voir le site', route: 'accueil', icon: 'home' }
+            #- { label: 'Voir le site', route: 'accueil', icon: 'home' }

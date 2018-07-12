@@ -24,6 +24,7 @@ easy_admin:
                     - langue
                     - active
             search:
+                title: 'Résultats de recherche'
                 fields:
                     - titre
                     - auteur

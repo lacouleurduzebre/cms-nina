@@ -86,7 +86,7 @@ class UtilisateurController extends BaseAdminController
      *
      * @return Response|RedirectResponse
      */
-    protected function editAction()
+    /*protected function editAction()
     {
         $this->dispatch(EasyAdminEvents::PRE_EDIT);
 
@@ -143,5 +143,5 @@ class UtilisateurController extends BaseAdminController
         );
 
         return $this->executeDynamicMethod('render<EntityName>Template', array('edit', $this->entity['templates']['edit'], $parameters));
-    }
+    }*/
 }

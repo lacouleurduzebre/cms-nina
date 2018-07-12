@@ -6,72 +6,13 @@
             </a>#}
 
             {% block main_menu_wrapper %}
-                {{ include([
+                {#{{ include([
                 _entity_config is defined ? _entity_config.templates.menu,
                 easyadmin_config('design.templates.menu'),
                 '@EasyAdmin/default/menu.html.twig'
-                ]) }}
+                ]) }}#}
+                {{ include('back/easyadmin/menu.html.twig') }}
             {% endblock main_menu_wrapper %}
-            <div class="navbar-custom-menu">
-                {% block header_custom_menu %}
-                    {% set _logout_path = easyadmin_logout_path() %}
-                    {% if app.user|default(false) == false %}
-                            <i class="hidden-xs fa fa-user-times"></i>
-                        {{ 'user.anonymous'|trans(domain = 'EasyAdminBundle') }}
-                    {% elseif not _logout_path %}
-                            <i class="hidden-xs fa fa-user"></i>
-                        {{ app.user.username|default('user.unnamed'|trans(domain = 'EasyAdminBundle')) }}
-                    {% else %}
-                            <strong><a href="{{ path('easyadmin', { action: 'edit', entity: 'Utilisateur', id: app.user.id }) }}">
-                                    {% if app.user.imageProfil is not empty %}
-                                        <img id="header-imageProfil" src="/uploads/{{ app.user.imageProfil }}" alt="{{ app.user.username }}">
-                                    {% else %}
-                                        coucou
-                                    {% endif %}
-                                    {{ app.user.username|default('user.unnamed'|trans(domain = 'EasyAdminBundle')) }}</a></strong>
-                            <a href="{{ _logout_path }}"><i class="fas fa-power-off"></i></a>
-                    {% endif %}
-                    {#{% set _logout_path = easyadmin_logout_path() %}
-                    <div class="dropdown-menu" role="menu">
-                        {% block user_menu_dropdown %}
-                            <li>
-                                <a href="{{ _logout_path }}"><i class="fas fa-power-off"></i></a>
-                            </li>
-                            {% if is_granted('ROLE_PREVIOUS_ADMIN') %}
-                                <li>
-                                    <a href="?_switch_user=_exit"><i class="fas fa-power-off"></i> {{ 'user.exit_impersonation'|trans(domain = 'EasyAdminBundle') }}</a>
-                                </li>
-                            {% endif %}
-                        {% endblock user_menu_dropdown %}
-                    </div>
-                    <ul class="nav navbar-nav">
-                        <li class="dropdown user user-menu">
-                            {% block user_menu %}
-                                <span class="sr-only">{{ 'user.logged_in_as'|trans(domain = 'EasyAdminBundle') }}</span>
-
-                                {% if app.user|default(false) == false %}
-                                    <i class="hidden-xs fa fa-user-times"></i>
-                                    {{ 'user.anonymous'|trans(domain = 'EasyAdminBundle') }}
-                                {% elseif not _logout_path %}
-                                    <i class="hidden-xs fa fa-user"></i>
-                                    {{ app.user.username|default('user.unnamed'|trans(domain = 'EasyAdminBundle')) }}
-                                {% else %}
-                                    <div>
-                                        <p>
-                                            <strong>{{ app.user.username|default('user.unnamed'|trans(domain = 'EasyAdminBundle')) }}</strong>
-                                        </p>
-                                        <p>{% trans %}Bienvenue dans votre administration de{% endtrans %}</p>
-                                        <p>{{ config.nom }}</p>
-                                        <button type="button" class="btn dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                                            <span class="caret"></span>
-                                        </button>#}{#
-                                    </div>
-                                {% endif %}
-                            {% endblock user_menu %}
-                        </li>
-                    </ul>#}
-                {% endblock header_custom_menu %}
-            </div>
         </nav>
     {% endblock header %}
 </header>

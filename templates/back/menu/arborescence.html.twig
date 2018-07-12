@@ -12,6 +12,31 @@
             </span>
         {% endfor %}
     </div>
+    {% block search_action %}
+        <div class="sidebar global-actions">
+            <div class="form-action action-search">
+                <form method="get" action="{{ path('easyadmin') }}">
+                    {% block search_form %}
+                        <input type="hidden" name="action" value="search">
+                        <input type="hidden" name="entity" value="Page_Active">
+                        <input type="hidden" name="sortField" value="titre">
+                        <input type="hidden" name="sortDirection" value="DESC">
+                        <input type="hidden" name="menuIndex" value="1">
+                        <input type="hidden" name="submenuIndex" value="0">
+                        <div class="input-group">
+                            <input class="form-control" type="search" name="query" value="">
+                            <span class="sidebar input-group-btn">
+                                <button type="submit" formtarget="_self">
+                                    <i class="fa fa-search"></i>
+                                    {#<span class="hidden-xs hidden-sm">{{ _action.label|default('action.search')|trans(_trans_parameters) }}</span>#}
+                                </button>
+                            </span>
+                        </div>
+                    {% endblock %}
+                </form>
+            </div>
+        </div>
+    {% endblock search_action %}
     {% for menu in menus %}
         <div class="menu">
             <span id="loader-arbo" class="menu-{{ menu.id }}"></span>
@@ -93,6 +118,16 @@
                             });
                     }
                 },
+                /*"alias":{
+                    "icon": "fa fa-file-export",
+                    "label": "Copier dans le menu...",
+                    "submenu": {
+                        "menu1": {
+                            "icon": "fas fa-folder",
+                            "label": "nom du menu"
+                        }
+                    }
+                },*/
                 "duplicate":{
                     "icon": "fa fa-copy",
                     "label": "Dupliquer",
@@ -149,12 +184,12 @@
         //Initialisation JSTree
         options = {
             "plugins" : [
-                "dnd", "state", "types", "contextmenu"
+                "dnd", "types", "contextmenu"
             ],
             "contextmenu":{
                 "items": menuContextuel
             },
-            //"state" : { "key" : "menuVertical"},//Pour sauvegarder l'état de l'arbo
+            //"state" : { "key" : "menuVertical"},//Pour sauvegarder l'état de l'arbo. Rajouter le plugin state
             "types" : {
                 "#" : {
                     "valid_children" : ["root"]
@@ -219,6 +254,12 @@
                 });
         };
 
+        $('.sidebar-menus div[id^="menu"]').on('select_node.jstree', function (e, data) {
+            setTimeout(function() {
+                data.instance.show_contextmenu(data.node)
+            }, 100);
+        });
+
         $('.sidebar-menus div[id^="menu"]').on('move_node.jstree copy_node.jstree', enregistrementMenu);
         $('.sidebar-menus div[id^="menu"]').on('create_node.jstree', function(e, data){
             idMenuComplet = $('#'+data.node.id).parents('div').attr('id');
@@ -226,8 +267,10 @@
                 enregistrementMenu();
             }
         });
+
         $('.sidebar-menus div[id^="menu"]').on('ready.jstree', function(){
             $(this).jstree().open_all();
+//            context_hide();
         });
     });
 </script>

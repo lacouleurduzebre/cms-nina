@@ -2260,8 +2260,9 @@ body {
     text-decoration: none; }
 
 /* Centre */
-body.notFull .content-wrapper {
-  margin-left: 30rem; }
+@media (min-width: 1200px) {
+  body.notFull .content-wrapper {
+    margin-left: 30rem; } }
 
 html, .content-wrapper, .sf-toolbar-clearer {
   background-color: #e4e3e2; }
@@ -2286,8 +2287,9 @@ html, .content-wrapper, .sf-toolbar-clearer {
     padding-right: 3rem; }
   .global-actions .action-search .input-group span.input-group-btn {
     position: absolute;
-    right: 0;
     height: 100%; }
+    .global-actions .action-search .input-group span.input-group-btn:not(.sidebar) {
+      right: 0; }
     .global-actions .action-search .input-group span.input-group-btn button[type='submit'] {
       background-color: transparent;
       padding: 0 .5rem 0;

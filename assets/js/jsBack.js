@@ -97,12 +97,8 @@ $(document).ready(function(){
         }else if($('body').hasClass('easyadmin')){
             idPage = $('form').attr('data-entity-id');
         }
-        $(this).find('.jstree-anchor').each(function(){
-            if ($(this).find('.page').attr('id') === idPage){
-                $(this).addClass('page-active');
-                $(this).parents('div.jstree > ul > li > a').addClass('page-active');
-            }
-        });
+        $('.page#'+idPage).parent('a').addClass('page-active');
+        $('.page#'+idPage).parents('.jstree').find('li[id$="_1"] > a').addClass('page-active');
     };
 
     $('.sidebar-menus div[id^="menu"]').on('ready.jstree open_node.jstree move_node.jstree', surbrillancePageActive);

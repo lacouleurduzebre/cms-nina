@@ -1,0 +1,128 @@
+{% macro render_menu_item(item, translation_domain) %}
+    {% if item.type == 'divider' %}
+        {{ item.label|trans(domain = translation_domain) }}
+    {% else %}
+        {% set menu_params = { menuIndex: item.menu_index, submenuIndex: item.submenu_index } %}
+        {% set path =
+            item.type == 'link' ? item.url :
+            item.type == 'route' ? path(item.route, item.params) :
+            item.type == 'entity' ? path('easyadmin', { entity: item.entity, action: 'list' }|merge(menu_params)|merge(item.params)) :
+            item.type == 'empty' ? '#' : ''
+        %}
+
+        {# if the URL generated for the route belongs to the backend, regenerate
+           the URL to include the menu_params to display the selected menu item
+           (this is checked comparing the beginning of the route URL with the backend homepage URL)
+        #}
+        {% if item.type == 'route' and (path starts with path('easyadmin')) %}
+            {% set path = path(item.route, menu_params|merge(item.params)) %}
+        {% endif %}
+
+        <a href="{{ path }}" {% if item.target|default(false) %}target="{{ item.target }}"{% endif %}>
+            {% if item.icon is not empty %}<i class="fa {{ item.icon }}"></i>{% endif %}
+            <span>{{ item.label|trans(domain = translation_domain) }}</span>
+            {% if item.children|default([]) is not empty %}<i class="fas fa-angle-down mls"></i>{% endif %}
+        </a>
+    {% endif %}
+{% endmacro %}
+
+{% import _self as helper %}
+
+{% block main_menu_before %}{% endblock %}
+
+<ul class="sidebar-menu">
+    {% set _menu_items = easyadmin_config('design.menu') %}
+
+    {% block main_menu %}
+        {% for item in _menu_items %}
+            {% block menu_item %}
+                <li class="{{ item.type == 'divider' ? 'header' }} {{ item.children is not empty ? 'treeview' }} {{ app.request.query.get('menuIndex')|default(-1) == loop.index0 ? 'active' }} {{ app.request.query.get('submenuIndex')|default(-1) != -1 ? 'submenu-active' }}">
+                    {{ helper.render_menu_item(item, _entity_config.translation_domain|default('messages')) }}
+
+                    {% if item.children|default([]) is not empty %}
+                        <ul class="treeview-menu">
+                            {% for subitem in item.children %}
+                                {% block menu_subitem %}
+                                    <li class="{{ subitem.type == 'divider' ? 'header' }} {{ app.request.query.get('menuIndex')|default(-1) == loop.parent.loop.index0 and app.request.query.get('submenuIndex')|default(-1) == loop.index0 ? 'active' }}">
+                                        {{ helper.render_menu_item(subitem, _entity_config.translation_domain|default('messages')) }}
+                                    </li>
+                                {% endblock menu_subitem %}
+                            {% endfor %}
+                        </ul>
+                    {% endif %}
+                </li>
+            {% endblock menu_item %}
+        {% endfor %}
+    {% endblock main_menu %}
+    {% block header_custom_menu %}
+        <li>
+            {% set _logout_path = easyadmin_logout_path() %}
+            {% if app.user|default(false) == false %}
+                <i class="hidden-xs fa fa-user-times"></i>
+                {{ 'user.anonymous'|trans(domain = 'EasyAdminBundle') }}
+            {% elseif not _logout_path %}
+                <i class="hidden-xs fa fa-user"></i>
+                {{ app.user.username|default('user.unnamed'|trans(domain = 'EasyAdminBundle')) }}
+            {% else %}
+                <a href="#">
+                    {% if app.user.imageProfil is not empty %}
+                        <img id="header-imageProfil" src="/uploads/{{ app.user.imageProfil }}" alt="{{ app.user.username }}">
+                    {% else %}
+                        <i id="header-sansImageProfil" class="fas fa-user"></i>
+                    {% endif %}
+                    <span>{{ app.user.username|default('user.unnamed'|trans(domain = 'EasyAdminBundle')) }}</span>
+                </a>
+                <ul>
+                    <li>
+                        <a href="{{ path('easyadmin', { action: 'edit', entity: 'Utilisateur', id: app.user.id }) }}"><span>{% trans %}Mon profil{% endtrans %}</span></a>
+                    </li>
+                    <li>
+                        <a href="{{ _logout_path }}"><span><i class="fas fa-power-off mrs"></i>{% trans %}Déconnexion{% endtrans %}</span></a>
+                    </li>
+                </ul>
+            {% endif %}
+            {#{% set _logout_path = easyadmin_logout_path() %}
+            <div class="dropdown-menu" role="menu">
+                {% block user_menu_dropdown %}
+                    <li>
+                        <a href="{{ _logout_path }}"><i class="fas fa-power-off"></i></a>
+                    </li>
+                    {% if is_granted('ROLE_PREVIOUS_ADMIN') %}
+                        <li>
+                            <a href="?_switch_user=_exit"><i class="fas fa-power-off"></i> {{ 'user.exit_impersonation'|trans(domain = 'EasyAdminBundle') }}</a>
+                        </li>
+                    {% endif %}
+                {% endblock user_menu_dropdown %}
+            </div>
+            <ul class="nav navbar-nav">
+                <li class="dropdown user user-menu">
+                    {% block user_menu %}
+                        <span class="sr-only">{{ 'user.logged_in_as'|trans(domain = 'EasyAdminBundle') }}</span>
+
+                        {% if app.user|default(false) == false %}
+                            <i class="hidden-xs fa fa-user-times"></i>
+                            {{ 'user.anonymous'|trans(domain = 'EasyAdminBundle') }}
+                        {% elseif not _logout_path %}
+                            <i class="hidden-xs fa fa-user"></i>
+                            {{ app.user.username|default('user.unnamed'|trans(domain = 'EasyAdminBundle')) }}
+                        {% else %}
+                            <div>
+                                <p>
+                                    <strong>{{ app.user.username|default('user.unnamed'|trans(domain = 'EasyAdminBundle')) }}</strong>
+                                </p>
+                                <p>{% trans %}Bienvenue dans votre administration de{% endtrans %}</p>
+                                <p>{{ config.nom }}</p>
+                                <button type="button" class="btn dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                    <span class="caret"></span>
+                                </button>#}{#
+                            </div>
+                        {% endif %}
+                    {% endblock user_menu %}
+                </li>
+            </ul>#}
+        </li>
+    {% endblock header_custom_menu %}
+</ul>
+<a id="voirSite" href="{{ path('accueil') }}" title="{% trans %}Voir le site{% endtrans %}"><i class="fas fa-sign-in-alt"></i></a>
+
+{% block main_menu_after %}{% endblock %}
