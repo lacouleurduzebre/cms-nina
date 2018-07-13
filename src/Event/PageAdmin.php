@@ -10,6 +10,7 @@ namespace App\Event;
 
 
 use App\Entity\MenuPage;
+use App\Entity\Module;
 use App\Entity\Page;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -26,6 +27,7 @@ class PageAdmin implements EventSubscriberInterface
     {
         return array(
             'easy_admin.post_persist' => array('creerMenuPage'),
+            'easy_admin.pre_persist' => array('enregistrerModules'),
         );
     }
 

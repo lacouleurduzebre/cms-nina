@@ -1,2 +1,2 @@
 fos_js_routing:
-    routes_to_expose: [ admin_app_page_corbeille, admin_app_page_edit, admin_app_page_create ]
+    routes_to_expose: [ admin, ajouterModule ]

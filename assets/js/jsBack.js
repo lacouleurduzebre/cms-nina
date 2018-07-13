@@ -102,4 +102,30 @@ $(document).ready(function(){
     };
 
     $('.sidebar-menus div[id^="menu"]').on('ready.jstree open_node.jstree move_node.jstree', surbrillancePageActive);
+
+    /* Affichage du formulaire en fonction du type du module */
+    $('#edit-page_active-form').on('change', 'select[id^="page_active_modules"]', function(){
+        type = $(this).val();
+        id = $(this).attr('id');
+        idModule = $(this).closest('.field-module').children('label').html();
+
+        $.ajax({
+            url: Routing.generate('ajouterModule'),
+            method: "post",
+            data: {type: type}
+        })
+            .done(function(data){
+                $('#'+id).closest('div[id^="page_active"]').find('div[id$="contenu"]').append(data);
+                $('#page_active_modules_'+idModule+'_contenu').find('label').each(function(){
+                    idLabel = $(this).attr('for');
+                    champ = idLabel.substring(idLabel.indexOf('_') + 1);
+                    console.log(champ);
+                    $(this).attr('for', 'page_active[modules]['+idModule+'][contenu]['+champ+']');
+                    $(this).next('*').attr('name', 'page_active[modules]['+idModule+'][contenu]['+champ+']');
+                });
+            })
+            .fail(function(){
+                console.log('fail');
+            });
+    });
 });

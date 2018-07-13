@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -117,7 +118,7 @@ class Page
     private $contenu;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Module", inversedBy="page", cascade={"persist", "remove"})
+     * @ORM\OneToMany(targetEntity="App\Entity\Module", mappedBy="page", orphanRemoval=true, cascade={"persist"})
      */
     private $modules;
 
@@ -128,6 +129,7 @@ class Page
         $this->commentaires = new ArrayCollection();
         $this->categories = new ArrayCollection();
         $this->pagesTraduites = new ArrayCollection();
+        $this->modules = new ArrayCollection();
     }
 
     public function __toString()
@@ -548,14 +550,33 @@ class Page
         return $this;
     }
 
-    public function getModules(): ?Module
+    /**
+     * @return Collection|Module[]
+     */
+    public function getModules(): Collection
     {
         return $this->modules;
     }
 
-    public function setModules(?Module $modules): self
+    public function addModule(Module $module): self
     {
-        $this->modules = $modules;
+        if (!$this->modules->contains($module)) {
+            $this->modules[] = $module;
+            $module->setPage($this);
+        }
+
+        return $this;
+    }
+
+    public function removeModule(Module $module): self
+    {
+        if ($this->modules->contains($module)) {
+            $this->modules->removeElement($module);
+            // set the owning side to null (unless already changed)
+            if ($module->getPage() === $this) {
+                $module->setPage(null);
+            }
+        }
 
         return $this;
     }

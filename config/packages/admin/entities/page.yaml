@@ -51,10 +51,10 @@ easy_admin:
                     - { property: 'titre', type: 'text' }
                     - active
                     - corbeille
-                    - contenu
+                    #- contenu
+                    - { property: 'modules', type: 'collection', type_options: { entry_type: 'App\Form\Type\ModuleType', by_reference: false } }
                     - { type: 'tab', label: 'SEO' }
                     - { property: 'SEO', type: 'App\Form\Type\SEOType', type_options: { by_reference: true } }
-                    #- { property: 'modules', type: 'collection', type_options: { entry_type: 'App\Form\Type\Modules\ModuleType', by_reference: true } }
                     #- image
                     - { type: 'tab', label: 'Catégories' }
                     - categories
@@ -62,7 +62,7 @@ easy_admin:
                     - datePublication
                     - dateDepublication
                     - { type: 'tab', label: 'Commentaires' }
-                    - { property: 'commentaires', type: 'collection', type_options: { entry_type: 'App\Form\Type\CommentaireType', by_reference: true } }
+                    - { property: 'commentaires', type: 'collection', type_options: { entry_type: 'App\Form\Type\CommentaireType', by_reference: false } }
                     - { type: 'tab', label: 'Traduction' }
                     - { property: 'langue', label: 'Page en :', nullable: false }
                     - { property: 'pageOriginale', label: 'Traduction de :'}

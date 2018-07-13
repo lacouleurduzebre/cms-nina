@@ -37,3 +37,7 @@ page:
 accueil:
     resource: "../src/Controller/AccueilController.php"
     type: annotation
+
+module:
+    resource: "../src/Controller/Back/ModuleController.php"
+    type: annotation

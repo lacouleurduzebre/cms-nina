@@ -19,7 +19,7 @@ class Module
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $type;
 
@@ -29,14 +29,15 @@ class Module
     private $contenu;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Page", mappedBy="modules")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Page", inversedBy="modules")
+     * @ORM\JoinColumn(nullable=false)
      */
     private $page;
 
-    public function __construct()
-    {
-        $this->page = new ArrayCollection();
-    }
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $position;
 
     public function getId()
     {
@@ -67,33 +68,26 @@ class Module
         return $this;
     }
 
-    /**
-     * @return Collection|Page[]
-     */
-    public function getPage(): Collection
+    public function getPage(): ?Page
     {
         return $this->page;
     }
 
-    public function addPage(Page $page): self
+    public function setPage(?Page $page): self
     {
-        if (!$this->page->contains($page)) {
-            $this->page[] = $page;
-            $page->setModule($this);
-        }
+        $this->page = $page;
 
         return $this;
     }
 
-    public function removePage(Page $page): self
+    public function getPosition(): ?int
     {
-        if ($this->page->contains($page)) {
-            $this->page->removeElement($page);
-            // set the owning side to null (unless already changed)
-            if ($page->getModule() === $this) {
-                $page->setModule(null);
-            }
-        }
+        return $this->position;
+    }
+
+    public function setPosition(?int $position): self
+    {
+        $this->position = $position;
 
         return $this;
     }

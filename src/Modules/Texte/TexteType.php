@@ -2,34 +2,32 @@
 /**
  * Created by PhpStorm.
  * User: Chipolata
- * Date: 12/07/2018
- * Time: 13:56
+ * Date: 13/07/2018
+ * Time: 11:45
  */
 
-namespace App\Modules;
+namespace App\Modules\Texte;
 
 
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class ModuleType extends AbstractType
+class TexteType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $types = scandir('../src/Modules');
         $builder
-            ->add('type', ChoiceType::class, array(
-                'options' => $types
-            ));
+            ->add('texte', TextType::class);
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'App\Entity\Module'
+            'data_class' => null,
         ));
     }
 
