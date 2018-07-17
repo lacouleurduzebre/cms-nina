@@ -108,6 +108,7 @@ $(document).ready(function(){
         type = $(this).val();
         id = $(this).attr('id');
         idModule = $(this).closest('.field-module').children('label').html();
+        $(this).closest('div').append('<i class="fas fa-sync fa-spin module"></i>');
 
         $.ajax({
             url: Routing.generate('ajouterModule'),
@@ -115,17 +116,21 @@ $(document).ready(function(){
             data: {type: type}
         })
             .done(function(data){
+                $('#'+id).next('svg').attr('class', 'fas fa-check').css('opacity', 0);
                 $('#'+id).closest('div[id^="page_active"]').find('div[id$="contenu"]').append(data);
+                // $('#'+id).prop('disabled', 'disabled');
                 $('#page_active_modules_'+idModule+'_contenu').find('label').each(function(){
                     idLabel = $(this).attr('for');
                     champ = idLabel.substring(idLabel.indexOf('_') + 1);
-                    console.log(champ);
                     $(this).attr('for', 'page_active[modules]['+idModule+'][contenu]['+champ+']');
                     $(this).next('*').attr('name', 'page_active[modules]['+idModule+'][contenu]['+champ+']');
                 });
             })
             .fail(function(){
-                console.log('fail');
+                $('#'+id).next('svg').attr('class', 'fas fa-times').css('opacity', 0);
             });
     });
+
+    /* Désactivation des select de modules remplis */
+    // $('select[id^="page_active_modules"]').prop('disabled', 'disabled');
 });

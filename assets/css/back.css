@@ -1566,6 +1566,24 @@ body.notFull .main-sidebar #btnArbo svg {
       align-items: center;
       justify-content: center; }
 
+/* Recherche */
+.global-actions .action-search .input-group {
+  position: relative;
+  display: inline-block; }
+  .global-actions .action-search .input-group input[type='search'] {
+    padding-right: 3rem; }
+  .global-actions .action-search .input-group span.input-group-btn {
+    position: absolute;
+    height: 100%; }
+    .global-actions .action-search .input-group span.input-group-btn button[type='submit'] {
+      box-shadow: none;
+      background-color: transparent;
+      padding: 0 .5rem 0;
+      height: 100%; }
+      .global-actions .action-search .input-group span.input-group-btn button[type='submit'] svg {
+        color: #000;
+        font-size: 2rem; }
+
 .sidebar.global-actions > div {
   text-align: center;
   padding-top: 1rem; }

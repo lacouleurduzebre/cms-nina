@@ -1,0 +1,8 @@
+{% if contenu.titre is not empty %}
+    <figure>
+        <img src="{{ contenu.image }}" alt="{{ contenu.description }}">
+        <figcaption>{{ contenu.titre }}</figcaption>
+    </figure>
+{% else %}
+    <img src="{{ contenu.image }}" alt="{{ contenu.description }}">
+{% endif %}

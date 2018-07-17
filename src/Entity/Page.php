@@ -113,12 +113,8 @@ class Page
     private $categories;
 
     /**
-     * @ORM\Column(type="text", nullable=true)
-     */
-    private $contenu;
-
-    /**
      * @ORM\OneToMany(targetEntity="App\Entity\Module", mappedBy="page", orphanRemoval=true, cascade={"persist"})
+     * @ORM\OrderBy({"position" = "ASC"})
      */
     private $modules;
 
@@ -536,18 +532,6 @@ class Page
     public function getDateDepublication()
     {
         return $this->dateDepublication;
-    }
-
-    public function getContenu(): ?string
-    {
-        return $this->contenu;
-    }
-
-    public function setContenu(?string $contenu): self
-    {
-        $this->contenu = $contenu;
-
-        return $this;
     }
 
     /**

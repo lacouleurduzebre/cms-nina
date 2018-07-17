@@ -27,7 +27,6 @@ class PageAdmin implements EventSubscriberInterface
     {
         return array(
             'easy_admin.post_persist' => array('creerMenuPage'),
-            'easy_admin.pre_persist' => array('enregistrerModules'),
         );
     }
 

@@ -9,12 +9,14 @@
 namespace App\Form\Type;
 
 
-use App\Modules\Texte\TexteType;
+use App\Modules\Texte\VideoType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
@@ -28,7 +30,6 @@ class ModuleType extends AbstractType
         $types = array_combine(array_values($types), array_values($types));
         unset($types["."]);
         unset($types[".."]);
-        unset($types["Module"]);
 
         $builder
             ->add('type', ChoiceType::class, array(
@@ -36,7 +37,8 @@ class ModuleType extends AbstractType
                 'empty_data' => null,
                 'choices' => $types
             ))
-            ->add('position', HiddenType::class, array('data'=>'0'))
+            ->add('position', NumberType::class, array('data'=>'0'))
+            ->add('class', TextType::class)
             ->add('contenu', CollectionType::class, array(
                 'allow_add' => true
             ))

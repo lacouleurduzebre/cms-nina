@@ -2429,6 +2429,12 @@ textarea {
 #form-actions-row {
   margin-top: 1rem; }
 
+/* Modules */
+div[id^="page_active_modules"] .field-collection-action {
+  display: none; }
+div[id^="page_active_modules"] svgk.module, div[id^="page_active_modules"] svg.fa-times.module {
+  transition: .3s; }
+
 /* M├®diath├¿que */
 .iframeMediatheque {
   height: calc(100vh - 11rem); }

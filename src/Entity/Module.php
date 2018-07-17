@@ -39,6 +39,11 @@ class Module
      */
     private $position;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $class;
+
     public function getId()
     {
         return $this->id;
@@ -88,6 +93,18 @@ class Module
     public function setPosition(?int $position): self
     {
         $this->position = $position;
+
+        return $this;
+    }
+
+    public function getClass(): ?string
+    {
+        return $this->class;
+    }
+
+    public function setClass(?string $class): self
+    {
+        $this->class = $class;
 
         return $this;
     }

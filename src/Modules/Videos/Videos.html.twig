@@ -1,0 +1,7 @@
+<div class="grid-3 small-1 has-gutter-xl">
+    {% for module in listerToutesLesVideos().modulesVideos %}
+        <div class="moduleVideos-video">
+            {%  include 'Modules/Video/Video.html.twig' with{'contenu' : module.contenu} only %}
+        </div>
+    {% endfor %}
+</div>

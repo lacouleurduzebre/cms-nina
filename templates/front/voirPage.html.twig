@@ -24,11 +24,15 @@
         <p><img class="fl w300p" src="{{ asset(page.image) }}"></p>
     {% endif %}
 
-    <div>
-        {% if page.contenu is not empty %}
-            {{ page.contenu|raw }}
+    <main>
+        {% if page.modules is not empty %}
+            {% for module in page.modules %}
+                <div class="module{{ module.type }}{% if module.class is not empty %} {{ module.class }}{% endif %}">
+                    {%  include '/Modules/'~module.type~'/'~module.type~'.html.twig' with{'contenu' : module.contenu} only %}
+                </div>
+            {% endfor %}
         {% endif %}
-    </div>
+    </main>
 
     <aside class="clear blocCommentaires">
         <h2>Commentaires sur "{{ page.titre }}"</h2>
