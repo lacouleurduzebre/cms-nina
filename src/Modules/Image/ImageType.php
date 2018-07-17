@@ -10,6 +10,7 @@ namespace App\Modules\Image;
 
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ButtonType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -21,7 +22,10 @@ class ImageType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('image', FileType::class)
+            ->add('image', TextType::class)
+            /*->add('mediatheque', ButtonType::class, array(
+                'attr' => array('class' => 'mediatheque')
+            ))*/
             ->add('titre', TextType::class)
             ->add('description', TextType::class);
     }

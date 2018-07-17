@@ -39,10 +39,21 @@ class ModuleType extends AbstractType
             ))
             ->add('position', NumberType::class, array('data'=>'0'))
             ->add('class', TextType::class)
-            ->add('contenu', CollectionType::class, array(
-                'allow_add' => true
-            ))
         ;
+
+        $builder->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event) {
+            $module = $event->getData();
+            $form = $event->getForm();
+
+            if ($module){
+                $type = $module->getType();
+                $form->add('contenu', 'App\Modules\\'.$type.'\\'.$type.'Type');
+            }else{
+                $form->add('contenu', CollectionType::class, array(
+                    'allow_add' => true
+                ));
+            }
+        });
     }
 
     public function configureOptions(OptionsResolver $resolver)
