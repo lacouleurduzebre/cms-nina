@@ -82,6 +82,22 @@
                         }
                     }
                 },
+                "see":{
+                    "icon": "fa fa-eye",
+                    "label": "Voir",
+                    "action": function(){
+                        idPage = $('#'+node.id).find('.page').attr('id');
+
+                        $.ajax({
+                            url: "{{ path('urlPage') }}",
+                            method: "post",
+                            data: {idPage: idPage}
+                        })
+                        .done(function(data){
+                            window.location.href = "{{ app.request.baseUrl }}/"+data;
+                        })
+                    }
+                },
                 "create":{
                     "icon": "fa fa-plus",
                     "label": "Ajouter une page enfant",

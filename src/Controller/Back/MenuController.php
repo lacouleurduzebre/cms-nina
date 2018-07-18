@@ -187,4 +187,24 @@ class MenuController extends Controller
 
         return false;
     }
+
+    /**
+     * @Route("/admin/menu/voirPage", name="urlPage")
+     * @param Request $request
+     * @return bool|Response
+     */
+    public function urlPageAction(Request $request){
+        if($request->isXmlHttpRequest()){
+            $em = $this->getDoctrine()->getManager();
+            $repoPage = $em->getRepository(Page::class);
+
+            $idPage = $request->get('idPage');
+            $page = $repoPage->find($idPage);
+            $url = $page->getSeo()->getUrl();
+
+            return new Response($url);
+        };
+
+        return false;
+    }
 }
