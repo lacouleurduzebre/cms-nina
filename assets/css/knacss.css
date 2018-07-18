@@ -2414,7 +2414,7 @@ body.edit input[type='text'], body.edit input[type='email'], body.edit input[typ
     margin-right: .5rem; }
 
 /* Formulaire des pages */
-textarea {
+.mce-container textarea {
   display: block !important;
   height: 0;
   min-height: 0;

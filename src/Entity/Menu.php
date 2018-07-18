@@ -43,6 +43,11 @@ class Menu
     private $menuPage;
 
     /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $defaut;
+
+    /**
      * Get id
      *
      * @return integer
@@ -141,5 +146,17 @@ class Menu
     public function getMenuPage()
     {
         return $this->menuPage;
+    }
+
+    public function getDefaut(): ?bool
+    {
+        return $this->defaut;
+    }
+
+    public function setDefaut(?bool $defaut): self
+    {
+        $this->defaut = $defaut;
+
+        return $this;
     }
 }
