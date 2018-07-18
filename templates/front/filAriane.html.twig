@@ -1,0 +1,10 @@
+<a href="{{ path('accueil') }}">{% trans %}Accueil{% endtrans %}</a>
+{% if pageDansMenuPrincipal %}
+    <span>></span>
+    {% for page in ariane %}
+        <a href="{{ page.seo.url }}">{{ page.titre }}</a>
+        {% if not loop.last %}
+            <span>></span>
+        {% endif %}
+    {% endfor %}
+{% endif %}
