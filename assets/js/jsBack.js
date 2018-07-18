@@ -1,30 +1,4 @@
 $(document).ready(function(){
-    initialisationTimyMce = function (){
-        tinymce.init({
-            selector: "textarea",
-            theme: "modern",
-            height: 300,
-            plugins: [
-                "advlist autolink link image lists charmap print preview hr anchor pagebreak",
-                "searchreplace wordcount visualblocks visualchars insertdatetime media nonbreaking spellchecker",
-                "table contextmenu directionality emoticons paste textcolor responsivefilemanager code"
-            ],
-            relative_urls: false,
-            menubar: false,
-
-            filemanager_title:"Médiathèque",
-            external_filemanager_path:"/filemanager/",
-            external_plugins: { "filemanager" : "/filemanager/plugin.min.js"},
-
-            extended_valid_elements: 'i[class]',
-            image_advtab: true,
-            toolbar1: "undo redo | bold italic underline | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | formatselect",
-            toolbar2: "| responsivefilemanager | image | media | link unlink anchor | preview | code"
-        });
-    };
-
-    initialisationTimyMce();
-
     /* Toggle colonne de gauche */
     if($.cookie('full') === 'on'){
         $('body').addClass('full');
@@ -32,7 +6,8 @@ $(document).ready(function(){
         $('body').addClass('notFull');
     }
 
-    $('#btnArbo').click(function(){
+    $('#btnArbo').click(function(e){
+        e.preventDefault();
         $('body').toggleClass('full');
         $('body').toggleClass('notFull');
         $.cookie('full') === 'on' ? $.cookie('full', 'off') : $.cookie('full', 'on');
@@ -152,7 +127,27 @@ $(document).ready(function(){
                     $(this).next('*').attr('name', 'page_active[modules]['+idModule+'][contenu]['+champ+']');
                 });
                 // TinyMCE
-                initialisationTimyMce();
+                tinymce.init({
+                    selector: "textarea",
+                    theme: "modern",
+                    height: 300,
+                    plugins: [
+                        "advlist autolink link image lists charmap print preview hr anchor pagebreak",
+                        "searchreplace wordcount visualblocks visualchars insertdatetime media nonbreaking spellchecker",
+                        "table contextmenu directionality emoticons paste textcolor responsivefilemanager code"
+                    ],
+                    relative_urls: false,
+                    menubar: false,
+
+                    filemanager_title:"Médiathèque",
+                    external_filemanager_path:"/filemanager/",
+                    external_plugins: { "filemanager" : "/filemanager/plugin.min.js"},
+
+                    extended_valid_elements: 'i[class]',
+                    image_advtab: true,
+                    toolbar1: "undo redo | bold italic underline | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | formatselect",
+                    toolbar2: "| responsivefilemanager | image | media | link unlink anchor | preview | code"
+                });
             })
             .fail(function(){
                 $('#'+id).next('svg').attr('class', 'fas fa-times').css('opacity', 0);
