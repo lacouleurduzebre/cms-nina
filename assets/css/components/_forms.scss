@@ -20,9 +20,15 @@ fieldset {
 }
 
 label {
-  display: block;
   cursor: pointer;
+  &:not(.required){
+    display: block;
+  }
+  &.required + span{
+    color: $color-danger;
+  }
 }
+
 
 [type="color"],
 [type="date"],
