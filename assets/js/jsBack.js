@@ -127,6 +127,7 @@ $(document).ready(function(){
                     $(this).next('*').attr('name', 'page_active[modules]['+idModule+'][contenu]['+champ+']');
                 });
                 // TinyMCE
+                tinymce.remove();
                 tinymce.init({
                     selector: "textarea",
                     theme: "modern",
@@ -154,11 +155,10 @@ $(document).ready(function(){
             });
     });
 
-    /* Désactivation des select de modules remplis */
-    // $('select[id^="page_active_modules"]').prop('disabled', 'disabled');
+    /* Changement du h1 lors de l'édition d'une page */
+    $('body.edit-page_active h1').html('Page : '+$('#page_active_titre').val());
 
-    // Ouverture de la médiathèque pour choisir un fichier
-    /*$('.mediatheque').click(function(){
-
-    });*/
+    $('#page_active_titre').on('keyup', function(){
+        $('body.edit-page_active h1').html('Page : '+$(this).val());
+    });
 });
