@@ -57,7 +57,7 @@ easy_admin:
               - { entity: 'Menu', icon: '' }
               - { entity: 'Page_Corbeille', icon: '' }
               - { entity: 'Commentaire_Corbeille', icon: '' }
-            - { label: 'Médiathèque', icon: 'folder', route: 'mediatheque' }
+            - { label: 'Médiathèque', icon: 'images', route: 'mediatheque' }
             - { entity: 'Utilisateur', label: 'Comptes', icon: 'users' }
             - label: 'Outils'
               icon: 'wrench'

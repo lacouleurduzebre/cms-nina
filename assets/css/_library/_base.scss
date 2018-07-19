@@ -26,6 +26,7 @@ html {
 body {
   margin: 0;
   @include font-size(base);
+  font-weight: 100;
   background-color: $background-base;
   color: $color-base;
   font-family: $font-family-base;

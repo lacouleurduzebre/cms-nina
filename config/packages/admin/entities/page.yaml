@@ -46,6 +46,11 @@ easy_admin:
                     - seo
                     - active
             form:
+                actions:
+                    - { name: 'voir', label: 'Voir', title: 'Voir', icon: 'eye' }
+                    - { name: 'dupliquer', label: 'Dupliquer', title: 'Dupliquer', icon: 'copy' }
+                    - { name: 'corbeille', label: 'Mettre à la corbeille', title: 'Mettre à la corbeille', icon: 'trash' }
+                    - { name: 'list', label: 'Retour', title: 'Retour', icon: 'arrow-left', css_class: '' }
                 fields:
                     - { type: 'tab', label: 'Contenus' }
                     - { property: 'titre', type: 'text' }

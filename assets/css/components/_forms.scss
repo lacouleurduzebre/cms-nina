@@ -21,6 +21,7 @@ fieldset {
 
 label {
   cursor: pointer;
+  color: $color-brand2;
   &:not(.required){
     display: block;
   }
@@ -49,7 +50,7 @@ textarea {
   font-family: inherit;
   font-size: inherit;
   border: 0;
-  box-shadow: 0 0 0 1px $forms-color inset;
+  box-shadow: 0 0 0 1px $color-brand2 inset;
   color: $color-base;
   vertical-align: middle;
   padding: $spacer-tiny $spacer-small;
@@ -59,6 +60,24 @@ textarea {
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
+}
+
+[type="color"],
+[type="date"],
+[type="datetime-local"],
+[type="email"],
+[type="month"],
+[type="number"],
+[type="password"],
+[type="search"],
+[type="tel"],
+[type="text"],
+[type="time"],
+[type="url"],
+[type="week"]{
+  box-shadow: none;
+  border-bottom: 1px solid $color-brand2;
+  background-color: transparent;
 }
 
 [type="submit"] {

@@ -1,6 +1,10 @@
 {% use 'form_div_layout.html.twig' %}
 
 {% block form_start -%}
+    <div class="formulaire-actions">
+        {{- block('item_actions') -}}
+    </div>
+
     {% if 'easyadmin' == block_prefixes|slice(-2)|first %}
         {% set attr = attr|merge({
             'class': [
@@ -449,7 +453,7 @@
 
 {% block easyadmin_rest %}
     {{- form_rest(form) -}}
-    <div class="row">
+    {#<div class="row">
         <div class="col-xs-12 form-actions">
             <div class="form-group">
                 <div id="form-actions-row">
@@ -457,7 +461,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div>#}
 {% endblock easyadmin_rest %}
 
 {% block item_actions %}
@@ -465,8 +469,8 @@
     {% set _trans_parameters = { '%entity_name%':  easyadmin.entity.name|trans, '%entity_label%': easyadmin.entity.label|trans } %}
 
     {# the 'save' action is hardcoded for the 'edit' and 'new' views #}
-    <button type="submit" class="btn btn-primary action-save">
-        <i class="fa fa-save"></i> {{ 'action.save'|trans(_trans_parameters, _translation_domain) }}
+    <button type="submit" class="formulaire-actions-enregistrer">
+        <i class="fas fa-check-circle"></i>{% trans %}Enregistrer{% endtrans %}
     </button>
 
     {% set _entity_actions = (easyadmin.view == 'new')

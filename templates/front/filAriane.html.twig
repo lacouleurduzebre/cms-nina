@@ -2,8 +2,10 @@
 {% if pageDansMenuPrincipal %}
     <span>></span>
     {% for page in ariane %}
-        <a href="{{ page.seo.url }}">{{ page.titre }}</a>
-        {% if not loop.last %}
+        {% if loop.last %}
+            {{ page.titre }}
+        {% else %}
+            <a href="{{ page.seo.url }}">{{ page.titre }}</a>
             <span>></span>
         {% endif %}
     {% endfor %}

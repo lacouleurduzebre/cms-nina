@@ -703,14 +703,14 @@
 /* Header */
 .main-header {
   font-family: 'Mic32';
-  background-color: #5A5853;
+  background-color: #75726B;
   height: 38px;
   position: fixed;
   width: calc(100% - 30rem);
   top: 0;
   left: 30rem;
-  box-shadow: inset 0 -7px 9px -7px #000;
-  z-index: 1000; }
+  z-index: 1000;
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25); }
   .main-header .navbar {
     display: flex;
     height: 100%; }
@@ -748,14 +748,14 @@
         .sidebar-menu > li > a span {
           display: none; } }
   .sidebar-menu ul {
-    background-color: #5A5853;
+    background-color: #75726B;
     list-style: none;
     padding: 0; }
   .sidebar-menu li {
     position: relative;
     white-space: nowrap; }
     .sidebar-menu li:hover > a {
-      background-color: #32312e; }
+      background-color: #4d4b46; }
     .sidebar-menu li > ul {
       display: none;
       position: absolute;
@@ -1489,25 +1489,16 @@
   font-family: 'Mic32';
   width: 300px;
   position: fixed;
-  background-color: #5A5853;
   color: #FFF;
   top: 0;
-  z-index: 1000; }
+  z-index: 1000;
+  background: #F7F7F7; }
   .main-sidebar a {
-    color: #FFF;
+    color: #666666;
     text-decoration: none; }
 
 body.notFull .main-sidebar {
   height: 100vh; }
-  @media (min-width: 1200px) {
-    body.notFull .main-sidebar {
-      box-shadow: inset -7px 0 5px -5px rgba(0, 0, 0, 0.7); } }
-
-/*body.full .main-sidebar{
-  box-shadow: 5px 1px 10px #000;
-}*/
-body.full .main-sidebar .arbo-titre {
-  box-shadow: inset 0 -7px 9px -7px #000; }
 
 /* Toggle colonne gauche */
 .main-sidebar {
@@ -1522,35 +1513,32 @@ body.notFull .main-sidebar #btnArbo svg {
 
 /* Arborescence */
 .sidebar-menus {
-  padding-bottom: 2rem;
-  background-color: #75726b; }
-  @media (min-width: 1200px) {
-    .sidebar-menus {
-      box-shadow: inset -7px 0 5px -5px rgba(0, 0, 0, 0.7); } }
+  padding-bottom: 2rem; }
   .sidebar-menus div[id^='menu'] a {
     white-space: initial;
     display: inline-block;
     max-width: calc(100% - 2.4rem);
-    font-size: 1.5rem;
+    font-size: 1.4rem;
     line-height: 20px; }
 
 .arbo-titre {
   text-transform: uppercase;
   padding: .6rem 0;
-  height: 3.8rem; }
+  height: 3.8rem;
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+  position: relative; }
   .arbo-titre.active {
     background-color: #A1BA1D; }
   .arbo-titre .fa-sitemap {
     margin-right: 3rem; }
   .arbo-titre #btnArbo {
-    margin-left: 1rem; }
+    margin-left: 1rem;
+    color: #FFF; }
 
 .arbo-langues {
   background-color: #7b8e16;
-  padding: 1rem 2rem; }
-  @media (min-width: 1200px) {
-    .arbo-langues {
-      box-shadow: inset -7px 0 5px -5px rgba(0, 0, 0, 0.7); } }
+  padding: 1rem 2rem;
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25); }
   .arbo-langues span {
     border: 1px solid #FFF;
     height: 3.5rem;
@@ -1564,7 +1552,8 @@ body.notFull .main-sidebar #btnArbo svg {
       height: 100%;
       width: 100%;
       align-items: center;
-      justify-content: center; }
+      justify-content: center;
+      color: #FFF; }
 
 /* Recherche */
 .global-actions .action-search .input-group {
@@ -1618,35 +1607,31 @@ body.notFull .main-sidebar #btnArbo svg {
 
 .menu {
   margin: 1rem 0;
-  position: relative; }
+  position: relative;
+  font-weight: 500; }
   .menu > div > ul > li {
-    background-color: #3f3e3b !important; }
-    @media (min-width: 1200px) {
-      .menu > div > ul > li {
-        box-shadow: inset -7px 0 5px -5px rgba(0, 0, 0, 0.7); } }
+    background-color: #EEEEEE !important; }
     .menu > div > ul > li > i {
       margin-top: 1rem !important; }
     .menu > div > ul > li > a {
-      font-size: 2rem !important;
-      padding: 1rem 0; }
+      font-size: 1.6rem !important;
+      padding: 1rem; }
       .menu > div > ul > li > a svg {
         width: 20px; }
     .menu > div > ul > li > ul {
-      background-color: #75726b; }
-      @media (min-width: 1200px) {
-        .menu > div > ul > li > ul > li {
-          box-shadow: inset -7px 0 5px -5px rgba(0, 0, 0, 0.7); } }
+      background-color: #F7F7F7;
+      box-shadow: inset 0px 4px 4px -2px rgba(0, 0, 0, 0.25); }
 
 /* Logo */
 #sidebar-logo {
-  background-color: #000;
-  padding: 2rem 0;
+  background-color: #0791B3;
+  padding: 1rem;
   position: absolute;
   bottom: 0;
-  width: 100%; }
+  width: 100%;
+  box-shadow: 0 -4px 4px rgba(0, 0, 0, 0.25); }
   #sidebar-logo img {
-    height: 50px;
-    margin: auto;
+    height: 25px;
     display: block; }
 
 /* Clic droit sur arbo */
@@ -1660,7 +1645,7 @@ body.notFull .main-sidebar #btnArbo svg {
 
 .vakata-context li > a {
   padding: 0 1rem;
-  color: #5A5853; }
+  color: #75726B; }
 
 .vakata-context li > a:hover, .vakata-context .vakata-context-hover > a {
   background-color: #e8f3b0;
