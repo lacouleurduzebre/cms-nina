@@ -1,0 +1,8 @@
+{% for menu in planDuSite() %}
+    <div class="menu-{{ menu.id }}">
+        <p>{{ menu.nom }}</p>
+        <ul>
+            {% include 'front/menu/menu.html.twig' with{'menuPages' : menu.menuPage} only %}
+        </ul>
+    </div>
+{% endfor %}

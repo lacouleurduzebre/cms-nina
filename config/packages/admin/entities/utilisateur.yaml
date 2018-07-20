@@ -24,6 +24,8 @@ easy_admin:
                     - { property: 'lastLogin', label: 'Dernière connexion' }
                     - { property: 'roles', label: 'Rôles' }
             new:
+                actions:
+                    - { name: 'list', label: 'Retour', title: 'Retour', icon: 'arrow-left', css_class: '' }
                 fields:
                     - { property: 'username', label: 'Pseudonyme' }
                     - { property: 'email', label: 'E-mail' }
@@ -32,6 +34,9 @@ easy_admin:
                     - { property: 'enabled', label: 'Activé' }
                     - { property: 'roles', label: 'Rôles' }
             edit:
+                actions:
+                    - { name: 'delete', label: 'Supprimer', title: 'Supprimer', icon: 'trash', css_class: '' }
+                    - { name: 'list', label: 'Retour', title: 'Retour', icon: 'arrow-left', css_class: '' }
                 fields:
                     - { property: 'username', label: 'Pseudonyme' }
                     - { property: 'email', label: 'E-mail' }

@@ -29,6 +29,9 @@ easy_admin:
                     - contenu
                     - { property: 'valide', label: 'Validé', sortable: true }
             form:
+                actions:
+                    - { name: 'corbeille', label: 'Mettre à la corbeille', title: 'Mettre à la corbeille', icon: 'trash' }
+                    - { name: 'list', label: 'Retour', title: 'Retour', icon: 'arrow-left', css_class: '' }
                 fields:
                     - { property: 'page', label: 'Page', type: 'entity', type_options: { class: 'App\Entity\Page' } }
                     - { property: 'auteur', label: 'Auteur', type: 'entity', type_options: { class: 'App\Entity\Utilisateur' } }

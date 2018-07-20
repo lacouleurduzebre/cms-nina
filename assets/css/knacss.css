@@ -2392,7 +2392,7 @@ body.new ul.nav-tabs, body.edit ul.nav-tabs {
     color: #0791B3; }
   .formulaire-actions .action-dupliquer {
     color: #8d00cb; }
-  .formulaire-actions .action-corbeille {
+  .formulaire-actions .action-corbeille, .formulaire-actions .action-delete {
     color: #D9534F; }
   .formulaire-actions .action-list {
     color: #cb8300; }

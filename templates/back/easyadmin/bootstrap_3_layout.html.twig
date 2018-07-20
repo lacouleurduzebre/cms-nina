@@ -26,9 +26,6 @@
 {# Widgets #}
 
 {% block form_widget %}
-    <div class="formulaire-actions">
-        {{- block('item_actions') -}}
-    </div>
     {{- parent() -}}
 
     {% if form.parent.vars.allow_delete|default(false) %}
@@ -452,6 +449,9 @@
 
 {% block easyadmin_rest %}
     {{- form_rest(form) -}}
+    <div class="formulaire-actions">
+        {{- block('item_actions') -}}
+    </div>
     {#<div class="row">
         <div class="col-xs-12 form-actions">
             <div class="form-group">

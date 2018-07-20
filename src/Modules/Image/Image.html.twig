@@ -1,8 +1,8 @@
-{% if contenu.titre is not empty %}
+{% if module.contenu.titre is not empty %}
     <figure>
-        <img src="{{ contenu.image }}" alt="{{ contenu.description }}">
-        <figcaption>{{ contenu.titre }}</figcaption>
+        <img src="{{ module.contenu.image }}" alt="{{ module.contenu.description }}">
+        <figcaption>{{ module.contenu.titre }}</figcaption>
     </figure>
 {% else %}
-    <img src="{{ contenu.image }}" alt="{{ contenu.description }}">
+    <img src="{{ module.contenu.image }}" alt="{{ module.contenu.description }}">
 {% endif %}

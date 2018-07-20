@@ -6,39 +6,31 @@
  * Time: 11:45
  */
 
-namespace App\Modules\Image;
+namespace App\Modules\Rubrique;
 
 
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\ButtonType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
-use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class ImageType extends AbstractType
+class RubriqueType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder
-            ->add('image', TextType::class)
-            /*->add('mediatheque', ButtonType::class, array(
-                'attr' => array('class' => 'mediatheque')
-            ))*/
-            ->add('titre', TextType::class)
-            ->add('description', TextType::class);
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => null
+            'data_class' => null,
         ));
     }
 
     public function getParent(){
-        return CollectionType::class;
+        return FormType::class;
     }
 }

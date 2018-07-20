@@ -25,6 +25,9 @@ easy_admin:
                     - { property : 'categorieParent', label: 'Catégorie parent' }
                     - { property : 'typeCategorie.nom', label: 'Type'}
             form:
+                actions:
+                    - { name: 'delete', label: 'Supprimer', title: 'Supprimer', icon: 'trash', css_class: '' }
+                    - { name: 'list', label: 'Retour', title: 'Retour', icon: 'arrow-left', css_class: '' }
                 fields:
                     - nom
                     - description

@@ -19,6 +19,9 @@ easy_admin:
                     - description
                     - url
             form:
+                actions:
+                    - { name: 'delete', label: 'Supprimer', title: 'Supprimer', icon: 'trash', css_class: '' }
+                    - { name: 'list', label: 'Retour', title: 'Retour', icon: 'arrow-left', css_class: '' }
                 fields:
                     - nom
                     - description
