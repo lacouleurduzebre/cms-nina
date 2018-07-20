@@ -1,10 +1,6 @@
 {% use 'form_div_layout.html.twig' %}
 
 {% block form_start -%}
-    <div class="formulaire-actions">
-        {{- block('item_actions') -}}
-    </div>
-
     {% if 'easyadmin' == block_prefixes|slice(-2)|first %}
         {% set attr = attr|merge({
             'class': [
@@ -30,6 +26,9 @@
 {# Widgets #}
 
 {% block form_widget %}
+    <div class="formulaire-actions">
+        {{- block('item_actions') -}}
+    </div>
     {{- parent() -}}
 
     {% if form.parent.vars.allow_delete|default(false) %}

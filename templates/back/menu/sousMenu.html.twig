@@ -2,7 +2,13 @@
     {% for menuPage in menuPages %}
         {% if isPublie(menuPage.page) %}
             <li>
-                <a href="#"><span class="menuPage" id="{{ menuPage.id }}"></span><span class="page" id="{{ menuPage.page.id }}"></span>{{ menuPage.page.titre }}</a>
+                <a href="#"><span class="menuPage" id="{{ menuPage.id }}"></span><span class="page" id="{{ menuPage.page.id }}"></span>
+                    {% if menuPage.page.titreMenu is not empty %}
+                        {{ menuPage.page.titreMenu }}
+                    {% else %}
+                        {{ menuPage.page.titre }}
+                    {% endif %}
+                </a>
                 {{ sousMenu(menuPage.page.id, 'back')|raw }}
             </li>
         {% endif %}

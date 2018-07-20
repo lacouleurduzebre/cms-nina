@@ -118,6 +118,11 @@ class Page
      */
     private $modules;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $titreMenu;
+
     public function __construct()
     {
         $this->datePublication = new \DateTime();
@@ -561,6 +566,18 @@ class Page
                 $module->setPage(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getTitreMenu(): ?string
+    {
+        return $this->titreMenu;
+    }
+
+    public function setTitreMenu(?string $titreMenu): self
+    {
+        $this->titreMenu = $titreMenu;
 
         return $this;
     }

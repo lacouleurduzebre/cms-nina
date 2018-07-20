@@ -54,6 +54,7 @@ easy_admin:
                 fields:
                     - { type: 'tab', label: 'Contenus' }
                     - { property: 'titre', type: 'text' }
+                    - { property: 'titreMenu', label: 'Titre dans les menus' }
                     - active
                     - corbeille
                     #- contenu

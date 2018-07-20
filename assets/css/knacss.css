@@ -2253,7 +2253,9 @@ body {
       margin-top: 1.5rem; }
     #loginPage > * input {
       border-radius: 5px;
-      box-shadow: none; }
+      box-shadow: none;
+      border: none;
+      background-color: #FFF; }
       #loginPage > * input[type="text"], #loginPage > * input[type="password"] {
         width: 35rem; }
       #loginPage > * input[type="submit"] {
@@ -2377,9 +2379,13 @@ body.new ul.nav-tabs, body.edit ul.nav-tabs {
     text-decoration: none;
     border-radius: .5rem;
     box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.25);
-    margin: 0 .5rem; }
+    margin: 0 .5rem;
+    transition: 0.25s; }
     .formulaire-actions a svg, .formulaire-actions .formulaire-actions-enregistrer svg {
-      margin-right: .5rem; }
+      margin-right: .5rem;
+      transition: 0.25s; }
+    .formulaire-actions a:hover svg, .formulaire-actions .formulaire-actions-enregistrer:hover svg {
+      transform: rotate(20deg) scale(1.2); }
   .formulaire-actions .formulaire-actions-enregistrer {
     color: #A1BA1D; }
   .formulaire-actions .action-voir {

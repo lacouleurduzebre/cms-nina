@@ -29,6 +29,8 @@ body{
     input{
       border-radius: 5px;
       box-shadow: none;
+      border: none;
+      background-color: #FFF;
       &[type="text"], &[type="password"]{
         width: 35rem;
       }

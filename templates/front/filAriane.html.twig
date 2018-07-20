@@ -3,9 +3,19 @@
     <span>></span>
     {% for page in ariane %}
         {% if loop.last %}
-            {{ page.titre }}
+            {% if page.titreMenu is not empty %}
+                {{ page.titreMenu }}
+            {% else %}
+                {{ page.titre }}
+            {% endif %}
         {% else %}
-            <a href="{{ page.seo.url }}">{{ page.titre }}</a>
+            <a href="{{ page.seo.url }}">
+                {% if page.titreMenu is not empty %}
+                    {{ page.titreMenu }}
+                {% else %}
+                    {{ page.titre }}
+                {% endif %}
+            </a>
             <span>></span>
         {% endif %}
     {% endfor %}
