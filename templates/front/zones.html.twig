@@ -1,0 +1,11 @@
+{% if zone is defined %}
+    <div class="zone-{{ zone.id }}">
+        {{ zone.contenu|raw }}
+    </div>
+{% else %}
+    {% for zone in zones %}
+        <div class="zone-{{ zone.id }}">
+            {{ zone.contenu|raw }}
+        </div>
+    {% endfor %}
+{% endif %}

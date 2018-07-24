@@ -36,7 +36,7 @@
             <div>
                 <a href="{{ path('accueil') }}"><img class="logo" src="{{ asset('uploads/'~config.logo) }}" alt="CMS Nina"></a>
                 <p>{{ config.nom }}</p>
-                {{ zone('header') }}
+                {{ zone(region='header') }}
             </div>
             {% if langues is not empty %}
                 <div class="txtright flex-item-fluid">

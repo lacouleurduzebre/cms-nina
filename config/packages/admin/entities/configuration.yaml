@@ -13,6 +13,8 @@ easy_admin:
                     - { property: 'editeur', label: 'Éditeur' }
                     - { property: 'langueDefaut', label: 'Langue par défaut' }
             form:
+                actions:
+                    - { name: 'list', label: 'Retour', title: 'Retour', icon: 'arrow-left', css_class: '' }
                 fields:
                     - { property: 'nom', label: 'Nom du site' }
                     - { property: 'url', type: 'text' }
