@@ -26,9 +26,15 @@ class Menu extends \Twig_Extension
         );
     }
 
-    public function menu($region){
+    public function menu($region = null, $id = null){
         $emMenu = $this->doctrine->getRepository(\App\Entity\Menu::class);
-        $menus = $emMenu->findBy(array('region' => $region));
+
+        if($region){
+            $menus = $emMenu->findBy(array('region' => $region));
+        }else{
+            $menus = [];
+            $menus[] = $emMenu->find($id);
+        }
 
         return $this->twig->render('front/menu/menus.html.twig', array('menus' => $menus));
     }

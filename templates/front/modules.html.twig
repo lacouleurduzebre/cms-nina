@@ -1,0 +1,5 @@
+{% for module in page.modules %}
+    <div class="module{{ module.type }}{% if module.class is not empty %} {{ module.class }}{% endif %}">
+        {%  include '/Modules/'~module.type~'/'~module.type~'.html.twig' with{'module' : module} only %}
+    </div>
+{% endfor %}

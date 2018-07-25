@@ -6,10 +6,10 @@
  * Time: 11:45
  */
 
-namespace App\Modules\Zone;
+namespace App\Modules\Menu;
 
 
-use App\Entity\Zone;
+use App\Entity\Menu;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -17,7 +17,7 @@ use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class ZoneType extends AbstractType
+class MenuType extends AbstractType
 {
     public function __construct(EntityManagerInterface $em)
     {
@@ -26,16 +26,16 @@ class ZoneType extends AbstractType
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $repoZone = $this->em->getRepository(Zone::class);
-        $objetsZones = $repoZone->findAll();
-        $zones = [];
-        foreach($objetsZones as $objetZone){
-            $zones[$objetZone->getNom()] = $objetZone->getId();
+        $repoMenu = $this->em->getRepository(Menu::class);
+        $objetsMenus = $repoMenu->findAll();
+        $menus = [];
+        foreach($objetsMenus as $objetMenu){
+            $menus[$objetMenu->getNom()] = $objetMenu->getId();
         }
 
         $builder
-            ->add('zone', ChoiceType::class, array(
-                'choices' => $zones
+            ->add('menu', ChoiceType::class, array(
+                'choices' => $menus
             ));
     }
 

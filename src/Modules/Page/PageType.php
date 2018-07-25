@@ -6,10 +6,10 @@
  * Time: 11:45
  */
 
-namespace App\Modules\Zone;
+namespace App\Modules\Page;
 
 
-use App\Entity\Zone;
+use App\Entity\Page;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -17,25 +17,26 @@ use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class ZoneType extends AbstractType
+class PageType extends AbstractType
 {
     public function __construct(EntityManagerInterface $em)
     {
-     $this->em = $em;
+         $this->em = $em;
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $repoZone = $this->em->getRepository(Zone::class);
-        $objetsZones = $repoZone->findAll();
-        $zones = [];
-        foreach($objetsZones as $objetZone){
-            $zones[$objetZone->getNom()] = $objetZone->getId();
+        $repoPage = $this->em->getRepository(Page::class);
+        $objetsPages = $repoPage->findAll();
+        $pages = [];
+
+        foreach($objetsPages as $objetPage){
+            $pages[$objetPage->getTitre()] = $objetPage->getId();
         }
 
         $builder
-            ->add('zone', ChoiceType::class, array(
-                'choices' => $zones
+            ->add('page', ChoiceType::class, array(
+                'choices' => $pages
             ));
     }
 

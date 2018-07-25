@@ -6,24 +6,23 @@
  * Time: 11:45
  */
 
-namespace App\Modules\Texte;
+namespace App\Modules\LEI;
 
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
-use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class TexteType extends AbstractType
+class LEIType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('texte', TextareaType::class, array(
-                'required' => false
+            ->add('flux', TextType::class, array(
+                'label' => 'Url du flux LEI'
             ));
     }
 

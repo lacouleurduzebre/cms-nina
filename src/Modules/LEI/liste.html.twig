@@ -1,0 +1,15 @@
+<div class="fichesLEI grid-3 has-gutter-l">
+    {% for fiche in xml.children() %}
+        <div class="ficheLEI fiche-{{ fiche.PRODUIT }}">
+            <p class="ficheLEI-commune">{{ fiche.ADRPROD_LIBELLE_COMMUNE }}</p>
+            {% if fiche.CRITERES.Crit.0 is not empty %}
+                <img class="ficheLEI-image" src="https://{{ fiche.CRITERES.Crit.0 }}" alt="">
+            {% else %}
+                <i class="fas fa-camera"></i>
+            {% endif %}
+            <p class="ficheLEI-titre">{{ fiche.NOM }}</p>
+            <p class="ficheLEI-description">{{ fiche.COMMENTAIRE|truncate(50) }}</p>
+            <a class="ficheLEI-lien" href="#">{% trans %}LIRE LA SUITE{% endtrans %}</a>
+        </div>
+    {% endfor %}
+</div>

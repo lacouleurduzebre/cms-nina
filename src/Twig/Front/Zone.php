@@ -29,12 +29,14 @@ class Zone extends \Twig_Extension
     public function getZone($region = null, $id = null)
     {
         $repoZone = $this->doctrine->getRepository(\App\Entity\Zone::class);
+
         if($region){
             $zones = $repoZone->findBy(array('region' => $region));
-            return $this->twig->render('front/zones.html.twig', array('zones'=>$zones));
         }else{
-            $zone = $repoZone->find($id);
-            return $this->twig->render('front/zones.html.twig', array('zone'=>$zone));
+            $zones = [];
+            $zones[] = $repoZone->find($id);
         }
+
+        return $this->twig->render('front/zones.html.twig', array('zones'=>$zones));
     }
 }
