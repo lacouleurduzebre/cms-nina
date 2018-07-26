@@ -122,6 +122,7 @@
   box-shadow: 2px 2px 2px #999999;
 }
 .vakata-context ul {
+  position: absolute;
   list-style: none;
   left: 100%;
   margin-top: -2.7em;

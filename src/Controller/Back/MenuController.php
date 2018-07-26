@@ -189,6 +189,49 @@ class MenuController extends Controller
     }
 
     /**
+     * @Route("/admin/menu/alias", name="creerAlias")
+     * @param Request $request
+     * @return bool|Response
+     */
+    public function creerAlias(Request $request){
+        if($request->isXmlHttpRequest()){
+            $em = $this->getDoctrine()->getManager();
+            $repoMenu = $em->getRepository(Menu::class);
+            $repoPage = $em->getRepository(Page::class);
+            $repoMenuPage = $em->getRepository(MenuPage::class);
+
+            //Page copiée à partir des pages orphelines ?
+            $idAncienMenuComplet = $request->get('idAncienMenuComplet');
+            if($idAncienMenuComplet == 'menu-0'){//Si oui on modifie menuPage
+                $idAnciendMenuPage = $request->get('idAnciendMenuPage');
+                $menuPage = $repoMenuPage->find($idAnciendMenuPage);
+                $menuPage->setMenu(null);
+            }else{//Si non on créé un nouveau menuPage
+                $menuPage = new MenuPage();
+
+                $idPage = $request->get('idPage');
+                $page = $repoPage->find($idPage);
+
+                $idMenu = $request->get('idMenu');
+                $menu = $repoMenu->find($idMenu);
+
+                $menuPage->setPosition(0)->setPage($page)->setPageParent(null)->setMenu($menu);
+            }
+
+            $em->persist($menuPage);
+
+            $em->flush();
+
+            $idMenuPage = $menuPage->getId();
+
+            $data = $idMenuPage;
+            return new Response($data);
+        };
+
+        return false;
+    }
+
+    /**
      * @Route("/admin/menu/voirPage", name="urlPage")
      * @param Request $request
      * @return bool|Response

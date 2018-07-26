@@ -4,14 +4,13 @@
             {% block arborescence %}
                 {{ menusBack()|raw }}
             {% endblock %}
+            <div id="sidebar-logo">
+                {% block sidebar_logo %}
+                    <a class="logo" href="{{ path('tableauDeBord') }}">
+                        <img src="{{ asset('assets/img/logoNinaBlanc.png') }}" alt="CMS Nina 3.0">
+                    </a>
+                {% endblock sidebar_logo %}
+            </div>
         </section>
     {% endblock sidebar %}
-
-    <div id="sidebar-logo">
-        {% block sidebar_logo %}
-            <a class="logo" href="{{ path('tableauDeBord') }}">
-                <img src="{{ asset('assets/img/logoNinaBlanc.png') }}" alt="CMS Nina 3.0">
-            </a>
-        {% endblock sidebar_logo %}
-    </div>
 </aside>

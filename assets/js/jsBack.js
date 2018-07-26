@@ -13,14 +13,6 @@ $(document).ready(function(){
         $.cookie('full') === 'on' ? $.cookie('full', 'off') : $.cookie('full', 'on');
     });
 
-    /* Toggle des menus de l'arborescence */
-    $('.menuToggle').click(function(){
-        //$(".menuToggle").not(this).addClass('inactif');
-        //$(".menuToggle").not(this).next('div').slideUp();
-        $(this).toggleClass('inactif');
-        $(this).next('div').slideToggle();
-    });
-
     /* Pop-up pour confirmer une suppression */
     $('.action-delete').click(function(e){
         e.preventDefault();

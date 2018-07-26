@@ -1,0 +1,22 @@
+easy_admin:
+    entities:
+        Module_Accueil:
+            class: App\Entity\Module
+            controller: App\Controller\Back\AdminController
+            label: 'Accueil'
+            list:
+                dql_filter: 'entity.page is NULL'
+                actions:
+                    - { name: 'edit', label: '', title: 'Éditer', icon: 'pencil-alt' }
+                fields:
+                    - type
+                    - contenu
+            search:
+                title: 'Résultats de recherche'
+                fields:
+                    - type
+            form:
+                actions:
+                    - { name: 'list', label: 'Retour', title: 'Retour', icon: 'arrow-left', css_class: '' }
+                fields:
+                    - contenu
