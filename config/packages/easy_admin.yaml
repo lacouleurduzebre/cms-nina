@@ -41,7 +41,10 @@ easy_admin:
             menu: 'back/menu/menuPrincipal.html.twig'
             list: 'back/easyadmin/list.html.twig'
             edit: 'back/easyadmin/edit.html.twig'
-            field_toggle: 'back/easyadmin/field_toggle.html.twig'
+            field_toggle: 'back/easyadmin/fields/field_toggle.html.twig'
+            field_association: 'back/easyadmin/fields/field_association.html.twig'
+            field_text: 'back/easyadmin/fields/field_text.html.twig'
+            paginator: 'back/easyadmin/paginator.html.twig'
         menu:
             - { label: 'Tableau de bord', icon: 'tachometer-alt', route: 'tableauDeBord' }
             - label: 'Contenus'

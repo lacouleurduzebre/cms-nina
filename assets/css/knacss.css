@@ -2302,6 +2302,10 @@ html, .content-wrapper, .sf-toolbar-clearer {
 
 .table {
   background-color: #fff; }
+  .table tbody tr:nth-of-type(2n + 1) {
+    background-color: #F7F7F7; }
+  .table thead tr {
+    background-color: #EEEEEE; }
 
 /* List & Search */
 .global-actions .action-new {
@@ -2339,6 +2343,17 @@ html, .content-wrapper, .sf-toolbar-clearer {
   color: #D9534F; }
   .action-corbeille .fa-trash:hover {
     color: #c9302c; }
+
+/* Pagination */
+.list-pagination {
+  text-align: center; }
+  .list-pagination > ul {
+    display: flex;
+    justify-content: center;
+    list-style: none;
+    padding: 0; }
+    .list-pagination > ul li {
+      margin: 0 1rem; }
 
 /* Edit */
 body.new form, body.edit form {
@@ -2391,14 +2406,21 @@ body.new ul.nav-tabs, body.edit ul.nav-tabs {
       transform: rotate(20deg) scale(1.2); }
   .formulaire-actions .formulaire-actions-enregistrer {
     color: #A1BA1D; }
-  .formulaire-actions .action-voir {
-    color: #0791B3; }
-  .formulaire-actions .action-dupliquer {
-    color: #8d00cb; }
-  .formulaire-actions .action-corbeille, .formulaire-actions .action-delete {
-    color: #D9534F; }
-  .formulaire-actions .action-list {
-    color: #cb8300; }
+
+.action-edit {
+  color: #000; }
+
+.action-voir {
+  color: #0791B3; }
+
+.action-dupliquer {
+  color: #8d00cb; }
+
+.action-corbeille, .action-delete {
+  color: #D9534F; }
+
+.action-list {
+  color: #cb8300; }
 
 /* Onglets */
 ul.nav-tabs {

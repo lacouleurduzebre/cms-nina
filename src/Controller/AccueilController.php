@@ -9,8 +9,7 @@
 namespace App\Controller;
 
 
-use App\Entity\Langue;
-use App\Entity\Page;
+use App\Entity\Configuration;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -22,18 +21,15 @@ class AccueilController extends Controller
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function indexAction(Request $request)
+    public function indexAction()
     {
         $accueil = 'accueil';//Marquer le body
 
-        $locale = $request->getLocale();
+        $repoConfiguration = $this->getDoctrine()->getRepository(Configuration::class);
+        $configuration = $repoConfiguration->find(1);
 
-        $repositoryLangue=$this->getDoctrine()->getManager()->getRepository(Langue::class);
-        $langue = $repositoryLangue->findOneBy(array('abreviation' => $locale));
+        $page = $configuration->getPageAccueil();
 
-        $repositoryPage = $this->getDoctrine()->getManager()->getRepository(Page::class);
-        $pages = $repositoryPage->pagesPubliees($langue);
-
-        return $this->render('front/accueil.html.twig', array('pages'=>$pages, 'accueil'=>$accueil));
+        return $this->render('front/accueil.html.twig', array('page'=>$page, 'accueil'=>$accueil));
     }
 }

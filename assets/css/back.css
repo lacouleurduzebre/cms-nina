@@ -1507,10 +1507,10 @@ body.notFull .main-sidebar {
     height: 100% !important;
     display: flex;
     flex-direction: column; }
-  .main-sidebar .sidebar-menus, .main-sidebar > #sidebar-logo {
+  .main-sidebar .sidebar-menus, .main-sidebar #sidebar-logo {
     display: none; }
 
-body.notFull .main-sidebar .sidebar-menus, body.notFull .main-sidebar > #sidebar-logo {
+body.notFull .main-sidebar .sidebar-menus, body.notFull .main-sidebar #sidebar-logo {
   display: block; }
 body.notFull .main-sidebar #btnArbo svg {
   transform: rotate(180deg); }
@@ -1617,6 +1617,9 @@ body.notFull .main-sidebar #btnArbo svg {
 
 .main-sidebar .page-active {
   color: #A1BA1D; }
+
+li[data-jstree="{\"type\":\"home\"}"] > a {
+  color: #0791B3; }
 
 .menu {
   margin: 1rem 0;

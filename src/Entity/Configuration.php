@@ -103,6 +103,11 @@ class Configuration
     private $maj;
 
     /**
+     * @ORM\OneToOne(targetEntity="App\Entity\Page", cascade={"persist", "remove"})
+     */
+    private $pageAccueil;
+
+    /**
      * Get id
      *
      * @return int
@@ -385,6 +390,18 @@ class Configuration
     public function setTheme(?string $theme): self
     {
         $this->theme = $theme;
+
+        return $this;
+    }
+
+    public function getPageAccueil(): ?Page
+    {
+        return $this->pageAccueil;
+    }
+
+    public function setPageAccueil(?Page $pageAccueil): self
+    {
+        $this->pageAccueil = $pageAccueil;
 
         return $this;
     }

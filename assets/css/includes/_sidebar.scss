@@ -30,13 +30,13 @@ body.notFull .main-sidebar{
     display: flex;
     flex-direction: column;
   }
-  .sidebar-menus, > #sidebar-logo{
+  .sidebar-menus, #sidebar-logo{
     display: none;
   }
 }
 
 body.notFull .main-sidebar{
-  .sidebar-menus, > #sidebar-logo{
+  .sidebar-menus, #sidebar-logo{
     display: block;
   }
   #btnArbo svg{
@@ -179,6 +179,10 @@ body.notFull .main-sidebar{
 
 .main-sidebar .page-active{//Mise en avant page active dans les menus
   color: #A1BA1D;
+}
+
+li[data-jstree="{\"type\":\"home\"}"] > a{
+  color: $color-brand2;
 }
 
 .menu{

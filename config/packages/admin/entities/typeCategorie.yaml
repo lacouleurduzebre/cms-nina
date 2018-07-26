@@ -7,7 +7,7 @@ easy_admin:
             list:
                 fields:
                     - nom
-                    - description
+                    - { property: 'description', type: 'raw' }
                     - url
             search:
                 fields:

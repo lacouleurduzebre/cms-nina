@@ -10,9 +10,6 @@ namespace App\Modules\Image;
 
 
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\ButtonType;
-use Symfony\Component\Form\Extension\Core\Type\CollectionType;
-use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -24,9 +21,6 @@ class ImageType extends AbstractType
     {
         $builder
             ->add('image', TextType::class)
-            /*->add('mediatheque', ButtonType::class, array(
-                'attr' => array('class' => 'mediatheque')
-            ))*/
             ->add('titre', TextType::class)
             ->add('description', TextType::class);
     }
@@ -39,6 +33,6 @@ class ImageType extends AbstractType
     }
 
     public function getParent(){
-        return CollectionType::class;
+        return FormType::class;
     }
 }

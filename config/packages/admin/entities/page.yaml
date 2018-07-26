@@ -16,7 +16,7 @@ easy_admin:
                 fields:
                     - titre
                     - auteur
-                    - { property: 'categories', label: 'Catégories', type: 'array' }
+                    - { property: 'categories', label: 'Catégories' }
                     - { property: 'dateCreation', label: 'Date de création' }
 #                    - { property: 'datePublication', label: 'Date de publication' }
 #                    - { property: 'datedePublication', label: 'Date de dépublication' }

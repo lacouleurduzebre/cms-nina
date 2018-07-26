@@ -18,6 +18,7 @@ easy_admin:
                 fields:
                     - { property: 'nom', label: 'Nom du site' }
                     - { property: 'url', type: 'text' }
+                    - pageAccueil
                     - { property: 'logoFichier', type: 'vich_image', label: 'Logo' }
                     - { property: 'theme', label: 'Thème', type: 'App\Form\Type\ThemeType' }
                     - { property: 'editeur', label: 'Éditeur' }

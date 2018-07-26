@@ -2,23 +2,12 @@
 
 {% block title %}{{ parent() }} - Accueil{% endblock %}
 {% block body %}
-<section>
-    <h1>{% trans %}Bienvenue !{% endtrans %}</h1>
-    <div>{% trans %}Bienvenue sur le site de développement de Nina 3.0 !{% endtrans %}</div>
-</section>
-<section class="actus">
-    <h2>{% trans %}Dernières pages{% endtrans %}</h2>
-    <div class="grid-3 has-gutter-l">
-    {% for page in pages %}
-        <div class="actuAccueil">
-            <h3>{{ page.titre }}</h3>
-            {#{% if page.image is not empty %}
-                <p class="txtcenter"><img src="{{ asset(page.image) }}"></p>
-            {% endif %}#}
-            <p>{#Par {{ page.auteur }}#}Publié le {{ page.datePublication|date("d/m/Y") }}</p>
-            <p><a class="btn" href="{{ path('voirPage', {'url':page.seo.url}) }}">{% trans %}Lire la suite{% endtrans %}</a></p>
-        </div>
-    {% endfor %}
-    </div>
-</section>
+<main>
+    {% if page.titre is defined %}<h1>{{ page.titre }}</h1>{% endif %}
+    {% if page is not empty %}
+        {% if page.modules is not empty %}
+            {{ include('front/modules.html.twig') }}
+        {% endif %}
+    {% endif %}
+</main>
 {% endblock %}

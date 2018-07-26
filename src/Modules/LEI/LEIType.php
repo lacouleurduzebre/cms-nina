@@ -10,8 +10,8 @@ namespace App\Modules\LEI;
 
 
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -23,6 +23,9 @@ class LEIType extends AbstractType
         $builder
             ->add('flux', TextType::class, array(
                 'label' => 'Url du flux LEI'
+            ))
+            ->add('limite', NumberType::class, array(
+                'label' => 'Nombre limite de résultats'
             ));
     }
 
