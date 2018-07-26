@@ -2384,6 +2384,9 @@ body.new ul.nav-tabs, body.edit ul.nav-tabs {
   width: 100%;
   z-index: 10; }
 
+.type-module {
+  font-style: italic; }
+
 /* Barre d'actions */
 .formulaire-actions {
   position: fixed;

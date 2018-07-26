@@ -1654,8 +1654,7 @@ li[data-jstree="{\"type\":\"home\"}"] > a {
   z-index: 1000;
   position: absolute; }
 
-.vakata-context,
-.vakata-context ul {
+.vakata-context.jstree-contextmenu {
   position: fixed; }
 
 .vakata-context li > a {

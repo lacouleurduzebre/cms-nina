@@ -94,15 +94,6 @@ $(document).ready(function(){
         }
     });
 
-    /* Méta-description automatique */
-    $('#page_active_contenu_ifr #tinymce').on('DOMSubtreeModified', function(){
-        if($('body').hasClass('new')){
-            contenu = $(this).html();
-            console.log(contenu);
-            $('#page_active_SEO_metaDescription #tinymce').html(contenu);
-        }
-    });
-
     /* Page active colorée dans l'arbo */
     surbrillancePageActive = function(){
         if(!$('body.front').hasClass('connected') && !$('body.easyadmin').hasClass('edit-page_active')) {
@@ -134,13 +125,14 @@ $(document).ready(function(){
             .done(function(data){
                 $('#'+id).next('svg').attr('class', 'fas fa-check').css('opacity', 0);
                 $('#'+id).closest('div[id^="page_active"]').find('div[id$="contenu"]').append(data);
-                // $('#'+id).prop('disabled', 'disabled');
                 $('#page_active_modules_'+idModule+'_contenu').find('label').each(function(){
                     idLabel = $(this).attr('for');
                     champ = idLabel.substring(idLabel.indexOf('_') + 1);
                     $(this).attr('for', 'page_active[modules]['+idModule+'][contenu]['+champ+']');
                     $(this).next('*').attr('name', 'page_active[modules]['+idModule+'][contenu]['+champ+']');
                 });
+                $('#'+id).closest('div').append('<p class="type-module">'+type+'</p>');
+                $('#'+id).hide();
                 // TinyMCE
                 tinymce.remove();
                 tinymce.init({
@@ -169,6 +161,14 @@ $(document).ready(function(){
                 $('#'+id).next('svg').attr('class', 'fas fa-times').css('opacity', 0);
             });
     });
+
+    /* Cacher les select de choix du type de module si module déjà créé */
+    $('.form-group.field-module select[id$="type"]').each(function(){
+        type = $(this).val();
+        $(this).hide().closest('div').append('<p class="type-module">'+type+'</p>');
+    });
+
+
 
     /* Changement du h1 lors de l'édition d'une page */
     $('body.edit-page_active h1').html('Page : '+$('#page_active_titre').val());
