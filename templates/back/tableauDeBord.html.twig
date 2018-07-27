@@ -3,51 +3,120 @@
 {% block content %}
     <div id="tdb">
         <h1>Tableau de bord</h1>
+        <p>Bienvenue {{ app.user.username }}</p>
         <div class="grid-2-small-1 has-gutter-xl tdb-blocs">
-            <div class="tdb-bloc">
-                <h2>{% trans %}Dernières pages publiées en{% endtrans %} {{ langue.nom }}</h2>
-                {% if pages is empty %}
-                    <p>{% trans %}Aucune page publiée pour le moment{% endtrans %}</p>
-                {% else %}
-                    <ul>
-                        {% for page in pages %}
-                            <li>
-                                <a href="{{ path('admin', { 'action': 'edit', 'entity': 'Page_Active', 'id': page.id }) }}">{{ page.titre }}</a>
-                                {#{{ 'par'|trans }} {{ page.auteur }}#} {{ 'le'|trans }} {{ page.datePublication|date("d/m/Y") }}
-                            </li>
-                        {% endfor %}
-                    </ul>
-                {% endif %}
-            </div>
-            <div class="tdb-bloc">
-                <h2>{% trans %}Commentaires en attente de validation{% endtrans %}</h2>
-                {% if commentaires is empty %}
-                    <p>{% trans %}Aucun commentaire en attente de validation{% endtrans %}</p>
-                {% else %}
-                    <table>
-                        <thead>
-                        <tr>
-                            <th>{{ 'Page'|trans }}</th>
-                            <th>{{ 'Auteur'|trans }}</th>
-                            <th>{{ 'Contenu'|trans }}</th>
-                            <th>{{ 'Date'|trans }}</th>
-                            <th>{{ 'Valider'|trans }}</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        {% for commentaire in commentaires %}
-                            <tr>
-                                <td>{{ commentaire.page.titre }}</td>
-                                <td>{{ commentaire.auteur }}</td>
-                                <td>{{ commentaire.contenu }}</td>
-                                <td>{{ commentaire.date|date("d/m/Y") }}</td>
-                                <td>{{ commentaire.valide }}</td>
-                            </tr>
-                        {% endfor %}
-                        </tbody>
-                    </table>
-                {% endif %}
-            </div>
+            {% if blocs is not empty %}
+                {% for nomBloc,contenuBloc in blocs %}
+                    <div class="tdb-bloc {{ nomBloc }}">
+                        {{ block(nomBloc) }}
+                    </div>
+                {% endfor %}
+            {% endif %}
         </div>
     </div>
+{% endblock %}
+
+
+{# BLOCS #}
+{% block nombreDePages %}
+    <h2>{% trans %}Nombre de pages{% endtrans %}</h2>
+    <ul>
+        <li>
+            {{ 'Nombre total : '|trans }}{{ contenuBloc.nombreTotal }}
+        </li>
+        <li>
+            {{ 'Nombre de pages publiées : '|trans }}{{ contenuBloc.publiees.nombreTotal }}
+            <ul>
+                {% for langue,nombrePages in contenuBloc.publiees.parLangue %}
+                    <li>{{ 'En '|trans }}{{ langue }}{{ ' : '|trans }}{{ nombrePages }}</li>
+                {% endfor %}
+            </ul>
+        </li>
+    </ul>
+{% endblock %}
+
+{% block derniersCommentaires %}
+    <h2>{% trans %}Derniers commentaires{% endtrans %}</h2>
+    <h3>{% trans %}Commentaires en attente de validation{% endtrans %}</h3>
+    {% if contenuBloc is empty %}
+        <p>{% trans %}Aucun commentaire en attente de validation{% endtrans %}</p>
+    {% else %}
+        <table>
+            <thead>
+            <tr>
+                <th>{{ 'Page'|trans }}</th>
+                <th>{{ 'Auteur'|trans }}</th>
+                <th>{{ 'Contenu'|trans }}</th>
+                <th>{{ 'Date'|trans }}</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for commentaire in contenuBloc %}
+                <tr>
+                    <td>{{ commentaire.page.titre }}</td>
+                    <td>{{ commentaire.auteur }}</td>
+                    <td>{{ commentaire.contenu|striptags }}</td>
+                    <td>{{ commentaire.date|date("d/m/Y") }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    {% endif %}
+{% endblock %}
+
+{% block dernieresPages %}
+    <h2>{% trans %}Dernières pages{% endtrans %}</h2>
+    {% if contenuBloc is empty %}
+        <p>{% trans %}Aucune page publiée pour le moment{% endtrans %}</p>
+    {% else %}
+        <ul>
+            {% for page in contenuBloc %}
+                <li>
+                    <a href="{{ path('admin', { 'action': 'edit', 'entity': 'Page_Active', 'id': page.id }) }}">{{ page.titre }}</a>
+                    {{ 'publiée le'|trans }} {{ page.datePublication|date("d/m/Y") }}
+                </li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+{% endblock %}
+
+{% block listeCategories %}
+    <h2>{% trans %}Liste des catégories{% endtrans %}</h2>
+    {% if contenuBloc is empty %}
+        <p>{% trans %}Aucune catégorie n'a été créée pour le moment{% endtrans %}</p>
+    {% else %}
+        <ul>
+            {% for typeCategorie in contenuBloc %}
+                <li>
+                    {{ typeCategorie.nom }}
+                    {% if typeCategorie.categories is not empty %}
+                        <ul>
+                            {% for categorie in typeCategorie.categories %}
+                                <li>
+                                    <a href="{{ path('admin', { 'action': 'edit', 'entity': 'Categorie', 'id': categorie.id }) }}">{{ categorie.nom }}</a>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    {% endif %}
+                </li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+{% endblock %}
+
+{% block derniersInscrits %}
+    <h2>{% trans %}Derniers inscrits{% endtrans %}</h2>
+    <ul>
+        {% for user in contenuBloc %}
+            <li>
+                {% if user.imageProfil is not empty %}
+                    <img id="header-imageProfil" src="/uploads/{{ user.imageProfil }}" alt="{{ user.username }}">
+                {% else %}
+                    <i id="header-sansImageProfil" class="fas fa-user"></i>
+                {% endif %}
+                <a href="{{ path('admin', { 'action': 'edit', 'entity': 'Utilisateur', 'id': user.id }) }}">{{ user.username }}</a>
+                {% trans %}dernière connexion le{% endtrans %} {{ user.lastLogin|date('d/m/Y') }}
+            </li>
+        {% endfor %}
+    </ul>
 {% endblock %}

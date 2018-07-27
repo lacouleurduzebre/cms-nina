@@ -55,6 +55,21 @@ class Utilisateur extends BaseUser
      */
     private $maj;
 
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\Langue", cascade={"persist", "remove"})
+     */
+    private $langue;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $couleurBO;
+
+    /**
+     * @ORM\Column(type="array", nullable=true)
+     */
+    private $blocsTableauDeBord;
+
     public function __construct()
     {
         parent::__construct();
@@ -216,5 +231,41 @@ class Utilisateur extends BaseUser
     public function getMaj()
     {
         return $this->maj;
+    }
+
+    public function getLangue(): ?Langue
+    {
+        return $this->langue;
+    }
+
+    public function setLangue(?Langue $langue): self
+    {
+        $this->langue = $langue;
+
+        return $this;
+    }
+
+    public function getCouleurBO(): ?string
+    {
+        return $this->couleurBO;
+    }
+
+    public function setCouleurBO(?string $couleurBO): self
+    {
+        $this->couleurBO = $couleurBO;
+
+        return $this;
+    }
+
+    public function getBlocsTableauDeBord(): ?array
+    {
+        return $this->blocsTableauDeBord;
+    }
+
+    public function setBlocsTableauDeBord(?array $blocsTableauDeBord): self
+    {
+        $this->blocsTableauDeBord = $blocsTableauDeBord;
+
+        return $this;
     }
 }

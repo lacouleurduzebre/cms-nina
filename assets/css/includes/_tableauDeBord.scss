@@ -3,11 +3,40 @@
 }
 
 .tdb-bloc{
-  border: 1px solid;
   padding: 2rem;
-  background-color: $white;
+  background-color: #F7F7F7;
+  box-shadow: 4px 4px 4px rgba(0,0,0,.25);
+  margin-bottom: 4rem;
 }
 
 tr, td, th{
   border: 1px solid $black;
+}
+
+// Derniers inscrits
+.tdb-bloc.derniersInscrits{
+  ul{
+    padding: 0;
+  }
+  li{
+    display: flex;
+    align-items: center;
+  }
+  a{
+    margin-right: .5rem;
+  }
+  #header-imageProfil, #header-sansImageProfil{
+    border-color: $color-primary;
+    margin-right: 2rem;
+  }
+}
+
+//Derniers commentaires
+.tdb-bloc.derniersCommentaires{
+  tr, td, th{
+    border: none;
+  }
+  thead{
+    border-bottom: 1px solid $color-primary;
+  }
 }

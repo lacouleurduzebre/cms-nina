@@ -23,23 +23,37 @@ easy_admin:
                     - { property: 'enabled', label: 'Activé' }
                     - { property: 'lastLogin', label: 'Dernière connexion' }
                     - { property: 'roles', label: 'Rôles' }
-            new:
+            form:
                 actions:
                     - { name: 'list', label: 'Retour', title: 'Retour', icon: 'arrow-left', css_class: '' }
                 fields:
+                    - { type: 'tab', label: 'Paramètres du compte' }
                     - { property: 'username', label: 'Pseudonyme' }
                     - { property: 'email', label: 'E-mail' }
                     - { property: 'password', type: 'password', label: 'Mot de passe' }
                     - { property: 'imageProfilFichier', type: 'vich_image', label: 'Image de profil' }
                     - { property: 'enabled', label: 'Activé' }
                     - { property: 'roles', label: 'Rôles' }
+                    - { type: 'tab', label: "Personnalisation de l'interface" }
+                    - { property: 'langue', label: "Langue de l'interface" }
+                    - { property: 'couleurBO', type: 'choice', label: "Thème de l'interface d'administration", type_options: { choices: { vert: 'vert', bleu: 'bleu' } } }
+#                    -
+#                        - property: blocsTableauDeBord
+#                        - type: choice
+#                        - label : 'Informations présentées sur le tableau de bord'
+#                        - type_options:
+#                            - multiple: true
+#                            - expanded: true
+#                            - choices :
+#                                - 'Nombre de pages': nombreDePages
+#                                - 'Derniers commentaires': derniersCommentaires
+#                                - 'Dernières pages': dernieresPages
+#                                - 'Liste des catégories': listeCategories
+#                                - 'Derniers inscrits': derniersInscrits
+                    - { property: 'blocsTableauDeBord', type: 'choice', label: 'Informations présentées sur le tableau de bord', type_options: { multiple: true, expanded: true, choices: { 'Nombre de pages': nombreDePages, 'Derniers commentaires': derniersCommentaires, 'Dernières pages': dernieresPages, 'Liste des catégories': listeCategories, 'Derniers inscrits': derniersInscrits } } }
             edit:
                 actions:
                     - { name: 'delete', label: 'Supprimer', title: 'Supprimer', icon: 'trash', css_class: '' }
                     - { name: 'list', label: 'Retour', title: 'Retour', icon: 'arrow-left', css_class: '' }
                 fields:
-                    - { property: 'username', label: 'Pseudonyme' }
-                    - { property: 'email', label: 'E-mail' }
-                    - { property: 'imageProfilFichier', type: 'vich_image', label: 'Image de profil' }
-                    - { property: 'enabled', label: 'Activé' }
-                    - { property: 'roles', label: 'Rôles' }
+                    - '-password'

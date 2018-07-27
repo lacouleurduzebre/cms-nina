@@ -2580,12 +2580,29 @@ td[data-label="Image profil"] img {
   padding: 2rem; }
 
 .tdb-bloc {
-  border: 1px solid;
   padding: 2rem;
-  background-color: #fff; }
+  background-color: #F7F7F7;
+  box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.25);
+  margin-bottom: 4rem; }
 
 tr, td, th {
   border: 1px solid #000; }
+
+.tdb-bloc.derniersInscrits ul {
+  padding: 0; }
+.tdb-bloc.derniersInscrits li {
+  display: flex;
+  align-items: center; }
+.tdb-bloc.derniersInscrits a {
+  margin-right: .5rem; }
+.tdb-bloc.derniersInscrits #header-imageProfil, .tdb-bloc.derniersInscrits #header-sansImageProfil {
+  border-color: #75726B;
+  margin-right: 2rem; }
+
+.tdb-bloc.derniersCommentaires tr, .tdb-bloc.derniersCommentaires td, .tdb-bloc.derniersCommentaires th {
+  border: none; }
+.tdb-bloc.derniersCommentaires thead {
+  border-bottom: 1px solid #75726B; }
 
 .modal-dialog {
   background: #FFF;

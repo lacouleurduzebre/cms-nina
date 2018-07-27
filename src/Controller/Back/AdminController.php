@@ -8,10 +8,13 @@
 
 namespace App\Controller\Back;
 
+use App\Entity\Categorie;
 use App\Entity\Commentaire;
 use App\Entity\Langue;
 use App\Entity\MenuPage;
 use App\Entity\Page;
+use App\Entity\TypeCategorie;
+use App\Entity\Utilisateur;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AdminController as BaseAdminController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -30,24 +33,63 @@ class AdminController extends BaseAdminController
      */
     public function tableauDeBordAction(Request $request){
         $em = $this->getDoctrine()->getManager();
-
-        /* Dernières pages publiées */
-        $locale = $request->getLocale();
-
         $repositoryLangue = $em->getRepository(Langue::class);
+        $repositoryPage = $em->getRepository(Page::class);
+        $user = $this->getUser();
+        $locale = $request->getLocale();
         $langue = $repositoryLangue->findOneBy(array('abreviation' => $locale));
 
-        $dernieresPages = $em->getRepository(Page::class)->pagesPubliees($langue);
+        $blocsUser = $user->getBlocsTableauDeBord();
+        $blocs = [];
+
+        /* Dernières pages publiées */
+        if(in_array('dernieresPages', $blocsUser)){
+            $dernieresPages = $em->getRepository(Page::class)->pagesPubliees($langue);
+            $blocs['dernieresPages'] = $dernieresPages;
+        }
 
         /* Derniers commentaires en attente de validation */
-        $repositoryCommentaire = $em->getRepository(Commentaire::class);
+        if(in_array('derniersCommentaires', $blocsUser)){
+            $repositoryCommentaire = $em->getRepository(Commentaire::class);
+            $derniersCommentaires = $repositoryCommentaire->commentairesNonValides();
+            $blocs['derniersCommentaires'] = $derniersCommentaires;
+        }
 
-        $derniersCommentaires = $repositoryCommentaire->commentairesNonValides();
+        /* Nombre de pages */
+        if(in_array('nombreDePages', $blocsUser)){
+            //Nombre total
+            $nombreTotal = $repositoryPage->nombreTotal();
+            $blocs['nombreDePages']['nombreTotal'] = $nombreTotal;
+
+            //Nombre total de pages publiées
+            $nombreTotalPagesPubliees = $repositoryPage->nombrePagesPubliees();
+            $blocs['nombreDePages']['publiees']['nombreTotal'] = $nombreTotalPagesPubliees;
+
+            //Nombre de pages dans chaque langue
+            $langues = $repositoryLangue->findAll();
+            foreach($langues as $langue){
+                $nombrePagesPublieesLangue = $repositoryPage->nombrePagesPubliees($langue);
+                $blocs['nombreDePages']['publiees']['parLangue'][$langue->getNom()] = $nombrePagesPublieesLangue;
+            }
+        }
+
+        /* Liste des catégories */
+        if(in_array('listeCategories', $blocsUser)){
+            $repositoryTypeCategorie = $em->getRepository(TypeCategorie::class);
+            $typeCategories = $repositoryTypeCategorie->findAll();
+            $blocs['listeCategories'] = $typeCategories;
+        }
+
+        /* Liste des derniers inscrits */
+        if(in_array('derniersInscrits', $blocsUser)){
+            $repositoryUtilisateur = $em->getRepository(Utilisateur::class);
+            $utilisateurs = $repositoryUtilisateur->findBy(array(), array('id' => 'ASC'), 5);
+            $blocs['derniersInscrits'] = $utilisateurs;
+        }
 
         return $this->render('back/tableauDeBord.html.twig', array(
-            'pages' => $dernieresPages,
-            'langue' => $langue,
-            'commentaires' => $derniersCommentaires
+            'user' => $user,
+            'blocs' => $blocs,
         ));
     }
 

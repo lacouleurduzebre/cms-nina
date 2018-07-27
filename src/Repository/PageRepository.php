@@ -40,4 +40,34 @@ class PageRepository extends \Doctrine\ORM\EntityRepository
 
         return $qb->getQuery()->getResult();
     }
+
+    public function nombreTotal(){
+        $qb = $this
+            ->createQueryBuilder('p')
+            ->select('count(p.id)');
+
+        return $qb->getQuery()->getSingleScalarResult();
+    }
+
+    public function nombrePagesPubliees($langue = null){
+        $timestamp = new \DateTime();
+        $date = $timestamp->format('Y-m-d H:i:s');
+
+        $qb = $this
+            ->createQueryBuilder('p')
+            ->select('count(p.id)')
+            ->where('p.corbeille = 0')
+            ->andWhere('p.active = 1')
+            ->andWhere('p.datePublication < :date')
+            ->andWhere('p.dateDepublication > :date OR p.dateDepublication IS NULL');
+
+        if($langue){
+            $qb->andWhere('p.langue = :langue')
+                ->setParameters(array('langue' => $langue, 'date' => $date));
+        }else{
+            $qb->setParameters(array('date' => $date));
+        }
+
+        return $qb->getQuery()->getSingleScalarResult();
+    }
 }
