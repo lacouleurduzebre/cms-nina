@@ -168,12 +168,20 @@ $(document).ready(function(){
         $(this).hide().closest('div').append('<p class="type-module">'+type+'</p>');
     });
 
-
-
     /* Changement du h1 lors de l'édition d'une page */
     $('body.edit-page_active h1').html('Page : '+$('#page_active_titre').val());
 
     $('#page_active_titre').on('keyup', function(){
         $('body.edit-page_active h1').html('Page : '+$(this).val());
+    });
+
+    /* Changement couleur BO */
+    if($('body').hasClass('edit-utilisateur') || $('body').hasClass('new-utilisateur')){
+        couleur = $('#utilisateur_couleurBO').val();
+    }
+    $('#utilisateur_couleurBO').on('change', function(){
+       nouvelleCouleur = $(this).val();
+       $('body').removeClass(couleur).addClass(nouvelleCouleur);
+       couleur = nouvelleCouleur;
     });
 });

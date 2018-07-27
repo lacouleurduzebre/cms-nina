@@ -2383,6 +2383,8 @@ body.new ul.nav-tabs, body.edit ul.nav-tabs {
   top: 11rem;
   width: 100%;
   z-index: 10; }
+body.new.gris ul.nav-tabs, body.edit.gris ul.nav-tabs {
+  background-color: #75726B; }
 
 .type-module {
   font-style: italic; }
@@ -2431,10 +2433,10 @@ ul.nav-tabs {
   display: flex;
   padding: 0 0 0 2rem;
   box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25); }
-  ul.nav-tabs li:hover {
+  ul.nav-tabs li:hover, ul.nav-tabs li.active {
     border-bottom: 7px solid #92D8E9; }
-  ul.nav-tabs li.active {
-    border-bottom: 7px solid #92D8E9; }
+    body.gris ul.nav-tabs li:hover, body.gris ul.nav-tabs li.active {
+      border-color: #b3b1ac; }
   ul.nav-tabs li a {
     text-decoration: none;
     padding: 0 1rem;
@@ -2461,6 +2463,8 @@ body.edit .content-header, body.new .content-header {
   top: 3.8rem;
   padding: 1.2rem 0;
   z-index: 10; }
+body.edit.gris .content-header, body.new.gris .content-header {
+  background-color: #75726B; }
 
 .select2-container--bootstrap.select2-container--focus .select2-selection, .select2-container--bootstrap.select2-container--open .select2-selection, .select2-container--bootstrap .select2-dropdown {
   box-shadow: none;

@@ -36,7 +36,7 @@ easy_admin:
                     - { property: 'roles', label: 'Rôles' }
                     - { type: 'tab', label: "Personnalisation de l'interface" }
                     - { property: 'langue', label: "Langue de l'interface" }
-                    - { property: 'couleurBO', type: 'choice', label: "Thème de l'interface d'administration", type_options: { choices: { vert: 'vert', bleu: 'bleu' } } }
+                    - { property: 'couleurBO', type: 'choice', label: "Thème de l'interface d'administration", type_options: { choices: { gris: 'gris', bleu: 'bleu' } } }
 #                    -
 #                        - property: blocsTableauDeBord
 #                        - type: choice
