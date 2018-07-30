@@ -87,6 +87,11 @@ class Configuration
     private $pageAccueil;
 
     /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $metaDescription;
+
+    /**
      * Get id
      *
      * @return int
@@ -308,6 +313,18 @@ class Configuration
     public function setPageAccueil(?Page $pageAccueil): self
     {
         $this->pageAccueil = $pageAccueil;
+
+        return $this;
+    }
+
+    public function getMetaDescription(): ?string
+    {
+        return $this->metaDescription;
+    }
+
+    public function setMetaDescription(?string $metaDescription): self
+    {
+        $this->metaDescription = $metaDescription;
 
         return $this;
     }

@@ -19,9 +19,9 @@ easy_admin:
                     - { property: 'pageAccueil', label: "Page d'accueil" }
                     - { property: 'logo', type: 'text' }
                     - { property: 'theme', label: 'Thème', type: 'App\Form\Type\ThemeType' }
+                    - { property: 'metaDescription', label: 'Meta-description générale du site' }
                     - { property: 'editeur', label: 'Éditeur' }
                     - emailContact
                     - emailMaintenance
-                    - emailNewsletter
                     - { property: 'analytics', label: 'Clé Google Analytics' }
                     - { property: 'langueDefaut', label: 'Langue par défaut' }
