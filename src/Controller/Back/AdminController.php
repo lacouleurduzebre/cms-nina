@@ -8,17 +8,13 @@
 
 namespace App\Controller\Back;
 
-use App\Entity\Categorie;
 use App\Entity\Commentaire;
 use App\Entity\Langue;
-use App\Entity\MenuPage;
 use App\Entity\Page;
 use App\Entity\TypeCategorie;
 use App\Entity\Utilisateur;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AdminController as BaseAdminController;
-use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
@@ -127,8 +123,23 @@ class AdminController extends BaseAdminController
         $class = substr($this->request->query->get('entity'), 0, strpos($this->request->query->get('entity'), '_'));
 
         $entity = $this->em->getRepository('App:'.$class)->find($id);
-        ($entity->getCorbeille()) ?
-            $entity->setCorbeille(false) : $entity->setCorbeille(true);
+
+        if($entity->getCorbeille()){
+            $entity->setCorbeille(false);
+
+            //Message flash
+            $this->addFlash( 'success',
+                'L\'élément a été restauré.'
+            );
+        }else{
+            $entity->setCorbeille(true);
+
+            //Message flash
+            $url = $this->generateUrl('admin',['action'=>'corbeille', 'entity'=>$this->request->query->get('entity'), 'id'=>$entity->getId()]);
+            $this->addFlash( 'success',
+                sprintf('L\'élément a été mis à la corbeille. <a href="%s">Annuler</a>', $url)
+            );
+        }
         $this->em->flush();
 
         return $this->redirectToRoute('easyadmin', array(

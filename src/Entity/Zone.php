@@ -42,6 +42,11 @@ class Zone
      */
     private $contenu;
 
+    /**
+     * @ORM\Column(type="smallint", nullable=true)
+     */
+    private $position;
+
 
     /**
      * Get id
@@ -123,5 +128,17 @@ class Zone
     public function getRegion()
     {
         return $this->region;
+    }
+
+    public function getPosition(): ?int
+    {
+        return $this->position;
+    }
+
+    public function setPosition(?int $position): self
+    {
+        $this->position = $position;
+
+        return $this;
     }
 }

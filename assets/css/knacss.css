@@ -2529,11 +2529,38 @@ div[id^="page_active_modules"] svg {
   transition: .3s; }
 
 /* M├®diath├¿que */
-.iframeMediatheque {
-  height: calc(100vh - 11rem); }
+.ouvrirMediatheque {
+  display: inline-block;
+  margin-top: 1rem;
+  background-color: #0791B3;
+  padding: .5rem;
+  border-radius: 5px;
+  color: #fff;
+  text-decoration: none; }
+  .ouvrirMediatheque:hover, .ouvrirMediatheque:active, .ouvrirMediatheque:focus {
+    background-color: #056982;
+    color: #fff;
+    text-decoration: none; }
 
-.mediatheque {
-  margin: -1rem; }
+/* Aper├ºu */
+.apercuLogo {
+  margin-top: 1rem; }
+  .apercuLogo img {
+    margin-top: 1rem;
+    display: block;
+    max-width: 10rem;
+    max-height: 10rem; }
+
+.apercuImageProfil {
+  margin-top: 1rem; }
+  .apercuImageProfil img {
+    display: block;
+    margin-top: 1rem;
+    border-radius: 50%;
+    width: 20rem;
+    height: 20rem;
+    object-fit: cover;
+    border: 5px solid #FFF; }
 
 /* T├®l├®chargement d'images (ex: logo) */
 .easyadmin-thumbnail img {
@@ -2567,13 +2594,6 @@ div[id^="page_active_modules"] svg {
   display: none; }
 
 /* Image de profil */
-#utilisateur_imageProfilFichier_file ~ a img {
-  border-radius: 50%;
-  width: 25rem;
-  height: 25rem;
-  object-fit: cover;
-  border: 5px solid #FFF; }
-
 td[data-label="Image profil"] img {
   border-radius: 50%;
   width: 5rem;
@@ -2616,13 +2636,13 @@ tr, td, th {
 
 #modal-delete {
   display: none;
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   height: 100vh;
   width: 100vw;
   background: rgba(255, 255, 255, 0.6);
-  z-index: 100;
+  z-index: 1000;
   align-items: center;
   justify-content: center; }
 
@@ -2630,5 +2650,19 @@ tr, td, th {
   background-color: #D9534F; }
   #modal-delete-button:hover {
     background-color: #c9302c; }
+
+#mediatheque {
+  display: none;
+  height: 100vh;
+  width: 100vw;
+  z-index: 1000;
+  background: rgba(255, 255, 255, 0.6);
+  position: fixed;
+  top: 0;
+  left: 0;
+  align-items: center;
+  justify-content: center; }
+  #mediatheque iframe {
+    width: calc(100% - 10rem); }
 
 /*# sourceMappingURL=knacss.css.map */

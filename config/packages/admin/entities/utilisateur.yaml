@@ -31,7 +31,7 @@ easy_admin:
                     - { property: 'username', label: 'Pseudonyme' }
                     - { property: 'email', label: 'E-mail' }
                     - { property: 'password', type: 'password', label: 'Mot de passe' }
-                    - { property: 'imageProfilFichier', type: 'vich_image', label: 'Image de profil' }
+                    - { property: 'imageProfil', type: 'text', label: 'Image de profil' }
                     - { property: 'enabled', label: 'Activé' }
                     - { property: 'roles', label: 'Rôles' }
                     - { type: 'tab', label: "Personnalisation de l'interface" }

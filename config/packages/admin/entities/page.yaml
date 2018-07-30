@@ -76,6 +76,7 @@ easy_admin:
 
         Page_Corbeille:
             class: App\Entity\Page
+            controller: App\Controller\Back\AdminController
             label: 'Pages à la corbeille'
             list:
                 dql_filter: 'entity.corbeille = true'

@@ -110,7 +110,7 @@
         {% for user in contenuBloc %}
             <li>
                 {% if user.imageProfil is not empty %}
-                    <img id="header-imageProfil" src="/uploads/{{ user.imageProfil }}" alt="{{ user.username }}">
+                    <img id="header-imageProfil" src="{{ user.imageProfil }}" alt="{{ user.username }}">
                 {% else %}
                     <i id="header-sansImageProfil" class="fas fa-user"></i>
                 {% endif %}

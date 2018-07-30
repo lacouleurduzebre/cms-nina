@@ -31,7 +31,7 @@ class Zone extends \Twig_Extension
         $repoZone = $this->doctrine->getRepository(\App\Entity\Zone::class);
 
         if($region){
-            $zones = $repoZone->findBy(array('region' => $region));
+            $zones = $repoZone->findBy(array('region' => $region), array('position' => 'ASC'));
         }else{
             $zones = [];
             $zones[] = $repoZone->find($id);

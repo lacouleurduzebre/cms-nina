@@ -184,4 +184,10 @@ $(document).ready(function(){
        $('body').removeClass(couleur).addClass(nouvelleCouleur);
        couleur = nouvelleCouleur;
     });
+
+    /* Bouton médiathèque */
+    $('#edit-page_active-form').on('click', '#nina_image_mediatheque', function(){
+        // name = $(this).closest('div').prev('div').find('input').attr('name');
+        window.open("/filemanager/dialog.php?type=1&popup=1&field_id=nina_image_image");
+    });
 });

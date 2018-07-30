@@ -66,7 +66,7 @@
             {% else %}
                 <a href="#">
                     {% if app.user.imageProfil is not empty %}
-                    <img id="header-imageProfil" src="/uploads/{{ app.user.imageProfil }}" alt="{{ app.user.username }}">
+                    <img id="header-imageProfil" src="{{ app.user.imageProfil }}" alt="{{ app.user.username }}">
                     {% else %}
                         <i id="header-sansImageProfil" class="fas fa-user"></i>
                     {% endif %}

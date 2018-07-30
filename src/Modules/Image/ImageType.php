@@ -10,6 +10,7 @@ namespace App\Modules\Image;
 
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ButtonType;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -20,7 +21,12 @@ class ImageType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('image', TextType::class)
+            ->add('image', TextType::class, array(
+                'attr' => array(
+                    'id' => 'coucou'
+                )
+            ))
+            ->add('mediatheque', ButtonType::class)
             ->add('titre', TextType::class)
             ->add('description', TextType::class);
     }
@@ -34,5 +40,10 @@ class ImageType extends AbstractType
 
     public function getParent(){
         return FormType::class;
+    }
+
+    public function getBlockPrefix()
+    {
+        return 'nina_image';
     }
 }

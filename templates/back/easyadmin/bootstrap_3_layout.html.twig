@@ -613,3 +613,51 @@
         {% endif %}
     </div>
 {% endblock easyadmin_section_row %}
+
+{% block configuration_logo %}
+    coucou
+{% endblock %}
+
+{% block configuration_logo_widget %}
+    coucou2
+{% endblock %}
+
+{% block _configuration_logo_widget %}
+    {{- block('form_widget_simple') -}}
+    <a class="ouvrirMediatheque" href="javascript:open_popup('/filemanager/dialog.php?type=1&popup=1&field_id=configuration_logo')">{{ 'Choisir une image dans la médiathèque'|trans }}</a>
+    <div class="apercuLogo">
+        {% if value is not empty %}
+            {{ 'Logo actuel :'|trans }}
+            <img src="{{ value }}" alt="">
+        {% endif %}
+    </div>
+    <script>
+        function open_popup(url){
+            var w=880;
+            var h=570;
+            var l=Math.floor((screen.width-w)/2);
+            var t=Math.floor((screen.height-h)/2);
+            var win=window.open(url,'ResponsiveFilemanager',"scrollbars=1,width="+w+",height="+h+",top="+t+",left="+l);
+        }
+    </script>
+{% endblock %}
+
+{% block _utilisateur_imageProfil_widget %}
+    {{- block('form_widget_simple') -}}
+    <a class="ouvrirMediatheque" href="javascript:open_popup('/filemanager/dialog.php?type=1&popup=1&field_id=utilisateur_imageProfil')">{{ 'Choisir une image dans la médiathèque'|trans }}</a>
+    <div class="apercuImageProfil">
+        {% if value is not empty %}
+            {{ 'Image de profil actuelle :'|trans }}
+            <img src="{{ value }}" alt="">
+        {% endif %}
+    </div>
+    <script>
+        function open_popup(url){
+            var w=880;
+            var h=570;
+            var l=Math.floor((screen.width-w)/2);
+            var t=Math.floor((screen.height-h)/2);
+            var win=window.open(url,'ResponsiveFilemanager',"scrollbars=1,width="+w+",height="+h+",top="+t+",left="+l);
+        }
+    </script>
+{% endblock %}
