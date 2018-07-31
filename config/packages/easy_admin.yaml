@@ -35,6 +35,7 @@ easy_admin:
                 - 'assets/js/fontawesome-all.min.js'
                 - 'assets/js/jscookie/cookie.js'
                 - 'assets/js/jstree/jstree.min.js'
+                - 'assets/js/sortable/jquery-ui.min.js'
                 - 'assets/js/jsBack.js'
         templates:
             layout: 'back/base.html.twig'

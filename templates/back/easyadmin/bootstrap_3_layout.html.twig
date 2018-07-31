@@ -661,3 +661,68 @@
         }
     </script>
 {% endblock %}
+
+{% block module_row %}
+    {% set _field_type = easyadmin.field.fieldType|default('default') %}
+    <div class="form-group {% if (not compound or force_error|default(false)) and not valid %}has-error{% endif %} field-{{ block_prefixes|slice(-2)|first }}">
+        <div class="flex-container">
+            <div class="drag"><i class="fas fa-arrows-alt "></i></div>
+            <div class="flex-item-fluid"></div>
+            <div class="module-menu">
+                <span><i class="fas fa-ellipsis-v"></i></span>
+                <ul>
+                    <li>Supprimer</li>
+                </ul>
+            </div>
+        </div>
+        {{- form_label(form) -}}
+        {{- form_widget(form) -}}
+
+        {% if _field_type in ['datetime', 'datetime_immutable', 'date', 'date_immutable', 'time', 'time_immutable', 'birthday'] and easyadmin.field.nullable|default(false) %}
+            <div class="nullable-control">
+                <label>
+                    <input type="checkbox" {% if data is null %}checked="checked"{% endif %}>
+                    {{ 'label.nullable_field'|trans({}, 'EasyAdminBundle')}}
+                </label>
+            </div>
+        {% endif %}
+
+        {{- form_errors(form) -}}
+
+        {% if easyadmin.field.help|default('') != '' %}
+            <span class="help-block"><i class="fa fa-info-circle"></i> {{ easyadmin.field.help|trans(domain = easyadmin.entity.translation_domain)|raw }}</span>
+        {% endif %}
+    </div>
+
+    {% if allow_add|default(false) %}
+        {% set js_add_item %}
+            $(function() {
+            if (event.preventDefault) event.preventDefault(); else event.returnValue = false;
+
+            var collection = $('#{{ id }}');
+            // Use a counter to avoid having the same index more than once
+            var numItems = collection.data('count') || collection.children('div.form-group').length;
+
+            collection.prev('.collection-empty').remove();
+
+            var newItem = collection.attr('data-prototype')
+            .replace(/\>__name__label__\</g, '>' + numItems + '<')
+            .replace(/_{{ name }}___name__/g, '_{{ name }}_' + numItems)
+            .replace(/{{ name }}\]\[__name__\]/g, '{{ name }}][' + numItems + ']')
+            ;
+
+            // Increment the counter and store it in the collection
+            collection.data('count', ++numItems);
+
+            collection.append(newItem).trigger('easyadmin.collection.item-added');
+            });
+        {% endset %}
+
+        <div class="text-right field-collection-action">
+            <a href="#" onclick="{{ js_add_item|raw }}" class="text-primary">
+                <i class="fa fa-plus-square"></i>
+                {{ (form|length == 0 ? 'action.add_new_item' : 'action.add_another_item')|trans({}, 'EasyAdminBundle') }}
+            </a>
+        </div>
+    {% endif %}
+{% endblock %}

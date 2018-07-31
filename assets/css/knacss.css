@@ -2527,6 +2527,28 @@ div[id^="page_active_modules"] .field-collection-action {
   display: none; }
 div[id^="page_active_modules"] svg {
   transition: .3s; }
+div[id^="page_active_modules"] label svg {
+  margin-left: 1rem; }
+
+.drag {
+  font-size: 2rem; }
+
+.module-menu {
+  position: relative; }
+  .module-menu span {
+    cursor: pointer;
+    font-size: 2rem;
+    padding: 0 1rem; }
+  .module-menu ul {
+    display: none;
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    top: 100%;
+    padding: 0;
+    list-style: none; }
+  .module-menu.actif ul {
+    display: block; }
 
 /* M├®diath├¿que */
 .ouvrirMediatheque {

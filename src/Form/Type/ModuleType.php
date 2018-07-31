@@ -37,7 +37,7 @@ class ModuleType extends AbstractType
                 'empty_data' => null,
                 'choices' => $types
             ))
-            ->add('position', NumberType::class, array('data'=>'0'))
+            ->add('position', HiddenType::class, array('data'=>'0'))
             ->add('class', TextType::class)
         ;
 
