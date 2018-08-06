@@ -130,7 +130,12 @@ $(document).ready(function(){
                     champ = idLabel.substring(idLabel.indexOf('_') + 1);
                     $(this).attr('for', 'page_active[modules]['+idModule+'][contenu]['+champ+']');
                     $(this).next('*').attr('name', 'page_active[modules]['+idModule+'][contenu]['+champ+']');
+                    $(this).next('*').attr('id', $(this).next('*').attr('id')+idModule);
                 });
+                if(type == 'Image'){
+                    url = $('#image_image'+idModule).parent('div').next('div').find('a').attr('href');
+                    $('#image_image'+idModule).parent('div').next('div').find('a').attr('href', url+idModule);
+                }
                 $('#'+id).closest('div').append('<p class="type-module">'+type+'</p>');
                 $('#'+id).hide();
                 // TinyMCE
@@ -186,9 +191,25 @@ $(document).ready(function(){
     });
 
     /* Bouton médiathèque */
-    $('#edit-page_active-form').on('click', '#image_mediatheque', function(){
-        // name = $(this).closest('div').prev('div').find('input').attr('name');
-        window.open("/filemanager/dialog.php?type=1&popup=1&field_id=image_image");
+    $('.module_image_bouton_mediatheque').fancybox({
+        type: 'iframe',
+        minHeight: '600'
+    });
+
+    function responsive_filemanager_callback(field_id){
+        console.log(field_id);
+        var url=jQuery('#'+field_id).val();
+        alert('update '+field_id+" with "+url);
+        //your code
+    }
+
+    $(document).on('afterClose.fb', function( e, instance, slide ) {
+        console.log(slide);
+        id = slide.src.substr(slide.src.indexOf('field_id=')+9);
+        console.log(id);
+        urlImg = $('#'+id).val();
+        console.log(urlImg);
+        $('#'+id).parent('div').next('div').find('img').attr('src', urlImg);
     });
 
     /* Gestion de la position des modules */

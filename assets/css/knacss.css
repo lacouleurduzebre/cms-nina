@@ -2551,6 +2551,10 @@ div[id^="page_active_modules"] label svg {
     display: block; }
 
 /* M├®diath├¿que */
+a.module_image_bouton_mediatheque {
+  display: inline-block;
+  margin: 1rem 0; }
+
 .ouvrirMediatheque {
   display: inline-block;
   margin-top: 1rem;
@@ -2583,6 +2587,11 @@ div[id^="page_active_modules"] label svg {
     height: 20rem;
     object-fit: cover;
     border: 5px solid #FFF; }
+
+.module_image_apercu_mediatheque {
+  object-fit: contain;
+  max-width: 30rem;
+  max-height: 30rem; }
 
 /* T├®l├®chargement d'images (ex: logo) */
 .easyadmin-thumbnail img {

@@ -86,7 +86,8 @@
         {% endblock wrapper %}
         </div>
 
-        {% block body_javascript %}{% endblock body_javascript %}
+        {% block body_javascript %}
+        {% endblock body_javascript %}
 
         {% for js_asset in easyadmin_config('design.assets.js') %}
             <script src="{{ asset(js_asset) }}"></script>

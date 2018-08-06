@@ -21,10 +21,15 @@ class ImageType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('image', TextType::class)
-            ->add('mediatheque', ButtonType::class)
-            ->add('titre', TextType::class)
-            ->add('description', TextType::class);
+            ->add('image', TextType::class, array(
+                'required' => false
+            ))
+            ->add('titre', TextType::class, array(
+                'required' => false
+            ))
+            ->add('description', TextType::class, array(
+                'required' => false
+            ));
     }
 
     public function configureOptions(OptionsResolver $resolver)

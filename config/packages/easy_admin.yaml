@@ -30,8 +30,10 @@ easy_admin:
                 - 'assets/css/knacss.css'
                 - 'assets/css/back.css'
                 - 'assets/js/jstree/themes/style.css'
+                - 'assets/js/fancybox/jquery.fancybox.min.css'
             js:
                 # dans base.html.twig - '../assets/js/jquery-3.2.1.min.js'
+                - 'assets/js/fancybox/jquery.fancybox.min.js'
                 - 'assets/js/fontawesome-all.min.js'
                 - 'assets/js/jscookie/cookie.js'
                 - 'assets/js/jstree/jstree.min.js'

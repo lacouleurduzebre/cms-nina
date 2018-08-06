@@ -614,14 +614,6 @@
     </div>
 {% endblock easyadmin_section_row %}
 
-{% block configuration_logo %}
-    coucou
-{% endblock %}
-
-{% block configuration_logo_widget %}
-    coucou2
-{% endblock %}
-
 {% block _configuration_logo_widget %}
     {{- block('form_widget_simple') -}}
     <a class="ouvrirMediatheque" href="javascript:open_popup('/filemanager/dialog.php?type=1&popup=1&field_id=configuration_logo')">{{ 'Choisir une image dans la médiathèque'|trans }}</a>
@@ -675,6 +667,7 @@
                 </ul>
             </div>
         </div>
+
         {{- form_label(form) -}}
         {{- form_widget(form) -}}
 
@@ -725,4 +718,26 @@
             </a>
         </div>
     {% endif %}
+{% endblock %}
+
+{% block image_widget %}
+    {{- form_label(form) -}}
+    <div>
+        {{- form_label(form.children.image) -}}
+        {{- form_widget(form.children.image) -}}
+    </div>
+    <div>
+        <a class="iframe module_image_bouton_mediatheque" href='/filemanager/dialog.php?type=1&field_id={{ form.children.image.vars.id }}' type="button">{{ 'Ouvrir la médiathèque'|trans }}</a>
+        <div class="module_image_apercu_mediatheque">
+            <img src="{{ form.children.image.vars.value }}" alt="">
+        </div>
+    </div>
+    <div>
+        {{- form_label(form.children.titre) -}}
+        {{- form_widget(form.children.titre) -}}
+    </div>
+    <div>
+        {{- form_label(form.children.description) -}}
+        {{- form_widget(form.children.description) -}}
+    </div>
 {% endblock %}
