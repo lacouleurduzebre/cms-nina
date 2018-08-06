@@ -233,4 +233,16 @@ $(document).ready(function(){
     $('#page_active_modules').on('click', '.module-menu span', function(){
         $(this).closest('div').toggleClass('actif');
     });
+
+    $('#page_active_modules').on('click', '.module-menu a', function(e){
+        e.preventDefault();
+        $(this).closest('div').removeClass('actif');
+
+        if($(this).attr('class') === 'supprimerModule'){
+            $(this).closest('.field-module').slideUp(600, function(){
+                $(this).remove();
+            });
+        }/*else if($(this).attr('class') === 'dupliquerModule'){
+        }*/
+    });
 });

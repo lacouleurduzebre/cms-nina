@@ -643,7 +643,8 @@
             <div class="module-menu">
                 <span><i class="fas fa-ellipsis-v"></i></span>
                 <ul>
-                    <li>Supprimer</li>
+                    <li><a href="#" class="supprimerModule"><i class="fas fa-trash"></i>Supprimer</a></li>
+                    {#<li><a href="#" class="dupliquerModule"><i class="fas fa-copy"></i>Dupliquer</a></li>#}
                 </ul>
             </div>
         </div>
@@ -701,7 +702,6 @@
 {% endblock %}
 
 {% block image_widget %}
-    {{- form_label(form) -}}
     <div>
         {{- form_label(form.children.image) -}}
         {{- form_widget(form.children.image) -}}

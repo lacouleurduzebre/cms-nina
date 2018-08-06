@@ -3,6 +3,3 @@ twig:
     debug: '%kernel.debug%'
     strict_variables: '%kernel.debug%'
     cache: false
-    form_themes:
-        - 'back/easyadmin/bootstrap_3_layout.html.twig'
-
