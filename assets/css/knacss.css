@@ -2555,7 +2555,7 @@ a.module_image_bouton_mediatheque {
   display: inline-block;
   margin: 1rem 0; }
 
-.ouvrirMediatheque {
+.ouvrirMediatheque, .module_image_bouton_mediatheque {
   display: inline-block;
   margin-top: 1rem;
   background-color: #0791B3;
@@ -2563,7 +2563,7 @@ a.module_image_bouton_mediatheque {
   border-radius: 5px;
   color: #fff;
   text-decoration: none; }
-  .ouvrirMediatheque:hover, .ouvrirMediatheque:active, .ouvrirMediatheque:focus {
+  .ouvrirMediatheque:hover, .ouvrirMediatheque:active, .ouvrirMediatheque:focus, .module_image_bouton_mediatheque:hover, .module_image_bouton_mediatheque:active, .module_image_bouton_mediatheque:focus {
     background-color: #056982;
     color: #fff;
     text-decoration: none; }
@@ -2574,8 +2574,8 @@ a.module_image_bouton_mediatheque {
   .apercuLogo img {
     margin-top: 1rem;
     display: block;
-    max-width: 10rem;
-    max-height: 10rem; }
+    max-width: 30rem;
+    max-height: 30rem; }
 
 .apercuImageProfil {
   margin-top: 1rem; }
@@ -2588,7 +2588,7 @@ a.module_image_bouton_mediatheque {
     object-fit: cover;
     border: 5px solid #FFF; }
 
-.module_image_apercu_mediatheque {
+.module_image_apercu_mediatheque img {
   object-fit: contain;
   max-width: 30rem;
   max-height: 30rem; }
