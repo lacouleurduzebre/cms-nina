@@ -1575,6 +1575,7 @@ body.notFull .main-sidebar #btnArbo svg {
       padding-right: 3rem; }
     .sidebar.global-actions .action-search .input-group span.input-group-btn {
       position: absolute;
+      top: 0;
       height: 100%; }
       .sidebar.global-actions .action-search .input-group span.input-group-btn button[type='submit'] {
         box-shadow: none;
@@ -1617,9 +1618,6 @@ body.notFull .main-sidebar #btnArbo svg {
 
 .main-sidebar .page-active {
   color: #A1BA1D; }
-
-li[data-jstree="{\"type\":\"home\"}"] > a {
-  color: #0791B3; }
 
 .menu {
   margin: 1rem 0;

@@ -1,0 +1,29 @@
+{% extends 'back/base.html.twig' %}
+
+{% block content %}
+    <h1>Thèmes</h1>
+    <div class="messages">
+        <div class="loader"><i class="fas fa-sync fa-spin"></i></div>
+        <div class="message-ok"><i class="fas fa-check-circle"></i>{{ "Le thème a été modifié"|trans }}</div>
+        <div class="message-fail"><i class="fas fa-times"></i>{{ "Le thème n'a pas pu être modifié"|trans }}</div>
+    </div>
+    <div class="grid-3 has-gutter-xl themes">
+        {% for nom,theme in themes %}
+            <div id="{{ nom }}" class="theme{% if config.theme == nom %} actif{% endif %}">
+                <div class="theme-illustration">
+                    {% if theme.illustration is defined %}
+                        <img src="/themes/{{ nom }}/{{ theme.illustration }}" alt="{{ nom }}">
+                    {% else %}
+                        <i class="fas fa-camera"></i>
+                    {% endif %}
+                </div>
+                <div class="theme-infos">
+                    <h2>{{ theme.nom }}</h2>
+                    <p>{{ "Auteur du thème : "|trans }}{{ theme.auteur }}</p>
+                    <p>{{ "Site internet de l'auteur du thème : "|trans }}{{ theme.site }}</p>
+                    <p>{{ "Description : "|trans }}{{ theme.description }}</p>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

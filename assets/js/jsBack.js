@@ -245,4 +245,25 @@ $(document).ready(function(){
         }/*else if($(this).attr('class') === 'dupliquerModule'){
         }*/
     });
+
+    /* Changement de thème */
+    $('.theme').click(function(){
+       theme = $(this).attr('id');
+       $('.messages .loader').show();
+
+        $.ajax({
+            url: Routing.generate('modifierTheme'),
+            method: "post",
+            data: {theme: theme}
+        })
+            .done(function(){
+                $('.messages .loader').hide();
+                $('.message-ok').fadeIn().delay(800).fadeOut();
+                $('.theme').removeClass('actif');
+                $('#'+theme).addClass('actif');
+            })
+            .fail(function(){
+                $('.message-fail').fadeIn().delay(800).fadeOut();
+            });
+    });
 });

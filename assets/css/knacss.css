@@ -2308,6 +2308,9 @@ html, .content-wrapper, .sf-toolbar-clearer {
     background-color: #EEEEEE; }
 
 /* List & Search */
+body.list .table, body.list .table td, body.list .table th {
+  border: none; }
+
 .global-actions .action-new {
   margin: 2rem 0; }
 .global-actions .action-search .input-group {
@@ -2649,17 +2652,20 @@ td[data-label="Image profil"] img {
   height: 5rem;
   object-fit: cover; }
 
+/* Page m├®diath├¿que */
+.iframeMediatheque {
+  height: calc(100vh - 6.6rem); }
+
 #tdb {
   padding: 2rem; }
+  #tdb h2 {
+    color: #0791B3; }
 
 .tdb-bloc {
   padding: 2rem;
   background-color: #F7F7F7;
   box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.25);
   margin-bottom: 4rem; }
-
-tr, td, th {
-  border: 1px solid #000; }
 
 .tdb-bloc.derniersInscrits ul {
   padding: 0; }
@@ -2713,5 +2719,35 @@ tr, td, th {
   justify-content: center; }
   #mediatheque iframe {
     width: calc(100% - 10rem); }
+
+.messages {
+  height: 2.5rem; }
+  .messages > * {
+    display: none;
+    align-items: center; }
+  .messages svg {
+    margin-right: .5rem; }
+
+.message-ok {
+  color: #A1BA1D; }
+
+.message-fail {
+  color: #D9534F; }
+
+.theme {
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+  border: 2px solid #FFF;
+  cursor: pointer; }
+  .theme:hover, .theme.actif {
+    border-color: #A1BA1D; }
+
+.theme-illustration {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 10rem; }
 
 /*# sourceMappingURL=knacss.css.map */

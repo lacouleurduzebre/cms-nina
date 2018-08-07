@@ -1,7 +1,7 @@
 /.idea/
 
-/themes/*
-!/themes/nina/
+/public/themes/*
+!/public/themes/nina/
 
 ###> symfony/framework-bundle ###
 .env

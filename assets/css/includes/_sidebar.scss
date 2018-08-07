@@ -121,6 +121,7 @@ body.notFull .main-sidebar{
       }
       span.input-group-btn{
         position: absolute;
+        top: 0;
         height: 100%;
         button[type='submit']{
           box-shadow: none;
@@ -181,9 +182,6 @@ body.notFull .main-sidebar{
   color: #A1BA1D;
 }
 
-li[data-jstree="{\"type\":\"home\"}"] > a{
-  color: $color-brand2;
-}
 
 .menu{
   margin: 1rem 0;

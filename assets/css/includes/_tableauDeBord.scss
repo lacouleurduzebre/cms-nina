@@ -1,5 +1,8 @@
 #tdb{
   padding: 2rem;
+  h2{
+    color: $color-brand2;
+  }
 }
 
 .tdb-bloc{
@@ -7,10 +10,6 @@
   background-color: #F7F7F7;
   box-shadow: 4px 4px 4px rgba(0,0,0,.25);
   margin-bottom: 4rem;
-}
-
-tr, td, th{
-  border: 1px solid $black;
 }
 
 // Derniers inscrits

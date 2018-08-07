@@ -28,7 +28,8 @@ class RegionType extends AbstractType
         $emConfig = $this->em->getRepository(Configuration::class);
         $theme = $emConfig->findOneBy(array('id' => 1))->getTheme();
 
-        $regions = Yaml::parseFile('../themes/'.$theme.'/config/regions.yaml');
+        $config = Yaml::parseFile('../public/themes/'.$theme.'/config.yaml');
+        $regions = $config['regions'];
 
         if(!$regions){
             $regions = Yaml::parseFile('../config/regions.yaml');

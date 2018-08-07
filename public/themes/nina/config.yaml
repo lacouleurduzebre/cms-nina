@@ -1,0 +1,8 @@
+infos:
+    nom: Nina
+    auteur: la couleur du Zèbre
+    site: www.lacouleurduzebre.com
+    description: Thème par défaut du CMS Nina
+regions:
+    header: header
+    footer: footer
