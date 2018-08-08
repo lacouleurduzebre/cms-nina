@@ -1565,6 +1565,19 @@ body.notFull .main-sidebar #btnArbo svg {
   .arborescence > .menu:first-of-type {
     margin-top: 0; }
 
+.pageAccueil {
+  padding-left: 3rem;
+  color: #75726B; }
+  .pageAccueil p {
+    margin-bottom: 0; }
+  .pageAccueil svg {
+    margin-right: 1.5rem; }
+
+.main-sidebar a.sansPageAccueil {
+  text-decoration: underline; }
+  .main-sidebar a.sansPageAccueil svg {
+    margin-right: .5rem; }
+
 /* Recherche */
 .sidebar.global-actions {
   margin-bottom: 1rem; }

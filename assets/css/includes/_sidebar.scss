@@ -108,6 +108,23 @@ body.notFull .main-sidebar{
   }
 }
 
+.pageAccueil{
+  padding-left: 3rem;
+  color: $color-primary;
+  p{
+    margin-bottom: 0;
+  }
+  svg{
+    margin-right: 1.5rem;
+  }
+}
+
+.main-sidebar a.sansPageAccueil{
+  text-decoration: underline;
+  svg{
+    margin-right: .5rem;
+  }
+}
 
 /* Recherche */
 .sidebar.global-actions{

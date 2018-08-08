@@ -47,10 +47,13 @@ class ModuleType extends AbstractType
 
             if ($module){
                 $type = $module->getType();
-                $form->add('contenu', 'App\Modules\\'.$type.'\\'.$type.'Type');
+                $form->add('contenu', 'App\Modules\\'.$type.'\\'.$type.'Type', array(
+                    'label' => false
+                ));
             }else{
                 $form->add('contenu', CollectionType::class, array(
-                    'allow_add' => true
+                    'allow_add' => true,
+                    'label' => false
                 ));
             }
         });
