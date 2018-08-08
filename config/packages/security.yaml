@@ -35,6 +35,7 @@ security:
         - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/admin/, role: IS_AUTHENTICATED_REMEMBERED }
         - { path: ^/admin, role: IS_AUTHENTICATED_REMEMBERED }
+        - { path: ^/sauvegardes/, role: IS_AUTHENTICATED_REMEMBERED }
             # https://symfony.com/doc/current/security.html#a-configuring-how-your-users-will-authenticate
             #http_basic: ~
 

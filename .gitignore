@@ -8,6 +8,8 @@
 /public/bundles/
 /public/uploads/
 /public/thumbs/
+/public/sauvegardes/bdd/*
+/public/sauvegardes/mediatheque/*
 /var/
 /vendor/
 ###< symfony/framework-bundle ###

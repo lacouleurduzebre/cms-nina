@@ -70,8 +70,6 @@ easy_admin:
               icon: 'wrench'
               children:
                 - { entity: 'Configuration', label: 'Configuration générale', icon: '', params: { action: 'edit', id: 1 } }
-                - { label: 'Thème', icon: '', route: 'theme' }
+                - { label: 'Thèmes', icon: '', route: 'theme' }
+                - { label: 'Sauvegardes', icon: '', route: 'sauvegarde' }
                 #- { label: 'Traductions', icon: '', url: '#' }
-                #- { label: 'Corbeille', icon: '', url: '#' }
-            #- { label: 'Newsletter', icon: 'paper-plane', url: '#' }
-            #- { label: 'Voir le site', route: 'accueil', icon: 'home' }

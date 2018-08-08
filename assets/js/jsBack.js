@@ -266,4 +266,88 @@ $(document).ready(function(){
                 $('.message-fail').fadeIn().delay(800).fadeOut();
             });
     });
+
+    /* Sauvegarde */
+    /* Dump déjà existant */
+    $('#export-bdd-dump').click(function(){
+        timestamp = $('#export-bdd-dump-select').val();
+        $('.sauvegarde').append('<iframe src="/sauvegardes/bdd/'+timestamp+'" width="1" height="1" frameborder="0"></iframe>');
+    });
+
+    /* Création de dump */
+    $('#export-bdd').click(function(){
+        $('#export-bdd + .loader').css('display', 'inline-block');
+        $.ajax({
+            url: Routing.generate('sauvegarderBDD'),
+            method: "post"
+        })
+            .done(function(data){
+                $('#export-bdd + .loader').hide();
+
+                timestamp = data.substring(0, data.indexOf('*'));
+                date = data.substring(data.indexOf('*')+1);
+
+                $('.sauvegarde').append('<iframe src="/sauvegardes/bdd/dump'+timestamp+'.sql" width="1" height="1" frameborder="0"></iframe>');
+
+                $('#export-bdd-dump-select').append('<option value="'+timestamp+'">'+date+'</option>');
+            })
+            .fail(function(){
+            });
+    });
+
+    /* Suppression des dumps */
+    $('#export-bdd-supprimer').click(function(){
+        $.ajax({
+            url: Routing.generate('supprimerDumps'),
+            method: "post",
+            data: {type: 'bdd'}
+        })
+            .done(function(){
+                $('#export-bdd-dump-select').html('');
+            })
+            .fail(function(){
+            });
+    });
+
+    /* Médiathèque */
+    /* Dump déjà existant */
+    $('#export-mediatheque-dump').click(function(){
+        timestamp = $('#export-mediatheque-dump-select').val();
+        $('.sauvegarde').append('<iframe src="/sauvegardes/mediatheque/'+timestamp+'" width="1" height="1" frameborder="0"></iframe>');
+    });
+
+    /* Création de dump */
+    $('#export-mediatheque').click(function(){
+        $('#export-mediatheque + .loader').css('display', 'inline-block');
+        $.ajax({
+            url: Routing.generate('sauvegarderMediatheque'),
+            method: "post"
+        })
+            .done(function(data){
+                $('#export-mediatheque + .loader').hide();
+
+                timestamp = data.substring(0, data.indexOf('*'));
+                date = data.substring(data.indexOf('*')+1);
+
+                $('.sauvegarde').append('<iframe src="/sauvegardes/mediatheque/mediatheque'+timestamp+'.zip" width="1" height="1" frameborder="0"></iframe>');
+
+                $('#export-mediatheque-dump-select').append('<option value="'+timestamp+'">'+date+'</option>');
+            })
+            .fail(function(){
+            });
+    });
+
+    /* Suppression des dumps */
+    $('#export-mediatheque-supprimer').click(function(){
+        $.ajax({
+            url: Routing.generate('supprimerDumps'),
+            method: "post",
+            data: {type: 'mediatheque'}
+        })
+            .done(function(){
+                $('#export-mediatheque-dump-select').html('');
+            })
+            .fail(function(){
+            });
+    });
 });

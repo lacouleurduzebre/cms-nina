@@ -38,35 +38,6 @@ class MenuController extends Controller
             //$item[3] pageParent
             //$item[4] menu
             foreach($arbo as $item){
-                /*if($item[0] == 0 && $item[4] == 0){// Si menuPage n'existe pas et que la page est mise dans les orphelins on ne fait rien
-                    continue;
-                }
-
-                if($item['4'] == 0){// Si menuPage existe mais que la page est mise dans les orphelins, on le supprime
-                    $menuPage = $repositoryMenuPage->findOneBy(array('id'=>$item[0]));
-                    $em->remove($menuPage);
-                    $data = $item['1']."*".'0';//Retour de l'id menuPage
-                    continue;
-                }
-
-                if($item['0'] == 0){// menuPage n'existe pas, on le crée
-                    $menuPage = new MenuPage();
-
-                    $this->requetes($item, $menuPage);
-
-                    $em->persist($menuPage);
-                    $em->flush();
-                    $em->refresh($menuPage);
-
-                    $idMenupage = $menuPage->getId();
-                    $data = $item['1']."*".$idMenupage;
-                }else{
-                    $menuPage = $repositoryMenuPage->findOneBy(array('id'=>$item[0]));
-
-                    $this->requetes($item, $menuPage);
-
-                    $em->persist($menuPage);
-                }*/
                 $menuPage = $repositoryMenuPage->find($item[0]);
 
                 $repositoryMenu = $this->getDoctrine()->getRepository(Menu::class);

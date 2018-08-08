@@ -2750,4 +2750,15 @@ td[data-label="Image profil"] img {
   justify-content: center;
   font-size: 10rem; }
 
+.sauvegarde h2 {
+  color: #0791B3; }
+.sauvegarde select {
+  display: inline-block; }
+
+.export-mediatheque {
+  margin-top: 3rem; }
+
+.loader {
+  display: none; }
+
 /*# sourceMappingURL=knacss.css.map */

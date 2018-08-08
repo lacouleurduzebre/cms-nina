@@ -1,0 +1,45 @@
+{% extends 'back/base.html.twig' %}
+
+{% block content %}
+    <h1>Sauvegarde</h1>
+    <div class="sauvegarde">
+        <div class="export-bdd">
+            <h2>Base de données</h2>
+            <p>{{ "Télécharger l'export en date du "|trans }}</p>
+            <p>
+                <select name="export-bdd-dump-select" id="export-bdd-dump-select">
+                    {% for timestamp,date in dumpsBdd %}
+                        <option value="{{ timestamp }}">{{ date }}</option>
+                    {% endfor %}
+                </select>
+                <button id="export-bdd-dump">Télécharger</button>
+            </p>
+
+            <p>{{ 'Créer un nouvel export de la base de données'|trans }}</p>
+            <button id="export-bdd">{{ 'Exporter la base de données'|trans }}</button>
+            <div class="loader"><i class="fas fa-sync fa-spin"></i></div>
+
+            <p>{{ 'Supprimer tous les exports'|trans }}</p>
+            <p><button id="export-bdd-supprimer">{{ 'Supprimer tous les exports'|trans }}</button></p>
+        </div>
+        <div class="export-mediatheque">
+            <h2>Médiathèque</h2>
+            <p>{{ "Télécharger l'export en date du "|trans }}</p>
+            <p>
+                <select name="export-mediatheque-dump-select" id="export-mediatheque-dump-select">
+                    {% for timestamp,date in dumpsMediatheque %}
+                        <option value="{{ timestamp }}">{{ date }}</option>
+                    {% endfor %}
+                </select>
+                <button id="export-mediatheque-dump">Télécharger</button>
+            </p>
+
+            <p>{{ 'Exporter tous les fichiers de la médiathèque au format zip'|trans }}</p>
+            <button id="export-mediatheque">{{ 'Exporter la médiathèque'|trans }}</button>
+            <div class="loader"><i class="fas fa-sync fa-spin"></i></div>
+
+            <p>{{ 'Supprimer tous les exports'|trans }}</p>
+            <p><button id="export-mediatheque-supprimer">{{ 'Supprimer tous les exports'|trans }}</button></p>
+        </div>
+    </div>
+{% endblock %}
