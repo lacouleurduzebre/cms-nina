@@ -39,49 +39,51 @@ class AdminController extends BaseAdminController
         $blocsUser = $user->getBlocsTableauDeBord();
         $blocs = [];
 
-        /* Dernières pages publiées */
-        if(in_array('dernieresPages', $blocsUser)){
-            $dernieresPages = $em->getRepository(Page::class)->pagesPubliees($langue);
-            $blocs['dernieresPages'] = $dernieresPages;
-        }
-
-        /* Derniers commentaires en attente de validation */
-        if(in_array('derniersCommentaires', $blocsUser)){
-            $repositoryCommentaire = $em->getRepository(Commentaire::class);
-            $derniersCommentaires = $repositoryCommentaire->commentairesNonValides();
-            $blocs['derniersCommentaires'] = $derniersCommentaires;
-        }
-
-        /* Nombre de pages */
-        if(in_array('nombreDePages', $blocsUser)){
-            //Nombre total
-            $nombreTotal = $repositoryPage->nombreTotal();
-            $blocs['nombreDePages']['nombreTotal'] = $nombreTotal;
-
-            //Nombre total de pages publiées
-            $nombreTotalPagesPubliees = $repositoryPage->nombrePagesPubliees();
-            $blocs['nombreDePages']['publiees']['nombreTotal'] = $nombreTotalPagesPubliees;
-
-            //Nombre de pages dans chaque langue
-            $langues = $repositoryLangue->findAll();
-            foreach($langues as $langue){
-                $nombrePagesPublieesLangue = $repositoryPage->nombrePagesPubliees($langue);
-                $blocs['nombreDePages']['publiees']['parLangue'][$langue->getNom()] = $nombrePagesPublieesLangue;
+        if($blocsUser){
+            /* Dernières pages publiées */
+            if(in_array('dernieresPages', $blocsUser)){
+                $dernieresPages = $em->getRepository(Page::class)->pagesPubliees($langue);
+                $blocs['dernieresPages'] = $dernieresPages;
             }
-        }
 
-        /* Liste des catégories */
-        if(in_array('listeCategories', $blocsUser)){
-            $repositoryTypeCategorie = $em->getRepository(TypeCategorie::class);
-            $typeCategories = $repositoryTypeCategorie->findAll();
-            $blocs['listeCategories'] = $typeCategories;
-        }
+            /* Derniers commentaires en attente de validation */
+            if(in_array('derniersCommentaires', $blocsUser)){
+                $repositoryCommentaire = $em->getRepository(Commentaire::class);
+                $derniersCommentaires = $repositoryCommentaire->commentairesNonValides();
+                $blocs['derniersCommentaires'] = $derniersCommentaires;
+            }
 
-        /* Liste des derniers inscrits */
-        if(in_array('derniersInscrits', $blocsUser)){
-            $repositoryUtilisateur = $em->getRepository(Utilisateur::class);
-            $utilisateurs = $repositoryUtilisateur->findBy(array(), array('id' => 'ASC'), 5);
-            $blocs['derniersInscrits'] = $utilisateurs;
+            /* Nombre de pages */
+            if(in_array('nombreDePages', $blocsUser)){
+                //Nombre total
+                $nombreTotal = $repositoryPage->nombreTotal();
+                $blocs['nombreDePages']['nombreTotal'] = $nombreTotal;
+
+                //Nombre total de pages publiées
+                $nombreTotalPagesPubliees = $repositoryPage->nombrePagesPubliees();
+                $blocs['nombreDePages']['publiees']['nombreTotal'] = $nombreTotalPagesPubliees;
+
+                //Nombre de pages dans chaque langue
+                $langues = $repositoryLangue->findAll();
+                foreach($langues as $langue){
+                    $nombrePagesPublieesLangue = $repositoryPage->nombrePagesPubliees($langue);
+                    $blocs['nombreDePages']['publiees']['parLangue'][$langue->getNom()] = $nombrePagesPublieesLangue;
+                }
+            }
+
+            /* Liste des catégories */
+            if(in_array('listeCategories', $blocsUser)){
+                $repositoryTypeCategorie = $em->getRepository(TypeCategorie::class);
+                $typeCategories = $repositoryTypeCategorie->findAll();
+                $blocs['listeCategories'] = $typeCategories;
+            }
+
+            /* Liste des derniers inscrits */
+            if(in_array('derniersInscrits', $blocsUser)){
+                $repositoryUtilisateur = $em->getRepository(Utilisateur::class);
+                $utilisateurs = $repositoryUtilisateur->findBy(array(), array('id' => 'ASC'), 5);
+                $blocs['derniersInscrits'] = $utilisateurs;
+            }
         }
 
         return $this->render('back/tableauDeBord.html.twig', array(

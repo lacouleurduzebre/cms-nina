@@ -5,7 +5,7 @@
     <div class="sauvegarde">
         <div class="export-bdd">
             <h2>Base de données</h2>
-            <p>{{ "Télécharger l'export en date du "|trans }}</p>
+            {#<p>{{ "Télécharger l'export en date du "|trans }}</p>
             <p>
                 <select name="export-bdd-dump-select" id="export-bdd-dump-select">
                     {% for timestamp,date in dumpsBdd %}
@@ -13,18 +13,36 @@
                     {% endfor %}
                 </select>
                 <button id="export-bdd-dump">Télécharger</button>
-            </p>
+            </p>#}
 
-            <p>{{ 'Créer un nouvel export de la base de données'|trans }}</p>
-            <button id="export-bdd">{{ 'Exporter la base de données'|trans }}</button>
+            <button id="export-bdd">{{ 'Créer une nouvelle sauvegarde'|trans }}</button>
             <div class="loader"><i class="fas fa-sync fa-spin"></i></div>
 
-            <p>{{ 'Supprimer tous les exports'|trans }}</p>
-            <p><button id="export-bdd-supprimer">{{ 'Supprimer tous les exports'|trans }}</button></p>
+            <table id="dumps-bdd" class="table">
+                <thead>
+                    <tr>
+                        <th>{{ 'Date de la sauvegarde'|trans }}</th>
+                        <th>{{ 'Télécharger'|trans }}</th>
+                        <th>{{ 'Supprimer'|trans }}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for timestamp,date in dumpsBdd %}
+                        <tr>
+                            <td>{{ date }}</td>
+                            <td><a download href="/sauvegardes/bdd/{{ timestamp }}"><i class="fas fa-file-download"></i></a></td>
+                            <td><a id="{{ timestamp }}" href="#" class="export-bdd-supprimer"><i class="fas fa-trash"></i></a></td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+
+            {#<p>{{ 'Supprimer toutes les sauvegardes'|trans }}</p>
+            <p><button id="export-bdd-supprimer">{{ 'Supprimer toutes les sauvegardes'|trans }}</button></p>#}
         </div>
         <div class="export-mediatheque">
             <h2>Médiathèque</h2>
-            <p>{{ "Télécharger l'export en date du "|trans }}</p>
+            {#<p>{{ "Télécharger l'export en date du "|trans }}</p>
             <p>
                 <select name="export-mediatheque-dump-select" id="export-mediatheque-dump-select">
                     {% for timestamp,date in dumpsMediatheque %}
@@ -32,14 +50,32 @@
                     {% endfor %}
                 </select>
                 <button id="export-mediatheque-dump">Télécharger</button>
-            </p>
+            </p>#}
 
-            <p>{{ 'Exporter tous les fichiers de la médiathèque au format zip'|trans }}</p>
-            <button id="export-mediatheque">{{ 'Exporter la médiathèque'|trans }}</button>
+            <button id="export-mediatheque">{{ 'Créer une nouvelle sauvegarde'|trans }}</button>
             <div class="loader"><i class="fas fa-sync fa-spin"></i></div>
 
-            <p>{{ 'Supprimer tous les exports'|trans }}</p>
-            <p><button id="export-mediatheque-supprimer">{{ 'Supprimer tous les exports'|trans }}</button></p>
+            <table id="dumps-mediatheque" class="table">
+                <thead>
+                <tr>
+                    <th>{{ 'Date de la sauvegarde'|trans }}</th>
+                    <th>{{ 'Télécharger'|trans }}</th>
+                    <th>{{ 'Supprimer'|trans }}</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for timestamp,date in dumpsMediatheque %}
+                    <tr>
+                        <td>{{ date }}</td>
+                        <td><a href="/sauvegardes/mediatheque/{{ timestamp }}"><i class="fas fa-file-download"></i></a></td>
+                        <td><a id="{{ timestamp }}" href="#" class="export-mediatheque-supprimer"><i class="fas fa-trash"></i></a></td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+
+            {#<p>{{ 'Supprimer toutes les sauvegardes'|trans }}</p>
+            <p><button id="export-mediatheque-supprimer">{{ 'Supprimer toutes les sauvegardes'|trans }}</button></p>#}
         </div>
     </div>
 {% endblock %}

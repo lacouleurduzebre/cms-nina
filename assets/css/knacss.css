@@ -533,10 +533,10 @@ q {
 
 q,
 .q {
-  quotes: "ÔÇ£" "ÔÇØ" "ÔÇÿ" "ÔÇÖ"; }
+  quotes: "“" "”" "‘" "’"; }
   q:lang(fr),
   .q:lang(fr) {
-    quotes: "┬½\00a0" "\00a0┬╗" "ÔÇ£" "ÔÇØ"; }
+    quotes: "«\00a0" "\00a0»" "“" "”"; }
 
 hr {
   display: block;
@@ -1844,7 +1844,7 @@ button:focus {
   .button--ghost:active,
   .button--ghost:focus,
   .button--ghost:hover {
-    background-color: rgba(0, 0, 0, 0); }
+    background-color: transparent; }
 
 .btn--small,
 .button--small {
@@ -1966,12 +1966,12 @@ button:focus {
     color: #fff; }
   .toggle input::before {
     float: right;
-    margin-right: 0.6666666667rem; }
+    margin-right: 0.66667rem; }
   .toggle input:checked {
     box-shadow: inset 2rem 0 0 #5CB85C, inset 0 0 0 1px #5CB85C; }
     .toggle input:checked::before {
       float: left;
-      margin-left: 0.6666666667rem; }
+      margin-left: 0.66667rem; }
 
 .checkbox input {
   width: 2rem;
@@ -2308,7 +2308,7 @@ html, .content-wrapper, .sf-toolbar-clearer {
     background-color: #EEEEEE; }
 
 /* List & Search */
-body.list .table, body.list .table td, body.list .table th {
+body.list .table, body.list .table td, body.list .table th, .sauvegarde .table, .sauvegarde .table td, .sauvegarde .table th {
   border: none; }
 
 .global-actions .action-new {
@@ -2449,7 +2449,7 @@ ul.nav-tabs {
 .tab-pane:not(.active) {
   display: none; }
 
-/* ├ël├®ments de formulaire */
+/* Éléments de formulaire */
 .field-collection-action {
   margin-top: 1rem;
   font-size: 1.9rem; }
@@ -2571,7 +2571,7 @@ div[id^="page_active_modules"] label svg {
   .module-menu.actif ul {
     display: block; }
 
-/* M├®diath├¿que */
+/* Médiathèque */
 a.module_image_bouton_mediatheque {
   display: inline-block;
   margin: 1rem 0; }
@@ -2589,7 +2589,7 @@ a.module_image_bouton_mediatheque {
     color: #fff;
     text-decoration: none; }
 
-/* Aper├ºu */
+/* Aperçu */
 .apercuLogo {
   margin-top: 1rem; }
   .apercuLogo img {
@@ -2614,7 +2614,7 @@ a.module_image_bouton_mediatheque {
   max-width: 30rem;
   max-height: 30rem; }
 
-/* T├®l├®chargement d'images (ex: logo) */
+/* Téléchargement d'images (ex: logo) */
 .easyadmin-thumbnail img {
   max-width: 25rem; }
 
@@ -2652,7 +2652,7 @@ td[data-label="Image profil"] img {
   height: 5rem;
   object-fit: cover; }
 
-/* Page m├®diath├¿que */
+/* Page médiathèque */
 .iframeMediatheque {
   height: calc(100vh - 6.6rem); }
 
@@ -2735,6 +2735,7 @@ td[data-label="Image profil"] img {
   color: #D9534F; }
 
 .theme {
+  position: relative;
   display: flex;
   flex-direction: column;
   padding: 1rem;
@@ -2747,18 +2748,35 @@ td[data-label="Image profil"] img {
   flex: 1;
   display: flex;
   align-items: center;
-  justify-content: center;
-  font-size: 10rem; }
+  justify-content: center; }
+  .theme-illustration svg {
+    font-size: 10rem; }
+
+.theme-actif {
+  background-color: #A1BA1D;
+  color: #fff;
+  position: absolute;
+  top: 0;
+  left: 0;
+  padding: .5rem 1rem; }
+
+.theme:not(.actif) .theme-actif {
+  display: none; }
 
 .sauvegarde h2 {
   color: #0791B3; }
 .sauvegarde select {
   display: inline-block; }
+.sauvegarde .hidden {
+  display: none; }
 
 .export-mediatheque {
   margin-top: 3rem; }
 
 .loader {
   display: none; }
+
+.sauvegarde button {
+  margin-bottom: 1rem; }
 
 /*# sourceMappingURL=knacss.css.map */

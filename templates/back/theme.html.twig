@@ -11,6 +11,7 @@
         {% for nom,theme in themes %}
             <div id="{{ nom }}" class="theme{% if config.theme == nom %} actif{% endif %}">
                 <div class="theme-illustration">
+                    <div class="theme-actif">{{ 'Activé'|trans }}</div>
                     {% if theme.illustration is defined %}
                         <img src="/themes/{{ nom }}/{{ theme.illustration }}" alt="{{ nom }}">
                     {% else %}
@@ -19,9 +20,9 @@
                 </div>
                 <div class="theme-infos">
                     <h2>{{ theme.nom }}</h2>
-                    <p>{{ "Auteur du thème : "|trans }}{{ theme.auteur }}</p>
-                    <p>{{ "Site internet de l'auteur du thème : "|trans }}{{ theme.site }}</p>
-                    <p>{{ "Description : "|trans }}{{ theme.description }}</p>
+                    <p><strong>{{ "Auteur du thème : "|trans }}</strong>{{ theme.auteur }}</p>
+                    <p><strong>{{ "Site internet de l'auteur du thème : "|trans }}</strong>{{ theme.site }}</p>
+                    <p><strong>{{ "Description : "|trans }}</strong>{{ theme.description }}</p>
                 </div>
             </div>
         {% endfor %}

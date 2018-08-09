@@ -85,11 +85,12 @@ class SauvegardeController extends Controller
     public function supprimerDumpsAction(Request $request){
         if($request->isXmlHttpRequest()){
             $type = $request->get('type');
+            $fichier = $request->get('fichier');
 
             if($type == 'bdd'){
-                array_map('unlink', glob("sauvegardes/bdd/*.sql"));
+                array_map('unlink', glob("sauvegardes/bdd/".$fichier));
             }elseif($type == 'mediatheque'){
-                array_map('unlink', glob("sauvegardes/mediatheque/*.zip"));
+                array_map('unlink', glob("sauvegardes/mediatheque/".$fichier));
             }
 
             return new Response('ok');

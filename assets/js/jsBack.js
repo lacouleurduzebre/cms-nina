@@ -268,12 +268,7 @@ $(document).ready(function(){
     });
 
     /* Sauvegarde */
-    /* Dump déjà existant */
-    $('#export-bdd-dump').click(function(){
-        timestamp = $('#export-bdd-dump-select').val();
-        $('.sauvegarde').append('<iframe src="/sauvegardes/bdd/'+timestamp+'" width="1" height="1" frameborder="0"></iframe>');
-    });
-
+    /* BDD */
     /* Création de dump */
     $('#export-bdd').click(function(){
         $('#export-bdd + .loader').css('display', 'inline-block');
@@ -287,35 +282,31 @@ $(document).ready(function(){
                 timestamp = data.substring(0, data.indexOf('*'));
                 date = data.substring(data.indexOf('*')+1);
 
-                $('.sauvegarde').append('<iframe src="/sauvegardes/bdd/dump'+timestamp+'.sql" width="1" height="1" frameborder="0"></iframe>');
-
-                $('#export-bdd-dump-select').append('<option value="'+timestamp+'">'+date+'</option>');
+                $('#dumps-bdd tbody').append('<tr>\n' +
+                    '                            <td>'+date+'</td>\n' +
+                    '                            <td><a download href="/sauvegardes/bdd/dump'+timestamp+'.sql"><i class="fas fa-file-download"></i></a></td>\n' +
+                    '                            <td><a href="#" class="export-bdd-supprimer"><i class="fas fa-trash"></i></a></td>\n' +
+                    '                        </tr>');
             })
             .fail(function(){
             });
     });
 
-    /* Suppression des dumps */
-    $('#export-bdd-supprimer').click(function(){
+    /* Suppression de dump */
+    $('.sauvegarde').on('click', '.export-bdd-supprimer', function(){
+        fichier = $(this).attr('id');
+        element = $(this);
         $.ajax({
             url: Routing.generate('supprimerDumps'),
             method: "post",
-            data: {type: 'bdd'}
+            data: {fichier: fichier, type: 'bdd'}
         })
             .done(function(){
-                $('#export-bdd-dump-select').html('');
+                element.closest('tr').remove();
             })
-            .fail(function(){
-            });
     });
 
     /* Médiathèque */
-    /* Dump déjà existant */
-    $('#export-mediatheque-dump').click(function(){
-        timestamp = $('#export-mediatheque-dump-select').val();
-        $('.sauvegarde').append('<iframe src="/sauvegardes/mediatheque/'+timestamp+'" width="1" height="1" frameborder="0"></iframe>');
-    });
-
     /* Création de dump */
     $('#export-mediatheque').click(function(){
         $('#export-mediatheque + .loader').css('display', 'inline-block');
@@ -329,25 +320,25 @@ $(document).ready(function(){
                 timestamp = data.substring(0, data.indexOf('*'));
                 date = data.substring(data.indexOf('*')+1);
 
-                $('.sauvegarde').append('<iframe src="/sauvegardes/mediatheque/mediatheque'+timestamp+'.zip" width="1" height="1" frameborder="0"></iframe>');
-
-                $('#export-mediatheque-dump-select').append('<option value="'+timestamp+'">'+date+'</option>');
+                $('#dumps-mediatheque tbody').append('<tr>\n' +
+                    '                        <td>'+date+'</td>\n' +
+                    '                        <td><a href="/sauvegardes/mediatheque/mediatheque'+timestamp+'.zip"><i class="fas fa-file-download"></i></a></td>\n' +
+                    '                        <td><a href="#" class="export-mediatheque-supprimer"><i class="fas fa-trash"></i></a></td>\n' +
+                    '                    </tr>');
             })
-            .fail(function(){
-            });
     });
 
-    /* Suppression des dumps */
-    $('#export-mediatheque-supprimer').click(function(){
+    /* Suppression de dump */
+    $('.sauvegarde').on('click', '.export-mediatheque-supprimer', function(){
+        fichier = $(this).attr('id');
+        element = $(this);
         $.ajax({
             url: Routing.generate('supprimerDumps'),
             method: "post",
-            data: {type: 'mediatheque'}
+            data: {fichier: fichier, type: 'mediatheque'}
         })
             .done(function(){
-                $('#export-mediatheque-dump-select').html('');
+                element.closest('tr').remove();
             })
-            .fail(function(){
-            });
     });
 });

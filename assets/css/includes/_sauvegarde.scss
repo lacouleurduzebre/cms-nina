@@ -5,6 +5,9 @@
   select{
     display: inline-block;
   }
+  .hidden{
+    display: none;
+  }
 }
 
 .export-mediatheque{
@@ -13,4 +16,8 @@
 
 .loader{
   display: none;
+}
+
+.sauvegarde button{
+	margin-bottom: 1rem;
 }
