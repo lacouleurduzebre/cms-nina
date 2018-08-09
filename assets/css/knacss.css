@@ -2646,11 +2646,15 @@ a.module_image_bouton_mediatheque {
   display: none; }
 
 /* Image de profil */
-td[data-label="Image profil"] img {
+td[data-label="Image profil"] img, td[data-label="Image profil"] svg {
   border-radius: 50%;
-  width: 5rem;
-  height: 5rem;
+  width: 5rem !important;
+  height: 5rem; }
+td[data-label="Image profil"] img {
   object-fit: cover; }
+td[data-label="Image profil"] svg {
+  border: 1px solid #75726B;
+  padding: 1rem; }
 
 /* Page médiathèque */
 .iframeMediatheque {

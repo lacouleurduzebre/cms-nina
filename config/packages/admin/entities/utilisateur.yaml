@@ -6,7 +6,7 @@ easy_admin:
             label: 'Utilisateurs'
             list:
                 fields:
-                    - { property: 'imageProfil', type: 'image', base_path: '/uploads' }
+                    - { property: 'imageProfil', type: 'image' }
                     - { property: 'username', label: 'Pseudonyme' }
                     - { property: 'email', label: 'E-mail' }
                     - { property: 'enabled', label: 'Activé' }

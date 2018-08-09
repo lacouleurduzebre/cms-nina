@@ -47,6 +47,7 @@ easy_admin:
             field_toggle: 'back/easyadmin/fields/field_toggle.html.twig'
             field_association: 'back/easyadmin/fields/field_association.html.twig'
             field_text: 'back/easyadmin/fields/field_text.html.twig'
+            field_image: 'back/easyadmin/fields/field_image.html.twig'
             paginator: 'back/easyadmin/paginator.html.twig'
             flash_messages: 'back/easyadmin/flash_messages.html.twig'
         menu:

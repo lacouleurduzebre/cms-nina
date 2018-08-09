@@ -1,0 +1,24 @@
+<xml version="1.0" encoding="UTF-8">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+    {% for page in pages %}
+    <url>
+        <loc>{{ absolute_url(path('voirPage', {url:page.seo.url})) }}</loc>
+        <lastmod>{{ page.datePublication }}</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>
+            {% if loop.index < loop.length/10 %} 1.0
+            {% elseif loop.index < (loop.length/10)*2 %} 0.9
+            {% elseif loop.index < (loop.length/10)*3 %} 0.8
+            {% elseif loop.index < (loop.length/10)*4 %} 0.7
+            {% elseif loop.index < (loop.length/10)*5 %} 0.6
+            {% elseif loop.index < (loop.length/10)*6 %} 0.5
+            {% elseif loop.index < (loop.length/10)*7 %} 0.4
+            {% elseif loop.index < (loop.length/10)*8 %} 0.3
+            {% elseif loop.index < (loop.length/10)*9 %} 0.2
+            {% else %} 0.1
+            {% endif %}
+        </priority>
+    </url>
+    {% endfor %}
+</urlset>
+</xml>
