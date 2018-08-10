@@ -3,6 +3,12 @@
 /public/themes/*
 !/public/themes/nina/
 
+###> OVH ###
+.bash_history
+.composer/
+.ovhconfig
+composer.phar
+
 ###> symfony/framework-bundle ###
 .env
 /public/bundles/
