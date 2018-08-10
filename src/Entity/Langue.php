@@ -31,7 +31,7 @@ class Langue
     /**
      * @var string
      *
-     * @ORM\Column(name="abreviation", type="string", length=255, unique=true)
+     * @ORM\Column(name="abreviation", type="string", length=191, unique=true)
      */
     private $abreviation;
 
