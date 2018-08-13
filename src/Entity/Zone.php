@@ -47,6 +47,12 @@ class Zone
      */
     private $position;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Langue")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $langue;
+
 
     /**
      * Get id
@@ -138,6 +144,18 @@ class Zone
     public function setPosition(?int $position): self
     {
         $this->position = $position;
+
+        return $this;
+    }
+
+    public function getLangue(): ?Langue
+    {
+        return $this->langue;
+    }
+
+    public function setLangue(?Langue $langue): self
+    {
+        $this->langue = $langue;
 
         return $this;
     }

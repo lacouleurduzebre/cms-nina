@@ -45,6 +45,10 @@ $(document).ready(function(){
     });
 
     /* Résolution du problème de textarea vide avec tinymce */
+    $('.formulaire-actions-enregistrer').click(function(){
+        tinyMCE.triggerSave();
+    });
+
     $('.action-save').click(function(){
         tinyMCE.triggerSave();
     });

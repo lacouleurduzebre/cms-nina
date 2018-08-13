@@ -8,15 +8,18 @@
 
 namespace App\Twig\Front;
 
+use App\Entity\Langue;
 use Symfony\Bridge\Doctrine\RegistryInterface;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Twig\Environment;
 
 class Zone extends \Twig_Extension
 {
-    public function __construct(RegistryInterface $doctrine, Environment $twig)
+    public function __construct(RegistryInterface $doctrine, Environment $twig, RequestStack $requestStack)
     {
         $this->doctrine = $doctrine;
         $this->twig = $twig;
+        $this->request = $requestStack->getCurrentRequest();
     }
 
     public function getFunctions()
@@ -28,10 +31,16 @@ class Zone extends \Twig_Extension
 
     public function getZone($region = null, $id = null)
     {
+        //Langue
+        $locale = $this->request->getLocale();
+        $repoLangue = $this->doctrine->getRepository(Langue::class);
+        $langue = $repoLangue->findBy(array('abreviation'=>$locale));
+
+        //Zones
         $repoZone = $this->doctrine->getRepository(\App\Entity\Zone::class);
 
         if($region){
-            $zones = $repoZone->findBy(array('region' => $region), array('position' => 'ASC'));
+            $zones = $repoZone->findBy(array('region' => $region, 'langue' => $langue), array('position' => 'ASC'));
         }else{
             $zones = [];
             $zones[] = $repoZone->find($id);

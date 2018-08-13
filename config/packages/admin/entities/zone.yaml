@@ -8,7 +8,7 @@ easy_admin:
                 fields:
                     - nom
                     - { property: 'region', label: 'Région'}
-                    #- { property: 'contenu', type: 'raw' }
+                    - langue
             search:
                 fields:
                     - nom
@@ -26,5 +26,6 @@ easy_admin:
                 fields:
                     - nom
                     - { property: 'region', label: 'Région', type: 'App\Form\Type\RegionType' }
+                    - langue
                     - { property: 'position', label: 'Ordre' }
                     - contenu

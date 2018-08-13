@@ -8,6 +8,7 @@ easy_admin:
                 fields:
                     - nom
                     - { property: 'region', label: 'Région'}
+                    - langue
                     - { property: 'langue', label: 'Langue'}
                     - { property: 'defaut', label: 'Menu principal ?'}
             search:
