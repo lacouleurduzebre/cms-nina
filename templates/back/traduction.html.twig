@@ -1,0 +1,48 @@
+{% extends 'back/base.html.twig' %}
+
+{% block content %}
+    {% for message in app.session.flashbag.get('tradOK') %}
+        <p class="messageY"><i class="fas fa-check"></i>{{ message }}</p>
+    {% endfor %}
+    {% for message in app.session.flashbag.get('noDoc') %}
+        <p class="messageN">{{ message }}</p>
+    {% endfor %}
+    {% for message in app.session.flashbag.get('pasDeTrad') %}
+        <p class="messageN">{{ message }}</p>
+    {% endfor %}
+
+    <h1>Modification des traductions</h1>
+    <div>
+        <form action="{{ path('modifierTraductions') }}" method="get">
+            <label for="langue">Modifier les traductions pour :</label>
+            <select name="langue" id="langue" class="inbl-middle">
+                {% for langue in langues %}
+                    <option value="{{ langue.abreviation }}" class="langue{% if langue.active == 0 %} off{% endif %}">
+                        {{ langue.nom }}
+                    </option>
+                {% endfor %}
+            </select>
+            <input class="btn" type="submit" id="choixLangue" value="OK">
+        </form>
+    </div>
+
+    {% if traductions is not empty %}
+        <form action="{{ path('modifierTraductions') }}" method="post">
+            <h2>
+                {% for langue in langues %}
+                    {% if langue.abreviation == langueXML %}
+                        {{ 'Modification des traductions en '|trans }}{{ langue.nom }}
+                    {% endif %}
+                {% endfor %}
+            </h2>
+            <input type="hidden" name="langueXML" value="{{ langueXML }}">
+            {% for traduction in traductions %}
+                <div>
+                    <label for="{{ traduction.attributes.id }}">{{ traduction.source }}</label>
+                    <input class="w100" type="text" name="traductions[{{ traduction.attributes.id }}]" value="{{ traduction.target }}">
+                </div>
+            {% endfor %}
+            <input class="btn mts" type="submit" value="Sauvegarder les traductions">
+        </form>
+    {% endif %}
+{% endblock %}

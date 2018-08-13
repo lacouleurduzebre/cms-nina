@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+  <file source-language="fr" target-language="en" datatype="plaintext" original="file.ext">
+    <header>
+      <tool tool-id="symfony" tool-name="Symfony"/>
+    </header>
+    <body>
+      <trans-unit id="cdx0hz4" resname="Enregistrer">
+        <source>Enregistrer</source>
+        <target>Save</target>
+      </trans-unit>
+      <trans-unit id="TP85j0h" resname="Choisir une image dans la médiathèque">
+        <source>Choisir une image dans la médiathèque</source>
+        <target>__Choisir une image dans la médiathèque</target>
+      </trans-unit>
+      <trans-unit id="xt23mzt" resname="Ouvrir la médiathèque">
+        <source>Ouvrir la médiathèque</source>
+        <target>__Ouvrir la médiathèque</target>
+      </trans-unit>
+      <trans-unit id="dJIXwqn" resname="Voir le site">
+        <source>Voir le site</source>
+        <target>__Voir le site</target>
+      </trans-unit>
+      <trans-unit id="q0Uca0i" resname="Mon profil">
+        <source>Mon profil</source>
+        <target>__Mon profil</target>
+      </trans-unit>
+      <trans-unit id="_1_eksG" resname="Déconnexion">
+        <source>Déconnexion</source>
+        <target>Log out</target>
+      </trans-unit>
+      <trans-unit id="k1NOPoq" resname="Menus">
+        <source>Menus</source>
+        <target>__Menus</target>
+      </trans-unit>
+      <trans-unit id="rqeefQi" resname="Aucune page d'accueil définie">
+        <source>Aucune page d'accueil définie</source>
+        <target>__Aucune page d'accueil définie</target>
+      </trans-unit>
+      <trans-unit id="87Nmf1B" resname="Choisir une page d'accueil">
+        <source>Choisir une page d'accueil</source>
+        <target>__Choisir une page d'accueil</target>
+      </trans-unit>
+      <trans-unit id="h5DnMfX" resname="Créer une nouvelle sauvegarde">
+        <source>Créer une nouvelle sauvegarde</source>
+        <target>__Créer une nouvelle sauvegarde</target>
+      </trans-unit>
+      <trans-unit id="dQyctsp" resname="Date de la sauvegarde">
+        <source>Date de la sauvegarde</source>
+        <target>__Date de la sauvegarde</target>
+      </trans-unit>
+      <trans-unit id="zaqrRC0" resname="Télécharger">
+        <source>Télécharger</source>
+        <target>__Télécharger</target>
+      </trans-unit>
+      <trans-unit id="Xl0CFs4" resname="Supprimer">
+        <source>Supprimer</source>
+        <target>__Supprimer</target>
+      </trans-unit>
+      <trans-unit id="Vl4v8bt" resname="Nombre de pages">
+        <source>Nombre de pages</source>
+        <target>__Nombre de pages</target>
+      </trans-unit>
+      <trans-unit id="sAVyghl" resname="Nombre total :">
+        <source>Nombre total :</source>
+        <target>__Nombre total :</target>
+      </trans-unit>
+      <trans-unit id="8x.n4QK" resname="Nombre de pages publiées :">
+        <source>Nombre de pages publiées :</source>
+        <target>__Nombre de pages publiées :</target>
+      </trans-unit>
+      <trans-unit id="_5LH44G" resname="En">
+        <source>En</source>
+        <target>__En</target>
+      </trans-unit>
+      <trans-unit id="56wHhma" resname=":">
+        <source>:</source>
+        <target>__:</target>
+      </trans-unit>
+      <trans-unit id="qlyzBYG" resname="Derniers commentaires">
+        <source>Derniers commentaires</source>
+        <target>__Derniers commentaires</target>
+      </trans-unit>
+      <trans-unit id="tVEas_l" resname="Commentaires en attente de validation">
+        <source>Commentaires en attente de validation</source>
+        <target>__Commentaires en attente de validation</target>
+      </trans-unit>
+      <trans-unit id="ozsw3Om" resname="Aucun commentaire en attente de validation">
+        <source>Aucun commentaire en attente de validation</source>
+        <target>__Aucun commentaire en attente de validation</target>
+      </trans-unit>
+      <trans-unit id="CjCoFdZ" resname="Page">
+        <source>Page</source>
+        <target>__Page</target>
+      </trans-unit>
+      <trans-unit id="WIDlngw" resname="Auteur">
+        <source>Auteur</source>
+        <target>__Auteur</target>
+      </trans-unit>
+      <trans-unit id="em3lZw6" resname="Contenu">
+        <source>Contenu</source>
+        <target>__Contenu</target>
+      </trans-unit>
+      <trans-unit id="mcQKtAW" resname="Date">
+        <source>Date</source>
+        <target>__Date</target>
+      </trans-unit>
+      <trans-unit id="FBk1u6O" resname="Dernières pages">
+        <source>Dernières pages</source>
+        <target>__Dernières pages</target>
+      </trans-unit>
+      <trans-unit id="BztcdhV" resname="Aucune page publiée pour le moment">
+        <source>Aucune page publiée pour le moment</source>
+        <target>__Aucune page publiée pour le moment</target>
+      </trans-unit>
+      <trans-unit id="l4mJ_nN" resname="publiée le">
+        <source>publiée le</source>
+        <target>__publiée le</target>
+      </trans-unit>
+      <trans-unit id="7BkZ03h" resname="Liste des catégories">
+        <source>Liste des catégories</source>
+        <target>__Liste des catégories</target>
+      </trans-unit>
+      <trans-unit id="MBu0s5Z" resname="Aucune catégorie n'a été créée pour le moment">
+        <source>Aucune catégorie n'a été créée pour le moment</source>
+        <target>__Aucune catégorie n'a été créée pour le moment</target>
+      </trans-unit>
+      <trans-unit id="YQDFSuZ" resname="Derniers inscrits">
+        <source>Derniers inscrits</source>
+        <target>__Derniers inscrits</target>
+      </trans-unit>
+      <trans-unit id="y.t.GgV" resname="dernière connexion le">
+        <source>dernière connexion le</source>
+        <target>__dernière connexion le</target>
+      </trans-unit>
+      <trans-unit id="P4GUkxq" resname="Le thème a été modifié">
+        <source>Le thème a été modifié</source>
+        <target>__Le thème a été modifié</target>
+      </trans-unit>
+      <trans-unit id="v.o611m" resname="Le thème n'a pas pu être modifié">
+        <source>Le thème n'a pas pu être modifié</source>
+        <target>__Le thème n'a pas pu être modifié</target>
+      </trans-unit>
+      <trans-unit id="3xbbWsa" resname="Activé">
+        <source>Activé</source>
+        <target>__Activé</target>
+      </trans-unit>
+      <trans-unit id="06ShWTZ" resname="Auteur du thème :">
+        <source>Auteur du thème :</source>
+        <target>__Auteur du thème :</target>
+      </trans-unit>
+      <trans-unit id="9t9V9SJ" resname="Site internet de l'auteur du thème :">
+        <source>Site internet de l'auteur du thème :</source>
+        <target>__Site internet de l'auteur du thème :</target>
+      </trans-unit>
+      <trans-unit id="Lc07R5s" resname="Description :">
+        <source>Description :</source>
+        <target>__Description :</target>
+      </trans-unit>
+      <trans-unit id="UzFhc1Y" resname="Accueil">
+        <source>Accueil</source>
+        <target>__Accueil</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>
