@@ -18,14 +18,13 @@ use Symfony\Component\Routing\Annotation\Route;
 class SitemapController extends Controller
 {
     /**
-     * @Route("/sitemap.xml", name="sitemap")
+     * @Route("/{_locale}/sitemap.xml", defaults={"_format"="xml"}, name="sitemap")
      */
-    public function sitemapAction(Request $request){
+    public function sitemapAction($_locale, Request $request){
         $repoPage = $this->getDoctrine()->getRepository(Page::class);
         $repoLangue = $this->getDoctrine()->getRepository(Langue::class);
 
-        $locale = $request->getLocale();
-        $langue = $repoLangue->findOneBy(array('abreviation' => $locale));
+        $langue = $repoLangue->findOneBy(array('abreviation' => $_locale));
 
         $pages = $repoPage->pagesPubliees($langue);
 

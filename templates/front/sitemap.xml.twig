@@ -3,7 +3,7 @@
     {% for page in pages %}
     <url>
         <loc>{{ absolute_url(path('voirPage', {url:page.seo.url})) }}</loc>
-        <lastmod>{{ page.datePublication }}</lastmod>
+        <lastmod>{{ page.datePublication|date("d/m/Y") }}</lastmod>
         <changefreq>monthly</changefreq>
         <priority>
             {% if loop.index < loop.length/10 %} 1.0

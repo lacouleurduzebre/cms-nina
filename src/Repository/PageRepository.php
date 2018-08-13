@@ -23,7 +23,7 @@ class PageRepository extends \Doctrine\ORM\EntityRepository
                 ->orderBy('p.datePublication', 'DESC');
     }
 
-    public function pagesPubliees($langue){
+    public function pagesPubliees($langue, $limite = null){
         $timestamp = new \DateTime();
         $date = $timestamp->format('Y-m-d H:i:s');
 
@@ -35,8 +35,11 @@ class PageRepository extends \Doctrine\ORM\EntityRepository
                 ->andWhere('p.datePublication < :date')
                 ->andWhere('p.dateDepublication > :date OR p.dateDepublication IS NULL')
                     ->setParameters(array('langue' => $langue, 'date' => $date))
-            ->orderBy('p.datePublication', 'DESC')
-            ->setMaxResults(5);
+            ->orderBy('p.datePublication', 'DESC');
+
+        if($limite){
+            $qb->setMaxResults($limite);
+        }
 
         return $qb->getQuery()->getResult();
     }

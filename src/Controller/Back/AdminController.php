@@ -42,7 +42,7 @@ class AdminController extends BaseAdminController
         if($blocsUser){
             /* Dernières pages publiées */
             if(in_array('dernieresPages', $blocsUser)){
-                $dernieresPages = $em->getRepository(Page::class)->pagesPubliees($langue);
+                $dernieresPages = $em->getRepository(Page::class)->pagesPubliees($langue, 5);
                 $blocs['dernieresPages'] = $dernieresPages;
             }
 
