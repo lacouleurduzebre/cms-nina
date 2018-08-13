@@ -36,10 +36,14 @@ class Arborescence extends \Twig_Extension
 
     public function menusBack()
     {
+        //Langue
+        $locale = $this->request->getLocale();
+        $repoLangue = $this->doctrine->getRepository(Langue::class);
+        $langue = $repoLangue->findBy(array('abreviation' => $locale));
+
         //Menus
         $emMenu = $this->doctrine->getRepository(Menu::class);
-        $menus = $emMenu->findAll();
-        //Fin menus
+        $menus = $emMenu->findBy(array('langue'=>$langue));
 
         return $this->twig->render('back/menu/arborescence.html.twig', array('menus' => $menus));
     }

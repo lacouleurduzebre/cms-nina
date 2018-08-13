@@ -1,26 +1,28 @@
 $(document).ready(function(){
     /* Initialisation TinyMCE */
-    tinymce.init({
-        selector: "textarea",
-        theme: "modern",
-        height: 300,
-        plugins: [
-            "advlist autolink link image lists charmap print preview hr anchor pagebreak",
-            "searchreplace wordcount visualblocks visualchars insertdatetime media nonbreaking spellchecker",
-            "table contextmenu directionality emoticons paste textcolor responsivefilemanager code"
-        ],
-        relative_urls: false,
-        menubar: false,
+    if(!$('body').hasClass('front')){
+        tinymce.init({
+            selector: "textarea",
+            theme: "modern",
+            height: 300,
+            plugins: [
+                "advlist autolink link image lists charmap print preview hr anchor pagebreak",
+                "searchreplace wordcount visualblocks visualchars insertdatetime media nonbreaking spellchecker",
+                "table contextmenu directionality emoticons paste textcolor responsivefilemanager code"
+            ],
+            relative_urls: false,
+            menubar: false,
 
-        filemanager_title:"Médiathèque",
-        external_filemanager_path:"/filemanager/",
-        external_plugins: { "filemanager" : "/filemanager/plugin.min.js"},
+            filemanager_title:"Médiathèque",
+            external_filemanager_path:"/filemanager/",
+            external_plugins: { "filemanager" : "/filemanager/plugin.min.js"},
 
-        extended_valid_elements: 'i[class]',
-        image_advtab: true,
-        toolbar1: "undo redo | bold italic underline | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | formatselect",
-        toolbar2: "| responsivefilemanager | image | media | link unlink anchor | preview | code"
-    });
+            extended_valid_elements: 'i[class]',
+            image_advtab: true,
+            toolbar1: "undo redo | bold italic underline | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | formatselect",
+            toolbar2: "| responsivefilemanager | image | media | link unlink anchor | preview | code"
+        });
+    }
 
     /* Toggle colonne de gauche */
     if($.cookie('full') === 'on'){

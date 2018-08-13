@@ -48,6 +48,12 @@ class Menu
     private $defaut;
 
     /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Langue")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $langue;
+
+    /**
      * Get id
      *
      * @return integer
@@ -156,6 +162,18 @@ class Menu
     public function setDefaut(?bool $defaut): self
     {
         $this->defaut = $defaut;
+
+        return $this;
+    }
+
+    public function getLangue(): ?Langue
+    {
+        return $this->langue;
+    }
+
+    public function setLangue(?Langue $langue): self
+    {
+        $this->langue = $langue;
 
         return $this;
     }

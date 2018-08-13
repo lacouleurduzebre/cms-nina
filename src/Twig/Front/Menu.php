@@ -8,15 +8,18 @@
 
 namespace App\Twig\Front;
 
+use App\Entity\Langue;
 use Symfony\Bridge\Doctrine\RegistryInterface;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Twig\Environment;
 
 class Menu extends \Twig_Extension
 {
-    public function __construct(RegistryInterface $doctrine, Environment $twig)
+    public function __construct(RegistryInterface $doctrine, Environment $twig, RequestStack $requestStack)
     {
         $this->doctrine = $doctrine;
         $this->twig = $twig;
+        $this->request = $requestStack->getCurrentRequest();
     }
 
     public function getFunctions()
@@ -27,10 +30,15 @@ class Menu extends \Twig_Extension
     }
 
     public function menu($region = null, $id = null){
+        //Langue
+        $locale = $this->request->getLocale();
+        $repoLangue = $this->doctrine->getRepository(Langue::class);
+        $langue = $repoLangue->findBy(array('abreviation'=>$locale));
+
         $emMenu = $this->doctrine->getRepository(\App\Entity\Menu::class);
 
         if($region){
-            $menus = $emMenu->findBy(array('region' => $region));
+            $menus = $emMenu->findBy(array('region' => $region, 'langue'=>$langue));
         }else{
             $menus = [];
             $menus[] = $emMenu->find($id);

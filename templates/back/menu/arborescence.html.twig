@@ -247,6 +247,12 @@
                 delete items.alias;
             }
 
+            if($('#'+node.id).closest('div').attr('id') === 'menu-0'){
+                delete items.create;
+                delete items.alias;
+                delete items.remove;
+            }
+
             return items;
         }
 

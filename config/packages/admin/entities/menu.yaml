@@ -8,6 +8,7 @@ easy_admin:
                 fields:
                     - nom
                     - { property: 'region', label: 'Région'}
+                    - { property: 'langue', label: 'Langue'}
                     - { property: 'defaut', label: 'Menu principal ?'}
             search:
                 fields:
@@ -20,4 +21,7 @@ easy_admin:
                 fields:
                     - nom
                     - { property: 'region', label: 'Région', type: 'App\Form\Type\RegionType' }
-                    - { property: 'menuPage', label: 'Pages', type: 'collection', type_options: { entry_type: 'App\Form\Type\MenuPageType', by_reference: false } }
+                    - langue
+            edit:
+                fields:
+                    - -langue
