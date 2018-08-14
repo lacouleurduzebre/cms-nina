@@ -38,7 +38,7 @@
         </div>
     {% endblock search_action %}
     <div class="arborescence">
-        {{ pageAccueil(app.session.get('_locale'))|raw }}
+        {{ pageAccueil()|raw }}
         {% for menu in menus %}
             <div class="menu">
                 <span id="loader-arbo" class="menu-{{ menu.id }}"></span>

@@ -1,6 +1,6 @@
 {% for menuPage in menuPages %}
     {% if menuPage.pageParent is empty and isPublie(menuPage.page) %}
-        <li {% if menuPage.page == config.pageAccueil %}data-jstree='{"type":"home"}'{% endif %}>
+        <li {% if langueActive.pageAccueil is not empty and menuPage.page == langueActive.pageAccueil %}data-jstree='{"type":"home"}'{% endif %}>
             <a href="#"><span class="menuPage" id="{{ menuPage.id }}"></span><span class="page" id="{{ menuPage.page.id }}"></span>
                 {% if menuPage.page.titreMenu is not empty %}
                     {{ menuPage.page.titreMenu }}

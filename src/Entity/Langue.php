@@ -47,6 +47,31 @@ class Langue
      */
     private $pages;
 
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $defaut;
+
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\Page", cascade={"persist", "remove"})
+     */
+    private $pageAccueil;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $metaTitre;
+
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $metaDescription;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $code;
+
 
     public function __construct()
     {
@@ -172,5 +197,65 @@ class Langue
     public function getPages()
     {
         return $this->pages;
+    }
+
+    public function getDefaut(): ?bool
+    {
+        return $this->defaut;
+    }
+
+    public function setDefaut(bool $defaut): self
+    {
+        $this->defaut = $defaut;
+
+        return $this;
+    }
+
+    public function getPageAccueil(): ?Page
+    {
+        return $this->pageAccueil;
+    }
+
+    public function setPageAccueil(?Page $pageAccueil): self
+    {
+        $this->pageAccueil = $pageAccueil;
+
+        return $this;
+    }
+
+    public function getMetaTitre(): ?string
+    {
+        return $this->metaTitre;
+    }
+
+    public function setMetaTitre(?string $metaTitre): self
+    {
+        $this->metaTitre = $metaTitre;
+
+        return $this;
+    }
+
+    public function getMetaDescription(): ?string
+    {
+        return $this->metaDescription;
+    }
+
+    public function setMetaDescription(?string $metaDescription): self
+    {
+        $this->metaDescription = $metaDescription;
+
+        return $this;
+    }
+
+    public function getCode(): ?string
+    {
+        return $this->code;
+    }
+
+    public function setCode(?string $code): self
+    {
+        $this->code = $code;
+
+        return $this;
     }
 }

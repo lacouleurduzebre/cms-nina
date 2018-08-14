@@ -1,5 +1,5 @@
 {% for menuPage in menuPagesOrphelines %}
-    <li {% if config.pageAccueil is not empty and menuPage.page.id == config.pageAccueil.id %}data-jstree='{"type":"home"}'{% endif %}>
+    <li {% if langueActive.pageAccueil is not empty and menuPage.page == langueActive.pageAccueil %}data-jstree='{"type":"home"}'{% endif %}>
         <a href="#"><span class="menuPage" id="{{ menuPage.id }}"></span><span class="page" id="{{ menuPage.page.id }}"></span>
             {% if menuPage.page.titreMenu is not empty %}
                 {{ menuPage.page.titreMenu }}

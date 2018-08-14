@@ -2308,8 +2308,14 @@ html, .content-wrapper, .sf-toolbar-clearer {
   background-color: #fff; }
   .table tbody tr:nth-of-type(2n + 1) {
     background-color: #F7F7F7; }
+    @media (min-width: 768px) {
+      .table tbody tr:nth-of-type(2n + 1):hover {
+        background-color: #EEEEEE; } }
   .table thead tr {
     background-color: #EEEEEE; }
+  @media (min-width: 768px) {
+    .table tr:hover {
+      background-color: #EEEEEE; } }
 
 /* List & Search */
 body.list .table, body.list .table td, body.list .table th, .sauvegarde .table, .sauvegarde .table td, .sauvegarde .table th {

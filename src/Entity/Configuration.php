@@ -72,24 +72,9 @@ class Configuration
     private $editeur;
 
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\Langue")
-     */
-    private $langueDefaut;
-
-    /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $theme;
-
-    /**
-     * @ORM\OneToOne(targetEntity="App\Entity\Page", cascade={"persist", "remove"})
-     */
-    private $pageAccueil;
-
-    /**
-     * @ORM\Column(type="text", nullable=true)
-     */
-    private $metaDescription;
 
     /**
      * Get id
@@ -269,30 +254,6 @@ class Configuration
         return $this->editeur;
     }
 
-    /**
-     * Set langueDefaut
-     *
-     * @param \App\Entity\Langue $langueDefaut
-     *
-     * @return Configuration
-     */
-    public function setLangueDefaut(\App\Entity\Langue $langueDefaut = null)
-    {
-        $this->langueDefaut = $langueDefaut;
-
-        return $this;
-    }
-
-    /**
-     * Get langueDefaut
-     *
-     * @return \App\Entity\Langue
-     */
-    public function getLangueDefaut()
-    {
-        return $this->langueDefaut;
-    }
-
     public function getTheme(): ?string
     {
         return $this->theme;
@@ -301,30 +262,6 @@ class Configuration
     public function setTheme(?string $theme): self
     {
         $this->theme = $theme;
-
-        return $this;
-    }
-
-    public function getPageAccueil(): ?Page
-    {
-        return $this->pageAccueil;
-    }
-
-    public function setPageAccueil(?Page $pageAccueil): self
-    {
-        $this->pageAccueil = $pageAccueil;
-
-        return $this;
-    }
-
-    public function getMetaDescription(): ?string
-    {
-        return $this->metaDescription;
-    }
-
-    public function setMetaDescription(?string $metaDescription): self
-    {
-        $this->metaDescription = $metaDescription;
 
         return $this;
     }

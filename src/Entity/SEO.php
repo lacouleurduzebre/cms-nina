@@ -30,7 +30,7 @@ class SEO
     /**
      * @var string
      *
-     * @ORM\Column(name="metaTitre", type="text")
+     * @ORM\Column(name="metaTitre", type="text", nullable=true)
      */
     private $metaTitre;
 

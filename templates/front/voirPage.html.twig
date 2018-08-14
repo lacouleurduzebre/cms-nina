@@ -1,6 +1,12 @@
 {% extends 'front/base.html.twig' %}
 
-{% block title %}{{ parent() }} - {{ page.seo.metaTitre }}{% endblock %}
+{% block title %}
+    {% if page.seo.metaTitre is not empty %}
+        {{ page.seo.metaTitre }}
+    {% else %}
+        {{ page.langue.metaTitre }}
+    {% endif %}
+{% endblock %}
 {% block head %}
     <meta name="description" content="{% if page.seo.metaDescription is not empty %}{{ page.seo.metaDescription|striptags }}{% else %}{{ config.metaDescription|striptags }}{% endif %}" />
 {% endblock %}
