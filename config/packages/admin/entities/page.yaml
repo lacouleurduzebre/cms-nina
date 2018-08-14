@@ -18,9 +18,6 @@ easy_admin:
                     - auteur
                     - { property: 'categories', label: 'Catégories' }
                     - { property: 'dateCreation', label: 'Date de création' }
-#                    - { property: 'datePublication', label: 'Date de publication' }
-#                    - { property: 'datedePublication', label: 'Date de dépublication' }
-                    - { property: 'seo.url', label: 'Url' }
                     - langue
                     - active
             search:
@@ -56,7 +53,6 @@ easy_admin:
                     - { property: 'titre', type: 'text' }
                     - { property: 'titreMenu', label: 'Titre dans les menus' }
                     - active
-                    - corbeille
                     - { property: 'modules', type: 'collection', type_options: { entry_type: 'App\Form\Type\ModuleType', by_reference: false } }
                     - { type: 'tab', label: 'SEO' }
                     - { property: 'SEO', type: 'App\Form\Type\SEOType', type_options: { by_reference: true } }

@@ -13,12 +13,19 @@
     margin: 0 .5rem;
     transition: 0.25s;
     svg{
-      margin-right: .5rem;
       transition: 0.25s;
+      @include respond-to("medium-up"){
+        margin-right: .5rem;
+      }
     }
   }
   .formulaire-actions-enregistrer{
     background-color: $color-brand;
+    @include respond-to("medium"){
+      span{
+        display: none;
+      }
+    }
     &:hover{
       background-color: $color-brand-dark;
     }
@@ -47,6 +54,11 @@
     color: $white;
     display: flex;
     align-items: center;
+    @include respond-to("medium"){
+      span{
+        display: none;
+      }
+    }
     &:hover{
       background-color: $color-brand3-dark;
     }

@@ -279,7 +279,7 @@ class Configuration
     public function setLangueDefaut(\App\Entity\Langue $langueDefaut = null)
     {
         $this->langueDefaut = $langueDefaut;
-    
+
         return $this;
     }
 

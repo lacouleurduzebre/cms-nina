@@ -414,7 +414,7 @@
 
     {# the 'save' action is hardcoded for the 'edit' and 'new' views #}
     <button type="submit" class="formulaire-actions-enregistrer">
-        <i class="fas fa-check-circle"></i>{% trans %}Enregistrer{% endtrans %}
+        <i class="fas fa-check-circle"></i><span>{% trans %}Enregistrer{% endtrans %}</span>
     </button>
 
     {% set _entity_actions = (easyadmin.view == 'new')

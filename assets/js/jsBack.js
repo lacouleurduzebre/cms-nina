@@ -18,6 +18,7 @@ $(document).ready(function(){
             external_plugins: { "filemanager" : "/filemanager/plugin.min.js"},
 
             extended_valid_elements: 'i[class]',
+            block_formats: 'Paragraphe=p;Titre h2=h2;Titre h3=h3;Titre h4=h4;Titre h5=h5;Titre h6=h6',
             image_advtab: true,
             toolbar1: "undo redo | bold italic underline | alignleft aligncenter alignright | bullist numlist outdent indent | formatselect",
             toolbar2: "| responsivefilemanager | image | media | link unlink anchor | preview | code"
@@ -167,6 +168,7 @@ $(document).ready(function(){
                     external_plugins: { "filemanager" : "/filemanager/plugin.min.js"},
 
                     extended_valid_elements: 'i[class]',
+                    block_formats: 'Paragraphe=p;Titre h2=h2;Titre h3=h3;Titre h4=h4;Titre h5=h5;Titre h6=h6',
                     image_advtab: true,
                     toolbar1: "undo redo | bold italic underline | alignleft aligncenter alignright | bullist numlist outdent indent | formatselect",
                     toolbar2: "| responsivefilemanager | image | media | link unlink anchor | preview | code"
@@ -346,5 +348,10 @@ $(document).ready(function(){
             .done(function(){
                 element.closest('tr').remove();
             })
+    });
+
+    /* Toggle pour les éléments de tableau en dessous de 768px */
+    $('.toggleElementTableau').click(function(){
+       $(this).closest('tr').toggleClass('ouvert');
     });
 });

@@ -15,6 +15,14 @@
   left: 30rem;
   z-index: 1000;
   box-shadow: 0 4px 4px rgba(0,0,0,.25);
+  @include respond-to("medium"){
+    width: calc(100% - 15rem);
+    left: 15rem;
+  }
+  @include respond-to("small"){
+    width: calc(100% - 8rem);
+    left: 8rem;
+  }
   .navbar{
     display: flex;
     height: 100%;
@@ -48,8 +56,10 @@
     align-items: center;
     &:last-of-type{
       margin-right: 0;
-      flex: .5;
       justify-content: flex-end;
+      @include respond-to("tiny-up"){
+        flex: .5;
+      }
     }
     > a span{
       margin-left: 1rem;
@@ -113,9 +123,11 @@
 
 #header-imageProfil{
   object-fit: cover;
-  margin-right: 1rem;
   border: 1px solid #FFF;
   border-radius: 50%;
+  @include respond-to("tiny-up"){
+    margin-right: 1rem;
+  }
 }
 
 #voirSite{

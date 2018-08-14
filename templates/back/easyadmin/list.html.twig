@@ -140,7 +140,10 @@
                         {% set isSortingField = metadata.property == app.request.get('sortField') %}
                         {% set _column_label =  (metadata.label ?: field|humanize)|trans(_trans_parameters)  %}
 
-                        <td data-label="{{ _column_label }}" class="{{ isSortingField ? 'sorted' }} {{ metadata.dataType|lower }} {{ metadata.css_class }}">
+                        <td data-label="{{ _column_label }}" class="{{ isSortingField ? 'sorted' }} {{ metadata.dataType|lower }} {{ metadata.css_class }} {% if loop.first %}toggleElementTableau{% endif %}">
+                            {% if loop.first %}
+                                <i class="fas fa-angle-down"></i>
+                            {% endif %}
                             {{ easyadmin_render_field_for_list_view(_entity_config.name, item, metadata) }}
                         </td>
                     {% endfor %}
@@ -149,7 +152,7 @@
                         {% set _column_label =  'list.row_actions'|trans(_trans_parameters, 'EasyAdminBundle') %}
                         <td data-label="{{ _column_label }}" class="actions">
                         {% block item_actions %}
-                            {{ include('back/easyadmin/includes/_actions.html.twig', {
+                            {{ include('@EasyAdmin/default/includes/_actions.html.twig', {
                                 actions: _list_item_actions,
                                 request_parameters: _request_parameters,
                                 translation_domain: _entity_config.translation_domain,

@@ -6,12 +6,18 @@
 /* Sidebar */
 .main-sidebar{
   font-family: 'Mic32';
-  width: 300px;
+  width: 30rem;
   position: fixed;
   color: #FFF;
   top: 0;
   z-index: 1000;
   background: #F7F7F7;
+  @include respond-to("medium"){
+    width: 15rem;
+  }
+  @include respond-to("small"){
+    width: 8rem;
+  }
   a{
     color: #666666;
     text-decoration: none;
@@ -20,6 +26,7 @@
 
 body.notFull .main-sidebar{
   height: 100vh;
+  width: 30rem;
 }
 
 /* Toggle colonne gauche */
@@ -64,11 +71,22 @@ body.notFull .main-sidebar{
   height: 3.8rem;
   box-shadow: 0 4px 4px rgba(0,0,0,.25);
   position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  @include respond-to("small"){
+    span{
+      display: none;
+    }
+  }
   &.active{
     background-color: #A1BA1D;
   }
   .fa-sitemap {
     margin-right: 3rem;
+    @include respond-to("medium"){
+      margin-right: 1rem;
+    }
   }
   #btnArbo{
     margin-left: 1rem;

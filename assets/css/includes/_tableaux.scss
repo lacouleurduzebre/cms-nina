@@ -1,0 +1,36 @@
+.table{
+  @include respond-to("medium"){
+    tr th:not(:first-of-type), tr td:not(:first-of-type){
+      display: none;
+    }
+    td:not(:first-of-type):before{
+      content: attr(data-label);
+      font-weight: bold;
+      margin-right: 2rem;
+    }
+    tr{
+      display: flex;
+      flex-direction: column;
+    }
+  }
+}
+
+.toggleElementTableau{
+  @include respond-to("medium-up"){
+    svg{
+      display: none;
+    }
+  }
+  @include respond-to("medium"){
+    cursor: pointer;
+  }
+}
+
+tr.ouvert{
+  td:first-of-type svg{
+    transform: rotate(180deg);
+  }
+  td:not(:first-of-type){
+    display: block;
+  }
+}

@@ -1,6 +1,6 @@
 <header>
     <div class="txtcenter arbo-titre active">
-        <i class="fas fa-sitemap"></i> {% trans %}Menus{% endtrans %}
+        <i class="fas fa-sitemap"></i> <span>{% trans %}Menus{% endtrans %}</span>
         <a href="#" id="btnArbo"><i class="fas fa-chevron-circle-down"></i></a>
     </div>
 </header>
@@ -247,7 +247,7 @@
                 delete items.alias;
             }
 
-            if($('#'+node.id).closest('div').attr('id') === 'menu-0'){
+            if($('#'+node.id).closest('div').attr('id') === 'menu-0' && node.type !== 'root'){
                 delete items.create;
                 delete items.alias;
                 delete items.remove;

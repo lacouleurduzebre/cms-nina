@@ -711,6 +711,14 @@
   left: 30rem;
   z-index: 1000;
   box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25); }
+  @media (max-width: 767px) {
+    .main-header {
+      width: calc(100% - 15rem);
+      left: 15rem; } }
+  @media (max-width: 575px) {
+    .main-header {
+      width: calc(100% - 8rem);
+      left: 8rem; } }
   .main-header .navbar {
     display: flex;
     height: 100%; }
@@ -740,8 +748,10 @@
     align-items: center; }
     .sidebar-menu > li:last-of-type {
       margin-right: 0;
-      flex: .5;
       justify-content: flex-end; }
+      @media (min-width: 480px) {
+        .sidebar-menu > li:last-of-type {
+          flex: .5; } }
     .sidebar-menu > li > a span {
       margin-left: 1rem; }
       @media (max-width: 1199px) {
@@ -787,9 +797,11 @@
 
 #header-imageProfil {
   object-fit: cover;
-  margin-right: 1rem;
   border: 1px solid #FFF;
   border-radius: 50%; }
+  @media (min-width: 480px) {
+    #header-imageProfil {
+      margin-right: 1rem; } }
 
 #voirSite {
   padding: 0 1rem;
@@ -1484,18 +1496,25 @@
 /* Sidebar */
 .main-sidebar {
   font-family: 'Mic32';
-  width: 300px;
+  width: 30rem;
   position: fixed;
   color: #FFF;
   top: 0;
   z-index: 1000;
   background: #F7F7F7; }
+  @media (max-width: 767px) {
+    .main-sidebar {
+      width: 15rem; } }
+  @media (max-width: 575px) {
+    .main-sidebar {
+      width: 8rem; } }
   .main-sidebar a {
     color: #666666;
     text-decoration: none; }
 
 body.notFull .main-sidebar {
-  height: 100vh; }
+  height: 100vh;
+  width: 30rem; }
 
 /* Toggle colonne gauche */
 .main-sidebar {
@@ -1527,11 +1546,20 @@ body.notFull .main-sidebar #btnArbo svg {
   padding: .6rem 0;
   height: 3.8rem;
   box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
-  position: relative; }
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center; }
+  @media (max-width: 575px) {
+    .arbo-titre span {
+      display: none; } }
   .arbo-titre.active {
     background-color: #A1BA1D; }
   .arbo-titre .fa-sitemap {
     margin-right: 3rem; }
+    @media (max-width: 767px) {
+      .arbo-titre .fa-sitemap {
+        margin-right: 1rem; } }
   .arbo-titre #btnArbo {
     margin-left: 1rem;
     color: #FFF; }

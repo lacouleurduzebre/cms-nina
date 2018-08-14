@@ -46,16 +46,14 @@
             <tr>
                 <th>{{ 'Page'|trans }}</th>
                 <th>{{ 'Auteur'|trans }}</th>
-                <th>{{ 'Contenu'|trans }}</th>
                 <th>{{ 'Date'|trans }}</th>
             </tr>
             </thead>
             <tbody>
             {% for commentaire in contenuBloc %}
                 <tr>
-                    <td>{{ commentaire.page.titre }}</td>
+                    <td><a href="{{ path('admin', { action: 'edit', entity: 'Page_Active', id: commentaire.page.id}) }}">{{ commentaire.page.titre }}</a></td>
                     <td>{{ commentaire.auteur }}</td>
-                    <td>{{ commentaire.contenu|striptags }}</td>
                     <td>{{ commentaire.date|date("d/m/Y") }}</td>
                 </tr>
             {% endfor %}
