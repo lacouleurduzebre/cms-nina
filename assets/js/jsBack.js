@@ -19,7 +19,7 @@ $(document).ready(function(){
 
             extended_valid_elements: 'i[class]',
             image_advtab: true,
-            toolbar1: "undo redo | bold italic underline | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | formatselect",
+            toolbar1: "undo redo | bold italic underline | alignleft aligncenter alignright | bullist numlist outdent indent | formatselect",
             toolbar2: "| responsivefilemanager | image | media | link unlink anchor | preview | code"
         });
     }
@@ -168,7 +168,7 @@ $(document).ready(function(){
 
                     extended_valid_elements: 'i[class]',
                     image_advtab: true,
-                    toolbar1: "undo redo | bold italic underline | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | formatselect",
+                    toolbar1: "undo redo | bold italic underline | alignleft aligncenter alignright | bullist numlist outdent indent | formatselect",
                     toolbar2: "| responsivefilemanager | image | media | link unlink anchor | preview | code"
                 });
             })

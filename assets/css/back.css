@@ -1561,7 +1561,7 @@ body.notFull .main-sidebar #btnArbo svg {
 
 .arborescence {
   height: calc(100% - 11rem);
-  overflow-y: scroll; }
+  overflow-y: auto; }
   .arborescence > .menu:first-of-type {
     margin-top: 0; }
 

@@ -102,7 +102,7 @@ body.notFull .main-sidebar{
 
 .arborescence{
   height: calc(100% - 11rem);
-  overflow-y: scroll;
+  overflow-y: auto;
   > .menu:first-of-type{
     margin-top: 0;
   }
