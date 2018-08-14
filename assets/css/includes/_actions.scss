@@ -1,0 +1,101 @@
+.formulaire-actions{
+  position: fixed;
+  right: 2rem;
+  top: 6rem;
+  display: flex;
+  z-index: 10;
+  .action-voir, .formulaire-actions-enregistrer{
+    background: $white;
+    padding: .7rem 1rem;
+    text-decoration: none;
+    border-radius: .5rem;
+    box-shadow: 4px 4px 4px rgba(0,0,0,.25);
+    margin: 0 .5rem;
+    transition: 0.25s;
+    svg{
+      margin-right: .5rem;
+      transition: 0.25s;
+    }
+  }
+  .formulaire-actions-enregistrer{
+    background-color: $color-brand;
+    &:hover{
+      background-color: $color-brand-dark;
+    }
+  }
+}
+
+.action-edit{
+  color: $black;
+}
+.action-voir{
+  color: $color-brand2;
+}
+.action-dupliquer{
+  color: #8d00cb;
+}
+.action-corbeille, .action-delete{
+  color: $color-danger;
+}
+.action-list{
+  color: #cb8300;
+}
+
+.formulaire-actions{
+  .action-voir{
+    background-color: $color-brand3;
+    color: $white;
+    display: flex;
+    align-items: center;
+    &:hover{
+      background-color: $color-brand3-dark;
+    }
+  }
+  .action-dupliquer, .action-corbeille, .action-delete, .action-list{
+    color: $black;
+  }
+}
+
+// Sous-niveau
+.formulaire-actions-liste{
+  padding: 1rem 1rem 1rem 2rem;
+  margin-bottom: 0;
+  display: flex;
+  align-items: center;
+  position: relative;
+  svg{
+    font-size: 2rem;
+    color: $white;
+    cursor: pointer;
+  }
+  > div{
+    display: none;
+    position: absolute;
+    top: 100%;
+    right: 1rem;
+    padding-top: 1rem;
+    width: 20rem;
+    > div a:first-of-type{
+      padding-top: 1.6rem;
+    }
+    > div a:last-of-type{
+      padding-bottom: 1.6rem;
+    }
+  }
+  .ombre{
+    box-shadow: 4px 4px 4px rgba(0,0,0,.25);
+  }
+  &:hover > div{
+    display: block;
+  }
+  a{
+    padding: .8rem 0 .8rem 4rem;
+    display: block;
+    padding-left: 2rem;
+    background-color: $white;
+    text-decoration: none;
+    &:hover{
+      text-decoration: underline;
+    }
+  }
+}

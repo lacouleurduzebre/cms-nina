@@ -2396,44 +2396,6 @@ body.new.gris ul.nav-tabs, body.edit.gris ul.nav-tabs {
 .type-module {
   font-style: italic; }
 
-/* Barre d'actions */
-.formulaire-actions {
-  position: fixed;
-  right: 2rem;
-  top: 6rem;
-  display: flex;
-  z-index: 10; }
-  .formulaire-actions a, .formulaire-actions .formulaire-actions-enregistrer {
-    background: #fff;
-    padding: .7rem 1rem;
-    text-decoration: none;
-    border-radius: .5rem;
-    box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.25);
-    margin: 0 .5rem;
-    transition: 0.25s; }
-    .formulaire-actions a svg, .formulaire-actions .formulaire-actions-enregistrer svg {
-      margin-right: .5rem;
-      transition: 0.25s; }
-    .formulaire-actions a:hover svg, .formulaire-actions .formulaire-actions-enregistrer:hover svg {
-      transform: rotate(20deg) scale(1.2); }
-  .formulaire-actions .formulaire-actions-enregistrer {
-    color: #A1BA1D; }
-
-.action-edit {
-  color: #000; }
-
-.action-voir {
-  color: #0791B3; }
-
-.action-dupliquer {
-  color: #8d00cb; }
-
-.action-corbeille, .action-delete {
-  color: #D9534F; }
-
-.action-list {
-  color: #cb8300; }
-
 /* Onglets */
 ul.nav-tabs {
   list-style: none;
@@ -2651,14 +2613,11 @@ a.module_image_bouton_mediatheque {
 
 /* Image de profil */
 td[data-label="Image profil"] img, td[data-label="Image profil"] svg {
-  border-radius: 50%;
   width: 5rem !important;
   height: 5rem; }
 td[data-label="Image profil"] img {
+  border-radius: 50%;
   object-fit: cover; }
-td[data-label="Image profil"] svg {
-  border: 1px solid #75726B;
-  padding: 1rem; }
 
 /* Page m├®diath├¿que */
 .iframeMediatheque {
@@ -2792,5 +2751,86 @@ td[data-label="Image profil"] svg {
 
 .sauvegarde button {
   margin-bottom: 1rem; }
+
+.formulaire-actions {
+  position: fixed;
+  right: 2rem;
+  top: 6rem;
+  display: flex;
+  z-index: 10; }
+  .formulaire-actions .action-voir, .formulaire-actions .formulaire-actions-enregistrer {
+    background: #fff;
+    padding: .7rem 1rem;
+    text-decoration: none;
+    border-radius: .5rem;
+    box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.25);
+    margin: 0 .5rem;
+    transition: 0.25s; }
+    .formulaire-actions .action-voir svg, .formulaire-actions .formulaire-actions-enregistrer svg {
+      margin-right: .5rem;
+      transition: 0.25s; }
+  .formulaire-actions .formulaire-actions-enregistrer {
+    background-color: #A1BA1D; }
+    .formulaire-actions .formulaire-actions-enregistrer:hover {
+      background-color: #7b8e16; }
+
+.action-edit {
+  color: #000; }
+
+.action-voir {
+  color: #0791B3; }
+
+.action-dupliquer {
+  color: #8d00cb; }
+
+.action-corbeille, .action-delete {
+  color: #D9534F; }
+
+.action-list {
+  color: #cb8300; }
+
+.formulaire-actions .action-voir {
+  background-color: #F29400;
+  color: #fff;
+  display: flex;
+  align-items: center; }
+  .formulaire-actions .action-voir:hover {
+    background-color: #bf7500; }
+.formulaire-actions .action-dupliquer, .formulaire-actions .action-corbeille, .formulaire-actions .action-delete, .formulaire-actions .action-list {
+  color: #000; }
+
+.formulaire-actions-liste {
+  padding: 1rem 1rem 1rem 2rem;
+  margin-bottom: 0;
+  display: flex;
+  align-items: center;
+  position: relative; }
+  .formulaire-actions-liste svg {
+    font-size: 2rem;
+    color: #fff;
+    cursor: pointer; }
+  .formulaire-actions-liste > div {
+    display: none;
+    position: absolute;
+    top: 100%;
+    right: 1rem;
+    padding-top: 1rem;
+    width: 20rem; }
+    .formulaire-actions-liste > div > div a:first-of-type {
+      padding-top: 1.6rem; }
+    .formulaire-actions-liste > div > div a:last-of-type {
+      padding-bottom: 1.6rem; }
+  .formulaire-actions-liste .ombre {
+    box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.25); }
+  .formulaire-actions-liste:hover > div {
+    display: block; }
+  .formulaire-actions-liste a {
+    padding: .8rem 0 .8rem 4rem;
+    display: block;
+    padding-left: 2rem;
+    background-color: #fff;
+    text-decoration: none; }
+    .formulaire-actions-liste a:hover {
+      text-decoration: underline; }
 
 /*# sourceMappingURL=knacss.css.map */

@@ -1,26 +1,47 @@
 {% set original_request_params = request_parameters %}
 
 {% for action in actions %}
-    {% if 'list' == action.name %}
-        {% set action_href = request_parameters.referer|default('') ? request_parameters.referer|easyadmin_urldecode : path('easyadmin', request_parameters|merge({ action: 'list' })) %}
-    {% elseif 'method' == action.type %}
-        {% if 'edit' == action.name %}
-            {% set tmpReferrer = path('easyadmin', { action: action.name, id: item_id, entity: request_parameters['entity'] })|url_encode %}
-            {% set request_parameters = request_parameters|merge({'referer' : tmpReferrer }) %}
-
-            {% set action_href = path('easyadmin', request_parameters|merge({ action: action.name, id: item_id })) %}
-        {% else %}
-            {% set request_parameters = original_request_params %}
-            {% set action_href = path('easyadmin', request_parameters|merge({ action: action.name, id: item_id })) %}
-        {% endif %}
-    {% elseif 'route' == action.type %}
-        {% set action_href = path(action.name, request_parameters|merge({ action: action.name, id: item_id })) %}
+    {% if 'voir' == action.name %}
+        {% set request_parameters = original_request_params %}
+        {% set action_href = path('easyadmin', request_parameters|merge({ action: action.name, id: item_id })) %}
+        <a class="{{ action.css_class|default('') }}" title="{{ action.title|default('') is empty ? '' : action.title|trans(trans_parameters, translation_domain) }}" href="{{ action_href }}" target="{{ action.target }}">
+            {%- if action.icon %}<i class="fas fa-{{ action.icon }}"></i> {% endif -%}
+            {%- if action.label is defined and not action.label is empty -%}
+                {{ action.label|trans(arguments = trans_parameters|merge({ '%entity_id%': item_id }), domain = translation_domain) }}
+            {%- endif -%}
+        </a>
     {% endif %}
-
-    <a class="{{ action.css_class|default('') }}" title="{{ action.title|default('') is empty ? '' : action.title|trans(trans_parameters, translation_domain) }}" href="{{ action_href }}" target="{{ action.target }}">
-        {%- if action.icon %}<i class="fas fa-{{ action.icon }}"></i> {% endif -%}
-        {%- if action.label is defined and not action.label is empty -%}
-            {{ action.label|trans(arguments = trans_parameters|merge({ '%entity_id%': item_id }), domain = translation_domain) }}
-        {%- endif -%}
-    </a>
 {% endfor %}
+
+<div class="formulaire-actions-liste">
+    <i class="fas fa-ellipsis-v"></i>
+    <div>
+        <div class="ombre">
+            {% for action in actions %}
+                {% if 'voir' != action.name %}
+                    {% if 'list' == action.name %}
+                        {% set action_href = request_parameters.referer|default('') ? request_parameters.referer|easyadmin_urldecode : path('easyadmin', request_parameters|merge({ action: 'list' })) %}
+                    {% elseif 'method' == action.type %}
+                        {% if 'edit' == action.name %}
+                            {% set tmpReferrer = path('easyadmin', { action: action.name, id: item_id, entity: request_parameters['entity'] })|url_encode %}
+                            {% set request_parameters = request_parameters|merge({'referer' : tmpReferrer }) %}
+
+                            {% set action_href = path('easyadmin', request_parameters|merge({ action: action.name, id: item_id })) %}
+                        {% else %}
+                            {% set request_parameters = original_request_params %}
+                            {% set action_href = path('easyadmin', request_parameters|merge({ action: action.name, id: item_id })) %}
+                        {% endif %}
+                    {% elseif 'route' == action.type %}
+                        {% set action_href = path(action.name, request_parameters|merge({ action: action.name, id: item_id })) %}
+                    {% endif %}
+
+                    <a class="{{ action.css_class|default('') }}" title="{{ action.title|default('') is empty ? '' : action.title|trans(trans_parameters, translation_domain) }}" href="{{ action_href }}" target="{{ action.target }}">
+                        {%- if action.label is defined and not action.label is empty -%}
+                            {{ action.label|trans(arguments = trans_parameters|merge({ '%entity_id%': item_id }), domain = translation_domain) }}
+                        {%- endif -%}
+                    </a>
+                {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+</div>

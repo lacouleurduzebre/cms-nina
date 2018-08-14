@@ -782,17 +782,14 @@
     list-style: none; }
 
 #header-imageProfil, #header-sansImageProfil {
-  border-radius: 50%;
   width: 3.2rem;
-  height: 3.2rem;
-  border: 1px solid #FFF; }
+  height: 3.2rem; }
 
 #header-imageProfil {
   object-fit: cover;
-  margin-right: 1rem; }
-
-#header-sansImageProfil {
-  padding: .6rem; }
+  margin-right: 1rem;
+  border: 1px solid #FFF;
+  border-radius: 50%; }
 
 #voirSite {
   padding: 0 1rem;

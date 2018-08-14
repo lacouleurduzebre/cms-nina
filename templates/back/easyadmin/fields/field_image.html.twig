@@ -1,8 +1,8 @@
 <a href="#" class="easyadmin-thumbnail" data-featherlight="#easyadmin-lightbox-{{ uuid }}" data-featherlight-close-on-click="anywhere">
-    {% if value != '/' %}
+    {% if value is not empty %}
         <img src="{{ asset(value) }}">
     {% else %}
-        <i class="fas fa-user"></i>
+        <i class="fas fa-user-circle"></i>
     {% endif %}
 </a>
 

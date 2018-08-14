@@ -112,7 +112,7 @@
                 {% if user.imageProfil is not empty %}
                     <img id="header-imageProfil" src="{{ user.imageProfil }}" alt="{{ user.username }}">
                 {% else %}
-                    <i id="header-sansImageProfil" class="fas fa-user"></i>
+                    <i id="header-sansImageProfil" class="fas fa-user-circle"></i>
                 {% endif %}
                 <a href="{{ path('admin', { 'action': 'edit', 'entity': 'Utilisateur', 'id': user.id }) }}">{{ user.username }}</a>
                 {% trans %}dernière connexion le{% endtrans %} {{ user.lastLogin|date('d/m/Y') }}
