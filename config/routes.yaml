@@ -26,10 +26,6 @@ controllersBack:
     resource: "../src/Controller/Back"
     type: annotation
 
-langue:
-    resource: "../src/Controller/LangueController.php"
-    type: annotation
-
 categorie:
     resource: "../src/Controller/CategorieController.php"
     type: annotation

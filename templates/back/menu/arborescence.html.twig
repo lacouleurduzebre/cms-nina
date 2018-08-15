@@ -7,8 +7,8 @@
 <div class="sidebar-menus">
     <div class="arbo-langues">
         {% for langue in langues %}
-            <span{{ app.session.get('_locale') == langue.abreviation ? " class='current'" }}>
-                <a href="{{ path('changerLangue', {'id' : langue.id}) }}">{{ langue.abreviation|upper }}</a>
+            <span>
+                <a class="{{ langue.id }}" href="#">{{ langue.abreviation|upper }}</a>
             </span>
         {% endfor %}
     </div>
@@ -46,7 +46,7 @@
                     <ul>
                         <li data-jstree='{"type":"root"}'>{{ menu.nom }}
                             <ul>
-                                {% include 'back/menu/menu.html.twig' with{'menuPages' : menu.menuPage} only %}
+                                {% include 'back/menu/menu.html.twig' with{'menuPages' : menu.menuPage, 'langueArbo' : langueArbo} only %}
                             </ul>
                         </li>
                     </ul>
@@ -159,6 +159,9 @@
                                 //Changement du lien pour éditer la page d'accueil au dessus de l'arbo
                                 $('.pageAccueil').find('a').attr('href', '/admin/?entity=Page_Active&action=edit&id='+idPage);
                                 $('.pageAccueil-titre').html(data);
+                                if($('.pageAccueil').find('a').hasClass('sansPageAccueil')){
+                                    $('.pageAccueil p').hide();
+                                }
                             })
                             .fail(function(){
                                 $('#loader-arbo.'+idMenuComplet).html("<i class='fas fa-times'></i>").delay(600).fadeOut();

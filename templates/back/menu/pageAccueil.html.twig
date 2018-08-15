@@ -1,7 +1,7 @@
 <div class="pageAccueil">
     {% if pageAccueil is empty %}
         <p>{{ "Aucune page d'accueil n'a été définie pour cette langue"|trans }}</p>
-        <a class="sansPageAccueil" href="{{ path('admin', {'entity':'Langue', 'action':'edit', 'id':langueActive.id}) }}"><i class="fas fa-angle-right"></i>{{ "Choisir une page d'accueil"|trans }}</a>
+            <a class="sansPageAccueil" href="{{ path('admin', {'entity':'Langue', 'action':'edit', 'id':idLangueArbo}) }}#langue_pageAccueil"><i class="fas fa-home"></i><span class="pageAccueil-titre">{{ "Choisir une page d'accueil"|trans }}</span></a>
     {% else %}
         <a href="{{ path('admin', {'entity':'Page_Active', 'action':'edit', 'id':pageAccueil.id}) }}"><i class="fas fa-home"></i><span class="pageAccueil-titre">{{ pageAccueil.titre }}</span></a>
     {% endif %}

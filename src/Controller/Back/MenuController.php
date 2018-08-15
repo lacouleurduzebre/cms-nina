@@ -238,9 +238,10 @@ class MenuController extends Controller
             $titrePage = $page->getTitre();
 
             //Langue
-            $locale = $request->getLocale();
+            $langueArbo = $_COOKIE['langueArbo'];
             $repoLangue = $em->getRepository(Langue::class);
-            $langue = $repoLangue->findOneBy(array('abreviation' => $locale));
+            $langue = $repoLangue->find($langueArbo);
+
             $langue->setPageAccueil($page);
 
             $em->persist($langue);

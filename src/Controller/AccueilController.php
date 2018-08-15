@@ -9,7 +9,6 @@
 namespace App\Controller;
 
 
-use App\Entity\Configuration;
 use App\Entity\Langue;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;

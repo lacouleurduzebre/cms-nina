@@ -38,9 +38,9 @@ class PageAccueil extends \Twig_Extension
 
     public function pageAccueil()
     {
-        $locale = $this->request->getLocale();
+        $langueArbo = $_COOKIE['langueArbo'];
         $repoLangue = $this->doctrine->getRepository(Langue::class);
-        $langue = $repoLangue->findOneBy(array('abreviation' => $locale));
+        $langue = $repoLangue->find($langueArbo);
 
         if($langue->getPageAccueil() !== null){
             $pageAccueil = $langue->getPageAccueil();
@@ -48,6 +48,6 @@ class PageAccueil extends \Twig_Extension
             $pageAccueil = null;
         }
 
-        return $this->twig->render('back/menu/pageAccueil.html.twig', array('pageAccueil' => $pageAccueil));
+        return $this->twig->render('back/menu/pageAccueil.html.twig', array('pageAccueil' => $pageAccueil, 'idLangueArbo' => $langueArbo));
     }
 }
