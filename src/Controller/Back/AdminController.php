@@ -14,7 +14,9 @@ use App\Entity\Page;
 use App\Entity\TypeCategorie;
 use App\Entity\Utilisateur;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AdminController as BaseAdminController;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\PropertyAccess\PropertyAccess;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Yaml\Yaml;
 
@@ -25,6 +27,28 @@ use Symfony\Component\Yaml\Yaml;
  */
 class AdminController extends BaseAdminController
 {
+    /**
+     * @return RedirectResponse
+     */
+    protected function redirectToReferrer()
+    {
+        $refererAction = $this->request->query->get('action');
+
+        // from new|edit action, redirect to edit if possible
+        if (in_array($refererAction, array('new', 'edit')) && $this->isActionAllowed('edit')) {
+            return $this->redirectToRoute('easyadmin', array(
+                'action' => 'edit',
+                'entity' => $this->entity['name'],
+                'menuIndex' => $this->request->query->get('menuIndex'),
+                'submenuIndex' => $this->request->query->get('submenuIndex'),
+                'id' => ('new' === $refererAction)
+                    ? PropertyAccess::createPropertyAccessor()->getValue($this->request->attributes->get('easyadmin')['item'], $this->entity['primary_key_field_name'])
+                    : $this->request->query->get('id'),
+            ));
+        }
+
+        return parent::redirectToReferrer();
+    }
     /**
      * @Route("", name="tableauDeBord")
      */

@@ -68,17 +68,6 @@ class Page
     private $image;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Page", mappedBy="pageOriginale")
-     */
-    private $pagesTraduites = null;
-
-    /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Page", inversedBy="pagesTraduites")
-     * @ORM\JoinColumn(nullable=true)
-     */
-    private $pageOriginale = null;
-
-    /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Langue", inversedBy="pages")
      */
     private $langue;
@@ -123,13 +112,17 @@ class Page
      */
     private $titreMenu;
 
+    /**
+     * @ORM\Column(type="array", nullable=true)
+     */
+    private $traductions;
+
     public function __construct()
     {
         $this->datePublication = new \DateTime();
         $this->dateCreation = new \DateTime();
         $this->commentaires = new ArrayCollection();
         $this->categories = new ArrayCollection();
-        $this->pagesTraduites = new ArrayCollection();
         $this->modules = new ArrayCollection();
     }
 
@@ -362,30 +355,6 @@ class Page
     }
 
     /**
-     * Set pageOriginale
-     *
-     * @param \App\Entity\Page $pageOriginale
-     *
-     * @return Page
-     */
-    public function setPageOriginale(\App\Entity\Page $pageOriginale = null)
-    {
-        $this->pageOriginale = $pageOriginale;
-    
-        return $this;
-    }
-
-    /**
-     * Get pageOriginale
-     *
-     * @return \App\Entity\Page
-     */
-    public function getPageOriginale()
-    {
-        return $this->pageOriginale;
-    }
-
-    /**
      * Set langue
      *
      * @param \App\Entity\Langue $langue
@@ -407,40 +376,6 @@ class Page
     public function getLangue()
     {
         return $this->langue;
-    }
-
-    /**
-     * Add pagesTraduite
-     *
-     * @param \App\Entity\Page $pagesTraduite
-     *
-     * @return Page
-     */
-    public function addPagesTraduite(\App\Entity\Page $pagesTraduite)
-    {
-        $this->pagesTraduites[] = $pagesTraduite;
-    
-        return $this;
-    }
-
-    /**
-     * Remove pagesTraduite
-     *
-     * @param \App\Entity\Page $pagesTraduite
-     */
-    public function removePagesTraduite(\App\Entity\Page $pagesTraduite)
-    {
-        $this->pagesTraduites->removeElement($pagesTraduite);
-    }
-
-    /**
-     * Get pagesTraduites
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getPagesTraduites()
-    {
-        return $this->pagesTraduites;
     }
 
     /**
@@ -578,6 +513,18 @@ class Page
     public function setTitreMenu(?string $titreMenu): self
     {
         $this->titreMenu = $titreMenu;
+
+        return $this;
+    }
+
+    public function getTraductions(): ?array
+    {
+        return $this->traductions;
+    }
+
+    public function setTraductions(?array $traductions): self
+    {
+        $this->traductions = $traductions;
 
         return $this;
     }

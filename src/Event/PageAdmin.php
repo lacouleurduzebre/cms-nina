@@ -15,6 +15,7 @@ use App\Entity\Page;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\EventDispatcher\GenericEvent;
+use Symfony\Component\HttpFoundation\Response;
 
 class PageAdmin implements EventSubscriberInterface
 {
@@ -26,7 +27,7 @@ class PageAdmin implements EventSubscriberInterface
     public static function getSubscribedEvents()
     {
         return array(
-            'easy_admin.post_persist' => array('creerMenuPage'),
+            'easy_admin.post_persist' => array('creerMenuPage', 'traductions'),
         );
     }
 

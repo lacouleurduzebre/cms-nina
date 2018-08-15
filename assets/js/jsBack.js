@@ -324,4 +324,17 @@ $(document).ready(function(){
     $('.toggleElementTableau').click(function(){
        $(this).closest('tr').toggleClass('ouvert');
     });
+
+    /* Traduction des pages */
+    if($('body').is('[class*="edit-page"]') || $('body').is('[class*="new-page"]')){
+        langue = $('#page_active_langue').val();
+        $('label[for="page_active_traductions_'+langue+'"]').hide().next('select').hide();
+    }
+
+    /* Une seule langue par défaut */
+    $('body.list-langue td[data-label="Defaut"] input').click(function(){
+       if($(this).is(':checked')){
+           $('body.list-langue td[data-label="Defaut"] input').not(this).attr("checked", false);
+       }
+    });
 });
