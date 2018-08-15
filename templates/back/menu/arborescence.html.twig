@@ -233,8 +233,6 @@
                     "menu": id.substr(5),
                     "menuComplet": id,
                     "action": function(sousMenu){//sousMenu = objet "copier dans menu X"
-                        console.log();
-
                         idMenu = sousMenu.item.menu;
                         idMenuComplet = sousMenu.item.menuComplet;
 
@@ -347,7 +345,7 @@
                 }
                 menuPage = [idMenuPage, idPage, position, idPageParent, idMenu];
 
-                console.log(menuPage);
+                /*console.log(menuPage);*/
 
                 arbo.push(menuPage);
             });
@@ -371,6 +369,7 @@
         });
 
         $('.sidebar-menus div[id^="menu"]').on('move_node.jstree copy_node.jstree', enregistrementMenu);
+
         $('.sidebar-menus div[id^="menu"]').on('create_node.jstree', function(e, data){
             idMenuComplet = $('#'+data.node.id).parents('div').attr('id');
             if(!idMenuComplet === 'menu-0'){

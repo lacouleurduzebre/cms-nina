@@ -8,7 +8,7 @@
     {% endif %}
 {% endblock %}
 {% block head %}
-    <meta name="description" content="{% if page.seo.metaDescription is not empty %}{{ page.seo.metaDescription|striptags }}{% else %}{{ config.metaDescription|striptags }}{% endif %}" />
+    <meta name="description" content="{% if page.seo.metaDescription is not empty %}{{ page.seo.metaDescription|striptags }}{% else %}{{ page.langue.metaDescription|striptags }}{% endif %}" />
 {% endblock %}
 {% block body %}
     {% for message in app.session.flashbag.get('OK') %}
