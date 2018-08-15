@@ -1,42 +1,26 @@
 $(document).ready(function(){
     /* Initialisation TinyMCE */
-    if(!$('body').hasClass('front')){
-        tinymce.init({
-            selector: "textarea",
-            theme: "modern",
-            height: 300,
-            plugins: [
-                "advlist autolink link image lists charmap print preview hr anchor pagebreak",
-                "searchreplace wordcount visualblocks visualchars insertdatetime media nonbreaking spellchecker",
-                "table contextmenu directionality emoticons paste textcolor responsivefilemanager code"
-            ],
-            relative_urls: false,
-            menubar: false,
+    tinymce.init({
+        selector: "textarea",
+        theme: "modern",
+        height: 300,
+        plugins: [
+            "advlist autolink link image lists charmap print preview hr anchor pagebreak",
+            "searchreplace wordcount visualblocks visualchars insertdatetime media nonbreaking spellchecker",
+            "table contextmenu directionality emoticons paste textcolor responsivefilemanager code"
+        ],
+        relative_urls: false,
+        menubar: false,
 
-            filemanager_title:"Médiathèque",
-            external_filemanager_path:"/filemanager/",
-            external_plugins: { "filemanager" : "/filemanager/plugin.min.js"},
+        filemanager_title:"Médiathèque",
+        external_filemanager_path:"/filemanager/",
+        external_plugins: { "filemanager" : "/filemanager/plugin.min.js"},
 
-            extended_valid_elements: 'i[class]',
-            block_formats: 'Paragraphe=p;Titre h2=h2;Titre h3=h3;Titre h4=h4;Titre h5=h5;Titre h6=h6',
-            image_advtab: true,
-            toolbar1: "undo redo | bold italic underline | alignleft aligncenter alignright | bullist numlist outdent indent | formatselect",
-            toolbar2: "| responsivefilemanager | image | media | link unlink anchor | preview | code"
-        });
-    }
-
-    /* Toggle colonne de gauche */
-    if($.cookie('full') === 'on'){
-        $('body').addClass('full');
-    }else{
-        $('body').addClass('notFull');
-    }
-
-    $('#btnArbo').click(function(e){
-        e.preventDefault();
-        $('body').toggleClass('full');
-        $('body').toggleClass('notFull');
-        $.cookie('full') === 'on' ? $.cookie('full', 'off') : $.cookie('full', 'on');
+        extended_valid_elements: 'i[class]',
+        block_formats: 'Paragraphe=p;Titre h2=h2;Titre h3=h3;Titre h4=h4;Titre h5=h5;Titre h6=h6',
+        image_advtab: true,
+        toolbar1: "undo redo | bold italic underline | alignleft aligncenter alignright | bullist numlist outdent indent | formatselect",
+        toolbar2: "| responsivefilemanager | image | media | link unlink anchor | preview | code"
     });
 
     /* Pop-up pour confirmer une suppression */
@@ -100,22 +84,6 @@ $(document).ready(function(){
             $('#page_active_SEO_metaTitre').val(titre);
         }
     });
-
-    /* Page active colorée dans l'arbo */
-    surbrillancePageActive = function(){
-        if(!$('body.front').hasClass('connected') && !$('body.easyadmin').hasClass('edit-page_active')) {
-            return false;
-        }
-        if($('body').hasClass('front')){
-            idPage = $('main.page').attr('id');
-        }else if($('body').hasClass('easyadmin')){
-            idPage = $('form').attr('data-entity-id');
-        }
-        $('.page#'+idPage).parent('a').addClass('page-active');
-        $('.page#'+idPage).parents('.jstree').find('li[id$="_1"] > a').addClass('page-active');
-    };
-
-    $('.sidebar-menus div[id^="menu"]').on('ready.jstree open_node.jstree move_node.jstree', surbrillancePageActive);
 
     /* Affichage du formulaire en fonction du type du module */
     $('#edit-page_active-form').on('change', 'select[id^="page_active_modules"]', function(){
@@ -203,15 +171,17 @@ $(document).ready(function(){
     });
 
     /* Bouton médiathèque */
-    $('.module_image_bouton_mediatheque').fancybox({
-        type: 'iframe',
-        minHeight: '600'
-    });
+    if($('body').hasClass('edit') || $('body').hasClass('new')){
+        $('.module_image_bouton_mediatheque').fancybox({
+            type: 'iframe',
+            minHeight: '600'
+        });
 
-    $('.ouvrirMediatheque').fancybox({
-        type: 'iframe',
-        minHeight: '600'
-    });
+        $('.ouvrirMediatheque').fancybox({
+            type: 'iframe',
+            minHeight: '600'
+        });
+    }
 
     $(document).on('afterClose.fb', function( e, instance, slide ) {
         id = slide.src.substr(slide.src.indexOf('field_id=')+9);

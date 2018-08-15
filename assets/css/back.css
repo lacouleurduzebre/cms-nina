@@ -1592,7 +1592,8 @@ body.notFull .main-sidebar #btnArbo svg {
 
 .pageAccueil {
   padding-left: 3rem;
-  color: #75726B; }
+  color: #75726B;
+  line-height: 1; }
   .pageAccueil p {
     margin-bottom: 0; }
   .pageAccueil svg {

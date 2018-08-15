@@ -221,4 +221,34 @@ class MenuController extends Controller
 
         return false;
     }
+
+    /**
+     * @Route("/admin/menu/definirPageAccueil", name="definirPageAccueil")
+     * @param Request $request
+     * @return bool|Response
+     */
+    public function definirPageAccueilAction(Request $request){
+        if($request->isXmlHttpRequest()){
+            $em = $this->getDoctrine()->getManager();
+
+            //Page
+            $repoPage = $em->getRepository(Page::class);
+            $idPage = $request->get('idPage');
+            $page = $repoPage->find($idPage);
+            $titrePage = $page->getTitre();
+
+            //Langue
+            $locale = $request->getLocale();
+            $repoLangue = $em->getRepository(Langue::class);
+            $langue = $repoLangue->findOneBy(array('abreviation' => $locale));
+            $langue->setPageAccueil($page);
+
+            $em->persist($langue);
+            $em->flush();
+
+            return new Response($titrePage);
+        };
+
+        return false;
+    }
 }

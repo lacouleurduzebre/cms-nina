@@ -133,6 +133,38 @@
                             });
                     }
                 },
+                "home":{
+                    "icon": "fa fa-home",
+                    "label": "Définir comme page d'accueil",
+                    "action": function(){
+                        idPage = $('#'+node.id).find('.page').attr('id');
+                        idMenuComplet = $('#'+node.id).parents('div').attr('id');
+
+                        $('#loader-arbo.'+idMenuComplet).fadeIn().html("<i class='fas fa-sync fa-spin'></i>");
+
+                        $.ajax({
+                            url: "{{ path('definirPageAccueil') }}",
+                            method: "post",
+                            data: {idPage: idPage}
+                        })
+                            .done(function(data){
+                                $('#loader-arbo.'+idMenuComplet).fadeIn().html("<i class='fas fa-check'></i>").delay(600).fadeOut();
+
+                                $('li[data-jstree="{\\"type\\":\\"home\\"}"]').find('svg').removeClass('fa-home').addClass('fa-file');
+                                $('li[data-jstree="{\\"type\\":\\"home\\"}"]').attr('data-jstree', '');
+
+                                $('#'+node.id).attr('data-jstree', '{"type":"home"}');
+                                $('#'+node.id).find('svg').removeClass('fa-file').addClass('fa-home');
+
+                                //Changement du lien pour éditer la page d'accueil au dessus de l'arbo
+                                $('.pageAccueil').find('a').attr('href', '/admin/?entity=Page_Active&action=edit&id='+idPage);
+                                $('.pageAccueil-titre').html(data);
+                            })
+                            .fail(function(){
+                                $('#loader-arbo.'+idMenuComplet).html("<i class='fas fa-times'></i>").delay(600).fadeOut();
+                            });
+                    }
+                },
                 "alias":{
                     "icon": "fa fa-file-export",
                     "label": "Créer un raccourci dans...",
@@ -184,7 +216,7 @@
                 }
             };
 
-            //Ajout des sous-menus de "Copier dans..."
+            //Ajout des sous-menus de "Créer un raccourci dans..."
             $('div[id^="menu"]:not("#menu-0")').each(function(){
                 id = $(this).attr('id');
 

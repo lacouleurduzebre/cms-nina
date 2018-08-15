@@ -39,6 +39,7 @@ easy_admin:
                 - 'assets/js/jstree/jstree.min.js'
                 - 'assets/js/sortable/jquery-ui.min.js'
                 - 'assets/js/jsBack.js'
+                - 'assets/js/jsHeaderSidebar.js'
         templates:
             layout: 'back/base.html.twig'
             menu: 'back/menu/menuPrincipal.html.twig'
