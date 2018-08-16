@@ -24,26 +24,33 @@ class LangueController extends Controller
      * @param Request $request
      * @return Response
      */
-    public function changerAction($id, $idPage = null, Request $request){
+    public function changerAction($id, Request $request){
         $repoLangue = $this->getDoctrine()->getRepository(Langue::class);
 
         $nvLangue = $repoLangue->find($id);
         $nvlocale = $nvLangue->getAbreviation();
         $request->getSession()->set('_locale', $nvlocale);
 
-        if(isset($idPage)){
+        $idPage = $request->get('idPage');
+
+        if($idPage != null){
             $locale = $request->getLocale();
             $ancienneLangue = $repoLangue->findOneBy(array('abreviation' => $locale));
 
             $repoPage = $this->getDoctrine()->getRepository(Page::class);
             $page = $repoPage->find($idPage);
 
-            if($page == $ancienneLangue->getPageAccueil()){//Si c'est la page d'accueil on va à l'accueil
+            $traductions = $page->getTraductions();
+
+            if($page == $ancienneLangue->getPageAccueil() || $traductions[$id] == null){//Si c'est la page d'accueil on va à l'accueil
                 return $this->redirectToRoute('accueilLocale', array('_locale' => $nvlocale));
             }
 
-            //A modifier
-            return $this->redirectToRoute('voirPage', array('url' => $page->getSEO->getUrl()));
+            //Sinon on cherche sa traduction
+            $idPageTraduite = $traductions[$id];
+            $pageTraduite = $repoPage->find($idPageTraduite);
+
+            return $this->redirectToRoute('voirPage', array('url' => $pageTraduite->getSEO()->getUrl()));
         }else{
             return $this->redirectToRoute('accueilLocale', array('_locale' => $nvlocale));
         }
