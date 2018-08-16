@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html {% if langueActive.code is not empty %}lang="{{ langueActive.code }}"{% endif %}>
+<html {% if langueActive is not empty %}lang="{{ langueActive.code }}"{% endif %}>
 <head>
     <meta charset="UTF-8" />
     <title>{% block title %}{% if langueActive.metaTitre is not empty %}{{ langueActive.metaTitre }}{% else %}{{ config.nom }}{% endif %}{% endblock %}</title>
@@ -18,7 +18,13 @@
     {% endif %}
     <link rel="icon" type="image/x-icon" href="{{ asset('assets/img/favicon.ico') }}" />
     {% block head %}
-        <meta name="description" content="{% if page.seo.metaDescription is not empty %}{{ page.seo.metaDescription|striptags }}{% else %}{{ page.langue.metaDescription|striptags }}{% endif %}" />
+        <meta name="description" content="
+            {% if page is not empty and page.seo.metaDescription is not empty %}
+                {{ page.seo.metaDescription|striptags }}
+            {% else %}
+                {{ langueActive.metaDescription|striptags }}
+            {% endif %}
+        " />
     {% endblock %}
 </head>
 <body class="front {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}connected {% endif %}{% if accueil is defined %}accueil {% endif %}">
@@ -36,7 +42,7 @@
     <header class="header_front">
         <div class="mw960p center flex-container">
             <div>
-                <a href="{{ path('accueil') }}"><img class="logo" src="{{ config.logo }}" alt="CMS Nina"></a>
+                <a href="{{ path('accueil', { '_locale':langueActive.abreviation }) }}"><img class="logo" src="{{ config.logo }}" alt="CMS Nina"></a>
                 <p>{{ config.nom }}</p>
                 {{ zone(region='header') }}
             </div>
@@ -45,7 +51,11 @@
                     <ul class="flex-container menuLangues">
                         {% for langue in langues %}
                             <li {% if app.request.locale == langue.abreviation %}class="active"{% endif %}>
-                                <a href="{{ path('changerLangue', {'id':langue.id}) }}">{{ langue.abreviation|upper }}</a>
+                                {% if page is not empty %}
+                                    <a href="{{ path('changerLangue', {'id':langue.id, 'idPage':page.id}) }}">{{ langue.abreviation|upper }}</a>
+                                {% else %}
+                                    <a href="{{ path('changerLangue', {'id':langue.id}) }}">{{ langue.abreviation|upper }}</a>
+                                {% endif %}
                             </li>
                         {% endfor %}
                     </ul>

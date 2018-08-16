@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Commentaire;
+use App\Entity\Langue;
 use App\Entity\SEO;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
@@ -17,12 +18,26 @@ use Symfony\Component\Routing\Annotation\Route;
 class PageController extends Controller
 {
     /**
-     * @Route("/{url}", name="voirPage")
+     * @Route("/{_locale}/{url}", name="voirPage")
      * @param Request $request
      * @param $url
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
-    public function voirAction(Request $request, $url){
+    public function voirAction(Request $request, $_locale, $url){
+        //$_locale
+        $repoLangue = $this->getDoctrine()->getRepository(Langue::class);
+        $langue = $repoLangue->findOneBy(array('abreviation' => $_locale));
+
+        if(!$langue){//Si l'utilisateur essaye de naviguer sur une langue qui n'existe page
+            throw new NotFoundHttpException('Vous essayez de naviguer dans une langue non compatible avec ce site');
+        }
+
+        $locale = $request->getLocale();
+        if($locale !== $_locale){//Si la locale n'est pas la langue sur laquelle l'utilisateur souhaite naviguer, on la modifie
+            $request->getSession()->set('_locale', $_locale);
+        }
+        //fin $_locale
+
         $repository = $this->getDoctrine()->getRepository(SEO::class);
         $seo = $repository->findOneByUrl($url);
 
@@ -31,6 +46,10 @@ class PageController extends Controller
         }
 
         $page = $seo->getPage();
+
+        if($page->getLangue() != $langue){//Si la langue de la page ne correspond pas à $_locale on fait une redirection
+            $this->redirectToRoute('voirPage', array('_locale' => $page->getLangue()->getAbreviation(), 'url' => $url));
+        }
 
         $timestamp = new \DateTime();
         $date = $timestamp->format('Y-m-d H:i:s');

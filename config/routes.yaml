@@ -30,16 +30,16 @@ langue:
     resource: "../src/Controller/LangueController.php"
     type: annotation
 
-categorie:
-    resource: "../src/Controller/CategorieController.php"
+accueil:
+    resource: "../src/Controller/AccueilController.php"
     type: annotation
 
 page:
     resource: "../src/Controller/PageController.php"
     type: annotation
 
-accueil:
-    resource: "../src/Controller/AccueilController.php"
+categorie:
+    resource: "../src/Controller/CategorieController.php"
     type: annotation
 
 module:

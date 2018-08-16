@@ -1,12 +1,14 @@
-{% if module.contenu.titre is not empty %}
-    <figure>
+{% if module.contenu is not empty %}
+    {% if module.contenu.titre is not empty %}
+        <figure>
+            {% if module.contenu.image is not empty %}
+                <img src="{{ module.contenu.image }}" {% if module.contenu.description is not empty %}alt="{{ module.contenu.description }}"{% endif %}>
+            {% endif %}
+            <figcaption>{{ module.contenu.titre }}</figcaption>
+        </figure>
+    {% else %}
         {% if module.contenu.image is not empty %}
             <img src="{{ module.contenu.image }}" {% if module.contenu.description is not empty %}alt="{{ module.contenu.description }}"{% endif %}>
         {% endif %}
-        <figcaption>{{ module.contenu.titre }}</figcaption>
-    </figure>
-{% else %}
-    {% if module.contenu.image is not empty %}
-        <img src="{{ module.contenu.image }}" {% if module.contenu.description is not empty %}alt="{{ module.contenu.description }}"{% endif %}>
     {% endif %}
 {% endif %}
