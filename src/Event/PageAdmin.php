@@ -15,6 +15,7 @@ use App\Entity\Page;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\EventDispatcher\GenericEvent;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 class PageAdmin implements EventSubscriberInterface
@@ -27,7 +28,7 @@ class PageAdmin implements EventSubscriberInterface
     public static function getSubscribedEvents()
     {
         return array(
-            'easy_admin.post_persist' => array('creerMenuPage', 'traductions'),
+            'easy_admin.post_persist' => array('creerMenuPage'),
         );
     }
 
@@ -53,5 +54,18 @@ class PageAdmin implements EventSubscriberInterface
         $event['em']->flush();
 
         return;
+    }
+
+    public function auteurDerniereModification(GenericEvent $event, Request $request){
+        $entity = $event->getSubject();
+
+        if (!($entity instanceof Page)) {
+            return;
+        }
+
+        $user = $request->getUser();
+        $entity->setAuteurDerniereModification($user);
+
+        $event['em']->persist()
     }
 }

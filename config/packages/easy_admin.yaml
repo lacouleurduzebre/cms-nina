@@ -75,3 +75,4 @@ easy_admin:
                 - { label: 'Thèmes', icon: '', route: 'theme' }
                 - { label: 'Sauvegardes', icon: '', route: 'sauvegarde' }
                 - { label: 'Traduction des templates', icon: '', route: 'modifierTraductions' }
+                - { label: 'Traduction des pages', icon: '', route: 'traductionsPages' }

@@ -1,0 +1,47 @@
+{% extends 'back/base.html.twig' %}
+
+{% block content %}
+    <h1>Traduction des pages</h1>
+
+    {% if pages is not empty %}
+        <table class="table">
+            <thead>
+                <tr>
+                    {% for langue in langues %}
+                        {% if langue == langueDefaut %}
+                            <th>{{ langue.nom }}</th>
+                        {% endif %}
+                    {% endfor %}
+                    {% for langue in langues %}
+                        {% if langue != langueDefaut %}
+                            <th>{{ langue.nom }}</th>
+                        {% endif %}
+                    {% endfor %}
+                </tr>
+            </thead>
+                <tbody>
+                    {% for page in pages %}
+                        <tr>
+                            <td><a href="{{ path('admin', {'action':'edit', 'entity':'Page_Active', 'id':page.id}) }}">{{ page.titre }}</a></td>
+                            {% for langue in langues %}
+                                {% if langue != langueDefaut %}
+                                    <td>
+                                    {% if page.traductions is not empty %}
+                                        {% if page.traductions[langue.id] is not empty %}
+                                            {% set traduction = getTraduction(page.traductions[langue.id]) %}
+                                            <a href="{{ path('admin', {'action':'edit', 'entity':'Page_Active', 'id':traduction.id}) }}">{{ traduction.titre }}</a>
+                                        {% else %}
+                                            <i class="fas fa-times rouge"></i>
+                                        {% endif %}
+                                    {% else %}
+                                        <i class="fas fa-times rouge"></i>
+                                    {% endif %}
+                                    </td>
+                                {% endif %}
+                            {% endfor %}
+                        </tr>
+                    {% endfor %}
+                </tbody>
+        </table>
+    {% endif %}
+{% endblock %}

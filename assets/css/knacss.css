@@ -2654,6 +2654,9 @@ td[data-label="Image profil"] img {
   .messageY svg {
     margin-right: 1rem; }
 
+.rouge {
+  color: #D9534F; }
+
 #tdb {
   padding: 2rem; }
   #tdb h2 {
