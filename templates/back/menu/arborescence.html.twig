@@ -38,33 +38,39 @@
         </div>
     {% endblock search_action %}
     <div class="arborescence">
-        {{ pageAccueil()|raw }}
-        {% for menu in menus %}
+        {% if app.request.cookies.get('langueArbo') is defined and app.request.cookies.get('langueArbo') is not empty %}
+            {{ pageAccueil()|raw }}
+        {% endif %}
+        {% if menus is defined %}
+            {% for menu in menus %}
+                <div class="menu">
+                    <span id="loader-arbo" class="menu-{{ menu.id }}"></span>
+                    <div id="menu-{{ menu.id }}">
+                        <ul>
+                            <li data-jstree='{"type":"root"}'>{{ menu.nom }}
+                                <ul>
+                                    {% include 'back/menu/menu.html.twig' with{'menuPages' : menu.menuPage, 'langueArbo' : langueArbo} only %}
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            {% endfor %}
+        {% endif %}
+        {% if app.request.cookies.get('langueArbo') is defined and app.request.cookies.get('langueArbo') is not empty %}
             <div class="menu">
-                <span id="loader-arbo" class="menu-{{ menu.id }}"></span>
-                <div id="menu-{{ menu.id }}">
+                <span id="loader-arbo" class="menu-0"></span>
+                <div id="menu-0">
                     <ul>
-                        <li data-jstree='{"type":"root"}'>{{ menu.nom }}
+                        <li data-jstree='{"type":"root"}'>Pages hors menus
                             <ul>
-                                {% include 'back/menu/menu.html.twig' with{'menuPages' : menu.menuPage, 'langueArbo' : langueArbo} only %}
+                                {{ pagesOrphelines()|raw }}
                             </ul>
                         </li>
                     </ul>
                 </div>
             </div>
-        {% endfor %}
-        <div class="menu">
-            <span id="loader-arbo" class="menu-0"></span>
-            <div id="menu-0">
-                <ul>
-                    <li data-jstree='{"type":"root"}'>Pages hors menus
-                        <ul>
-                            {{ pagesOrphelines()|raw }}
-                        </ul>
-                    </li>
-                </ul>
-            </div>
-        </div>
+        {% endif %}
     </div>
 </div>
 <script>

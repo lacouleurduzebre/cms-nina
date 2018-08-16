@@ -33,19 +33,26 @@ class Arborescence extends \Twig_Extension
             new \Twig_SimpleFunction('pagesOrphelines', array($this, 'pagesOrphelines')),
             new \Twig_SimpleFunction('sousMenu', array($this, 'sousMenu')),
             new \Twig_SimpleFunction('isParent', array($this, 'isParent')),
+            new \Twig_SimpleFunction('pageAccueil', array($this, 'pageAccueil')),
         );
     }
 
     public function menusBack()
     {
         //Langue
-        $langueArbo = $_COOKIE['langueArbo'];
-        $repoLangue = $this->doctrine->getRepository(Langue::class);
-        $langue = $repoLangue->find($langueArbo);
+        if(!isset($_COOKIE['langueArbo'])){
+            $menus = null;
+            $langue = null;
+        }else{
+            $langueArbo = $_COOKIE['langueArbo'];
 
-        //Menus
-        $emMenu = $this->doctrine->getRepository(Menu::class);
-        $menus = $emMenu->findBy(array('langue'=>$langue));
+            $repoLangue = $this->doctrine->getRepository(Langue::class);
+            $langue = $repoLangue->find($langueArbo);
+
+            //Menus
+            $emMenu = $this->doctrine->getRepository(Menu::class);
+            $menus = $emMenu->findBy(array('langue'=>$langue));
+        }
 
         return $this->twig->render('back/menu/arborescence.html.twig', array('menus' => $menus, 'langueArbo' => $langue));
     }
@@ -53,6 +60,7 @@ class Arborescence extends \Twig_Extension
     public function pagesOrphelines()
     {
         $langueArbo = $_COOKIE['langueArbo'];
+
         $emLangue = $this->doctrine->getRepository(Langue::class);
         $langue = $emLangue->find($langueArbo);
 
@@ -74,9 +82,14 @@ class Arborescence extends \Twig_Extension
 
     public function sousMenu($id, $office)
     {
-        $langueArbo = $_COOKIE['langueArbo'];
         $repoLangue = $this->doctrine->getRepository(Langue::class);
-        $langueArbo = $repoLangue->find($langueArbo);
+
+        if($office == 'back'){
+            $langue = $_COOKIE['langueArbo'];
+            $langueArbo = $repoLangue->find($langue);
+        }else{
+            $langueArbo = null;
+        }
 
         $emMenuPage = $this->doctrine->getRepository(MenuPage::class);
         $menuPages = $emMenuPage->findBy(array('pageParent' => $id));
@@ -98,5 +111,20 @@ class Arborescence extends \Twig_Extension
         }else{
             return false;
         }
+    }
+
+    public function pageAccueil()
+    {
+        $langueArbo = $_COOKIE['langueArbo'];
+        $repoLangue = $this->doctrine->getRepository(Langue::class);
+        $langue = $repoLangue->find($langueArbo);
+
+        if($langue->getPageAccueil() !== null){
+            $pageAccueil = $langue->getPageAccueil();
+        }else{
+            $pageAccueil = null;
+        }
+
+        return $this->twig->render('back/menu/pageAccueil.html.twig', array('pageAccueil' => $pageAccueil, 'idLangueArbo' => $langueArbo));
     }
 }
