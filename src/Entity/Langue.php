@@ -40,7 +40,7 @@ class Langue
      *
      * @ORM\Column(name="active", type="boolean")
      */
-    private $active;
+    private $active = true;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Page", mappedBy="langue")
@@ -50,7 +50,7 @@ class Langue
     /**
      * @ORM\Column(type="boolean")
      */
-    private $defaut;
+    private $defaut = false;
 
     /**
      * @ORM\OneToOne(targetEntity="App\Entity\Page", cascade={"persist", "remove"})

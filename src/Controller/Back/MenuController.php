@@ -252,4 +252,53 @@ class MenuController extends Controller
 
         return false;
     }
+
+    /**
+     * @Route("/admin/menu/changerMenuPrincipal", name="changerMenuPrincipal")
+     * @param Request $request
+     * @return bool|Response
+     */
+    public function changerMenuPrincipalAction(Request $request){
+        if($request->isXmlHttpRequest()){
+            $em = $this->getDoctrine()->getManager();
+
+            $id = $request->get('id');
+
+            $repoMenu = $em->getRepository(Menu::class);
+            $menu = $repoMenu->find($id);
+
+            $valeur = $request->get('valeur');
+
+            if($valeur == false){
+                $menu->setDefaut(0);
+
+                $em->persist($menu);
+                $em->flush();
+
+                return new Response('ok');
+            }else{
+                $langue = $menu->getLangue();
+
+                $menuPrincipal = $repoMenu->findOneBy(array('langue'=>$langue, 'defaut'=>'1'));
+
+                if(!$menuPrincipal){
+                    $menu->setDefaut(1);
+                    $em->persist($menu);
+                    $em->flush();
+
+                    return new Response('ok');
+                }else{
+                    $menuPrincipal->setDefaut(0);
+                    $em->persist($menuPrincipal);
+                    $menu->setDefaut(1);
+                    $em->persist($menu);
+                    $em->flush();
+
+                    return new Response($menuPrincipal->getId());
+                }
+            }
+        };
+
+        return false;
+    }
 }
