@@ -17,18 +17,22 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\EventDispatcher\GenericEvent;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
 class PageAdmin implements EventSubscriberInterface
 {
-    public function __construct(RegistryInterface $doctrine)
+    public function __construct(RegistryInterface $doctrine, TokenStorageInterface $tokenStorage)
     {
         $this->doctrine = $doctrine;
+        $this->tokenStorage = $tokenStorage;
     }
 
     public static function getSubscribedEvents()
     {
         return array(
             'easy_admin.post_persist' => array('creerMenuPage'),
+            'easy_admin.pre_persist' => array('auteurs', 10),
+            'easy_admin.pre_update' => array('auteurs', 10),
         );
     }
 
@@ -56,16 +60,19 @@ class PageAdmin implements EventSubscriberInterface
         return;
     }
 
-    public function auteurDerniereModification(GenericEvent $event, Request $request){
+    public function auteurs(GenericEvent $event){
         $entity = $event->getSubject();
 
         if (!($entity instanceof Page)) {
             return;
         }
 
-        $user = $request->getUser();
+        $user = $this->tokenStorage->getToken()->getUser();
+
         $entity->setAuteurDerniereModification($user);
 
-        $event['em']->persist()
+        if(!$entity->getAuteur()){
+            $entity->setAuteur($user);
+        }
     }
 }
