@@ -579,17 +579,17 @@
     </div>
 {% endblock %}
 
-{% block module_row %}
+{% block bloc_row %}
     {% set _field_type = easyadmin.field.fieldType|default('default') %}
     <div class="form-group {% if (not compound or force_error|default(false)) and not valid %}has-error{% endif %} field-{{ block_prefixes|slice(-2)|first }}">
         <div class="flex-container">
             <div class="drag"><i class="fas fa-arrows-alt "></i></div>
             <div class="flex-item-fluid"></div>
-            <div class="module-menu">
+            <div class="bloc-menu">
                 <span><i class="fas fa-ellipsis-v"></i></span>
                 <ul>
-                    <li><a href="#" class="supprimerModule"><i class="fas fa-trash"></i>Supprimer</a></li>
-                    {#<li><a href="#" class="dupliquerModule"><i class="fas fa-copy"></i>Dupliquer</a></li>#}
+                    <li><a href="#" class="supprimerBloc"><i class="fas fa-trash"></i>Supprimer</a></li>
+                    {#<li><a href="#" class="dupliquerBloc"><i class="fas fa-copy"></i>Dupliquer</a></li>#}
                 </ul>
             </div>
         </div>
@@ -652,8 +652,8 @@
         {{- form_widget(form.children.image) -}}
     </div>
     <div>
-        <a class="iframe module_image_bouton_mediatheque" href='/filemanager/dialog.php?type=1&field_id={{ form.children.image.vars.id }}' type="button">{{ 'Ouvrir la médiathèque'|trans }}</a>
-        <div class="module_image_apercu_mediatheque">
+        <a class="iframe bloc_image_bouton_mediatheque" href='/filemanager/dialog.php?type=1&field_id={{ form.children.image.vars.id }}' type="button">{{ 'Ouvrir la médiathèque'|trans }}</a>
+        <div class="bloc_image_apercu_mediatheque">
             <img src="{{ form.children.image.vars.value }}" alt="">
         </div>
     </div>

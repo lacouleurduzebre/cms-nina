@@ -102,10 +102,10 @@ class Page
     private $categories;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Module", mappedBy="page", orphanRemoval=true, cascade={"persist"})
+     * @ORM\OneToMany(targetEntity="App\Entity\Bloc", mappedBy="page", orphanRemoval=true, cascade={"persist"})
      * @ORM\OrderBy({"position" = "ASC"})
      */
-    private $modules;
+    private $blocs;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
@@ -123,7 +123,7 @@ class Page
         $this->dateCreation = new \DateTime();
         $this->commentaires = new ArrayCollection();
         $this->categories = new ArrayCollection();
-        $this->modules = new ArrayCollection();
+        $this->blocs = new ArrayCollection();
     }
 
     public function __toString()
@@ -475,30 +475,30 @@ class Page
     }
 
     /**
-     * @return Collection|Module[]
+     * @return Collection|Bloc[]
      */
-    public function getModules(): Collection
+    public function getBlocs(): Collection
     {
-        return $this->modules;
+        return $this->blocs;
     }
 
-    public function addModule(Module $module): self
+    public function addBloc(Bloc $bloc): self
     {
-        if (!$this->modules->contains($module)) {
-            $this->modules[] = $module;
-            $module->setPage($this);
+        if (!$this->blocs->contains($bloc)) {
+            $this->blocs[] = $bloc;
+            $bloc->setPage($this);
         }
 
         return $this;
     }
 
-    public function removeModule(Module $module): self
+    public function removeBloc(Bloc $bloc): self
     {
-        if ($this->modules->contains($module)) {
-            $this->modules->removeElement($module);
+        if ($this->blocs->contains($bloc)) {
+            $this->blocs->removeElement($bloc);
             // set the owning side to null (unless already changed)
-            if ($module->getPage() === $this) {
-                $module->setPage(null);
+            if ($bloc->getPage() === $this) {
+                $bloc->setPage(null);
             }
         }
 

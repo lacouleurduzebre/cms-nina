@@ -1,0 +1,59 @@
+div[id^="page_active_blocs"]{
+  .field-collection-action, .field-collection-item-action{
+    display: none;
+  }
+  svg{
+    transition: .3s;
+  }
+  label svg{
+    margin-left: 1rem;
+  }
+}
+
+.drag{
+  font-size: 2rem;
+}
+
+.bloc-menu{
+  position: relative;
+  span{
+    cursor: pointer;
+    font-size: 2rem;
+    padding: 0 1rem;
+  }
+  ul{
+    display: none;
+    position: absolute;
+    right: 0;
+    top: 100%;
+    list-style: none;
+    margin: 0;
+    padding: 2px;
+    background: #f5f5f5;
+    border: 1px solid #979797;
+    box-shadow: 2px 2px 2px #999999;
+  }
+  a{
+    padding: 0 1rem;
+    color: #75726B;
+    display: block;
+    text-decoration: none;
+    width: auto;
+    white-space: nowrap;
+    line-height: 2.4em;
+    text-shadow: 1px 1px 0 white;
+    border-radius: 1px;
+    &:hover{
+      background-color: #e8f3b0;
+      box-shadow: 0 0 2px #A1BA1D;
+    }
+    svg{
+      margin-right: 1rem;
+    }
+  }
+  &.actif{
+    ul{
+      display: block;
+    }
+  }
+}

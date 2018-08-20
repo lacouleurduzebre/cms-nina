@@ -42,6 +42,6 @@ categorie:
     resource: "../src/Controller/CategorieController.php"
     type: annotation
 
-module:
-    resource: "../src/Controller/Back/ModuleController.php"
+bloc:
+    resource: "../src/Controller/Back/BlocController.php"
     type: annotation

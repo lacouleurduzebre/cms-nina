@@ -1,0 +1,12 @@
+<script>
+    $.ajax({
+        url: {{ path('fos_user_registration_register') }},
+        method: "post"
+    })
+        .done(function(data){
+            $('.blocInscription').append(data);
+        })
+        .fail(function(){
+            console.log('erreur requête ajax inscription');
+        });
+</script>

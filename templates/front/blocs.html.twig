@@ -1,0 +1,5 @@
+{% for bloc in page.blocs %}
+    <div class="bloc{{ bloc.type }}{% if bloc.class is not empty %} {{ bloc.class }}{% endif %}">
+        {%  include '/Blocs/'~bloc.type~'/'~bloc.type~'.html.twig' with{'bloc': bloc} only %}
+    </div>
+{% endfor %}

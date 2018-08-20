@@ -85,37 +85,37 @@ $(document).ready(function(){
         }
     });
 
-    /* Affichage du formulaire en fonction du type du module */
-    $('#edit-page_active-form').on('change', 'select[id^="page_active_modules"]', function(){
+    /* Affichage du formulaire en fonction du type du bloc */
+    $('#edit-page_active-form').on('change', 'select[id^="page_active_blocs"]', function(){
         type = $(this).val();
         id = $(this).attr('id');
-        idModule = $(this).closest('.field-module').children('label').html();
-        $(this).prev('label').append('<i class="fas fa-sync fa-spin module"></i>');
+        idBloc = $(this).closest('.field-bloc').children('label').html();
+        $(this).prev('label').append('<i class="fas fa-sync fa-spin bloc"></i>');
 
         $.ajax({
-            url: Routing.generate('ajouterModule'),
+            url: Routing.generate('ajouterBloc'),
             method: "post",
             data: {type: type}
         })
             .done(function(data){
                 $('#'+id).prev('label').find('svg').fadeOut();
                 $('#'+id).closest('div[id^="page_active"]').find('div[id$="contenu"]').append(data);
-                $('#page_active_modules_'+idModule+'_contenu').find('label').each(function(){
+                $('#page_active_blocs_'+idBloc+'_contenu').find('label').each(function(){
                     idLabel = $(this).attr('for');
                     champ = idLabel.substring(idLabel.indexOf('_') + 1);
-                    $(this).attr('for', 'page_active[modules]['+idModule+'][contenu]['+champ+']');
-                    $(this).next('*').attr('name', 'page_active[modules]['+idModule+'][contenu]['+champ+']');
-                    $(this).next('*').attr('id', $(this).next('*').attr('id')+idModule);
+                    $(this).attr('for', 'page_active[blocs]['+idBloc+'][contenu]['+champ+']');
+                    $(this).next('*').attr('name', 'page_active[blocs]['+idBloc+'][contenu]['+champ+']');
+                    $(this).next('*').attr('id', $(this).next('*').attr('id')+idBloc);
                 });
                 if(type == 'Image'){
-                    url = $('#image_image'+idModule).parent('div').next('div').find('a').attr('href');
-                    $('#image_image'+idModule).parent('div').next('div').find('a').attr('href', url+idModule);
-                    $('.module_image_bouton_mediatheque').fancybox({
+                    url = $('#image_image'+idBloc).parent('div').next('div').find('a').attr('href');
+                    $('#image_image'+idBloc).parent('div').next('div').find('a').attr('href', url+idBloc);
+                    $('.bloc_image_bouton_mediatheque').fancybox({
                         type: 'iframe',
                         minHeight: '600'
                     });
                 }
-                $('#'+id).closest('div').append('<p class="type-module">'+type+'</p>');
+                $('#'+id).closest('div').append('<p class="type-bloc">'+type+'</p>');
                 $('#'+id).hide();
                 // TinyMCE
                 tinymce.remove();
@@ -147,10 +147,10 @@ $(document).ready(function(){
             });
     });
 
-    /* Cacher les select de choix du type de module si module déjà créé */
-    $('.form-group.field-module select[id$="type"]').each(function(){
+    /* Cacher les select de choix du type de bloc si bloc déjà créé */
+    $('.form-group.field-bloc select[id$="type"]').each(function(){
         type = $(this).val();
-        $(this).hide().closest('div').append('<p class="type-module">'+type+'</p>');
+        $(this).hide().closest('div').append('<p class="type-bloc">'+type+'</p>');
     });
 
     /* Changement du h1 lors de l'édition d'une page */
@@ -172,7 +172,7 @@ $(document).ready(function(){
 
     /* Bouton médiathèque */
     if($('body').hasClass('edit') || $('body').hasClass('new')){
-        $('.module_image_bouton_mediatheque').fancybox({
+        $('.bloc_image_bouton_mediatheque').fancybox({
             type: 'iframe',
             minHeight: '600'
         });
@@ -191,36 +191,36 @@ $(document).ready(function(){
             $('#'+id).siblings('.apercuImageProfil').find('img').attr('src', urlImg);
         }else if(id === 'configuration_logo'){//Logo du site
             $('#'+id).siblings('.apercuLogo').find('img').attr('src', urlImg);
-        }else{//Module Image
+        }else{//Bloc Image
             $('#'+id).parent('div').next('div').find('img').attr('src', urlImg);
         }
     });
 
-    /* Gestion de la position des modules */
-    $("#page_active_modules").sortable({
+    /* Gestion de la position des blocs */
+    $("#page_active_blocs").sortable({
         handle: '.drag',
         update: function(event, ui){
-            $('.field-module').each(function(){
-                idModule = $(this).find('.control-label').html();
-                $(this).find('#page_active_modules_'+idModule+'_position').val($(this).index());
+            $('.field-bloc').each(function(){
+                idBloc = $(this).find('.control-label').html();
+                $(this).find('#page_active_blocs_'+idBloc+'_position').val($(this).index());
             })
         }
     });
 
-    /* Menu modules */
-    $('#page_active_modules').on('click', '.module-menu span', function(){
+    /* Menu blocs */
+    $('#page_active_blocs').on('click', '.bloc-menu span', function(){
         $(this).closest('div').toggleClass('actif');
     });
 
-    $('#page_active_modules').on('click', '.module-menu a', function(e){
+    $('#page_active_blocs').on('click', '.bloc-menu a', function(e){
         e.preventDefault();
         $(this).closest('div').removeClass('actif');
 
-        if($(this).attr('class') === 'supprimerModule'){
-            $(this).closest('.field-module').slideUp(600, function(){
+        if($(this).attr('class') === 'supprimerBloc'){
+            $(this).closest('.field-bloc').slideUp(600, function(){
                 $(this).remove();
             });
-        }/*else if($(this).attr('class') === 'dupliquerModule'){
+        }/*else if($(this).attr('class') === 'dupliquerBloc'){
         }*/
     });
 

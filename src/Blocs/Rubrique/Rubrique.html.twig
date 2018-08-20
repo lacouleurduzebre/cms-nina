@@ -1,0 +1,8 @@
+<div class="grid-3 small-1 has-gutter-xl">
+    {% for page in listerPagesEnfants(bloc.page).pages %}
+        <div class="blocRubrique-page flex-container-v">
+            <p>{{ page.titre }}</p>
+            <a href="{{ page.seo.url }}">{% trans %}Voir la page{% endtrans %}</a>
+        </div>
+    {% endfor %}
+</div>

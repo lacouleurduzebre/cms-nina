@@ -2400,7 +2400,7 @@ body.new ul.nav-tabs, body.edit ul.nav-tabs {
 body.new.gris ul.nav-tabs, body.edit.gris ul.nav-tabs {
   background-color: #75726B; }
 
-.type-module {
+.type-bloc {
   font-style: italic; }
 
 /* Onglets */
@@ -2496,69 +2496,23 @@ body.edit.gris .content-header, body.new.gris .content-header {
 .form-group {
   margin-top: 1rem; }
 
-.form-group.field-module {
+.form-group.field-bloc {
   padding: 1rem;
   margin: 1rem 0;
   background-color: #F7F7F7; }
-  .form-group.field-module > label {
+  .form-group.field-bloc > label {
     display: none; }
 
 /* Sauvegarde du formulaire */
 #form-actions-row {
   margin-top: 1rem; }
 
-/* Modules */
-div[id^="page_active_modules"] .field-collection-action {
-  display: none; }
-div[id^="page_active_modules"] svg {
-  transition: .3s; }
-div[id^="page_active_modules"] label svg {
-  margin-left: 1rem; }
-
-.drag {
-  font-size: 2rem; }
-
-.module-menu {
-  position: relative; }
-  .module-menu span {
-    cursor: pointer;
-    font-size: 2rem;
-    padding: 0 1rem; }
-  .module-menu ul {
-    display: none;
-    position: absolute;
-    right: 0;
-    top: 100%;
-    list-style: none;
-    margin: 0;
-    padding: 2px;
-    background: #f5f5f5;
-    border: 1px solid #979797;
-    box-shadow: 2px 2px 2px #999999; }
-  .module-menu a {
-    padding: 0 1rem;
-    color: #75726B;
-    display: block;
-    text-decoration: none;
-    width: auto;
-    white-space: nowrap;
-    line-height: 2.4em;
-    text-shadow: 1px 1px 0 white;
-    border-radius: 1px; }
-    .module-menu a:hover {
-      background-color: #e8f3b0;
-      box-shadow: 0 0 2px #A1BA1D; }
-    .module-menu a svg {
-      margin-right: 1rem; }
-  .module-menu.actif ul {
-    display: block; }
-
 /* M├®diath├¿que */
-a.module_image_bouton_mediatheque {
+a.bloc_image_bouton_mediatheque {
   display: inline-block;
   margin: 1rem 0; }
 
-.ouvrirMediatheque, .module_image_bouton_mediatheque {
+.ouvrirMediatheque, .bloc_image_bouton_mediatheque {
   display: inline-block;
   margin-top: 1rem;
   background-color: #0791B3;
@@ -2566,7 +2520,7 @@ a.module_image_bouton_mediatheque {
   border-radius: 5px;
   color: #fff;
   text-decoration: none; }
-  .ouvrirMediatheque:hover, .ouvrirMediatheque:active, .ouvrirMediatheque:focus, .module_image_bouton_mediatheque:hover, .module_image_bouton_mediatheque:active, .module_image_bouton_mediatheque:focus {
+  .ouvrirMediatheque:hover, .ouvrirMediatheque:active, .ouvrirMediatheque:focus, .bloc_image_bouton_mediatheque:hover, .bloc_image_bouton_mediatheque:active, .bloc_image_bouton_mediatheque:focus {
     background-color: #056982;
     color: #fff;
     text-decoration: none; }
@@ -2591,7 +2545,7 @@ a.module_image_bouton_mediatheque {
     object-fit: cover;
     border: 5px solid #FFF; }
 
-.module_image_apercu_mediatheque img {
+.bloc_image_apercu_mediatheque img {
   object-fit: contain;
   max-width: 30rem;
   max-height: 30rem; }
@@ -2897,5 +2851,50 @@ tr.ouvert td:first-of-type svg {
   transform: rotate(180deg); }
 tr.ouvert td:not(:first-of-type) {
   display: block; }
+
+div[id^="page_active_blocs"] .field-collection-action, div[id^="page_active_blocs"] .field-collection-item-action {
+  display: none; }
+div[id^="page_active_blocs"] svg {
+  transition: .3s; }
+div[id^="page_active_blocs"] label svg {
+  margin-left: 1rem; }
+
+.drag {
+  font-size: 2rem; }
+
+.bloc-menu {
+  position: relative; }
+  .bloc-menu span {
+    cursor: pointer;
+    font-size: 2rem;
+    padding: 0 1rem; }
+  .bloc-menu ul {
+    display: none;
+    position: absolute;
+    right: 0;
+    top: 100%;
+    list-style: none;
+    margin: 0;
+    padding: 2px;
+    background: #f5f5f5;
+    border: 1px solid #979797;
+    box-shadow: 2px 2px 2px #999999; }
+  .bloc-menu a {
+    padding: 0 1rem;
+    color: #75726B;
+    display: block;
+    text-decoration: none;
+    width: auto;
+    white-space: nowrap;
+    line-height: 2.4em;
+    text-shadow: 1px 1px 0 white;
+    border-radius: 1px; }
+    .bloc-menu a:hover {
+      background-color: #e8f3b0;
+      box-shadow: 0 0 2px #A1BA1D; }
+    .bloc-menu a svg {
+      margin-right: 1rem; }
+  .bloc-menu.actif ul {
+    display: block; }
 
 /*# sourceMappingURL=knacss.css.map */
