@@ -52,7 +52,6 @@ easy_admin:
                     - { type: 'tab', label: 'Contenus' }
                     - { property: 'titre', type: 'text' }
                     - { property: 'titreMenu', label: 'Titre dans les menus' }
-                    - active
                     - { property: 'blocs', type: 'collection', type_options: { entry_type: 'App\Form\Type\BlocType', by_reference: false } }
                     - { type: 'tab', label: 'SEO' }
                     - { property: 'SEO', type: 'App\Form\Type\SEOType', type_options: { by_reference: true } }

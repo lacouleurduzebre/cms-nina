@@ -217,9 +217,16 @@ $(document).ready(function(){
         $(this).closest('div').removeClass('actif');
 
         if($(this).attr('class') === 'supprimerBloc'){
-            $(this).closest('.field-bloc').slideUp(600, function(){
-                $(this).remove();
-            });
+            bloc = $(this).closest('.field-bloc');
+            $('#modal-delete').css('display', 'flex');
+            $('#modal-delete').modal({ backdrop: true, keyboard: true })
+                .off('click', '#modal-delete-button')
+                .on('click', '#modal-delete-button', function () {
+                    bloc.slideUp(600, function(){
+                        bloc.remove();
+                        $('#page_active_titre').keyup();
+                    });
+                });
         }/*else if($(this).attr('class') === 'dupliquerBloc'){
         }*/
     });
@@ -342,4 +349,10 @@ $(document).ready(function(){
     $('form').on('change keyup', function(){
         $(this).find('.formulaire-actions-enregistrer').attr("disabled", false);
     });
+
+    /* Fermeture des messages flash */
+    $('#flash-messages').on('click', 'svg', function(){
+       $(this).closest('div').fadeOut();
+    });
+
 });

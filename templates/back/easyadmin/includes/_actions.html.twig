@@ -1,5 +1,4 @@
 {% set original_request_params = request_parameters %}
-
 {% for action in actions %}
     {% if 'voir' == action.name %}
         {% set request_parameters = original_request_params %}
@@ -34,7 +33,6 @@
                     {% elseif 'route' == action.type %}
                         {% set action_href = path(action.name, request_parameters|merge({ action: action.name, id: item_id })) %}
                     {% endif %}
-
                     <a class="{{ action.css_class|default('') }}" title="{{ action.title|default('') is empty ? '' : action.title|trans(trans_parameters, translation_domain) }}" href="{{ action_href }}" target="{{ action.target }}">
                         {%- if action.icon %}<i class="fas fa-{{ action.icon }}"></i> {% endif -%}
                         {%- if action.label is defined and not action.label is empty -%}
@@ -43,6 +41,18 @@
                     </a>
                 {% endif %}
             {% endfor %}
+            {% if request_parameters.entity == "Page_Active" %}
+                {% set request_parameters = original_request_params %}
+                {% set action_href = path('easyadmin', request_parameters|merge({ action: 'activer', id: item_id })) %}
+                <a href="{{ action_href }}">
+                    <i class="fas fa-power-off"></i>
+                    {% if pageActive(item_id) %}
+                        {{ 'Désactiver'|trans }}
+                    {% else %}
+                        {{ 'Activer'|trans }}
+                    {% endif %}
+                </a>
+            {% endif %}
         </div>
     </div>
 </div>

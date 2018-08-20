@@ -4,6 +4,7 @@
             {% for message in messages %}
                 <div class="alert alert-{{ label }}">
                     {{ message|raw }}
+                    <i class="fas fa-times"></i>
                 </div>
             {% endfor %}
         {% endfor %}

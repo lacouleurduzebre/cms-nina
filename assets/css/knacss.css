@@ -2362,8 +2362,8 @@ body.list .table, body.list .table td, body.list .table th, .sauvegarde .table, 
 /* Edit */
 body.new form, body.edit form {
   padding: 0 2rem; }
-body.new .edit-form, body.new .new-form, body.edit .edit-form, body.edit .new-form {
-  margin-top: 12rem; }
+body.new #main, body.edit #main {
+  padding-top: 10rem; }
 body.new .content-wrapper, body.new .sf-toolbar-clearer, body.new ul.nav-tabs, body.edit .content-wrapper, body.edit .sf-toolbar-clearer, body.edit ul.nav-tabs {
   background-color: #0791B3; }
 body.new .content-wrapper, body.edit .content-wrapper {
@@ -2601,6 +2601,16 @@ td[data-label="Image profil"] img {
 
 .rouge {
   color: #D9534F; }
+
+/* Messages flash */
+#flash-messages > * {
+  position: relative; }
+#flash-messages svg {
+  position: absolute;
+  top: calc(50% - 1rem);
+  right: 2rem;
+  cursor: pointer;
+  font-size: 2rem; }
 
 #tdb {
   padding: 2rem; }

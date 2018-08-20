@@ -59,10 +59,6 @@
 
             <div class="content-wrapper">
             {% block content %}
-                {% block flash_messages %}
-                    {{ include(_entity_config is defined ? _entity_config.templates.flash_messages : '@EasyAdmin/default/flash_messages.html.twig') }}
-                {% endblock flash_messages %}
-
                 <section class="content-header">
                 {% block content_header %}
                     <h1 class="title">{% block content_title %}{% endblock %}</h1>
@@ -79,6 +75,9 @@
                 </section>
 
                 <section id="main" class="content">
+                    {% block flash_messages %}
+                        {{ include(_entity_config is defined ? _entity_config.templates.flash_messages : '@EasyAdmin/default/flash_messages.html.twig') }}
+                    {% endblock flash_messages %}
                     {% block main %}{% endblock %}
                 </section>
             {% endblock content %}

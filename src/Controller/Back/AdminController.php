@@ -183,4 +183,30 @@ class AdminController extends BaseAdminController
 
         return $this->redirectToRoute('voirPage', array('url' => $url));
     }
+
+    public function activerAction(){
+        $idPage = $this->request->query->get('id');
+        $page = $this->em->getRepository(Page::class)->find($idPage);
+
+        $activation = $page->getActive();
+        if($activation){
+            $this->addFlash( 'success',
+                'La page a été désactivée.'
+            );
+        }else{
+            $this->addFlash( 'success',
+                'La page a été activée.'
+            );
+        }
+        $page->setActive(!$activation);
+        $this->em->persist($page);
+        $this->em->flush();
+
+        return $this->redirectToRoute('admin', array(
+                'action' => 'edit',
+                'entity' => 'Page_Active',
+                'id' => $idPage
+            )
+        );
+    }
 }
