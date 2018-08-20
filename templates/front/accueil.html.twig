@@ -1,6 +1,15 @@
 {% extends 'front/base.html.twig' %}
 
-{% block title %}{{ parent() }} - Accueil{% endblock %}
+{% block title %}
+    {% if page.seo.metaTitre is not empty %}
+        {{ page.seo.metaTitre }}
+    {% else %}
+        {{ page.langue.metaTitre }}
+    {% endif %}
+{% endblock %}
+{% block head %}
+    {% if page.seo.metaDescription is not empty %}{{ page.seo.metaDescription|striptags }}{% else %}{{ page.langue.metaDescription|striptags }}{% endif %}
+{% endblock %}
 {% block body %}
 <main>
     {% if page.titre is defined %}<h1>{{ page.titre }}</h1>{% endif %}

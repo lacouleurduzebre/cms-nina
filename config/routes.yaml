@@ -45,3 +45,7 @@ categorie:
 bloc:
     resource: "../src/Controller/Back/BlocController.php"
     type: annotation
+
+bloc_LEI:
+    resource: "../src/Blocs/LEI/LEIController.php"
+    type: annotation

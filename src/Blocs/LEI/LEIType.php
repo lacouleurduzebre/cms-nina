@@ -25,7 +25,8 @@ class LEIType extends AbstractType
                 'label' => 'Url du flux LEI'
             ))
             ->add('limite', NumberType::class, array(
-                'label' => 'Nombre limite de résultats'
+                'label' => 'Nombre limite de résultats',
+                'required' => false
             ));
     }
 

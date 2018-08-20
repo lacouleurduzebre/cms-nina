@@ -1,0 +1,18 @@
+{% extends 'front/base.html.twig' %}
+
+{% block title %}
+    {{ fiche.NOM }}
+{% endblock %}
+
+{% if fiche.COMMENTAIRE is defined %}
+    {% block head %}
+        {{ fiche.COMMENTAIRE }}
+    {% endblock %}
+{% endif %}
+
+{% block body %}
+    <h1>{{ fiche.NOM }}</h1>
+    <h2>{{ fiche.TYPE_NOM }}</h2>
+    <img src="https://{{ fiche.CRITERES.Crit[0] }}" alt="{{ fiche.NOM }}">
+    <p>{{ fiche.COMMENTAIRE }}</p>
+{% endblock %}

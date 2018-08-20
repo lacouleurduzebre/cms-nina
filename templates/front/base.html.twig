@@ -17,15 +17,7 @@
         <script src="{{ asset('assets/js/fosjsrouting/js/fos_js_routes.js') }}"></script>
     {% endif %}
     <link rel="icon" type="image/x-icon" href="{{ asset('assets/img/favicon.ico') }}" />
-    {% block head %}
-        <meta name="description" content="
-            {% if page is not empty and page.seo.metaDescription is not empty %}
-                {{ page.seo.metaDescription|striptags }}
-            {% else %}
-                {{ langueActive.metaDescription|striptags }}
-            {% endif %}
-        " />
-    {% endblock %}
+    <meta name="description" content="{% block head %}{% if langueActive.metaDescription is not empty %}{{ langueActive.metaDescription }}{% endif %}{% endblock %}" />
 </head>
 <body class="front {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}connected {% endif %}{% if accueil is defined %}accueil {% endif %}">
 
