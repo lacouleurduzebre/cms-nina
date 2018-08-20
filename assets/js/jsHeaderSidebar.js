@@ -40,5 +40,12 @@ $(document).ready(function(){
         idLangue = $(this).attr('class');
         $.cookie('langueArbo', idLangue);
         location.reload();
-    })
+    });
+
+    /* Menu contextuel de la page d'accueil */
+    $("#pageAccueil-page").on("click contextmenu", function(e){
+        e.preventDefault();
+        $("#pageAccueil-menu").toggle();
+        return false;
+    });
 });

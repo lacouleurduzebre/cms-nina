@@ -224,7 +224,7 @@ body.notFull .main-sidebar{
   position: relative;
   font-weight: 500;
   > div > ul > li{
-    background-color: #EEEEEE !important;
+    background-color: #E1E1E1 !important;
     > i{
       margin-top: 1rem !important;
     }
@@ -237,7 +237,8 @@ body.notFull .main-sidebar{
     }
     > ul{
       background-color: #F7F7F7;
-      box-shadow: inset 0px 4px 4px -2px rgba(0,0,0,0.25);
+      box-shadow: inset 0 4px 4px -2px rgba(0,0,0,0.25);
+      padding-top: 1rem;
     }
   }
 }
@@ -256,7 +257,7 @@ body.notFull .main-sidebar{
 }
 
 /* Clic droit sur arbo */
-.vakata-context{
+.vakata-context, #pageAccueil-menu{
   z-index: 1000;
   position: absolute;
 }
@@ -265,12 +266,12 @@ body.notFull .main-sidebar{
   position: fixed;
 }
 
-.vakata-context li > a{
+.vakata-context li > a, #pageAccueil-menu li > a{
   padding: 0 1rem;
   color: $color-primary;
 }
 
-.vakata-context li > a:hover, .vakata-context .vakata-context-hover > a{
+.vakata-context li > a:hover, .vakata-context .vakata-context-hover > a, #pageAccueil-menu li > a:hover{
   background-color: lighten(#A1BA1D, 40);
   box-shadow: 0 0 2px #A1BA1D;
 }
@@ -278,4 +279,14 @@ body.notFull .main-sidebar{
 .vakata-context li > a .vakata-contextmenu-sep{
   background: none;
   border: none;
+}
+
+/* Page d'accueil */
+.pageAccueil{
+  position: relative;
+}
+
+#pageAccueil-menu{
+  display: none;
+  top: calc(100% + 2px);
 }

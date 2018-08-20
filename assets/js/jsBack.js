@@ -337,4 +337,9 @@ $(document).ready(function(){
            $('body.list-langue td[data-label="Defaut"] input').not(this).attr("checked", false);
        }
     });
+
+    /* Activer le bouton d'enregistrement lors de la première modif d'un formulaire */
+    $('form').on('change keyup', function(){
+        $(this).find('.formulaire-actions-enregistrer').attr("disabled", false);
+    });
 });

@@ -26,6 +26,9 @@
         display: none;
       }
     }
+    &[disabled]:hover{
+      background-color: $color-brand;
+    }
     &:hover{
       background-color: $color-brand-dark;
     }
@@ -48,6 +51,21 @@
   color: #cb8300;
 }
 
+.action-corbeille {
+  .fa-recycle{
+    color: $color-brand;
+    &:hover{
+      color: darken($color-brand, 10);
+    }
+  }
+  .fa-trash{
+    color: $color-danger;
+    &:hover{
+      color: darken($color-danger, 10);
+    }
+  }
+}
+
 .formulaire-actions{
   .action-voir{
     background-color: $color-brand3;
@@ -63,8 +81,11 @@
       background-color: $color-brand3-dark;
     }
   }
-  .action-dupliquer, .action-corbeille, .action-delete, .action-list{
+  .action-dupliquer, .action-corbeille, .action-corbeille .fa-trash, .action-corbeille .fa-recycle, .action-delete, .action-list{
     color: $black;
+    &:hover{
+      color: $black;
+    }
   }
 }
 
@@ -75,10 +96,13 @@
   display: flex;
   align-items: center;
   position: relative;
-  svg{
+  > svg{
     font-size: 2rem;
     color: $white;
     cursor: pointer;
+  }
+  div svg{
+    color: $black;
   }
   > div{
     display: none;

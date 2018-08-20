@@ -125,6 +125,6 @@ class Arborescence extends \Twig_Extension
             $pageAccueil = null;
         }
 
-        return $this->twig->render('back/menu/pageAccueil.html.twig', array('pageAccueil' => $pageAccueil, 'idLangueArbo' => $langueArbo));
+        return $this->twig->render('back/menu/pageAccueil.html.twig', array('pageAccueil' => $pageAccueil, 'langueArbo' => $langue));
     }
 }

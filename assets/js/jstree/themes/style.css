@@ -113,7 +113,7 @@
 .vakata-context {
   display: none;
 }
-.vakata-context,
+.vakata-context, #pageAccueil-menu,
 .vakata-context ul {
   margin: 0;
   padding: 2px;
@@ -134,10 +134,10 @@
   margin-left: auto;
   margin-right: -4px;
 }
-.vakata-context li {
+.vakata-context li, #pageAccueil-menu li {
   list-style: none;
 }
-.vakata-context li > a {
+.vakata-context li > a, #pageAccueil-menu li> a{
   display: block;
   text-decoration: none;
   width: auto;
@@ -146,7 +146,7 @@
   text-shadow: 1px 1px 0 white;
   border-radius: 1px;
 }
-.vakata-context li > a:hover {
+.vakata-context li > a:hover, #pageAccueil-menu li > a:hover {
   position: relative;
 }
 .vakata-context li > a.vakata-context-parent {

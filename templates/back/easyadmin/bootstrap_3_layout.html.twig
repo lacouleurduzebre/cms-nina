@@ -413,7 +413,7 @@
     {% set _trans_parameters = { '%entity_name%':  easyadmin.entity.name|trans, '%entity_label%': easyadmin.entity.label|trans } %}
 
     {# the 'save' action is hardcoded for the 'edit' and 'new' views #}
-    <button type="submit" class="formulaire-actions-enregistrer">
+    <button type="submit" class="formulaire-actions-enregistrer" disabled>
         <i class="fas fa-check-circle"></i><span>{% trans %}Enregistrer{% endtrans %}</span>
     </button>
 

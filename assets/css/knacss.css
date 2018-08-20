@@ -2348,15 +2348,6 @@ body.list .table, body.list .table td, body.list .table th, .sauvegarde .table, 
   .actions a:first-of-type {
     margin-left: 0; }
 
-.action-corbeille .fa-recycle {
-  color: #A1BA1D; }
-  .action-corbeille .fa-recycle:hover {
-    color: #7b8e16; }
-.action-corbeille .fa-trash {
-  color: #D9534F; }
-  .action-corbeille .fa-trash:hover {
-    color: #c9302c; }
-
 /* Pagination */
 .list-pagination {
   text-align: center; }
@@ -2804,6 +2795,8 @@ td[data-label="Image profil"] img {
     @media (max-width: 767px) {
       .formulaire-actions .formulaire-actions-enregistrer span {
         display: none; } }
+    .formulaire-actions .formulaire-actions-enregistrer[disabled]:hover {
+      background-color: #A1BA1D; }
     .formulaire-actions .formulaire-actions-enregistrer:hover {
       background-color: #7b8e16; }
 
@@ -2822,6 +2815,15 @@ td[data-label="Image profil"] img {
 .action-list {
   color: #cb8300; }
 
+.action-corbeille .fa-recycle {
+  color: #A1BA1D; }
+  .action-corbeille .fa-recycle:hover {
+    color: #7b8e16; }
+.action-corbeille .fa-trash {
+  color: #D9534F; }
+  .action-corbeille .fa-trash:hover {
+    color: #c9302c; }
+
 .formulaire-actions .action-voir {
   background-color: #F29400;
   color: #fff;
@@ -2832,8 +2834,10 @@ td[data-label="Image profil"] img {
       display: none; } }
   .formulaire-actions .action-voir:hover {
     background-color: #bf7500; }
-.formulaire-actions .action-dupliquer, .formulaire-actions .action-corbeille, .formulaire-actions .action-delete, .formulaire-actions .action-list {
+.formulaire-actions .action-dupliquer, .formulaire-actions .action-corbeille, .formulaire-actions .action-corbeille .fa-trash, .formulaire-actions .action-corbeille .fa-recycle, .formulaire-actions .action-delete, .formulaire-actions .action-list {
   color: #000; }
+  .formulaire-actions .action-dupliquer:hover, .formulaire-actions .action-corbeille:hover, .formulaire-actions .action-corbeille .fa-trash:hover, .formulaire-actions .action-corbeille .fa-recycle:hover, .formulaire-actions .action-delete:hover, .formulaire-actions .action-list:hover {
+    color: #000; }
 
 .formulaire-actions-liste {
   padding: 1rem 1rem 1rem 2rem;
@@ -2841,10 +2845,12 @@ td[data-label="Image profil"] img {
   display: flex;
   align-items: center;
   position: relative; }
-  .formulaire-actions-liste svg {
+  .formulaire-actions-liste > svg {
     font-size: 2rem;
     color: #fff;
     cursor: pointer; }
+  .formulaire-actions-liste div svg {
+    color: #000; }
   .formulaire-actions-liste > div {
     display: none;
     position: absolute;
