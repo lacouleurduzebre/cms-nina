@@ -2604,13 +2604,24 @@ td[data-label="Image profil"] img {
 
 /* Messages flash */
 #flash-messages > * {
-  position: relative; }
+  position: relative;
+  display: inline-block;
+  margin: 0 2rem;
+  border-radius: 7px;
+  padding-right: 5rem; }
 #flash-messages svg {
   position: absolute;
   top: calc(50% - 1rem);
-  right: 2rem;
+  right: 1rem;
   cursor: pointer;
   font-size: 2rem; }
+
+body.list #flash-messages > * {
+  margin: 1rem 0; }
+
+.alert-enregistrement {
+  background: #A1BA1D;
+  color: #FFF; }
 
 #tdb {
   padding: 2rem; }

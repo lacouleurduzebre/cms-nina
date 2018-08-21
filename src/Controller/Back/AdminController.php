@@ -27,6 +27,13 @@ use Symfony\Component\Yaml\Yaml;
  */
 class AdminController extends BaseAdminController
 {
+    protected function updateEntity($entity)
+    {
+        parent::updateEntity($entity);
+
+        $this->addFlash('enregistrement', "\"".$entity."\" : enregistrement terminé");
+    }
+
     /**
      * @return RedirectResponse
      */

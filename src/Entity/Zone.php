@@ -53,6 +53,10 @@ class Zone
      */
     private $langue;
 
+    public function __toString()
+    {
+        return $this->getNom();
+    }
 
     /**
      * Get id

@@ -52,7 +52,7 @@
             <tbody>
             {% for commentaire in contenuBloc %}
                 <tr>
-                    <td><a href="{{ path('admin', { action: 'edit', entity: 'Page_Active', id: commentaire.page.id}) }}">{{ commentaire.page.titre }}</a></td>
+                    <td><a href="{{ path('easyadmin', { action: 'edit', entity: 'Page_Active', id: commentaire.page.id}) }}">{{ commentaire.page.titre }}</a></td>
                     <td>{{ commentaire.auteur }}</td>
                     <td>{{ commentaire.date|date("d/m/Y") }}</td>
                 </tr>
@@ -70,7 +70,7 @@
         <ul>
             {% for page in contenuBloc %}
                 <li>
-                    <a href="{{ path('admin', { 'action': 'edit', 'entity': 'Page_Active', 'id': page.id }) }}">{{ page.titre }}</a>
+                    <a href="{{ path('easyadmin', { 'action': 'edit', 'entity': 'Page_Active', 'id': page.id }) }}">{{ page.titre }}</a>
                     {{ 'publiée le'|trans }} {{ page.datePublication|date("d/m/Y") }}
                 </li>
             {% endfor %}
@@ -91,7 +91,7 @@
                         <ul>
                             {% for categorie in typeCategorie.categories %}
                                 <li>
-                                    <a href="{{ path('admin', { 'action': 'edit', 'entity': 'Categorie', 'id': categorie.id }) }}">{{ categorie.nom }}</a>
+                                    <a href="{{ path('easyadmin', { 'action': 'edit', 'entity': 'Categorie', 'id': categorie.id }) }}">{{ categorie.nom }}</a>
                                 </li>
                             {% endfor %}
                         </ul>
@@ -112,7 +112,7 @@
                 {% else %}
                     <i id="header-sansImageProfil" class="fas fa-user-circle"></i>
                 {% endif %}
-                <a href="{{ path('admin', { 'action': 'edit', 'entity': 'Utilisateur', 'id': user.id }) }}">{{ user.username }}</a>
+                <a href="{{ path('easyadmin', { 'action': 'edit', 'entity': 'Utilisateur', 'id': user.id }) }}">{{ user.username }}</a>
                 {% trans %}dernière connexion le{% endtrans %} {{ user.lastLogin|date('d/m/Y') }}
             </li>
         {% endfor %}

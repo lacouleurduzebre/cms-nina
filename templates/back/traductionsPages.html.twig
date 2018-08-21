@@ -22,14 +22,14 @@
                 <tbody>
                     {% for page in pages %}
                         <tr>
-                            <td><a href="{{ path('admin', {'action':'edit', 'entity':'Page_Active', 'id':page.id}) }}">{{ page.titre }}</a></td>
+                            <td><a href="{{ path('easyadmin', {'action':'edit', 'entity':'Page_Active', 'id':page.id}) }}">{{ page.titre }}</a></td>
                             {% for langue in langues %}
                                 {% if langue != langueDefaut %}
                                     <td>
                                     {% if page.traductions is not empty %}
                                         {% if page.traductions[langue.id] is not empty %}
                                             {% set traduction = getTraduction(page.traductions[langue.id]) %}
-                                            <a href="{{ path('admin', {'action':'edit', 'entity':'Page_Active', 'id':traduction.id}) }}">{{ traduction.titre }}</a>
+                                            <a href="{{ path('easyadmin', {'action':'edit', 'entity':'Page_Active', 'id':traduction.id}) }}">{{ traduction.titre }}</a>
                                         {% else %}
                                             <i class="fas fa-times rouge"></i>
                                         {% endif %}

@@ -83,10 +83,10 @@
                     "action": function(){
                         if(node.type === 'root'){//Si Menu
                             idMenu = $('#'+node.id).parents('div').attr('id').substr(5);
-                            window.location.href = "{{ app.request.baseUrl }}"+Routing.generate('admin', { action: 'edit', entity: 'Menu', id: idMenu });
+                            window.location.href = "{{ app.request.baseUrl }}"+Routing.generate('easyadmin', { action: 'edit', entity: 'Menu', id: idMenu });
                         }else{//Si Page
                             idPage = $('#'+node.id).find('.page').attr('id');
-                            window.location.href = "{{ app.request.baseUrl }}"+Routing.generate('admin', { action: 'edit', entity: 'Page_Active', id: idPage });
+                            window.location.href = "{{ app.request.baseUrl }}"+Routing.generate('easyadmin', { action: 'edit', entity: 'Page_Active', id: idPage });
                         }
                     }
                 },
@@ -185,7 +185,7 @@
                     "label": "Dupliquer",
                     "action": function(){
                         idPage = $('#'+node.id).find('.page').attr('id');
-                        window.location.href = "{{ app.request.baseUrl }}"+Routing.generate('admin', { action: 'dupliquer', entity: 'Page_Active', id: idPage });
+                        window.location.href = "{{ app.request.baseUrl }}"+Routing.generate('easyadmin', { action: 'dupliquer', entity: 'Page_Active', id: idPage });
                     }
                 },
                 "remove":{
@@ -220,7 +220,7 @@
                     "label": "Supprimer",
                     "action": function(){
                         idPage = $('#'+node.id).find('.page').attr('id');
-                        window.location.href = "{{ app.request.baseUrl }}"+Routing.generate('admin', { action: 'corbeille', entity: 'Page_Active', id: idPage });
+                        window.location.href = "{{ app.request.baseUrl }}"+Routing.generate('easyadmin', { action: 'corbeille', entity: 'Page_Active', id: idPage });
                     }
                 }
             };

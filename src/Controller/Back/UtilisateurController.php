@@ -27,6 +27,13 @@ class UtilisateurController extends BaseAdminController
         $this->passwordEncoder = $passwordEncoder;
     }
 
+    protected function updateEntity($entity)
+    {
+        parent::updateEntity($entity);
+
+        $this->addFlash('enregistrement', "Le profil de ".$entity." a été enregistré");
+    }
+
     /**
      * The method that is executed when the user performs a 'new' action on the User entity.
      *

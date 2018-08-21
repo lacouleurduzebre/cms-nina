@@ -76,6 +76,11 @@ class Configuration
      */
     private $theme;
 
+    public function __toString()
+    {
+        return "configuration";
+    }
+
     /**
      * Get id
      *

@@ -53,6 +53,11 @@ class Menu
      */
     private $langue;
 
+    public function __toString()
+    {
+        return $this->getNom();
+    }
+
     /**
      * Get id
      *
