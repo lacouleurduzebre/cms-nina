@@ -579,6 +579,85 @@
     </div>
 {% endblock %}
 
+{% block _page_active_blocs_row %}
+    <div class="form-group field-collection">
+        {% set js_add_item_bloc_before %}
+            $(function() {
+            if (event.preventDefault) event.preventDefault(); else event.returnValue = false;
+
+            var collection = $('#{{ id }}');
+            // Use a counter to avoid having the same index more than once
+            var numItems = collection.data('count') || collection.children('div.form-group').length;
+
+            collection.prev('.collection-empty').remove();
+
+            var newItem = collection.attr('data-prototype')
+            .replace(/\>__name__label__\</g, '>' + numItems + '<')
+            .replace(/_{{ name }}___name__/g, '_{{ name }}_' + numItems)
+            .replace(/{{ name }}\]\[__name__\]/g, '{{ name }}][' + numItems + ']')
+            ;
+
+            // Increment the counter and store it in the collection
+            collection.data('count', ++numItems);
+
+            collection.prepend(newItem).trigger('easyadmin.collection.item-added');
+
+            $('.field-bloc').each(function(){
+                idBloc = $(this).find('.control-label').html();
+                $(this).find('#page_active_blocs_'+idBloc+'_position').val($(this).index());
+            })
+            });
+        {% endset %}
+
+        {% set js_add_item_bloc_after %}
+            $(function() {
+            if (event.preventDefault) event.preventDefault(); else event.returnValue = false;
+
+            var collection = $('#{{ id }}');
+            // Use a counter to avoid having the same index more than once
+            var numItems = collection.data('count') || collection.children('div.form-group').length;
+
+            collection.prev('.collection-empty').remove();
+
+            var newItem = collection.attr('data-prototype')
+            .replace(/\>__name__label__\</g, '>' + numItems + '<')
+            .replace(/_{{ name }}___name__/g, '_{{ name }}_' + numItems)
+            .replace(/{{ name }}\]\[__name__\]/g, '{{ name }}][' + numItems + ']')
+            ;
+
+            // Increment the counter and store it in the collection
+            collection.data('count', ++numItems);
+
+            collection.append(newItem).trigger('easyadmin.collection.item-added');
+
+            $('.field-bloc').each(function(){
+                idBloc = $(this).find('.control-label').html();
+                $(this).find('#page_active_blocs_'+idBloc+'_position').val($(this).index());
+            })
+            });
+        {% endset %}
+
+        {{- form_label(form) -}}
+
+        <div class="text-right field-collection-action">
+            <a href="#" onclick="{{ js_add_item_bloc_before|raw }}" class="ajout-bloc">
+                <i class="fas fa-plus-circle"></i>
+                {{ 'ajouter un bloc'|trans({}, 'EasyAdminBundle') }}
+            </a>
+        </div>
+
+        {{- form_widget(form) -}}
+
+        <div class="text-right field-collection-action">
+            <a href="#" onclick="{{ js_add_item_bloc_after|raw }}" class="ajout-bloc">
+                <i class="fas fa-plus-circle"></i>
+                {{ 'ajouter un bloc'|trans({}, 'EasyAdminBundle') }}
+            </a>
+        </div>
+
+    </div>
+{% endblock %}
+
 {% block bloc_row %}
     {% set _field_type = easyadmin.field.fieldType|default('default') %}
     <div class="form-group {% if (not compound or force_error|default(false)) and not valid %}has-error{% endif %} field-{{ block_prefixes|slice(-2)|first }}">

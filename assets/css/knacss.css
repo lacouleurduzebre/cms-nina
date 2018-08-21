@@ -2503,6 +2503,23 @@ body.edit.gris .content-header, body.new.gris .content-header {
   .form-group.field-bloc > label {
     display: none; }
 
+/* Bouton pour ajouter un bloc */
+.ajout-bloc {
+  background-color: #0791B3;
+  color: #fff;
+  text-decoration: none;
+  font-size: 1.8rem;
+  padding: .7rem 1.5rem;
+  border-radius: .5rem; }
+  .ajout-bloc:hover {
+    color: #fff;
+    background-color: #056982;
+    text-decoration: none; }
+  .ajout-bloc:active, .ajout-bloc:focus {
+    background-color: #0791B3;
+    color: #fff;
+    text-decoration: none; }
+
 /* Sauvegarde du formulaire */
 #form-actions-row {
   margin-top: 1rem; }
