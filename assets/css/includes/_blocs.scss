@@ -1,3 +1,48 @@
+/* Bouton pour ajouter un bloc */
+.ajout-bloc{
+  background-color: $color-brand2;
+  color: $white;
+  text-decoration: none;
+  font-size: 1.8rem;
+  padding: .7rem 1.5rem;
+  border-radius: .5rem;
+  &:hover{
+    color: $white;
+    background-color: $color-brand2-dark;
+    text-decoration: none;
+  }
+  &:active, &:focus{
+    background-color: $color-brand2;
+    color: $white;
+    text-decoration: none;
+  }
+}
+
+.form-group.field-bloc {
+  position: relative;
+  padding: 1rem 2rem;
+  margin: 1rem 0;
+  background-color: #F7F7F7;
+  > label{
+    display: none;
+  }
+  &:first-of-type{
+    .monterBloc{
+      display: none;
+    }
+  }
+  &:last-of-type{
+    .descendreBloc{
+      display: none;
+    }
+  }
+}
+
+.type-bloc{
+  color: $color-brand2;
+  margin-bottom: 0;
+}
+
 div[id^="page_active_blocs"]{
   .field-collection-action, .field-collection-item-action{
     display: none;
@@ -7,6 +52,32 @@ div[id^="page_active_blocs"]{
   }
   label svg{
     margin-left: 1rem;
+  }
+}
+
+div[id^="page_active_blocs_"]:not([id$="contenu"]){
+  > div:first-child{
+    border-bottom: 2px solid $color-brand2;
+    select, label{
+      display: inline-block;
+    }
+    label{
+      margin-bottom: 1rem;
+      margin-right: 1rem;
+    }
+  }
+}
+
+/* Barre d'actions */
+.bloc-barreActions{
+  position: absolute;
+  top: 1rem;
+  right: 2rem;
+  > *{
+    display: inline-block;
+    > svg, > span > svg{
+      color: $color-brand2;
+    }
   }
 }
 
@@ -54,6 +125,7 @@ div[id^="page_active_blocs"]{
   &.actif{
     ul{
       display: block;
+      z-index: 100;
     }
   }
 }

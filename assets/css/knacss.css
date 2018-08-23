@@ -2400,9 +2400,6 @@ body.new ul.nav-tabs, body.edit ul.nav-tabs {
 body.new.gris ul.nav-tabs, body.edit.gris ul.nav-tabs {
   background-color: #75726B; }
 
-.type-bloc {
-  font-style: italic; }
-
 /* Onglets */
 ul.nav-tabs {
   list-style: none;
@@ -2495,30 +2492,6 @@ body.edit.gris .content-header, body.new.gris .content-header {
 
 .form-group {
   margin-top: 1rem; }
-
-.form-group.field-bloc {
-  padding: 1rem;
-  margin: 1rem 0;
-  background-color: #F7F7F7; }
-  .form-group.field-bloc > label {
-    display: none; }
-
-/* Bouton pour ajouter un bloc */
-.ajout-bloc {
-  background-color: #0791B3;
-  color: #fff;
-  text-decoration: none;
-  font-size: 1.8rem;
-  padding: .7rem 1.5rem;
-  border-radius: .5rem; }
-  .ajout-bloc:hover {
-    color: #fff;
-    background-color: #056982;
-    text-decoration: none; }
-  .ajout-bloc:active, .ajout-bloc:focus {
-    background-color: #0791B3;
-    color: #fff;
-    text-decoration: none; }
 
 /* Sauvegarde du formulaire */
 #form-actions-row {
@@ -2890,12 +2863,63 @@ tr.ouvert td:first-of-type svg {
 tr.ouvert td:not(:first-of-type) {
   display: block; }
 
+/* Bouton pour ajouter un bloc */
+.ajout-bloc {
+  background-color: #0791B3;
+  color: #fff;
+  text-decoration: none;
+  font-size: 1.8rem;
+  padding: .7rem 1.5rem;
+  border-radius: .5rem; }
+  .ajout-bloc:hover {
+    color: #fff;
+    background-color: #056982;
+    text-decoration: none; }
+  .ajout-bloc:active, .ajout-bloc:focus {
+    background-color: #0791B3;
+    color: #fff;
+    text-decoration: none; }
+
+.form-group.field-bloc {
+  position: relative;
+  padding: 1rem 2rem;
+  margin: 1rem 0;
+  background-color: #F7F7F7; }
+  .form-group.field-bloc > label {
+    display: none; }
+  .form-group.field-bloc:first-of-type .monterBloc {
+    display: none; }
+  .form-group.field-bloc:last-of-type .descendreBloc {
+    display: none; }
+
+.type-bloc {
+  color: #0791B3;
+  margin-bottom: 0; }
+
 div[id^="page_active_blocs"] .field-collection-action, div[id^="page_active_blocs"] .field-collection-item-action {
   display: none; }
 div[id^="page_active_blocs"] svg {
   transition: .3s; }
 div[id^="page_active_blocs"] label svg {
   margin-left: 1rem; }
+
+div[id^="page_active_blocs_"]:not([id$="contenu"]) > div:first-child {
+  border-bottom: 2px solid #0791B3; }
+  div[id^="page_active_blocs_"]:not([id$="contenu"]) > div:first-child select, div[id^="page_active_blocs_"]:not([id$="contenu"]) > div:first-child label {
+    display: inline-block; }
+  div[id^="page_active_blocs_"]:not([id$="contenu"]) > div:first-child label {
+    margin-bottom: 1rem;
+    margin-right: 1rem; }
+
+/* Barre d'actions */
+.bloc-barreActions {
+  position: absolute;
+  top: 1rem;
+  right: 2rem; }
+  .bloc-barreActions > * {
+    display: inline-block; }
+    .bloc-barreActions > * > svg, .bloc-barreActions > * > span > svg {
+      color: #0791B3; }
 
 .drag {
   font-size: 2rem; }
@@ -2933,6 +2957,7 @@ div[id^="page_active_blocs"] label svg {
     .bloc-menu a svg {
       margin-right: 1rem; }
   .bloc-menu.actif ul {
-    display: block; }
+    display: block;
+    z-index: 100; }
 
 /*# sourceMappingURL=knacss.css.map */

@@ -32,6 +32,6 @@ class LEITwig extends \Twig_Extension
     {
         $xml = simplexml_load_file($flux)->Resultat->children();
 
-        return $this->twig->render('Blocs/LEI/liste.html.twig', array('xml' => $xml, 'limite' => $limite, 'flux' => $flux));
+        return $this->twig->render('Blocs/LEI/liste.html.twig', array('xml' => $xml, 'limite' => $limite));
     }
 }

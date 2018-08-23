@@ -90,7 +90,7 @@ $(document).ready(function(){
         type = $(this).val();
         id = $(this).attr('id');
         idBloc = $(this).closest('.field-bloc').children('label').html();
-        $(this).prev('label').append('<i class="fas fa-sync fa-spin bloc"></i>');
+        $(this).closest('div').append('<i class="fas fa-sync fa-spin bloc"></i>');
 
         $.ajax({
             url: Routing.generate('ajouterBloc'),
@@ -98,7 +98,7 @@ $(document).ready(function(){
             data: {type: type}
         })
             .done(function(data){
-                $('#'+id).prev('label').find('svg').fadeOut();
+                $('#'+id).closest('div').find('svg').fadeOut();
                 $('#'+id).closest('div[id^="page_active"]').find('div[id$="contenu"]').append(data);
                 $('#page_active_blocs_'+idBloc+'_contenu').find('label').each(function(){
                     idLabel = $(this).attr('for');
@@ -116,7 +116,7 @@ $(document).ready(function(){
                     });
                 }
                 $('#'+id).closest('div').append('<p class="type-bloc">'+type+'</p>');
-                $('#'+id).hide();
+                $('#'+id).hide().prev('label').hide();
                 // TinyMCE
                 tinymce.remove();
                 tinymce.init({
@@ -143,14 +143,14 @@ $(document).ready(function(){
                 });
             })
             .fail(function(){
-                $('#'+id).next('svg').attr('class', 'fas fa-times').css('opacity', 0);
+                $('#'+id).closest('div').find('svg').attr('class', 'fas fa-times').css('opacity', 0);
             });
     });
 
     /* Cacher les select de choix du type de bloc si bloc déjà créé */
     $('.form-group.field-bloc select[id$="type"]').each(function(){
         type = $(this).val();
-        $(this).hide().closest('div').append('<p class="type-bloc">'+type+'</p>');
+        $(this).hide().prev('label').hide().closest('div').append('<p class="type-bloc">'+type+'</p>');
     });
 
     /* Changement du h1 lors de l'édition d'une page */
@@ -212,11 +212,49 @@ $(document).ready(function(){
         $(this).closest('div').toggleClass('actif');
     });
 
-    $('#page_active_blocs').on('click', '.bloc-menu a', function(e){
-        e.preventDefault();
-        $(this).closest('div').removeClass('actif');
+        /* Monter */
+        $('#page_active_blocs').on('click', '.monterBloc', function(e){
+            e.preventDefault();
+            $(this).closest('div').removeClass('actif');
 
-        if($(this).attr('class') === 'supprimerBloc'){
+            bloc = $(this).closest('.field-bloc');
+            blocPrecedent = bloc.prev('.field-bloc');
+            bloc.insertBefore(blocPrecedent);
+
+            $('.field-bloc').each(function(){
+                idBloc = $(this).find('.control-label').html();
+                $(this).find('#page_active_blocs_'+idBloc+'_position').val($(this).index());
+            })
+        });
+
+        /* Descendre */
+        $('#page_active_blocs').on('click', '.descendreBloc', function(e){
+            e.preventDefault();
+            $(this).closest('div').removeClass('actif');
+
+            bloc = $(this).closest('.field-bloc');
+            blocSuivant = bloc.next('.field-bloc');
+            bloc.insertAfter(blocSuivant);
+
+            $('.field-bloc').each(function(){
+                idBloc = $(this).find('.control-label').html();
+                $(this).find('#page_active_blocs_'+idBloc+'_position').val($(this).index());
+            })
+        });
+
+        /* Options d'affichage */
+        $('#page_active_blocs').on('click', '.optionsAffichage', function(e){
+            e.preventDefault();
+            $(this).closest('div').removeClass('actif');
+
+            bloc = $(this).closest('.field-bloc');
+        });
+
+        /* Supprimer */
+        $('#page_active_blocs').on('click', '.supprimerBloc', function(e){
+            e.preventDefault();
+            $(this).closest('div').removeClass('actif');
+
             bloc = $(this).closest('.field-bloc');
             $('#modal-delete').css('display', 'flex');
             $('#modal-delete').modal({ backdrop: true, keyboard: true })
@@ -227,9 +265,7 @@ $(document).ready(function(){
                         $('#page_active_titre').keyup();
                     });
                 });
-        }/*else if($(this).attr('class') === 'dupliquerBloc'){
-        }*/
-    });
+        });
 
     /* Changement de thème */
     $('.theme').click(function(){
