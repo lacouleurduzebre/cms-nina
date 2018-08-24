@@ -194,6 +194,8 @@ $(document).ready(function(){
         }else{//Bloc Image
             $('#'+id).parent('div').next('div').find('img').attr('src', urlImg);
         }
+
+        $(this).find('.formulaire-actions-enregistrer').attr("disabled", false);
     });
 
     /* Gestion de la position des blocs */

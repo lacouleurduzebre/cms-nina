@@ -2362,6 +2362,8 @@ body.list .table, body.list .table td, body.list .table th, .sauvegarde .table, 
 /* Edit */
 body.new form, body.edit form {
   padding: 0 2rem; }
+  body.new form input[type='text']:focus, body.edit form input[type='text']:focus {
+    box-shadow: 0 2px 0 #0791B3; }
 body.new #main, body.edit #main {
   padding-top: 10rem; }
 body.new .content-wrapper, body.new .sf-toolbar-clearer, body.new ul.nav-tabs, body.edit .content-wrapper, body.edit .sf-toolbar-clearer, body.edit ul.nav-tabs {

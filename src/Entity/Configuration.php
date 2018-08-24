@@ -60,7 +60,7 @@ class Configuration
     /**
      * @var string
      *
-     * @ORM\Column(name="analytics", type="text")
+     * @ORM\Column(name="analytics", type="text", nullable=true)
      */
     private $analytics;
 
