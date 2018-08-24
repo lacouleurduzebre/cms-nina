@@ -9,6 +9,7 @@
 namespace App\Blocs\LEI;
 
 
+use App\Entity\Bloc;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -16,14 +17,23 @@ use Symfony\Component\Routing\Annotation\Route;
 class LEIController extends Controller
 {
     /**
-     * @Route("/fiche/{idFiche}/{url}", name="voirFicheLEI")
+     * @Route("/{_locale}/fiche/{url}/{idFiche}/{idBloc}", name="voirFicheLEI")
      * @param Request $request
      * @param $idFiche
      * @param $url
+     * @param $idModule
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
-    public function voirFicheLEIAction($idFiche, $url){
-        $xml = simplexml_load_file('https://apps.tourisme-alsace.info/batchs/LIENS_PERMANENTS/2002206000029_Batch_siteweb_terres_oh.xml');
+    public function voirFicheLEIAction($url, $idFiche, $idBloc){
+        if($idBloc != 0){
+            $repoBloc = $this->getDoctrine()->getRepository(Bloc::class);
+            $bloc = $repoBloc->find($idBloc);
+            $flux = $bloc->getContenu()['flux'];
+        }else{
+            $flux = 'https://apps.tourisme-alsace.info/batchs/LIENS_PERMANENTS/2002206000029_Batch_siteweb_terres_oh.xml';
+        }
+
+        $xml = simplexml_load_file($flux);
 
         $json = json_encode($xml);
 
@@ -40,5 +50,18 @@ class LEIController extends Controller
         }
 
         return $this->render('Blocs/LEI/fiche.html.twig', array('fiche'=>$ficheRecherchee));
+    }
+
+    /**
+     * @Route("/{_locale}/recherche", name="rechercheLEI")
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     */
+    public function rechercheAction(){//Développement Terres d'Oh!
+        $xml = simplexml_load_file('https://apps.tourisme-alsace.info/batchs/LIENS_PERMANENTS/2002206000029_Batch_siteweb_terres_oh.xml');
+
+        $json = json_encode($xml);
+
+        return $this->render('Blocs/LEI/recherche.html.twig', array('post' => $_POST, 'json' => $json));
     }
 }

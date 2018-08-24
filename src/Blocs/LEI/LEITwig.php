@@ -28,10 +28,10 @@ class LEITwig extends \Twig_Extension
         );
     }
 
-    public function listeLEI($flux, $limite = null)
+    public function listeLEI($idBloc, $flux, $limite = null)
     {
         $xml = simplexml_load_file($flux)->Resultat->children();
 
-        return $this->twig->render('Blocs/LEI/liste.html.twig', array('xml' => $xml, 'limite' => $limite));
+        return $this->twig->render('Blocs/LEI/liste.html.twig', array('xml' => $xml, 'limite' => $limite, 'idBloc' => $idBloc));
     }
 }

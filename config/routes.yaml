@@ -18,6 +18,10 @@ fos_user_change_password:
     resource: "@FOSUserBundle/Resources/config/routing/change_password.xml"
     prefix: /profile
 
+bloc_LEI:
+    resource: "../src/Blocs/LEI/LEIController.php"
+    type: annotation
+
 sitemap:
     resource: "../src/Controller/SitemapController.php"
     type: annotation
@@ -44,8 +48,4 @@ categorie:
 
 bloc:
     resource: "../src/Controller/Back/BlocController.php"
-    type: annotation
-
-bloc_LEI:
-    resource: "../src/Blocs/LEI/LEIController.php"
     type: annotation
