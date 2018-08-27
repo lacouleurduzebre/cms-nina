@@ -23,6 +23,27 @@ class RechercheLEIController extends AbstractController
     public function rechercheAction(Request $request){
         $fiches = simplexml_load_file('https://apps.tourisme-alsace.info/batchs/LIENS_PERMANENTS/2002206000029_Batch_siteweb_terres_oh.xml')->Resultat->children();
 
+        if($request->isXmlHttpRequest()){
+            $data = $request->get('donnees');
+
+            $resultat = [];
+            foreach($fiches as $fiche){
+                $criteres = end($fiche->CRITERES);
+                $attributes = end($criteres)->attributes();
+                foreach($attributes as $key => $critere){
+                    foreach($data as $ligne){
+                        if($critere == $ligne['value']){
+                            $resultat[] = $fiche;
+                            break 2;
+                        }
+                    }
+                }
+            }
+            $fiches = $resultat;
+
+            return $this->render('resultatRecherche.html.twig', array('fiches' => $fiches));
+        }
+
         if($_POST){
             $resultat = [];
             foreach($fiches as $fiche){
@@ -38,7 +59,7 @@ class RechercheLEIController extends AbstractController
             $fiches = $resultat;
         }
 
-        return $this->render('recherche.html.twig', array('fiches' => $fiches, 'limite' => null, 'post' => $_POST));
+        return $this->render('recherche.html.twig', array('fiches' => $fiches, 'limite' => null, 'recherche' => $_POST, 'pageRecherche' => true));
     }
 
     /**
