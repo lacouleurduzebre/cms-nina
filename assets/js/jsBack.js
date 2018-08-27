@@ -2,6 +2,7 @@ $(document).ready(function(){
     /* Initialisation TinyMCE */
     tinymce.init({
         selector: "textarea",
+        language: "fr_FR",
         theme: "modern",
         height: 300,
         plugins: [
@@ -20,7 +21,13 @@ $(document).ready(function(){
         block_formats: 'Paragraphe=p;Titre h2=h2;Titre h3=h3;Titre h4=h4;Titre h5=h5;Titre h6=h6',
         image_advtab: true,
         toolbar1: "undo redo | bold italic underline | alignleft aligncenter alignright | bullist numlist outdent indent | formatselect",
-        toolbar2: "| responsivefilemanager | image | media | link unlink anchor | preview | code"
+        toolbar2: "| responsivefilemanager | image | media | link unlink anchor | preview | code",
+
+        init_instance_callback: function (editor) {
+            editor.on('change', function (e) {
+                $('.formulaire-actions-enregistrer').attr("disabled", false);
+            });
+        }
     });
 
     /* Pop-up pour confirmer une suppression */
@@ -121,6 +128,7 @@ $(document).ready(function(){
                 tinymce.remove();
                 tinymce.init({
                     selector: "textarea",
+                    language: "fr_FR",
                     theme: "modern",
                     height: 300,
                     plugins: [
@@ -205,6 +213,7 @@ $(document).ready(function(){
             $('.field-bloc').each(function(){
                 idBloc = $(this).find('.control-label').html();
                 $(this).find('#page_active_blocs_'+idBloc+'_position').val($(this).index());
+                $('.formulaire-actions-enregistrer').attr("disabled", false);
             })
         }
     });

@@ -39,30 +39,33 @@ class Arborescence extends \Twig_Extension
 
     public function menusBack()
     {
+        $repoLangue = $this->doctrine->getRepository(Langue::class);
+        $emMenu = $this->doctrine->getRepository(Menu::class);
+
         //Langue
-        if(!isset($_COOKIE['langueArbo'])){
-            $menus = null;
-            $langue = null;
-        }else{
+        if(isset($_COOKIE['langueArbo'])){
             $langueArbo = $_COOKIE['langueArbo'];
-
-            $repoLangue = $this->doctrine->getRepository(Langue::class);
             $langue = $repoLangue->find($langueArbo);
-
-            //Menus
-            $emMenu = $this->doctrine->getRepository(Menu::class);
-            $menus = $emMenu->findBy(array('langue'=>$langue));
+        }else{
+            $langue = $repoLangue->findOneBy(array('defaut' => 1));
         }
+
+        //Menus
+        $menus = $emMenu->findBy(array('langue'=>$langue));
 
         return $this->twig->render('back/menu/arborescence.html.twig', array('menus' => $menus, 'langueArbo' => $langue));
     }
 
     public function pagesOrphelines()
     {
-        $langueArbo = $_COOKIE['langueArbo'];
-
         $emLangue = $this->doctrine->getRepository(Langue::class);
-        $langue = $emLangue->find($langueArbo);
+
+        if(isset($_COOKIE['langueArbo'])){
+            $langueArbo = $_COOKIE['langueArbo'];
+            $langue = $emLangue->find($langueArbo);
+        }else{
+            $langue = $emLangue->findOneBy(array('defaut' => 1));
+        }
 
         $emMenuPage = $this->doctrine->getRepository(MenuPage::class);
 
@@ -85,14 +88,18 @@ class Arborescence extends \Twig_Extension
         $repoLangue = $this->doctrine->getRepository(Langue::class);
 
         if($office == 'back'){
-            $langue = $_COOKIE['langueArbo'];
-            $langueArbo = $repoLangue->find($langue);
+            if(isset($_COOKIE['langueArbo'])){
+                $langueArbo = $_COOKIE['langueArbo'];
+                $langue = $repoLangue->find($langueArbo);
+            }else{
+                $langue = $repoLangue->findOneBy(array('defaut' => 1));
+            }
         }else{
             $langueArbo = null;
         }
 
-        $emMenuPage = $this->doctrine->getRepository(MenuPage::class);
-        $menuPages = $emMenuPage->findBy(array('pageParent' => $id));
+        $repoMenuPage = $this->doctrine->getRepository(MenuPage::class);
+        $menuPages = $repoMenuPage->findBy(array('pageParent' => $id));
 
         if ($menuPages){
             return $this->twig->render($office.'/menu/sousMenu.html.twig', array('menuPages' => $menuPages, 'langueArbo' => $langueArbo));
@@ -115,9 +122,14 @@ class Arborescence extends \Twig_Extension
 
     public function pageAccueil()
     {
-        $langueArbo = $_COOKIE['langueArbo'];
         $repoLangue = $this->doctrine->getRepository(Langue::class);
-        $langue = $repoLangue->find($langueArbo);
+
+        if(isset($_COOKIE['langueArbo'])){
+            $langueArbo = $_COOKIE['langueArbo'];
+            $langue = $repoLangue->find($langueArbo);
+        }else{
+            $langue = $repoLangue->findOneBy(array('defaut' => 1));
+        }
 
         if($langue->getPageAccueil() !== null){
             $pageAccueil = $langue->getPageAccueil();
