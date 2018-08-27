@@ -85,6 +85,9 @@
     {% endif %}
 {% endblock %}
 
+{# Si besoin d'un bloc sur toute la largeur de l'écran #}
+{% block before_main %}{% endblock %}
+
 <main {% if page is defined and page is not empty %}id="{{ page.id }}" {% endif %}class="mw960p center flex-container{% if page is defined %} page"{% endif %}">
     {% block fos_user_content %}
     {% endblock %}
