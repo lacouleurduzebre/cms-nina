@@ -41,7 +41,7 @@
                     </a>
                 {% endif %}
             {% endfor %}
-            {% if request_parameters.entity == "Page_Active" %}
+            {% if request_parameters.entity == "Page_Active" and item_id is not empty %}
                 {% set request_parameters = original_request_params %}
                 {% set action_href = path('easyadmin', request_parameters|merge({ action: 'activer', id: item_id })) %}
                 <a href="{{ action_href }}">
