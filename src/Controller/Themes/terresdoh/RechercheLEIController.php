@@ -59,7 +59,7 @@ class RechercheLEIController extends AbstractController
             $fiches = $resultat;
         }
 
-        return $this->render('recherche.html.twig', array('fiches' => $fiches, 'limite' => null, 'recherche' => $_POST, 'pageRecherche' => true));
+        return $this->render('recherche.html.twig', array('fiches' => $fiches, 'recherche' => $_POST, 'pageRecherche' => true));
     }
 
     /**

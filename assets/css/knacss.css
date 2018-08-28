@@ -533,10 +533,10 @@ q {
 
 q,
 .q {
-  quotes: "ÔÇ£" "ÔÇØ" "ÔÇÿ" "ÔÇÖ"; }
+  quotes: "“" "”" "‘" "’"; }
   q:lang(fr),
   .q:lang(fr) {
-    quotes: "┬½\00a0" "\00a0┬╗" "ÔÇ£" "ÔÇØ"; }
+    quotes: "«\00a0" "\00a0»" "“" "”"; }
 
 hr {
   display: block;
@@ -1848,7 +1848,7 @@ button:focus {
   .button--ghost:active,
   .button--ghost:focus,
   .button--ghost:hover {
-    background-color: rgba(0, 0, 0, 0); }
+    background-color: transparent; }
 
 .btn--small,
 .button--small {
@@ -1970,12 +1970,12 @@ button:focus {
     color: #fff; }
   .toggle input::before {
     float: right;
-    margin-right: 0.6666666667rem; }
+    margin-right: 0.66667rem; }
   .toggle input:checked {
     box-shadow: inset 2rem 0 0 #5CB85C, inset 0 0 0 1px #5CB85C; }
     .toggle input:checked::before {
       float: left;
-      margin-left: 0.6666666667rem; }
+      margin-left: 0.66667rem; }
 
 .checkbox input {
   width: 2rem;
@@ -2363,7 +2363,8 @@ body.list .table, body.list .table td, body.list .table th, .sauvegarde .table, 
 body.new form, body.edit form {
   padding: 0 2rem; }
   body.new form input[type='text']:focus, body.edit form input[type='text']:focus {
-    box-shadow: 0 2px 0 #0791B3; }
+    box-shadow: 0 2px 0 #0791B3;
+    background-color: #eefbfe; }
 body.new #main, body.edit #main {
   padding-top: 10rem; }
 body.new .content-wrapper, body.new .sf-toolbar-clearer, body.new ul.nav-tabs, body.edit .content-wrapper, body.edit .sf-toolbar-clearer, body.edit ul.nav-tabs {
@@ -2430,7 +2431,7 @@ ul.nav-tabs {
 .tab-pane:not(.active) {
   display: none; }
 
-/* ├ël├®ments de formulaire */
+/* Éléments de formulaire */
 .field-collection-action {
   margin-top: 1rem;
   font-size: 1.9rem; }
@@ -2499,7 +2500,7 @@ body.edit.gris .content-header, body.new.gris .content-header {
 #form-actions-row {
   margin-top: 1rem; }
 
-/* M├®diath├¿que */
+/* Médiathèque */
 a.bloc_image_bouton_mediatheque {
   display: inline-block;
   margin: 1rem 0; }
@@ -2517,7 +2518,7 @@ a.bloc_image_bouton_mediatheque {
     color: #fff;
     text-decoration: none; }
 
-/* Aper├ºu */
+/* Aperçu */
 .apercuLogo {
   margin-top: 1rem; }
   .apercuLogo img {
@@ -2542,7 +2543,7 @@ a.bloc_image_bouton_mediatheque {
   max-width: 30rem;
   max-height: 30rem; }
 
-/* T├®l├®chargement d'images (ex: logo) */
+/* Téléchargement d'images (ex: logo) */
 .easyadmin-thumbnail img {
   max-width: 25rem; }
 
@@ -2581,7 +2582,7 @@ td[data-label="Image profil"] img {
   border-radius: 50%;
   object-fit: cover; }
 
-/* Page m├®diath├¿que */
+/* Page médiathèque */
 .iframeMediatheque {
   height: calc(100vh - 6.6rem); }
 

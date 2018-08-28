@@ -214,9 +214,10 @@ class MenuController extends Controller
 
             $idPage = $request->get('idPage');
             $page = $repoPage->find($idPage);
+            $locale = $page->getLangue()->getAbreviation();
             $url = $page->getSeo()->getUrl();
 
-            return new Response($url);
+            return new Response($locale.'/'.$url);
         };
 
         return false;
@@ -238,8 +239,12 @@ class MenuController extends Controller
             $titrePage = $page->getTitre();
 
             //Langue
-            $langueArbo = $_COOKIE['langueArbo'];
             $repoLangue = $em->getRepository(Langue::class);
+            if(isset($_COOKIE['langueArbo'])){
+                $langueArbo = $_COOKIE['langueArbo'];
+            }else{
+                $langueArbo = $repoLangue->findOneBy(array('defaut' => 1));
+            }
             $langue = $repoLangue->find($langueArbo);
 
             $langue->setPageAccueil($page);

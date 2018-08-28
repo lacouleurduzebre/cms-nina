@@ -10,6 +10,7 @@ namespace App\Controller\Back;
 
 use App\Entity\Commentaire;
 use App\Entity\Langue;
+use App\Entity\MenuPage;
 use App\Entity\Page;
 use App\Entity\TypeCategorie;
 use App\Entity\Utilisateur;
@@ -141,8 +142,12 @@ class AdminController extends BaseAdminController
 
         $nouvellePage->getSEO()->setUrl($nouvellePage->getSEO()->getUrl().'-copie');
 
+        $menuPage = new menuPage();
+        $menuPage->setPage($nouvellePage)->setPosition(0);
+
         $this->em->persist($nouvellePage);
         $this->em->persist($nouveauSEO);
+        $this->em->persist($menuPage);
         $this->em->flush();
 
         return $this->redirectToRoute('easyadmin', array(
@@ -161,12 +166,26 @@ class AdminController extends BaseAdminController
         if($entity->getCorbeille()){
             $entity->setCorbeille(false);
 
+            if($class == 'Page'){
+                $menuPage = new menuPage();
+                $menuPage->setPage($entity)->setPosition(0);
+                $this->em->persist($menuPage);
+                $this->em->flush();
+            }
+
             //Message flash
             $this->addFlash( 'success',
                 'L\'élément a été restauré.'
             );
         }else{
             $entity->setCorbeille(true);
+
+            if($class == 'Page'){
+                $repoMenuPage = $this->getDoctrine()->getRepository(MenuPage::class);
+                $menuPage = $repoMenuPage->findOneBy(array('page' => $entity));
+                $this->em->remove($menuPage);
+                $this->em->flush();
+            }
 
             //Message flash
             $url = $this->generateUrl('admin',['action'=>'corbeille', 'entity'=>$this->request->query->get('entity'), 'id'=>$entity->getId()]);

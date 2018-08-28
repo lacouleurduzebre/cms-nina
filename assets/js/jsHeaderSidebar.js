@@ -21,10 +21,10 @@ $(document).ready(function(){
         if($('body').hasClass('front')){
             idPage = $('main.page').attr('id');
         }else if($('body').hasClass('easyadmin')){
-            idPage = $('form').attr('data-entity-id');
+            idPage = $('#edit-page_active-form').attr('data-entity-id');
         }
-        $('.page#'+idPage).parent('a').addClass('page-active');
-        $('.page#'+idPage).parents('.jstree').find('li[id$="_1"] > a').addClass('page-active');
+        $('#'+idPage+'.page').closest('a').addClass('page-active');
+        $('#'+idPage+'.page').parents('.jstree').find('li[id$="_1"] > a').addClass('page-active');
     };
 
     $('.sidebar-menus div[id^="menu"]').on('ready.jstree open_node.jstree move_node.jstree', surbrillancePageActive);
