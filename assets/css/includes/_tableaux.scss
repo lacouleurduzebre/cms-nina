@@ -27,10 +27,12 @@
 }
 
 tr.ouvert{
-  td:first-of-type svg{
-    transform: rotate(180deg);
-  }
-  td:not(:first-of-type){
-    display: block;
+  @include respond-to("medium"){
+    td:first-of-type svg{
+      transform: rotate(180deg);
+    }
+    td:not(:first-of-type){
+      display: block;
+    }
   }
 }
