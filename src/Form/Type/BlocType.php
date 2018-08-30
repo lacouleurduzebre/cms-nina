@@ -36,7 +36,15 @@ class BlocType extends AbstractType
                 'choices' => $types
             ))
             ->add('position', HiddenType::class, array('data'=>'0'))
-            ->add('class', TextType::class)
+            ->add('class', TextType::class, array(
+                'label' => 'Classe'
+            ))
+            ->add('htmlAvant', TextType::class, array(
+                'label' => 'Code HTML à insérer avant le bloc'
+            ))
+            ->add('htmlApres', TextType::class, array(
+                'label' => 'Code HTML à insérer après le bloc'
+            ))
         ;
 
         $builder->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event) {

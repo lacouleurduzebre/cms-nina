@@ -44,12 +44,14 @@ $(document).ready(function(){
 
                     idMenuComplet = $('#'+node.id).parents('div').attr('id');
 
+                    idLangue = $(".arbo-langues .current a").attr("class");
+
                     $('#loader-arbo.'+idMenuComplet).fadeIn().html("<i class='fas fa-sync fa-spin'></i>");
 
                     $.ajax({
                         url: baseURL+Routing.generate('ajouterPageEnfant'),
                         method: "post",
-                        data: {idPageParent: idPageParent, idMenu : idMenu}
+                        data: {idPageParent: idPageParent, idMenu: idMenu, idLangue: idLangue}
                     })
                         .done(function(data){
                             $('#loader-arbo.'+idMenuComplet).fadeIn().html("<i class='fas fa-check'></i>").delay(600).fadeOut();

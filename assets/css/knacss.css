@@ -3180,7 +3180,8 @@ body.list #flash-messages > * {
 
 .type-bloc {
   color: #0791B3;
-  margin-bottom: 0; }
+  margin-bottom: 0;
+  font-size: 1.8rem; }
 
 div[id^="page_active_blocs"] .field-collection-action, div[id^="page_active_blocs"] .field-collection-item-action {
   display: none; }
@@ -3245,5 +3246,23 @@ div[id^="page_active_blocs_"]:not([id$="contenu"]) > div:first-child {
   .bloc-menu.actif ul {
     display: block;
     z-index: 100; }
+
+.bloc-optionsAffichage {
+  display: none;
+  background: #FFF;
+  padding: .5rem 1rem 1rem;
+  margin-top: 1rem; }
+  .bloc-optionsAffichage.actif {
+    display: block; }
+  .bloc-optionsAffichage p {
+    align-items: center;
+    color: #0791B3;
+    font-size: 1.8rem; }
+    .bloc-optionsAffichage p svg:first-child {
+      color: #75726B;
+      margin-right: .5rem; }
+
+.bloc-optionsAffichage-fermeture {
+  cursor: pointer; }
 
 /*# sourceMappingURL=knacss.css.map */

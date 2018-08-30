@@ -42,6 +42,16 @@ class Bloc
      */
     private $class;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $htmlAvant;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $htmlApres;
+
     public function getId()
     {
         return $this->id;
@@ -103,6 +113,30 @@ class Bloc
     public function setClass(?string $class): self
     {
         $this->class = $class;
+
+        return $this;
+    }
+
+    public function getHtmlAvant(): ?string
+    {
+        return $this->htmlAvant;
+    }
+
+    public function setHtmlAvant(?string $htmlAvant): self
+    {
+        $this->htmlAvant = $htmlAvant;
+
+        return $this;
+    }
+
+    public function getHtmlApres(): ?string
+    {
+        return $this->htmlApres;
+    }
+
+    public function setHtmlApres(?string $htmlApres): self
+    {
+        $this->htmlApres = $htmlApres;
 
         return $this;
     }

@@ -41,6 +41,7 @@
 .type-bloc{
   color: $color-brand2;
   margin-bottom: 0;
+  font-size: 1.8rem;
 }
 
 div[id^="page_active_blocs"]{
@@ -128,4 +129,27 @@ div[id^="page_active_blocs_"]:not([id$="contenu"]){
       z-index: 100;
     }
   }
+}
+
+.bloc-optionsAffichage{
+  display: none;
+  background: #FFF;
+  padding: .5rem 1rem 1rem;
+  margin-top: 1rem;
+  &.actif{
+    display: block;
+  }
+  p{
+    align-items: center;
+    color: $color-brand2;
+    font-size: 1.8rem;
+    svg:first-child{
+      color: $color-primary;
+      margin-right: .5rem;
+    }
+  }
+}
+
+.bloc-optionsAffichage-fermeture{
+  cursor: pointer;
 }

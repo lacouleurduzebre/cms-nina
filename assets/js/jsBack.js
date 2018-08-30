@@ -259,6 +259,13 @@ $(document).ready(function(){
             $(this).closest('div').removeClass('actif');
 
             bloc = $(this).closest('.field-bloc');
+
+            bloc.find('.bloc-optionsAffichage').toggleClass('actif');
+        });
+
+            /* Fermeture */
+        $('#page_active_blocs').on('click', '.bloc-optionsAffichage-fermeture', function(){
+           $(this).closest('div').removeClass('actif');
         });
 
         /* Supprimer */

@@ -127,8 +127,8 @@ class MenuController extends Controller
             $SEO->setMetaTitre($titre)->setUrl($url);
             $page->setSeo($SEO);
 
-            $locale = $request->getLocale();
-            $langue = $repoLangue->findOneBy(array('abreviation' => $locale));
+            $idLangue = $request->get('idLangue');
+            $langue = $repoLangue->find($idLangue);
             $page->setLangue($langue);
 
             $em->persist($page);
