@@ -94,15 +94,17 @@ class Arborescence extends \Twig_Extension
             }else{
                 $langue = $repoLangue->findOneBy(array('defaut' => 1));
             }
-        }else{
-            $langueArbo = null;
         }
 
         $repoMenuPage = $this->doctrine->getRepository(MenuPage::class);
         $menuPages = $repoMenuPage->findBy(array('pageParent' => $id));
 
         if ($menuPages){
-            return $this->twig->render($office.'/menu/sousMenu.html.twig', array('menuPages' => $menuPages, 'langueArbo' => $langueArbo));
+            if($office == 'back'){
+                return $this->twig->render('back/menu/sousMenu.html.twig', array('menuPages' => $menuPages, 'langueArbo' => $langue));
+            }else{
+                return $this->twig->render('front/menu/sousMenu.html.twig', array('menuPages' => $menuPages));
+            }
         }else{
             return false;
         }
