@@ -93,7 +93,7 @@ $(document).ready(function(){
     });
 
     /* Affichage du formulaire en fonction du type du bloc */
-    $('#edit-page_active-form').on('change', 'select[id^="page_active_blocs"]', function(){
+    $('form[id$="page_active-form"]').on('change', 'select[id^="page_active_blocs"]', function(){
         type = $(this).val();
         id = $(this).attr('id');
         idBloc = $(this).closest('.field-bloc').children('label').html();
@@ -124,6 +124,7 @@ $(document).ready(function(){
                 }
                 $('#'+id).closest('div').append('<p class="type-bloc">'+type+'</p>');
                 $('#'+id).hide().prev('label').hide();
+                $('html,body').animate({scrollTop: jQuery('#'+idBloc).offset().top},'fast');
                 // TinyMCE
                 tinymce.remove();
                 tinymce.init({

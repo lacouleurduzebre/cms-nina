@@ -1,5 +1,10 @@
 <div class="grid-3 small-1 has-gutter-xl">
-    {% for page in pagesDeLaCategorie(bloc.contenu.categorie) %}
+    {% if limite is not empty %}
+        {% set pages = pagesDeLaCategorie(bloc.contenu.categorie)|slice(0, limite) %}
+    {% else %}
+        {% set pages = pagesDeLaCategorie(bloc.contenu.categorie) %}
+    {% endif %}
+    {% for page in pages %}
         <div class="blocCategorie-page flex-container-v">
             <p>{{ page.titre }}</p>
             <a href="{{ page.seo.url }}">{% trans %}Voir la page{% endtrans %}</a>

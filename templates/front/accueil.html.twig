@@ -14,7 +14,7 @@
         {{ page.seo.metaDescription|striptags }}
     {% elseif page is not empty %}
         {{ page.langue.metaDescription|striptags }}
-    {% else %}
+    {% else if langueActive is not empty and langueActive.metaDescription is not empty %}
         {{ langueActive.metaDescription|striptags }}
     {% endif %}
 {% endblock %}

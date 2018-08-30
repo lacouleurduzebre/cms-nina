@@ -2574,6 +2574,9 @@ body {
     color: #000;
     text-decoration: none; }
 
+body {
+  position: relative; }
+
 /* Centre */
 html, .content-wrapper, .sf-toolbar-clearer {
   background-color: #fcfcfc; }

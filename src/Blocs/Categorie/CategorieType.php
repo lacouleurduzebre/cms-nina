@@ -14,6 +14,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -36,6 +37,10 @@ class CategorieType extends AbstractType
         $builder
             ->add('categorie', ChoiceType::class, array(
                 'choices' => $categories
+            ))
+            ->add('limite', NumberType::class, array(
+                'label' => 'Nombre limite de résultats',
+                'required' => false
             ));
     }
 
