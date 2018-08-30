@@ -40,6 +40,7 @@ class CategorieType extends AbstractType
             ))
             ->add('limite', NumberType::class, array(
                 'label' => 'Nombre limite de résultats',
+                'help' => "Si aucune limite n'est précisée, tous les résultats seront affichés",
                 'required' => false
             ));
     }

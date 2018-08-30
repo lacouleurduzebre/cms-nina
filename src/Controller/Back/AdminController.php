@@ -35,6 +35,13 @@ class AdminController extends BaseAdminController
         $this->addFlash('enregistrement', "\"".$entity."\" : enregistrement terminé");
     }
 
+    protected function persistEntity($entity)
+    {
+        parent::persistEntity($entity);
+
+        $this->addFlash('enregistrement', "\"".$entity."\" : enregistrement terminé");
+    }
+
     /**
      * @return RedirectResponse
      */

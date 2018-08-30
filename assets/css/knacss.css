@@ -2714,6 +2714,9 @@ ul.nav-tabs {
   display: none; }
 
 /* ├ël├®ments de formulaire */
+.help-text {
+  font-size: 1.3rem; }
+
 .field-collection-action {
   margin-top: 1rem;
   font-size: 1.9rem; }
@@ -2732,6 +2735,9 @@ body.edit .content-header, body.new .content-header {
   z-index: 10; }
 body.edit.gris .content-header, body.new.gris .content-header {
   background-color: #75726B; }
+
+body.notFull .select2-dropdown {
+  left: 30rem; }
 
 .select2-container--bootstrap.select2-container--focus .select2-selection, .select2-container--bootstrap.select2-container--open .select2-selection, .select2-container--bootstrap .select2-dropdown {
   box-shadow: none;
