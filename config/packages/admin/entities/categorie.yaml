@@ -5,11 +5,13 @@ easy_admin:
             controller: App\Controller\Back\AdminController
             label: 'Catégories'
             list:
+                actions:
+                    - { name: 'voir', label: '', title: 'Voir', icon: 'eye' }
                 sort: 'nom'
                 fields:
                     - nom
                     - { property: 'description', type: 'raw' }
-                    - { property: 'url', type: 'url'}
+                    - { property: 'url', type: 'text'}
                     - { property : 'categorieParent', label: 'Catégorie parent', sortable: true}
                     - { property : 'typeCategorie.nom', label: 'Type', sortable: true}
             search:
@@ -26,6 +28,7 @@ easy_admin:
                     - { property : 'typeCategorie.nom', label: 'Type'}
             form:
                 actions:
+                    - { name: 'voir', label: '', title: 'Voir', icon: 'eye' }
                     - { name: 'delete', label: 'Supprimer', title: 'Supprimer', icon: 'trash', css_class: '' }
                     - { name: 'list', label: 'Retour', title: 'Retour', icon: 'arrow-left', css_class: '' }
                 fields:

@@ -143,8 +143,14 @@
                         <td data-label="{{ _column_label }}" class="{{ isSortingField ? 'sorted' }} {{ metadata.dataType|lower }} {{ metadata.css_class }} {% if loop.first %}toggleElementTableau{% endif %}">
                             {% if loop.first %}
                                 <i class="fas fa-angle-down"></i>
+                                {% if _entity_config.name != 'Page_Corbeille' and _entity_config.name != 'Commentaire_Corbeille' %}
+                                    <a href="{{ path('easyadmin', {action: 'edit', entity: _entity_config.name, id: item.id}) }}">
+                                {% endif %}
                             {% endif %}
                             {{ easyadmin_render_field_for_list_view(_entity_config.name, item, metadata) }}
+                            {% if loop.first and _entity_config.name != 'Page_Corbeille' and _entity_config.name != 'Commentaire_Corbeille' %}
+                                </a>
+                            {% endif %}
                         </td>
                     {% endfor %}
 

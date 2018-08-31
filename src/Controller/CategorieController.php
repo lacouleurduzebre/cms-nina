@@ -18,11 +18,11 @@ use Symfony\Component\Routing\Annotation\Route;
 class CategorieController extends Controller
 {
     /**
-     * @Route("/{urlTypeCategorie}", name="voirTypeCategorie")
+     * @Route("/{_locale}/{urlTypeCategorie}", name="voirTypeCategorie")
      * @param $urlTypeCategorie
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function voirTypeCategorieAction($urlTypeCategorie){
+    public function voirTypeCategorieAction($_locale, $urlTypeCategorie){
         $em = $this->getDoctrine()->getManager();
 
         $typeCategorie = $em->getRepository(TypeCategorie::class)->findOneBy(array('url'=>$urlTypeCategorie));
@@ -41,12 +41,13 @@ class CategorieController extends Controller
     }
 
     /**
-     * @Route("/{urlTypeCategorie}/{urlCategorie}", name="voirCategorie")
+     * @Route("/{_locale}/{urlTypeCategorie}/{urlCategorie}", name="voirCategorie")
+     * @param $_locale
      * @param $urlTypeCategorie
      * @param $urlCategorie
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function voirCategorieAction($urlTypeCategorie, $urlCategorie){
+    public function voirCategorieAction($_locale, $urlTypeCategorie, $urlCategorie){
         $em = $this->getDoctrine()->getManager();
 
         $typeCategorie = $em->getRepository(TypeCategorie::class)->findOneBy(array('url'=>$urlTypeCategorie));

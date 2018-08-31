@@ -9,7 +9,6 @@
     <div class="extrait">
         <h2><a href="{{ path('voirPage', {'url':page.seo.url}) }}">{{ page.titre }}</a></h2>
         <span>Publié le {{ page.datePublication|date("d/m/Y") }}{# par {{ page.auteur }}#}</span>
-        <p>{{ page.contenu|raw }}</p>
     </div>
     {% endfor %}
 {% endblock %}

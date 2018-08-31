@@ -47,6 +47,7 @@ easy_admin:
         Commentaire_Corbeille:
             class: App\Entity\Commentaire
             label: 'Commentaires à la corbeille'
+            disabled_actions: ['edit']
             list:
                   dql_filter: 'entity.corbeille = true'
                   sort: 'page.titre'

@@ -5,6 +5,8 @@ easy_admin:
             controller: App\Controller\Back\AdminController
             label: 'Types de catégories'
             list:
+                actions:
+                    - { name: 'voir', label: '', title: 'Voir', icon: 'eye' }
                 fields:
                     - nom
                     - { property: 'description', type: 'raw' }
@@ -20,6 +22,7 @@ easy_admin:
                     - url
             form:
                 actions:
+                    - { name: 'voir', label: '', title: 'Voir', icon: 'eye' }
                     - { name: 'delete', label: 'Supprimer', title: 'Supprimer', icon: 'trash', css_class: '' }
                     - { name: 'list', label: 'Retour', title: 'Retour', icon: 'arrow-left', css_class: '' }
                 fields:

@@ -8,6 +8,7 @@
 
 namespace App\Controller\Back;
 
+use App\Entity\Categorie;
 use App\Entity\Commentaire;
 use App\Entity\Langue;
 use App\Entity\MenuPage;
@@ -19,7 +20,6 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\PropertyAccess\PropertyAccess;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Yaml\Yaml;
 
 /**
  * Class AdminController
@@ -28,18 +28,40 @@ use Symfony\Component\Yaml\Yaml;
  */
 class AdminController extends BaseAdminController
 {
-    protected function updateEntity($entity)
+    protected function updateEntity($entity)//edit
     {
         parent::updateEntity($entity);
 
         $this->addFlash('enregistrement', "\"".$entity."\" : enregistrement terminé");
     }
 
-    protected function persistEntity($entity)
+    protected function persistEntity($entity)//new
     {
         parent::persistEntity($entity);
 
         $this->addFlash('enregistrement', "\"".$entity."\" : enregistrement terminé");
+    }
+
+    protected function persistPage_ActiveEntity($entity)
+    {
+        foreach($entity->getBlocs() as $bloc){
+            if(!$bloc->getType()){
+                $entity->removeBloc($bloc);
+            }
+        }
+
+        $this::persistEntity($entity);
+    }
+
+    protected function updatePage_ActiveEntity($entity)
+    {
+        foreach($entity->getBlocs() as $bloc){
+            if(!$bloc->getType()){
+                $entity->removeBloc($bloc);
+            }
+        }
+
+        $this::updateEntity($entity);
     }
 
     /**
@@ -209,12 +231,23 @@ class AdminController extends BaseAdminController
     }
 
     public function voirAction(){
-        $idPage = $this->request->query->get('id');
-        $page = $this->em->getRepository(Page::class)->find($idPage);
-
-        $url = $page->getSeo()->getUrl();
-
-        return $this->redirectToRoute('voirPage', array('url' => $url));
+        $entity = $this->request->query->get('entity');
+        $id = $this->request->query->get('id');
+        if($entity == 'Categorie'){
+            $categorie = $this->em->getRepository(Categorie::class)->find($id);
+            $urlCategorie = $categorie->getUrl();
+            $urlTypeCategorie = $categorie->getTypeCategorie()->getUrl();
+            return $this->redirectToRoute('voirCategorie', array('urlTypeCategorie' => $urlTypeCategorie, 'urlCategorie' => $urlCategorie));
+        }
+        else if($entity = 'TypeCategorie'){
+            $typeCategorie = $this->em->getRepository(TypeCategorie::class)->find($id);
+            $urlTypeCategorie = $typeCategorie->getUrl();
+            return $this->redirectToRoute('voirTypeCategorie', array('urlTypeCategorie' => $urlTypeCategorie));
+        }else{
+            $page = $this->em->getRepository(Page::class)->find($id);
+            $url = $page->getSeo()->getUrl();
+            return $this->redirectToRoute('voirPage', array('url' => $url));
+        }
     }
 
     public function activerAction(){

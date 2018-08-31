@@ -42,12 +42,12 @@ accueil:
     resource: "../src/Controller/AccueilController.php"
     type: annotation
 
-page:
-    resource: "../src/Controller/PageController.php"
-    type: annotation
-
 categorie:
     resource: "../src/Controller/CategorieController.php"
+    type: annotation
+
+page:
+    resource: "../src/Controller/PageController.php"
     type: annotation
 
 bloc:

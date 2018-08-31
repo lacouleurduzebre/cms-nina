@@ -70,12 +70,12 @@ easy_admin:
             class: App\Entity\Page
             controller: App\Controller\Back\AdminController
             label: 'Pages à la corbeille'
+            disabled_actions: ['edit']
             list:
                 dql_filter: 'entity.corbeille = true'
                 sort: 'titre'
                 actions:
                     - { name: 'corbeille', label: '', title: 'Restaurer', icon: 'recycle' }
-                disabled_actions: ['edit', 'delete']
                 fields:
                     - titre
                     - auteur

@@ -8,7 +8,7 @@ $(document).ready(function(){
         plugins: [
             "advlist autolink link image lists charmap print preview hr anchor pagebreak",
             "searchreplace wordcount visualblocks visualchars insertdatetime media nonbreaking spellchecker",
-            "table contextmenu directionality emoticons paste textcolor responsivefilemanager code"
+            "table contextmenu directionality emoticons paste textcolor responsivefilemanager code imagetools"
         ],
         relative_urls: false,
         menubar: false,
@@ -20,8 +20,7 @@ $(document).ready(function(){
         extended_valid_elements: 'i[class]',
         block_formats: 'Paragraphe=p;Titre h2=h2;Titre h3=h3;Titre h4=h4;Titre h5=h5;Titre h6=h6',
         image_advtab: true,
-        toolbar1: "undo redo | bold italic underline | alignleft aligncenter alignright | bullist numlist outdent indent | formatselect",
-        toolbar2: "| responsivefilemanager | image | media | link unlink anchor | preview | code",
+        toolbar1: "formatselect | image | media | link unlink | copy paste pastetext | bold italic underline | alignleft aligncenter alignright | bullist numlist | code | undo redo",
 
         init_instance_callback: function (editor) {
             editor.on('change', function (e) {
@@ -48,21 +47,21 @@ $(document).ready(function(){
     /* URL automatique */
     creationURL = function( event ){
         if($('body').hasClass('new')) {
-            var caracteresInterdits = new RegExp('[ \'\"]', 'gi');
-            var caracteresInutiles = new RegExp('[()]', 'i');
             var e = new RegExp('[éèêëÉÈÊË]', 'gi');
             var a = new RegExp('[àÀ]', 'gi');
             var u = new RegExp('[ùûÛ]', 'u');
             var o = new RegExp('[ôÔ]', 'u');
             var i = new RegExp('[îïÎÏ]', 'i');
             titreOK = $(this).val()
-                .replace(caracteresInterdits, '-')
-                .replace(caracteresInutiles, '')
                 .replace(e, 'e')
                 .replace(a, 'a')
                 .replace(u, 'u')
                 .replace(o, 'o')
                 .replace(i, 'i')
+                .replace(/\s+/g, '-')           // Replace spaces with -
+                .replace(/[^\w\-]+/g, '')       // Remove all non-word chars
+                .replace(/^-+/, '')             // Trim - from start of text
+                .replace(/-+$/, '') // Trim - from end of text
                 .toLowerCase();
             url = encodeURIComponent(titreOK);
             $(event.data.cible).val(url);
@@ -95,6 +94,7 @@ $(document).ready(function(){
     /* Affichage du formulaire en fonction du type du bloc */
     $('form[id$="page_active-form"]').on('change', 'select[id^="page_active_blocs"]', function(){
         type = $(this).val();
+        typeFormalise = $(this).find('option:selected').html();
         id = $(this).attr('id');
         idBloc = $(this).closest('.field-bloc').children('label').html();
         $(this).closest('div').append('<i class="fas fa-sync fa-spin bloc"></i>');
@@ -122,7 +122,7 @@ $(document).ready(function(){
                         minHeight: '600'
                     });
                 }
-                $('#'+id).closest('div').append('<p class="type-bloc">'+type+'</p>');
+                $('#'+id).closest('div').append('<p class="type-bloc">'+typeFormalise+'</p>');
                 $('#'+id).hide().prev('label').hide();
                 // TinyMCE
                 tinymce.remove();
@@ -146,8 +146,7 @@ $(document).ready(function(){
                     extended_valid_elements: 'i[class]',
                     block_formats: 'Paragraphe=p;Titre h2=h2;Titre h3=h3;Titre h4=h4;Titre h5=h5;Titre h6=h6',
                     image_advtab: true,
-                    toolbar1: "undo redo | bold italic underline | alignleft aligncenter alignright | bullist numlist outdent indent | formatselect",
-                    toolbar2: "| responsivefilemanager | image | media | link unlink anchor | preview | code"
+                    toolbar1: "formatselect | image | media | link unlink | copy paste pastetext | bold italic underline | alignleft aligncenter alignright | bullist numlist | code | undo redo"
                 });
             })
             .fail(function(){
@@ -157,7 +156,7 @@ $(document).ready(function(){
 
     /* Cacher les select de choix du type de bloc si bloc déjà créé */
     $('.form-group.field-bloc select[id$="type"]').each(function(){
-        type = $(this).val();
+        type = $(this).find('option:selected').html();
         $(this).hide().prev('label').hide().closest('div').append('<p class="type-bloc">'+type+'</p>');
     });
 
