@@ -3187,7 +3187,8 @@ body.list #flash-messages > * {
 .type-bloc {
   color: #0791B3;
   margin-bottom: 0;
-  font-size: 1.8rem; }
+  font-size: 1.8rem;
+  margin-left: .5rem; }
 
 div[id^="page_active_blocs"] .field-collection-action, div[id^="page_active_blocs"] .field-collection-item-action {
   display: none; }
@@ -3195,11 +3196,35 @@ div[id^="page_active_blocs"] svg {
   transition: .3s; }
 div[id^="page_active_blocs"] label svg {
   margin-left: 1rem; }
+div[id^="page_active_blocs"] > .form-group.type {
+  display: flex;
+  align-items: center; }
+
+.bloc-help {
+  position: relative; }
+  .bloc-help.hide {
+    display: none; }
+  .bloc-help svg {
+    color: #0791B3; }
+    .bloc-help svg:hover + p {
+      display: block; }
+  .bloc-help p {
+    display: none;
+    position: absolute;
+    bottom: 100%;
+    left: 100%;
+    background-color: #FFF;
+    padding: 1rem;
+    border: 1px solid #979797;
+    box-shadow: 2px 2px 2px #999999;
+    white-space: nowrap; }
 
 div[id^="page_active_blocs_"]:not([id$="contenu"]) > div:first-child {
   border-bottom: 2px solid #0791B3; }
   div[id^="page_active_blocs_"]:not([id$="contenu"]) > div:first-child select, div[id^="page_active_blocs_"]:not([id$="contenu"]) > div:first-child label {
     display: inline-block; }
+  div[id^="page_active_blocs_"]:not([id$="contenu"]) > div:first-child select {
+    margin-right: .5rem; }
   div[id^="page_active_blocs_"]:not([id$="contenu"]) > div:first-child label {
     margin-bottom: 1rem;
     margin-right: 1rem; }

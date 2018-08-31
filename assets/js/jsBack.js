@@ -105,7 +105,7 @@ $(document).ready(function(){
             data: {type: type}
         })
             .done(function(data){
-                $('#'+id).closest('div').find('svg').fadeOut();
+                $('#'+id).closest('div').find('svg').hide();
                 $('#'+id).closest('div[id^="page_active"]').find('div[id$="contenu"]').append(data);
                 $('#page_active_blocs_'+idBloc+'_contenu').find('label').each(function(){
                     idLabel = $(this).attr('for');
@@ -124,7 +124,6 @@ $(document).ready(function(){
                 }
                 $('#'+id).closest('div').append('<p class="type-bloc">'+type+'</p>');
                 $('#'+id).hide().prev('label').hide();
-                $('html,body').animate({scrollTop: jQuery('#'+idBloc).offset().top},'fast');
                 // TinyMCE
                 tinymce.remove();
                 tinymce.init({

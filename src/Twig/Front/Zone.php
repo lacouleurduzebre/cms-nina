@@ -32,9 +32,14 @@ class Zone extends \Twig_Extension
     public function getZone($region = null, $id = null)
     {
         //Langue
-        $locale = $this->request->getLocale();
         $repoLangue = $this->doctrine->getRepository(Langue::class);
-        $langue = $repoLangue->findBy(array('abreviation'=>$locale));
+        $locale = $this->request->getLocale();
+        if($locale){
+            $langue = $repoLangue->findBy(array('abreviation'=>$locale));
+        }
+        if(!$locale || !$langue){
+            $langue = $repoLangue->findBy(array('defaut'=>1));
+        }
 
         //Zones
         $repoZone = $this->doctrine->getRepository(\App\Entity\Zone::class);

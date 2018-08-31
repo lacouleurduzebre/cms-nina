@@ -19,6 +19,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Yaml\Yaml;
 
 class BlocType extends AbstractType
 {
@@ -29,11 +30,20 @@ class BlocType extends AbstractType
         unset($types["."]);
         unset($types[".."]);
 
+        //NV DEV
+        $typesFormalises = [];
+        foreach($types as $type){
+            $infos = Yaml::parseFile('../src/Blocs/'.$type.'/infos.yaml');
+            $nom = $infos['nom'];
+            $typesFormalises[$nom] = $type;
+        }
+        //FIN NV DEV
+
         $builder
             ->add('type', ChoiceType::class, array(
                 'required' => false,
                 'empty_data' => null,
-                'choices' => $types
+                'choices' => $typesFormalises
             ))
             ->add('position', HiddenType::class, array('data'=>'0'))
             ->add('class', TextType::class, array(
@@ -53,8 +63,11 @@ class BlocType extends AbstractType
 
             if ($bloc){
                 $type = $bloc->getType();
+                $infos = Yaml::parseFile('../src/Blocs/'.$type.'/infos.yaml');
+                $description = $infos['description'];
                 $form->add('contenu', 'App\Blocs\\'.$type.'\\'.$type.'Type', array(
-                    'label' => false
+                    'label' => false,
+                    'help' => $description
                 ));
             }else{
                 $form->add('contenu', CollectionType::class, array(

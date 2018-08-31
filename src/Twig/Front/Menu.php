@@ -31,9 +31,14 @@ class Menu extends \Twig_Extension
 
     public function menu($region = null, $id = null){
         //Langue
-        $locale = $this->request->getLocale();
         $repoLangue = $this->doctrine->getRepository(Langue::class);
-        $langue = $repoLangue->findBy(array('abreviation'=>$locale));
+        $locale = $this->request->getLocale();
+        if($locale){
+            $langue = $repoLangue->findBy(array('abreviation'=>$locale));
+        }
+        if(!$locale || !$langue){
+            $langue = $repoLangue->findBy(array('defaut'=>1));
+        }
 
         $emMenu = $this->doctrine->getRepository(\App\Entity\Menu::class);
 

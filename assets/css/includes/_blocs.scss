@@ -42,6 +42,7 @@
   color: $color-brand2;
   margin-bottom: 0;
   font-size: 1.8rem;
+  margin-left: .5rem;
 }
 
 div[id^="page_active_blocs"]{
@@ -54,6 +55,34 @@ div[id^="page_active_blocs"]{
   label svg{
     margin-left: 1rem;
   }
+  > .form-group.type{
+    display: flex;
+    align-items: center;
+  }
+}
+
+.bloc-help{
+  position: relative;
+  &.hide{
+    display: none;
+  }
+  svg{
+    color: $color-brand2;
+    &:hover + p{
+      display: block;
+    }
+  }
+  p{
+    display: none;
+    position: absolute;
+    bottom: 100%;
+    left: 100%;
+    background-color: #FFF;
+    padding: 1rem;
+    border: 1px solid #979797;
+    box-shadow: 2px 2px 2px #999999;
+    white-space: nowrap;
+  }
 }
 
 div[id^="page_active_blocs_"]:not([id$="contenu"]){
@@ -61,6 +90,9 @@ div[id^="page_active_blocs_"]:not([id$="contenu"]){
     border-bottom: 2px solid $color-brand2;
     select, label{
       display: inline-block;
+    }
+    select{
+      margin-right: .5rem;
     }
     label{
       margin-bottom: 1rem;
