@@ -63,6 +63,7 @@ div[id^="page_active_blocs"]{
 
 .bloc-help{
   position: relative;
+  cursor: help;
   &.hide{
     display: none;
   }
@@ -82,6 +83,7 @@ div[id^="page_active_blocs"]{
     border: 1px solid #979797;
     box-shadow: 2px 2px 2px #999999;
     white-space: nowrap;
+    z-index: 10;
   }
 }
 
@@ -184,4 +186,63 @@ div[id^="page_active_blocs_"]:not([id$="contenu"]){
 
 .bloc-optionsAffichage-fermeture{
   cursor: pointer;
+}
+
+//Liste blocs
+.listeBlocs{
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 1000;
+  background: rgba(255,255,255,.5);
+  padding: 5rem;
+  align-items: center;
+  &.actif{
+    display: flex;
+  }
+  ul{
+    list-style: none;
+    li{
+      position: relative;
+      cursor: pointer;
+      background-color: $white;
+      padding: 2rem;
+      box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.25);
+      margin-bottom: 2rem;
+      text-align: center;
+      border: 3px solid $white;
+      &:hover{
+        border-color: $color-brand2;
+      }
+      > svg{
+        font-size: 4rem;
+        margin-bottom: .5rem;
+        color: $color-brand2;
+      }
+    }
+  }
+  .bloc-help{
+    position: absolute;
+    width: auto;
+    top: 1rem;
+    right: 1rem;
+    svg{
+      color: $color-primary;
+    }
+  }
+}
+
+.listeBlocs-fermeture{
+  position: absolute;
+  top: 2rem;
+  right: 4rem;
+  cursor: pointer;
+  font-size: 3rem;
+}
+
+.bloc-nom{
+  font-size: 2rem;
 }

@@ -3201,7 +3201,8 @@ div[id^="page_active_blocs"] > .form-group.type {
   align-items: center; }
 
 .bloc-help {
-  position: relative; }
+  position: relative;
+  cursor: help; }
   .bloc-help.hide {
     display: none; }
   .bloc-help svg {
@@ -3217,7 +3218,8 @@ div[id^="page_active_blocs"] > .form-group.type {
     padding: 1rem;
     border: 1px solid #979797;
     box-shadow: 2px 2px 2px #999999;
-    white-space: nowrap; }
+    white-space: nowrap;
+    z-index: 10; }
 
 div[id^="page_active_blocs_"]:not([id$="contenu"]) > div:first-child {
   border-bottom: 2px solid #0791B3; }
@@ -3295,5 +3297,53 @@ div[id^="page_active_blocs_"]:not([id$="contenu"]) > div:first-child {
 
 .bloc-optionsAffichage-fermeture {
   cursor: pointer; }
+
+.listeBlocs {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 1000;
+  background: rgba(255, 255, 255, 0.5);
+  padding: 5rem;
+  align-items: center; }
+  .listeBlocs.actif {
+    display: flex; }
+  .listeBlocs ul {
+    list-style: none; }
+    .listeBlocs ul li {
+      position: relative;
+      cursor: pointer;
+      background-color: #fff;
+      padding: 2rem;
+      box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.25);
+      margin-bottom: 2rem;
+      text-align: center;
+      border: 3px solid #fff; }
+      .listeBlocs ul li:hover {
+        border-color: #0791B3; }
+      .listeBlocs ul li > svg {
+        font-size: 4rem;
+        margin-bottom: .5rem;
+        color: #0791B3; }
+  .listeBlocs .bloc-help {
+    position: absolute;
+    width: auto;
+    top: 1rem;
+    right: 1rem; }
+    .listeBlocs .bloc-help svg {
+      color: #75726B; }
+
+.listeBlocs-fermeture {
+  position: absolute;
+  top: 2rem;
+  right: 4rem;
+  cursor: pointer;
+  font-size: 3rem; }
+
+.bloc-nom {
+  font-size: 2rem; }
 
 /*# sourceMappingURL=knacss.css.map */

@@ -1,0 +1,19 @@
+<div class="listeBlocs">
+    <div class="listeBlocs-fermeture">
+        <i class="fas fa-times"></i>
+    </div>
+    <ul class="grid-6-small-2 has-gutter-l">
+        {% for bloc in blocs %}
+            <li>
+                <div class="bloc-help">
+                    <i class="fas fa-info-circle"></i>
+                    <p>
+                        {{ bloc.description }}
+                    </p>
+                </div>
+                <i class="{{ bloc.icone }} bloc-icone"></i>
+                <p class="bloc-nom">{{ bloc.nom }}</p>
+            </li>
+        {% endfor %}
+    </ul>
+</div>
