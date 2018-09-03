@@ -2775,6 +2775,9 @@ body.notFull .select2-dropdown {
     margin-right: .5rem; }
 
 /* Formulaire des pages */
+.mce-container {
+  margin-top: .5rem; }
+
 .mce-container + textarea {
   display: block !important;
   height: 0;
@@ -2903,6 +2906,30 @@ body.list #flash-messages > * {
 .alert-enregistrement {
   background: #A1BA1D;
   color: #FFF; }
+
+/* Score SEO */
+.progression, .nbCaracteres {
+  display: inline-block; }
+
+.progression {
+  height: 1rem;
+  width: 20rem;
+  border: 1px solid #000;
+  border-radius: 5px;
+  overflow: hidden;
+  margin-bottom: .5rem; }
+  .progression > div {
+    height: 100%;
+    transition: all .3s; }
+  .progression.rouge > div {
+    width: 33%;
+    background-color: #D9534F; }
+  .progression.orange > div {
+    width: 66%;
+    background-color: #F0AD4E; }
+  .progression.vert > div {
+    width: 100%;
+    background-color: #5CB85C; }
 
 #tdb {
   padding: 2rem; }

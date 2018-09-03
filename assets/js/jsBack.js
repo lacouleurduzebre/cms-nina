@@ -408,4 +408,48 @@ $(document).ready(function(){
        $(this).closest('div').fadeOut();
     });
 
+    /* Score SEO */
+    scoreSEO = function(champ, score){
+        nbCaracteres = champ.val().length;
+        console.log(nbCaracteres);
+        if(nbCaracteres < (score / 3)){
+            champ.siblings('.progression').attr('class', 'progression rouge');
+        }else if (nbCaracteres >= ((score/3) * 2)){
+            champ.siblings('.progression').attr('class', 'progression vert');
+        }else{
+            champ.siblings('.progression').attr('class', 'progression orange');
+        }
+        champ.prev('.nbCaracteres').find('span').html(nbCaracteres);
+    };
+
+    scoreSEO2 = function(event){
+        champ = event.data.champ;
+        nbCaracteres = event.data.champ.val().length;
+        score = event.data.score;
+        console.log(nbCaracteres);
+        console.log(score);
+        if(nbCaracteres < (score / 3)){
+            champ.siblings('.progression').attr('class', 'progression rouge');
+        }else if (nbCaracteres >= ((score/3) * 2)){
+            champ.siblings('.progression').attr('class', 'progression vert');
+        }else{
+            champ.siblings('.progression').attr('class', 'progression orange');
+        }
+        champ.prev('.nbCaracteres').find('span').html(nbCaracteres);
+    };
+
+    if($('body').hasClass('edit-page_active') || $('body').hasClass('new-page_active')){
+        scoreSEO($('#page_active_SEO_url'), 75);
+        scoreSEO($('#page_active_SEO_metaTitre'), 65);
+        scoreSEO($('#page_active_SEO_metaDescription'), 150);
+    }
+
+    $('#page_active_SEO_url').on('keyup', {
+        champ: $('#page_active_SEO_url'),
+        score: 75
+    }, scoreSEO2);
+    $('#page_active_SEO_metaTitre').on('keyup', {
+        champ: $('#page_active_SEO_metaTitre'),
+        score: 65
+    }, scoreSEO2);
 });
