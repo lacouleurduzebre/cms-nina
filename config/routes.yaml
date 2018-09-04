@@ -26,6 +26,10 @@ blocs:
     resource: "../src/Blocs"
     type: annotation
 
+bloc:
+    resource: "../src/Controller/Back/BlocController.php"
+    type: annotation
+
 sitemap:
     resource: "../src/Controller/SitemapController.php"
     type: annotation
@@ -48,8 +52,4 @@ categorie:
 
 page:
     resource: "../src/Controller/PageController.php"
-    type: annotation
-
-bloc:
-    resource: "../src/Controller/Back/BlocController.php"
     type: annotation

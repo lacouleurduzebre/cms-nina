@@ -1,7 +1,7 @@
 $(document).ready(function(){
     /* Initialisation TinyMCE */
     tinymce.init({
-        selector: "textarea",
+        selector: "textarea:not('.notTinymce')",
         language: "fr_FR",
         theme: "modern",
         height: 300,
@@ -409,47 +409,53 @@ $(document).ready(function(){
     });
 
     /* Score SEO */
-    scoreSEO = function(champ, score){
-        nbCaracteres = champ.val().length;
-        console.log(nbCaracteres);
+    scoreSEO = function(champ, nbCaracteres, score){
         if(nbCaracteres < (score / 3)){
             champ.siblings('.progression').attr('class', 'progression rouge');
+            champ.prev('.nbCaracteres').find('.seo-attention').remove();
+        }else if (nbCaracteres > score){
+            champ.siblings('.progression').attr('class', 'progression vert');
+            if(champ.prev('.nbCaracteres').find('.seo-attention').length < 1){
+                champ.prev('.nbCaracteres').append('<div class="seo-attention"><i class="fas fa-exclamation-triangle "></i><span>Si vous dépassez la limite de caractères préconisée, votre texte sera tronqué dans la liste des résultats des moteurs de recherche</span></div>');
+            }
         }else if (nbCaracteres >= ((score/3) * 2)){
             champ.siblings('.progression').attr('class', 'progression vert');
+            champ.prev('.nbCaracteres').find('.seo-attention').remove();
         }else{
             champ.siblings('.progression').attr('class', 'progression orange');
+            champ.prev('.nbCaracteres').find('.seo-attention').remove();
         }
-        champ.prev('.nbCaracteres').find('span').html(nbCaracteres);
+        champ.prev('.nbCaracteres').children('span').html(nbCaracteres);
     };
 
-    scoreSEO2 = function(event){
+    scoreSEOChargement = function(champ, score){
+        nbCaracteres = champ.val().length;
+        scoreSEO(champ, nbCaracteres, score);
+    };
+
+    scoreSEOLive = function(event){
         champ = event.data.champ;
         nbCaracteres = event.data.champ.val().length;
         score = event.data.score;
-        console.log(nbCaracteres);
-        console.log(score);
-        if(nbCaracteres < (score / 3)){
-            champ.siblings('.progression').attr('class', 'progression rouge');
-        }else if (nbCaracteres >= ((score/3) * 2)){
-            champ.siblings('.progression').attr('class', 'progression vert');
-        }else{
-            champ.siblings('.progression').attr('class', 'progression orange');
-        }
-        champ.prev('.nbCaracteres').find('span').html(nbCaracteres);
+        scoreSEO(champ, nbCaracteres, score);
     };
 
     if($('body').hasClass('edit-page_active') || $('body').hasClass('new-page_active')){
-        scoreSEO($('#page_active_SEO_url'), 75);
-        scoreSEO($('#page_active_SEO_metaTitre'), 65);
-        scoreSEO($('#page_active_SEO_metaDescription'), 150);
+        scoreSEOChargement($('#page_active_SEO_url'), 75);
+        scoreSEOChargement($('#page_active_SEO_metaTitre'), 65);
+        scoreSEOChargement($('#page_active_SEO_metaDescription'), 150);
     }
 
     $('#page_active_SEO_url').on('keyup', {
         champ: $('#page_active_SEO_url'),
         score: 75
-    }, scoreSEO2);
+    }, scoreSEOLive);
     $('#page_active_SEO_metaTitre').on('keyup', {
         champ: $('#page_active_SEO_metaTitre'),
         score: 65
-    }, scoreSEO2);
+    }, scoreSEOLive);
+    $('#page_active_SEO_metaDescription').on('keyup', {
+        champ: $('#page_active_SEO_metaDescription'),
+        score: 150
+    }, scoreSEOLive);
 });

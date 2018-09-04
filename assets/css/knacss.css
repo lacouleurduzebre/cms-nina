@@ -2931,6 +2931,26 @@ body.list #flash-messages > * {
     width: 100%;
     background-color: #5CB85C; }
 
+.seo-attention {
+  display: inline-block;
+  position: relative;
+  cursor: help; }
+  .seo-attention:hover span {
+    display: block; }
+  .seo-attention span {
+    display: none;
+    position: absolute;
+    bottom: 100%;
+    left: 100%;
+    background-color: #FFF;
+    padding: 1rem;
+    border: 1px solid #979797;
+    box-shadow: 2px 2px 2px #999999;
+    z-index: 10;
+    min-width: 25rem; }
+  .seo-attention svg {
+    color: #D9534F; }
+
 #tdb {
   padding: 2rem; }
   #tdb h2 {

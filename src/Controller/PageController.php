@@ -20,10 +20,9 @@ class PageController extends Controller
     /**
      * @Route("/{_locale}/{url}", name="voirPage")
      * @param Request $request
-     * @param $url
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
-    public function voirAction(Request $request, $_locale, $url){
+    public function voirAction(Request $request, $_locale = 'fr', $url){
         //$_locale
         $repoLangue = $this->getDoctrine()->getRepository(Langue::class);
         $langue = $repoLangue->findOneBy(array('abreviation' => $_locale));

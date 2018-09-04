@@ -23,7 +23,9 @@ class SEOType extends AbstractType
         $builder
             ->add('url', TextType::class)
             ->add('metaTitre', TextType::class)
-            ->add('metaDescription', TextareaType::class);
+            ->add('metaDescription', TextareaType::class, array(
+                'attr' => array('class' => 'notTinymce'),
+            ));
     }
 
     public function configureOptions(OptionsResolver $resolver)
