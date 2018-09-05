@@ -10,7 +10,9 @@ namespace App\Controller\Themes\terresdoh;
 
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 //Développement Terres d'Oh!
@@ -25,8 +27,9 @@ class RechercheLEIController extends AbstractController
 
         if($request->isXmlHttpRequest()){
             $data = $request->get('donnees');
-
+            $reponse = [];
             $resultat = [];
+
             foreach($fiches as $fiche){
                 $criteres = end($fiche->CRITERES);
                 $attributes = end($criteres)->attributes();
@@ -34,6 +37,14 @@ class RechercheLEIController extends AbstractController
                     foreach($data as $ligne){
                         if($critere == $ligne['value']){
                             $resultat[] = $fiche;
+                            $reponse['fiches'][] = [
+                                'numero' => (string)$fiche->PRODUIT,
+                                'lat' => str_replace(',', '.', $fiche->LATITUDE),
+                                'lng' => str_replace(',', '.', $fiche->LONGITUDE),
+                                'titre' => (string)$fiche->NOM,
+                                'image' => (string)$fiche->CRITERES->Crit[0],
+                                'lien' => str_replace(' ', '-', $fiche->NOM)
+                            ];
                             break 2;
                         }
                     }
@@ -41,7 +52,10 @@ class RechercheLEIController extends AbstractController
             }
             $fiches = $resultat;
 
-            return $this->render('Blocs/LEI/liste.html.twig', array('fiches' => $fiches));
+            $reponse['template'] = $this->render('Blocs/LEI/liste.html.twig', array('fiches' => $fiches))->getContent();
+            json_encode($reponse);
+
+            return new JsonResponse($reponse);
         }
 
         if($_POST){
@@ -72,20 +86,8 @@ class RechercheLEIController extends AbstractController
     public function voirFicheLEIAction($url, $idFiche){
         $xml = simplexml_load_file('https://apps.tourisme-alsace.info/batchs/LIENS_PERMANENTS/2002206000029_Batch_siteweb_terres_oh.xml');
 
-        $json = json_encode($xml);
+        $fiche = $xml->xpath("//Resultat/sit_liste[PRODUIT = $idFiche]")[0];
 
-        $php = json_decode($json);
-
-        $fiches = $php->Resultat->sit_liste;
-
-        $ficheRecherchee = null;
-        foreach($fiches as $fiche){
-            if($fiche->PRODUIT == $idFiche){
-                $ficheRecherchee = $fiche;
-                break;
-            }
-        }
-
-        return $this->render('Blocs/LEI/fiche.html.twig', array('fiche'=>$ficheRecherchee));
+        return $this->render('Blocs/LEI/fiche.html.twig', array('fiche'=>$fiche));
     }
 }

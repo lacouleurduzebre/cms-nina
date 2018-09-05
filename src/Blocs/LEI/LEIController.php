@@ -31,20 +31,8 @@ class LEIController extends Controller
 
         $xml = simplexml_load_file($flux);
 
-        $json = json_encode($xml);
+        $fiche = $xml->xpath("//Resultat/sit_liste[PRODUIT = $idFiche]")[0];
 
-        $php = json_decode($json);
-
-        $fiches = $php->Resultat->sit_liste;
-
-        $ficheRecherchee = null;
-        foreach($fiches as $fiche){
-            if($fiche->PRODUIT == $idFiche){
-                $ficheRecherchee = $fiche;
-                break;
-            }
-        }
-
-        return $this->render('Blocs/LEI/fiche.html.twig', array('fiche'=>$ficheRecherchee));
+        return $this->render('Blocs/LEI/fiche.html.twig', array('fiche'=>$fiche));
     }
 }
