@@ -41,7 +41,7 @@ class RechercheLEIController extends AbstractController
             }
             $fiches = $resultat;
 
-            return $this->render('resultatRecherche.html.twig', array('fiches' => $fiches));
+            return $this->render('Blocs/LEI/liste.html.twig', array('fiches' => $fiches));
         }
 
         if($_POST){

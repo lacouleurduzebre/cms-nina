@@ -93,6 +93,7 @@ $(document).ready(function(){
                             $('#pageAccueil-menu > li:first-child > a').attr('href', '/admin/?entity=Page_Active&action=edit&id='+idPage);
                             $('.pageAccueil-titre').html(data);
                             if($('.pageAccueil').find('a').hasClass('sansPageAccueil')){
+                                $('.pageAccueil > a').attr('class', 'pageAccueil-page');
                                 $('.pageAccueil p').hide();
                             }
                         })

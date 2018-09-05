@@ -37,7 +37,7 @@ $(document).ready(function(){
     });
 
     /* Menu contextuel de la page d'accueil */
-    $("#pageAccueil-page").on("click contextmenu", function(e){
+    $(".pageAccueil").on("click contextmenu", '.pageAccueil-page', function(e){
         e.preventDefault();
         $("#pageAccueil-menu").toggle();
         return false;
