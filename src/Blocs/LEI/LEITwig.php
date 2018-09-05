@@ -30,8 +30,13 @@ class LEITwig extends \Twig_Extension
 
     public function listeLEI($idBloc, $flux, $limite = null)
     {
-        $xml = simplexml_load_file($flux)->Resultat->children();
+        $xml = simplexml_load_file($flux);
+        $fiches = $xml->xpath("//Resultat/sit_liste");
 
-        return $this->twig->render('Blocs/LEI/liste.html.twig', array('xml' => $xml, 'limite' => $limite, 'idBloc' => $idBloc));
+        if(isset($limite)){
+            $fiches = array_splice($fiches, 0, $limite);
+        }
+
+        return $this->twig->render('Blocs/LEI/liste.html.twig', array('fiches' => $fiches, 'idBloc' => $idBloc));
     }
 }
