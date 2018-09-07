@@ -76,6 +76,16 @@ class Configuration
      */
     private $theme;
 
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $maintenance;
+
+    public function __construct()
+    {
+        $this->maintenance = false;
+    }
+
     public function __toString()
     {
         return "configuration";
@@ -267,6 +277,18 @@ class Configuration
     public function setTheme(?string $theme): self
     {
         $this->theme = $theme;
+
+        return $this;
+    }
+
+    public function getMaintenance(): ?bool
+    {
+        return $this->maintenance;
+    }
+
+    public function setMaintenance(bool $maintenance): self
+    {
+        $this->maintenance = $maintenance;
 
         return $this;
     }

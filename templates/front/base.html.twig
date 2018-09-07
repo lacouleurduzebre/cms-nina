@@ -2,126 +2,113 @@
 <html {% if langueActive is not empty %}lang="{{ langueActive.code }}"{% endif %}>
 <head>
     <meta charset="UTF-8" />
-    <title>{% block title %}{% if langueActive.metaTitre is not empty %}{{ langueActive.metaTitre }}{% else %}{{ config.nom }}{% endif %}{% endblock %}</title>
-    {% block stylesheets %}
-        <link rel="stylesheet" href="{{ asset('themes/'~theme~'/css/knacss.css') }}" type="text/css">
-        {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
-            <link rel="stylesheet" href="{{ asset('assets/js/jstree/themes/style.css') }}">
-            <link rel="stylesheet" href="{{ asset('assets/css/back.css') }}">
-        {% endif %}
-    {% endblock %}
-    <script src="{{ asset('assets/js/jquery-3.2.1.min.js') }}"></script>
-    <script src="{{ asset('assets/js/fontawesome-all.min.js') }}"></script>
-    {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
-        <script src="{{ asset('assets/js/fosjsrouting/js/router.js') }}"></script>
-        <script src="{{ asset('assets/js/fosjsrouting/js/fos_js_routes.js') }}"></script>
-    {% endif %}
-    <link rel="icon" type="image/x-icon" href="{{ asset('assets/img/favicon.ico') }}" />
-    <meta name="description" content="{% block head %}{% if langueActive.metaDescription is not empty %}{{ langueActive.metaDescription }}{% endif %}{% endblock %}" />
-</head>
-<body class="front {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}connected {% endif %}{% if accueil is defined %}accueil {% endif %}">
-
-{# Menu horizontal du back office #}
-{% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
-    {{ include('back/header.html.twig') }}
-{% endif %}
-{# Colonne de gauche du b/o #}
-{% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
-    {{ include('back/aside.html.twig') }}
-{% endif %}
-
-{% block header %}
-    <header class="header_front">
-        <div class="mw960p center flex-container">
-            <div>
-                <a href="{{ path('accueil', { '_locale':langueActive.abreviation }) }}"><img class="logo" src="{{ config.logo }}" alt="CMS Nina"></a>
-                <p>{{ config.nom }}</p>
-                {{ zone(region='header') }}
-            </div>
-            {% if langues is not empty %}
-                <div class="txtright flex-item-fluid">
-                    <ul class="flex-container menuLangues">
-                        {% for langue in langues %}
-                            <li {% if app.request.locale == langue.abreviation %}class="active"{% endif %}>
-                                {% if page is not empty %}
-                                    <a href="{{ path('changerLangue', {'id':langue.id, 'idPage':page.id}) }}">{{ langue.abreviation|upper }}</a>
-                                {% else %}
-                                    <a href="{{ path('changerLangue', {'id':langue.id}) }}">{{ langue.abreviation|upper }}</a>
-                                {% endif %}
-                            </li>
-                        {% endfor %}
-                    </ul>
-                </div>
+    {% if not config.maintenance or is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+        <title>{% block title %}{% if langueActive.metaTitre is not empty %}{{ langueActive.metaTitre }}{% else %}{{ config.nom }}{% endif %}{% endblock %}</title>
+        {% block stylesheets %}
+            <link rel="stylesheet" href="{{ asset('themes/'~theme~'/css/knacss.css') }}" type="text/css">
+            {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+                <link rel="stylesheet" href="{{ asset('assets/js/jstree/themes/style.css') }}">
+                <link rel="stylesheet" href="{{ asset('assets/css/back.css') }}">
             {% endif %}
-        </div>
-        {#<div id="menuBack">
-            <div class="btnMenuBack">
-                <img src="{{ asset('../assets/img/front/miniLogoNina.png') }}" alt="Nina"/>
-                <i class="fas fa-arrow-left"></i></div>
-            <div>
-                <div>
-                    {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
-                        <span>Connecté en tant que {{ app.user.username }}</span>
-                        <span> - <a href="{{ path('admin') }}"><i class="fas fa-cogs"></i>Back-office</a></span>
-                        <span id="deconnexion"> - <a href="{{ path('fos_user_security_logout') }}"><i class="fas fa-power-off"></i>Déconnexion</a></span>
-                    {% else %}
-                        <span id="connexion"><a href="{{ path('fos_user_security_login') }}">Connexion</a></span>
+        {% endblock %}
+        <script src="{{ asset('assets/js/jquery-3.2.1.min.js') }}"></script>
+        <script src="{{ asset('assets/js/fontawesome-all.min.js') }}"></script>
+        {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+            <script src="{{ asset('assets/js/fosjsrouting/js/router.js') }}"></script>
+            <script src="{{ asset('assets/js/fosjsrouting/js/fos_js_routes.js') }}"></script>
+        {% endif %}
+        <link rel="icon" type="image/x-icon" href="{{ asset('assets/img/favicon.ico') }}" />
+        <meta name="description" content="{% block head %}{% if langueActive.metaDescription is not empty %}{{ langueActive.metaDescription }}{% endif %}{% endblock %}" />
+    {% endif %}
+</head>
+{% if not config.maintenance or is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+    <body class="front {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}connected {% endif %}{% if accueil is defined %}accueil {% endif %}">
+
+        {# Menu horizontal du back office #}
+        {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+            {{ include('back/header.html.twig') }}
+        {% endif %}
+        {# Colonne de gauche du b/o #}
+        {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+            {{ include('back/aside.html.twig') }}
+        {% endif %}
+
+        {% block header %}
+            <header class="header_front">
+                <div class="mw960p center flex-container">
+                    <div>
+                        <a href="{{ path('accueil', { '_locale':langueActive.abreviation }) }}"><img class="logo" src="{{ config.logo }}" alt="CMS Nina"></a>
+                        <p>{{ config.nom }}</p>
+                        {{ zone(region='header') }}
+                    </div>
+                    {% if langues is not empty %}
+                        <div class="txtright flex-item-fluid">
+                            <ul class="flex-container menuLangues">
+                                {% for langue in langues %}
+                                    <li {% if app.request.locale == langue.abreviation %}class="active"{% endif %}>
+                                        {% if page is not empty %}
+                                            <a href="{{ path('changerLangue', {'id':langue.id, 'idPage':page.id}) }}">{{ langue.abreviation|upper }}</a>
+                                        {% else %}
+                                            <a href="{{ path('changerLangue', {'id':langue.id}) }}">{{ langue.abreviation|upper }}</a>
+                                        {% endif %}
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
                     {% endif %}
                 </div>
-                {% if is_granted('IS_AUTHENTICATED_REMEMBERED') and page is defined %}
-                <div>
-                    <span><a href="{{ path('admin_app_page_edit', {'id':page.id}) }}"><i class="fas fa-pencil-alt"></i>Editer cette page</a></span>
+            </header>
+        {% endblock %}
+        {% block navigation %}
+            {% if menu(region='header') %}
+                <nav>
+                    {{ menu(region='header') }}
+                </nav>
+            {% endif %}
+        {% endblock %}
+
+        {# Si besoin d'un bloc sur toute la largeur de l'écran #}
+        {% block before_main %}{% endblock %}
+
+        <main {% if page is defined and page is not empty %}id="{{ page.id }}" {% endif %}class="mw960p center flex-container{% if page is defined %} page"{% endif %}>
+            {% block fos_user_content %}
+            {% endblock %}
+            {% if zone(region='colonneGauche') or menu(region='colonneGauche') %}
+                <div class="w20">
+                    {{ menu(region='colonneGauche') }}
+                    {{ zone(region='colonneGauche') }}
                 </div>
-                {% endif %}
+            {% endif %}
+            <div class="flex-item-fluid">
+                {% block body %}{% endblock %}
             </div>
-        </div>#}
-    </header>
-{% endblock %}
-{% block navigation %}
-    {% if menu(region='header') %}
-        <nav>
-            {{ menu(region='header') }}
-        </nav>
-    {% endif %}
-{% endblock %}
-
-{# Si besoin d'un bloc sur toute la largeur de l'écran #}
-{% block before_main %}{% endblock %}
-
-<main {% if page is defined and page is not empty %}id="{{ page.id }}" {% endif %}class="mw960p center flex-container{% if page is defined %} page"{% endif %}">
-    {% block fos_user_content %}
-    {% endblock %}
-    {% if zone(region='colonneGauche') or menu(region='colonneGauche') %}
-        <div class="w20">
-            {{ menu(region='colonneGauche') }}
-            {{ zone(region='colonneGauche') }}
-        </div>
-    {% endif %}
-    <div class="flex-item-fluid">
-        {% block body %}{% endblock %}
-    </div>
-    {% if zone(region='colonneDroite') or menu(region='colonneDroite')%}
-        <div class="w20">
-            {{ menu(region='colonneGauche') }}
-            {{ zone(region='colonneDroite') }}
-        </div>
-    {% endif %}
-</main>
-{% block footer %}
-    <footer>
-        {{ zone(region='footer') }}
-        {{ menu(region='footer') }}
-        &#169; {{ config.editeur }} - {{ "now"|date("Y") }}
-    </footer>
-{% endblock %}
-{% block javascripts %}
-    <script src="{{ asset('assets/js/jscookie/cookie.js') }}"></script>
-    {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
-        <script src="{{ asset('assets/js/jsHeaderSidebar.js') }}"></script>
-        <script src="{{ asset('assets/js/jstree/jstree.min.js') }}"></script>
-        <script src='{{ asset('assets/js/fosjsrouting/js/router.js') }}'></script>
-        <script src="{{ asset('assets/js/fosjsrouting/js/fos_js_routes.js') }}"></script>
-    {% endif %}
-{% endblock %}
-</body>
+            {% if zone(region='colonneDroite') or menu(region='colonneDroite')%}
+                <div class="w20">
+                    {{ menu(region='colonneGauche') }}
+                    {{ zone(region='colonneDroite') }}
+                </div>
+            {% endif %}
+        </main>
+        {% block footer %}
+            <footer>
+                {{ zone(region='footer') }}
+                {{ menu(region='footer') }}
+                &#169; {{ config.editeur }} - {{ "now"|date("Y") }}
+            </footer>
+        {% endblock %}
+        {% block javascripts %}
+            <script src="{{ asset('assets/js/jscookie/cookie.js') }}"></script>
+            {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+            <script src="{{ asset('assets/js/jsHeaderSidebar.js') }}"></script>
+            <script src="{{ asset('assets/js/jstree/jstree.min.js') }}"></script>
+            <script src='{{ asset('assets/js/fosjsrouting/js/router.js') }}'></script>
+            <script src="{{ asset('assets/js/fosjsrouting/js/fos_js_routes.js') }}"></script>
+            {% endif %}
+        {% endblock %}
+    </body>
+{% else %}
+    <body style="display: flex; align-items: center; justify-content: center; height: 100vh; margin: 0; background-color: #6e6e6e">
+        <p style="text-align: center; border: 2px solid #ffff00; border-radius: 5px; padding: 10px 20px; font-family: arial; font-weight: bold; color: #ffff00; font-size: 2rem; ">Vous essayez d'accéder à un site protégé. <br> Merci de vous authentifier.</p>
+    </body>
+{% endif %}
 </html>

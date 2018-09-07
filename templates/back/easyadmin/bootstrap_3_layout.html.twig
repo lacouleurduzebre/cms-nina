@@ -195,6 +195,9 @@
     {% else -%}
         <div class="checkbox">
             {{- form_label(form, null, { widget: parent() }) -}}
+            {% if easyadmin.field.help is defined %}
+                <p class="help-text">{{ easyadmin.field.help }}</p>
+            {% endif %}
         </div>
     {%- endif %}
 {%- endblock checkbox_widget %}
