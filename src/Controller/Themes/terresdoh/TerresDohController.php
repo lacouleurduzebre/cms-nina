@@ -9,6 +9,8 @@
 namespace App\Controller\Themes\terresdoh;
 
 
+use Mpdf\Config\ConfigVariables;
+use Mpdf\Mpdf;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -16,7 +18,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 //Développement Terres d'Oh!
-class RechercheLEIController extends AbstractController
+class TerresDohController extends AbstractController
 {
     /**
      * @Route("/{_locale}/recherche", name="rechercheLEI")
@@ -99,5 +101,64 @@ class RechercheLEIController extends AbstractController
         $fiche = $xml->xpath("//Resultat/sit_liste[PRODUIT = $idFiche]")[0];
 
         return $this->render('Blocs/LEI/fiche.html.twig', array('fiche'=>$fiche));
+    }
+
+    /**
+     * @Route("/{_locale}/favoris", name="listeFavorisLEI")
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     */
+    public function listeFavorisAction(Request $request){
+        //Export PDF
+        if(isset($_COOKIE['favoris'])){
+            $fiches = $this->getFiches();
+        }else{
+            $fiches = null;
+        }
+        return $this->render('listeFavoris.html.twig', array('fiches' => $fiches));
+    }
+
+    /**
+     * @Route("/{_locale}/exportFavoris", name="exportListeFavorisLEI")
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     */
+    public function exportListeFavorisAction(){
+        if(isset($_COOKIE['favoris'])){
+
+            $defaultConfig = (new ConfigVariables())->getDefaults();
+            $fontDirs = $defaultConfig['fontDir'];
+
+            $fiches = $this->getFiches();
+
+            $html = $this->render('exportListeFavoris.html.twig', array('fiches' => $fiches))->getContent();
+
+            $mpdf = new Mpdf([
+                'tempDir' => '../var/temp/mpdf',
+                'fontDir' => array_merge($fontDirs, [
+                    '../public/themes/terresdoh/fonts',
+                ]),
+                'default_font' => 'Montserrat'
+            ]);
+            $mpdf->useSubstitutions = false;
+            $mpdf->simpleTables = true;
+            $mpdf->WriteHTML($html);
+            $mpdf->Output();
+
+            return new Response($html);
+        }else{
+            return new Response(false);
+        }
+    }
+
+    private function getFiches(){
+        $numerosFiches = json_decode($_COOKIE['favoris'], true);
+        $xml = simplexml_load_file('https://apps.tourisme-alsace.info/batchs/LIENS_PERMANENTS/2002206000029_Batch_siteweb_terres_oh.xml');
+
+        $fiches = [];
+        foreach($numerosFiches as $numeroFiche){
+            $fiche = $xml->xpath("//Resultat/sit_liste[PRODUIT = $numeroFiche]");
+            $fiches[] = $fiche[0];
+        }
+
+        return $fiches;
     }
 }

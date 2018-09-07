@@ -10,7 +10,7 @@ $(document).ready(function(){
         e.preventDefault();
         $('body').toggleClass('full');
         $('body').toggleClass('notFull');
-        $.cookie('full') === 'on' ? $.cookie('full', 'off') : $.cookie('full', 'on');
+        $.cookie('full') === 'on' ? $.cookie('full', 'off', { expires: 7 }) : $.cookie('full', 'on', { expires: 7 });
     });
 
     /* Page active colorée dans l'arbo */
@@ -32,7 +32,7 @@ $(document).ready(function(){
     /* Changement de la langue de l'arbo */
     $('.arbo-langues a').click(function(){
         idLangue = $(this).attr('class');
-        $.cookie('langueArbo', idLangue);
+        $.cookie('langueArbo', idLangue, { expires: 7 });
         location.reload();
     });
 

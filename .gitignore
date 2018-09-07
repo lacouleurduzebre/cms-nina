@@ -11,6 +11,7 @@ composer.phar
 
 ###> symfony/framework-bundle ###
 .env
+/src/Controller/Themes/*
 /public/bundles/
 /public/uploads/
 /public/thumbs/
