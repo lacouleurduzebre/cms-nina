@@ -1,3 +1,4 @@
 nom: Annuaire
 description: Affiche le contenu d'une page
 icone: fas fa-file
+priorite: 10

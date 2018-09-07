@@ -3246,6 +3246,8 @@ div[id^="page_active_blocs"] label svg {
 div[id^="page_active_blocs"] > .form-group.type {
   display: flex;
   align-items: center; }
+div[id^="page_active_blocs"] > div > .collection-empty {
+  display: none; }
 
 .bloc-help {
   position: relative;

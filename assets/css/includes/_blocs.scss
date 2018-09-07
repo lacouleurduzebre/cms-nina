@@ -59,7 +59,11 @@ div[id^="page_active_blocs"]{
     display: flex;
     align-items: center;
   }
+  > div > .collection-empty{
+    display: none;
+  }
 }
+
 
 .bloc-help{
   position: relative;

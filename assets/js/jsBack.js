@@ -106,7 +106,7 @@ $(document).ready(function(){
         })
             .done(function(data){
                 $('#'+id).closest('div').find('svg').hide();
-                $('#'+id).closest('div[id^="page_active"]').find('div[id$="contenu"]').append(data);
+                $('#'+id).closest('div[id^="page_active"]').find('div[id$="contenu"]').append(data).prev('.pasDeParametre').hide();
                 $('#page_active_blocs_'+idBloc+'_contenu').find('label').each(function(){
                     idLabel = $(this).attr('for');
                     champ = idLabel.substring(idLabel.indexOf('_') + 1);

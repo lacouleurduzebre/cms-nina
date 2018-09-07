@@ -27,6 +27,7 @@ class PlanDuSiteType extends AbstractType
     {
         $resolver->setDefaults(array(
             'data_class' => null,
+            'help' => "Aucun paramètre"
         ));
     }
 

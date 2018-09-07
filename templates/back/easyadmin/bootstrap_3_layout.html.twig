@@ -196,7 +196,7 @@
         <div class="checkbox">
             {{- form_label(form, null, { widget: parent() }) -}}
             {% if easyadmin.field.help is defined %}
-                <p class="help-text">{{ easyadmin.field.help }}</p>
+            {{ easyadmin.field.help }}
             {% endif %}
         </div>
     {%- endif %}
@@ -727,8 +727,11 @@
             </div>
             {{- form_widget(form.children.position) -}}
             <div class="form-group">
-                {{- form_label(form.children.contenu) -}}
-                {{- form_widget(form.children.contenu) -}}
+                {% if form.children.contenu is empty %}
+                    <p class="pasDeParametre">{{ "Aucun paramètre"|trans }}</p>
+                {% endif %}
+                    {{- form_label(form.children.contenu) -}}
+                    {{- form_widget(form.children.contenu) -}}
             </div>
             <div class="bloc-optionsAffichage">
                 <p class="flex-container"><i class="fas fa-palette"></i>Options d'affichage<i class="bloc-optionsAffichage-fermeture right fas fa-times"></i></p>
