@@ -239,7 +239,7 @@ class AdminController extends BaseAdminController
             $urlTypeCategorie = $categorie->getTypeCategorie()->getUrl();
             return $this->redirectToRoute('voirCategorie', array('urlTypeCategorie' => $urlTypeCategorie, 'urlCategorie' => $urlCategorie));
         }
-        else if($entity = 'TypeCategorie'){
+        else if($entity == 'TypeCategorie'){
             $typeCategorie = $this->em->getRepository(TypeCategorie::class)->find($id);
             $urlTypeCategorie = $typeCategorie->getUrl();
             return $this->redirectToRoute('voirTypeCategorie', array('urlTypeCategorie' => $urlTypeCategorie));

@@ -1,7 +1,7 @@
 {% use 'form_div_layout.html.twig' %}
 
 {% block form_start -%}
-    {% if 'easyadmin' == block_prefixes|slice(-2)|first %}
+    {% if block_prefixes is defined and 'easyadmin' == block_prefixes|slice(-2)|first %}
         {% set attr = attr|merge({
             'class': [
                 _easyadmin_form_type|default('') == 'horizontal' ? 'form-horizontal' : 'form-vertical',
@@ -391,7 +391,11 @@
 
 {% block empty_collection %}
     <div class="empty collection-empty">
-        {{ include(easyadmin.entity.templates.label_empty) }}
+        {% if easyadmin is defined %}
+            {{ include(easyadmin.entity.templates.label_empty) }}
+        {% else %}
+            <p>{{ "Vide"|trans }}</p>
+        {% endif %}
     </div>
 {% endblock empty_collection %}
 
@@ -819,4 +823,10 @@
         {{- form_label(form.children.description) -}}
         {{- form_widget(form.children.description) -}}
     </div>
+    <script>
+        $('.bloc_image_bouton_mediatheque').fancybox({
+            type: 'iframe',
+            minHeight: '600'
+        });
+    </script>
 {% endblock %}

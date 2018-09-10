@@ -3237,8 +3237,6 @@ body.list #flash-messages > * {
   font-size: 1.8rem;
   margin-left: .5rem; }
 
-div[id^="page_active_blocs"] .field-collection-action, div[id^="page_active_blocs"] .field-collection-item-action {
-  display: none; }
 div[id^="page_active_blocs"] svg {
   transition: .3s; }
 div[id^="page_active_blocs"] label svg {
@@ -3270,13 +3268,13 @@ div[id^="page_active_blocs"] > div > .collection-empty {
     white-space: nowrap;
     z-index: 10; }
 
-div[id^="page_active_blocs_"]:not([id$="contenu"]) > div:first-child {
+div[id^="page_active_blocs_"]:not([id$="contenu"]) > div:first-child:not(.field-slide) {
   border-bottom: 2px solid #0791B3; }
-  div[id^="page_active_blocs_"]:not([id$="contenu"]) > div:first-child select, div[id^="page_active_blocs_"]:not([id$="contenu"]) > div:first-child label {
+  div[id^="page_active_blocs_"]:not([id$="contenu"]) > div:first-child:not(.field-slide) select, div[id^="page_active_blocs_"]:not([id$="contenu"]) > div:first-child:not(.field-slide) label {
     display: inline-block; }
-  div[id^="page_active_blocs_"]:not([id$="contenu"]) > div:first-child select {
+  div[id^="page_active_blocs_"]:not([id$="contenu"]) > div:first-child:not(.field-slide) select {
     margin-right: .5rem; }
-  div[id^="page_active_blocs_"]:not([id$="contenu"]) > div:first-child label {
+  div[id^="page_active_blocs_"]:not([id$="contenu"]) > div:first-child:not(.field-slide) label {
     margin-bottom: 1rem;
     margin-right: 1rem; }
 
@@ -3394,5 +3392,9 @@ div[id^="page_active_blocs_"]:not([id$="contenu"]) > div:first-child {
 
 .bloc-nom {
   font-size: 2rem; }
+
+.field-slide {
+  padding: 1rem;
+  background-color: #EDEDED; }
 
 /*# sourceMappingURL=knacss.css.map */

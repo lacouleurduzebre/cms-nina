@@ -47,7 +47,7 @@
 
 div[id^="page_active_blocs"]{
   .field-collection-action, .field-collection-item-action{
-    display: none;
+    //display: none;
   }
   svg{
     transition: .3s;
@@ -92,7 +92,7 @@ div[id^="page_active_blocs"]{
 }
 
 div[id^="page_active_blocs_"]:not([id$="contenu"]){
-  > div:first-child{
+  > div:first-child:not(.field-slide){
     border-bottom: 2px solid $color-brand2;
     select, label{
       display: inline-block;
@@ -249,4 +249,10 @@ div[id^="page_active_blocs_"]:not([id$="contenu"]){
 
 .bloc-nom{
   font-size: 2rem;
+}
+
+//Slider
+.field-slide{
+  padding: 1rem;
+  background-color: #EDEDED;
 }
