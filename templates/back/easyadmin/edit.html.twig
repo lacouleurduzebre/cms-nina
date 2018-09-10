@@ -18,6 +18,10 @@
 {% endblock %}
 
 {% block main %}
+    {% if blocs is defined %}
+        {{ include('back/listeBlocs.html.twig') }}
+    {% endif %}
+
     {% block entity_form %}
         {{ form(form) }}
     {% endblock entity_form %}
