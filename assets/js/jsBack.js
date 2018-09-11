@@ -210,10 +210,9 @@ $(document).ready(function(){
         handle: '.drag',
         update: function(event, ui){
             $('.field-bloc').each(function(){
-                idBloc = $(this).find('.control-label').html();
-                $(this).find('#page_active_blocs_'+idBloc+'_position').val($(this).index());
+                $(this).find("input[id$='position']").val($(this).index());
                 $('.formulaire-actions-enregistrer').attr("disabled", false);
-            })
+            });
         }
     });
 
@@ -232,9 +231,8 @@ $(document).ready(function(){
             bloc.insertBefore(blocPrecedent);
 
             $('.field-bloc').each(function(){
-                idBloc = $(this).find('.control-label').html();
-                $(this).find('#page_active_blocs_'+idBloc+'_position').val($(this).index());
-            })
+                $(this).find("input[id$='position']").val($(this).index());
+            });
         });
 
         /* Descendre */
@@ -247,9 +245,8 @@ $(document).ready(function(){
             bloc.insertAfter(blocSuivant);
 
             $('.field-bloc').each(function(){
-                idBloc = $(this).find('.control-label').html();
-                $(this).find('#page_active_blocs_'+idBloc+'_position').val($(this).index());
-            })
+                $(this).find("input[id$='position']").val($(this).index());
+            });
         });
 
         /* Options d'affichage */
@@ -460,68 +457,6 @@ $(document).ready(function(){
     }, scoreSEOLive);
 
     //Ajout de blocs via liste des blocs
-    /*$('form[id$="page_active-form"]').on('change', 'select[id^="page_active_blocs"]', function(){
-        type = $(this).val();
-        typeFormalise = $(this).find('option:selected').html();
-        id = $(this).attr('id');
-        idBloc = $(this).closest('.field-bloc').children('label').html();
-        $(this).closest('div').append('<i class="fas fa-sync fa-spin bloc"></i>');
-
-        $.ajax({
-            url: Routing.generate('ajouterBloc'),
-            method: "post",
-            data: {type: type}
-        })
-            .done(function(data){
-                $('#'+id).closest('div').find('svg').hide();
-                $('#'+id).closest('div[id^="page_active"]').find('div[id$="contenu"]').append(data).prev('.pasDeParametre').hide();
-                $('#page_active_blocs_'+idBloc+'_contenu').find('label').each(function(){
-                    idLabel = $(this).attr('for');
-                    champ = idLabel.substring(idLabel.indexOf('_') + 1);
-                    $(this).attr('for', 'page_active[blocs]['+idBloc+'][contenu]['+champ+']');
-                    $(this).next('*').attr('name', 'page_active[blocs]['+idBloc+'][contenu]['+champ+']');
-                    $(this).next('*').attr('id', $(this).next('*').attr('id')+idBloc);
-                });
-                if(type == 'Image'){
-                    url = $('#image_image'+idBloc).parent('div').next('div').find('a').attr('href');
-                    $('#image_image'+idBloc).parent('div').next('div').find('a').attr('href', url+idBloc);
-                    $('.bloc_image_bouton_mediatheque').fancybox({
-                        type: 'iframe',
-                        minHeight: '600'
-                    });
-                }
-                $('#'+id).closest('div').append('<p class="type-bloc">'+typeFormalise+'</p>');
-                $('#'+id).hide().prev('label').hide();
-                // TinyMCE
-                tinymce.remove();
-                tinymce.init({
-                    selector: "textarea",
-                    language: "fr_FR",
-                    theme: "modern",
-                    height: 300,
-                    plugins: [
-                        "advlist autolink link image lists charmap print preview hr anchor pagebreak",
-                        "searchreplace wordcount visualblocks visualchars insertdatetime media nonbreaking spellchecker",
-                        "table contextmenu directionality emoticons paste textcolor responsivefilemanager code"
-                    ],
-                    relative_urls: false,
-                    menubar: false,
-
-                    filemanager_title:"Médiathèque",
-                    external_filemanager_path:"/filemanager/",
-                    external_plugins: { "filemanager" : "/filemanager/plugin.min.js"},
-
-                    extended_valid_elements: 'i[class]',
-                    block_formats: 'Paragraphe=p;Titre h2=h2;Titre h3=h3;Titre h4=h4;Titre h5=h5;Titre h6=h6',
-                    image_advtab: true,
-                    toolbar1: "formatselect | image | media | link unlink | copy paste pastetext | bold italic underline | alignleft aligncenter alignright | bullist numlist | code | undo redo"
-                });
-            })
-            .fail(function(){
-                $('#'+id).closest('div').find('svg').attr('class', 'fas fa-times').css('opacity', 0);
-            });
-    });*/
-
     $('.listeBlocs li').click(function(){
         type = $(this).attr('id');
         $('.listeBlocs').addClass('chargement');
@@ -532,39 +467,26 @@ $(document).ready(function(){
             data: {type: type}
         })
             .done(function(data){
+                $('.formulaire-actions-enregistrer').attr("disabled", false);
+
                 $('.listeBlocs').removeClass('actif chargement');
                 count = $('#page_active_blocs').find('.field-bloc').length;
-
-                // console.log(data);
-                console.log(count);
 
                 var form = data.replace(/bloc_/g, 'page_active_blocs_'+count+'_')
                     .replace(/bloc\[/g, 'page_active[blocs]['+count+'][');
 
-                console.log(form);
-
-                $('#page_active_blocs').append('<div class="form-group field-bloc">'+form+'</div>').prev('.empty').remove();
-
-                /*$('#'+id).closest('div').find('svg').hide();
-                $('#'+id).closest('div[id^="page_active"]').find('div[id$="contenu"]').append(data).prev('.pasDeParametre').hide();
-                $('#page_active_blocs_'+idBloc+'_contenu').find('label').each(function(){
-                    idLabel = $(this).attr('for');
-                    champ = idLabel.substring(idLabel.indexOf('_') + 1);
-                    $(this).attr('for', 'page_active[blocs]['+idBloc+'][contenu]['+champ+']');
-                    $(this).next('*').attr('name', 'page_active[blocs]['+idBloc+'][contenu]['+champ+']');
-                    $(this).next('*').attr('id', $(this).next('*').attr('id')+idBloc);
-                });
-                if(type == 'Image'){
-                    url = $('#image_image'+idBloc).parent('div').next('div').find('a').attr('href');
-                    $('#image_image'+idBloc).parent('div').next('div').find('a').attr('href', url+idBloc);
-                    $('.bloc_image_bouton_mediatheque').fancybox({
-                        type: 'iframe',
-                        minHeight: '600'
-                    });
+                if($('.listeBlocs').attr('id') === 'apres'){
+                    $('#page_active_blocs').append('<div class="form-group field-bloc">'+form+'</div>');
+                }else{
+                    $('#page_active_blocs').prepend('<div class="form-group field-bloc">'+form+'</div>');
                 }
-                $('#'+id).closest('div').append('<p class="type-bloc">'+typeFormalise+'</p>');
-                $('#'+id).hide().prev('label').hide();
-                // TinyMCE
+
+                $('#page_active_blocs').prev('.empty').remove();
+
+                $('.field-bloc').each(function(){
+                    $(this).find("input[id$='position']").val($(this).index());
+                });
+
                 tinymce.remove();
                 tinymce.init({
                     selector: "textarea",
@@ -587,7 +509,7 @@ $(document).ready(function(){
                     block_formats: 'Paragraphe=p;Titre h2=h2;Titre h3=h3;Titre h4=h4;Titre h5=h5;Titre h6=h6',
                     image_advtab: true,
                     toolbar1: "formatselect | image | media | link unlink | copy paste pastetext | bold italic underline | alignleft aligncenter alignright | bullist numlist | code | undo redo"
-                });*/
+                });
             })
             .fail(function(){
                 $('.listeBlocs').removeClass('actif', 'chargement');

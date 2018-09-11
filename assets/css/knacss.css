@@ -2792,11 +2792,11 @@ body.notFull .select2-dropdown {
   margin-top: 1rem; }
 
 /* M├®diath├¿que */
-a.bloc_image_bouton_mediatheque {
+a[class$='image_bouton_mediatheque'] {
   display: inline-block;
   margin: 1rem 0; }
 
-.ouvrirMediatheque, .bloc_image_bouton_mediatheque {
+.ouvrirMediatheque, a[class$='image_bouton_mediatheque'] {
   display: inline-block;
   margin-top: 1rem;
   background-color: #0791B3;
@@ -2804,7 +2804,7 @@ a.bloc_image_bouton_mediatheque {
   border-radius: 5px;
   color: #fff;
   text-decoration: none; }
-  .ouvrirMediatheque:hover, .ouvrirMediatheque:active, .ouvrirMediatheque:focus, .bloc_image_bouton_mediatheque:hover, .bloc_image_bouton_mediatheque:active, .bloc_image_bouton_mediatheque:focus {
+  .ouvrirMediatheque:hover, .ouvrirMediatheque:active, .ouvrirMediatheque:focus, a[class$='image_bouton_mediatheque']:hover, a[class$='image_bouton_mediatheque']:active, a[class$='image_bouton_mediatheque']:focus {
     background-color: #056982;
     color: #fff;
     text-decoration: none; }
@@ -2829,7 +2829,7 @@ a.bloc_image_bouton_mediatheque {
     object-fit: cover;
     border: 5px solid #FFF; }
 
-.bloc_image_apercu_mediatheque img {
+div[class$="image_apercu_mediatheque"] img {
   object-fit: contain;
   max-width: 30rem;
   max-height: 30rem; }
@@ -3275,7 +3275,6 @@ div[id^="page_active_blocs_"]:not([id$="contenu"]) > div:first-child:not(.field-
   div[id^="page_active_blocs_"]:not([id$="contenu"]) > div:first-child:not(.field-slide) select {
     margin-right: .5rem; }
   div[id^="page_active_blocs_"]:not([id$="contenu"]) > div:first-child:not(.field-slide) label {
-    margin-bottom: 1rem;
     margin-right: 1rem; }
 
 /* Barre d'actions */

@@ -60,6 +60,12 @@
     {{- parent() -}}
 {%- endblock form_widget_simple %}
 
+{%- block number_widget -%}
+    {%- set type = type|default('text') -%}
+    {{ block('form_widget_simple') }}
+    {{ form_help(form) }}
+{%- endblock number_widget -%}
+
 {% block textarea_widget -%}
     {% set attr = attr|merge({class: (attr.class|default('') ~ ' form-control')|trim}) %}
     {{- parent() -}}
@@ -623,47 +629,19 @@
 
 {% block _page_active_blocs_row %}
     <div class="form-group field-collection">
-        {% set js_add_item_bloc %}
-            $(function() {
-            if (event.preventDefault) event.preventDefault(); else event.returnValue = false;
-
-            $('.listeBlocs').addClass('actif');
-
-            {#var numItems = collection.data('count') || collection.children('div.form-group').length;
-
-            collection.prev('.collection-empty').remove();
-
-            var newItem = collection.attr('data-prototype')
-            .replace(/\>__name__label__\</g, '>' + numItems + '<')
-            .replace(/_{{ name }}___name__/g, '_{{ name }}_' + numItems)
-            .replace(/{{ name }}\]\[__name__\]/g, '{{ name }}][' + numItems + ']')
-            ;
-
-            // Increment the counter and store it in the collection
-            collection.data('count', ++numItems);
-
-            collection.prepend(newItem).trigger('easyadmin.collection.item-added');#}
-
-            $('.field-bloc').each(function(){
-                idBloc = $(this).find('.control-label').html();
-                $(this).find('#page_active_blocs_'+idBloc+'_position').val($(this).index());
-            })
-            });
-        {% endset %}
-
         {{- form_label(form) -}}
 
-        {#<div class="text-right field-collection-action mbs">
-            <a href="#" onclick="{{ js_add_item_bloc_before|raw }}" class="ajout-bloc">
+        <div class="text-right field-collection-action mbs">
+            <a href="#" onclick="$(function (){$('.listeBlocs').attr('id', 'avant').addClass('actif')})" class="ajout-bloc">
                 <i class="fas fa-plus-circle"></i>
                 {{ 'ajouter un bloc'|trans({}, 'EasyAdminBundle') }}
             </a>
-        </div>#}
+        </div>
 
         {{- form_widget(form) -}}
 
         <div class="text-right field-collection-action">
-            <a href="#" onclick="{{ js_add_item_bloc|raw }}" class="ajout-bloc">
+            <a href="#" onclick="$(function (){$('.listeBlocs').attr('id', 'apres').addClass('actif')})" class="ajout-bloc">
                 <i class="fas fa-plus-circle"></i>
                 {{ 'ajouter un bloc'|trans({}, 'EasyAdminBundle') }}
             </a>
