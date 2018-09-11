@@ -25,7 +25,8 @@ class BlocController extends Controller
         if($request->isXmlHttpRequest()){
             $type = $request->get('type');
 
-            $form = $this->get('form.factory')->createBuilder("App\Blocs\\".$type."\\".$type."Type")->getForm();
+//            $form = $this->get('form.factory')->createBuilder("App\Blocs\\".$type."\\".$type."Type")->getForm();
+            $form = $this->get('form.factory')->createBuilder("App\Form\Type\BlocType", null, array('type' => $type))->getForm();
             return $this->render('back/formulaireBloc.html.twig', array('form'=>$form->createView()));
         };
 

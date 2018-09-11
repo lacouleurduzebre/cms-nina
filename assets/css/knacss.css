@@ -3358,6 +3358,10 @@ div[id^="page_active_blocs_"]:not([id$="contenu"]) > div:first-child:not(.field-
   align-items: center; }
   .listeBlocs.actif {
     display: flex; }
+  .listeBlocs.chargement .listeBlocs-chargement {
+    display: block; }
+  .listeBlocs.chargement ul, .listeBlocs.chargement .listeBlocs-fermeture {
+    display: none; }
   .listeBlocs ul {
     list-style: none; }
     .listeBlocs ul li {
@@ -3392,6 +3396,15 @@ div[id^="page_active_blocs_"]:not([id$="contenu"]) > div:first-child:not(.field-
 
 .bloc-nom {
   font-size: 2rem; }
+
+.listeBlocs-chargement {
+  display: none;
+  position: absolute;
+  z-index: 10;
+  left: calc(50% - 7.5rem);
+  top: calc(50% - 7.5rem);
+  font-size: 15rem;
+  color: #0791B3; }
 
 .field-slide {
   padding: 1rem;

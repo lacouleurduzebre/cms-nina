@@ -67,6 +67,7 @@ class AdminController extends BaseAdminController
         $this::updateEntity($entity);
     }
 
+    //Ajout de la liste des blocs dans $parameters
     protected function newPage_ActiveAction()
     {
         $blocs = $this->listeBlocs();
@@ -111,6 +112,7 @@ class AdminController extends BaseAdminController
         return $this->executeDynamicMethod('render<EntityName>Template', array('new', $this->entity['templates']['new'], $parameters));
     }
 
+    //Ajout de la liste des blocs dans $parameters
     protected function editPage_ActiveAction(){
         $blocs = $this->listeBlocs();
 
@@ -173,10 +175,18 @@ class AdminController extends BaseAdminController
         $blocs = [];
         foreach($types as $type){
             $infos = Yaml::parseFile('../src/Blocs/'.$type.'/infos.yaml');
-            $blocs[] = $infos;
+            $blocs[$type] = $infos;
         }
+        uasort($blocs, array($this,'comparaison'));
 
         return $blocs;
+    }
+
+    private static function comparaison($a, $b) {
+        if ($a['priorite'] == $b['priorite']) {
+            return 0;
+        }
+        return ($a['priorite'] < $b['priorite']) ? -1 : 1;
     }
 
     /**

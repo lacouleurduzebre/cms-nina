@@ -207,6 +207,14 @@ div[id^="page_active_blocs_"]:not([id$="contenu"]){
   &.actif{
     display: flex;
   }
+  &.chargement{
+    .listeBlocs-chargement{
+      display: block;
+    }
+    ul, .listeBlocs-fermeture{
+      display: none;
+    }
+  }
   ul{
     list-style: none;
     li{
@@ -241,7 +249,7 @@ div[id^="page_active_blocs_"]:not([id$="contenu"]){
 
 .listeBlocs-fermeture{
   position: absolute;
-  top: 1rem;
+  top: 2rem;
   right: 4rem;
   cursor: pointer;
   font-size: 3rem;
@@ -249,6 +257,16 @@ div[id^="page_active_blocs_"]:not([id$="contenu"]){
 
 .bloc-nom{
   font-size: 2rem;
+}
+
+.listeBlocs-chargement{
+  display: none;
+  position: absolute;
+  z-index: 10;
+  left: calc(50% - 7.5rem);
+  top: calc(50% - 7.5rem);
+  font-size: 15rem;
+  color: $color-brand2;
 }
 
 //Slider

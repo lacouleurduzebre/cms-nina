@@ -92,7 +92,7 @@ $(document).ready(function(){
     });
 
     /* Affichage du formulaire en fonction du type du bloc */
-    $('form[id$="page_active-form"]').on('change', 'select[id^="page_active_blocs"]', function(){
+    /*$('form[id$="page_active-form"]').on('change', 'select[id^="page_active_blocs"]', function(){
         type = $(this).val();
         typeFormalise = $(this).find('option:selected').html();
         id = $(this).attr('id');
@@ -152,13 +152,13 @@ $(document).ready(function(){
             .fail(function(){
                 $('#'+id).closest('div').find('svg').attr('class', 'fas fa-times').css('opacity', 0);
             });
-    });
+    });*/
 
     /* Cacher les select de choix du type de bloc si bloc déjà créé */
-    $('.form-group.field-bloc select[id$="type"]').each(function(){
+    /*$('.form-group.field-bloc select[id$="type"]').each(function(){
         type = $(this).find('option:selected').html();
         $(this).hide().prev('label').hide().closest('div').append('<p class="type-bloc">'+type+'</p>');
-    });
+    });*/
 
     /* Changement du h1 lors de l'édition d'une page */
     $('body.edit-page_active h1').html('Page : '+$('#page_active_titre').val());
@@ -458,4 +458,143 @@ $(document).ready(function(){
         champ: $('#page_active_SEO_metaDescription'),
         score: 150
     }, scoreSEOLive);
+
+    //Ajout de blocs via liste des blocs
+    /*$('form[id$="page_active-form"]').on('change', 'select[id^="page_active_blocs"]', function(){
+        type = $(this).val();
+        typeFormalise = $(this).find('option:selected').html();
+        id = $(this).attr('id');
+        idBloc = $(this).closest('.field-bloc').children('label').html();
+        $(this).closest('div').append('<i class="fas fa-sync fa-spin bloc"></i>');
+
+        $.ajax({
+            url: Routing.generate('ajouterBloc'),
+            method: "post",
+            data: {type: type}
+        })
+            .done(function(data){
+                $('#'+id).closest('div').find('svg').hide();
+                $('#'+id).closest('div[id^="page_active"]').find('div[id$="contenu"]').append(data).prev('.pasDeParametre').hide();
+                $('#page_active_blocs_'+idBloc+'_contenu').find('label').each(function(){
+                    idLabel = $(this).attr('for');
+                    champ = idLabel.substring(idLabel.indexOf('_') + 1);
+                    $(this).attr('for', 'page_active[blocs]['+idBloc+'][contenu]['+champ+']');
+                    $(this).next('*').attr('name', 'page_active[blocs]['+idBloc+'][contenu]['+champ+']');
+                    $(this).next('*').attr('id', $(this).next('*').attr('id')+idBloc);
+                });
+                if(type == 'Image'){
+                    url = $('#image_image'+idBloc).parent('div').next('div').find('a').attr('href');
+                    $('#image_image'+idBloc).parent('div').next('div').find('a').attr('href', url+idBloc);
+                    $('.bloc_image_bouton_mediatheque').fancybox({
+                        type: 'iframe',
+                        minHeight: '600'
+                    });
+                }
+                $('#'+id).closest('div').append('<p class="type-bloc">'+typeFormalise+'</p>');
+                $('#'+id).hide().prev('label').hide();
+                // TinyMCE
+                tinymce.remove();
+                tinymce.init({
+                    selector: "textarea",
+                    language: "fr_FR",
+                    theme: "modern",
+                    height: 300,
+                    plugins: [
+                        "advlist autolink link image lists charmap print preview hr anchor pagebreak",
+                        "searchreplace wordcount visualblocks visualchars insertdatetime media nonbreaking spellchecker",
+                        "table contextmenu directionality emoticons paste textcolor responsivefilemanager code"
+                    ],
+                    relative_urls: false,
+                    menubar: false,
+
+                    filemanager_title:"Médiathèque",
+                    external_filemanager_path:"/filemanager/",
+                    external_plugins: { "filemanager" : "/filemanager/plugin.min.js"},
+
+                    extended_valid_elements: 'i[class]',
+                    block_formats: 'Paragraphe=p;Titre h2=h2;Titre h3=h3;Titre h4=h4;Titre h5=h5;Titre h6=h6',
+                    image_advtab: true,
+                    toolbar1: "formatselect | image | media | link unlink | copy paste pastetext | bold italic underline | alignleft aligncenter alignright | bullist numlist | code | undo redo"
+                });
+            })
+            .fail(function(){
+                $('#'+id).closest('div').find('svg').attr('class', 'fas fa-times').css('opacity', 0);
+            });
+    });*/
+
+    $('.listeBlocs li').click(function(){
+        type = $(this).attr('id');
+        $('.listeBlocs').addClass('chargement');
+
+        $.ajax({
+            url: Routing.generate('ajouterBloc'),
+            method: "post",
+            data: {type: type}
+        })
+            .done(function(data){
+                $('.listeBlocs').removeClass('actif chargement');
+                count = $('#page_active_blocs').find('.field-bloc').length;
+
+                // console.log(data);
+                console.log(count);
+
+                var form = data.replace(/bloc_/g, 'page_active_blocs_'+count+'_')
+                    .replace(/bloc\[/g, 'page_active[blocs]['+count+'][');
+
+                console.log(form);
+
+                $('#page_active_blocs').append('<div class="form-group field-bloc">'+form+'</div>').prev('.empty').remove();
+
+                /*$('#'+id).closest('div').find('svg').hide();
+                $('#'+id).closest('div[id^="page_active"]').find('div[id$="contenu"]').append(data).prev('.pasDeParametre').hide();
+                $('#page_active_blocs_'+idBloc+'_contenu').find('label').each(function(){
+                    idLabel = $(this).attr('for');
+                    champ = idLabel.substring(idLabel.indexOf('_') + 1);
+                    $(this).attr('for', 'page_active[blocs]['+idBloc+'][contenu]['+champ+']');
+                    $(this).next('*').attr('name', 'page_active[blocs]['+idBloc+'][contenu]['+champ+']');
+                    $(this).next('*').attr('id', $(this).next('*').attr('id')+idBloc);
+                });
+                if(type == 'Image'){
+                    url = $('#image_image'+idBloc).parent('div').next('div').find('a').attr('href');
+                    $('#image_image'+idBloc).parent('div').next('div').find('a').attr('href', url+idBloc);
+                    $('.bloc_image_bouton_mediatheque').fancybox({
+                        type: 'iframe',
+                        minHeight: '600'
+                    });
+                }
+                $('#'+id).closest('div').append('<p class="type-bloc">'+typeFormalise+'</p>');
+                $('#'+id).hide().prev('label').hide();
+                // TinyMCE
+                tinymce.remove();
+                tinymce.init({
+                    selector: "textarea",
+                    language: "fr_FR",
+                    theme: "modern",
+                    height: 300,
+                    plugins: [
+                        "advlist autolink link image lists charmap print preview hr anchor pagebreak",
+                        "searchreplace wordcount visualblocks visualchars insertdatetime media nonbreaking spellchecker",
+                        "table contextmenu directionality emoticons paste textcolor responsivefilemanager code"
+                    ],
+                    relative_urls: false,
+                    menubar: false,
+
+                    filemanager_title:"Médiathèque",
+                    external_filemanager_path:"/filemanager/",
+                    external_plugins: { "filemanager" : "/filemanager/plugin.min.js"},
+
+                    extended_valid_elements: 'i[class]',
+                    block_formats: 'Paragraphe=p;Titre h2=h2;Titre h3=h3;Titre h4=h4;Titre h5=h5;Titre h6=h6',
+                    image_advtab: true,
+                    toolbar1: "formatselect | image | media | link unlink | copy paste pastetext | bold italic underline | alignleft aligncenter alignright | bullist numlist | code | undo redo"
+                });*/
+            })
+            .fail(function(){
+                $('.listeBlocs').removeClass('actif', 'chargement');
+            });
+    });
+        //Fermeture
+    $('.listeBlocs-fermeture').click(function(){
+       $('.listeBlocs').removeClass('actif');
+    });
 });

@@ -2,9 +2,10 @@
     <div class="listeBlocs-fermeture">
         <i class="fas fa-times"></i>
     </div>
+    <i class="fas fa-spin fa-sync listeBlocs-chargement"></i>
     <ul class="grid-6-small-2 has-gutter-l">
-        {% for bloc in blocs %}
-            <li>
+        {% for type,bloc in blocs %}
+            <li id="{{ type }}">
                 <div class="bloc-help">
                     <i class="fas fa-info-circle"></i>
                     <p>
