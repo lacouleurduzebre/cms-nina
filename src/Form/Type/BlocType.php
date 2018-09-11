@@ -25,20 +25,6 @@ class BlocType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        /*$types = scandir('../src/Blocs');
-        $types = array_combine(array_values($types), array_values($types));
-        unset($types["."]);
-        unset($types[".."]);
-
-        //NV DEV
-        $typesFormalises = [];
-        foreach($types as $type){
-            $infos = Yaml::parseFile('../src/Blocs/'.$type.'/infos.yaml');
-            $nom = $infos['nom'];
-            $typesFormalises[$nom] = $type;
-        }
-        //FIN NV DEV*/
-
         if($options['type'] != ''){//Ajax
             $infos = Yaml::parseFile('../src/Blocs/'.$options['type'].'/infos.yaml');
             $description = $infos['description'];

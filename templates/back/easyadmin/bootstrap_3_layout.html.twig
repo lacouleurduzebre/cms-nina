@@ -632,7 +632,7 @@
         {{- form_label(form) -}}
 
         <div class="text-right field-collection-action mbs">
-            <a href="#" onclick="$(function (){$('.listeBlocs').attr('id', 'avant').addClass('actif')})" class="ajout-bloc">
+            <a href="#" onclick="$(function (){if (event.preventDefault) event.preventDefault(); else event.returnValue = false; $('.listeBlocs').attr('id', 'avant').addClass('actif')})" class="ajout-bloc">
                 <i class="fas fa-plus-circle"></i>
                 {{ 'ajouter un bloc'|trans({}, 'EasyAdminBundle') }}
             </a>
@@ -641,7 +641,7 @@
         {{- form_widget(form) -}}
 
         <div class="text-right field-collection-action">
-            <a href="#" onclick="$(function (){$('.listeBlocs').attr('id', 'apres').addClass('actif')})" class="ajout-bloc">
+            <a href="#" onclick="$(function (){if (event.preventDefault) event.preventDefault(); else event.returnValue = false; $('.listeBlocs').attr('id', 'apres').addClass('actif')})" class="ajout-bloc">
                 <i class="fas fa-plus-circle"></i>
                 {{ 'ajouter un bloc'|trans({}, 'EasyAdminBundle') }}
             </a>
