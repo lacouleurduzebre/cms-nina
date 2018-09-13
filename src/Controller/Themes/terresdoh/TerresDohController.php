@@ -12,9 +12,11 @@ namespace App\Controller\Themes\terresdoh;
 use Mpdf\Config\ConfigVariables;
 use Mpdf\Mpdf;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Config\Definition\Exception\Exception;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 
 //Développement Terres d'Oh!
@@ -129,6 +131,8 @@ class TerresDohController extends AbstractController
 
             $fiches = $this->getFiches();
 
+            $header = file_get_contents('themes/terresdoh/templates/exportListeFavorisHeader.html');
+            $footer = file_get_contents('themes/terresdoh/templates/exportListeFavorisFooter.html');
             $html = $this->render('exportListeFavoris.html.twig', array('fiches' => $fiches))->getContent();
 
             $mpdf = new Mpdf([
@@ -136,16 +140,20 @@ class TerresDohController extends AbstractController
                 'fontDir' => array_merge($fontDirs, [
                     '../public/themes/terresdoh/fonts',
                 ]),
-                'default_font' => 'Montserrat'
+                'default_font' => 'Montserrat',
             ]);
+            $mpdf->setAutoTopMargin = 'stretch';
+            $mpdf->setAutoBottomMargin = 'stretch';
             $mpdf->useSubstitutions = false;
             $mpdf->simpleTables = true;
+            $mpdf->SetHTMLHeader($header);
+            $mpdf->SetHTMLFooter($footer);
             $mpdf->WriteHTML($html);
-            $mpdf->Output();
+            $mpdf->Output('carnet-de-voyage.pdf', 'I');
 
             return new Response($html);
         }else{
-            return new Response(false);
+            throw new NotFoundHttpException('Cette page n\'existe pas ou a été supprimée');
         }
     }
 

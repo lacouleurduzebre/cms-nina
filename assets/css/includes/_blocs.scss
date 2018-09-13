@@ -91,8 +91,8 @@ div[id^="page_active_blocs"]{
   }
 }
 
-div[id^="page_active_blocs_"]:not([id$="contenu"]){
-  > div:first-child:not(.field-slide){
+#page_active_blocs_{
+  > .type{
     border-bottom: 2px solid $color-brand2;
     select, label{
       display: inline-block;
@@ -272,4 +272,36 @@ div[id^="page_active_blocs_"]:not([id$="contenu"]){
 .field-slide{
   padding: 1rem;
   background-color: #EDEDED;
+}
+
+//Formulaire
+.bloc-formulaire{
+  .field-choix.vide{
+    display: none;
+  }
+  .field-destinataires{
+    .field-text{
+      padding: 1rem;
+      background-color: #EDEDED;
+    }
+  }
+  .field-champ{
+    padding: 1rem;
+    background-color: #EDEDED;
+  }
+  .field-choix{
+    padding: 1rem;
+    background-color: #E1E0E0;
+  }
+}
+
+//Blocs ouverts / fermés
+#page_active_blocs_ > .form-group > .hide{
+  display: none;
+}
+
+.toggleBloc{
+  font-size: 2rem;
+  margin: 0 1rem;
+  cursor: pointer;
 }

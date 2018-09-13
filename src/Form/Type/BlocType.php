@@ -72,7 +72,10 @@ class BlocType extends AbstractType
                 $form->add('contenu', 'App\Blocs\\'.$type.'\\'.$type.'Type', array(
                     'label' => false,
                     'help' => $infos['description'],
-                    'allow_extra_fields' => true
+                    'allow_extra_fields' => true,
+                    'attr' => array(
+                        'class' => 'hide'
+                    )
                 ))
                     ->add('type', HiddenType::class, array(
                         'label' => $infos['nom']

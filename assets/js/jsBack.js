@@ -446,11 +446,26 @@ $(document).ready(function(){
                 location.href = "#page_active_blocs_"+count+"_contenu";
             })
             .fail(function(){
-                $('.listeBlocs').removeClass('actif', 'chargement');
+                $('.listeBlocs').removeClass('actif chargement');
             });
     });
         //Fermeture
     $('.listeBlocs-fermeture').click(function(){
        $('.listeBlocs').removeClass('actif');
+    });
+
+    //Bloc formulaire : affichage ou non des choix
+    $('#page_active_blocs').on('change', '.bloc-formulaire select[id$="type"]', function(){
+       if($(this).val() === 'select' || $(this).val() === 'radio' || $(this).val() === 'checkbox'){
+           $(this).closest('div').siblings('.field-choix').slideDown();
+       }else{
+           $(this).closest('div').siblings('.field-choix').slideUp().find('div[id$="choix"]').remove();
+       }
+    });
+
+    //Toggle blocs
+    $('#page_active_blocs').on('click', '.toggleBloc', function(){
+        $(this).closest('.field-bloc').find('.contenu').children('div').toggleClass('hide');
+        $(this).find('svg').toggleClass('fa-minus fa-plus');
     });
 });

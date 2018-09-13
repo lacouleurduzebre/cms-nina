@@ -257,7 +257,7 @@
         {% endif %}
         <label{% for attrname, attrvalue in label_attr %} {{ attrname }}="{{ attrvalue }}"{% endfor %}>
             {{- widget|raw -}}
-            {{- label is not same as(false) ? label|trans({}, translation_domain ?: easyadmin.entity.translation_domain) -}}
+            {{- label is not same as(false) ? label|trans -}}
         </label>
     {% endif %}
 {% endblock checkbox_radio_label %}
@@ -288,39 +288,41 @@
 {%- endblock form_row %}
 
 {% block collection_row %}
-    {{ block('form_row') }}
+    <div class="form-group field-{{ name }} {% if value is empty %}vide{% endif %}">
+        {{ block('form_row') }}
 
-    {% if allow_add|default(false) %}
-        {% set js_add_item %}
-            $(function() {
-                if (event.preventDefault) event.preventDefault(); else event.returnValue = false;
+        {% if allow_add|default(false) %}
+            {% set js_add_item %}
+                $(function() {
+                    if (event.preventDefault) event.preventDefault(); else event.returnValue = false;
 
-                var collection = $('#{{ id }}');
-                // Use a counter to avoid having the same index more than once
-                var numItems = collection.data('count') || collection.children('div.form-group').length;
+                    var collection = $('#{{ id }}');
+                    // Use a counter to avoid having the same index more than once
+                    var numItems = collection.data('count') || collection.children('div.form-group').length;
 
-                collection.prev('.collection-empty').remove();
+                    collection.prev('.collection-empty').remove();
 
-                var newItem = collection.attr('data-prototype')
-                    .replace(/\>__name__label__\</g, '>' + numItems + '<')
-                    .replace(/_{{ name }}___name__/g, '_{{ name }}_' + numItems)
-                    .replace(/{{ name }}\]\[__name__\]/g, '{{ name }}][' + numItems + ']')
-                ;
+                    var newItem = collection.attr('data-prototype')
+                        .replace(/\>__name__label__\</g, '>' + numItems + '<')
+                        .replace(/_{{ name }}___name__/g, '_{{ name }}_' + numItems)
+                        .replace(/{{ name }}\]\[__name__\]/g, '{{ name }}][' + numItems + ']')
+                    ;
 
-                // Increment the counter and store it in the collection
-                collection.data('count', ++numItems);
+                    // Increment the counter and store it in the collection
+                    collection.data('count', ++numItems);
 
-                collection.append(newItem).trigger('easyadmin.collection.item-added');
-            });
-        {% endset %}
+                    collection.append(newItem).trigger('easyadmin.collection.item-added');
+                });
+            {% endset %}
 
-        <div class="text-right field-collection-action">
-            <a href="#" onclick="{{ js_add_item|raw }}" class="text-primary">
-                <i class="fa fa-plus-square"></i>
-                {{ (form|length == 0 ? 'action.add_new_item' : 'action.add_another_item')|trans({}, 'EasyAdminBundle') }}
-            </a>
-        </div>
-    {% endif %}
+            <div class="text-right field-collection-action">
+                <a href="#" onclick="{{ js_add_item|raw }}" class="text-primary">
+                    <i class="fa fa-plus-square"></i>
+                    {{ (form|length == 0 ? 'action.add_new_item' : 'action.add_another_item')|trans({}, 'EasyAdminBundle') }}
+                </a>
+            </div>
+        {% endif %}
+    </div>
 {% endblock collection_row %}
 
 {% block button_row -%}
@@ -654,6 +656,13 @@
 {% block bloc_widget %}
     {% set _field_type = easyadmin.field.fieldType|default('default') %}
     <div class="bloc-barreActions">
+        <div class="toggleBloc">
+            {% if form.children.contenu.vars.attr['class'] is defined %}
+                <i class="fas fa-plus"></i>
+            {% else %}
+                <i class="fas fa-minus"></i>
+            {% endif %}
+        </div>
         <div class="drag"><i class="fas fa-arrows-alt "></i></div>
         <div class="bloc-menu">
             <span><i class="fas fa-ellipsis-v"></i></span>
@@ -667,7 +676,7 @@
     </div>
 
     {#{{- form_label(form) -}}#}
-    <div id="page_active_blocs_">
+    <div id="page_active_blocs_" {% if form.children.type.vars.value is defined %}class="bloc-{{ form.children.type.vars.value|lower }}"{% endif %}>
         <div class="form-group type">
             {{- form_label(form.children.type) -}}
             {{- form_widget(form.children.type) -}}
@@ -679,7 +688,7 @@
             {% endif %}
         </div>
         {{- form_widget(form.children.position) -}}
-        <div class="form-group">
+        <div class="form-group contenu">
             {% if form.children.contenu is defined %}
                 {% if form.children.contenu is empty %}
                     <p class="pasDeParametre">{{ "Aucun paramètre"|trans }}</p>
@@ -760,7 +769,7 @@
         {{- form_widget(form.children.image) -}}
     </div>
     <div>
-        <a class="iframe bloc_image_bouton_mediatheque" href='/filemanager/dialog.php?type=1&field_id={{ form.children.image.vars.id }}' type="button">{{ 'Ouvrir la médiathèque'|trans }}</a>
+        <a class="iframe bloc_image_bouton_mediatheque" href='/filemanager/dialog.php?type=1&field_id={{ form.children.image.vars.id }}' type="button">{{ 'Choisir une image'|trans }}</a>
         <div class="bloc_image_apercu_mediatheque">
             <img src="{{ form.children.image.vars.value }}" alt="">
         </div>

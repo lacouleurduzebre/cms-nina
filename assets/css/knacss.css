@@ -2644,7 +2644,7 @@ body.list .table, body.list .table td, body.list .table th, .sauvegarde .table, 
 /* Edit */
 body.new form, body.edit form {
   padding: 0 2rem; }
-  body.new form input[type='text']:focus, body.edit form input[type='text']:focus {
+  body.new form input[type='text']:focus, body.new form input[type='email']:focus, body.edit form input[type='text']:focus, body.edit form input[type='email']:focus {
     box-shadow: 0 2px 0 #0791B3;
     background-color: #eefbfe; }
 body.new #main, body.edit #main {
@@ -3268,13 +3268,13 @@ div[id^="page_active_blocs"] > div > .collection-empty {
     white-space: nowrap;
     z-index: 10; }
 
-div[id^="page_active_blocs_"]:not([id$="contenu"]) > div:first-child:not(.field-slide) {
+#page_active_blocs_ > .type {
   border-bottom: 2px solid #0791B3; }
-  div[id^="page_active_blocs_"]:not([id$="contenu"]) > div:first-child:not(.field-slide) select, div[id^="page_active_blocs_"]:not([id$="contenu"]) > div:first-child:not(.field-slide) label {
+  #page_active_blocs_ > .type select, #page_active_blocs_ > .type label {
     display: inline-block; }
-  div[id^="page_active_blocs_"]:not([id$="contenu"]) > div:first-child:not(.field-slide) select {
+  #page_active_blocs_ > .type select {
     margin-right: .5rem; }
-  div[id^="page_active_blocs_"]:not([id$="contenu"]) > div:first-child:not(.field-slide) label {
+  #page_active_blocs_ > .type label {
     margin-right: 1rem; }
 
 /* Barre d'actions */
@@ -3408,5 +3408,25 @@ div[id^="page_active_blocs_"]:not([id$="contenu"]) > div:first-child:not(.field-
 .field-slide {
   padding: 1rem;
   background-color: #EDEDED; }
+
+.bloc-formulaire .field-choix.vide {
+  display: none; }
+.bloc-formulaire .field-destinataires .field-text {
+  padding: 1rem;
+  background-color: #EDEDED; }
+.bloc-formulaire .field-champ {
+  padding: 1rem;
+  background-color: #EDEDED; }
+.bloc-formulaire .field-choix {
+  padding: 1rem;
+  background-color: #E1E0E0; }
+
+#page_active_blocs_ > .form-group > .hide {
+  display: none; }
+
+.toggleBloc {
+  font-size: 2rem;
+  margin: 0 1rem;
+  cursor: pointer; }
 
 /*# sourceMappingURL=knacss.css.map */

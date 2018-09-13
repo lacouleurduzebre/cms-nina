@@ -1,0 +1,44 @@
+<form action="" id="{{ bloc.id }}" class="blocFormulaire-formulaire" method="POST">
+    {% for champ in bloc.contenu.champs %}
+        <div>
+            <label {% if champ.requis is not empty %}class="required"{% endif %} for="champ{{ loop.index }}">{{ champ.label }}</label>
+            {% if champ.requis is not empty %}
+                <span>*</span>
+            {% endif %}
+            {% if champ.type == "text" %}
+                <input id="champ{{ loop.index }}" name="{{ champ.label }}" type="text">
+            {% elseif champ.type == "textarea" %}
+                <textarea id="champ{{ loop.index }}" name="{{ champ.label }}" cols="30" rows="10"></textarea>
+            {% elseif champ.type == "select" %}
+                <select name="{{ champ.label }}" id="champ{{ loop.index }}">
+                    <option value=""></option>
+                    {% for choix in champ.choix %}
+                        <option value="{{ choix }}">{{ choix }}</option>
+                    {% endfor %}
+                </select>
+            {% elseif champ.type == "checkbox" %}
+                {% set numChamp = loop.index %}
+                {% for choix in champ.choix %}
+                    <p>
+                        <label for="champ{{ numChamp }}choix{{ loop.index }}">
+                            <input type="checkbox" id="champ{{ numChamp }}choix{{ loop.index }}" name="{{ champ.label }}" value="{{ choix }}">
+                            {{ choix }}
+                        </label>
+                    </p>
+                {% endfor %}
+            {% elseif champ.type == "radio" %}
+                {% set numChamp = loop.index %}
+                {% for choix in champ.choix %}
+                    <p>
+                        <label for="champ{{ numChamp }}choix{{ loop.index }}">
+                            <input type="radio" id="champ{{ numChamp }}choix{{ loop.index }}" name="{{ champ.label }}" value="{{ choix }}">
+                            {{ choix }}
+                        </label>
+                    </p>
+                {% endfor %}
+            {% endif %}
+        </div>
+    {% endfor %}
+    <input type="submit" value="{{ bloc.contenu.submit }}">
+    <div class="message{{ bloc.id }}"></div>
+</form>
