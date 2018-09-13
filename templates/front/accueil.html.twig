@@ -18,7 +18,7 @@
         {{ langueActive.metaDescription|striptags }}
     {% endif %}
 {% endblock %}
-{% block body %}
+{% block main %}
 <main>
     {% if page.titre is defined %}<h1>{{ page.titre }}</h1>{% endif %}
     {% if page is not empty %}

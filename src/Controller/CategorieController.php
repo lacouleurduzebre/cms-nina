@@ -30,7 +30,7 @@ class CategorieController extends Controller
         if($typeCategorie){
             $categories = $typeCategorie->getCategories();
 
-            return $this->render('front/voirTypeCategorie.html.twig', compact('typeCategorie', 'categories'));
+            return $this->render('front/typeCategorie.html.twig', compact('typeCategorie', 'categories'));
         }else{
             $reponse = $this->forward('App\Controller\PageController::voirAction', array(
                 'url'  => $urlTypeCategorie
@@ -56,7 +56,7 @@ class CategorieController extends Controller
         if($categorie->getTypeCategorie() == $typeCategorie){
             $pages = $categorie->getPages();
 
-            return $this->render('front/voirCategorie.html.twig', compact('pages', 'categorie'));
+            return $this->render('front/categorie.html.twig', compact('pages', 'categorie'));
         }else{
             throw new NotFoundHttpException('Cette page n\'existe pas ou a été supprimée');
         }

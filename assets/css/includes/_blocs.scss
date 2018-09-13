@@ -269,9 +269,17 @@ div[id^="page_active_blocs"]{
 }
 
 //Slider
+.field-Slide > div > div{
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0 -1rem;
+}
+
 .field-slide{
   padding: 1rem;
   background-color: #EDEDED;
+  width: calc(50% - 2rem);
+  margin: 0 1rem 2rem;
 }
 
 //Formulaire

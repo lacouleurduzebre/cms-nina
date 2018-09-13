@@ -121,9 +121,13 @@ class TerresDohController extends AbstractController
 
     /**
      * @Route("/{_locale}/exportFavoris", name="exportListeFavorisLEI")
+     * @Route("/{_locale}/exportFavoris/photos", name="exportListeFavorisLEIPhotos")
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
-    public function exportListeFavorisAction(){
+    public function exportListeFavorisAction(Request $request){
+        $route = $request->get('_route');
+        ($route == 'exportListeFavorisLEIPhotos') ? $photos = true : $photos = false;
+
         if(isset($_COOKIE['favoris'])){
 
             $defaultConfig = (new ConfigVariables())->getDefaults();
@@ -133,7 +137,7 @@ class TerresDohController extends AbstractController
 
             $header = file_get_contents('themes/terresdoh/templates/exportListeFavorisHeader.html');
             $footer = file_get_contents('themes/terresdoh/templates/exportListeFavorisFooter.html');
-            $html = $this->render('exportListeFavoris.html.twig', array('fiches' => $fiches))->getContent();
+            $html = $this->render('exportListeFavoris.html.twig', array('fiches' => $fiches, 'photos' => $photos))->getContent();
 
             $mpdf = new Mpdf([
                 'tempDir' => '../var/temp/mpdf',

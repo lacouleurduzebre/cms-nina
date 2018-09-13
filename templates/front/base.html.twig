@@ -8,6 +8,7 @@
             <link rel="stylesheet" href="{{ asset('themes/'~theme~'/css/knacss.css') }}" type="text/css">
             <link rel="stylesheet" href="{{ asset('assets/js/slickslider/slick.css') }}" type="text/css">
             <link rel="stylesheet" href="{{ asset('assets/js/slickslider/slick-theme.css') }}" type="text/css">
+            <link rel="stylesheet" href="{{ asset('assets/js/fancybox/jquery.fancybox.min.css') }}" type="text/css">
             {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
                 <link rel="stylesheet" href="{{ asset('assets/js/jstree/themes/style.css') }}">
                 <link rel="stylesheet" href="{{ asset('assets/css/back.css') }}">
@@ -81,7 +82,7 @@
                 </div>
             {% endif %}
             <div class="flex-item-fluid">
-                {% block body %}{% endblock %}
+                {% block main %}{% endblock %}
             </div>
             {% if zone(region='colonneDroite') or menu(region='colonneDroite')%}
                 <div class="w20">
@@ -99,6 +100,7 @@
         {% endblock %}
         {% block javascripts %}
             <script src="{{ asset('assets/js/jscookie/cookie.js') }}"></script>
+            <script src="{{ asset('assets/js/fancybox/jquery.fancybox.min.js') }}"></script>
             <script src="{{ asset('assets/js/slickslider/slick.min.js') }}"></script>
             <script src="{{ asset('assets/js/jsFront.js') }}"></script>
             {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}

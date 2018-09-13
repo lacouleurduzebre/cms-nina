@@ -97,6 +97,6 @@ class PageController extends Controller
             }
         /* Fin commentaires */
 
-        return $this->render('front/voirPage.html.twig', array('page'=>$page, 'form'=>$form->createView(), 'commentaires'=>$commentaires));
+        return $this->render('front/page.html.twig', array('page'=>$page, 'form'=>$form->createView(), 'commentaires'=>$commentaires));
     }
 }

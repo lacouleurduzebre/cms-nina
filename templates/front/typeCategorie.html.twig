@@ -2,7 +2,7 @@
 
 {% block title %}{{ parent() }} - {{ typeCategorie.nom }}{% endblock %}
 
-{% block body %}
+{% block main %}
 <h1>{{ "Liste des termes"|trans }} "{{ typeCategorie.nom }}"</h1>
     <div class="description">{{ typeCategorie.description|raw }}</div>
     {% for categorie in categories %}

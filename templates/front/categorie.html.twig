@@ -2,7 +2,7 @@
 
 {% block title %}{{ parent() }} - {{ categorie.nom }}{% endblock %}
 
-{% block body %}
+{% block main %}
 <h1>Liste des pages classées dans "{{ categorie.nom }}"</h1>
     <p class="description">{{ categorie.description|raw }}</p>
     {% for page in pages %}
