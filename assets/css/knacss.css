@@ -3405,12 +3405,20 @@ div[id^="page_active_blocs"] > div > .collection-empty {
   font-size: 15rem;
   color: #0791B3; }
 
+.dragSlide, .dragImage {
+  font-size: 2rem;
+  color: #0791B3;
+  position: absolute;
+  top: .5rem;
+  right: 1rem; }
+
 .field-Slide > div > div, .bloc-galerie .field-images > div > div {
   display: flex;
   flex-wrap: wrap;
   margin: 0 -1rem; }
 
 .field-slide, .bloc-galerie .field-image {
+  position: relative;
   padding: 1rem;
   background-color: #EDEDED;
   width: calc(50% - 2rem);

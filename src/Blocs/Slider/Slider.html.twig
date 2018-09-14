@@ -1,5 +1,5 @@
 <div id="slider{{ bloc.id }}">
-    {% for slide in bloc.contenu.Slide %}
+    {% for slide in bloc.contenu.Slide|sortBy('position') %}
         <div>
             <img src="{{ slide.image.image }}" {% if slide.image.titre is defined %}alt="{{ slide.image.titre }}"{% endif %}>
             <div>

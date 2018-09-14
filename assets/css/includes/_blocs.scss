@@ -269,7 +269,15 @@ div[id^="page_active_blocs"]{
 }
 
 
-//Slider et Galerie sur plusieurs colonnes
+//Slider et Galerie
+.dragSlide, .dragImage{
+  font-size: 2rem;
+  color: $color-brand2;
+  position: absolute;
+  top: .5rem;
+  right: 1rem;
+}
+
 .field-Slide > div > div, .bloc-galerie .field-images > div > div{
   display: flex;
   flex-wrap: wrap;
@@ -277,6 +285,7 @@ div[id^="page_active_blocs"]{
 }
 
 .field-slide, .bloc-galerie .field-image{
+  position: relative;
   padding: 1rem;
   background-color: #EDEDED;
   width: calc(50% - 2rem);

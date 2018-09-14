@@ -137,10 +137,23 @@ $(document).ready(function(){
     });
 
     /* Gestion de la position des blocs */
-    $("#page_active_blocs").sortable({
+    options = {
         handle: '.drag',
         update: function(event, ui){
             $('.field-bloc').each(function(){
+                $(this).find("input[id$='position']").val($(this).index());
+                $('.formulaire-actions-enregistrer').attr("disabled", false);
+            });
+        }
+    };
+
+    $("#page_active_blocs").sortable(options);
+    $("#groupeblocs_blocs").sortable(options);
+
+    $("div[id$='contenu_Slide']").sortable({
+        handle: '.dragSlide',
+        update: function(event, ui){
+            $('.field-slide').each(function(){
                 $(this).find("input[id$='position']").val($(this).index());
                 $('.formulaire-actions-enregistrer').attr("disabled", false);
             });

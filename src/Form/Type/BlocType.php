@@ -49,7 +49,6 @@ class BlocType extends AbstractType
 
         $builder
             ->add('position', HiddenType::class, array(
-                'data'=>'0'
             ))
             ->add('class', TextType::class, array(
                 'label' => 'Classe'

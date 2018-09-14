@@ -809,9 +809,12 @@
         {% endif %}
     </div>
     <script>
-        $('.bloc_image_bouton_mediatheque').fancybox({
-            type: 'iframe',
-            minHeight: '600'
-        });
     </script>
+{% endblock %}
+
+{% block slide_widget %}
+    <div class="dragSlide">
+        <i class="fas fa-arrows-alt"></i>
+    </div>
+    {{- form_widget(form) -}}
 {% endblock %}
