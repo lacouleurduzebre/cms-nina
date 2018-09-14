@@ -3405,12 +3405,12 @@ div[id^="page_active_blocs"] > div > .collection-empty {
   font-size: 15rem;
   color: #0791B3; }
 
-.field-Slide > div > div {
+.field-Slide > div > div, .bloc-galerie .field-images > div > div {
   display: flex;
   flex-wrap: wrap;
   margin: 0 -1rem; }
 
-.field-slide {
+.field-slide, .bloc-galerie .field-image {
   padding: 1rem;
   background-color: #EDEDED;
   width: calc(50% - 2rem);
@@ -3428,7 +3428,7 @@ div[id^="page_active_blocs"] > div > .collection-empty {
   padding: 1rem;
   background-color: #E1E0E0; }
 
-#page_active_blocs_ > .form-group > .hide {
+#page_active_blocs_ > .form-group > .hide > * {
   display: none; }
 
 .toggleBloc {

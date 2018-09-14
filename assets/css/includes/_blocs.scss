@@ -268,14 +268,15 @@ div[id^="page_active_blocs"]{
   color: $color-brand2;
 }
 
-//Slider
-.field-Slide > div > div{
+
+//Slider et Galerie sur plusieurs colonnes
+.field-Slide > div > div, .bloc-galerie .field-images > div > div{
   display: flex;
   flex-wrap: wrap;
   margin: 0 -1rem;
 }
 
-.field-slide{
+.field-slide, .bloc-galerie .field-image{
   padding: 1rem;
   background-color: #EDEDED;
   width: calc(50% - 2rem);
@@ -304,7 +305,7 @@ div[id^="page_active_blocs"]{
 }
 
 //Blocs ouverts / fermés
-#page_active_blocs_ > .form-group > .hide{
+#page_active_blocs_ > .form-group > .hide > *{
   display: none;
 }
 

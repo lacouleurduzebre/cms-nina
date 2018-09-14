@@ -12,6 +12,7 @@ namespace App\Blocs\Image;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ButtonType;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -27,7 +28,7 @@ class ImageType extends AbstractType
             ->add('titre', TextType::class, array(
                 'required' => false
             ))
-            ->add('description', TextType::class, array(
+            ->add('description', TextareaType::class, array(
                 'required' => false
             ));
     }

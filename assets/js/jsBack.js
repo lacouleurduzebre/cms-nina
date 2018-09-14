@@ -148,12 +148,12 @@ $(document).ready(function(){
     });
 
     /* Menu blocs */
-    $('#page_active_blocs').on('click', '.bloc-menu span', function(){
+    $('.field-bloc').on('click', '.bloc-menu span', function(){
         $(this).closest('div').toggleClass('actif');
     });
 
         /* Monter */
-        $('#page_active_blocs').on('click', '.monterBloc', function(e){
+        $('.field-bloc').on('click', '.monterBloc', function(e){
             e.preventDefault();
             $(this).closest('div').removeClass('actif');
 
@@ -167,7 +167,7 @@ $(document).ready(function(){
         });
 
         /* Descendre */
-        $('#page_active_blocs').on('click', '.descendreBloc', function(e){
+        $('.field-bloc').on('click', '.descendreBloc', function(e){
             e.preventDefault();
             $(this).closest('div').removeClass('actif');
 
@@ -181,7 +181,7 @@ $(document).ready(function(){
         });
 
         /* Options d'affichage */
-        $('#page_active_blocs').on('click', '.optionsAffichage', function(e){
+        $('.field-bloc').on('click', '.optionsAffichage', function(e){
             e.preventDefault();
             $(this).closest('div').removeClass('actif');
 
@@ -191,12 +191,12 @@ $(document).ready(function(){
         });
 
             /* Fermeture */
-        $('#page_active_blocs').on('click', '.bloc-optionsAffichage-fermeture', function(){
+        $('.field-bloc').on('click', '.bloc-optionsAffichage-fermeture', function(){
            $(this).closest('div').removeClass('actif');
         });
 
         /* Supprimer */
-        $('#page_active_blocs').on('click', '.supprimerBloc', function(e){
+        $('.field-bloc').on('click', '.supprimerBloc', function(e){
             e.preventDefault();
             $(this).closest('div').removeClass('actif');
 
@@ -407,10 +407,11 @@ $(document).ready(function(){
                 var form = data.replace(/bloc_/g, entite+'_blocs_'+count+'_')
                     .replace(/bloc\[/g, entite+'[blocs]['+count+'][');
 
+                bloc = '<div id="nvBloc'+count+'" class="form-group field-bloc">'+form+'</div>';
                 if($('.listeBlocs').attr('id') === 'apres'){
-                    $('#'+entite+'_blocs').append('<div class="form-group field-bloc">'+form+'</div>');
+                    $('#'+entite+'_blocs').append(bloc);
                 }else{
-                    $('#'+entite+'_blocs').prepend('<div class="form-group field-bloc">'+form+'</div>');
+                    $('#'+entite+'_blocs').prepend(bloc);
                 }
 
                 $('#'+entite+'_blocs').prev('.empty').remove();
@@ -421,7 +422,7 @@ $(document).ready(function(){
 
                 tinymce.remove();
                 tinymce.init({
-                    selector: "textarea",
+                    selector: "textarea:not('.notTinymce')",
                     language: "fr_FR",
                     theme: "modern",
                     height: 300,
@@ -444,7 +445,7 @@ $(document).ready(function(){
                 });
 
                 location.href = "#";
-                location.href = "#page_active_blocs_"+count+"_contenu";
+                location.href = "#nvBloc"+count;
             })
             .fail(function(){
                 $('.listeBlocs').removeClass('actif chargement');
@@ -468,5 +469,10 @@ $(document).ready(function(){
     $('#page_active_blocs, #groupeblocs_blocs').on('click', '.toggleBloc', function(){
         $(this).closest('.field-bloc').find('.contenu').children('div').toggleClass('hide');
         $(this).find('svg').toggleClass('fa-minus fa-plus');
+        if($(this).find('svg').hasClass('fa-minus')){
+            $('html, body').animate({
+                scrollTop: $(this).closest('.field-bloc').offset().top - 120
+            }, 200);
+        }
     });
 });

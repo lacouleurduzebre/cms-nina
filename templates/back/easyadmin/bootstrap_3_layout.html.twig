@@ -698,7 +698,6 @@
         </div>
     </div>
 
-    {#{{- form_label(form) -}}#}
     <div id="page_active_blocs_" {% if form.children.type.vars.value is defined %}class="bloc-{{ form.children.type.vars.value|lower }}"{% endif %}>
         <div class="form-group type">
             {{- form_label(form.children.type) -}}
@@ -803,7 +802,11 @@
     </div>
     <div>
         {{- form_label(form.children.description) -}}
-        {{- form_widget(form.children.description) -}}
+        {% if form.parent.parent is not empty and form.parent.parent.vars.name == 'Slide' %}
+            {{- form_widget(form.children.description) -}}
+        {% else %}
+            {{- form_widget(form.children.description, {'attr': {'class': 'notTinymce'}}) -}}
+        {% endif %}
     </div>
     <script>
         $('.bloc_image_bouton_mediatheque').fancybox({

@@ -35,7 +35,8 @@ class GroupeBlocsType extends AbstractType
 
         $builder
             ->add('groupeBlocs', ChoiceType::class, array(
-                'choices' => $groupeBlocs
+                'choices' => $groupeBlocs,
+                'label' => 'Groupe de blocs'
             ));
     }
 

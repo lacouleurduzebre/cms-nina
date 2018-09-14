@@ -1,7 +1,20 @@
 <div id="galerie{{ bloc.id }}" class="grid-4-small-2-tiny-1 has-gutter-l">
     {% for image in bloc.contenu.images %}
         <div>
-            <a class="galerie" data-fancybox="galerie{{ bloc.id }}" href="{{ image.image }}"><img src="{{ image.image }}" {% if image.titre is not empty %}alt="{{ image.titre }}"{% endif %} {% if image.description is not empty %}title="{{ image.description }}"{% endif %}></a>
+            <a
+            class="galerie"
+            data-fancybox="galerie{{ bloc.id }}"
+            data-caption="
+                {% if image.titre is not empty %}
+                    <p><strong>{{ image.titre }}</strong></p>
+                {% endif %}
+                {% if image.description is not empty %}
+                    <p>{{ image.description }}</p>
+                {% endif %}
+            "
+            href="{{ image.image }}">
+                <img src="{{ image.image }}" {% if image.titre is not empty %}alt="{{ image.titre }}"{% endif %} {% if image.description is not empty %}title="{{ image.description }}"{% endif %}>
+            </a>
         </div>
     {% endfor %}
 </div>
