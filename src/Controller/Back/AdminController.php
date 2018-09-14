@@ -68,8 +68,15 @@ class AdminController extends BaseAdminController
     }
 
     //Ajout de la liste des blocs dans $parameters
-    protected function newPage_ActiveAction()
-    {
+    protected function newPage_ActiveAction(){
+        return $this->newAvecListeBlocs();
+    }
+
+    protected function newGroupeBlocsAction(){
+        return $this->newAvecListeBlocs();
+    }
+
+    private function newAvecListeBlocs(){
         $blocs = $this->listeBlocs();
 
         $this->dispatch(EasyAdminEvents::PRE_NEW);
@@ -114,6 +121,14 @@ class AdminController extends BaseAdminController
 
     //Ajout de la liste des blocs dans $parameters
     protected function editPage_ActiveAction(){
+        return $this->editAvecListeBlocs();
+    }
+
+    protected function editGroupeBlocsAction(){
+        return $this->editAvecListeBlocs();
+    }
+
+    private function editAvecListeBlocs(){
         $blocs = $this->listeBlocs();
 
         $this->dispatch(EasyAdminEvents::PRE_EDIT);

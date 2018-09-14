@@ -43,6 +43,7 @@ easy_admin:
         templates:
             layout: 'back/base.html.twig'
             menu: 'back/menu/menuPrincipal.html.twig'
+            new: 'back/easyadmin/new.html.twig'
             list: 'back/easyadmin/list.html.twig'
             edit: 'back/easyadmin/edit.html.twig'
             field_toggle: 'back/easyadmin/fields/field_toggle.html.twig'
@@ -62,7 +63,7 @@ easy_admin:
               - { entity: 'TypeCategorie', icon: '' }
               - { entity: 'Categorie', icon: '' }
               - { entity: 'Langue', icon: '' }
-              - { entity: 'Zone', icon: '' }
+              - { entity: 'GroupeBlocs', icon: '' }
               - { entity: 'Menu', icon: '' }
               - { entity: 'Page_Corbeille', icon: '' }
               - { entity: 'Commentaire_Corbeille', icon: '' }

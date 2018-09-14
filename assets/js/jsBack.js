@@ -391,6 +391,7 @@ $(document).ready(function(){
     $('.listeBlocs li').click(function(){
         type = $(this).attr('id');
         $('.listeBlocs').addClass('chargement');
+        entite = $('.listeBlocs').next('form').attr('name');
 
         $.ajax({
             url: Routing.generate('ajouterBloc'),
@@ -401,18 +402,18 @@ $(document).ready(function(){
                 $('.formulaire-actions-enregistrer').attr("disabled", false);
 
                 $('.listeBlocs').removeClass('actif chargement');
-                count = $('#page_active_blocs').find('.field-bloc').length;
+                count = $('#'+entite+'_blocs').find('.field-bloc').length;
 
-                var form = data.replace(/bloc_/g, 'page_active_blocs_'+count+'_')
-                    .replace(/bloc\[/g, 'page_active[blocs]['+count+'][');
+                var form = data.replace(/bloc_/g, entite+'_blocs_'+count+'_')
+                    .replace(/bloc\[/g, entite+'[blocs]['+count+'][');
 
                 if($('.listeBlocs').attr('id') === 'apres'){
-                    $('#page_active_blocs').append('<div class="form-group field-bloc">'+form+'</div>');
+                    $('#'+entite+'_blocs').append('<div class="form-group field-bloc">'+form+'</div>');
                 }else{
-                    $('#page_active_blocs').prepend('<div class="form-group field-bloc">'+form+'</div>');
+                    $('#'+entite+'_blocs').prepend('<div class="form-group field-bloc">'+form+'</div>');
                 }
 
-                $('#page_active_blocs').prev('.empty').remove();
+                $('#'+entite+'_blocs').prev('.empty').remove();
 
                 $('.field-bloc').each(function(){
                     $(this).find("input[id$='position']").val($(this).index());
@@ -464,7 +465,7 @@ $(document).ready(function(){
     });
 
     //Toggle blocs
-    $('#page_active_blocs').on('click', '.toggleBloc', function(){
+    $('#page_active_blocs, #groupeblocs_blocs').on('click', '.toggleBloc', function(){
         $(this).closest('.field-bloc').find('.contenu').children('div').toggleClass('hide');
         $(this).find('svg').toggleClass('fa-minus fa-plus');
     });

@@ -13,7 +13,7 @@ use Symfony\Bridge\Doctrine\RegistryInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Twig\Environment;
 
-class Zone extends \Twig_Extension
+class groupeBlocs extends \Twig_Extension
 {
     public function __construct(RegistryInterface $doctrine, Environment $twig, RequestStack $requestStack)
     {
@@ -25,11 +25,11 @@ class Zone extends \Twig_Extension
     public function getFunctions()
     {
         return array(
-            new \Twig_SimpleFunction('zone', array($this, 'getZone'), array('is_safe' => ['html'])),
+            new \Twig_SimpleFunction('blocs', array($this, 'getGroupeBlocs'), array('is_safe' => ['html'])),
         );
     }
 
-    public function getZone($region = null, $id = null)
+    public function getGroupeBlocs($region = null, $id = null)
     {
         //Langue
         $repoLangue = $this->doctrine->getRepository(Langue::class);
@@ -42,15 +42,25 @@ class Zone extends \Twig_Extension
         }
 
         //Zones
-        $repoZone = $this->doctrine->getRepository(\App\Entity\Zone::class);
+        $repoGroupeBlocs = $this->doctrine->getRepository(\App\Entity\GroupeBlocs::class);
 
         if($region){
-            $zones = $repoZone->findBy(array('region' => $region, 'langue' => $langue), array('position' => 'ASC'));
+            $blocs = [];
+            $groupesBlocs = $repoGroupeBlocs->findBy(array('region' => $region, 'langue' => $langue));
+            foreach($groupesBlocs as $groupeBlocs){
+                $blocsDuGroupe = $groupeBlocs->getBlocs();
+                foreach($blocsDuGroupe as $bloc){
+                    $blocs[] = $bloc;
+                }
+            }
         }else{
-            $zones = [];
-            $zones[] = $repoZone->find($id);
+            $blocs = [];
+            $blocsDuGroupe = $repoGroupeBlocs->find($id)->getBlocs();
+            foreach($blocsDuGroupe as $bloc){
+                $blocs[] = $bloc;
+            }
         }
 
-        return $this->twig->render('front/zones.html.twig', array('zones'=>$zones));
+        return $this->twig->render('front/blocs.html.twig', array('blocs'=>$blocs));
     }
 }

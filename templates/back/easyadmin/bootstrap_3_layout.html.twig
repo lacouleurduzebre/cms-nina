@@ -652,6 +652,29 @@
     </div>
 {% endblock %}
 
+{% block _groupeblocs_blocs_row %}
+    <div class="form-group field-collection">
+        {{- form_label(form) -}}
+
+        <div class="text-right field-collection-action mbs">
+            <a href="#" onclick="$(function (){if (event.preventDefault) event.preventDefault(); else event.returnValue = false; $('.listeBlocs').attr('id', 'avant').addClass('actif')})" class="ajout-bloc">
+                <i class="fas fa-plus-circle"></i>
+                {{ 'ajouter un bloc'|trans({}, 'EasyAdminBundle') }}
+            </a>
+        </div>
+
+        {{- form_widget(form) -}}
+
+        <div class="text-right field-collection-action">
+            <a href="#" onclick="$(function (){if (event.preventDefault) event.preventDefault(); else event.returnValue = false; $('.listeBlocs').attr('id', 'apres').addClass('actif')})" class="ajout-bloc">
+                <i class="fas fa-plus-circle"></i>
+                {{ 'ajouter un bloc'|trans({}, 'EasyAdminBundle') }}
+            </a>
+        </div>
+
+    </div>
+{% endblock %}
+
 {# BLOC #}
 {% block bloc_widget %}
     {% set _field_type = easyadmin.field.fieldType|default('default') %}

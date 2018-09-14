@@ -6,10 +6,10 @@
  * Time: 11:45
  */
 
-namespace App\Blocs\Zone;
+namespace App\Blocs\GroupeBlocs;
 
 
-use App\Entity\Zone;
+use App\Entity\GroupeBlocs;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -17,7 +17,7 @@ use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class ZoneType extends AbstractType
+class GroupeBlocsType extends AbstractType
 {
     public function __construct(EntityManagerInterface $em)
     {
@@ -26,16 +26,16 @@ class ZoneType extends AbstractType
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $repoZone = $this->em->getRepository(Zone::class);
-        $objetsZones = $repoZone->findAll();
-        $zones = [];
-        foreach($objetsZones as $objetZone){
-            $zones[$objetZone->getNom()] = $objetZone->getId();
+        $repoGroupeBlocs = $this->em->getRepository(GroupeBlocs::class);
+        $objetsGroupesBlocs = $repoGroupeBlocs->findAll();
+        $groupeBlocs = [];
+        foreach($objetsGroupesBlocs as $objetGroupesBlocs){
+            $groupeBlocs[$objetGroupesBlocs->getNom()] = $objetGroupesBlocs->getId();
         }
 
         $builder
-            ->add('zone', ChoiceType::class, array(
-                'choices' => $zones
+            ->add('groupeBlocs', ChoiceType::class, array(
+                'choices' => $groupeBlocs
             ));
     }
 

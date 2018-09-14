@@ -29,13 +29,6 @@ class Menu
     private $nom;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="region", type="string", length=255)
-     */
-    private $region;
-
-    /**
      * @ORM\OneToMany(targetEntity="App\Entity\MenuPage", mappedBy="menu", cascade={"persist", "remove"})
      * @ORM\JoinColumn(nullable=false)
      * @ORM\OrderBy({"position" = "ASC"})
@@ -92,29 +85,6 @@ class Menu
         return $this->nom;
     }
 
-    /**
-     * Set region
-     *
-     * @param string $region
-     *
-     * @return Menu
-     */
-    public function setRegion($region)
-    {
-        $this->region = $region;
-    
-        return $this;
-    }
-
-    /**
-     * Get region
-     *
-     * @return string
-     */
-    public function getRegion()
-    {
-        return $this->region;
-    }
     /**
      * Constructor
      */

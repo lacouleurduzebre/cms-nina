@@ -28,7 +28,7 @@ class Bloc
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Page", inversedBy="blocs")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=true)
      */
     private $page;
 
@@ -51,6 +51,12 @@ class Bloc
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $htmlApres;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\GroupeBlocs", inversedBy="blocs")
+     * @ORM\JoinColumn(nullable=true)
+     */
+    private $groupeBlocs;
 
     public function getId()
     {
@@ -137,6 +143,18 @@ class Bloc
     public function setHtmlApres(?string $htmlApres): self
     {
         $this->htmlApres = $htmlApres;
+
+        return $this;
+    }
+
+    public function getGroupeBlocs(): ?GroupeBlocs
+    {
+        return $this->groupeBlocs;
+    }
+
+    public function setGroupeBlocs(?GroupeBlocs $groupeBlocs): self
+    {
+        $this->groupeBlocs = $groupeBlocs;
 
         return $this;
     }

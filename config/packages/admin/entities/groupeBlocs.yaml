@@ -1,9 +1,9 @@
 easy_admin:
     entities:
-        Zone:
-            class: App\Entity\Zone
+        GroupeBlocs:
+            class: App\Entity\GroupeBlocs
             controller: App\Controller\Back\AdminController
-            label: 'Zones éditables'
+            label: 'Groupes de blocs'
             list:
                 fields:
                     - nom
@@ -13,12 +13,11 @@ easy_admin:
                 fields:
                     - nom
                     - region
-                    - contenu
             show:
                 fields:
                     - nom
                     - { property: 'region', label: 'Région'}
-                    - { property: 'contenu', type: 'raw' }
+                    - blocs
             form:
                 actions:
                     - { name: 'delete', label: 'Supprimer', title: 'Supprimer', icon: 'trash', css_class: '' }
@@ -27,5 +26,4 @@ easy_admin:
                     - nom
                     - { property: 'region', label: 'Région', type: 'App\Form\Type\RegionType' }
                     - langue
-                    - { property: 'position', label: 'Ordre' }
-                    - contenu
+                    - { property: 'blocs', type: 'collection', type_options: { entry_type: 'App\Form\Type\BlocType', by_reference: false } }

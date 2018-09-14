@@ -38,7 +38,7 @@
 
     <main>
         {% if page.blocs is not empty %}
-            {{ include('front/blocs.html.twig') }}
+            {% include('front/blocs.html.twig') with {'blocs': page.blocs} only %}
         {% endif %}
     </main>
 
