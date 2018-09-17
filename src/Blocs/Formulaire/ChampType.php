@@ -55,6 +55,7 @@ class ChampType extends AbstractType
                   'label' => false
                 ),
                 'label' => 'Choix',
+                'label_format' => 'un choix',
                 'allow_delete' => true,
                 'allow_add' => true,
             ));
