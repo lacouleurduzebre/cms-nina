@@ -36,6 +36,8 @@ class ChampType extends AbstractType
                 'Champ à choix (une réponse)' => 'radio'
             )
         ))
+            ->add('position', HiddenType::class, array(
+            ))
             ->add('requis', ChoiceType::class, array(
                 'label' => false,
                 'multiple' => true,

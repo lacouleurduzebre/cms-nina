@@ -1,19 +1,19 @@
 <div id="galerie{{ bloc.id }}" class="grid-4-small-2-tiny-1 has-gutter-l">
-    {% for image in bloc.contenu.images %}
+    {% for elementGalerie in bloc.contenu.images|sortBy('position') %}
         <div>
             <a
             class="galerie"
             data-fancybox="galerie{{ bloc.id }}"
             data-caption="
-                {% if image.titre is not empty %}
-                    <p><strong>{{ image.titre }}</strong></p>
+                {% if elementGalerie.image.titre is not empty %}
+                    <p><strong>{{ elementGalerie.image.titre }}</strong></p>
                 {% endif %}
-                {% if image.description is not empty %}
-                    <p>{{ image.description }}</p>
+                {% if elementGalerie.image.description is not empty %}
+                    <p>{{ elementGalerie.image.description }}</p>
                 {% endif %}
             "
-            href="{{ image.image }}">
-                <img src="{{ image.image }}" {% if image.titre is not empty %}alt="{{ image.titre }}"{% endif %} {% if image.description is not empty %}title="{{ image.description }}"{% endif %}>
+            href="{{ elementGalerie.image.image }}">
+                <img src="{{ elementGalerie.image.image }}" {% if elementGalerie.image.titre is not empty %}alt="{{ elementGalerie.image.titre }}"{% endif %} {% if elementGalerie.image.description is not empty %}title="{{ elementGalerie.image.description }}"{% endif %}>
             </a>
         </div>
     {% endfor %}

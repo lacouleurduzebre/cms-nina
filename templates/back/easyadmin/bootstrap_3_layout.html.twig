@@ -58,6 +58,7 @@
         {%- set attr = attr|merge({class: (attr.class|default('') ~ ' form-control')|trim}) -%}
     {% endif %}
     {{- parent() -}}
+    {{ form_help(form) }}
 {%- endblock form_widget_simple %}
 
 {%- block number_widget -%}
@@ -809,11 +810,29 @@
         {% endif %}
     </div>
     <script>
+        $('.bloc_image_bouton_mediatheque').fancybox({
+            type: 'iframe',
+            minHeight: '600'
+        });
     </script>
 {% endblock %}
 
 {% block slide_widget %}
     <div class="dragSlide">
+        <i class="fas fa-arrows-alt"></i>
+    </div>
+    {{- form_widget(form) -}}
+{% endblock %}
+
+{% block galerie_image_widget %}
+    <div class="dragGalerie">
+        <i class="fas fa-arrows-alt"></i>
+    </div>
+    {{- form_widget(form) -}}
+{% endblock %}
+
+{% block champ_widget %}
+    <div class="dragChamp">
         <i class="fas fa-arrows-alt"></i>
     </div>
     {{- form_widget(form) -}}

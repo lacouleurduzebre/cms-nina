@@ -1,5 +1,5 @@
 <form action="" id="{{ bloc.id }}" class="blocFormulaire-formulaire" method="POST">
-    {% for champ in bloc.contenu.champs %}
+    {% for champ in bloc.contenu.champs|sortBy('position') %}
         <div>
             <label {% if champ.requis is not empty %}class="required"{% endif %} for="champ{{ loop.index }}">{{ champ.label }}</label>
             {% if champ.requis is not empty %}
@@ -39,6 +39,6 @@
             {% endif %}
         </div>
     {% endfor %}
-    <input type="submit" value="{{ bloc.contenu.submit }}">
+    <input type="submit" value="{% if bloc.contenu.submit is not empty %}{{ bloc.contenu.submit }}{% else %}{{ 'Envoyer'|trans }}{% endif %}">
     <div class="message{{ bloc.id }}"></div>
 </form>

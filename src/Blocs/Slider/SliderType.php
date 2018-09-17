@@ -13,6 +13,8 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\FormInterface;
+use Symfony\Component\Form\FormView;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class SliderType extends AbstractType
@@ -40,5 +42,22 @@ class SliderType extends AbstractType
 
     public function getParent(){
         return FormType::class;
+    }
+
+    public function finishView(FormView $view, FormInterface $form, array $options)
+    {
+        usort($view['Slide']->children, function (FormView $a, FormView $b) {
+            $objectA = $a->vars['data'];
+            $objectB = $b->vars['data'];
+
+            $posA = $objectA['position'];
+            $posB = $objectB['position'];
+
+            if ($posA == $posB) {
+                return 0;
+            }
+
+            return ($posA < $posB) ? -1 : 1;
+        });
     }
 }

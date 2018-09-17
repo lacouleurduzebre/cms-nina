@@ -150,10 +150,30 @@ $(document).ready(function(){
     $("#page_active_blocs").sortable(options);
     $("#groupeblocs_blocs").sortable(options);
 
-    $("div[id$='contenu_Slide']").sortable({
+    $(".bloc-slider div[id$='contenu_Slide']").sortable({
         handle: '.dragSlide',
         update: function(event, ui){
             $('.field-slide').each(function(){
+                $(this).find("input[id$='position']").val($(this).index());
+                $('.formulaire-actions-enregistrer').attr("disabled", false);
+            });
+        }
+    });
+
+    $(".bloc-galerie div[id$='contenu_images']").sortable({
+        handle: '.dragGalerie',
+        update: function(event, ui){
+            $('.field-galerie_image').each(function(){
+                $(this).find("input[id$='position']").val($(this).index());
+                $('.formulaire-actions-enregistrer').attr("disabled", false);
+            });
+        }
+    });
+
+    $(".bloc-formulaire div[id$='contenu_champs']").sortable({
+        handle: '.dragChamp',
+        update: function(event, ui){
+            $('.field-champ').each(function(){
                 $(this).find("input[id$='position']").val($(this).index());
                 $('.formulaire-actions-enregistrer').attr("disabled", false);
             });

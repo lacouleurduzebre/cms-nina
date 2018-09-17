@@ -9,11 +9,12 @@
 namespace App\Blocs\Galerie;
 
 
-use App\Blocs\Image\ImageType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\FormInterface;
+use Symfony\Component\Form\FormView;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class GalerieType extends AbstractType
@@ -21,7 +22,7 @@ class GalerieType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder->add('images', CollectionType::class, array(
-            'entry_type' => ImageType::class,
+            'entry_type' => GalerieImageType::class,
             'entry_options' => array(
                 'label' => false
             ),
@@ -41,5 +42,22 @@ class GalerieType extends AbstractType
 
     public function getParent(){
         return FormType::class;
+    }
+
+    public function finishView(FormView $view, FormInterface $form, array $options)
+    {
+        usort($view['images']->children, function (FormView $a, FormView $b) {
+            $objectA = $a->vars['data'];
+            $objectB = $b->vars['data'];
+
+            $posA = $objectA['position'];
+            $posB = $objectB['position'];
+
+            if ($posA == $posB) {
+                return 0;
+            }
+
+            return ($posA < $posB) ? -1 : 1;
+        });
     }
 }

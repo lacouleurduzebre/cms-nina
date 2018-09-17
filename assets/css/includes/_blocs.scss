@@ -269,8 +269,8 @@ div[id^="page_active_blocs"]{
 }
 
 
-//Slider et Galerie
-.dragSlide, .dragImage{
+//Slider et Galerie (+ drag formulaire)
+.dragSlide, .dragGalerie, .dragChamp{
   font-size: 2rem;
   color: $color-brand2;
   position: absolute;
@@ -284,7 +284,7 @@ div[id^="page_active_blocs"]{
   margin: 0 -1rem;
 }
 
-.field-slide, .bloc-galerie .field-image{
+.field-slide, .bloc-galerie .field-galerie_image{
   position: relative;
   padding: 1rem;
   background-color: #EDEDED;
@@ -304,6 +304,7 @@ div[id^="page_active_blocs"]{
     }
   }
   .field-champ{
+    position: relative;
     padding: 1rem;
     background-color: #EDEDED;
   }
