@@ -29,7 +29,7 @@ class SliderType extends AbstractType
             'allow_add' => true,
             'allow_delete' => true,
             'label' => false,
-            'label_format' => 'une slide',
+            'label_format' => 'slide',
             'required' => false
         ));
     }

@@ -1,11 +1,13 @@
-{% for bloc in blocs %}
-    {% if bloc.htmlAvant is not empty %}
-        {{ bloc.htmlAvant|raw }}
-    {% endif %}
-        <div class="bloc{{ bloc.type }}{% if bloc.class is not empty %} {{ bloc.class }}{% endif %}">
-            {%  include '/Blocs/'~bloc.type~'/'~bloc.type~'.html.twig' with{'bloc': bloc} only %}
-        </div>
-    {% if bloc.htmlApres is not empty %}
-        {{ bloc.htmlApres|raw }}
-    {% endif %}
-{% endfor %}
+{% if blocs is defined %}
+    {% for bloc in blocs %}
+        {% if bloc.htmlAvant is not empty %}
+            {{ bloc.htmlAvant|raw }}
+        {% endif %}
+            <div class="bloc{{ bloc.type }}{% if bloc.class is not empty %} {{ bloc.class }}{% endif %}">
+                {%  include '/Blocs/'~bloc.type~'/'~bloc.type~'.html.twig' with{'bloc': bloc} only %}
+            </div>
+        {% if bloc.htmlApres is not empty %}
+            {{ bloc.htmlApres|raw }}
+        {% endif %}
+    {% endfor %}
+{% endif %}

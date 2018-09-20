@@ -23,13 +23,16 @@ class ImageType extends AbstractType
     {
         $builder
             ->add('image', TextType::class, array(
-                'required' => false
+                'required' => false,
+                'label' => 'Image'
             ))
             ->add('titre', TextType::class, array(
-                'required' => false
+                'required' => false,
+                'label' => 'Titre'
             ))
             ->add('description', TextareaType::class, array(
-                'required' => false
+                'required' => false,
+                'label' => 'Description'
             ));
     }
 

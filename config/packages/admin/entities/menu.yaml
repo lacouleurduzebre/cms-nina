@@ -7,21 +7,18 @@ easy_admin:
             list:
                 fields:
                     - nom
-                    - { property: 'region', label: 'Région'}
                     - langue
                     - { property: 'langue', label: 'Langue'}
                     - { property: 'defaut', label: 'Menu principal ?'}
             search:
                 fields:
                     - nom
-                    - region
             form:
                 actions:
                     - { name: 'delete', label: 'Supprimer', title: 'Supprimer', icon: 'trash', css_class: '' }
                     - { name: 'list', label: 'Retour', title: 'Retour', icon: 'arrow-left', css_class: '' }
                 fields:
                     - nom
-                    - { property: 'region', label: 'Région', type: 'App\Form\Type\RegionType' }
                     - langue
             edit:
                 fields:

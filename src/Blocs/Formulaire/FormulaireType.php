@@ -34,7 +34,7 @@ class FormulaireType extends AbstractType
                     'label' => false
                 ),
                 'label' => 'Destinataires',
-                'label_format' => 'un destinataire',
+                'label_format' => 'destinataire',
                 'allow_add' => true,
                 'allow_delete' => true
             ))
@@ -43,7 +43,8 @@ class FormulaireType extends AbstractType
                 'entry_options' => array(
                     'label' => false
                 ),
-                'label_format' => 'un champ',
+                'label' => 'Champs',
+                'label_format' => 'champ',
                 'allow_add' => true,
                 'allow_delete' => true,
             ));

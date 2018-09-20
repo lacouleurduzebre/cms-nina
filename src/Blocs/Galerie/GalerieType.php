@@ -29,7 +29,7 @@ class GalerieType extends AbstractType
             'allow_add' => true,
             'allow_delete' => true,
             'label' => false,
-            'label_format' => 'une image',
+            'label_format' => 'image',
             'required' => false
         ));
     }

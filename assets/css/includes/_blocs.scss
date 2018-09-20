@@ -23,6 +23,9 @@
   padding: 1rem 2rem;
   margin: 1rem 0;
   background-color: #F7F7F7;
+  &.focus{
+    box-shadow: 0 0 1rem $color-brand2-dark;
+  }
   > label{
     display: none;
   }
@@ -200,7 +203,7 @@ div[id^="page_active_blocs"]{
   width: 100vw;
   height: 100vh;
   z-index: 1000;
-  background: rgba(255,255,255,.5);
+  background: rgba(255,255,255,.8);
   padding: 5rem;
   align-items: center;
   &.actif{
@@ -247,6 +250,7 @@ div[id^="page_active_blocs"]{
 }
 
 .listeBlocs-fermeture{
+  color: $black;
   position: absolute;
   top: 2rem;
   right: 4rem;

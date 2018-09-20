@@ -47,7 +47,11 @@
         <div class="text-right field-collection-item-action">
             <a href="#" onclick="{{ remove_item_javascript|raw }}" class="text-danger">
                 <i class="fas fa-trash"></i>
-                {{ 'action.remove_item'|trans({}, 'EasyAdminBundle') }}
+                {% if label_format is not empty %}
+                    Supprimer {{ label_format }}
+                {% else %}
+                    {{ 'action.remove_item'|trans({}, 'EasyAdminBundle') }}
+                {% endif %}
             </a>
         </div>
     {% endif %}
@@ -64,7 +68,6 @@
 {%- block number_widget -%}
     {%- set type = type|default('text') -%}
     {{ block('form_widget_simple') }}
-    {{ form_help(form) }}
 {%- endblock number_widget -%}
 
 {% block textarea_widget -%}

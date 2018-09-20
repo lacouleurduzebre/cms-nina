@@ -181,12 +181,12 @@ $(document).ready(function(){
     });
 
     /* Menu blocs */
-    $('.field-bloc').on('click', '.bloc-menu span', function(){
+    $('form').on('click', '.bloc-menu span', function(){
         $(this).closest('div').toggleClass('actif');
     });
 
         /* Monter */
-        $('.field-bloc').on('click', '.monterBloc', function(e){
+        $('form').on('click', '.monterBloc', function(e){
             e.preventDefault();
             $(this).closest('div').removeClass('actif');
 
@@ -200,7 +200,7 @@ $(document).ready(function(){
         });
 
         /* Descendre */
-        $('.field-bloc').on('click', '.descendreBloc', function(e){
+        $('form').on('click', '.descendreBloc', function(e){
             e.preventDefault();
             $(this).closest('div').removeClass('actif');
 
@@ -214,7 +214,7 @@ $(document).ready(function(){
         });
 
         /* Options d'affichage */
-        $('.field-bloc').on('click', '.optionsAffichage', function(e){
+        $('form').on('click', '.optionsAffichage', function(e){
             e.preventDefault();
             $(this).closest('div').removeClass('actif');
 
@@ -224,12 +224,12 @@ $(document).ready(function(){
         });
 
             /* Fermeture */
-        $('.field-bloc').on('click', '.bloc-optionsAffichage-fermeture', function(){
+        $('form').on('click', '.bloc-optionsAffichage-fermeture', function(){
            $(this).closest('div').removeClass('actif');
         });
 
         /* Supprimer */
-        $('.field-bloc').on('click', '.supprimerBloc', function(e){
+        $('form').on('click', '.supprimerBloc', function(e){
             e.preventDefault();
             $(this).closest('div').removeClass('actif');
 
@@ -506,6 +506,16 @@ $(document).ready(function(){
             $('html, body').animate({
                 scrollTop: $(this).closest('.field-bloc').offset().top - 120
             }, 200);
+        }else{
+            $(this).closest('.field-bloc').removeClass('focus');
         }
     });
+
+    //Mise en avant du bloc en cours d'édition
+    $('.field-bloc').click(function(){
+        if(!$(this).hasClass('focus')){
+            $('.field-bloc').removeClass('focus');
+            $(this).addClass('focus');
+        }
+    })
 });
