@@ -54,13 +54,6 @@
     height:100%;
     display: flex;
     align-items: center;
-    &:last-of-type{
-      margin-right: 0;
-      justify-content: flex-end;
-      @include respond-to("tiny-up"){
-        flex: .5;
-      }
-    }
     > a span{
       margin-left: 1rem;
       @include respond-to("extra-large"){
@@ -133,4 +126,8 @@
 #voirSite{
   padding: 0 1rem;
   height: 100%;
+  background-color: darken($color-primary, 15);
+  &:hover{
+    background-color: $black;
+  }
 }

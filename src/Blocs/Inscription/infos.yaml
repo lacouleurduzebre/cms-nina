@@ -1,4 +1,5 @@
-nom: Inscription
-description: Affiche le formulaire de demande d'accès au back-office
-icone: fas fa-user-plus
-priorite: 12
+nom: 'Formulaire d''inscription'
+description: 'Affiche le formulaire de demande d''accès au back-office'
+icone: 'fas fa-user-plus'
+priorite: 16
+actif: non

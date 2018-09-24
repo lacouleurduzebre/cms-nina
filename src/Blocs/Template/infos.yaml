@@ -1,4 +1,5 @@
-nom: Template
+nom: Insertion de template
 description: Insère un template dans la page
 icone: fas fa-file-code
-priorite: 10
+priorite: 12
+actif: oui

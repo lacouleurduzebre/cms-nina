@@ -1,4 +1,5 @@
-nom: Contenus d'une page
+nom: Contenu d'une page
 description: Affiche le contenu d'une page
 icone: fas fa-file
-priorite: 11
+priorite: 13
+actif: oui

@@ -15,8 +15,13 @@ use App\Entity\MenuPage;
 use App\Entity\Page;
 use App\Entity\TypeCategorie;
 use App\Entity\Utilisateur;
+use Doctrine\ORM\EntityRepository;
+use Doctrine\ORM\Mapping\Entity;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AdminController as BaseAdminController;
 use EasyCorp\Bundle\EasyAdminBundle\Event\EasyAdminEvents;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\Form\FormEvent;
+use Symfony\Component\Form\FormEvents;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -65,6 +70,32 @@ class AdminController extends BaseAdminController
         }
 
         $this::updateEntity($entity);
+    }
+
+    //Édition d'une langue : seule les pages dans cette langue peuvent être choisies comme page d'accueil
+    protected function createLangueEntityFormBuilder($entity, $view){
+        // Get formBuilder to access its children ioConstraint to give it data
+        $formBuilder = parent::createEntityFormBuilder($entity, $view);
+
+        if($view == "edit" && $formBuilder->getData()) {
+
+            $langue = $formBuilder->getData();
+
+            $formBuilder->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event) use ($langue) {
+                $event->getForm()->add('pageAccueil', EntityType::class, [
+                    'required' => false,
+                    'class' => Page::class,
+                    'query_builder' => function (EntityRepository $er) use ($langue) {
+                        return $er->createQueryBuilder('p')
+                            ->andWhere('p.langue = :langue')
+                            ->setParameters(array('langue' => $langue))
+                            ->orderBy('p.titre', 'ASC');
+                    }
+                ]);
+
+            });
+        }
+        return $formBuilder;
     }
 
     //Ajout de la liste des blocs dans $parameters
@@ -190,7 +221,9 @@ class AdminController extends BaseAdminController
         $blocs = [];
         foreach($types as $type){
             $infos = Yaml::parseFile('../src/Blocs/'.$type.'/infos.yaml');
-            $blocs[$type] = $infos;
+            if($infos['actif'] == 'oui'){
+                $blocs[$type] = $infos;
+            }
         }
         uasort($blocs, array($this,'comparaison'));
 

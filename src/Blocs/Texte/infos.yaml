@@ -1,4 +1,5 @@
 nom: Texte
 description: WYSIWYG
-icone: fas fa-align-left
+icone: 'fas fa-align-left'
 priorite: 1
+actif: oui

@@ -1,4 +1,5 @@
-nom: Annuaire
-description: Liste tous les utilisateurs
-icone: fas fa-users
-priorite: 13
+nom: 'Liste des membres'
+description: 'Liste tous les utilisateurs'
+icone: 'fas fa-users'
+priorite: 17
+actif: non

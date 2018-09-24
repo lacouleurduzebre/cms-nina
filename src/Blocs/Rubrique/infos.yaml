@@ -1,4 +1,5 @@
 nom: Rubrique
 description: Affiche une liste de toutes les pages enfants de cette page (par rapport au menu principal)
 icone: fas fa-folder
-priorite: 7
+priorite: 9
+actif: oui

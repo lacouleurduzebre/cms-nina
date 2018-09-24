@@ -6,7 +6,7 @@
  * Time: 11:45
  */
 
-namespace App\Blocs\Categorie;
+namespace App\Blocs\Actualites;
 
 
 use App\Entity\Categorie;
@@ -18,7 +18,7 @@ use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class CategorieType extends AbstractType
+class ActualitesType extends AbstractType
 {
     public function __construct(EntityManagerInterface $em)
     {
@@ -36,7 +36,10 @@ class CategorieType extends AbstractType
 
         $builder
             ->add('categorie', ChoiceType::class, array(
-                'choices' => $categories
+                'choices' => $categories,
+                'required' => false,
+                'label' => 'Catégorie',
+                'help' => "Utilisé pour limiter les résultats à une seule catégorie de pages"
             ))
             ->add('limite', NumberType::class, array(
                 'label' => 'Nombre limite de résultats',
@@ -48,7 +51,7 @@ class CategorieType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => null
+            'data_class' => null,
         ));
     }
 

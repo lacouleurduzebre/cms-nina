@@ -1,4 +1,5 @@
 nom: Groupe de blocs
 description: Affiche les blocs appartenant au groupe de blocs sélectionné
 icone: fas fa-th-large
-priorite: 5
+priorite: 7
+actif: oui

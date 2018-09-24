@@ -2,3 +2,4 @@ nom: Galerie
 description: Affiche une galerie d'images avec diaporama
 icone: fas fa-images
 priorite: 3
+actif: oui

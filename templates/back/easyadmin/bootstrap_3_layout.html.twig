@@ -47,11 +47,13 @@
         <div class="text-right field-collection-item-action">
             <a href="#" onclick="{{ remove_item_javascript|raw }}" class="text-danger">
                 <i class="fas fa-trash"></i>
-                {% if label_format is not empty %}
-                    Supprimer {{ label_format }}
-                {% else %}
-                    {{ 'action.remove_item'|trans({}, 'EasyAdminBundle') }}
-                {% endif %}
+                <span>
+                    {% if label_format is not empty %}
+                        Supprimer {{ label_format }}
+                    {% else %}
+                        {{ 'action.remove_item'|trans({}, 'EasyAdminBundle') }}
+                    {% endif %}
+                </span>
             </a>
         </div>
     {% endif %}
@@ -151,6 +153,7 @@
 {% block choice_widget_collapsed -%}
     {% set attr = attr|merge({class: (attr.class|default('') ~ ' form-control')|trim}) %}
     {{- parent() -}}
+    {{ form_help(form) }}
     {% if form.parent.vars.allow_delete|default(false) %}
         {% set remove_item_javascript %}
             $(function() {
@@ -689,9 +692,9 @@
     <div class="bloc-barreActions">
         <div class="toggleBloc">
             {% if form.children.contenu.vars.attr['class'] is defined %}
-                <i class="fas fa-plus"></i>
+                <i class="fas fa-chevron-circle-down"></i>
             {% else %}
-                <i class="fas fa-minus"></i>
+                <i class="fas fa-chevron-circle-up"></i>
             {% endif %}
         </div>
         <div class="drag"><i class="fas fa-arrows-alt "></i></div>

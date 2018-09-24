@@ -1,0 +1,8 @@
+<div class="grid-3 small-1 has-gutter-xl">
+    {% for page in actualites(bloc.contenu.limite, bloc.contenu.categorie) %}
+        <div class="blocActualites-page flex-container-v">
+            <p>{{ page.titre }}</p>
+            <p><a href="{{ page.seo.url }}">{{ "Voir la page"|trans }}</a></p>
+        </div>
+    {% endfor %}
+</div>

@@ -2700,10 +2700,12 @@ ul.nav-tabs {
     @media (max-width: 479px) {
       ul.nav-tabs li {
         width: calc(100% / 3 - 0.01px); } }
-    ul.nav-tabs li:hover, ul.nav-tabs li.active {
+    ul.nav-tabs li:hover {
       border-color: #92D8E9; }
-      body.gris ul.nav-tabs li:hover, body.gris ul.nav-tabs li.active {
+      body.gris ul.nav-tabs li:hover {
         border-color: #b3b1ac; }
+    ul.nav-tabs li.active {
+      border-color: #fff; }
     ul.nav-tabs li a {
       text-decoration: none;
       padding: 0 1rem;
@@ -2912,9 +2914,9 @@ body.list #flash-messages > * {
   display: inline-block; }
 
 .progression {
-  height: 1rem;
+  height: .5rem;
   width: 20rem;
-  border: 1px solid #000;
+  border: 1px solid #0000001a;
   border-radius: 5px;
   overflow: hidden;
   margin-bottom: .5rem; }
@@ -3043,7 +3045,9 @@ body.list #flash-messages > * {
   flex: 1;
   display: flex;
   align-items: center;
-  justify-content: center; }
+  justify-content: center;
+  background-color: #E1E1E1;
+  color: #FFF; }
   .theme-illustration svg {
     font-size: 10rem; }
 
@@ -3051,9 +3055,10 @@ body.list #flash-messages > * {
   background-color: #A1BA1D;
   color: #fff;
   position: absolute;
+  right: 0;
   top: 0;
-  left: 0;
-  padding: .5rem 1rem; }
+  padding: .5rem 1rem;
+  font-size: 2rem; }
 
 .theme:not(.actif) .theme-actif {
   display: none; }
@@ -3251,17 +3256,18 @@ div[id^="page_active_blocs"] > div > .collection-empty {
 
 .bloc-help {
   position: relative;
-  cursor: help; }
+  cursor: help;
+  z-index: 10; }
   .bloc-help.hide {
     display: none; }
+  .bloc-help:hover + p, .bloc-help:hover p {
+    display: flex; }
   .bloc-help svg {
     color: #0791B3; }
-    .bloc-help svg:hover + p {
-      display: block; }
   .bloc-help p {
     display: none;
     position: absolute;
-    bottom: 100%;
+    bottom: 60%;
     left: 100%;
     background-color: #FFF;
     padding: 1rem;
@@ -3269,6 +3275,18 @@ div[id^="page_active_blocs"] > div > .collection-empty {
     box-shadow: 2px 2px 2px #999999;
     white-space: nowrap;
     z-index: 10; }
+  .bloc-help + p {
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: #A1A1A1;
+    padding: 2.7rem 1rem 1rem;
+    color: #FFF;
+    height: 100%;
+    width: 100%;
+    align-items: center;
+    justify-content: center; }
 
 #page_active_blocs_ > .type {
   border-bottom: 2px solid #0791B3; }
@@ -3354,7 +3372,7 @@ div[id^="page_active_blocs"] > div > .collection-empty {
   width: 100vw;
   height: 100vh;
   z-index: 1000;
-  background: rgba(255, 255, 255, 0.8);
+  background-color: rgba(164, 161, 161, 0.8);
   padding: 5rem;
   align-items: center; }
   .listeBlocs.actif {
@@ -3394,7 +3412,15 @@ div[id^="page_active_blocs"] > div > .collection-empty {
   top: 2rem;
   right: 4rem;
   cursor: pointer;
-  font-size: 3rem; }
+  font-size: 3rem;
+  background-color: #fff;
+  border-radius: 50%;
+  width: 4rem;
+  height: 4rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: .3s; }
 
 .bloc-nom {
   font-size: 2rem; }
@@ -3447,5 +3473,8 @@ div[id^="page_active_blocs"] > div > .collection-empty {
   font-size: 2rem;
   margin: 0 1rem;
   cursor: pointer; }
+
+.configBlocs td, .configBlocs th {
+  border: none; }
 
 /*# sourceMappingURL=knacss.css.map */

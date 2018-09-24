@@ -1,4 +1,5 @@
 nom: Image
-description: Affiche une image de la médiathèque
-icone: fas fa-image
+description: 'Affiche une image de la médiathèque'
+icone: 'fas fa-image'
 priorite: 2
+actif: oui

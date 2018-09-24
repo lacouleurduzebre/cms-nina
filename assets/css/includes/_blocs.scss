@@ -48,6 +48,7 @@
   margin-left: .5rem;
 }
 
+
 div[id^="page_active_blocs"]{
   .field-collection-action, .field-collection-item-action{
     //display: none;
@@ -71,19 +72,20 @@ div[id^="page_active_blocs"]{
 .bloc-help{
   position: relative;
   cursor: help;
+  z-index: 10;
   &.hide{
     display: none;
   }
+  &:hover + p, &:hover p{
+    display: flex;
+  }
   svg{
     color: $color-brand2;
-    &:hover + p{
-      display: block;
-    }
   }
   p{
     display: none;
     position: absolute;
-    bottom: 100%;
+    bottom: 60%;
     left: 100%;
     background-color: #FFF;
     padding: 1rem;
@@ -91,6 +93,19 @@ div[id^="page_active_blocs"]{
     box-shadow: 2px 2px 2px #999999;
     white-space: nowrap;
     z-index: 10;
+  }
+  + p{//Liste des blocs
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: #A1A1A1;
+    padding: 2.7rem 1rem 1rem;
+    color: #FFF;
+    height: 100%;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
   }
 }
 
@@ -203,7 +218,7 @@ div[id^="page_active_blocs"]{
   width: 100vw;
   height: 100vh;
   z-index: 1000;
-  background: rgba(255,255,255,.8);
+  background-color: rgba(164, 161, 161, 0.8);
   padding: 5rem;
   align-items: center;
   &.actif{
@@ -256,6 +271,14 @@ div[id^="page_active_blocs"]{
   right: 4rem;
   cursor: pointer;
   font-size: 3rem;
+  background-color: $white;
+  border-radius: 50%;
+  width: 4rem;
+  height: 4rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: .3s;
 }
 
 .bloc-nom{
@@ -327,4 +350,11 @@ div[id^="page_active_blocs"]{
   font-size: 2rem;
   margin: 0 1rem;
   cursor: pointer;
+}
+
+//Page de configuration
+.configBlocs{
+  td, th{
+    border: none;
+  }
 }

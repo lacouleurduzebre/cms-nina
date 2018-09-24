@@ -1,4 +1,5 @@
 nom: Vidéo Youtube
 description: Affiche un lecteur vidéo youtube
 icone: fab fa-youtube
-priorite: 3
+priorite: 5
+actif: oui

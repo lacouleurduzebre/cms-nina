@@ -34,6 +34,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  background-color: #E1E1E1;
+  color: #FFF;
   svg{
     font-size: 10rem;
   }
@@ -43,9 +45,10 @@
   background-color: $color-brand;
   color: $white;
   position: absolute;
+  right: 0;
   top: 0;
-  left: 0;
   padding: .5rem 1rem;
+  font-size: 2rem;
 }
 
 .theme:not(.actif) .theme-actif{

@@ -501,8 +501,8 @@ $(document).ready(function(){
     //Toggle blocs
     $('#page_active_blocs, #groupeblocs_blocs').on('click', '.toggleBloc', function(){
         $(this).closest('.field-bloc').find('.contenu').children('div').toggleClass('hide');
-        $(this).find('svg').toggleClass('fa-minus fa-plus');
-        if($(this).find('svg').hasClass('fa-minus')){
+        $(this).find('svg').toggleClass('fa-chevron-circle-down fa-chevron-circle-up');
+        if($(this).find('svg').hasClass('fa-chevron-circle-up')){
             $('html, body').animate({
                 scrollTop: $(this).closest('.field-bloc').offset().top - 120
             }, 200);
@@ -517,5 +517,42 @@ $(document).ready(function(){
             $('.field-bloc').removeClass('focus');
             $(this).addClass('focus');
         }
-    })
+    });
+
+    //Page de configuration des blocs
+        //Activation/désactivation
+    $('.configBlocs-bloc-actif').on('change', function(){
+        checkbox = $(this);
+        actif = $(this).is(':checked');
+        type = $(this).closest('tr').attr('id');
+        $.ajax({
+            url: window.location.href,
+            data: {action: 'actif', type: type, actif: actif}
+        })
+            .fail(function(){
+                checkbox.attr('checked', !actif);
+                checkbox.attr('disabled', true);
+            })
+    });
+
+        //Changement de priorité
+    $(".configBlocs tbody").sortable({
+        handle: '.dragConfigBloc',
+        update: function(event, ui){
+            blocs = {};
+            $('.configBlocs tbody tr').each(function(){
+                type = $(this).attr('id');
+                priorite = $(this).index() + 1;
+                blocs[type] = priorite;
+            });
+            console.log(blocs);
+            $.ajax({
+                url: window.location.href,
+                data: {action: 'priorite', blocs: blocs}
+            })
+                .fail(function(){
+                    $('.content-wrapper').prepend('<p>Une erreur est survenue</p>');
+                })
+        }
+    });
 });
