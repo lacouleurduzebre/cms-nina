@@ -17,6 +17,8 @@ composer.phar
 /public/thumbs/
 /public/sauvegardes/bdd/*
 /public/sauvegardes/mediatheque/*
+/sauvegardes/bdd/*
+/sauvegardes/mediatheque/*
 /var/
 /vendor/
 ###< symfony/framework-bundle ###

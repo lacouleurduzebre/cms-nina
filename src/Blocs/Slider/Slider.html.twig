@@ -1,18 +1,20 @@
 <div id="slider{{ bloc.id }}">
-    {% for slide in bloc.contenu.Slide|sortBy('position') %}
-        <div>
-            <img src="{{ slide.image.image }}" {% if slide.image.titre is defined %}alt="{{ slide.image.titre }}"{% endif %}>
+    {% if bloc.contenu.Slide is defined %}
+        {% for slide in bloc.contenu.Slide|sortBy('position') %}
             <div>
-                {% if slide.image.titre is not empty %}
-                    <p>{{ slide.image.titre }}</p>
-                {% endif %}
-                {% if slide.image.description is not empty %}
-                    <p>{{ slide.image.description }}</p>
-                {% endif %}
-                {% if slide.lien is not empty %}
-                    <p><a href="{{ slide.lien }}">{{ "Lire la suite"|trans }}</a></p>
-                {% endif %}
+                <img src="{{ slide.image.image }}" {% if slide.image.titre is defined %}alt="{{ slide.image.titre }}"{% endif %}>
+                <div>
+                    {% if slide.image.titre is not empty %}
+                        <p>{{ slide.image.titre }}</p>
+                    {% endif %}
+                    {% if slide.image.description is not empty %}
+                        <p>{{ slide.image.description }}</p>
+                    {% endif %}
+                    {% if slide.lien is not empty %}
+                        <p><a href="{{ slide.lien }}">{{ "Lire la suite"|trans }}</a></p>
+                    {% endif %}
+                </div>
             </div>
-        </div>
-    {% endfor %}
+        {% endfor %}
+    {% endif %}
 </div>

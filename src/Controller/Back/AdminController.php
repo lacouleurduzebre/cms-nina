@@ -13,6 +13,7 @@ use App\Entity\Commentaire;
 use App\Entity\Langue;
 use App\Entity\MenuPage;
 use App\Entity\Page;
+use App\Entity\SEO;
 use App\Entity\TypeCategorie;
 use App\Entity\Utilisateur;
 use Doctrine\ORM\EntityRepository;
@@ -50,31 +51,43 @@ class AdminController extends BaseAdminController
         $this->addFlash('enregistrement', "\"".$entity."\" : enregistrement terminé");
     }
 
-    protected function persistPage_ActiveEntity($entity)
+    protected function persistPage_ActiveEntity($entity)//new
     {
-        foreach($entity->getBlocs() as $bloc){
-            if(!$bloc->getType()){
-                $entity->removeBloc($bloc);
-            }
-        }
-
         $this::persistEntity($entity);
+
+        $this->setTraductions($entity);
+
+        $this->getDoctrine()->getManager()->flush();
     }
 
-    protected function updatePage_ActiveEntity($entity)
+    protected function updatePage_ActiveEntity($entity)//edit
     {
-        foreach($entity->getBlocs() as $bloc){
-            if(!$bloc->getType()){
-                $entity->removeBloc($bloc);
-            }
-        }
+        $this->setTraductions($entity);
 
         $this::updateEntity($entity);
     }
 
+    protected function setTraductions($entity){
+        $em = $this->getDoctrine()->getManager();
+        $repoPage = $this->getDoctrine()->getRepository(Page::class);
+
+        $langue = $entity->getLangue()->getId();
+        $id = $entity->getId();
+        $traductions = $entity->getTraductions();
+
+        foreach($traductions as $traduction){
+            if($traduction){
+                $page = $repoPage->find($traduction);
+                $trads = $page->getTraductions();
+                $trads[$langue] = $id;
+                $page->setTraductions($trads);
+                $em->persist($page);
+            }
+        }
+    }
+
     //Édition d'une langue : seule les pages dans cette langue peuvent être choisies comme page d'accueil
     protected function createLangueEntityFormBuilder($entity, $view){
-        // Get formBuilder to access its children ioConstraint to give it data
         $formBuilder = parent::createEntityFormBuilder($entity, $view);
 
         if($view == "edit" && $formBuilder->getData()) {
@@ -105,6 +118,35 @@ class AdminController extends BaseAdminController
 
     protected function newGroupeBlocsAction(){
         return $this->newAvecListeBlocs();
+    }
+
+    //Traductions de page : ajout de la langue et de la page originale dans les données du formulaire
+    protected function createNewPage_ActiveEntity()
+    {
+        if($this->request->get('pageOriginale')){
+            $pageOriginale = $this->getDoctrine()->getRepository(Page::class)->find($this->request->get('pageOriginale'));
+
+            $nvPage = clone $pageOriginale;
+            $nvSEO = clone $pageOriginale->getSEO();
+            $nvPage->setSEO($nvSEO);
+
+            $blocs = $pageOriginale->getBLocs();
+            foreach($blocs as $bloc){
+                $nvBloc = clone $bloc;
+                $nvPage->addBloc($nvBloc);
+            }
+
+           $langue = $this->getDoctrine()->getRepository(Langue::class)->find($this->request->get('langue'));
+            $nvPage->setLangue($langue);
+
+            $trads = $nvPage->getTraductions();
+            $trads[$pageOriginale->getLangue()->getId()] = $this->request->get('pageOriginale');
+            $nvPage->setTraductions($trads);
+
+            return $nvPage;
+        }else{
+            return parent::createNewEntity();
+        }
     }
 
     private function newAvecListeBlocs(){

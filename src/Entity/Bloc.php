@@ -27,7 +27,7 @@ class Bloc
     private $contenu;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Page", inversedBy="blocs")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Page", inversedBy="blocs", cascade={"persist"})
      * @ORM\JoinColumn(nullable=true)
      */
     private $page;

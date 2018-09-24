@@ -352,6 +352,12 @@ $(document).ready(function(){
         $('label[for="page_active_traductions_'+langue+'"]').hide().next('select').hide();
     }
 
+    $('#page_active_langue').change(function(){
+        langue = $('#page_active_langue').val();
+        $('label[for^="page_active_traductions_"]').show().next('select').show();
+        $('label[for="page_active_traductions_'+langue+'"]').hide().next('select').hide();
+    });
+
     /* Une seule langue par défaut */
     $('body.list-langue td[data-label="Defaut"] input').click(function(){
        if($(this).is(':checked')){

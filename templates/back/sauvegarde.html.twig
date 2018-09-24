@@ -5,16 +5,6 @@
     <div class="sauvegarde">
         <div class="export-bdd">
             <h2>Base de données</h2>
-            {#<p>{{ "Télécharger l'export en date du "|trans }}</p>
-            <p>
-                <select name="export-bdd-dump-select" id="export-bdd-dump-select">
-                    {% for timestamp,date in dumpsBdd %}
-                        <option value="{{ timestamp }}">{{ date }}</option>
-                    {% endfor %}
-                </select>
-                <button id="export-bdd-dump">Télécharger</button>
-            </p>#}
-
             <button id="export-bdd">{{ 'Créer une nouvelle sauvegarde'|trans }}</button>
             <div class="loader"><i class="fas fa-sync fa-spin"></i></div>
 
@@ -30,28 +20,15 @@
                     {% for timestamp,date in dumpsBdd %}
                         <tr>
                             <td>{{ date }}</td>
-                            <td><a download href="/sauvegardes/bdd/{{ timestamp }}"><i class="fas fa-file-download"></i></a></td>
+                            <td><a class="telechargementDump" href="{{ path('telechargerDump', {type: "bdd", fichier: timestamp}) }}"><i class="fas fa-file-download"></i></a></td>
                             <td><a id="{{ timestamp }}" href="#" class="export-bdd-supprimer"><i class="fas fa-trash"></i></a></td>
                         </tr>
                     {% endfor %}
                 </tbody>
             </table>
-
-            {#<p>{{ 'Supprimer toutes les sauvegardes'|trans }}</p>
-            <p><button id="export-bdd-supprimer">{{ 'Supprimer toutes les sauvegardes'|trans }}</button></p>#}
         </div>
         <div class="export-mediatheque">
             <h2>Médiathèque</h2>
-            {#<p>{{ "Télécharger l'export en date du "|trans }}</p>
-            <p>
-                <select name="export-mediatheque-dump-select" id="export-mediatheque-dump-select">
-                    {% for timestamp,date in dumpsMediatheque %}
-                        <option value="{{ timestamp }}">{{ date }}</option>
-                    {% endfor %}
-                </select>
-                <button id="export-mediatheque-dump">Télécharger</button>
-            </p>#}
-
             <button id="export-mediatheque">{{ 'Créer une nouvelle sauvegarde'|trans }}</button>
             <div class="loader"><i class="fas fa-sync fa-spin"></i></div>
 
@@ -67,15 +44,12 @@
                 {% for timestamp,date in dumpsMediatheque %}
                     <tr>
                         <td>{{ date }}</td>
-                        <td><a href="/sauvegardes/mediatheque/{{ timestamp }}"><i class="fas fa-file-download"></i></a></td>
+                        <td><a class="telechargementDump" href="{{ path('telechargerDump', {type: "mediatheque", fichier: timestamp}) }}"><i class="fas fa-file-download"></i></a></td>
                         <td><a id="{{ timestamp }}" href="#" class="export-mediatheque-supprimer"><i class="fas fa-trash"></i></a></td>
                     </tr>
                 {% endfor %}
                 </tbody>
             </table>
-
-            {#<p>{{ 'Supprimer toutes les sauvegardes'|trans }}</p>
-            <p><button id="export-mediatheque-supprimer">{{ 'Supprimer toutes les sauvegardes'|trans }}</button></p>#}
         </div>
     </div>
 {% endblock %}

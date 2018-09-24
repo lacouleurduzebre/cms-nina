@@ -27,11 +27,11 @@
                                 {% if langue != langueDefaut %}
                                     <td>
                                     {% if page.traductions is not empty %}
-                                        {% if page.traductions[langue.id] is not empty %}
+                                        {% if page.traductions[langue.id] is defined and page.traductions[langue.id] is not empty %}
                                             {% set traduction = getTraduction(page.traductions[langue.id]) %}
                                             <a href="{{ path('easyadmin', {'action':'edit', 'entity':'Page_Active', 'id':traduction.id}) }}">{{ traduction.titre }}</a>
                                         {% else %}
-                                            <i class="fas fa-times rouge"></i>
+                                            <a class="vert" href="{{ path('admin', { action: 'new', entity: 'Page_Active', pageOriginale: page.id, langue: langue.id }) }}"><i class="fas fa-plus"></i> {{ "Créer une traduction"|trans }}</a>
                                         {% endif %}
                                     {% else %}
                                         <i class="fas fa-times rouge"></i>

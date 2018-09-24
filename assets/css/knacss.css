@@ -2888,6 +2888,9 @@ td[data-label="Image profil"] img {
 .rouge {
   color: #D9534F; }
 
+.vert {
+  color: #A1BA1D; }
+
 /* Messages flash */
 #flash-messages > * {
   position: relative;

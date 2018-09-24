@@ -12,8 +12,11 @@ namespace App\Controller\Back;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Dotenv\Dotenv;
 use Symfony\Component\Finder\Iterator\RecursiveDirectoryIterator;
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
+use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\ResponseHeaderBag;
 use Symfony\Component\Routing\Annotation\Route;
 
 class SauvegardeController extends Controller
@@ -25,7 +28,7 @@ class SauvegardeController extends Controller
      */
     public function sauvegardeAction(){
         //Liste de tous les dumps bdd
-        $exportsBdd = scandir('sauvegardes/bdd');
+        $exportsBdd = scandir('../sauvegardes/bdd');
         unset($exportsBdd[0]);
         unset($exportsBdd[1]);
         $exportsBdd = array_values($exportsBdd);
@@ -33,12 +36,12 @@ class SauvegardeController extends Controller
         $dumpsBdd = [];
 
         foreach($exportsBdd as $dump){
-            $timestamp = str_replace(array("dump", ".sql"), '', $dump);
+            $timestamp = str_replace(array("dump", ".zip"), '', $dump);
             $dumpsBdd[$dump] = date('d/m/Y h:i', $timestamp);
         }
 
         //Liste des tous les dumps médiathèque
-        $exportsMediatheque = scandir('sauvegardes/mediatheque');
+        $exportsMediatheque = scandir('../sauvegardes/mediatheque');
         unset($exportsMediatheque[0]);
         unset($exportsMediatheque[1]);
         $exportsMediatheque = array_values($exportsMediatheque);
@@ -69,7 +72,11 @@ class SauvegardeController extends Controller
             $timestamp = time();
             $date = date('d/m/Y h:i', $timestamp);
 
-            exec('mysqldump -u '.$user.' -p '.$pswd.' '.$database.' > '.__DIR__.'/../../../public/sauvegardes/bdd/dump'.$timestamp.'.sql', $output);
+            exec('mysqldump -u '.$user.' -p '.$pswd.' '.$database.' > '.__DIR__.'/../../../sauvegardes/bdd/dump'.$timestamp.'.sql', $output);
+
+            $this->zip('./../sauvegardes/bdd/dump'.$timestamp.'.sql', './../sauvegardes/bdd/dump'.$timestamp.'.zip');
+
+            unlink('./../sauvegardes/bdd/dump'.$timestamp.'.sql');
 
             return new Response($timestamp.'*'.$date);
         }
@@ -88,9 +95,9 @@ class SauvegardeController extends Controller
             $fichier = $request->get('fichier');
 
             if($type == 'bdd'){
-                array_map('unlink', glob("sauvegardes/bdd/".$fichier));
+                array_map('unlink', glob("../sauvegardes/bdd/".$fichier));
             }elseif($type == 'mediatheque'){
-                array_map('unlink', glob("sauvegardes/mediatheque/".$fichier));
+                array_map('unlink', glob("../sauvegardes/mediatheque/".$fichier));
             }
 
             return new Response('ok');
@@ -109,12 +116,30 @@ class SauvegardeController extends Controller
             $timestamp = time();
             $date = date('d/m/Y h:i', $timestamp);
 
-            $this->zip('./uploads', './sauvegardes/mediatheque/mediatheque'.$timestamp.'.zip');
+            $this->zip('./uploads', './../sauvegardes/mediatheque/mediatheque'.$timestamp.'.zip');
 
             return new Response($timestamp.'*'.$date);
         }
 
         return false;
+    }
+
+    /**
+     * @Route("/admin/sauvegarde/telechargerDump", name="telechargerDump")
+     * @param Request $request
+     * @return bool|Response
+     */
+    public function telechargerMediathequeAction(Request $request){
+        $type = $request->get('type');
+        $fichier = $request->get('fichier');
+
+        $response = new BinaryFileResponse('../sauvegardes/'.$type.'/'.$fichier);
+        $response->setContentDisposition(
+            ResponseHeaderBag::DISPOSITION_ATTACHMENT,
+            $fichier
+        );
+
+        return $response;
     }
 
     /**

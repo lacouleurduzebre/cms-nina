@@ -50,7 +50,7 @@ class LangueController extends Controller
             $idPageTraduite = $traductions[$id];
             $pageTraduite = $repoPage->find($idPageTraduite);
 
-            return $this->redirectToRoute('voirPage', array('url' => $pageTraduite->getSEO()->getUrl()));
+            return $this->redirectToRoute('voirPage', array('_locale' => $nvlocale, 'url' => $pageTraduite->getSEO()->getUrl()));
         }else{
             return $this->redirectToRoute('accueilLocale', array('_locale' => $nvlocale));
         }
