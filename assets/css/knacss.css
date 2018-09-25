@@ -533,10 +533,10 @@ q {
 
 q,
 .q {
-  quotes: "ÔÇ£" "ÔÇØ" "ÔÇÿ" "ÔÇÖ"; }
+  quotes: "“" "”" "‘" "’"; }
   q:lang(fr),
   .q:lang(fr) {
-    quotes: "┬½\00a0" "\00a0┬╗" "ÔÇ£" "ÔÇØ"; }
+    quotes: "«\00a0" "\00a0»" "“" "”"; }
 
 hr {
   display: block;
@@ -2134,7 +2134,7 @@ button:focus {
   .button--ghost:active,
   .button--ghost:focus,
   .button--ghost:hover {
-    background-color: rgba(0, 0, 0, 0); }
+    background-color: transparent; }
 
 .btn--small,
 .button--small {
@@ -2256,12 +2256,12 @@ button:focus {
     color: #fff; }
   .toggle input::before {
     float: right;
-    margin-right: 0.6666666667rem; }
+    margin-right: 0.66667rem; }
   .toggle input:checked {
     box-shadow: inset 2rem 0 0 #5CB85C, inset 0 0 0 1px #5CB85C; }
     .toggle input:checked::before {
       float: left;
-      margin-left: 0.6666666667rem; }
+      margin-left: 0.66667rem; }
 
 .checkbox input {
   width: 2rem;
@@ -2715,7 +2715,7 @@ ul.nav-tabs {
 .tab-pane:not(.active) {
   display: none; }
 
-/* ├ël├®ments de formulaire */
+/* Éléments de formulaire */
 .help-text {
   font-size: 1.3rem; }
 
@@ -2793,7 +2793,7 @@ body.notFull .select2-dropdown {
 #form-actions-row {
   margin-top: 1rem; }
 
-/* M├®diath├¿que */
+/* Médiathèque */
 a[class$='image_bouton_mediatheque'] {
   display: inline-block;
   margin: 1rem 0; }
@@ -2811,7 +2811,7 @@ a[class$='image_bouton_mediatheque'] {
     color: #fff;
     text-decoration: none; }
 
-/* Aper├ºu */
+/* Aperçu */
 .apercuLogo {
   margin-top: 1rem; }
   .apercuLogo img {
@@ -2836,7 +2836,7 @@ div[class$="image_apercu_mediatheque"] img {
   max-width: 30rem;
   max-height: 30rem; }
 
-/* T├®l├®chargement d'images (ex: logo) */
+/* Téléchargement d'images (ex: logo) */
 .easyadmin-thumbnail img {
   max-width: 25rem; }
 
@@ -2875,7 +2875,7 @@ td[data-label="Image profil"] img {
   border-radius: 50%;
   object-fit: cover; }
 
-/* Page m├®diath├¿que */
+/* Page médiathèque */
 .iframeMediatheque {
   height: calc(100vh - 6.6rem); }
 
@@ -3479,5 +3479,37 @@ div[id^="page_active_blocs"] > div > .collection-empty {
 
 .configBlocs td, .configBlocs th {
   border: none; }
+
+.suppressionBloc {
+  display: none;
+  position: absolute;
+  right: calc(100% + 2.5rem);
+  bottom: -2.5rem;
+  white-space: nowrap;
+  padding: 1rem 1.2rem;
+  color: #000;
+  background: #e6e6e6;
+  border-radius: .4em; }
+  .suppressionBloc .btn {
+    font-size: 1.4rem;
+    padding: 1rem; }
+  .suppressionBloc .btn-danger {
+    background-color: #D9534F; }
+    .suppressionBloc .btn-danger:hover {
+      background-color: #c9302c; }
+
+.suppressionBloc:after {
+  content: '';
+  position: absolute;
+  right: 0;
+  top: 50%;
+  width: 0;
+  height: 0;
+  border: 20px solid transparent;
+  border-left-color: #e6e6e6;
+  border-right: 0;
+  border-top: 0;
+  margin-top: -10px;
+  margin-right: -20px; }
 
 /*# sourceMappingURL=knacss.css.map */

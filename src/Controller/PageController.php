@@ -38,17 +38,25 @@ class PageController extends Controller
         //fin $_locale
 
         $repository = $this->getDoctrine()->getRepository(SEO::class);
-        $seo = $repository->findOneByUrl($url);
+        $seos = $repository->findByUrl($url);
 
-        if(!$seo){
+        if(!$seos){
             throw new NotFoundHttpException('Cette page n\'existe pas ou a été supprimée');
         }
 
-        $page = $seo->getPage();
-
-        if($page->getLangue() != $langue){//Si la langue de la page ne correspond pas à $_locale on fait une redirection
-            $this->redirectToRoute('voirPage', array('_locale' => $page->getLangue()->getAbreviation(), 'url' => $url));
+        foreach($seos as $seo){
+            if($_locale == $seo->getPage()->getLangue()->getAbreviation()){
+                $page = $seo->getPage();
+            }
         }
+
+        if(!$page){
+            throw new NotFoundHttpException('Cette page n\'existe pas ou a été supprimée');
+        }
+
+        /*if($page->getLangue() != $langue){//Si la langue de la page ne correspond pas à $_locale on fait une redirection
+            $this->redirectToRoute('voirPage', array('_locale' => $page->getLangue()->getAbreviation(), 'url' => $url));
+        }*/
 
         $timestamp = new \DateTime();
         $date = $timestamp->format('Y-m-d H:i:s');

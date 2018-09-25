@@ -358,3 +358,42 @@ div[id^="page_active_blocs"]{
     border: none;
   }
 }
+
+
+//Confirmation suppression
+.suppressionBloc{
+  display: none;
+  position: absolute;
+  right: calc(100% + 2.5rem);
+  bottom: -2.5rem;
+  white-space: nowrap;
+  padding: 1rem 1.2rem;
+  color: #000;
+  background: #e6e6e6;
+  border-radius: .4em;
+  .btn{
+    font-size: 1.4rem;
+    padding: 1rem;
+  }
+  .btn-danger{
+    background-color: $color-danger;
+    &:hover{
+      background-color: darken($color-danger, 10);
+    }
+  }
+}
+
+.suppressionBloc:after{
+  content: '';
+  position: absolute;
+  right: 0;
+  top: 50%;
+  width: 0;
+  height: 0;
+  border: 20px solid transparent;
+  border-left-color: #e6e6e6;
+  border-right: 0;
+  border-top: 0;
+  margin-top: -10px;
+  margin-right: -20px;
+}

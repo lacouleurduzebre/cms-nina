@@ -89,6 +89,12 @@
                 </div>
             {% endif %}
         </main>
+
+        <div class="cookies">
+            <p>En poursuivant votre navigation sur ce site, vous acceptez l'utilisation de cookies à des fins statistiques</p>
+            <a id="cookies-ok" href="#">J'accepte</a><a href="{{ path('voirPage', { url: 'cookies' }) }}">En savoir plus</a>
+        </div>
+
         {% block footer %}
             <footer>
                 {{ blocs(region='footer') }}

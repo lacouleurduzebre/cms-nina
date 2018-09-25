@@ -51,4 +51,15 @@ $(document).ready(function(){
             $('.message'+idBloc).addClass('error').append(message);
         }
     });
+
+    //Cookies
+    if($.cookie('bandeauCookies') !== 'off'){
+        $('.cookies').show();
+    }
+
+    $('#cookies-ok').click(function(e){
+        e.preventDefault();
+        $.cookie('bandeauCookies', 'off');
+        $('.cookies').hide();
+    });
 });

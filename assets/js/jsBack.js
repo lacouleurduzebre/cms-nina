@@ -183,6 +183,7 @@ $(document).ready(function(){
     /* Menu blocs */
     $('form').on('click', '.bloc-menu span', function(){
         $(this).closest('div').toggleClass('actif');
+        $(this).closest('div').find('.suppressionBloc').hide();
     });
 
         /* Monter */
@@ -231,18 +232,23 @@ $(document).ready(function(){
         /* Supprimer */
         $('form').on('click', '.supprimerBloc', function(e){
             e.preventDefault();
-            $(this).closest('div').removeClass('actif');
 
-            bloc = $(this).closest('.field-bloc');
-            $('#modal-delete').css('display', 'flex');
-            $('#modal-delete').modal({ backdrop: true, keyboard: true })
-                .off('click', '#modal-delete-button')
-                .on('click', '#modal-delete-button', function () {
-                    bloc.slideUp(600, function(){
-                        bloc.remove();
-                        $('#page_active_titre').keyup();
-                    });
-                });
+            $(this).next('div').show();
+        });
+
+        $('form').on('click', '.suppressionBloc-annuler', function(e){
+            e.preventDefault();
+
+            $(this).closest('.suppressionBloc').hide().closest('.bloc-menu').removeClass('actif');
+        });
+
+        $('form').on('click', '.suppressionBloc-supprimer', function(e){
+            e.preventDefault();
+
+            $(this).closest('.field-bloc').slideUp(600, function(){
+                bloc.remove();
+                $('.formulaire-actions-enregistrer').attr("disabled", false);
+            });
         });
 
     /* Changement de thème */
