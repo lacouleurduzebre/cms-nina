@@ -276,6 +276,7 @@ $(document).ready(function(){
             method: "post"
         })
             .done(function(data){
+                console.log(data);
                 $('#export-bdd + .loader').hide();
 
                 timestamp = data.substring(0, data.indexOf('*'));
@@ -283,8 +284,8 @@ $(document).ready(function(){
 
                 $('#dumps-bdd tbody').append('<tr>\n' +
                     '                            <td>'+date+'</td>\n' +
-                    '                            <td><a download href="/sauvegardes/bdd/dump'+timestamp+'.sql"><i class="fas fa-file-download"></i></a></td>\n' +
-                    '                            <td><a href="#" class="export-bdd-supprimer"><i class="fas fa-trash"></i></a></td>\n' +
+                    '                            <td><a class="telechargementDump" href="/admin/sauvegarde/telechargerDump?type=bdd&fichier=dump'+timestamp+'.zip"><i class="fas fa-file-download"></i></a></td>\n' +
+                    '                            <td><a id="dump'+timestamp+'.zip" href="#" class="export-bdd-supprimer"><i class="fas fa-trash"></i></a></td>\n' +
                     '                        </tr>');
             })
             .fail(function(){
@@ -321,8 +322,8 @@ $(document).ready(function(){
 
                 $('#dumps-mediatheque tbody').append('<tr>\n' +
                     '                        <td>'+date+'</td>\n' +
-                    '                        <td><a href="/sauvegardes/mediatheque/mediatheque'+timestamp+'.zip"><i class="fas fa-file-download"></i></a></td>\n' +
-                    '                        <td><a href="#" class="export-mediatheque-supprimer"><i class="fas fa-trash"></i></a></td>\n' +
+                    '                        <td><a class="telechargementDump" href="/admin/sauvegarde/telechargerDump?type=mediatheque&fichier=mediatheque'+timestamp+'.zip"><i class="fas fa-file-download"></i></a></td>\n' +
+                    '                        <td><a id="mediatheque'+timestamp+'.zip" href="#" class="export-mediatheque-supprimer"><i class="fas fa-trash"></i></a></td>\n' +
                     '                    </tr>');
             })
     });

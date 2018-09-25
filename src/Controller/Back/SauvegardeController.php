@@ -29,9 +29,10 @@ class SauvegardeController extends Controller
     public function sauvegardeAction(){
         //Liste de tous les dumps bdd
         $exportsBdd = scandir('../sauvegardes/bdd');
-        unset($exportsBdd[0]);
-        unset($exportsBdd[1]);
-        $exportsBdd = array_values($exportsBdd);
+        $exportsBdd = array_combine(array_values($exportsBdd), array_values($exportsBdd));
+        unset($exportsBdd["."]);
+        unset($exportsBdd[".."]);
+        unset($exportsBdd[".DS_Store"]);
 
         $dumpsBdd = [];
 
@@ -63,16 +64,18 @@ class SauvegardeController extends Controller
      */
     public function sauvegarderBDDAction(Request $request){
         if($request->isXmlHttpRequest()){
-            $env = new Dotenv();
-            $env->load('../.env');
-            $user = getenv('USER');
-            $pswd = getenv('PASSWORD');
-            $database = getenv('DATABASE');
-
             $timestamp = time();
             $date = date('d/m/Y h:i', $timestamp);
 
-            exec('mysqldump -u '.$user.' -p '.$pswd.' '.$database.' > '.__DIR__.'/../../../sauvegardes/bdd/dump'.$timestamp.'.sql', $output);
+            $env = new Dotenv();
+            $env->load('../.env');
+            $mysqlUserName      = getenv('USERDB');
+            $mysqlPassword      = getenv('PASSWORD');
+            $mysqlHostName      = getenv('HOST');
+            $DbName             = getenv('DATABASE');
+            $backup_name        = "dump".$timestamp.".sql";
+
+            $this->exportBDD($mysqlHostName,$mysqlUserName,$mysqlPassword,$DbName,  $tables=false, $backup_name );
 
             $this->zip('./../sauvegardes/bdd/dump'.$timestamp.'.sql', './../sauvegardes/bdd/dump'.$timestamp.'.zip');
 
@@ -140,6 +143,70 @@ class SauvegardeController extends Controller
         );
 
         return $response;
+    }
+
+    public function exportBDD($host,$user,$pass,$name, $tables=false, $backup_name=false)
+    {
+        $mysqli = new \mysqli($host,$user,$pass,$name);
+        $mysqli->select_db($name);
+        $mysqli->query("SET NAMES 'utf8'");
+
+        $queryTables    = $mysqli->query('SHOW TABLES');
+        while($row = $queryTables->fetch_row())
+        {
+            $target_tables[] = $row[0];
+        }
+        foreach($target_tables as $table)
+        {
+            $result         =   $mysqli->query('SELECT * FROM '.$table);
+            $fields_amount  =   $result->field_count;
+            $rows_num=$mysqli->affected_rows;
+            $res            =   $mysqli->query('SHOW CREATE TABLE '.$table);
+            $TableMLine     =   $res->fetch_row();
+            $content        = (!isset($content) ?  '' : $content) . "\n\n".$TableMLine[1].";\n\n";
+
+            for ($i = 0, $st_counter = 0; $i < $fields_amount;   $i++, $st_counter=0)
+            {
+                while($row = $result->fetch_row())
+                { //when started (and every after 100 command cycle):
+                    if ($st_counter%100 == 0 || $st_counter == 0 )
+                    {
+                        $content .= "\nINSERT INTO ".$table." VALUES";
+                    }
+                    $content .= "\n(";
+                    for($j=0; $j<$fields_amount; $j++)
+                    {
+                        $row[$j] = str_replace("\n","\\n", addslashes($row[$j]) );
+                        if (isset($row[$j]))
+                        {
+                            $content .= '"'.$row[$j].'"' ;
+                        }
+                        else
+                        {
+                            $content .= '""';
+                        }
+                        if ($j<($fields_amount-1))
+                        {
+                            $content.= ',';
+                        }
+                    }
+                    $content .=")";
+                    //every after 100 command cycle [or at last line] ....p.s. but should be inserted 1 cycle eariler
+                    if ( (($st_counter+1)%100==0 && $st_counter!=0) || $st_counter+1==$rows_num)
+                    {
+                        $content .= ";";
+                    }
+                    else
+                    {
+                        $content .= ",";
+                    }
+                    $st_counter=$st_counter+1;
+                }
+            } $content .="\n\n\n";
+        }
+        $backup_name = $backup_name ? $backup_name : $name.".sql";
+
+        file_put_contents('./../sauvegardes/bdd/'.$backup_name, $content);
     }
 
     /**
