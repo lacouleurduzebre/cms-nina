@@ -47,6 +47,12 @@ class TypeCategorie
      */
     private $categories;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Langue")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $langue;
+
     public function __construct()
     {
         $this->categories = new ArrayCollection();
@@ -171,5 +177,17 @@ class TypeCategorie
     public function getUrl()
     {
         return $this->url;
+    }
+
+    public function getLangue(): ?Langue
+    {
+        return $this->langue;
+    }
+
+    public function setLangue(?Langue $langue): self
+    {
+        $this->langue = $langue;
+
+        return $this;
     }
 }

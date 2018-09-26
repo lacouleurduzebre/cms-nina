@@ -65,7 +65,7 @@ class TraductionController extends Controller
             }else{
                 $request->getSession()->getFlashBag()->add('pasDeTrad', 'Aucun message à traduire');
 
-                return $this->render('back/traduction.html.twig', array('traductions'=>$xml, 'langues'=>$locale, 'langueXML'=>$langueXML));
+                return $this->render('back/traductionsTemplates.html.twig', array('traductions'=>$xml, 'langues'=>$locale, 'langueXML'=>$langueXML));
             }
         }
 

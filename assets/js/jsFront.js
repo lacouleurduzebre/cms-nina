@@ -1,13 +1,4 @@
 $(document).ready(function(){
-    //Initialisation des sliders
-    $('.blocSlider').each(function(){
-        idSlider = $(this).children('div').attr('id');
-        $('#'+idSlider).slick({
-            "arrows": true,
-            "dots": true
-        });
-    });
-
     //Envoi des formulaires
     $('.blocFormulaire-formulaire').on('submit', function(e){
         e.preventDefault();

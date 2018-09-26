@@ -33,6 +33,7 @@ easy_admin:
                     - { name: 'list', label: 'Retour', title: 'Retour', icon: 'arrow-left', css_class: '' }
                 fields:
                     - nom
+                    - langue
                     - description
                     - { property: 'url' }
                     - { property : 'categorieParent', label: 'Catégorie parent', type: 'entity', type_options: { class: 'App\Entity\Categorie' } }

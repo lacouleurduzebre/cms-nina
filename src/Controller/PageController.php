@@ -22,20 +22,14 @@ class PageController extends Controller
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
-    public function voirAction(Request $request, $_locale = 'fr', $url){
+    public function voirAction(Request $request, $url){
         //$_locale
         $repoLangue = $this->getDoctrine()->getRepository(Langue::class);
-        $langue = $repoLangue->findOneBy(array('abreviation' => $_locale));
+        $langue = $repoLangue->findOneBy(array('abreviation' => $request->getLocale()));
 
         if(!$langue){//Si l'utilisateur essaye de naviguer sur une langue qui n'existe page
             throw new NotFoundHttpException('Vous essayez de naviguer dans une langue non compatible avec ce site');
         }
-
-        $locale = $request->getLocale();
-        if($locale !== $_locale){//Si la locale n'est pas la langue sur laquelle l'utilisateur souhaite naviguer, on la modifie
-            $request->getSession()->set('_locale', $_locale);
-        }
-        //fin $_locale
 
         $repository = $this->getDoctrine()->getRepository(SEO::class);
         $seos = $repository->findByUrl($url);
@@ -45,18 +39,14 @@ class PageController extends Controller
         }
 
         foreach($seos as $seo){
-            if($_locale == $seo->getPage()->getLangue()->getAbreviation()){
+            if($langue == $seo->getPage()->getLangue()){
                 $page = $seo->getPage();
             }
         }
 
-        if(!$page){
+        if(!isset($page)){
             throw new NotFoundHttpException('Cette page n\'existe pas ou a été supprimée');
         }
-
-        /*if($page->getLangue() != $langue){//Si la langue de la page ne correspond pas à $_locale on fait une redirection
-            $this->redirectToRoute('voirPage', array('_locale' => $page->getLangue()->getAbreviation(), 'url' => $url));
-        }*/
 
         $timestamp = new \DateTime();
         $date = $timestamp->format('Y-m-d H:i:s');

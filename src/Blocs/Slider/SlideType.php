@@ -28,7 +28,8 @@ class SlideType extends AbstractType
             ->add('position', HiddenType::class, array(
             ))
             ->add('lien', TextType::class, array(
-                'required' => false
+                'required' => false,
+                'label' => 'Lien'
             ));
     }
 

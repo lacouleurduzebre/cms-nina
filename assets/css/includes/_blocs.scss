@@ -319,6 +319,12 @@ div[id^="page_active_blocs"]{
   margin: 0 1rem 2rem;
 }
 
+//Slider
+.bloc-slider .radio{
+  display: inline-block;
+  margin-right: 2rem;
+}
+
 //Formulaire
 .bloc-formulaire{
   .field-choix.vide{

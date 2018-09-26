@@ -212,12 +212,18 @@ $(document).ready(function(){
             delete items.duplicate;
             delete items.remove;
             delete items.alias;
+            delete items.see;
+            delete items.home;
         }
 
-        if($('#'+node.id).closest('div').attr('id') === 'menu-0' && node.type !== 'root'){
-            delete items.create;
+        if($('#'+node.id).closest('div').attr('id') === 'menu-0'){
             delete items.alias;
             delete items.remove;
+            if(node.type !== 'root'){
+                delete items.create;
+            }else{
+                delete items.edit;
+            }
         }
 
         return items;

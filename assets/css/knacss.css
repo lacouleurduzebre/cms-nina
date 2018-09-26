@@ -533,10 +533,10 @@ q {
 
 q,
 .q {
-  quotes: "“" "”" "‘" "’"; }
+  quotes: "ÔÇ£" "ÔÇØ" "ÔÇÿ" "ÔÇÖ"; }
   q:lang(fr),
   .q:lang(fr) {
-    quotes: "«\00a0" "\00a0»" "“" "”"; }
+    quotes: "┬½\00a0" "\00a0┬╗" "ÔÇ£" "ÔÇØ"; }
 
 hr {
   display: block;
@@ -2134,7 +2134,7 @@ button:focus {
   .button--ghost:active,
   .button--ghost:focus,
   .button--ghost:hover {
-    background-color: transparent; }
+    background-color: rgba(0, 0, 0, 0); }
 
 .btn--small,
 .button--small {
@@ -2221,12 +2221,12 @@ button:focus {
 .toggle input {
   border-radius: 3em; }
 
-.radio {
+.radio input {
   border-radius: 50%; }
 
 .toggle input,
 .checkbox input,
-.radio {
+.radio input {
   appearance: none;
   vertical-align: text-bottom;
   outline: 0;
@@ -2236,11 +2236,11 @@ button:focus {
   margin-right: .5rem; }
   .toggle input ~ label,
   .checkbox input ~ label,
-  .radio ~ label {
+  .radio input ~ label {
     cursor: pointer; }
   .toggle input::-ms-check,
   .checkbox input::-ms-check,
-  .radio::-ms-check {
+  .radio input::-ms-check {
     display: none; }
 
 .toggle input {
@@ -2256,12 +2256,12 @@ button:focus {
     color: #fff; }
   .toggle input::before {
     float: right;
-    margin-right: 0.66667rem; }
+    margin-right: 0.6666666667rem; }
   .toggle input:checked {
     box-shadow: inset 2rem 0 0 #5CB85C, inset 0 0 0 1px #5CB85C; }
     .toggle input:checked::before {
       float: left;
-      margin-left: 0.66667rem; }
+      margin-left: 0.6666666667rem; }
 
 .checkbox input {
   width: 2rem;
@@ -2277,15 +2277,15 @@ button:focus {
     background-color: #A1BA1D;
     box-shadow: inset 0 0 0 1px #A1BA1D; }
 
-.radio {
+.radio input {
   width: 2rem;
   height: 2rem;
   background-size: 0% 0%;
   transition: background-size .15s;
   box-shadow: inset 0 0 0 1px #333;
   background-color: #fff; }
-  .radio:checked {
-    background-image: url("data:image/svg+xml,%3C%3Fxml%20version%3D%221.0%22%20standalone%3D%22no%22%3F%3E%3Csvg%20version%3D%221.1%22%20width%3D%22100%22%20height%3D%22100%22%0AviewBox%3D%220%200%2080%2080%22%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%3E%3Ccircle%20cx%3D%2240%22%20cy%3D%2240%22%20r%3D%2224%22%20style%3D%22fill%3A%23333333%22/%3E%3C/svg%3E");
+  .radio input:checked {
+    background-image: url("data:image/svg+xml,%3C%3Fxml%20version%3D%221.0%22%20standalone%3D%22no%22%3F%3E%3Csvg%20version%3D%221.1%22%20width%3D%22100%22%20height%3D%22100%22%0AviewBox%3D%220%200%2080%2080%22%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%3E%3Ccircle%20cx%3D%2240%22%20cy%3D%2240%22%20r%3D%2224%22%20style%3D%22fill%3A%23A1BA1D%22/%3E%3C/svg%3E");
     background-size: 90% 90%;
     background-position: center;
     background-repeat: no-repeat;
@@ -2715,7 +2715,7 @@ ul.nav-tabs {
 .tab-pane:not(.active) {
   display: none; }
 
-/* Éléments de formulaire */
+/* ├ël├®ments de formulaire */
 .help-text {
   font-size: 1.3rem; }
 
@@ -2793,7 +2793,7 @@ body.notFull .select2-dropdown {
 #form-actions-row {
   margin-top: 1rem; }
 
-/* Médiathèque */
+/* M├®diath├¿que */
 a[class$='image_bouton_mediatheque'] {
   display: inline-block;
   margin: 1rem 0; }
@@ -2811,7 +2811,7 @@ a[class$='image_bouton_mediatheque'] {
     color: #fff;
     text-decoration: none; }
 
-/* Aperçu */
+/* Aper├ºu */
 .apercuLogo {
   margin-top: 1rem; }
   .apercuLogo img {
@@ -2836,7 +2836,7 @@ div[class$="image_apercu_mediatheque"] img {
   max-width: 30rem;
   max-height: 30rem; }
 
-/* Téléchargement d'images (ex: logo) */
+/* T├®l├®chargement d'images (ex: logo) */
 .easyadmin-thumbnail img {
   max-width: 25rem; }
 
@@ -2875,7 +2875,7 @@ td[data-label="Image profil"] img {
   border-radius: 50%;
   object-fit: cover; }
 
-/* Page médiathèque */
+/* Page m├®diath├¿que */
 .iframeMediatheque {
   height: calc(100vh - 6.6rem); }
 
@@ -2955,6 +2955,9 @@ body.list #flash-messages > * {
     min-width: 25rem; }
   .seo-attention svg {
     color: #D9534F; }
+
+#page_active_datePublication, #page_active_dateDepublication {
+  display: flex; }
 
 #tdb {
   padding: 2rem; }
@@ -3455,6 +3458,10 @@ div[id^="page_active_blocs"] > div > .collection-empty {
   background-color: #EDEDED;
   width: calc(50% - 2rem);
   margin: 0 1rem 2rem; }
+
+.bloc-slider .radio {
+  display: inline-block;
+  margin-right: 2rem; }
 
 .bloc-formulaire .field-choix.vide {
   display: none; }

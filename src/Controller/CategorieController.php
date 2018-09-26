@@ -10,8 +10,10 @@ namespace App\Controller;
 
 
 use App\Entity\Categorie;
+use App\Entity\Langue;
 use App\Entity\TypeCategorie;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -22,12 +24,20 @@ class CategorieController extends Controller
      * @param $urlTypeCategorie
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function voirTypeCategorieAction($_locale, $urlTypeCategorie){
+    public function voirTypeCategorieAction(Request $request, $urlTypeCategorie){
         $em = $this->getDoctrine()->getManager();
 
         $typeCategorie = $em->getRepository(TypeCategorie::class)->findOneBy(array('url'=>$urlTypeCategorie));
 
         if($typeCategorie){
+            $repoLangue = $this->getDoctrine()->getRepository(Langue::class);
+            $locale = $request->getLocale();
+            $langue = $repoLangue->findOneBy(array('abreviation' => $locale));
+
+            if($typeCategorie->getLangue() != $langue){
+                throw new NotFoundHttpException('Cette page n\'existe pas ou a été supprimée');
+            }
+
             $categories = $typeCategorie->getCategories();
 
             return $this->render('front/typeCategorie.html.twig', compact('typeCategorie', 'categories'));
@@ -47,13 +57,21 @@ class CategorieController extends Controller
      * @param $urlCategorie
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function voirCategorieAction($_locale, $urlTypeCategorie, $urlCategorie){
+    public function voirCategorieAction(Request $request, $urlTypeCategorie, $urlCategorie){
         $em = $this->getDoctrine()->getManager();
 
         $typeCategorie = $em->getRepository(TypeCategorie::class)->findOneBy(array('url'=>$urlTypeCategorie));
         $categorie = $em->getRepository(Categorie::class)->findOneBy(array('url'=>$urlCategorie));
 
         if($categorie->getTypeCategorie() == $typeCategorie){
+            $repoLangue = $this->getDoctrine()->getRepository(Langue::class);
+            $locale = $request->getLocale();
+            $langue = $repoLangue->findOneBy(array('abreviation' => $locale));
+
+            if($categorie->getLangue() != $langue){
+                throw new NotFoundHttpException('Cette page n\'existe pas ou a été supprimée');
+            }
+
             $pages = $categorie->getPages();
 
             return $this->render('front/categorie.html.twig', compact('pages', 'categorie'));

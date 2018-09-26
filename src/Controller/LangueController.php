@@ -29,7 +29,6 @@ class LangueController extends Controller
 
         $nvLangue = $repoLangue->find($id);
         $nvlocale = $nvLangue->getAbreviation();
-        $request->getSession()->set('_locale', $nvlocale);
 
         $idPage = $request->get('idPage');
 
@@ -50,8 +49,12 @@ class LangueController extends Controller
             $idPageTraduite = $traductions[$id];
             $pageTraduite = $repoPage->find($idPageTraduite);
 
+            $request->getSession()->set('_locale', $nvlocale);
+
             return $this->redirectToRoute('voirPage', array('_locale' => $nvlocale, 'url' => $pageTraduite->getSEO()->getUrl()));
         }else{
+            $request->getSession()->set('_locale', $nvlocale);
+
             return $this->redirectToRoute('accueilLocale', array('_locale' => $nvlocale));
         }
     }

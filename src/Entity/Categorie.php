@@ -58,6 +58,12 @@ class Categorie
      */
     private $pages;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Langue")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $langue;
+
     public function __toString()
     {
         return $this->getNom();
@@ -233,5 +239,17 @@ class Categorie
     public function getPages()
     {
         return $this->pages;
+    }
+
+    public function getLangue(): ?Langue
+    {
+        return $this->langue;
+    }
+
+    public function setLangue(?Langue $langue): self
+    {
+        $this->langue = $langue;
+
+        return $this;
     }
 }

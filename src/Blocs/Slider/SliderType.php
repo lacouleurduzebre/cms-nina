@@ -10,6 +10,7 @@ namespace App\Blocs\Slider;
 
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -21,7 +22,44 @@ class SliderType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('Slide', CollectionType::class, array(
+        $builder->add('nbSlides', ChoiceType::class, array(
+            'label' => 'Nombre de slides à afficher simultanément',
+            'multiple' => false,
+            'expanded' => true,
+            'choices' => array(
+                '1' => 1,
+                '2' => 2,
+                '3' => 3
+            ),
+        ))
+            ->add('autoplay', ChoiceType::class, array(
+                'label' => 'Lecture automatique',
+                'multiple' => false,
+                'expanded' => true,
+                'choices' => array(
+                    'oui' => 1,
+                    'non' => 0
+                )
+            ))
+            ->add('fleches', ChoiceType::class, array(
+                'label' => 'Flèches de navigation',
+                'multiple' => false,
+                'expanded' => true,
+                'choices' => array(
+                    'oui' => 1,
+                    'non' => 0
+                )
+            ))
+            ->add('points', ChoiceType::class, array(
+                'label' => 'Points de navigation',
+                'multiple' => false,
+                'expanded' => true,
+                'choices' => array(
+                    'oui' => 1,
+                    'non' => 0
+                )
+            ))
+            ->add('Slide', CollectionType::class, array(
             'entry_type' => SlideType::class,
             'entry_options' => array(
                 'label' => false
