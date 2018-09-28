@@ -1,5 +1,5 @@
 /* Bouton pour ajouter un bloc */
-.ajout-bloc{
+.ajout-bloc, .ajout-blocAnnexe{
   background-color: $color-brand2;
   color: $white;
   text-decoration: none;
@@ -18,7 +18,7 @@
   }
 }
 
-.form-group.field-bloc {
+.form-group.field-bloc, .form-group.field-bloc_annexe{
   position: relative;
   padding: 1rem 2rem;
   margin: 1rem 0;
@@ -109,7 +109,7 @@ div[id^="page_active_blocs"]{
   }
 }
 
-#page_active_blocs_{
+#page_active_blocs_, #page_active_blocsAnnexes{
   > .type{
     border-bottom: 2px solid $color-brand2;
     select, label{
@@ -210,7 +210,7 @@ div[id^="page_active_blocs"]{
 }
 
 //Liste blocs
-.listeBlocs{
+.listeBlocs, .listeBlocsAnnexes{
   display: none;
   position: fixed;
   top: 0;
@@ -225,15 +225,16 @@ div[id^="page_active_blocs"]{
     display: flex;
   }
   &.chargement{
-    .listeBlocs-chargement{
+    .listeBlocs-chargement, .listeBlocsAnnexes-chargement{
       display: block;
     }
-    ul, .listeBlocs-fermeture{
+    ul, .listeBlocs-fermeture, .listeBlocsAnnexes-fermeture{
       display: none;
     }
   }
   ul{
     list-style: none;
+    width: 100%;
     li{
       position: relative;
       cursor: pointer;
@@ -264,7 +265,7 @@ div[id^="page_active_blocs"]{
   }
 }
 
-.listeBlocs-fermeture{
+.listeBlocs-fermeture, .listeBlocsAnnexes-fermeture{
   color: $black;
   position: absolute;
   top: 2rem;
@@ -285,7 +286,7 @@ div[id^="page_active_blocs"]{
   font-size: 2rem;
 }
 
-.listeBlocs-chargement{
+.listeBlocs-chargement, .listeBlocsAnnexes-chargement{
   display: none;
   position: absolute;
   z-index: 10;
@@ -295,6 +296,20 @@ div[id^="page_active_blocs"]{
   color: $color-brand2;
 }
 
+//Liste blocs annexes
+.listeBlocsAnnexes{
+  .disabled{
+    background-color: #DBDBDB;
+    border-color: #DBDBDB;
+    cursor: not-allowed;
+    &:hover{
+      border-color: #DBDBDB;
+    }
+    svg{
+      color: #727272;
+    }
+  }
+}
 
 //Slider et Galerie (+ drag formulaire)
 .dragSlide, .dragGalerie, .dragChamp{
@@ -348,8 +363,10 @@ div[id^="page_active_blocs"]{
 }
 
 //Blocs ouverts / fermés
-#page_active_blocs_ > .form-group > .hide > *{
-  display: none;
+#page_active_blocs_, #page_active_blocsAnnexes{
+  .hide{
+    display: none;
+  }
 }
 
 .toggleBloc{

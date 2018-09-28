@@ -1,5 +1,5 @@
 nom: 'Formulaire d''inscription'
 description: 'Affiche le formulaire de demande d''accès au back-office'
 icone: 'fas fa-user-plus'
-priorite: 16
+priorite: 17
 actif: non

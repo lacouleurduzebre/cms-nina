@@ -26,8 +26,9 @@ class BlocController extends Controller
     public function ajouterBlocAction(Request $request){
         if($request->isXmlHttpRequest()){
             $type = $request->get('type');
+            $typeBloc = $request->get('typeBloc');
 
-            $form = $this->get('form.factory')->createBuilder("App\Form\Type\BlocType", null, array('type' => $type))->getForm();
+            $form = $this->get('form.factory')->createBuilder("App\Form\Type\\".$typeBloc."Type", null, array('type' => $type))->getForm();
             return $this->render('back/blocs/formulaire.html.twig', array('form'=>$form->createView()));
         };
 
@@ -43,29 +44,31 @@ class BlocController extends Controller
         if($request->isXmlHttpRequest()){
             $action = $request->get('action');
             if($action == 'actif'){
+                $typeBloc = $request->get('typeBloc');
                 $type = $request->get('type');
                 $actif = $request->get('actif');
 
-                $infos = Yaml::parseFile('../src/Blocs/'.$type.'/infos.yaml');
+                $infos = Yaml::parseFile('../src/'.$typeBloc.'/'.$type.'/infos.yaml');
 
                 ($actif == 'true') ? $infos['actif'] = 'oui' : $infos['actif'] = 'non';
 
                 $nvConfig = Yaml::dump($infos);
 
-                file_put_contents('../src/Blocs/'.$type.'/infos.yaml', $nvConfig);
+                file_put_contents('../src/'.$typeBloc.'/'.$type.'/infos.yaml', $nvConfig);
 
                 return new Response ('ok');
             }else if($action == 'priorite'){
+                $typeBloc = $request->get('typeBloc');
                 $blocs = $request->get('blocs');
 
                 foreach($blocs as $type => $priorite){
-                    $infos = Yaml::parseFile('../src/Blocs/'.$type.'/infos.yaml');
+                    $infos = Yaml::parseFile('../src/'.$typeBloc.'/'.$type.'/infos.yaml');
                     if($infos['priorite'] != $priorite){
                         $infos['priorite'] = (int)$priorite;
 
                         $nvInfos = Yaml::dump($infos);
 
-                        file_put_contents('../src/Blocs/'.$type.'/infos.yaml', $nvInfos);
+                        file_put_contents('../src/'.$typeBloc.'/'.$type.'/infos.yaml', $nvInfos);
                     }
                 }
 
@@ -74,19 +77,26 @@ class BlocController extends Controller
                 return false;
             }
         }else{
-            $types = scandir('../src/Blocs');
-            $types = array_combine(array_values($types), array_values($types));
-            unset($types["."]);
-            unset($types[".."]);
+            $blocs = $this->getInfosBlocs('Blocs');
+            $blocsAnnexes = $this->getInfosBlocs('BlocsAnnexes');
 
-            $blocs = [];
-            foreach($types as $type){
-                $infos = Yaml::parseFile('../src/Blocs/'.$type.'/infos.yaml');
-                $infos['type'] = $type;
-                $blocs[$type] = $infos;
-            }
-
-            return $this->render('back/blocs/configuration.html.twig', array('blocs'=>$blocs));
+            return $this->render('back/blocs/configuration.html.twig', array('blocs'=>$blocs, 'blocsAnnexes'=>$blocsAnnexes));
         }
+    }
+
+    public function getInfosBlocs($typeBlocs){
+        $types = scandir('../src/'.$typeBlocs);
+        $types = array_combine(array_values($types), array_values($types));
+        unset($types["."]);
+        unset($types[".."]);
+
+        $blocs = [];
+        foreach($types as $type){
+            $infos = Yaml::parseFile('../src/'.$typeBlocs.'/'.$type.'/infos.yaml');
+            $infos['type'] = $type;
+            $blocs[$type] = $infos;
+        }
+
+        return $blocs;
     }
 }

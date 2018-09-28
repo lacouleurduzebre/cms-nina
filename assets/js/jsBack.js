@@ -246,9 +246,21 @@ $(document).ready(function(){
             e.preventDefault();
 
             $(this).closest('.field-bloc').slideUp(600, function(){
-                bloc.remove();
+                $(this).remove();
                 $('.formulaire-actions-enregistrer').attr("disabled", false);
             });
+        });
+
+        $('form').on('click', '.suppressionBlocAnnexe-supprimer', function(e){
+            e.preventDefault();
+
+            $(this).closest('.field-bloc_annexe').slideUp(600, function(){
+                $(this).remove();
+                $('.formulaire-actions-enregistrer').attr("disabled", false);
+            });
+
+            type = $(this).closest('.field-bloc_annexe').find('.type input').val();
+            $('#'+type).removeClass('disabled');
         });
 
     /* Changement de thème */
@@ -437,12 +449,12 @@ $(document).ready(function(){
     $('.listeBlocs li').click(function(){
         type = $(this).attr('id');
         $('.listeBlocs').addClass('chargement');
-        entite = $('.listeBlocs').next('form').attr('name');
+        entite = $('.listeBlocs').siblings('form').attr('name');
 
         $.ajax({
             url: Routing.generate('ajouterBloc'),
             method: "post",
-            data: {type: type}
+            data: {type: type, typeBloc: 'Bloc'}
         })
             .done(function(data){
                 $('.formulaire-actions-enregistrer').attr("disabled", false);
@@ -497,9 +509,84 @@ $(document).ready(function(){
                 $('.listeBlocs').removeClass('actif chargement');
             });
     });
+
+    //Ajout de blocs annexes via liste des blocs
+    $('.listeBlocsAnnexes li').click(function(){
+        if(!$(this).hasClass('disabled')){
+            btnAjoutBloc = $(this);
+
+            type = $(this).attr('id');
+            $('.listeBlocsAnnexes').addClass('chargement');
+
+            $.ajax({
+                url: Routing.generate('ajouterBloc'),
+                method: "post",
+                data: {type: type, typeBloc: 'BlocAnnexe'}
+            })
+                .done(function(data){
+                    $('.formulaire-actions-enregistrer').attr("disabled", false);
+
+                    $('.listeBlocsAnnexes').removeClass('actif chargement');
+                    count = $('#page_active_blocsAnnexes').find('.field-bloc_annexe').length;
+
+                    var form = data.replace(/bloc_annexe_/g, 'page_active_blocsAnnexes_'+count+'_')
+                        .replace(/bloc_annexe\[/g, 'page_active[blocsAnnexes]['+count+'][');
+
+                    bloc = '<div id="nvBlocAnnexe'+count+'" class="form-group field-bloc_annexe">'+form+'</div>';
+                    if($('.listeBlocsAnnexes').attr('id') === 'apres'){
+                        $('#page_active_blocsAnnexes').append(bloc);
+                    }else{
+                        $('#page_active_blocsAnnexes').prepend(bloc);
+                    }
+
+                    $('#page_active_blocsAnnexes').prev('.empty').remove();
+
+                    $('.field-blocAnnexe').each(function(){
+                        $(this).find("input[id$='position']").val($(this).index());
+                    });
+
+                    tinymce.remove();
+                    tinymce.init({
+                        selector: "textarea:not('.notTinymce')",
+                        language: "fr_FR",
+                        theme: "modern",
+                        height: 300,
+                        plugins: [
+                            "advlist autolink link image lists charmap print preview hr anchor pagebreak",
+                            "searchreplace wordcount visualblocks visualchars insertdatetime media nonbreaking spellchecker",
+                            "table contextmenu directionality emoticons paste textcolor responsivefilemanager code"
+                        ],
+                        relative_urls: false,
+                        menubar: false,
+
+                        filemanager_title:"Médiathèque",
+                        external_filemanager_path:"/filemanager/",
+                        external_plugins: { "filemanager" : "/filemanager/plugin.min.js"},
+
+                        extended_valid_elements: 'i[class]',
+                        block_formats: 'Paragraphe=p;Titre h2=h2;Titre h3=h3;Titre h4=h4;Titre h5=h5;Titre h6=h6',
+                        image_advtab: true,
+                        toolbar1: "formatselect | image | media | link unlink | copy paste pastetext | bold italic underline | alignleft aligncenter alignright | bullist numlist | code | undo redo"
+                    });
+
+                    location.href = "#";
+                    location.href = "#nvBlocAnnexe"+count;
+
+                    btnAjoutBloc.addClass('disabled');
+                })
+                .fail(function(){
+                    $('.listeBlocsAnnexes').removeClass('actif chargement');
+                });
+        }
+    });
+
         //Fermeture
     $('.listeBlocs-fermeture').click(function(){
        $('.listeBlocs').removeClass('actif');
+    });
+
+    $('.listeBlocsAnnexes-fermeture').click(function(){
+       $('.listeBlocsAnnexes').removeClass('actif');
     });
 
     //Bloc formulaire : affichage ou non des choix
@@ -511,16 +598,16 @@ $(document).ready(function(){
        }
     });
 
-    //Toggle blocs
-    $('#page_active_blocs, #groupeblocs_blocs').on('click', '.toggleBloc', function(){
-        $(this).closest('.field-bloc').find('.contenu').children('div').toggleClass('hide');
+    //Toggle blocs et blocs annexes
+    $('#page_active_blocs, #groupeblocs_blocs, #page_active_blocsAnnexes').on('click', '.toggleBloc', function(){
+        $(this).closest('div[class^="form-group field-bloc"]').find('.contenu').children('div').toggleClass('hide');
         $(this).find('svg').toggleClass('fa-chevron-circle-down fa-chevron-circle-up');
         if($(this).find('svg').hasClass('fa-chevron-circle-up')){
             $('html, body').animate({
-                scrollTop: $(this).closest('.field-bloc').offset().top - 120
+                scrollTop: $(this).closest('div[class^="form-group field-bloc"]').offset().top - 120
             }, 200);
         }else{
-            $(this).closest('.field-bloc').removeClass('focus');
+            $(this).closest('div[class^="form-group field-bloc"]').removeClass('focus');
         }
     });
 
@@ -532,15 +619,23 @@ $(document).ready(function(){
         }
     });
 
+    $('.field-bloc_annexe').click(function(){
+        if(!$(this).hasClass('focus')){
+            $('.field-bloc_annexe').removeClass('focus');
+            $(this).addClass('focus');
+        }
+    });
+
     //Page de configuration des blocs
         //Activation/désactivation
     $('.configBlocs-bloc-actif').on('change', function(){
         checkbox = $(this);
         actif = $(this).is(':checked');
         type = $(this).closest('tr').attr('id');
+        typeBloc = $(this).closest('table').attr('id');
         $.ajax({
             url: window.location.href,
-            data: {action: 'actif', type: type, actif: actif}
+            data: {action: 'actif', typeBloc: typeBloc, type: type, actif: actif}
         })
             .fail(function(){
                 checkbox.attr('checked', !actif);
@@ -553,15 +648,15 @@ $(document).ready(function(){
         handle: '.dragConfigBloc',
         update: function(event, ui){
             blocs = {};
-            $('.configBlocs tbody tr').each(function(){
+            typeBloc = $(this).closest('table').attr('id');
+            $(this).closest('table').find('tbody tr').each(function(){
                 type = $(this).attr('id');
                 priorite = $(this).index() + 1;
                 blocs[type] = priorite;
             });
-            console.log(blocs);
             $.ajax({
                 url: window.location.href,
-                data: {action: 'priorite', blocs: blocs}
+                data: {action: 'priorite', blocs: blocs, typeBloc: typeBloc}
             })
                 .fail(function(){
                     $('.content-wrapper').prepend('<p>Une erreur est survenue</p>');

@@ -1,0 +1,5 @@
+nom: Vignette
+description: 'Image présentant l''article sur l''accueil ou dans les listes de pages'
+icone: 'fas fa-file-image'
+priorite: 2
+actif: oui

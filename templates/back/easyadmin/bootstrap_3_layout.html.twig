@@ -686,6 +686,31 @@
     </div>
 {% endblock %}
 
+{# BLOCS ANNEXES #}
+{% block _page_active_blocsAnnexes_row %}
+    <div class="form-group field-collection">
+        {{- form_label(form) -}}
+
+        <div class="text-right field-collection-action mbs">
+            <a href="#" onclick="$(function (){if (event.preventDefault) event.preventDefault(); else event.returnValue = false; $('.listeBlocsAnnexes').attr('id', 'avant').addClass('actif')})" class="ajout-blocAnnexe">
+                <i class="fas fa-plus-circle"></i>
+                {{ 'ajouter un bloc'|trans({}, 'EasyAdminBundle') }}
+            </a>
+        </div>
+
+        {{- form_widget(form) -}}
+
+        <div class="text-right field-collection-action">
+            <a href="#" onclick="$(function (){if (event.preventDefault) event.preventDefault(); else event.returnValue = false; $('.listeBlocsAnnexes').attr('id', 'apres').addClass('actif')})" class="ajout-blocAnnexe">
+                <i class="fas fa-plus-circle"></i>
+                {{ 'ajouter un bloc'|trans({}, 'EasyAdminBundle') }}
+            </a>
+        </div>
+
+    </div>
+{% endblock %}
+{# FIN BLOCS ANNEXES #}
+
 {# BLOC #}
 {% block bloc_widget %}
     {% set _field_type = easyadmin.field.fieldType|default('default') %}
@@ -736,7 +761,9 @@
         <div class="form-group contenu">
             {% if form.children.contenu is defined %}
                 {% if form.children.contenu is empty %}
-                    <p class="pasDeParametre">{{ "Aucun paramètre"|trans }}</p>
+                    <div class="hide">
+                        <p class="pasDeParametre">{{ "Aucun paramètre"|trans }}</p>
+                    </div>
                 {% endif %}
                 {{- form_label(form.children.contenu) -}}
                 {{- form_widget(form.children.contenu) -}}
@@ -808,6 +835,108 @@
 {% endblock %}
 {# FIN BLOC #}
 
+{# BLOC ANNEXE #}
+{% block bloc_annexe_widget %}
+    {% set _field_type = easyadmin.field.fieldType|default('default') %}
+    <div class="bloc-barreActions">
+        <div class="toggleBloc">
+            {% if form.children.contenu.vars.attr['class'] is defined %}
+                <i class="fas fa-chevron-circle-down"></i>
+            {% else %}
+                <i class="fas fa-chevron-circle-up"></i>
+            {% endif %}
+        </div>
+        <div class="bloc-menu">
+            <span><i class="fas fa-ellipsis-v"></i></span>
+            <ul>
+                <li>
+                    <a href="#" class="supprimerBloc"><i class="fas fa-trash"></i>{{ "Supprimer le bloc"|trans }}</a>
+                    <div class="suppressionBloc">
+                        <p><strong>{{ "Êtes-vous sûr de vouloir supprimer ce bloc ?"|trans }}</strong></p>
+                        <button type="button" class="btn suppressionBloc-annuler">
+                            {{ "Annuler"|trans }}
+                        </button>
+                        <button type="button" class="btn btn-danger suppressionBlocAnnexe-supprimer">
+                            <i class="fa fa-trash"></i>
+                            {{ "Supprimer"|trans }}
+                        </button>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div id="page_active_blocsAnnexes" {% if form.children.type.vars.value is defined %}class="blocAnnexe-{{ form.children.type.vars.value|lower }}"{% endif %}>
+        <div class="form-group type">
+            {{- form_label(form.children.type) -}}
+            {{- form_widget(form.children.type) -}}
+            {% if form.children.contenu is defined %}
+                <div class="bloc-help {% if form_help(form.children.contenu) is empty %}hide{% endif %}">
+                    <i class="fas fa-info-circle"></i>
+                    {{- form_help(form.children.contenu) -}}
+                </div>
+            {% endif %}
+        </div>
+        <div class="form-group contenu">
+            {% if form.children.contenu is defined %}
+                {% if form.children.contenu is empty %}
+                    <p class="pasDeParametre">{{ "Aucun paramètre"|trans }}</p>
+                {% endif %}
+                {{- form_label(form.children.contenu) -}}
+                {{- form_widget(form.children.contenu) -}}
+            {% endif %}
+        </div>
+    </div>
+
+    {% if _field_type in ['datetime', 'datetime_immutable', 'date', 'date_immutable', 'time', 'time_immutable', 'birthday'] and easyadmin.field.nullable|default(false) %}
+        <div class="nullable-control">
+            <label>
+                <input type="checkbox" {% if data is null %}checked="checked"{% endif %}>
+                {{ 'label.nullable_field'|trans({}, 'EasyAdminBundle')}}
+            </label>
+        </div>
+    {% endif %}
+
+    {{- form_errors(form) -}}
+
+    {% if easyadmin.field.help|default('') != '' %}
+        <span class="help-block"><i class="fa fa-info-circle"></i> {{ easyadmin.field.help|trans(domain = easyadmin.entity.translation_domain)|raw }}</span>
+    {% endif %}
+
+    {% if allow_add|default(false) %}
+        {% set js_add_item %}
+            $(function() {
+            if (event.preventDefault) event.preventDefault(); else event.returnValue = false;
+
+            var collection = $('#{{ id }}');
+            // Use a counter to avoid having the same index more than once
+            var numItems = collection.data('count') || collection.children('div.form-group').length;
+
+            collection.prev('.collection-empty').remove();
+
+            var newItem = collection.attr('data-prototype')
+            .replace(/\>__name__label__\</g, '>' + numItems + '<')
+            .replace(/_{{ name }}___name__/g, '_{{ name }}_' + numItems)
+            .replace(/{{ name }}\]\[__name__\]/g, '{{ name }}][' + numItems + ']')
+            ;
+
+            // Increment the counter and store it in the collection
+            collection.data('count', ++numItems);
+
+            collection.append(newItem).trigger('easyadmin.collection.item-added');
+            });
+        {% endset %}
+
+        <div class="text-right field-collection-action">
+            <a href="#" onclick="{{ js_add_item|raw }}" class="text-primary">
+                <i class="fa fa-plus-square"></i>
+                {{ (form|length == 0 ? 'action.add_new_item' : 'action.add_another_item')|trans({}, 'EasyAdminBundle') }}
+            </a>
+        </div>
+    {% endif %}
+{% endblock %}
+{# FIN BLOC ANNEXE #}
+
 {% block image_widget %}
     <div>
         {{- form_label(form.children.image) -}}
@@ -838,6 +967,33 @@
         });
     </script>
 {% endblock %}
+
+{% block vignette_widget %}
+    <div {% if form.vars.attr['class'] is defined %}class="{{ form.vars.attr['class'] }}"{% endif %}>
+        <div>
+            {{- form_label(form.children.image) -}}
+            {{- form_widget(form.children.image) -}}
+        </div>
+        <div>
+            <a class="iframe bloc_image_bouton_mediatheque" href='/filemanager/dialog.php?type=1&field_id={{ form.children.image.vars.id }}' type="button">{{ 'Choisir une image'|trans }}</a>
+            <div class="bloc_image_apercu_mediatheque">
+                <img src="{{ form.children.image.vars.value }}" alt="">
+            </div>
+        </div>
+        <div>
+            {{- form_label(form.children.titre) -}}
+            {{- form_widget(form.children.titre) -}}
+        </div>
+        <script>
+            $('.bloc_image_bouton_mediatheque').fancybox({
+                type: 'iframe',
+                minHeight: '600'
+            });
+        </script>
+    </div>
+{% endblock %}
+
+{[
 
 {% block slide_widget %}
     <div class="dragSlide">

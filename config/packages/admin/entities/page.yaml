@@ -55,6 +55,8 @@ easy_admin:
                     - { property: 'blocs', type: 'collection', type_options: { entry_type: 'App\Form\Type\BlocType', by_reference: false } }
                     - { type: 'tab', label: 'SEO' }
                     - { property: 'SEO', type: 'App\Form\Type\SEOType', type_options: { by_reference: true, label: false } }
+                    - { type: 'tab', label: 'Affichage' }
+                    - { property: 'blocsAnnexes', type: 'collection', type_options: { entry_type: 'App\Form\Type\BlocAnnexeType', by_reference: false } }
                     - { type: 'tab', label: 'Catégories' }
                     - categories
                     - { type: 'tab', label: 'Historique' }

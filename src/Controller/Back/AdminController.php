@@ -16,6 +16,7 @@ use App\Entity\Page;
 use App\Entity\SEO;
 use App\Entity\TypeCategorie;
 use App\Entity\Utilisateur;
+use App\Twig\Front\BlocAnnexe;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\Mapping\Entity;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AdminController as BaseAdminController;
@@ -150,11 +151,12 @@ class AdminController extends BaseAdminController
     }
 
     private function newAvecListeBlocs(){
-        $blocs = $this->listeBlocs();
-
         $this->dispatch(EasyAdminEvents::PRE_NEW);
 
         $entity = $this->executeDynamicMethod('createNew<EntityName>Entity');
+
+        $blocs = $this->listeBlocs('Blocs');
+        $blocsAnnexes = $this->listeBlocs('BlocsAnnexes');
 
         $easyadmin = $this->request->attributes->get('easyadmin');
         $easyadmin['item'] = $entity;
@@ -186,7 +188,8 @@ class AdminController extends BaseAdminController
             'form' => $newForm->createView(),
             'entity_fields' => $fields,
             'entity' => $entity,
-            'blocs' => $blocs
+            'blocs' => $blocs,
+            'blocsAnnexes' => $blocsAnnexes
         );
 
         return $this->executeDynamicMethod('render<EntityName>Template', array('new', $this->entity['templates']['new'], $parameters));
@@ -202,8 +205,6 @@ class AdminController extends BaseAdminController
     }
 
     private function editAvecListeBlocs(){
-        $blocs = $this->listeBlocs();
-
         $this->dispatch(EasyAdminEvents::PRE_EDIT);
 
         $id = $this->request->query->get('id');
@@ -223,6 +224,9 @@ class AdminController extends BaseAdminController
             // cast to integer instead of string to avoid sending empty responses for 'false'
             return new Response((int) $newValue);
         }
+
+        $blocs = $this->listeBlocs('Blocs');
+        $blocsAnnexes = $this->listeBlocs('BlocsAnnexes', $entity);
 
         $fields = $this->entity['edit']['fields'];
 
@@ -248,23 +252,32 @@ class AdminController extends BaseAdminController
             'entity_fields' => $fields,
             'entity' => $entity,
             'delete_form' => $deleteForm->createView(),
-            'blocs' => $blocs
+            'blocs' => $blocs,
+            'blocsAnnexes' => $blocsAnnexes
         );
 
         return $this->executeDynamicMethod('render<EntityName>Template', array('edit', $this->entity['templates']['edit'], $parameters));
     }
 
-    protected function listeBlocs(){
-        $types = scandir('../src/Blocs');
+    protected function listeBlocs($typeBloc, $entity = null){
+        $types = scandir('../src/'.$typeBloc);
         $types = array_combine(array_values($types), array_values($types));
         unset($types["."]);
         unset($types[".."]);
 
+        $repoBlocAnnexe = $this->getDoctrine()->getRepository(\App\Entity\BlocAnnexe::class);
+
         $blocs = [];
         foreach($types as $type){
-            $infos = Yaml::parseFile('../src/Blocs/'.$type.'/infos.yaml');
+            $infos = Yaml::parseFile('../src/'.$typeBloc.'/'.$type.'/infos.yaml');
             if($infos['actif'] == 'oui'){
                 $blocs[$type] = $infos;
+                if($typeBloc == 'BlocsAnnexes' && $entity != null){
+                    $blocAnnexe = $repoBlocAnnexe->findOneBy(array('page' => $entity, 'type' => $type));
+                    if($blocAnnexe){
+                        $blocs[$type]['disabled'] = true;
+                    }
+                }
             }
         }
         uasort($blocs, array($this,'comparaison'));

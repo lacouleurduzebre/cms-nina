@@ -1,11 +1,11 @@
-<div class="listeBlocs">
-    <div class="listeBlocs-fermeture">
+<div class="liste{{ typeBlocs }}">
+    <div class="liste{{ typeBlocs }}-fermeture">
         <i class="fas fa-times"></i>
     </div>
-    <i class="fas fa-spin fa-sync listeBlocs-chargement"></i>
+    <i class="fas fa-spin fa-sync liste{{ typeBlocs }}-chargement"></i>
     <ul class="grid-6-small-2 has-gutter-l">
         {% for type,bloc in blocs %}
-            <li id="{{ type }}">
+            <li id="{{ type }}" {% if bloc.disabled is defined %}class="disabled"{% endif %}>
                 <div class="bloc-help">
                     <i class="fas fa-info-circle"></i>
                 </div>

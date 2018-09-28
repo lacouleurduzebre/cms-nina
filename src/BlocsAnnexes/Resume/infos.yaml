@@ -1,0 +1,5 @@
+nom: Résumé
+description: 'Texte présentant l''article sur l''accueil ou dans les listes de pages'
+icone: 'fas fa-align-left'
+priorite: 1
+actif: oui

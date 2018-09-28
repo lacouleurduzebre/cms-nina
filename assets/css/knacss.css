@@ -3214,34 +3214,34 @@ body.list #flash-messages > * {
     display: block; } }
 
 /* Bouton pour ajouter un bloc */
-.ajout-bloc {
+.ajout-bloc, .ajout-blocAnnexe {
   background-color: #0791B3;
   color: #fff;
   text-decoration: none;
   font-size: 1.8rem;
   padding: .7rem 1.5rem;
   border-radius: .5rem; }
-  .ajout-bloc:hover {
+  .ajout-bloc:hover, .ajout-blocAnnexe:hover {
     color: #fff;
     background-color: #056982;
     text-decoration: none; }
-  .ajout-bloc:active, .ajout-bloc:focus {
+  .ajout-bloc:active, .ajout-bloc:focus, .ajout-blocAnnexe:active, .ajout-blocAnnexe:focus {
     background-color: #0791B3;
     color: #fff;
     text-decoration: none; }
 
-.form-group.field-bloc {
+.form-group.field-bloc, .form-group.field-bloc_annexe {
   position: relative;
   padding: 1rem 2rem;
   margin: 1rem 0;
   background-color: #F7F7F7; }
-  .form-group.field-bloc.focus {
+  .form-group.field-bloc.focus, .form-group.field-bloc_annexe.focus {
     box-shadow: 0 0 1rem #056982; }
-  .form-group.field-bloc > label {
+  .form-group.field-bloc > label, .form-group.field-bloc_annexe > label {
     display: none; }
-  .form-group.field-bloc:first-of-type .monterBloc {
+  .form-group.field-bloc:first-of-type .monterBloc, .form-group.field-bloc_annexe:first-of-type .monterBloc {
     display: none; }
-  .form-group.field-bloc:last-of-type .descendreBloc {
+  .form-group.field-bloc:last-of-type .descendreBloc, .form-group.field-bloc_annexe:last-of-type .descendreBloc {
     display: none; }
 
 .type-bloc {
@@ -3294,13 +3294,13 @@ div[id^="page_active_blocs"] > div > .collection-empty {
     align-items: center;
     justify-content: center; }
 
-#page_active_blocs_ > .type {
+#page_active_blocs_ > .type, #page_active_blocsAnnexes > .type {
   border-bottom: 2px solid #0791B3; }
-  #page_active_blocs_ > .type select, #page_active_blocs_ > .type label {
+  #page_active_blocs_ > .type select, #page_active_blocs_ > .type label, #page_active_blocsAnnexes > .type select, #page_active_blocsAnnexes > .type label {
     display: inline-block; }
-  #page_active_blocs_ > .type select {
+  #page_active_blocs_ > .type select, #page_active_blocsAnnexes > .type select {
     margin-right: .5rem; }
-  #page_active_blocs_ > .type label {
+  #page_active_blocs_ > .type label, #page_active_blocsAnnexes > .type label {
     margin-right: 1rem; }
 
 /* Barre d'actions */
@@ -3370,7 +3370,7 @@ div[id^="page_active_blocs"] > div > .collection-empty {
 .bloc-optionsAffichage-fermeture {
   cursor: pointer; }
 
-.listeBlocs {
+.listeBlocs, .listeBlocsAnnexes {
   display: none;
   position: fixed;
   top: 0;
@@ -3381,15 +3381,16 @@ div[id^="page_active_blocs"] > div > .collection-empty {
   background-color: rgba(164, 161, 161, 0.8);
   padding: 5rem;
   align-items: center; }
-  .listeBlocs.actif {
+  .listeBlocs.actif, .listeBlocsAnnexes.actif {
     display: flex; }
-  .listeBlocs.chargement .listeBlocs-chargement {
+  .listeBlocs.chargement .listeBlocs-chargement, .listeBlocs.chargement .listeBlocsAnnexes-chargement, .listeBlocsAnnexes.chargement .listeBlocs-chargement, .listeBlocsAnnexes.chargement .listeBlocsAnnexes-chargement {
     display: block; }
-  .listeBlocs.chargement ul, .listeBlocs.chargement .listeBlocs-fermeture {
+  .listeBlocs.chargement ul, .listeBlocs.chargement .listeBlocs-fermeture, .listeBlocs.chargement .listeBlocsAnnexes-fermeture, .listeBlocsAnnexes.chargement ul, .listeBlocsAnnexes.chargement .listeBlocs-fermeture, .listeBlocsAnnexes.chargement .listeBlocsAnnexes-fermeture {
     display: none; }
-  .listeBlocs ul {
-    list-style: none; }
-    .listeBlocs ul li {
+  .listeBlocs ul, .listeBlocsAnnexes ul {
+    list-style: none;
+    width: 100%; }
+    .listeBlocs ul li, .listeBlocsAnnexes ul li {
       position: relative;
       cursor: pointer;
       background-color: #fff;
@@ -3398,21 +3399,21 @@ div[id^="page_active_blocs"] > div > .collection-empty {
       margin-bottom: 2rem;
       text-align: center;
       border: 3px solid #fff; }
-      .listeBlocs ul li:hover {
+      .listeBlocs ul li:hover, .listeBlocsAnnexes ul li:hover {
         border-color: #0791B3; }
-      .listeBlocs ul li > svg {
+      .listeBlocs ul li > svg, .listeBlocsAnnexes ul li > svg {
         font-size: 4rem;
         margin-bottom: .5rem;
         color: #0791B3; }
-  .listeBlocs .bloc-help {
+  .listeBlocs .bloc-help, .listeBlocsAnnexes .bloc-help {
     position: absolute;
     width: auto;
     top: 1rem;
     right: 1rem; }
-    .listeBlocs .bloc-help svg {
+    .listeBlocs .bloc-help svg, .listeBlocsAnnexes .bloc-help svg {
       color: #75726B; }
 
-.listeBlocs-fermeture {
+.listeBlocs-fermeture, .listeBlocsAnnexes-fermeture {
   color: #000;
   position: absolute;
   top: 2rem;
@@ -3431,7 +3432,7 @@ div[id^="page_active_blocs"] > div > .collection-empty {
 .bloc-nom {
   font-size: 2rem; }
 
-.listeBlocs-chargement {
+.listeBlocs-chargement, .listeBlocsAnnexes-chargement {
   display: none;
   position: absolute;
   z-index: 10;
@@ -3439,6 +3440,15 @@ div[id^="page_active_blocs"] > div > .collection-empty {
   top: calc(50% - 7.5rem);
   font-size: 15rem;
   color: #0791B3; }
+
+.listeBlocsAnnexes .disabled {
+  background-color: #DBDBDB;
+  border-color: #DBDBDB;
+  cursor: not-allowed; }
+  .listeBlocsAnnexes .disabled:hover {
+    border-color: #DBDBDB; }
+  .listeBlocsAnnexes .disabled svg {
+    color: #727272; }
 
 .dragSlide, .dragGalerie, .dragChamp {
   font-size: 2rem;
@@ -3476,7 +3486,7 @@ div[id^="page_active_blocs"] > div > .collection-empty {
   padding: 1rem;
   background-color: #E1E0E0; }
 
-#page_active_blocs_ > .form-group > .hide > * {
+#page_active_blocs_ .hide, #page_active_blocsAnnexes .hide {
   display: none; }
 
 .toggleBloc {

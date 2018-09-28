@@ -19,7 +19,11 @@
 
 {% block main %}
     {% if blocs is defined %}
-        {{ include('back/blocs/liste.html.twig') }}
+        {% include('back/blocs/liste.html.twig') with { 'blocs': blocs, 'typeBlocs': 'Blocs' } only %}
+    {% endif %}
+
+    {% if blocsAnnexes is defined %}
+        {% include('back/blocs/liste.html.twig') with { 'blocs': blocsAnnexes, 'typeBlocs': 'BlocsAnnexes' } only %}
     {% endif %}
 
     {% block entity_form %}

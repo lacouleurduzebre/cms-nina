@@ -2,26 +2,9 @@
 
 {% block content %}
     <h1>Configuration des blocs</h1>
-    <table class="table configBlocs mtm">
-        <thead>
-            <tr>
-                <th>{{ "Nom"|trans }}</th>
-                <th>{{ "Description"|trans }}</th>
-                <th>{{ "Activé"|trans }}</th>
-                <th>{{ "Ordre"|trans }}</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for bloc in blocs|sortBy('priorite') %}
-                <tr id="{{ bloc.type }}" class="configBlocs-bloc">
-                    <td>{{ bloc.nom }}</td>
-                    <td>{{ bloc.description }}</td>
-                    <td class="toggle">
-                        <input class="configBlocs-bloc-actif" type="checkbox" {% if bloc.actif == "oui" %}checked{% endif %} data-toggle="toggle" data-size="mini" data-onstyle="success" data-offstyle="danger" data-on="Oui" data-off="Non">
-                    </td>
-                    <td class="txtcenter"><i class="dragConfigBloc fas fa-arrows-alt"></i></td>
-                </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+    <h2>Blocs</h2>
+    {% include('back/blocs/tableauConfiguration.html.twig') with { 'blocs' : blocs, 'type' : 'Blocs' } only %}
+
+    <h2>Blocs annexes</h2>
+    {% include('back/blocs/tableauConfiguration.html.twig') with { 'blocs' : blocsAnnexes, 'type' : 'BlocsAnnexes' } only %}
 {% endblock %}

@@ -1,5 +1,5 @@
-nom: 'Actualités'
-description: "Liste les dernières pages de tout le site, ou les dernières pages d'une catégorie"
+nom: Actualités
+description: 'Liste les dernières pages de tout le site, ou les dernières pages d''une catégorie'
 icone: 'far fa-newspaper'
 priorite: 18
 actif: oui

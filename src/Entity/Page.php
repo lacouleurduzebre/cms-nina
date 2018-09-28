@@ -117,6 +117,11 @@ class Page
      */
     private $traductions;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\BlocAnnexe", mappedBy="page", orphanRemoval=true, cascade={"persist"})
+     */
+    private $blocsAnnexes;
+
     public function __construct()
     {
         $this->datePublication = new \DateTime();
@@ -124,6 +129,7 @@ class Page
         $this->commentaires = new ArrayCollection();
         $this->categories = new ArrayCollection();
         $this->blocs = new ArrayCollection();
+        $this->blocsAnnexes = new ArrayCollection();
     }
 
     public function __toString()
@@ -525,6 +531,37 @@ class Page
     public function setTraductions(?array $traductions): self
     {
         $this->traductions = $traductions;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|BlocAnnexe[]
+     */
+    public function getBlocsAnnexes(): Collection
+    {
+        return $this->blocsAnnexes;
+    }
+
+    public function addBlocsAnnex(BlocAnnexe $blocsAnnex): self
+    {
+        if (!$this->blocsAnnexes->contains($blocsAnnex)) {
+            $this->blocsAnnexes[] = $blocsAnnex;
+            $blocsAnnex->setPage($this);
+        }
+
+        return $this;
+    }
+
+    public function removeBlocsAnnex(BlocAnnexe $blocsAnnex): self
+    {
+        if ($this->blocsAnnexes->contains($blocsAnnex)) {
+            $this->blocsAnnexes->removeElement($blocsAnnex);
+            // set the owning side to null (unless already changed)
+            if ($blocsAnnex->getPage() === $this) {
+                $blocsAnnex->setPage(null);
+            }
+        }
 
         return $this;
     }

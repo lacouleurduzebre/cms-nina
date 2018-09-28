@@ -1,5 +1,3 @@
-{{ dump() }}
-
 <div id="slider{{ bloc.id }}">
     {% if bloc.contenu.Slide is defined %}
         {% for slide in bloc.contenu.Slide|sortBy('position') %}

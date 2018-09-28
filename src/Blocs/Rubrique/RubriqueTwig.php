@@ -31,14 +31,14 @@ class RubriqueTwig extends \Twig_Extension
     public function listerPagesEnfants($page)
     {
         $repoMenu = $this->doctrine->getRepository(Menu::class);
-        $menuPrincipal = $repoMenu->findOneBy(array('defaut' => true));
+        $menuPrincipal = $repoMenu->findOneBy(array('defaut' => true, 'langue' => $page->getLangue()));
 
         $repoMenuPage = $this->doctrine->getRepository(MenuPage::class);
         $menuPage = $repoMenuPage->findBy(array('menu' => $menuPrincipal, 'page' => $page));
 
         if($menuPage){
             $pages = [];
-            $menusPagesEnfants = $repoMenuPage->findBy(array('pageParent' => $page));
+            $menusPagesEnfants = $repoMenuPage->findBy(array('pageParent' => $page, 'menu' => $menuPrincipal));
             foreach($menusPagesEnfants as $menuPageEnfant){
                 $pageEnfant = $menuPageEnfant->getPage();
                 $pages[] = $pageEnfant;
