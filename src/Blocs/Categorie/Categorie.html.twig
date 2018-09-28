@@ -6,9 +6,9 @@
     {% endif %}
     {% for page in pages %}
         <div class="blocCategorie-page flex-container-v">
-            {{ getBlocAnnexe(page, 'vignette')|raw }}
+            {{ getBlocAnnexe(page, 'Vignette')|raw }}
             <h2>{{ page.titre }}</h2>
-            {{ getBlocAnnexe(page, 'resume')|raw }}
+            {{ getBlocAnnexe(page, 'Resume')|raw }}
             <a href="{{ path("voirPage", { '_locale': page.langue.abreviation, 'url': page.seo.url}) }}">{% trans %}Voir la page{% endtrans %}</a>
         </div>
     {% endfor %}
