@@ -304,6 +304,22 @@ template {
   display: none !important; }
 
 /*# sourceMappingURL=bootstrap-reboot.css.map */
+@font-face {
+  font-family: Mic32;
+  src: url(../fonts/Mic32New-Light.otf);
+  font-weight: 100; }
+@font-face {
+  font-family: Mic32;
+  src: url(../fonts/Mic32New-Medium.otf);
+  font-weight: 300; }
+@font-face {
+  font-family: Mic32;
+  src: url(../fonts/Mic32New-Regular.otf);
+  font-weight: 500; }
+@font-face {
+  font-family: Mic32;
+  src: url(../fonts/Mic32New-Bold.otf);
+  font-weight: 700; }
 /* ----------------------------- */
 /* ==Base (basic styles)         */
 /* ----------------------------- */
@@ -331,7 +347,7 @@ body {
   font-weight: 100;
   background-color: #fff;
   color: #666666;
-  font-family: "Cabin", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+  font-family: "Mic32", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
   line-height: 1.5; }
   @media (min-width: 576px) {
     body {
@@ -348,7 +364,7 @@ a {
 /* Headings */
 h1, .h1-like {
   font-size: 2.8rem;
-  font-family: "Cabin", sans-serif;
+  font-family: "Mic32", sans-serif;
   font-weight: 500; }
   @media (min-width: 576px) {
     h1, .h1-like {
@@ -356,7 +372,7 @@ h1, .h1-like {
 
 h2, .h2-like {
   font-size: 2.4rem;
-  font-family: "Cabin", sans-serif;
+  font-family: "Mic32", sans-serif;
   font-weight: 500; }
   @media (min-width: 576px) {
     h2, .h2-like {
@@ -542,7 +558,7 @@ pre,
 samp,
 kbd {
   white-space: pre-wrap;
-  font-family: "Cabin", consolas, courier, monospace;
+  font-family: "Mic32", consolas, courier, monospace;
   line-height: normal; }
 
 /* ----------------------------- */
@@ -2735,7 +2751,7 @@ body.notFull .select2-dropdown {
 
 .select2-container--bootstrap .select2-selection, .select2-container--bootstrap .select2-selection--single .select2-selection__rendered {
   color: #000;
-  font-family: 'Cabin';
+  font-family: 'Mic32';
   font-size: 1.6rem; }
 
 .select2-container--bootstrap .select2-results__option--highlighted[aria-selected] {
@@ -3414,8 +3430,7 @@ div[id^="page_active_blocs"] > div > .collection-empty {
   transition: .3s; }
 
 .bloc-nom {
-  font-size: 2rem;
-  line-height: 1; }
+  font-size: 2rem; }
 
 .listeBlocs-chargement, .listeBlocsAnnexes-chargement {
   display: none;

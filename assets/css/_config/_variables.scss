@@ -16,9 +16,9 @@ $extra-large : 1200px !default;
 // Fonts zone
 // ----------
 // Font families
-$font-family-base      : 'Cabin', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif !default; // system font stack
-$font-family-headings  : 'Cabin', sans-serif !default; // font for h1, h2.. h6
-$font-family-monospace : 'Cabin', consolas, courier, monospace !default; // font for code and samples
+$font-family-base      : 'Mic32', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif !default; // system font stack
+$font-family-headings  : 'Mic32', sans-serif !default; // font for h1, h2.. h6
+$font-family-monospace : 'Mic32', consolas, courier, monospace !default; // font for code and samples
 
 // Font sizes (1.6rem value is "16px" equivalent)
 $font-size-base : 1.6rem !default;

@@ -30,16 +30,8 @@ class CategorieTwig extends \Twig_Extension
     public function pagesDeLaCategorie($idCategorie)
     {
         $repoCategorie = $this->doctrine->getRepository(Categorie::class);
-
         $categorie = $repoCategorie->find($idCategorie);
-        if(!$categorie){
-            return false;
-        }
-
         $pages = $categorie->getPages();
-        if(!$pages){
-            return false;
-        }
 
         return $pages->toArray();
     }
