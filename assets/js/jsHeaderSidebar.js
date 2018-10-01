@@ -20,6 +20,9 @@ $(document).ready(function(){
         }
         if($('body').hasClass('front')){
             idPage = $('main.page').attr('id');
+            if($('body').hasClass('accueil')){
+                $('.pageAccueil-page').addClass('page-active');
+            }
         }else if($('body').hasClass('easyadmin')){
             idPage = $('#edit-page_active-form').attr('data-entity-id');
         }

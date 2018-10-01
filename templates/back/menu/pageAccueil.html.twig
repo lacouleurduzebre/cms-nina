@@ -14,11 +14,7 @@
         <a class="pageAccueil-page" href="#">
             <i class="fas fa-home"></i>
             <span class="pageAccueil-titre">
-                {% if pageAccueil.titreMenu is not empty %}
-                    {{ pageAccueil.titreMenu }}
-                {% else %}
-                    {{ pageAccueil.titre }}
-                {% endif %}
+                {{ pageAccueil.titreMenu }}
             </span>
         </a>
         <ul id="pageAccueil-menu">

@@ -3,11 +3,7 @@
         {% if isPublie(menuPage.page) %}
             <li {% if isParent(menuPage.page.id) %}class="parent"{% endif %}>
                 <a href="{{ path('voirPage', {'url':menuPage.page.seo.url}) }}">
-                    {% if menuPage.page.titreMenu is not empty %}
-                        {{ menuPage.page.titreMenu }}
-                    {% else %}
-                        {{ menuPage.page.titre }}
-                    {% endif %}
+                    {{ menuPage.page.titreMenu }}
                 </a>
                 {{ sousMenu(menuPage.page.id, 'front')|raw }}
             </li>

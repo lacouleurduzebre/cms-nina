@@ -2,11 +2,7 @@
     {% if menuPage.pageParent is empty and isPublie(menuPage.page) %}
         <li {% if langueArbo.pageAccueil is not empty and menuPage.page == langueArbo.pageAccueil %}data-jstree='{"type":"home"}'{% endif %}>
             <a href="#"><span class="menuPage" id="{{ menuPage.id }}"></span><span class="page" id="{{ menuPage.page.id }}"></span>
-                {% if menuPage.page.titreMenu is not empty %}
-                    {{ menuPage.page.titreMenu }}
-                {% else %}
-                    {{ menuPage.page.titre }}
-                {% endif %}
+                {{ menuPage.page.titreMenu }}
             </a>
             {{ sousMenu(menuPage.page.id, 'back')|raw }}
         </li>

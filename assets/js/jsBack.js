@@ -88,6 +88,7 @@ $(document).ready(function(){
         if($('body').hasClass('new')){
             titre = $(this).val();
             $('#page_active_SEO_metaTitre').val(titre);
+            $('#page_active_titreMenu').val(titre);
         }
     });
 
@@ -487,7 +488,7 @@ $(document).ready(function(){
                     plugins: [
                         "advlist autolink link image lists charmap print preview hr anchor pagebreak",
                         "searchreplace wordcount visualblocks visualchars insertdatetime media nonbreaking spellchecker",
-                        "table contextmenu directionality emoticons paste textcolor responsivefilemanager code"
+                        "table contextmenu directionality emoticons paste textcolor responsivefilemanager code imagetools"
                     ],
                     relative_urls: false,
                     menubar: false,

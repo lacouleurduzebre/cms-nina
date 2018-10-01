@@ -1,10 +1,5 @@
 <div class="fichesLEI grid-3 has-gutter-l">
-    {% if limite is not empty %}
-        {% set liste = xml.sit_liste|slice(0, limite) %}
-    {% else %}
-        {% set liste = xml.sit_liste %}
-    {% endif %}
-    {% for fiche in liste %}
+    {% for fiche in fiches %}
         <div class="ficheLEI fiche-{{ fiche.PRODUIT }}">
             <p class="ficheLEI-commune">{{ fiche.ADRPROD_LIBELLE_COMMUNE }}</p>
             {% if fiche.CRITERES.Crit.0 is not empty %}

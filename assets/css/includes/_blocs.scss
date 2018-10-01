@@ -420,3 +420,14 @@ div[id^="page_active_blocs"]{
   margin-top: -10px;
   margin-right: -20px;
 }
+
+//Bloc réseaux sociaux
+.bloc-reseauxsociaux label, .bloc-reseauxsociaux input[type="text"]{
+  display: inline-block;
+}
+
+body.edit, body.new{
+  .bloc-reseauxsociaux input[type="text"]{
+    width: calc(100% - 4rem) !important;
+  }
+}

@@ -116,7 +116,7 @@ class TerresDohController extends AbstractController
         }else{
             $fiches = null;
         }
-        return $this->render('listeFavoris.html.twig', array('fiches' => $fiches));
+        return $this->render('Favoris/listeFavoris.html.twig', array('fiches' => $fiches));
     }
 
     /**
@@ -135,9 +135,18 @@ class TerresDohController extends AbstractController
 
             $fiches = $this->getFiches();
 
-            $header = file_get_contents('themes/terresdoh/templates/exportListeFavorisHeader.html');
-            $footer = file_get_contents('themes/terresdoh/templates/exportListeFavorisFooter.html');
-            $html = $this->render('exportListeFavoris.html.twig', array('fiches' => $fiches, 'photos' => $photos))->getContent();
+            $header = file_get_contents('themes/terresdoh/templates/Favoris/exportListeFavorisHeader.html');
+            $footer = file_get_contents('themes/terresdoh/templates/Favoris/exportListeFavorisFooter.html');
+
+            $urlCarte = "https://maps.googleapis.com/maps/api/staticmap?size=670x850&format=jpeg&key=AIzaSyD0z61UOgKU7tqKo9_Hy7WaGxHc6-ovbxc&markers=";
+            foreach($fiches as $fiche){
+                $lat = round(str_replace(',', '.', $fiche->LATITUDE), 6);
+                $lng = round(str_replace(',', '.', $fiche->LONGITUDE), 6);
+                $urlCarte = $urlCarte.$lat.','.$lng.'|';
+            }
+            $carte = '<img src="'.$urlCarte.'">';
+
+            $html = $this->render('Favoris/exportListeFavoris.html.twig', array('fiches' => $fiches, 'photos' => $photos))->getContent();
 
             $mpdf = new Mpdf([
                 'tempDir' => '../var/temp/mpdf',
@@ -152,6 +161,8 @@ class TerresDohController extends AbstractController
             $mpdf->simpleTables = true;
             $mpdf->SetHTMLHeader($header);
             $mpdf->SetHTMLFooter($footer);
+            $mpdf->WriteHTML($carte);
+            $mpdf->AddPage();
             $mpdf->WriteHTML($html);
             $mpdf->Output('carnet-de-voyage.pdf', 'I');
 

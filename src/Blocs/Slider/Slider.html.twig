@@ -35,7 +35,6 @@
     {% if bloc.contenu.points is defined and bloc.contenu.points != 0 %}
         options["dots"] = true;
     {% endif %}
-    console.log(options);
 
     $('#slider{{ bloc.id }}').slick(options);
 </script>
