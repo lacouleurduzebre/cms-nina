@@ -1,4 +1,10 @@
 $(document).ready(function(){
+    //Bouton d'enregistrement / Confirmation fermeture page
+    function saveCloseFormulaire(){
+        $('.formulaire-actions-enregistrer').attr("disabled", false);
+        $(window).bind('beforeunload', function() {return 'Êtes-vous sûr de vouloir quitter cette page ? Des données pourraient ne pas avoir été enregistrées';} );
+    }
+
     /* Initialisation TinyMCE */
     tinymce.init({
         selector: "textarea:not('.notTinymce')",
@@ -24,7 +30,7 @@ $(document).ready(function(){
 
         init_instance_callback: function (editor) {
             editor.on('change', function (e) {
-                $('.formulaire-actions-enregistrer').attr("disabled", false);
+                saveCloseFormulaire();
             });
         }
     });
@@ -134,7 +140,7 @@ $(document).ready(function(){
             $('#'+id).parent('div').next('div').find('img').attr('src', urlImg);
         }
 
-        $(this).find('.formulaire-actions-enregistrer').attr("disabled", false);
+        saveCloseFormulaire();
     });
 
     /* Gestion de la position des blocs */
@@ -143,7 +149,7 @@ $(document).ready(function(){
         update: function(event, ui){
             $('.field-bloc').each(function(){
                 $(this).find("input[id$='position']").val($(this).index());
-                $('.formulaire-actions-enregistrer').attr("disabled", false);
+                saveCloseFormulaire();
             });
         }
     };
@@ -156,7 +162,7 @@ $(document).ready(function(){
         update: function(event, ui){
             $('.field-slide').each(function(){
                 $(this).find("input[id$='position']").val($(this).index());
-                $('.formulaire-actions-enregistrer').attr("disabled", false);
+                saveCloseFormulaire();
             });
         }
     });
@@ -166,7 +172,7 @@ $(document).ready(function(){
         update: function(event, ui){
             $('.field-galerie_image').each(function(){
                 $(this).find("input[id$='position']").val($(this).index());
-                $('.formulaire-actions-enregistrer').attr("disabled", false);
+                saveCloseFormulaire();
             });
         }
     });
@@ -176,7 +182,7 @@ $(document).ready(function(){
         update: function(event, ui){
             $('.field-champ').each(function(){
                 $(this).find("input[id$='position']").val($(this).index());
-                $('.formulaire-actions-enregistrer').attr("disabled", false);
+                saveCloseFormulaire();
             });
         }
     });
@@ -248,7 +254,7 @@ $(document).ready(function(){
 
             $(this).closest('.field-bloc').slideUp(600, function(){
                 $(this).remove();
-                $('.formulaire-actions-enregistrer').attr("disabled", false);
+                saveCloseFormulaire();
             });
         });
 
@@ -257,7 +263,7 @@ $(document).ready(function(){
 
             $(this).closest('.field-bloc_annexe').slideUp(600, function(){
                 $(this).remove();
-                $('.formulaire-actions-enregistrer').attr("disabled", false);
+                saveCloseFormulaire();
             });
 
             type = $(this).closest('.field-bloc_annexe').find('.type input').val();
@@ -387,7 +393,7 @@ $(document).ready(function(){
 
     /* Activer le bouton d'enregistrement lors de la première modif d'un formulaire */
     $('form').on('change keyup', function(){
-        $(this).find('.formulaire-actions-enregistrer').attr("disabled", false);
+        saveCloseFormulaire();
     });
 
     /* Fermeture des messages flash */
@@ -458,7 +464,7 @@ $(document).ready(function(){
             data: {type: type, typeBloc: 'Bloc'}
         })
             .done(function(data){
-                $('.formulaire-actions-enregistrer').attr("disabled", false);
+                saveCloseFormulaire();
 
                 $('.listeBlocs').removeClass('actif chargement');
                 count = $('#'+entite+'_blocs').find('.field-bloc').length;
@@ -525,7 +531,7 @@ $(document).ready(function(){
                 data: {type: type, typeBloc: 'BlocAnnexe'}
             })
                 .done(function(data){
-                    $('.formulaire-actions-enregistrer').attr("disabled", false);
+                    saveCloseFormulaire();
 
                     $('.listeBlocsAnnexes').removeClass('actif chargement');
                     count = $('#page_active_blocsAnnexes').find('.field-bloc_annexe').length;
@@ -664,4 +670,32 @@ $(document).ready(function(){
                 })
         }
     });
+
+    //Confirmation fermeture page après avoir cliqué sur "créer une traduction"
+    function parseURLParams(url) {
+        var queryStart = url.indexOf("?") + 1,
+            queryEnd   = url.indexOf("#") + 1 || url.length + 1,
+            query = url.slice(queryStart, queryEnd - 1),
+            pairs = query.replace(/\+/g, " ").split("&"),
+            parms = {}, i, n, v, nv;
+
+        if (query === url || query === "") return;
+
+        for (i = 0; i < pairs.length; i++) {
+            nv = pairs[i].split("=", 2);
+            n = decodeURIComponent(nv[0]);
+            v = decodeURIComponent(nv[1]);
+
+            if (!parms.hasOwnProperty(n)) parms[n] = [];
+            parms[n].push(nv.length === 2 ? v : null);
+        }
+        return parms;
+    }
+
+    if($('body').hasClass('new')){
+        get = parseURLParams(location.href);
+        if(get.confirmation){
+            saveCloseFormulaire();
+        }
+    }
 });

@@ -22,6 +22,7 @@ $(document).ready(function(){
             idPage = $('main.page').attr('id');
             if($('body').hasClass('accueil')){
                 $('.pageAccueil-page').addClass('page-active');
+                return;
             }
         }else if($('body').hasClass('easyadmin')){
             idPage = $('#edit-page_active-form').attr('data-entity-id');

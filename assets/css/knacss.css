@@ -517,10 +517,10 @@ q {
 
 q,
 .q {
-  quotes: "“" "”" "‘" "’"; }
+  quotes: "ÔÇ£" "ÔÇØ" "ÔÇÿ" "ÔÇÖ"; }
   q:lang(fr),
   .q:lang(fr) {
-    quotes: "«\00a0" "\00a0»" "“" "”"; }
+    quotes: "┬½\00a0" "\00a0┬╗" "ÔÇ£" "ÔÇØ"; }
 
 hr {
   display: block;
@@ -2118,7 +2118,7 @@ button:focus {
   .button--ghost:active,
   .button--ghost:focus,
   .button--ghost:hover {
-    background-color: transparent; }
+    background-color: rgba(0, 0, 0, 0); }
 
 .btn--small,
 .button--small {
@@ -2240,12 +2240,12 @@ button:focus {
     color: #fff; }
   .toggle input::before {
     float: right;
-    margin-right: 0.66667rem; }
+    margin-right: 0.6666666667rem; }
   .toggle input:checked {
     box-shadow: inset 2rem 0 0 #5CB85C, inset 0 0 0 1px #5CB85C; }
     .toggle input:checked::before {
       float: left;
-      margin-left: 0.66667rem; }
+      margin-left: 0.6666666667rem; }
 
 .checkbox input {
   width: 2rem;
@@ -2699,7 +2699,7 @@ ul.nav-tabs {
 .tab-pane:not(.active) {
   display: none; }
 
-/* Éléments de formulaire */
+/* ├ël├®ments de formulaire */
 .help-text {
   font-size: 1.3rem; }
 
@@ -2777,7 +2777,7 @@ body.notFull .select2-dropdown {
 #form-actions-row {
   margin-top: 1rem; }
 
-/* Médiathèque */
+/* M├®diath├¿que */
 a[class$='image_bouton_mediatheque'] {
   display: inline-block;
   margin: 1rem 0; }
@@ -2795,7 +2795,7 @@ a[class$='image_bouton_mediatheque'] {
     color: #fff;
     text-decoration: none; }
 
-/* Aperçu */
+/* Aper├ºu */
 .apercuLogo {
   margin-top: 1rem; }
   .apercuLogo img {
@@ -2820,7 +2820,7 @@ div[class$="image_apercu_mediatheque"] img {
   max-width: 30rem;
   max-height: 30rem; }
 
-/* Téléchargement d'images (ex: logo) */
+/* T├®l├®chargement d'images (ex: logo) */
 .easyadmin-thumbnail img {
   max-width: 25rem; }
 
@@ -2859,7 +2859,7 @@ td[data-label="Image profil"] img {
   border-radius: 50%;
   object-fit: cover; }
 
-/* Page médiathèque */
+/* Page m├®diath├¿que */
 .iframeMediatheque {
   height: calc(100vh - 6.6rem); }
 
