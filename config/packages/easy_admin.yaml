@@ -65,6 +65,7 @@ easy_admin:
               - { entity: 'Langue', icon: '' }
               - { entity: 'GroupeBlocs', icon: '' }
               - { entity: 'Menu', icon: '' }
+              - { label: 'Traduction des pages', icon: '', route: 'traductionsPages' }
               - { entity: 'Page_Corbeille', icon: '' }
               - { entity: 'Commentaire_Corbeille', icon: '' }
             - { label: 'Médiathèque', icon: 'images', route: 'mediatheque' }
@@ -77,4 +78,3 @@ easy_admin:
                 - { label: 'Blocs', icon: '', route: 'configurationBlocs' }
                 - { label: 'Sauvegardes', icon: '', route: 'sauvegarde' }
                 - { label: 'Traduction des templates', icon: '', route: 'modifierTraductions' }
-                - { label: 'Traduction des pages', icon: '', route: 'traductionsPages' }

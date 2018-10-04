@@ -1,10 +1,17 @@
 $(document).ready(function(){
+    clicEnregistrement = false;
     //Bouton d'enregistrement / Confirmation fermeture page
     function saveCloseFormulaire(){
         $('.formulaire-actions-enregistrer').attr("disabled", false);
-        $(window).bind('beforeunload', function() {return 'Êtes-vous sûr de vouloir quitter cette page ? Des données pourraient ne pas avoir été enregistrées';} );
+        $(window).bind('beforeunload', function(){
+            if(clicEnregistrement = true){
+                messageOff = true;
+            }
+            if(!messageOff){
+                return 'Êtes-vous sûr de vouloir quitter cette page ? Des données pourraient ne pas avoir été enregistrées';
+            }
+        });
     }
-
     /* Initialisation TinyMCE */
     tinymce.init({
         selector: "textarea:not('.notTinymce')",
@@ -43,6 +50,7 @@ $(document).ready(function(){
 
     /* Résolution du problème de textarea vide avec tinymce */
     $('.formulaire-actions-enregistrer').click(function(){
+        clicEnregistrement = true;
         tinyMCE.triggerSave();
     });
 
