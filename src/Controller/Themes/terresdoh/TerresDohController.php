@@ -28,6 +28,7 @@ class TerresDohController extends AbstractController
      */
     public function rechercheAction(Request $request){
         $fiches = simplexml_load_file('https://apps.tourisme-alsace.info/batchs/LIENS_PERMANENTS/2002206000029_Batch_siteweb_terres_oh.xml')->Resultat->children();
+        $fichesFiltrees = null;
 
         $donnees = [];
 
@@ -56,9 +57,9 @@ class TerresDohController extends AbstractController
                     }
                 }
             }
-            $fiches = $resultat;
+            $fichesFiltrees = $resultat;
 
-            $reponse['template'] = $this->render('Blocs/LEI/liste.html.twig', array('fiches' => $fiches))->getContent();
+            $reponse['template'] = $this->render('Blocs/LEI/liste.html.twig', array('fiches' => $fichesFiltrees))->getContent();
             json_encode($reponse);
 
             return new JsonResponse($reponse);
@@ -84,10 +85,10 @@ class TerresDohController extends AbstractController
                     }
                 }
             }
-            $fiches = $resultat;
+            $fichesFiltrees = $resultat;
         }
 
-        return $this->render('recherche.html.twig', array('fiches' => $fiches, 'recherche' => $_POST, 'pageRecherche' => true, 'donnees' => $donnees));
+        return $this->render('recherche.html.twig', array('fiches' => $fichesFiltrees, 'recherche' => $_POST, 'pageRecherche' => true, 'donnees' => $donnees));
     }
 
     /**

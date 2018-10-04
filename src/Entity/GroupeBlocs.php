@@ -24,11 +24,6 @@ class GroupeBlocs
     private $nom;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $region;
-
-    /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Langue")
      * @ORM\JoinColumn(nullable=false)
      */
@@ -39,6 +34,16 @@ class GroupeBlocs
      * @ORM\OrderBy({"position" = "ASC"})
      */
     private $blocs;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Region", inversedBy="groupesBlocs")
+     */
+    private $region;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $identifiant;
 
     public function __construct()
     {
@@ -63,18 +68,6 @@ class GroupeBlocs
     public function setNom(string $nom): self
     {
         $this->nom = $nom;
-
-        return $this;
-    }
-
-    public function getRegion(): ?string
-    {
-        return $this->region;
-    }
-
-    public function setRegion(?string $region): self
-    {
-        $this->region = $region;
 
         return $this;
     }
@@ -118,6 +111,30 @@ class GroupeBlocs
                 $bloc->setGroupeBlocs(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getRegion(): ?Region
+    {
+        return $this->region;
+    }
+
+    public function setRegion(?Region $region): self
+    {
+        $this->region = $region;
+
+        return $this;
+    }
+
+    public function getIdentifiant(): ?string
+    {
+        return $this->identifiant;
+    }
+
+    public function setIdentifiant(string $identifiant): self
+    {
+        $this->identifiant = $identifiant;
 
         return $this;
     }

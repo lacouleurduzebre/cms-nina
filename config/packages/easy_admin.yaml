@@ -65,6 +65,7 @@ easy_admin:
               - { entity: 'Langue', icon: '' }
               - { entity: 'GroupeBlocs', icon: '' }
               - { entity: 'Menu', icon: '' }
+              - { entity: 'Region', icon: '', label: 'Interface' }
               - { label: 'Traduction des pages', icon: '', route: 'traductionsPages' }
               - { entity: 'Page_Corbeille', icon: '' }
               - { entity: 'Commentaire_Corbeille', icon: '' }
