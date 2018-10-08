@@ -26,10 +26,13 @@ class LangueActive extends \Twig_Extension implements \Twig_Extension_GlobalsInt
 
     public function getGlobals()
     {
-        $locale = $this->request->getLocale();
-        $repoLangue = $this->doctrine->getRepository(Langue::class);
-        $langue = $repoLangue->findOneBy(array('abreviation'=>$locale));
-
-        return array('langueActive'=>$langue);
+        if($this->request){
+            $locale = $this->request->getLocale();
+            $repoLangue = $this->doctrine->getRepository(Langue::class);
+            $langue = $repoLangue->findOneBy(array('abreviation'=>$locale));
+            return array('langueActive'=>$langue);
+        }else{
+            return array('langueActive'=>null);
+        }
     }
 }

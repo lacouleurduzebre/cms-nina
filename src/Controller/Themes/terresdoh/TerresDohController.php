@@ -162,8 +162,8 @@ class TerresDohController extends AbstractController
             $mpdf->simpleTables = true;
             $mpdf->SetHTMLHeader($header);
             $mpdf->SetHTMLFooter($footer);
-            $mpdf->WriteHTML($carte);
-            $mpdf->AddPage();
+//            $mpdf->WriteHTML($carte);
+//            $mpdf->AddPage();
             $mpdf->WriteHTML($html);
             $mpdf->Output('carnet-de-voyage.pdf', 'I');
 

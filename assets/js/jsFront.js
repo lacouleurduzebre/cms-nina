@@ -53,4 +53,23 @@ $(document).ready(function(){
         $.cookie('bandeauCookies', 'off');
         $('.cookies').hide();
     });
+
+    //ScrollTop
+    $('.scrollTop').click(function(){
+        $('body, html').animate({
+            scrollTop: 0
+        }, 500)
+    });
+
+    $(window).on('scroll', function(){
+        hauteur = $(window).height();
+        scroll = window.pageYOffset || document.documentElement.scrollTop;
+        console.log(hauteur);
+        console.log(scroll);
+        if(hauteur < scroll){
+            $('.scrollTop').fadeIn();
+        }else{
+            $('.scrollTop').fadeOut();
+        }
+    });
 });
