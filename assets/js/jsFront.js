@@ -62,14 +62,28 @@ $(document).ready(function(){
     });
 
     $(window).on('scroll', function(){
-        hauteur = $(window).height();
-        scroll = window.pageYOffset || document.documentElement.scrollTop;
-        console.log(hauteur);
-        console.log(scroll);
-        if(hauteur < scroll){
-            $('.scrollTop').fadeIn();
+        if($(window).width() > 576){
+            hauteur = $(window).height();
+            scroll = window.pageYOffset || document.documentElement.scrollTop;
+            if(hauteur < scroll){
+                $('.scrollTop').fadeIn();
+            }else{
+                $('.scrollTop').fadeOut();
+            }
+        }
+    });
+
+    $(window).on('resize orientationchange', function(){
+        if($(window).width() > 576){
+            hauteur = $(window).height();
+            scroll = window.pageYOffset || document.documentElement.scrollTop;
+            if(hauteur < scroll){
+                $('.scrollTop').fadeIn();
+            }else{
+                $('.scrollTop').fadeOut();
+            }
         }else{
-            $('.scrollTop').fadeOut();
+            $('.scrollTop').show();
         }
     });
 });
