@@ -3,7 +3,7 @@
         <div>
             <a href="{{ path('accueil', { '_locale':langueActive.abreviation }) }}"><img class="logo" src="{{ config.logo }}" alt="CMS Nina"></a>
             <p>{{ config.nom }}</p>
-            {{ blocs(region='header') }}
+            {{ groupes(region.id) }}
         </div>
         {% if langues is not empty %}
             <div class="txtright flex-item-fluid">

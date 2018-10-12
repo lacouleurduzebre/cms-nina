@@ -1,5 +1,6 @@
 nom: Formulaire
 description: Formulaire de contact (envoi de mail à un ou plusieurs destinataires)
+type: contenu
 icone: fas fa-at
 priorite: 11
 actif: oui

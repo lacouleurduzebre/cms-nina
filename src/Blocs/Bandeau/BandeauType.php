@@ -6,7 +6,7 @@
  * Time: 11:45
  */
 
-namespace App\BlocsAnnexes\Bandeau;
+namespace App\Blocs\Bandeau;
 
 
 use Symfony\Component\Form\AbstractType;

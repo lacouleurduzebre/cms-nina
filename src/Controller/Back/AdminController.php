@@ -155,8 +155,8 @@ class AdminController extends BaseAdminController
 
         $entity = $this->executeDynamicMethod('createNew<EntityName>Entity');
 
-        $blocs = $this->listeBlocs('Blocs');
-        $blocsAnnexes = $this->listeBlocs('BlocsAnnexes');
+        $blocs = $this->listeBlocs('contenu');
+        $blocsAnnexes = $this->listeBlocs('annexe');
 
         $easyadmin = $this->request->attributes->get('easyadmin');
         $easyadmin['item'] = $entity;
@@ -225,8 +225,8 @@ class AdminController extends BaseAdminController
             return new Response((int) $newValue);
         }
 
-        $blocs = $this->listeBlocs('Blocs');
-        $blocsAnnexes = $this->listeBlocs('BlocsAnnexes', $entity);
+        $blocs = $this->listeBlocs('contenu');
+        $blocsAnnexes = $this->listeBlocs('annexe', $entity);
 
         $fields = $this->entity['edit']['fields'];
 
@@ -260,7 +260,7 @@ class AdminController extends BaseAdminController
     }
 
     protected function listeBlocs($typeBloc, $entity = null){
-        $types = scandir('../src/'.$typeBloc);
+        $types = scandir('../src/Blocs');
         $types = array_combine(array_values($types), array_values($types));
         unset($types["."]);
         unset($types[".."]);
@@ -269,10 +269,10 @@ class AdminController extends BaseAdminController
 
         $blocs = [];
         foreach($types as $type){
-            $infos = Yaml::parseFile('../src/'.$typeBloc.'/'.$type.'/infos.yaml');
-            if($infos['actif'] == 'oui'){
+            $infos = Yaml::parseFile('../src/Blocs/'.$type.'/infos.yaml');
+            if($infos['actif'] == 'oui' && $infos['type'] == $typeBloc){
                 $blocs[$type] = $infos;
-                if($typeBloc == 'BlocsAnnexes' && $entity != null){
+                if($typeBloc == 'annexe' && $entity != null){
                     $blocAnnexe = $repoBlocAnnexe->findOneBy(array('page' => $entity, 'type' => $type));
                     if($blocAnnexe){
                         $blocs[$type]['disabled'] = true;

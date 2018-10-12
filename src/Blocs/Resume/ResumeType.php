@@ -6,27 +6,25 @@
  * Time: 11:45
  */
 
-namespace App\BlocsAnnexes\Vignette;
+namespace App\Blocs\Resume;
 
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class VignetteType extends AbstractType
+class ResumeType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('image', TextType::class, array(
+            ->add('resume', TextareaType::class, array(
                 'required' => false,
-                'label' => 'Image'
-            ))
-            ->add('titre', TextType::class, array(
-                'required' => false,
-                'label' => 'Titre'
+                'label' => 'Résumé'
             ));
     }
 

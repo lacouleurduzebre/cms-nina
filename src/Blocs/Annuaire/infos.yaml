@@ -1,5 +1,6 @@
 nom: 'Liste des membres'
 description: 'Liste tous les utilisateurs'
+type: contenu
 icone: 'fas fa-users'
 priorite: 16
 actif: non

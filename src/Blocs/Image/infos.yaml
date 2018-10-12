@@ -1,5 +1,6 @@
 nom: Image
 description: 'Affiche une image de la médiathèque'
+type: contenu
 icone: 'fas fa-image'
 priorite: 2
 actif: oui

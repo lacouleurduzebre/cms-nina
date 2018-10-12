@@ -1,5 +1,7 @@
 /.idea/
 
+/config/packages/doctrine_migrations.yaml
+
 /public/themes/*
 !/public/themes/nina/
 

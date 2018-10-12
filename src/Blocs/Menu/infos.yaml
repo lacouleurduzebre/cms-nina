@@ -1,5 +1,6 @@
 nom: Menu
 description: Affiche l'un des menus du site
+type: contenu
 icone: fas fa-list
 priorite: 10
 actif: oui

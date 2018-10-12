@@ -91,7 +91,7 @@ class Front extends \Twig_Extension
         $blocAnnexe = $repoBlocAnnexe->findOneBy(array('page' => $page, 'type' => $type));
 
         if($blocAnnexe){
-            return $this->twig->render('BlocsAnnexes/'.$type.'/'.$type.'.html.twig', array('bloc' => $blocAnnexe));
+            return $this->twig->render('Blocs/'.$type.'/'.$type.'.html.twig', array('bloc' => $blocAnnexe));
         }
 
         return false;
