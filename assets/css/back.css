@@ -684,6 +684,9 @@
   .tiny-pan,
   .tiny-pa0 {
     padding: 0 !important; } }
+body.connected {
+  margin-top: 3.8rem; }
+
 /* Header */
 .main-header {
   font-family: 'Cabin';

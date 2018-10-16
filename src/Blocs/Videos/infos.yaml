@@ -1,6 +1,6 @@
-nom: Liste des vidéos Youtube
-description: Liste toutes les vidéos du site
+nom: 'Liste des vidéos Youtube'
+description: 'Liste toutes les vidéos du site'
 type: contenu
-icone: fab fa-youtube
+icone: 'fab fa-youtube'
 priorite: 6
 actif: oui

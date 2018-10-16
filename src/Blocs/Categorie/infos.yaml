@@ -1,6 +1,6 @@
 nom: Catégorie
-description: Liste toutes les pages appartenant à une catégorie
+description: 'Liste toutes les pages appartenant à une catégorie'
 type: contenu
-icone: fas fa-tag
+icone: 'fas fa-tag'
 priorite: 8
 actif: oui

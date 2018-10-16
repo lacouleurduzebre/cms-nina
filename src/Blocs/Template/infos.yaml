@@ -1,6 +1,6 @@
-nom: Insertion de template
-description: Insère un template dans la page
+nom: 'Insertion de template'
+description: 'Insère un template dans la page'
 type: contenu
-icone: fas fa-file-code
-priorite: 12
+icone: 'fas fa-file-code'
+priorite: 13
 actif: oui

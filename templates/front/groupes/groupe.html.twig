@@ -1,1 +1,3 @@
-{% include('front/blocs.html.twig') with { 'blocs' : groupe.blocs } only %}
+<div class="{{ groupe.identifiant }}">
+    {% include('front/blocs.html.twig') with { 'blocs' : groupe.blocs } only %}
+</div>

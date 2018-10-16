@@ -3,6 +3,9 @@
 @import "../_library/grillade-flex";
 @import "../_library/responsive";
 
+body.connected{
+  margin-top: 3.8rem;
+}
 
 /* Header */
 .main-header{

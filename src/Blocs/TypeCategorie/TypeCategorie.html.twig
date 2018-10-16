@@ -1,0 +1,5 @@
+{% for categorie in categoriesDeType(bloc.contenu.typeCategorie) %}
+    <div class="blocTypeCategorie-categorie">
+        <a href="{{ path('voirCategorie', { 'urlTypeCategorie': categorie.typeCategorie.url, 'urlCategorie': categorie.url }) }}">{{ categorie.nom }}</a>
+    </div>
+{% endfor %}

@@ -1,6 +1,6 @@
-nom: Liste de fiches LEI
-description: Liste les fiches LEI du flux indiqué
+nom: 'Liste de fiches LEI'
+description: 'Liste les fiches LEI du flux indiqué'
 type: contenu
-icone: fas fa-map-signs
-priorite: 14
+icone: 'fas fa-map-signs'
+priorite: 15
 actif: oui

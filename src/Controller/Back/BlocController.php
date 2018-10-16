@@ -48,13 +48,13 @@ class BlocController extends Controller
                 $type = $request->get('type');
                 $actif = $request->get('actif');
 
-                $infos = Yaml::parseFile('../src/'.$typeBloc.'/'.$type.'/infos.yaml');
+                $infos = Yaml::parseFile('../src/Blocs/'.$type.'/infos.yaml');
 
                 ($actif == 'true') ? $infos['actif'] = 'oui' : $infos['actif'] = 'non';
 
                 $nvConfig = Yaml::dump($infos);
 
-                file_put_contents('../src/'.$typeBloc.'/'.$type.'/infos.yaml', $nvConfig);
+                file_put_contents('../src/Blocs/'.$type.'/infos.yaml', $nvConfig);
 
                 return new Response ('ok');
             }else if($action == 'priorite'){
@@ -62,13 +62,13 @@ class BlocController extends Controller
                 $blocs = $request->get('blocs');
 
                 foreach($blocs as $type => $priorite){
-                    $infos = Yaml::parseFile('../src/'.$typeBloc.'/'.$type.'/infos.yaml');
+                    $infos = Yaml::parseFile('../src/Blocs/'.$type.'/infos.yaml');
                     if($infos['priorite'] != $priorite){
                         $infos['priorite'] = (int)$priorite;
 
                         $nvInfos = Yaml::dump($infos);
 
-                        file_put_contents('../src/'.$typeBloc.'/'.$type.'/infos.yaml', $nvInfos);
+                        file_put_contents('../src/Blocs/'.$type.'/infos.yaml', $nvInfos);
                     }
                 }
 
@@ -77,25 +77,36 @@ class BlocController extends Controller
                 return false;
             }
         }else{
-            $blocs = $this->getInfosBlocs('Blocs');
-            $blocsAnnexes = $this->getInfosBlocs('BlocsAnnexes');
+            $blocs = $this->getInfosBlocs();
 
-            return $this->render('back/blocs/configuration.html.twig', array('blocs'=>$blocs, 'blocsAnnexes'=>$blocsAnnexes));
+            $blocsContenu = $blocs['contenu'];
+            $blocsAnnexes = $blocs['annexe'];
+
+            return $this->render('back/blocs/configuration.html.twig', array('blocs'=>$blocsContenu, 'blocsAnnexes'=>$blocsAnnexes));
         }
     }
 
-    public function getInfosBlocs($typeBlocs){
-        $types = scandir('../src/'.$typeBlocs);
+    public function getInfosBlocs(){
+        $types = scandir('../src/Blocs');
         $types = array_combine(array_values($types), array_values($types));
         unset($types["."]);
         unset($types[".."]);
 
         $blocs = [];
+        $blocsContenu = [];
+        $blocsAnnexes = [];
         foreach($types as $type){
-            $infos = Yaml::parseFile('../src/'.$typeBlocs.'/'.$type.'/infos.yaml');
-            $infos['type'] = $type;
-            $blocs[$type] = $infos;
+            $infos = Yaml::parseFile('../src/Blocs/'.$type.'/infos.yaml');
+            $infos['identifiant'] = $type;
+            if($infos['type'] == 'contenu'){
+                $blocsContenu[$type] = $infos;
+            }else{
+                $blocsAnnexes[$type] = $infos;
+            }
         }
+
+        $blocs['contenu'] = $blocsContenu;
+        $blocs['annexe'] = $blocsAnnexes;
 
         return $blocs;
     }

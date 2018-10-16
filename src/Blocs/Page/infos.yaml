@@ -1,6 +1,6 @@
-nom: Contenu d'une page
-description: Affiche le contenu d'une page
+nom: 'Contenu d''une page'
+description: 'Affiche le contenu d''une page'
 type: contenu
-icone: fas fa-file
-priorite: 13
+icone: 'fas fa-file'
+priorite: 14
 actif: oui

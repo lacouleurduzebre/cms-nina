@@ -1,6 +1,6 @@
-nom: Réseaux sociaux
-description: Icônes renvoyant vers vos réseaux sociaux
+nom: 'Réseaux sociaux'
+description: 'Icônes renvoyant vers vos réseaux sociaux'
 type: contenu
-icone: fas fa-share-alt
-priorite: 18
+icone: 'fas fa-share-alt'
+priorite: 19
 actif: oui

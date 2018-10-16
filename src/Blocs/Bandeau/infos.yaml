@@ -1,6 +1,6 @@
 nom: Bandeau
-description: Image placée en dehors du contenu de la page
+description: 'Image placée en dehors du contenu de la page'
 type: annexe
 icone: 'fas fa-image'
-priorite: 3
+priorite: 5
 actif: oui

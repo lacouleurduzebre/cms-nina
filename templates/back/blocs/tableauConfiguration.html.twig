@@ -9,7 +9,7 @@
     </thead>
     <tbody>
     {% for bloc in blocs|sortBy('priorite') %}
-        <tr id="{{ bloc.type }}" class="configBlocs-bloc">
+        <tr id="{{ bloc.identifiant }}" class="configBlocs-bloc">
             <td>{{ bloc.nom }}</td>
             <td>{{ bloc.description }}</td>
             <td class="toggle">
