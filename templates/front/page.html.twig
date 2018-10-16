@@ -32,10 +32,6 @@
         {% endfor %}
     {% endif %}
 
-    {% if page.image is not empty %}
-        <p><img class="fl w300p" src="{{ asset(page.image) }}"></p>
-    {% endif %}
-
     <main>
         {% if page.blocs is not empty %}
             {% include('front/blocs.html.twig') with {'blocs': page.blocs} only %}

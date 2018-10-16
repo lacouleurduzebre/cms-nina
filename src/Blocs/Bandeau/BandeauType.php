@@ -9,9 +9,9 @@
 namespace App\Blocs\Bandeau;
 
 
+use App\Blocs\Image\ImageType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -20,13 +20,9 @@ class BandeauType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('image', TextType::class, array(
+            ->add('image', ImageType::class, array(
                 'required' => false,
-                'label' => 'Image'
-            ))
-            ->add('titre', TextType::class, array(
-                'required' => false,
-                'label' => 'Titre'
+                'label' => false
             ));
     }
 
