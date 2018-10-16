@@ -10,7 +10,7 @@
                 <ul class="flex-container menuLangues">
                     {% for langue in langues %}
                         <li {% if app.request.locale == langue.abreviation %}class="active"{% endif %}>
-                            {% if page is not empty %}
+                            {% if page is defined and page is not empty %}
                                 <a href="{{ path('changerLangue', {'id':langue.id, 'idPage':page.id}) }}">{{ langue.abreviation|upper }}</a>
                             {% else %}
                                 <a href="{{ path('changerLangue', {'id':langue.id}) }}">{{ langue.abreviation|upper }}</a>

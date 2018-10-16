@@ -2,6 +2,7 @@
 /* ==Tables                      */
 /* ----------------------------- */
 
+
 table,
 .table {
   width: 100%;
@@ -14,6 +15,7 @@ table,
 
 .table {
   display: table;
+  table-layout: auto;
   border: 1px solid $table-border;
 
   &--zebra {

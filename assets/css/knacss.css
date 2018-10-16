@@ -1853,6 +1853,7 @@ table,
 
 .table {
   display: table;
+  table-layout: auto;
   border: 1px solid #acb3c2; }
   .table--zebra tbody tr:nth-child(odd) {
     background: #e7e9ed; }
@@ -2709,7 +2710,7 @@ ul.nav-tabs {
   .field-collection-action .text-primary {
     color: #A1BA1D; }
 
-body.edit input[type='text'], body.edit input[type='email'], body.edit input[type='tel'], body.edit input[type='url'], body.edit textarea, body.new input[type='text'], body.new input[type='email'], body.new input[type='tel'], body.new input[type='url'], body.new textarea {
+body.edit input[type='text'], body.edit input[type='email'], body.edit input[type='tel'], body.edit input[type='url'], body.edit input[type="password"], body.edit textarea, body.new input[type='text'], body.new input[type='email'], body.new input[type='tel'], body.new input[type='url'], body.new input[type="password"], body.new textarea {
   width: 100% !important; }
 body.edit .content-header, body.new .content-header {
   position: fixed;

@@ -1,19 +1,6 @@
 $(document).ready(function(){
     clicEnregistrement = false;
-    //Bouton d'enregistrement / Confirmation fermeture page
-    function saveCloseFormulaire(){
-        $('.formulaire-actions-enregistrer').attr("disabled", false);
-        $(window).bind('beforeunload', function(){
-            if(clicEnregistrement = true){
-                messageOff = true;
-            }
-            if(!messageOff){
-                return 'Êtes-vous sûr de vouloir quitter cette page ? Des données pourraient ne pas avoir été enregistrées';
-            }
-        });
-    }
-    /* Initialisation TinyMCE */
-    tinymce.init({
+    optionsTinyMCE = {
         selector: "textarea:not('.notTinymce')",
         language: "fr_FR",
         theme: "modern",
@@ -40,7 +27,21 @@ $(document).ready(function(){
                 saveCloseFormulaire();
             });
         }
-    });
+    };
+    //Bouton d'enregistrement / Confirmation fermeture page
+    function saveCloseFormulaire(){
+        $('.formulaire-actions-enregistrer').attr("disabled", false);
+        $(window).bind('beforeunload', function(){
+            if(clicEnregistrement = true){
+                messageOff = true;
+            }
+            if(!messageOff){
+                return 'Êtes-vous sûr de vouloir quitter cette page ? Des données pourraient ne pas avoir été enregistrées';
+            }
+        });
+    }
+    /* Initialisation TinyMCE */
+    tinymce.init(optionsTinyMCE);
 
     /* Pop-up pour confirmer une suppression */
     $('.action-delete').click(function(e){
@@ -59,25 +60,36 @@ $(document).ready(function(){
     });
 
     /* URL automatique */
+    function str2url(str,encoding,ucfirst)
+    {
+        str = str.toUpperCase();
+        str = str.toLowerCase();
+        str = str.replace(/[\u00E0\u00E1\u00E2\u00E3\u00E4\u00E5]/g,'a');
+        str = str.replace(/[\u00E7]/g,'c');
+        str = str.replace(/[\u00E8\u00E9\u00EA\u00EB]/g,'e');
+        str = str.replace(/[\u00EC\u00ED\u00EE\u00EF]/g,'i');
+        str = str.replace(/[\u00F2\u00F3\u00F4\u00F5\u00F6\u00F8]/g,'o');
+        str = str.replace(/[\u00F9\u00FA\u00FB\u00FC]/g,'u');
+        str = str.replace(/[\u00FD\u00FF]/g,'y');
+        str = str.replace(/[\u00F1]/g,'n');
+        str = str.replace(/[\u0153]/g,'oe');
+        str = str.replace(/[\u00E6]/g,'ae');
+        str = str.replace(/[\u00DF]/g,'ss');
+        str = str.replace(/[^a-z0-9\s\'\:\/\[\]-]/g,'');
+        str = str.replace(/[\s\'\:\/\[\]-]+/g,' ');
+        str = str.replace(/[ ]/g,'-');
+        if (ucfirst === 1)
+        {
+            c = str.charAt(0);
+            str = c.toUpperCase()+str.slice(1);
+        }
+        return str;
+    }
+
     creationURL = function( event ){
         if($('body').hasClass('new')) {
-            var e = new RegExp('[éèêëÉÈÊË]', 'gi');
-            var a = new RegExp('[àÀ]', 'gi');
-            var u = new RegExp('[ùûÛ]', 'u');
-            var o = new RegExp('[ôÔ]', 'u');
-            var i = new RegExp('[îïÎÏ]', 'i');
-            titreOK = $(this).val()
-                .replace(e, 'e')
-                .replace(a, 'a')
-                .replace(u, 'u')
-                .replace(o, 'o')
-                .replace(i, 'i')
-                .replace(/\s+/g, '-')           // Replace spaces with -
-                .replace(/[^\w\-]+/g, '')       // Remove all non-word chars
-                .replace(/^-+/, '')             // Trim - from start of text
-                .replace(/-+$/, '') // Trim - from end of text
-                .toLowerCase();
-            url = encodeURIComponent(titreOK);
+            titre = $(this).val();
+            url = str2url(titre, 'UTF-8', true);
             $(event.data.cible).val(url);
         }
     };
@@ -96,6 +108,13 @@ $(document).ready(function(){
         $('#typecategorie_nom').on('keyup', {
             cible: '#typecategorie_url'
         }, creationURL );
+
+        /* Modification de l'url */
+        $('#page_active_SEO_url').on('keyup', function(){
+            urlNonFormattee = $(this).val();
+            url = str2url(urlNonFormattee, 'UTF-8', true);
+            $(this).val(url);
+        });
 
     /* Méta-titre automatique */
     $('#page_active_titre').on('keyup', function(){
@@ -159,6 +178,8 @@ $(document).ready(function(){
                 $(this).find("input[id$='position']").val($(this).index());
                 saveCloseFormulaire();
             });
+            tinymce.remove();
+            tinymce.init(optionsTinyMCE);
         }
     };
 
@@ -210,6 +231,9 @@ $(document).ready(function(){
             blocPrecedent = bloc.prev('.field-bloc');
             bloc.insertBefore(blocPrecedent);
 
+            tinymce.remove();
+            tinymce.init(optionsTinyMCE);
+
             $('.field-bloc').each(function(){
                 $(this).find("input[id$='position']").val($(this).index());
             });
@@ -223,6 +247,9 @@ $(document).ready(function(){
             bloc = $(this).closest('.field-bloc');
             blocSuivant = bloc.next('.field-bloc');
             bloc.insertAfter(blocSuivant);
+
+            tinymce.remove();
+            tinymce.init(optionsTinyMCE);
 
             $('.field-bloc').each(function(){
                 $(this).find("input[id$='position']").val($(this).index());
@@ -494,28 +521,7 @@ $(document).ready(function(){
                 });
 
                 tinymce.remove();
-                tinymce.init({
-                    selector: "textarea:not('.notTinymce')",
-                    language: "fr_FR",
-                    theme: "modern",
-                    height: 300,
-                    plugins: [
-                        "advlist autolink link image lists charmap print preview hr anchor pagebreak",
-                        "searchreplace wordcount visualblocks visualchars insertdatetime media nonbreaking spellchecker",
-                        "table contextmenu directionality emoticons paste textcolor responsivefilemanager code imagetools"
-                    ],
-                    relative_urls: false,
-                    menubar: false,
-
-                    filemanager_title:"Médiathèque",
-                    external_filemanager_path:"/filemanager/",
-                    external_plugins: { "filemanager" : "/filemanager/plugin.min.js"},
-
-                    extended_valid_elements: 'i[class]',
-                    block_formats: 'Paragraphe=p;Titre h2=h2;Titre h3=h3;Titre h4=h4;Titre h5=h5;Titre h6=h6',
-                    image_advtab: true,
-                    toolbar1: "formatselect | image | media | link unlink | copy paste pastetext | bold italic underline | alignleft aligncenter alignright | bullist numlist | code | undo redo"
-                });
+                tinymce.init(optionsTinyMCE);
 
                 location.href = "#";
                 location.href = "#nvBloc"+count;
@@ -527,7 +533,7 @@ $(document).ready(function(){
 
     //Ajout de blocs annexes via liste des blocs
     $('.listeBlocsAnnexes li').click(function(){
-        if(!$(this).hasClass('disabled')){
+        if(!$(this).hasClass('disabled')) {
             btnAjoutBloc = $(this);
 
             type = $(this).attr('id');
@@ -538,58 +544,32 @@ $(document).ready(function(){
                 method: "post",
                 data: {type: type, typeBloc: 'BlocAnnexe'}
             })
-                .done(function(data){
+                .done(function (data) {
                     saveCloseFormulaire();
 
                     $('.listeBlocsAnnexes').removeClass('actif chargement');
                     count = $('#page_active_blocsAnnexes').find('.field-bloc_annexe').length;
 
-                    var form = data.replace(/bloc_annexe_/g, 'page_active_blocsAnnexes_'+count+'_')
-                        .replace(/bloc_annexe\[/g, 'page_active[blocsAnnexes]['+count+'][');
+                    var form = data.replace(/bloc_annexe_/g, 'page_active_blocsAnnexes_' + count + '_')
+                        .replace(/bloc_annexe\[/g, 'page_active[blocsAnnexes][' + count + '][');
 
-                    bloc = '<div id="nvBlocAnnexe'+count+'" class="form-group field-bloc_annexe">'+form+'</div>';
-                    if($('.listeBlocsAnnexes').attr('id') === 'apres'){
+                    bloc = '<div id="nvBlocAnnexe' + count + '" class="form-group field-bloc_annexe">' + form + '</div>';
+                    if ($('.listeBlocsAnnexes').attr('id') === 'apres') {
                         $('#page_active_blocsAnnexes').append(bloc);
-                    }else{
+                    } else {
                         $('#page_active_blocsAnnexes').prepend(bloc);
                     }
 
                     $('#page_active_blocsAnnexes').prev('.empty').remove();
 
-                    $('.field-blocAnnexe').each(function(){
+                    $('.field-blocAnnexe').each(function () {
                         $(this).find("input[id$='position']").val($(this).index());
                     });
 
                     tinymce.remove();
-                    tinymce.init({
-                        selector: "textarea:not('.notTinymce')",
-                        language: "fr_FR",
-                        theme: "modern",
-                        height: 300,
-                        plugins: [
-                            "advlist autolink link image lists charmap print preview hr anchor pagebreak",
-                            "searchreplace wordcount visualblocks visualchars insertdatetime media nonbreaking spellchecker",
-                            "table contextmenu directionality emoticons paste textcolor responsivefilemanager code"
-                        ],
-                        relative_urls: false,
-                        menubar: false,
-
-                        filemanager_title:"Médiathèque",
-                        external_filemanager_path:"/filemanager/",
-                        external_plugins: { "filemanager" : "/filemanager/plugin.min.js"},
-
-                        extended_valid_elements: 'i[class]',
-                        block_formats: 'Paragraphe=p;Titre h2=h2;Titre h3=h3;Titre h4=h4;Titre h5=h5;Titre h6=h6',
-                        image_advtab: true,
-                        toolbar1: "formatselect | image | media | link unlink | copy paste pastetext | bold italic underline | alignleft aligncenter alignright | bullist numlist | code | undo redo"
-                    });
-
-                    location.href = "#";
-                    location.href = "#nvBlocAnnexe"+count;
-
-                    btnAjoutBloc.addClass('disabled');
+                    tinymce.init(optionsTinyMCE)
                 })
-                .fail(function(){
+                .fail(function () {
                     $('.listeBlocsAnnexes').removeClass('actif chargement');
                 });
         }

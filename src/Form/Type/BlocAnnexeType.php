@@ -26,10 +26,10 @@ class BlocAnnexeType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         if($options['type'] != ''){//Ajax
-            $infos = Yaml::parseFile('../src/BlocsAnnexes/'.$options['type'].'/infos.yaml');
+            $infos = Yaml::parseFile('../src/Blocs/'.$options['type'].'/infos.yaml');
             $description = $infos['description'];
             $nom = $infos['nom'];
-            $builder->add('contenu', 'App\BlocsAnnexes\\'.$options['type'].'\\'.$options['type'].'Type', array(
+            $builder->add('contenu', 'App\Blocs\\'.$options['type'].'\\'.$options['type'].'Type', array(
                 'label' => false,
                 'help' => $description,
                 'allow_extra_fields' => true,
@@ -53,8 +53,8 @@ class BlocAnnexeType extends AbstractType
 
             if ($bloc){//Bloc déjà existant
                 $type = $bloc->getType();
-                $infos = Yaml::parseFile('../src/BlocsAnnexes/'.$type.'/infos.yaml');
-                $form->add('contenu', 'App\BlocsAnnexes\\'.$type.'\\'.$type.'Type', array(
+                $infos = Yaml::parseFile('../src/Blocs/'.$type.'/infos.yaml');
+                $form->add('contenu', 'App\Blocs\\'.$type.'\\'.$type.'Type', array(
                     'label' => false,
                     'help' => $infos['description'],
                     'allow_extra_fields' => true,
