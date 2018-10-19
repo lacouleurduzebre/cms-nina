@@ -373,6 +373,9 @@ div[id^="page_active_blocs"]{
   font-size: 2rem;
   margin: 0 1rem;
   cursor: pointer;
+  &.rotate svg{
+    transform: rotate(180deg);
+  }
 }
 
 //Page de configuration

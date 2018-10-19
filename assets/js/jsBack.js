@@ -595,26 +595,19 @@ $(document).ready(function(){
 
     //Toggle blocs et blocs annexes
     $('#page_active_blocs, #groupeblocs_blocs, #page_active_blocsAnnexes').on('click', '.toggleBloc', function(){
-        $(this).closest('div[class^="form-group field-bloc"]').find('.contenu').children('div').toggleClass('hide');
-        $(this).find('svg').toggleClass('fa-chevron-circle-down fa-chevron-circle-up');
-        if($(this).find('svg').hasClass('fa-chevron-circle-up')){
-            $('html, body').animate({
-                scrollTop: $(this).closest('div[class^="form-group field-bloc"]').offset().top - 120
-            }, 200);
-        }else{
-            $(this).closest('div[class^="form-group field-bloc"]').removeClass('focus');
-        }
+        $(this).closest('.form-group').find('.contenu').children('div').toggleClass('hide');
+        $(this).toggleClass('rotate');
     });
 
     //Mise en avant du bloc en cours d'édition
-    $('.field-bloc').click(function(){
+    $('#page_active_blocs, #groupeblocs_blocs, #page_active_blocsAnnexes').on('click', '.field-bloc', function(){
         if(!$(this).hasClass('focus')){
             $('.field-bloc').removeClass('focus');
             $(this).addClass('focus');
         }
     });
 
-    $('.field-bloc_annexe').click(function(){
+    $('#page_active_blocs, #groupeblocs_blocs, #page_active_blocsAnnexes').on('click', '.field-bloc_annexe', function(){
         if(!$(this).hasClass('focus')){
             $('.field-bloc_annexe').removeClass('focus');
             $(this).addClass('focus');
