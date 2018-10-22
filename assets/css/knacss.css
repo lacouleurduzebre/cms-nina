@@ -2893,9 +2893,17 @@ td[data-label="Image profil"] img {
 body.list #flash-messages > * {
   margin: 1rem 0; }
 
-.alert-enregistrement {
+#flash-messages .alert-enregistrement {
   background: #A1BA1D;
-  color: #FFF; }
+  color: #FFF;
+  position: fixed;
+  top: calc(50% - 2.2rem);
+  z-index: 1100;
+  margin: auto;
+  left: 0;
+  right: 0;
+  width: 50rem;
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25); }
 
 /* Score SEO */
 .progression, .nbCaracteres {

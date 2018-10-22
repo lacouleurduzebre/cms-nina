@@ -42,14 +42,14 @@ class AdminController extends BaseAdminController
     {
         parent::updateEntity($entity);
 
-        $this->addFlash('enregistrement', "\"".$entity."\" : enregistrement terminé");
+        $this->addFlash('enregistrement', "<span>\"".$entity."\" : enregistrement terminé</span>");
     }
 
     protected function persistEntity($entity)//new
     {
         parent::persistEntity($entity);
 
-        $this->addFlash('enregistrement', "\"".$entity."\" : enregistrement terminé");
+        $this->addFlash('enregistrement', "<span>\"".$entity."\" : enregistrement terminé</span>");
     }
 
     protected function persistPage_ActiveEntity($entity)//new
@@ -127,14 +127,34 @@ class AdminController extends BaseAdminController
         if($this->request->get('pageOriginale')){
             $pageOriginale = $this->getDoctrine()->getRepository(Page::class)->find($this->request->get('pageOriginale'));
 
-            $nvPage = clone $pageOriginale;
-            $nvSEO = clone $pageOriginale->getSEO();
-            $nvPage->setSEO($nvSEO);
+            $nvPage = new Page();
+
+            //Contenus
+            $nvPage->setTitre($pageOriginale->getTitre());
+            $nvPage->setTitreMenu($pageOriginale->getTitreMenu());
 
             $blocs = $pageOriginale->getBLocs();
             foreach($blocs as $bloc){
                 $nvBloc = clone $bloc;
                 $nvPage->addBloc($nvBloc);
+            }
+
+            //SEO
+            $nvSEO = clone $pageOriginale->getSEO();
+            $nvPage->setSEO($nvSEO);
+
+            //Affichage
+            $blocsAnnexes = $pageOriginale->getBLocsAnnexes();
+            foreach($blocsAnnexes as $blocAnnexe){
+                $nvBlocAnnexe = clone $blocAnnexe;
+                $nvPage->addBlocsAnnex($nvBlocAnnexe);
+            }
+
+            //Catégories
+            $categories = $pageOriginale->getCategories();
+            foreach($categories as $categorie){
+                $nvCategorie = clone $categorie;
+                $nvPage->addCategory($nvCategorie);
             }
 
            $langue = $this->getDoctrine()->getRepository(Langue::class)->find($this->request->get('langue'));

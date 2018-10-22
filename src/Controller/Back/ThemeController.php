@@ -55,13 +55,13 @@ class ThemeController extends Controller
             $em->flush();
 
             //Modification de la configuration Twig
-            $configTwig = Yaml::parseFile('../config/packages/twig.yaml');
+            $fichier = Yaml::parseFile('../config/services.yaml');
 
-            $configTwig['twig']['paths'][0] = '%kernel.project_dir%/public/themes/'.$theme.'/templates';
+            $fichier['parameters']['theme'] = $theme;
 
-            $nvConfigTwig = Yaml::dump($configTwig);
+            $nvFichier = Yaml::dump($fichier);
 
-            file_put_contents('../config/packages/twig.yaml', $nvConfigTwig);
+            file_put_contents('../config/services.yaml', $nvFichier);
 
             return new Response('ok');
         };

@@ -32,10 +32,7 @@ $(document).ready(function(){
     function saveCloseFormulaire(){
         $('.formulaire-actions-enregistrer').attr("disabled", false);
         $(window).bind('beforeunload', function(){
-            if(clicEnregistrement = true){
-                messageOff = true;
-            }
-            if(!messageOff){
+            if(!clicEnregistrement){
                 return 'Êtes-vous sûr de vouloir quitter cette page ? Des données pourraient ne pas avoir été enregistrées';
             }
         });
@@ -110,7 +107,22 @@ $(document).ready(function(){
         }, creationURL );
 
         /* Modification de l'url */
+            /* Des pages */
         $('#page_active_SEO_url').on('keyup', function(){
+            urlNonFormattee = $(this).val();
+            url = str2url(urlNonFormattee, 'UTF-8', true);
+            $(this).val(url);
+        });
+
+            /* Des catégories */
+        $('#categorie_url').on('keyup', function(){
+            urlNonFormattee = $(this).val();
+            url = str2url(urlNonFormattee, 'UTF-8', true);
+            $(this).val(url);
+        });
+
+            /* Des types de catégories */
+        $('#typecategorie_url').on('keyup', function(){
             urlNonFormattee = $(this).val();
             url = str2url(urlNonFormattee, 'UTF-8', true);
             $(this).val(url);
@@ -118,10 +130,12 @@ $(document).ready(function(){
 
     /* Méta-titre automatique */
     $('#page_active_titre').on('keyup', function(){
-        if($('body').hasClass('new')){
+        if($('body').hasClass('new') || $('#page_active_titreMenu').val() === ''){
             titre = $(this).val();
-            $('#page_active_SEO_metaTitre').val(titre);
             $('#page_active_titreMenu').val(titre);
+            if($('body').hasClass('new')){
+                $('#page_active_SEO_metaTitre').val(titre);
+            }
         }
     });
 
@@ -336,7 +350,6 @@ $(document).ready(function(){
             method: "post"
         })
             .done(function(data){
-                console.log(data);
                 $('#export-bdd + .loader').hide();
 
                 timestamp = data.substring(0, data.indexOf('*'));
@@ -676,7 +689,14 @@ $(document).ready(function(){
     if($('body').hasClass('new')){
         get = parseURLParams(location.href);
         if(get.confirmation){
-            saveCloseFormulaire();
+            if(get.confirmation[0] === 'oui'){
+                saveCloseFormulaire();
+            }
         }
     }
+
+    //Cacher le message "enregistrement terminé"
+    setTimeout(function(){
+        $('.alert-enregistrement').fadeOut();
+    }, 3000);
 });

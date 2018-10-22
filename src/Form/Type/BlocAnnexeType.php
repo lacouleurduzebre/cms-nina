@@ -58,9 +58,9 @@ class BlocAnnexeType extends AbstractType
                     'label' => false,
                     'help' => $infos['description'],
                     'allow_extra_fields' => true,
-                    'attr' => array(
+                    /*'attr' => array(
                         'class' => 'hide'
-                    )
+                    )*/
                 ))
                     ->add('type', HiddenType::class, array(
                         'label' => $infos['nom']

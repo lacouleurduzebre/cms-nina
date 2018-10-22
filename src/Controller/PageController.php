@@ -48,6 +48,10 @@ class PageController extends Controller
             throw new NotFoundHttpException('Cette page n\'existe pas ou a été supprimée');
         }
 
+        if($langue->getPageAccueil() == $page){
+            return $this->redirectToRoute('accueil');
+        }
+
         $timestamp = new \DateTime();
         $date = $timestamp->format('Y-m-d H:i:s');
 

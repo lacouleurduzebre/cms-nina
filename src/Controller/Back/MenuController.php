@@ -123,6 +123,7 @@ class MenuController extends Controller
             }
 
             $page->setTitre($titre);
+            $page->setTitreMenu($titre);
             $SEO = new SEO();
             $SEO->setMetaTitre($titre)->setUrl($url);
             $page->setSeo($SEO);

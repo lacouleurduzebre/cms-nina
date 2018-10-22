@@ -13,6 +13,7 @@ composer.phar
 
 ###> symfony/framework-bundle ###
 .env
+/config/services.yaml
 /src/Controller/Themes/*
 /public/bundles/
 /public/uploads/
