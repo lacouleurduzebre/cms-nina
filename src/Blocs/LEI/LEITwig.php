@@ -28,7 +28,7 @@ class LEITwig extends \Twig_Extension
         );
     }
 
-    public function listeLEI($idBloc, $flux, $limite = null)
+    public function listeLEI($flux, $limite = null)
     {
         $xml = simplexml_load_file($flux);
         $fiches = $xml->xpath("//Resultat/sit_liste");
@@ -37,6 +37,6 @@ class LEITwig extends \Twig_Extension
             $fiches = array_splice($fiches, 0, $limite);
         }
 
-        return $this->twig->render('Blocs/LEI/liste.html.twig', array('fiches' => $fiches, 'idBloc' => $idBloc));
+        return $fiches;
     }
 }

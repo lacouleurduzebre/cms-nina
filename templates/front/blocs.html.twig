@@ -3,8 +3,8 @@
         {% if bloc.htmlAvant is not empty %}
             {{ bloc.htmlAvant|raw }}
         {% endif %}
-            <div class="bloc{{ bloc.type }}{% if bloc.class is not empty %} {{ bloc.class }}{% endif %}">
-                {%  include '/Blocs/'~bloc.type~'/'~bloc.type~'.html.twig' with{'bloc': bloc} only %}
+            <div class="bloc{{ bloc.type }} bloc-{{ bloc.id }}{% if bloc.class is not empty %} {{ bloc.class }}{% endif %}">
+                {% include ['/Blocs/'~bloc.type~'/bloc-'~bloc.id~'.html.twig', '/Blocs/'~bloc.type~'/'~bloc.type~'.html.twig'] with{'bloc': bloc} only %}
             </div>
         {% if bloc.htmlApres is not empty %}
             {{ bloc.htmlApres|raw }}
