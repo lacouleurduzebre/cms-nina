@@ -19,17 +19,17 @@ use Symfony\Component\Yaml\Yaml;
 class ThemeController extends Controller
 {
     /**
-     * @Route("/theme", name="theme")
+     * @Route("/admin/theme", name="theme")
      */
     public function themeAction(){
-        $nomThemes = scandir('themes');
+        $nomThemes = scandir('../themes');
         unset($nomThemes[0]);
         unset($nomThemes[1]);
         $nomThemes = array_values($nomThemes);
 
         $themes = [];
         foreach($nomThemes as $nomTheme){
-            $config = Yaml::parseFile('../public/themes/'.$nomTheme.'/config.yaml');
+            $config = Yaml::parseFile('../themes/'.$nomTheme.'/config.yaml');
             $infos = $config['infos'];
             $themes[$nomTheme] = $infos;
         }
@@ -62,6 +62,21 @@ class ThemeController extends Controller
             $nvFichier = Yaml::dump($fichier);
 
             file_put_contents('../config/services.yaml', $nvFichier);
+
+            //Symlink
+                //Suppression lien précédent
+            $racine = $this->get('kernel')->getProjectDir();
+            $linkfile = $racine.'/public/theme';
+            if(file_exists($linkfile)) {
+                if(is_link($linkfile)) {
+                    unlink($linkfile);
+                }
+            }
+
+                //Création nouveau lien
+            symlink($racine.'/themes/'.$theme.'/assets', $linkfile);
+
+            //Fin Symlink
 
             return new Response('ok');
         };

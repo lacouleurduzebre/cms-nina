@@ -13,7 +13,7 @@
                 <div class="theme-illustration">
                     <div class="theme-actif">{{ 'Activé'|trans }}</div>
                     {% if theme.illustration is defined %}
-                        <img src="/themes/{{ nom }}/{{ theme.illustration }}" alt="{{ nom }}">
+                        <img src="{{ asset('theme/'~theme.illustration) }}" alt="{{ nom }}">
                     {% else %}
                         <i class="fas fa-camera"></i>
                     {% endif %}

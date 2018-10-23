@@ -18,8 +18,8 @@ fos_user_change_password:
     resource: "@FOSUserBundle/Resources/config/routing/change_password.xml"
     prefix: /profile
 
-themes:
-    resource: "../src/Controller/Themes/terresdoh"
+theme:
+    resource: "../themes"
     type: annotation
 
 blocs:

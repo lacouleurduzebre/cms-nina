@@ -2,8 +2,8 @@
 
 /config/packages/doctrine_migrations.yaml
 
-/public/themes/*
-!/public/themes/nina/
+/themes/*
+!/themes/nina/
 
 ###> OVH ###
 .bash_history
@@ -14,7 +14,7 @@ composer.phar
 ###> symfony/framework-bundle ###
 .env
 /config/services.yaml
-/src/Controller/Themes/*
+/public/theme/
 /public/bundles/
 /public/uploads/
 /public/thumbs/
