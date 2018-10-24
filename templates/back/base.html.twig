@@ -91,6 +91,12 @@
         {% block body_javascript %}
         {% endblock body_javascript %}
 
+        {% if assetExists(app.request.baseUrl~'theme/js/optionsTinyMCE.js') %}
+            <script src="{{ asset('theme/js/optionsTinyMCE.js') }}"></script>
+        {% else %}
+            <script src="{{ asset('assets/js/optionsTinyMCE.js') }}"></script>
+        {% endif %}
+
         {% for js_asset in easyadmin_config('design.assets.js') %}
             <script src="{{ asset(js_asset) }}"></script>
         {% endfor %}

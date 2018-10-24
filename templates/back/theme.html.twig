@@ -12,8 +12,8 @@
             <div id="{{ nom }}" class="theme{% if config.theme == nom %} actif{% endif %}">
                 <div class="theme-illustration">
                     <div class="theme-actif">{{ 'Activé'|trans }}</div>
-                    {% if theme.illustration is defined %}
-                        <img src="{{ asset('miniatures/'~theme.illustration) }}" alt="{{ nom }}">
+                    {% if assetExists(app.request.baseUrl~'miniatures/'~nom~'.jpg') %}
+                        <img src="{{ asset('miniatures/'~nom~'.jpg') }}" alt="{{ nom }}">
                     {% else %}
                         <i class="fas fa-camera"></i>
                     {% endif %}
