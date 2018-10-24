@@ -69,7 +69,7 @@ class ThemeController extends Controller
             $linkfile = $racine.'/public/theme';
             if(file_exists($linkfile)) {
                 if(is_link($linkfile)) {
-                    unlink($linkfile);
+                    rmdir($linkfile);
                 }
             }
 

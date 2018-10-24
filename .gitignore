@@ -11,11 +11,16 @@
 .ovhconfig
 composer.phar
 
+###Config
+config/services.yaml
+config/packages/doctrine_migrations.yaml
+src/Service/NamingStrategy.php
+
 ###> symfony/framework-bundle ###
 .env
-/config/services.yaml
 /public/theme/
 /public/bundles/
+/public/miniatures/*
 /public/uploads/
 /public/thumbs/
 /public/sauvegardes/bdd/*
