@@ -307,4 +307,24 @@ class MenuController extends Controller
 
         return false;
     }
+
+    /**
+     * @Route("/filtreArbo", name="filtreArbo")
+     * @param Request $request
+     * @return bool|Response
+     */
+    public function filtreArbo(Request $request){
+        if($request->isXmlHttpRequest()){
+            $langue = $request->get('langue');
+            $recherche = $request->get('recherche');
+
+            $repoPage = $this->getDoctrine()->getRepository(Page::class);
+            $pages = $repoPage->titreLike($langue, $recherche);
+
+            $tpl = $this->render('/back/menu/pagesFiltrees.html.twig', array('pages' => $pages))->getContent();
+
+            return new Response($tpl);
+        }
+        return false;
+    }
 }

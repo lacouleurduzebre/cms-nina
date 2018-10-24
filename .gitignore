@@ -12,13 +12,14 @@
 composer.phar
 
 ###Config
-config/services.yaml
-config/packages/doctrine_migrations.yaml
-src/Service/NamingStrategy.php
+/config/services.yaml
+/config/packages/doctrine_migrations.yaml
+/src/Service/NamingStrategy.php
 
 ###> symfony/framework-bundle ###
 .env
-/public/theme/
+/public/theme
+/public/assets
 /public/bundles/
 /public/miniatures/*
 /public/uploads/

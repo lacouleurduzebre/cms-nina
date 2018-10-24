@@ -151,24 +151,13 @@ body.notFull .main-sidebar{
   .action-search{
     .input-group{
       position: relative;
-      display: inline-block;
+      width: 100%;
       input[type='search']{
+        width: 100%;
         padding-right: 3rem;
-      }
-      span.input-group-btn{
-        position: absolute;
-        top: 0;
-        height: 100%;
-        button[type='submit']{
-          box-shadow: none;
-          background-color: transparent;
-          padding: 0 .5rem 0;
-          height: 100%;
-          svg{
-            color: #000;
-            font-size: 2rem;
-          }
-        }
+        background: transparent;
+        border-bottom: 1px solid $color-brand2;
+        box-shadow: none;
       }
     }
   }
@@ -180,10 +169,17 @@ body.notFull .main-sidebar{
     padding-top: 1rem;
   }
   .input-group{
-    width: 100%;
     padding: 0 1rem;
-    input{
-      width: 100%;
+    svg{
+      cursor: pointer;
+      top: calc(50% - 1rem);
+      right: 2rem;
+      position: absolute;
+      color: #000;
+      font-size: 2rem;
+      &.hidden{
+        display: none;
+      }
     }
   }
 }
@@ -289,4 +285,20 @@ body.notFull .main-sidebar{
 #pageAccueil-menu{
   display: none;
   top: calc(100% + 2px);
+}
+
+//Filtre
+#recherche-arbo-resultats{
+  display: none;
+  color: $black;
+  padding: 1rem;
+  height: 100%;
+  overflow-y: scroll;
+  ul{
+    padding-left: 2rem;
+  }
+  li{
+    line-height: 1;
+    margin-bottom: 1rem;
+  }
 }

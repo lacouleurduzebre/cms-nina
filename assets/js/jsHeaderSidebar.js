@@ -46,4 +46,35 @@ $(document).ready(function(){
         $("#pageAccueil-menu").toggle();
         return false;
     });
+
+    /* Filtre arbo */
+    $('#recherche-arbo').on('keyup', function(){
+        $(this).next('svg').removeClass('hidden');
+        langue = $('.arbo-langues .current a').attr('class');
+        recherche = $(this).val();
+        $.ajax({
+            url: '/filtreArbo',
+            method: "post",
+            data: {langue: langue, recherche: recherche}
+        })
+            .done(function(data){
+                console.log(data);
+                $('#recherche-arbo-resultats').html('').append(data).show();
+                $('.arborescence').hide();
+            })
+            .fail(function(){
+                console.log('FAIL');
+            });
+    })
+        .on('click', function(e){//Bloque le lancement de la vidange en cliquant sur le champ
+           e.stopPropagation();
+        });
+
+        /* Vidange */
+        $('.sidebar.global-actions').click('#recherche-arbo-vidange', function(){
+            $('#recherche-arbo-resultats').html('').hide();
+            $('.arborescence').show();
+            $('#recherche-arbo').val("");
+            $('#recherche-arbo-vidange').addClass('hidden');
+        });
 });

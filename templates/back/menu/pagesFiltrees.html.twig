@@ -1,0 +1,11 @@
+{% if pages is not empty %}
+    <ul>
+        {% for page in pages %}
+            <li>
+                <a href="{{ path('admin', { 'action': 'edit', 'entity': 'Page_Active', 'id': page.id }) }}">{{ page.titre }}</a>
+            </li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>{{ 'Aucun résultat'|trans }}</p>
+{% endif %}

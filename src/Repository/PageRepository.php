@@ -73,4 +73,14 @@ class PageRepository extends \Doctrine\ORM\EntityRepository
 
         return $qb->getQuery()->getSingleScalarResult();
     }
+
+    public function titreLike($langue, $recherche){
+        $qb = $this
+            ->createQueryBuilder('p')
+            ->where('p.langue = :langue')
+            ->andwhere('p.titre LIKE :recherche')
+            ->setParameters(array('langue' => $langue, 'recherche' => '%'.$recherche.'%'));
+
+        return $qb->getQuery()->getResult();
+    }
 }
