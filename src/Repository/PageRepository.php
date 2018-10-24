@@ -44,6 +44,28 @@ class PageRepository extends \Doctrine\ORM\EntityRepository
         return $qb->getQuery()->getResult();
     }
 
+    public function pagesPublieesCategorie($categorie, $langue, $limite = null){
+        $timestamp = new \DateTime();
+        $date = $timestamp->format('Y-m-d H:i:s');
+
+        $qb = $this
+            ->createQueryBuilder('p')
+                ->where('p.corbeille = 0')
+                ->andWhere('p.active = 1')
+                ->andWhere('p.langue = :langue')
+                ->andWhere('p.datePublication < :date')
+                ->andWhere(':categorie MEMBER OF p.categories')
+                ->andWhere('p.dateDepublication > :date OR p.dateDepublication IS NULL')
+                    ->setParameters(array('langue' => $langue, 'date' => $date, 'categorie' => $categorie))
+            ->orderBy('p.datePublication', 'DESC');
+
+        if($limite){
+            $qb->setMaxResults($limite);
+        }
+
+        return $qb->getQuery()->getResult();
+    }
+
     public function nombreTotal(){
         $qb = $this
             ->createQueryBuilder('p')

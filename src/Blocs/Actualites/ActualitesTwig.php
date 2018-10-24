@@ -28,20 +28,17 @@ class ActualitesTwig extends \Twig_Extension
         );
     }
 
-    public function actualites($limite = null, $idCategorie = null)
+    public function actualites($langue, $limite = null, $idCategorie = null)
     {
+        $repoPage = $this->doctrine->getRepository(Page::class);
         if($limite === null && $idCategorie === null){//Pas de limite ni de catégorie
-            $repoPage = $this->doctrine->getRepository(Page::class);
-            $pages = $repoPage->findAll();
+            $pages = $repoPage->pagesPubliees($langue);
         }elseif($limite != null && $idCategorie != null){//Limite et catégorie
-            $categorie = $this->doctrine->getRepository(Categorie::class)->find($idCategorie);
-            $pages = $categorie->getPages();
+            $pages = $repoPage->pagesPublieesCategorie($idCategorie, $langue, $limite);
         }elseif($limite != null){//Uniquement limite
-            $repoPage = $this->doctrine->getRepository(Page::class);
-            $pages = $repoPage->findBy(array(), array('datePublication' => 'DESC'), $limite);
+            $pages = $repoPage->pagesPubliees($langue, $limite);
         }else{//Uniquement catégorie
-            $categorie = $this->doctrine->getRepository(Categorie::class)->find($idCategorie);
-            $pages = $categorie->getPages();
+            $pages = $repoPage->pagesPublieesCategorie($idCategorie, $langue);
         }
 
         return $pages;
