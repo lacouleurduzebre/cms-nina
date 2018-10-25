@@ -1,0 +1,12 @@
+<a href="{{ bloc.contenu.lien }}"
+   {% if bloc.contenu.blank is defined and bloc.contenu.blank == '1' %}
+       target="_blank"
+   {% endif %}
+   {% if bloc.contenu.titre is defined and bloc.contenu.titre is not empty %}
+       title="{{ bloc.contenu.titre }}"
+   {% endif %}
+>
+    {% if bloc.contenu.texte is defined %}
+        {{ bloc.contenu.texte }}
+    {% endif %}
+</a>

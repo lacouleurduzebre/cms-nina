@@ -1,8 +1,0 @@
-parameters:
-    locale: en
-    theme: terresdoh
-services:
-    _defaults: { autowire: true, autoconfigure: true, public: false }
-    App\: { resource: '../src/*', exclude: '../src/{Entity,Migrations,Tests,Kernel.php}' }
-    App\Controller\: { resource: ../src/Controller, tags: [controller.service_arguments] }
-    Theme\: { resource: '../themes/*', tags: [controller.service_arguments] }

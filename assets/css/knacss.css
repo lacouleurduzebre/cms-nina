@@ -2897,11 +2897,10 @@ body.list #flash-messages > * {
   background: #A1BA1D;
   color: #FFF;
   position: fixed;
-  top: calc(50% - 2.2rem);
   z-index: 1100;
   margin: auto;
-  left: 0;
-  right: 0;
+  bottom: 1rem;
+  right: 1rem;
   width: 50rem;
   box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25); }
 
