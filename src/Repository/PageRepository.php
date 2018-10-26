@@ -23,7 +23,7 @@ class PageRepository extends \Doctrine\ORM\EntityRepository
                 ->orderBy('p.datePublication', 'DESC');
     }
 
-    public function pagesPubliees($langue, $limite = null){
+    public function pagesPubliees($langue, $limite = null, $offset = null){
         $timestamp = new \DateTime();
         $date = $timestamp->format('Y-m-d H:i:s');
 
@@ -41,10 +41,14 @@ class PageRepository extends \Doctrine\ORM\EntityRepository
             $qb->setMaxResults($limite);
         }
 
+        if($offset){
+            $qb->setFirstResult($offset);
+        }
+
         return $qb->getQuery()->getResult();
     }
 
-    public function pagesPublieesCategorie($categorie, $langue, $limite = null){
+    public function pagesPublieesCategorie($categorie, $langue, $limite = null, $offset = null){
         $timestamp = new \DateTime();
         $date = $timestamp->format('Y-m-d H:i:s');
 
@@ -61,6 +65,10 @@ class PageRepository extends \Doctrine\ORM\EntityRepository
 
         if($limite){
             $qb->setMaxResults($limite);
+        }
+
+        if($offset){
+            $qb->setFirstResult($offset);
         }
 
         return $qb->getQuery()->getResult();

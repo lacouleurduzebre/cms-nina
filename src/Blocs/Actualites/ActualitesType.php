@@ -40,12 +40,23 @@ class ActualitesType extends AbstractType
                 'choices' => $categories,
                 'required' => false,
                 'label' => 'Catégorie',
-                'help' => "Utilisé pour limiter les résultats à une seule catégorie de pages"
+//                'help' => "Utilisé pour limiter les résultats à une seule catégorie de pages"
             ))
             ->add('limite', NumberType::class, array(
                 'label' => 'Nombre limite de résultats',
                 'help' => "Si aucune limite n'est précisée, tous les résultats seront affichés",
                 'required' => false
+            ))
+            ->add('pagination', ChoiceType::class, array(
+                'choices' => array(
+                    'Activer la pagination' => 1
+                ),
+                'expanded' => true,
+                'label' => false,
+                'multiple' => true
+            ))
+            ->add('resultatsParPage', NumberType::class, array(
+                'label' => 'Nombre de résultats par page'
             ));
     }
 

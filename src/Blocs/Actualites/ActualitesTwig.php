@@ -9,9 +9,11 @@
 namespace App\Blocs\Actualites;
 
 
+use App\Entity\Bloc;
 use App\Entity\Categorie;
 use App\Entity\Page;
 use Symfony\Bridge\Doctrine\RegistryInterface;
+use Symfony\Component\HttpFoundation\Request;
 use Twig\Environment;
 
 class ActualitesTwig extends \Twig_Extension
@@ -28,17 +30,89 @@ class ActualitesTwig extends \Twig_Extension
         );
     }
 
-    public function actualites($langue, $limite = null, $idCategorie = null)
+    public function actualites($langue, $bloc)
     {
+        $parametres = $bloc->getContenu();
+        $limite = $parametres['limite'];
+        $categorie = $parametres['categorie'];
+        if(isset($parametres['pagination'][0])){
+            $pagination = $parametres['pagination'][0];
+        }else{
+            $pagination = null;
+        };
+        $resultatsParPage = $parametres['resultatsParPage'];
+
         $repoPage = $this->doctrine->getRepository(Page::class);
-        if($limite === null && $idCategorie === null){//Pas de limite ni de catégorie
-            $pages = $repoPage->pagesPubliees($langue);
-        }elseif($limite != null && $idCategorie != null){//Limite et catégorie
-            $pages = $repoPage->pagesPublieesCategorie($idCategorie, $langue, $limite);
-        }elseif($limite != null){//Uniquement limite
-            $pages = $repoPage->pagesPubliees($langue, $limite);
-        }else{//Uniquement catégorie
-            $pages = $repoPage->pagesPublieesCategorie($idCategorie, $langue);
+
+        //Pas de limite ni de catégorie
+        if($limite === null && $categorie === null){
+            if($pagination == 1){
+                if(!isset($_GET['page'])){
+                    $pages = $repoPage->pagesPubliees($langue, $resultatsParPage);
+                }else{
+                    $offset = ($_GET['page'] - 1) * $resultatsParPage;
+                    $pages = $repoPage->pagesPubliees($langue, $resultatsParPage, $offset);
+                }
+            }else{
+                $pages = $repoPage->pagesPubliees($langue);
+            }
+
+            return $pages;
+        }
+
+
+        //Limite et catégorie
+        if($limite != null && $categorie != null){
+            if($pagination == 1 && $resultatsParPage < $limite){
+                if(!isset($_GET['page'])){
+                    $pages = $repoPage->pagesPublieesCategorie($categorie, $langue, $resultatsParPage);
+                }else{
+                    $offset = ($_GET['page'] - 1) * $resultatsParPage;
+                    if($_GET['page'] * $resultatsParPage < $limite){
+                        $pages = $repoPage->pagesPublieesCategorie($categorie, $langue, $resultatsParPage, $offset);
+                    }else{//Il reste moins de résultats à afficher que le nb de résultats par page
+                        $nvLimite = $limite - $offset;
+                        $pages = $repoPage->pagesPublieesCategorie($categorie, $langue, $nvLimite, $offset);
+                    }
+                }
+            }else{
+                $pages = $repoPage->pagesPublieesCategorie($categorie, $langue, $limite);
+            }
+
+            return $pages;
+        }
+
+        //Uniquement limite
+        if($limite != null){
+            if($pagination == 1 && $resultatsParPage < $limite){
+                if(!isset($_GET['page'])){
+                    $pages = $repoPage->pagesPubliees($langue, $resultatsParPage);
+                }else{
+                    $offset = ($_GET['page'] - 1) * $resultatsParPage;
+                    if($_GET['page'] * $resultatsParPage < $limite){
+                        $pages = $repoPage->pagesPubliees($langue, $resultatsParPage, $offset);
+                    }else{//Il reste moins de résultats à afficher que le nb de résultats par page
+                        $nvLimite = $limite - $offset;
+                        $pages = $repoPage->pagesPubliees($langue, $nvLimite, $offset);
+                    }
+                }
+            }else{
+                $pages = $repoPage->pagesPubliees($langue, $limite);
+            }
+
+            return $pages;
+        }
+
+        //Uniquement catégorie (else)
+        if($pagination == 1){
+            if(!isset($_GET['page'])){
+                $pages = $repoPage->pagesPublieesCategorie($categorie, $langue, $resultatsParPage);
+            }else{
+                $offset = ($_GET['page'] - 1) * $resultatsParPage;
+                $pages = $repoPage->pagesPublieesCategorie($categorie, $langue, $resultatsParPage, $offset);
+            }
+        }else{
+            $pages = $repoPage->pagesPublieesCategorie($categorie, $langue);
         }
 
         return $pages;

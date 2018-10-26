@@ -1,5 +1,5 @@
 <div class="grid-3 small-1 has-gutter-xl">
-    {% for page in actualites(langueActive, bloc.contenu.limite, bloc.contenu.categorie) %}
+    {% for page in actualites(langueActive, bloc) %}
         <div class="blocActualites-page flex-container-v">
             {{ blocAnnexe(page, 'vignette') }}
             <h2>{{ page.titre }}</h2>

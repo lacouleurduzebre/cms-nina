@@ -1017,9 +1017,13 @@
 {% endblock %}
 
 {% block _page_active_auteur_widget %}
-    <p>{{ data.username }}</p>
+    {% if data is not empty %}
+        <p>{{ data.username }}</p>
+    {% endif %}
 {% endblock %}
 
 {% block _page_active_auteurDerniereModification_widget %}
-    <p>{{ data.username }}</p>
+    {% if data is not empty %}
+        <p>{{ data.username }}</p>
+    {% endif %}
 {% endblock %}
