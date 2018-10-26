@@ -7,7 +7,7 @@ easy_admin:
             disabled_actions: ['delete']
             list:
                 dql_filter: 'entity.corbeille = false'
-                sort: 'titre'
+                sort: 'dateCreation'
                 actions:
                     - { name: 'edit', label: '', title: 'Éditer', icon: 'pencil-alt' }
                     - { name: 'voir', label: '', title: 'Voir', icon: 'eye' }
@@ -62,6 +62,8 @@ easy_admin:
                     - { type: 'tab', label: 'Historique' }
                     - datePublication
                     - dateDepublication
+                    - auteur
+                    - auteurDerniereModification
                     - { type: 'tab', label: 'Commentaires' }
                     - { property: 'commentaires', type: 'collection', type_options: { entry_type: 'App\Form\Type\CommentaireType', by_reference: false, label_format: 'un commentaire' } }
                     - { type: 'tab', label: 'Traduction' }

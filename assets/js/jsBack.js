@@ -671,4 +671,26 @@ $(document).ready(function(){
     setTimeout(function(){
         $('.alert-enregistrement').fadeOut();
     }, 3000);
+
+    //Si méta-titre, url ou méta-description vide en perdant le focus, on reprend le titre
+    $('#page_active_SEO_url').focusout(function(){
+        if($(this).val() === ''){
+            $(this).val(str2url($('#page_active_titre').val()));
+            scoreSEOChargement($(this), 75);
+        }
+    });
+
+    $('#page_active_SEO_metaTitre').focusout(function(){
+        if($(this).val() === ''){
+            $(this).val($('#page_active_titre').val());
+            scoreSEOChargement($(this), 65);
+        }
+    });
+
+    $('#page_active_SEO_metaDescription').focusout(function(){
+        if($(this).val() === ''){
+            $(this).val($('#page_active_titre').val());
+            scoreSEOChargement($(this), 150);
+        }
+    });
 });
