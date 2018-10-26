@@ -57,18 +57,32 @@ easy_admin:
             - label: 'Contenus'
               icon: 'puzzle-piece'
               children:
-              - { entity: 'Page_Active', icon: '', default: true }
-              #- { entity: 'Accueil', icon: '', default: true }
-              - { entity: 'Commentaire_Actif', icon: '' }
-              - { entity: 'TypeCategorie', icon: '' }
-              - { entity: 'Categorie', icon: '' }
-              - { entity: 'Langue', icon: '' }
-              - { entity: 'GroupeBlocs', icon: '' }
-              - { entity: 'Menu', icon: '' }
-              - { entity: 'Region', icon: '', label: 'Interface' }
-              - { label: 'Traduction des pages', icon: '', route: 'traductionsPages' }
-              - { entity: 'Page_Corbeille', icon: '' }
-              - { entity: 'Commentaire_Corbeille', icon: '' }
+              - label: 'Pages'
+                icon: ''
+                children:
+                  - { entity: 'Page_Active', label: 'Toutes les pages', type: 'entity', menu_index: 0, submenu_index: 0, icon: '', default: true, params: { } }
+                  - { entity: 'Page_Corbeille', label: 'Pages à la corbeille', type: 'entity', menu_index: 0, submenu_index: 0, icon: '', default: true, params: { } }
+              - label: 'Commentaires'
+                icon: ''
+                children:
+                  - { entity: 'Commentaire_Actif', label: 'Tous les commentaires', type: 'entity', menu_index: 0, submenu_index: 0, icon: '', default: true, params: { } }
+                  - { entity: 'Commentaire_Corbeille', label: 'Commentaires à la corbeille', type: 'entity', menu_index: 0, submenu_index: 0, icon: '', default: true, params: { } }
+              - label: 'Catégories'
+                icon: ''
+                children:
+                  - { entity: 'Categorie', label: 'Toutes les catégories', type: 'entity', menu_index: 0, submenu_index: 0, icon: '', default: true, params: { } }
+                  - { entity: 'TypeCategorie', label: 'Types de catégories', type: 'entity', menu_index: 0, submenu_index: 0, icon: '', default: true, params: { } }
+              - label: 'Langues'
+                icon: ''
+                children:
+                  - { entity: 'Langue', label: 'Langues', type: 'entity', menu_index: 0, submenu_index: 0, icon: '', default: true, params: { } }
+                  - { route: 'traductionsPages', label: 'Traduction des pagess', type: 'route', menu_index: 0, submenu_index: 0, icon: '', default: true, params: { } }
+              - label: 'Interface'
+                icon: ''
+                children:
+                  - { entity: 'GroupeBlocs', label: 'Groupes de blocs', type: 'entity', menu_index: 0, submenu_index: 0, icon: '', default: true, params: { } }
+                  - { entity: 'Region', label: 'Régions', type: 'entity', menu_index: 0, submenu_index: 0, icon: '', default: true, params: { } }
+                  - { entity: 'Menu', label: 'Menus', type: 'entity', menu_index: 0, submenu_index: 0, icon: '', default: true, params: { } }
             - { label: 'Médiathèque', icon: 'images', route: 'mediatheque' }
             - { entity: 'Utilisateur', label: 'Comptes', icon: 'users' }
             - label: 'Outils'

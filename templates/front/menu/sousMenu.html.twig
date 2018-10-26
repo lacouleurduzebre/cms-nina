@@ -1,5 +1,5 @@
 <ul>
-    {% for menuPage in menuPages %}
+    {% for menuPage in menuPages|sortBy('position') %}
         {% if isPublie(menuPage.page) %}
             <li {% if isParent(menuPage.page.id) %}class="parent"{% endif %}>
                 <a href="{{ path('voirPage', {'url':menuPage.page.seo.url}) }}">

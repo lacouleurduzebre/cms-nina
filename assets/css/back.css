@@ -753,11 +753,21 @@ body.connected {
       top: 38px; }
     .sidebar-menu li:hover > ul {
       display: block; }
-  .sidebar-menu > li > ul > li > a {
+  .sidebar-menu > li > ul > li > a > span {
+    padding-right: 1rem; }
+  .sidebar-menu > li > ul > li a {
     border-bottom: 1px solid #FFF;
     padding: 1rem; }
+    .sidebar-menu > li > ul > li a svg {
+      transform: rotate(-90deg);
+      margin-left: auto; }
   .sidebar-menu > li > ul > li:last-of-type > a {
     border: none; }
+
+.sidebar-menu li > ul > li > ul {
+  top: 0;
+  left: 100%;
+  background-color: #68655f; }
 
 /* Menu compte */
 .navbar-custom-menu {
@@ -1707,5 +1717,53 @@ body.notFull .main-sidebar #btnArbo svg {
   #recherche-arbo-resultats li {
     line-height: 1;
     margin-bottom: 1rem; }
+
+#popup-ajoutPage {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 1000;
+  background-color: rgba(164, 161, 161, 0.8);
+  padding: 5rem;
+  display: flex;
+  align-items: center; }
+  #popup-ajoutPage h2 {
+    color: #0791B3;
+    margin-bottom: 1rem; }
+  #popup-ajoutPage p {
+    color: #0791B3; }
+
+#popup-ajoutPage-close {
+  position: absolute; }
+
+.popup-ajoutPage-formulaire {
+  background-color: #fff;
+  padding: 2rem; }
+  .popup-ajoutPage-formulaire input[type="text"] {
+    margin-bottom: 1rem; }
+    @media (min-width: 576px) {
+      .popup-ajoutPage-formulaire input[type="text"] {
+        min-width: 50rem; } }
+
+#ajoutPage-infos {
+  display: none; }
+
+.listeBlocs-fermeture, .listeBlocsAnnexes-fermeture, #popup-ajoutPage-close {
+  color: #000;
+  position: absolute;
+  top: 2rem;
+  right: 4rem;
+  cursor: pointer;
+  font-size: 3rem;
+  background-color: #fff;
+  border-radius: 50%;
+  width: 4rem;
+  height: 4rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: .3s; }
 
 /*# sourceMappingURL=back.css.map */

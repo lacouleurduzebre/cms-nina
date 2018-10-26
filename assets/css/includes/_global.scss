@@ -1,0 +1,16 @@
+.listeBlocs-fermeture, .listeBlocsAnnexes-fermeture, #popup-ajoutPage-close{
+  color: $black;
+  position: absolute;
+  top: 2rem;
+  right: 4rem;
+  cursor: pointer;
+  font-size: 3rem;
+  background-color: $white;
+  border-radius: 50%;
+  width: 4rem;
+  height: 4rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: .3s;
+}

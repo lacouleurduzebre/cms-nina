@@ -36,6 +36,7 @@ class ActualitesType extends AbstractType
 
         $builder
             ->add('categorie', ChoiceType::class, array(
+                'placeholder' => 'Toutes',
                 'choices' => $categories,
                 'required' => false,
                 'label' => 'Catégorie',

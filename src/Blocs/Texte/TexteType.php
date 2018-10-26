@@ -23,7 +23,8 @@ class TexteType extends AbstractType
     {
         $builder
             ->add('texte', TextareaType::class, array(
-                'required' => false
+                'required' => false,
+                'label' => false
             ));
     }
 

@@ -265,23 +265,6 @@ div[id^="page_active_blocs"]{
   }
 }
 
-.listeBlocs-fermeture, .listeBlocsAnnexes-fermeture{
-  color: $black;
-  position: absolute;
-  top: 2rem;
-  right: 4rem;
-  cursor: pointer;
-  font-size: 3rem;
-  background-color: $white;
-  border-radius: 50%;
-  width: 4rem;
-  height: 4rem;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  transition: .3s;
-}
-
 .bloc-nom{
   font-size: 2rem;
 }

@@ -302,3 +302,43 @@ body.notFull .main-sidebar{
     margin-bottom: 1rem;
   }
 }
+
+//Pop-up ajout de pages
+#popup-ajoutPage{
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 1000;
+  background-color: rgba(164, 161, 161, 0.8);
+  padding: 5rem;
+  display: flex;
+  align-items: center;
+  h2{
+    color: $color-brand2;
+    margin-bottom: 1rem;
+  }
+  p{
+    color: $color-brand2;
+  }
+}
+
+#popup-ajoutPage-close{
+  position: absolute;
+}
+
+.popup-ajoutPage-formulaire{
+  background-color: $white;
+  padding: 2rem;
+  input[type="text"]{
+    margin-bottom: 1rem;
+    @include respond-to("small-up"){
+      min-width: 50rem;
+    }
+  }
+}
+
+#ajoutPage-infos{
+  display: none;
+}

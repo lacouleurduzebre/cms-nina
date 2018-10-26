@@ -75,7 +75,7 @@ body.connected{
     &:hover > a{
       background-color: darken($color-primary, 15);
     }
-    > ul{
+    > ul{//Nv 2
       display: none;
       position: absolute;
       top:38px;
@@ -85,14 +85,27 @@ body.connected{
     }
   }
   > li > ul > li{
-    > a{
+    > a > span{
+      padding-right: 1rem;
+    }
+    a{
       border-bottom: 1px solid #FFF;
       padding: 1rem;
+      svg{
+        transform: rotate(-90deg);
+        margin-left: auto;
+      }
     }
     &:last-of-type > a{
       border: none;
     }
   }
+}
+
+.sidebar-menu li > ul > li > ul {//Nv 3
+  top: 0;
+  left: 100%;
+  background-color: darken($color-primary, 5);
 }
 
 /* Menu compte */

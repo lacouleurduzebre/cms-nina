@@ -18,6 +18,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 class MenuController extends Controller
 {
@@ -105,8 +106,17 @@ class MenuController extends Controller
      * @param Request $request
      * @return bool|Response
      */
-    public function ajouterPageEnfantAction(Request $request){
+    public function ajouterPageEnfantAction(Request $request, UserInterface $user){
         if($request->isXmlHttpRequest()){
+            //Infos pop-up
+            $data = $request->get('donneesFormulaire');
+            $titre = $data[array_search('ajoutPage-titre', array_column($data, 'name'))]['value'];
+            $titreMenu = $data[array_search('ajoutPage-titreMenu', array_column($data, 'name'))]['value'];
+            $metaTitre = $data[array_search('ajoutPage-metaTitre', array_column($data, 'name'))]['value'];
+            $url = $data[array_search('ajoutPage-url', array_column($data, 'name'))]['value'];
+            $metaDescription = $data[array_search('ajoutPage-metaDescription', array_column($data, 'name'))]['value'];
+            //Infos pop-up
+
             $em = $this->getDoctrine()->getManager();
             $repoPage = $em->getRepository(Page::class);
             $repoSEO = $em->getRepository(SEO::class);
@@ -115,20 +125,20 @@ class MenuController extends Controller
 
             //Création page
             $page = new Page();
-            $titre = 'Page sans titre';
 
-            $url = 'page-sans-titre';
             while($repoSEO->findOneBy(array('url' => $url))){
                 $url = $url.'-copie';
             }
 
             $page->setTitre($titre);
-            $page->setTitreMenu($titre);
+            $page->setTitreMenu($titreMenu);
+            $page->setAuteur($user);
+            $page->setAuteurDerniereModification($user);
             $SEO = new SEO();
-            $SEO->setMetaTitre($titre)->setUrl($url);
+            $SEO->setMetaTitre($metaTitre)->setUrl($url)->setMetaDescription($metaDescription);
             $page->setSeo($SEO);
 
-            $idLangue = $request->get('idLangue');
+            $idLangue = $data[array_search('ajoutPage-idLangue', array_column($data, 'name'))]['value'];
             $langue = $repoLangue->find($idLangue);
             $page->setLangue($langue);
 
@@ -141,9 +151,10 @@ class MenuController extends Controller
             //Création menuPage
             $menuPage = new MenuPage();
 
-            $idPageParent = $request->get('idPageParent');
+            $idPageParent = $data[array_search('ajoutPage-idPageParent', array_column($data, 'name'))]['value'];
             $pageParent = $repoPage->find($idPageParent);
-            $idMenu = $request->get('idMenu');
+
+            $idMenu = $data[array_search('ajoutPage-idMenu', array_column($data, 'name'))]['value'];
             $menu = $repoMenu->find($idMenu);
 
             $menuPage->setPosition(0)->setPage($page)->setPageParent($pageParent)->setMenu($menu);

@@ -45,6 +45,19 @@
                                 {% block menu_subitem %}
                                     <li class="{{ subitem.type == 'divider' ? 'header' }} {{ app.request.query.get('menuIndex')|default(-1) == loop.parent.loop.index0 and app.request.query.get('submenuIndex')|default(-1) == loop.index0 ? 'active' }}">
                                         {{ helper.render_menu_item(subitem, _entity_config.translation_domain|default('messages')) }}
+                                        {# Sub-sub item #}
+                                        {% if subitem.children|default([]) is not empty %}
+                                            <ul class="treeview-menu">
+                                                {% for subitem in subitem.children %}
+                                                    {% block menu_subsubitem %}
+                                                        <li class="{{ subitem.type == 'divider' ? 'header' }} {{ app.request.query.get('menuIndex')|default(-1) == loop.parent.loop.index0 and app.request.query.get('submenuIndex')|default(-1) == loop.index0 ? 'active' }}">
+                                                            {{ helper.render_menu_item(subitem, _entity_config.translation_domain|default('messages')) }}
+                                                        </li>
+                                                    {% endblock menu_subsubitem %}
+                                                {% endfor %}
+                                            </ul>
+                                        {% endif %}
+                                        {# /Sub-sub item #}
                                     </li>
                                 {% endblock menu_subitem %}
                             {% endfor %}

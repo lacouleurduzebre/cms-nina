@@ -46,24 +46,20 @@ $(document).ready(function(){
 
                     idLangue = $(".arbo-langues .current a").attr("class");
 
-                    $('#loader-arbo.'+idMenuComplet).fadeIn().html("<i class='fas fa-sync fa-spin'></i>");
+                    //Pop-up
+                    $.get(baseURL+"/assets/js/popup-ajoutPage.html", function(data){
+                        $('body').append(data);
+                        $('#ajoutPage-idNode').val(node.id);
+                        $('#ajoutPage-idPageParent').val(idPageParent);
+                        $('#ajoutPage-idMenu').val(idMenu);
+                        $('#ajoutPage-idMenuComplet').val(idMenuComplet);
+                        $('#ajoutPage-idLangue').val(idLangue);
+                    });
 
-                    $.ajax({
-                        url: baseURL+Routing.generate('ajouterPageEnfant'),
-                        method: "post",
-                        data: {idPageParent: idPageParent, idMenu: idMenu, idLangue: idLangue}
-                    })
-                        .done(function(data){
-                            $('#loader-arbo.'+idMenuComplet).fadeIn().html("<i class='fas fa-check'></i>").delay(600).fadeOut();
-
-                            idPage = data.substring(0, data.indexOf('*'));
-                            idMenuPage = data.substring(data.indexOf('*')+1);
-
-                            nouveauNode = $('#'+idMenuComplet).jstree("create_node", node, 'Page sans titre<span class="menuPage" id="'+idMenuPage+'"></span><span class="page" id="'+idPage+'"></span>', 'first', false, false);
-                        })
-                        .fail(function(){
-                            $('#loader-arbo.'+idMenuComplet).html("<i class='fas fa-times'></i>").delay(600).fadeOut();
-                        });
+                    $('body').on('keyup', '#ajoutPage-titre', function(){
+                        titre = $('#ajoutPage-titre').val();
+                        remplirInfos(titre);
+                    });
                 }
             },
             "home":{
@@ -288,7 +284,7 @@ $(document).ready(function(){
             }
             menuPage = [idMenuPage, idPage, position, idPageParent, idMenu];
 
-            /*console.log(menuPage);*/
+            console.log(menuPage);
 
             arbo.push(menuPage);
         });
@@ -324,4 +320,111 @@ $(document).ready(function(){
         $(this).jstree().open_all();
 //            context_hide();
     });
+
+    //Pop-up ajout de page
+        //Fermeture
+    $('body').on('click', '#popup-ajoutPage-close', function(){
+        $('#popup-ajoutPage').remove();
+    });
+
+        //Informations supplémentaires : réutilisation titre
+    $('body').on('click', '#ajoutPage-infosTitre', function(){
+        titre = $('#ajoutPage-titre').val();
+        if($(this).is(':checked')){
+            remplirInfos(titre);
+            $('body').on('keyup', '#ajoutPage-titre', function(){
+                titre = $('#ajoutPage-titre').val();
+                remplirInfos(titre);
+            });
+        }else{
+            $('body').off('keyup', '#ajoutPage-titre');
+        }
+    });
+
+        //Informations supplémentaires : édition manuelle
+    $('body').on('click', '#ajoutPage-infosManu', function(){
+        $('#ajoutPage-infos').slideToggle();
+        if(!$(this).is(':checked') && !$('#ajoutPage-infosTitre').is(':checked')){
+          $('#ajoutPage-infosTitre').click();
+        }
+    });
+
+    remplirInfos = function(titre){
+        $('.reutilisationTitre').val(titre);
+        $('#ajoutPage-url').val(str2url(titre));
+    };
+
+    function str2url(str,encoding,ucfirst)
+    {
+        str = str.toUpperCase();
+        str = str.toLowerCase();
+        str = str.replace(/[\u00E0\u00E1\u00E2\u00E3\u00E4\u00E5]/g,'a');
+        str = str.replace(/[\u00E7]/g,'c');
+        str = str.replace(/[\u00E8\u00E9\u00EA\u00EB]/g,'e');
+        str = str.replace(/[\u00EC\u00ED\u00EE\u00EF]/g,'i');
+        str = str.replace(/[\u00F2\u00F3\u00F4\u00F5\u00F6\u00F8]/g,'o');
+        str = str.replace(/[\u00F9\u00FA\u00FB\u00FC]/g,'u');
+        str = str.replace(/[\u00FD\u00FF]/g,'y');
+        str = str.replace(/[\u00F1]/g,'n');
+        str = str.replace(/[\u0153]/g,'oe');
+        str = str.replace(/[\u00E6]/g,'ae');
+        str = str.replace(/[\u00DF]/g,'ss');
+        str = str.replace(/[^a-z0-9\s\'\:\/\[\]-]/g,'');
+        str = str.replace(/[\s\'\:\/\[\]-]+/g,' ');
+        str = str.replace(/[ ]/g,'-');
+        if (ucfirst === 1)
+        {
+            c = str.charAt(0);
+            str = c.toUpperCase()+str.slice(1);
+        }
+        return str;
+    }
+
+        //Soumission formulaire
+    $('body').on('submit', '#popup-ajoutPage-formulaire', function(e){
+        e.preventDefault();
+
+        //Vérif champs
+        $(this).find('input[type="text"]').each(function(){
+            if(typeof(titre) === 'undefined'){
+                titre = $('#ajoutPage-titre').val();
+            }
+           if($(this).val() === ''){
+                if($(this).attr('id') === 'ajoutPage-url'){
+                    $(this).val(str2url(titre));
+                }else{
+                    $(this).val(titre);
+                }
+           }
+            $('#popup-ajoutPage').hide();
+           delete titre;
+        });
+
+        //Submit
+        idNode = $('#ajoutPage-idNode').val();
+        idMenuComplet = $('#ajoutPage-idMenuComplet').val();
+        titreMenu = $('#ajoutPage-titreMenu').val();
+        $('#loader-arbo.'+idMenuComplet).fadeIn().html("<i class='fas fa-sync fa-spin'></i>");
+
+        donneesFormulaire = $(this).serializeArray();
+         $.ajax({
+             url: baseURL+Routing.generate('ajouterPageEnfant'),
+             method: "post",
+             data: {donneesFormulaire: donneesFormulaire}
+         })
+         .done(function(data){
+             $('#popup-ajoutPage').remove();
+             $('#loader-arbo.'+idMenuComplet).fadeIn().html("<i class='fas fa-check'></i>").delay(600).fadeOut();
+
+             idPage = data.substring(0, data.indexOf('*'));
+             idMenuPage = data.substring(data.indexOf('*')+1);
+
+             node = $('#'+idMenuComplet).jstree("get_node", idNode);
+
+             nouveauNode = $('#'+idMenuComplet).jstree("create_node", node, titreMenu+'<span class="menuPage" id="'+idMenuPage+'"></span><span class="page" id="'+idPage+'"></span>', 'first', false, false);
+         })
+         .fail(function(){
+            $('#loader-arbo.'+idMenuComplet).html("<i class='fas fa-times'></i>").delay(600).fadeOut();
+         });
+    })
 });

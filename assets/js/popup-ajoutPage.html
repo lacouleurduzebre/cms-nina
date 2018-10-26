@@ -1,0 +1,53 @@
+<div id="popup-ajoutPage">
+    <div id="popup-ajoutPage-close">
+        <i class="fas fa-times"></i>
+    </div>
+    <div class="mw1140p center popup-ajoutPage-formulaire">
+        <h2>Ajouter une page</h2>
+        <form id="popup-ajoutPage-formulaire" action="" method="POST">
+            <div>
+                <input name="ajoutPage-idNode" id="ajoutPage-idNode" type="hidden">
+                <input name="ajoutPage-idPageParent" id="ajoutPage-idPageParent" type="hidden">
+                <input name="ajoutPage-idMenu" id="ajoutPage-idMenu" type="hidden">
+                <input name="ajoutPage-idMenuComplet" id="ajoutPage-idMenuComplet" type="hidden">
+                <input name="ajoutPage-idLangue" id="ajoutPage-idLangue" type="hidden">
+            </div>
+            <div>
+                <label for="ajoutPage-titre">Titre de la page</label>
+                <input required name="ajoutPage-titre" id="ajoutPage-titre" type="text">
+            </div>
+            <div>
+                <p>Pour les autres informations de la page :</p>
+                <label for="ajoutPage-infosTitre">
+                    <input id="ajoutPage-infosTitre" checked type="checkbox" name="ajoutPage-infos">
+                    Réutiliser le titre
+                </label>
+                <label for="ajoutPage-infosManu">
+                    <input id="ajoutPage-infosManu" type="checkbox" name="ajoutPage-infos">
+                    Éditer manuellement
+                </label>
+            </div>
+            <div id="ajoutPage-infos">
+                <div>
+                    <label for="ajoutPage-titreMenu">Titre dans les menus</label>
+                    <input name="ajoutPage-titreMenu" id="ajoutPage-titreMenu" class="reutilisationTitre" type="text">
+                </div>
+                <div>
+                    <label for="ajoutPage-metaTitre">Méta-titre</label>
+                    <input name="ajoutPage-metaTitre" id="ajoutPage-metaTitre" class="reutilisationTitre" type="text">
+                </div>
+                <div>
+                    <label for="ajoutPage-url">Url de la page</label>
+                    <input name="ajoutPage-url" id="ajoutPage-url" type="text">
+                </div>
+                <div>
+                    <label for="ajoutPage-metaDescription">Méta-description</label>
+                    <input name="ajoutPage-metaDescription" id="ajoutPage-metaDescription" class="reutilisationTitre" type="text">
+                </div>
+            </div>
+            <div class="txtright">
+                <input class="button" type="submit" value="Créer la page">
+            </div>
+        </form>
+    </div>
+</div>
