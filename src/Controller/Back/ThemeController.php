@@ -32,6 +32,16 @@ class ThemeController extends Controller
             $config = Yaml::parseFile('../themes/'.$nomTheme.'/config.yaml');
             $infos = $config['infos'];
             $themes[$nomTheme] = $infos;
+
+            //Miniature
+            $racine = $this->get('kernel')->getProjectDir();
+            $miniature = $racine.'/themes/'.$nomTheme.'/thumb.jpg';
+            $lien = $racine.'/public/themes_thumbs/'.$nomTheme.'.jpg';
+            if(!file_exists($lien)){
+                if(file_exists($miniature)){
+                    symlink($miniature, $lien);
+                }
+            }
         }
 
         return $this->render('back/theme.html.twig', array('themes' => $themes));
