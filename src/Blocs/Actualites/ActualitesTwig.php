@@ -12,15 +12,17 @@ namespace App\Blocs\Actualites;
 use App\Entity\Bloc;
 use App\Entity\Categorie;
 use App\Entity\Page;
+use App\Service\Pagination;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Twig\Environment;
 
 class ActualitesTwig extends \Twig_Extension
 {
-    public function __construct(RegistryInterface $doctrine, Environment $twig)
+    public function __construct(RegistryInterface $doctrine, Environment $twig, Pagination $pagination)
     {
         $this->doctrine = $doctrine;
+        $this->pagination = $pagination;
     }
 
     public function getFunctions()
@@ -44,31 +46,37 @@ class ActualitesTwig extends \Twig_Extension
 
         $repoPage = $this->doctrine->getRepository(Page::class);
 
+        $resultats = [];
+
         //Pas de limite ni de catégorie
         if($limite === null && $categorie === null){
+//            $resultats['if'] = 1;
+            $nbResultats = $repoPage->nombrePagesPubliees($langue);
             if($pagination == 1){
                 if(!isset($_GET['page'])){
                     $pages = $repoPage->pagesPubliees($langue, $resultatsParPage);
                 }else{
-                    $offset = ($_GET['page'] - 1) * $resultatsParPage;
+                    $pageActuelle = $this->pagination->testPageActuelle($_GET['page'], $nbResultats, $resultatsParPage);
+                    $offset = ($pageActuelle - 1) * $resultatsParPage;
                     $pages = $repoPage->pagesPubliees($langue, $resultatsParPage, $offset);
                 }
             }else{
                 $pages = $repoPage->pagesPubliees($langue);
             }
-
-            return $pages;
         }
 
 
         //Limite et catégorie
-        if($limite != null && $categorie != null){
+        elseif($limite != null && $categorie != null){
+//            $resultats['if'] = 2;
+            $nbResultats = $repoPage->nombrePagesPublieesCategorie($categorie, $langue, $limite);
             if($pagination == 1 && $resultatsParPage < $limite){
                 if(!isset($_GET['page'])){
                     $pages = $repoPage->pagesPublieesCategorie($categorie, $langue, $resultatsParPage);
                 }else{
-                    $offset = ($_GET['page'] - 1) * $resultatsParPage;
-                    if($_GET['page'] * $resultatsParPage < $limite){
+                    $pageActuelle = $this->pagination->testPageActuelle($_GET['page'], $nbResultats, $resultatsParPage);
+                    $offset = ($pageActuelle - 1) * $resultatsParPage;
+                    if($pageActuelle * $resultatsParPage < $limite){
                         $pages = $repoPage->pagesPublieesCategorie($categorie, $langue, $resultatsParPage, $offset);
                     }else{//Il reste moins de résultats à afficher que le nb de résultats par page
                         $nvLimite = $limite - $offset;
@@ -78,18 +86,19 @@ class ActualitesTwig extends \Twig_Extension
             }else{
                 $pages = $repoPage->pagesPublieesCategorie($categorie, $langue, $limite);
             }
-
-            return $pages;
         }
 
         //Uniquement limite
-        if($limite != null){
+        elseif($limite != null){
+//            $resultats['if'] = 3;
+            $nbResultats = $repoPage->nombrePagesPubliees($langue, $limite);
             if($pagination == 1 && $resultatsParPage < $limite){
                 if(!isset($_GET['page'])){
                     $pages = $repoPage->pagesPubliees($langue, $resultatsParPage);
                 }else{
-                    $offset = ($_GET['page'] - 1) * $resultatsParPage;
-                    if($_GET['page'] * $resultatsParPage < $limite){
+                    $pageActuelle = $this->pagination->testPageActuelle($_GET['page'], $nbResultats, $resultatsParPage);
+                    $offset = ($pageActuelle - 1) * $resultatsParPage;
+                    if($pageActuelle * $resultatsParPage < $limite){
                         $pages = $repoPage->pagesPubliees($langue, $resultatsParPage, $offset);
                     }else{//Il reste moins de résultats à afficher que le nb de résultats par page
                         $nvLimite = $limite - $offset;
@@ -99,22 +108,37 @@ class ActualitesTwig extends \Twig_Extension
             }else{
                 $pages = $repoPage->pagesPubliees($langue, $limite);
             }
-
-            return $pages;
         }
 
         //Uniquement catégorie (else)
-        if($pagination == 1){
-            if(!isset($_GET['page'])){
-                $pages = $repoPage->pagesPublieesCategorie($categorie, $langue, $resultatsParPage);
+        else{
+//            $resultats['if'] = 4;
+            $nbResultats = $repoPage->nombrePagesPublieesCategorie($categorie, $langue);
+            if($pagination == 1){
+                if(!isset($_GET['page'])){
+                    $pages = $repoPage->pagesPublieesCategorie($categorie, $langue, $resultatsParPage);
+                }else{
+                    $pageActuelle = $this->pagination->testPageActuelle($_GET['page'], $nbResultats, $resultatsParPage);
+                    $offset = ($pageActuelle - 1) * $resultatsParPage;
+                    $pages = $repoPage->pagesPublieesCategorie($categorie, $langue, $resultatsParPage, $offset);
+                }
             }else{
-                $offset = ($_GET['page'] - 1) * $resultatsParPage;
-                $pages = $repoPage->pagesPublieesCategorie($categorie, $langue, $resultatsParPage, $offset);
+                $pages = $repoPage->pagesPublieesCategorie($categorie, $langue);
             }
-        }else{
-            $pages = $repoPage->pagesPublieesCategorie($categorie, $langue);
         }
 
-        return $pages;
+        $resultats['pages'] = $pages;
+        $resultats['nbResultats'] = $nbResultats;
+
+        if($pagination == 1){
+            if(!isset($pageActuelle)){
+                $pageActuelle = 1;
+            }
+            $resultats['pagination'] = $this->pagination->renderPagination($nbResultats, $resultatsParPage, $pageActuelle);
+        }else{
+            $resultats['pagination'] = null;
+        }
+
+        return $resultats;
     }
 }

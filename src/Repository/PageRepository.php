@@ -74,6 +74,31 @@ class PageRepository extends \Doctrine\ORM\EntityRepository
         return $qb->getQuery()->getResult();
     }
 
+    public function nombrePagesPublieesCategorie($categorie, $langue, $limite = null){
+        $timestamp = new \DateTime();
+        $date = $timestamp->format('Y-m-d H:i:s');
+
+        $qb = $this
+            ->createQueryBuilder('p')
+                ->select('count(p.id)')
+                ->where('p.corbeille = 0')
+                ->andWhere('p.active = 1')
+                ->andWhere('p.langue = :langue')
+                ->andWhere('p.datePublication < :date')
+                ->andWhere(':categorie MEMBER OF p.categories')
+                ->andWhere('p.dateDepublication > :date OR p.dateDepublication IS NULL')
+                    ->setParameters(array('langue' => $langue, 'date' => $date, 'categorie' => $categorie))
+            ->orderBy('p.datePublication', 'DESC');
+
+        $nbResultats = $qb->getQuery()->getSingleScalarResult();
+
+        if($limite && $limite < $nbResultats){
+            return $limite;
+        }else{
+            return $nbResultats;
+        }
+    }
+
     public function nombreTotal(){
         $qb = $this
             ->createQueryBuilder('p')
@@ -82,7 +107,7 @@ class PageRepository extends \Doctrine\ORM\EntityRepository
         return $qb->getQuery()->getSingleScalarResult();
     }
 
-    public function nombrePagesPubliees($langue = null){
+    public function nombrePagesPubliees($langue = null, $limite = null){
         $timestamp = new \DateTime();
         $date = $timestamp->format('Y-m-d H:i:s');
 
@@ -101,7 +126,13 @@ class PageRepository extends \Doctrine\ORM\EntityRepository
             $qb->setParameters(array('date' => $date));
         }
 
-        return $qb->getQuery()->getSingleScalarResult();
+        $nbResultats = $qb->getQuery()->getSingleScalarResult();
+
+        if($limite && $limite < $nbResultats){
+            return $limite;
+        }else{
+            return $nbResultats;
+        }
     }
 
     public function titreMenuLike($langue, $recherche){
