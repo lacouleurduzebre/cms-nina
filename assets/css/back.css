@@ -758,7 +758,7 @@ body.connected {
   .sidebar-menu > li > ul > li a {
     border-bottom: 1px solid #FFF;
     padding: 1rem; }
-    .sidebar-menu > li > ul > li a svg {
+    .sidebar-menu > li > ul > li a svg:not(.fa-power-off) {
       transform: rotate(-90deg);
       margin-left: auto; }
   .sidebar-menu > li > ul > li:last-of-type > a {

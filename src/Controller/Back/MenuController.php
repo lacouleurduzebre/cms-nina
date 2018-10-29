@@ -330,7 +330,7 @@ class MenuController extends Controller
             $recherche = $request->get('recherche');
 
             $repoPage = $this->getDoctrine()->getRepository(Page::class);
-            $pages = $repoPage->titreLike($langue, $recherche);
+            $pages = $repoPage->titreMenuLike($langue, $recherche);
 
             $tpl = $this->render('/back/menu/pagesFiltrees.html.twig', array('pages' => $pages))->getContent();
 

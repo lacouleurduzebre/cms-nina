@@ -17,7 +17,6 @@ easy_admin:
                 fields:
                     - { property: 'nom', label: 'Nom du site' }
                     - { property: 'logo', type: 'text' }
-                    - { property: 'theme', label: 'Thème', type: 'App\Form\Type\ThemeType' }
                     - { property: 'editeur', label: 'Éditeur' }
                     - emailContact
                     - emailMaintenance

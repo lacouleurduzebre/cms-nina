@@ -91,7 +91,7 @@ body.connected{
     a{
       border-bottom: 1px solid #FFF;
       padding: 1rem;
-      svg{
+      svg:not(.fa-power-off){
         transform: rotate(-90deg);
         margin-left: auto;
       }
