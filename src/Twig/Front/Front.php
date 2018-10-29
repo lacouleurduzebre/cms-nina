@@ -71,7 +71,7 @@ class Front extends \Twig_Extension
         //Fin langue
 
         $repoGroupeBlocs = $this->doctrine->getRepository(\App\Entity\GroupeBlocs::class);
-        $groupesBlocs = $repoGroupeBlocs->findBy(array('region' => $idRegion, 'langue' => $langue ));
+        $groupesBlocs = $repoGroupeBlocs->findBy(array('region' => $idRegion, 'langue' => $langue ), array('position' => 'ASC'));
 
         $rendu = '';
         foreach($groupesBlocs as $groupeBlocs){

@@ -27,5 +27,6 @@ easy_admin:
                     - nom
                     - identifiant
                     - region
+                    - position
                     - langue
                     - { property: 'blocs', type: 'collection', type_options: { entry_type: 'App\Form\Type\BlocType', by_reference: false } }
