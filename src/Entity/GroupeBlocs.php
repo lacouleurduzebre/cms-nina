@@ -45,6 +45,11 @@ class GroupeBlocs
      */
     private $identifiant;
 
+    /**
+     * @ORM\Column(type="smallint", nullable=true)
+     */
+    private $position;
+
     public function __construct()
     {
         $this->blocs = new ArrayCollection();
@@ -135,6 +140,18 @@ class GroupeBlocs
     public function setIdentifiant(string $identifiant): self
     {
         $this->identifiant = $identifiant;
+
+        return $this;
+    }
+
+    public function getPosition(): ?int
+    {
+        return $this->position;
+    }
+
+    public function setPosition(?int $position): self
+    {
+        $this->position = $position;
 
         return $this;
     }

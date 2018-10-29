@@ -38,7 +38,9 @@
 
     {# Page actuelle #}
     <li class="pagination-active">
-        {{ page }}
+        <span>
+            {{ page }}
+        </span>
     </li>
 
     {# Lien page suivante - nb #}
@@ -50,7 +52,7 @@
 
     {# Lien dernière page - nb #}
     {% if page + 2 < nbPages %}
-        {% if page + 3 < nbPages %}
+        {% if page + 2 < nbPages %}
             <li>
                 <span>...</span>
             </li>
