@@ -1,9 +1,9 @@
 <div class="grid-3 small-1 has-gutter-xl">
     {% for page in listerPagesEnfants(bloc.page).pages %}
         <div class="blocRubrique-page flex-container-v">
-            {{ blocAnnexe(page, 'vignette') }}
+            {{ blocAnnexe(page, 'Vignette') }}
             <h2>{{ page.titre }}</h2>
-            {{ blocAnnexe(page, 'resume') }}
+            {{ blocAnnexe(page, 'Resume') }}
             <a href="{{ path("voirPage", { '_locale': page.langue.abreviation, 'url': page.seo.url}) }}">{% trans %}Voir la page{% endtrans %}</a>
         </div>
     {% endfor %}

@@ -5,7 +5,7 @@
     {% if not config.maintenance or is_granted('IS_AUTHENTICATED_REMEMBERED') %}
         <title>{% block title %}{% if langueActive.metaTitre is not empty %}{{ langueActive.metaTitre }}{% else %}{{ config.nom }}{% endif %}{% endblock %}</title>
         {% block stylesheets %}
-            <link rel="stylesheet" href="{{ asset('themes/'~theme~'/css/knacss.css') }}" type="text/css">
+            <link rel="stylesheet" href="{{ asset('theme/css/knacss.css') }}" type="text/css">
             <link rel="stylesheet" href="{{ asset('assets/js/slickslider/slick.css') }}" type="text/css">
             <link rel="stylesheet" href="{{ asset('assets/js/slickslider/slick-theme.css') }}" type="text/css">
             <link rel="stylesheet" href="{{ asset('assets/js/fancybox/jquery.fancybox.min.css') }}" type="text/css">
