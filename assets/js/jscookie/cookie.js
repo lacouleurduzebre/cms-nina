@@ -1,117 +1,163 @@
 /*!
- * jQuery Cookie Plugin v1.4.1
- * https://github.com/carhartl/jquery-cookie
+ * JavaScript Cookie v2.2.0
+ * https://github.com/js-cookie/js-cookie
  *
- * Copyright 2013 Klaus Hartl
+ * Copyright 2006, 2015 Klaus Hartl & Fagner Brack
  * Released under the MIT license
  */
-(function (factory) {
-	if (typeof define === 'function' && define.amd) {
-		// AMD
-		define(['jquery'], factory);
-	} else if (typeof exports === 'object') {
-		// CommonJS
-		factory(require('jquery'));
-	} else {
-		// Browser globals
-		factory(jQuery);
-	}
-}(function ($) {
+;(function (factory) {
+    var registeredInModuleLoader;
+    if (typeof define === 'function' && define.amd) {
+        define(factory);
+        registeredInModuleLoader = true;
+    }
+    if (typeof exports === 'object') {
+        module.exports = factory();
+        registeredInModuleLoader = true;
+    }
+    if (!registeredInModuleLoader) {
+        var OldCookies = window.Cookies;
+        var api = window.Cookies = factory();
+        api.noConflict = function () {
+            window.Cookies = OldCookies;
+            return api;
+        };
+    }
+}(function () {
+    function extend () {
+        var i = 0;
+        var result = {};
+        for (; i < arguments.length; i++) {
+            var attributes = arguments[ i ];
+            for (var key in attributes) {
+                result[key] = attributes[key];
+            }
+        }
+        return result;
+    }
 
-	var pluses = /\+/g;
+    function decode (s) {
+        return s.replace(/(%[0-9A-Z]{2})+/g, decodeURIComponent);
+    }
 
-	function encode(s) {
-		return config.raw ? s : encodeURIComponent(s);
-	}
+    function init (converter) {
+        function api() {}
 
-	function decode(s) {
-		return config.raw ? s : decodeURIComponent(s);
-	}
+        function set (key, value, attributes) {
+            if (typeof document === 'undefined') {
+                return;
+            }
 
-	function stringifyCookieValue(value) {
-		return encode(config.json ? JSON.stringify(value) : String(value));
-	}
+            attributes = extend({
+                path: '/'
+            }, api.defaults, attributes);
 
-	function parseCookieValue(s) {
-		if (s.indexOf('"') === 0) {
-			// This is a quoted cookie as according to RFC2068, unescape...
-			s = s.slice(1, -1).replace(/\\"/g, '"').replace(/\\\\/g, '\\');
-		}
+            if (typeof attributes.expires === 'number') {
+                attributes.expires = new Date(new Date() * 1 + attributes.expires * 864e+5);
+            }
 
-		try {
-			// Replace server-side written pluses with spaces.
-			// If we can't decode the cookie, ignore it, it's unusable.
-			// If we can't parse the cookie, ignore it, it's unusable.
-			s = decodeURIComponent(s.replace(pluses, ' '));
-			return config.json ? JSON.parse(s) : s;
-		} catch(e) {}
-	}
+            // We're using "expires" because "max-age" is not supported by IE
+            attributes.expires = attributes.expires ? attributes.expires.toUTCString() : '';
 
-	function read(s, converter) {
-		var value = config.raw ? s : parseCookieValue(s);
-		return $.isFunction(converter) ? converter(value) : value;
-	}
+            try {
+                var result = JSON.stringify(value);
+                if (/^[\{\[]/.test(result)) {
+                    value = result;
+                }
+            } catch (e) {}
 
-	var config = $.cookie = function (key, value, options) {
+            value = converter.write ?
+                converter.write(value, key) :
+                encodeURIComponent(String(value))
+                    .replace(/%(23|24|26|2B|3A|3C|3E|3D|2F|3F|40|5B|5D|5E|60|7B|7D|7C)/g, decodeURIComponent);
 
-		// Write
+            key = encodeURIComponent(String(key))
+                .replace(/%(23|24|26|2B|5E|60|7C)/g, decodeURIComponent)
+                .replace(/[\(\)]/g, escape);
 
-		if (value !== undefined && !$.isFunction(value)) {
-			options = $.extend({}, config.defaults, options);
+            var stringifiedAttributes = '';
+            for (var attributeName in attributes) {
+                if (!attributes[attributeName]) {
+                    continue;
+                }
+                stringifiedAttributes += '; ' + attributeName;
+                if (attributes[attributeName] === true) {
+                    continue;
+                }
 
-			if (typeof options.expires === 'number') {
-				var days = options.expires, t = options.expires = new Date();
-				t.setTime(+t + days * 864e+5);
-			}
+                // Considers RFC 6265 section 5.2:
+                // ...
+                // 3.  If the remaining unparsed-attributes contains a %x3B (";")
+                //     character:
+                // Consume the characters of the unparsed-attributes up to,
+                // not including, the first %x3B (";") character.
+                // ...
+                stringifiedAttributes += '=' + attributes[attributeName].split(';')[0];
+            }
 
-			return (document.cookie = [
-				encode(key), '=', stringifyCookieValue(value),
-				options.expires ? '; expires=' + options.expires.toUTCString() : '', // use expires attribute, max-age is not supported by IE
-				options.path    ? '; path=' + options.path : '',
-				options.domain  ? '; domain=' + options.domain : '',
-				options.secure  ? '; secure' : ''
-			].join(''));
-		}
+            return (document.cookie = key + '=' + value + stringifiedAttributes);
+        }
 
-		// Read
+        function get (key, json) {
+            if (typeof document === 'undefined') {
+                return;
+            }
 
-		var result = key ? undefined : {};
+            var jar = {};
+            // To prevent the for loop in the first place assign an empty array
+            // in case there are no cookies at all.
+            var cookies = document.cookie ? document.cookie.split('; ') : [];
+            var i = 0;
 
-		// To prevent the for loop in the first place assign an empty array
-		// in case there are no cookies at all. Also prevents odd result when
-		// calling $.cookie().
-		var cookies = document.cookie ? document.cookie.split('; ') : [];
+            for (; i < cookies.length; i++) {
+                var parts = cookies[i].split('=');
+                var cookie = parts.slice(1).join('=');
 
-		for (var i = 0, l = cookies.length; i < l; i++) {
-			var parts = cookies[i].split('=');
-			var name = decode(parts.shift());
-			var cookie = parts.join('=');
+                if (!json && cookie.charAt(0) === '"') {
+                    cookie = cookie.slice(1, -1);
+                }
 
-			if (key && key === name) {
-				// If second argument (value) is a function it's a converter...
-				result = read(cookie, value);
-				break;
-			}
+                try {
+                    var name = decode(parts[0]);
+                    cookie = (converter.read || converter)(cookie, name) ||
+                        decode(cookie);
 
-			// Prevent storing a cookie that we couldn't decode.
-			if (!key && (cookie = read(cookie)) !== undefined) {
-				result[name] = cookie;
-			}
-		}
+                    if (json) {
+                        try {
+                            cookie = JSON.parse(cookie);
+                        } catch (e) {}
+                    }
 
-		return result;
-	};
+                    jar[name] = cookie;
 
-	config.defaults = {};
+                    if (key === name) {
+                        break;
+                    }
+                } catch (e) {}
+            }
 
-	$.removeCookie = function (key, options) {
-		if ($.cookie(key) === undefined) {
-			return false;
-		}
+            return key ? jar[key] : jar;
+        }
 
-		// Must not alter options, thus extending a fresh object...
-		$.cookie(key, '', $.extend({}, options, { expires: -1 }));
-		return !$.cookie(key);
-	};
+        api.set = set;
+        api.get = function (key) {
+            return get(key, false /* read as raw */);
+        };
+        api.getJSON = function (key) {
+            return get(key, true /* read as json */);
+        };
+        api.remove = function (key, attributes) {
+            set(key, '', extend(attributes, {
+                expires: -1
+            }));
+        };
 
+        api.defaults = {};
+
+        api.withConverter = init;
+
+        return api;
+    }
+
+    return init(function () {});
 }));

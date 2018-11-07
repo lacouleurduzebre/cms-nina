@@ -1,6 +1,6 @@
 $(document).ready(function(){
     /* Toggle colonne de gauche */
-    if($.cookie('full') === 'on'){
+    if(Cookies.get('full') === 'on'){
         $('body').addClass('full');
     }else{
         $('body').addClass('notFull');
@@ -10,7 +10,7 @@ $(document).ready(function(){
         e.preventDefault();
         $('body').toggleClass('full');
         $('body').toggleClass('notFull');
-        $.cookie('full') === 'on' ? $.cookie('full', 'off', { expires: 7 }) : $.cookie('full', 'on', { expires: 7 });
+        Cookies.get('full') === 'on' ? Cookies.set('full', 'off', { expires: 7 }) : Cookies.set('full', 'on', { expires: 7 });
     });
 
     /* Page active colorée dans l'arbo */
@@ -36,7 +36,7 @@ $(document).ready(function(){
     /* Changement de la langue de l'arbo */
     $('.arbo-langues a').click(function(){
         idLangue = $(this).attr('class');
-        $.cookie('langueArbo', idLangue, { expires: 7 });
+        Cookies.set('langueArbo', idLangue, { expires: 7 });
         location.reload();
     });
 

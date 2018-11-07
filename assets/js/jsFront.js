@@ -44,13 +44,13 @@ $(document).ready(function(){
     });
 
     //Cookies
-    if($.cookie('bandeauCookies') !== 'off'){
+    if(Cookies.get('bandeauCookies') !== 'off'){
         $('.cookies').show();
     }
 
     $('#cookies-ok').click(function(e){
         e.preventDefault();
-        $.cookie('bandeauCookies', 'off');
+        Cookies.set('bandeauCookies', 'off');
         $('.cookies').hide();
     });
 
