@@ -141,6 +141,14 @@ div[id^="page_active_blocs"]{
   font-size: 2rem;
 }
 
+.drag:hover{
+  cursor: grab;
+}
+
+.drag:active{
+  cursor: grabbing;
+}
+
 .bloc-menu{
   position: relative;
   span{

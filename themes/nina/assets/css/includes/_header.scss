@@ -32,6 +32,7 @@
       text-align: left;
       background-color: #FFF;
       > li{
+        position: relative;
         > a{
           padding: .5rem 1rem;
           display: inline-block;
@@ -39,6 +40,10 @@
           &:hover{
             background-color: rgba($color-brand, .5);
           }
+        }
+        > ul{
+          left: 100%;
+          top: 0;
         }
       }
     }

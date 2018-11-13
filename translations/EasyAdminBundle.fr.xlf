@@ -23,7 +23,7 @@
       </trans-unit>
       <trans-unit id="2.JmkOa" resname="ajouter un bloc">
         <source>ajouter un bloc</source>
-        <target>__ajouter un bloc</target>
+        <target>ajouter un bloc</target>
       </trans-unit>
       <trans-unit id="Sb9kxV8" resname="edit.page_title">
         <source>edit.page_title</source>

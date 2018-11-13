@@ -2521,12 +2521,17 @@ h1, h2, h3 {
     position: absolute;
     text-align: left;
     background-color: #FFF; }
-    .header_front .blocMenu li.parent > ul > li > a {
-      padding: .5rem 1rem;
-      display: inline-block;
-      width: 100%; }
-      .header_front .blocMenu li.parent > ul > li > a:hover {
-        background-color: rgba(92, 191, 238, 0.5); }
+    .header_front .blocMenu li.parent > ul > li {
+      position: relative; }
+      .header_front .blocMenu li.parent > ul > li > a {
+        padding: .5rem 1rem;
+        display: inline-block;
+        width: 100%; }
+        .header_front .blocMenu li.parent > ul > li > a:hover {
+          background-color: rgba(92, 191, 238, 0.5); }
+      .header_front .blocMenu li.parent > ul > li > ul {
+        left: 100%;
+        top: 0; }
   .header_front .blocMenu li.parent:hover > ul {
     display: block; }
 

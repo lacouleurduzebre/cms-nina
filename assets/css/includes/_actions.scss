@@ -14,9 +14,6 @@
     transition: 0.25s;
     svg{
       transition: 0.25s;
-      @include respond-to("medium-up"){
-        margin-right: .5rem;
-      }
     }
   }
   .formulaire-actions-enregistrer{
@@ -24,6 +21,11 @@
     @include respond-to("medium"){
       span{
         display: none;
+      }
+    }
+    svg{
+      @include respond-to("medium-up"){
+        margin-right: .5rem;
       }
     }
     &[disabled]:hover{

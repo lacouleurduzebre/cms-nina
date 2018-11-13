@@ -3109,14 +3109,14 @@ body.list #flash-messages > * {
     transition: 0.25s; }
     .formulaire-actions .action-voir svg, .formulaire-actions .formulaire-actions-enregistrer svg {
       transition: 0.25s; }
-      @media (min-width: 768px) {
-        .formulaire-actions .action-voir svg, .formulaire-actions .formulaire-actions-enregistrer svg {
-          margin-right: .5rem; } }
   .formulaire-actions .formulaire-actions-enregistrer {
     background-color: #A1BA1D; }
     @media (max-width: 767px) {
       .formulaire-actions .formulaire-actions-enregistrer span {
         display: none; } }
+    @media (min-width: 768px) {
+      .formulaire-actions .formulaire-actions-enregistrer svg {
+        margin-right: .5rem; } }
     .formulaire-actions .formulaire-actions-enregistrer[disabled]:hover {
       background-color: #A1BA1D; }
     .formulaire-actions .formulaire-actions-enregistrer:hover {
@@ -3323,6 +3323,12 @@ div[id^="page_active_blocs"] > div > .collection-empty {
 
 .drag {
   font-size: 2rem; }
+
+.drag:hover {
+  cursor: grab; }
+
+.drag:active {
+  cursor: grabbing; }
 
 .bloc-menu {
   position: relative; }

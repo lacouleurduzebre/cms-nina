@@ -23,19 +23,19 @@
       </trans-unit>
       <trans-unit id="cMU.0rQ" resname="security.login.username">
         <source>security.login.username</source>
-        <target>__security.login.username</target>
+        <target>Nom d'utilisateur</target>
       </trans-unit>
       <trans-unit id="N_kLMwm" resname="security.login.password">
         <source>security.login.password</source>
-        <target>__security.login.password</target>
+        <target>Mot de passe</target>
       </trans-unit>
       <trans-unit id=".sIpuLh" resname="Mot de passe oublié ?">
         <source>Mot de passe oublié ?</source>
-        <target>__Mot de passe oublié ?</target>
+        <target>Mot de passe oublié ?</target>
       </trans-unit>
       <trans-unit id="tuAV77Z" resname="security.login.submit">
         <source>security.login.submit</source>
-        <target>__security.login.submit</target>
+        <target>Se connecter</target>
       </trans-unit>
     </body>
   </file>
