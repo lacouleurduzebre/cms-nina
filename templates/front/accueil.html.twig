@@ -19,12 +19,9 @@
     {% endif %}
 {% endblock %}
 {% block main %}
-<main>
-    {% if page.titre is defined %}<h1>{{ page.titre }}</h1>{% endif %}
     {% if page is not empty %}
         {% if page.blocs is not empty %}
             {% include('front/blocs.html.twig') with {'blocs': page.blocs} only %}
         {% endif %}
     {% endif %}
-</main>
 {% endblock %}

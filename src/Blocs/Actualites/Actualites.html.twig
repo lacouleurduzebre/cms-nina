@@ -7,10 +7,24 @@
 <div class="grid-3 small-1 has-gutter-xl">
     {% for page in actualites(langueActive, bloc)['pages'] %}
         <div class="blocActualites-page flex-container-v">
-            {{ blocAnnexe(page, 'Vignette') }}
-            <h2>{{ page.titre }}</h2>
-            {{ blocAnnexe(page, 'Resume') }}
-            <a href="{{ path("voirPage", { '_locale': page.langue.abreviation, 'url': page.seo.url}) }}">{% trans %}Voir la page{% endtrans %}</a>
+            <div class="blocActualites-page--image">
+                {{ blocAnnexe(page, 'Vignette') }}
+            </div>
+            <div class="blocActualites-page--texte">
+                <h2>{{ page.titre }}</h2>
+                <p class="blocActualites-page--infos">
+                    {{ 'Publié le'|trans }}
+                    {{ page.datePublication|date("d/m/Y") }}
+                    {% if page.categories is not empty %}
+                        {{ 'dans les catégories'|trans }}
+                        {% for categorie in page.categories %}
+                            <a class="bouton-categorie" href="{{ path('voirCategorie', { 'urlTypeCategorie': categorie.typeCategorie.url, 'urlCategorie': categorie.url }) }}">{{ categorie.nom }}</a>
+                        {% endfor %}
+                    {% endif %}
+                </p>
+                {{ blocAnnexe(page, 'Resume') }}
+                <a class="bouton" href="{{ path("voirPage", { '_locale': page.langue.abreviation, 'url': page.seo.url}) }}">{% trans %}Voir la page{% endtrans %}</a>
+            </div>
         </div>
     {% endfor %}
 </div>

@@ -11,6 +11,7 @@ use App\Entity\MenuPage;
 use App\Entity\Page;
 use App\Entity\Region;
 use App\Entity\SEO;
+use App\Entity\Utilisateur;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;
 
@@ -18,9 +19,17 @@ class AppFixtures extends Fixture
 {
     public function load(ObjectManager $manager)
     {
+        $utilisateur = new Utilisateur();
+        $utilisateur->setUsername('adminlcdz')
+            ->setEmail('maintenance@lacouleurduzebre.com')
+            ->setPlainPassword('dev2018')
+            ->setEnabled(true);
+        $manager->persist($utilisateur);
+
         //Configuration générale
         $config = new Configuration();
         $config->setNom('Nouveau site')
+            ->setLogo('theme/img/logo.png')
             ->setEmailContact('maintenance@lacouleurduzebre.com')
             ->setEmailMaintenance('maintenance@lacouleurduzebre.com')
             ->setEditeur('la couleur du Zèbre')
@@ -48,8 +57,8 @@ class AppFixtures extends Fixture
         $page = new Page();
         $page->setTitre('Page sans titre')
             ->setTitreMenu('Page sans titre')
-            ->setAuteur(1)
-            ->setAuteurDerniereModification(1)
+            ->setAuteur($utilisateur)
+            ->setAuteurDerniereModification($utilisateur)
             ->setDateCreation($date)
             ->setDatePublication($date)
             ->setLangue($langue)
@@ -69,8 +78,8 @@ class AppFixtures extends Fixture
         $pageCookies = new Page();
         $pageCookies->setTitre('À propos des cookies')
             ->setTitreMenu('À propos des cookies')
-            ->setAuteur(1)
-            ->setAuteurDerniereModification(1)
+            ->setAuteur($utilisateur)
+            ->setAuteurDerniereModification($utilisateur)
             ->setDateCreation($date)
             ->setDatePublication($date)
             ->setLangue($langue)
@@ -78,7 +87,7 @@ class AppFixtures extends Fixture
         $manager->persist($pageCookies);
 
         $contenuCookies = [];
-        $contenuCookies['texte'] = file_get_contents('cookies.txt');
+        $contenuCookies['texte'] = file_get_contents(getcwd().'/src/DataFixtures/cookies.txt');
 
         $texteCookies = new Bloc();
         $texteCookies->setType('Texte')

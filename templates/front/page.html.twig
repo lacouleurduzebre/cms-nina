@@ -21,24 +21,22 @@
 
     <h1 class="titre-page">{{ page.titre }}</h1>
 
-    <p>Publié le {{ page.datePublication|date("d/m/Y") }} à {{ page.datePublication|date("G:i") }}{# par {{ page.auteur }}#}</p>
+    <p class="infos-page">
+        {{ 'Publié le'|trans }}
+        {{ page.datePublication|date("d/m/Y") }}
+        {% if page.categories is not empty %}
+            {{ 'dans les catégories'|trans }}
+            {% for categorie in page.categories %}
+                <a class="bouton-categorie" href="{{ path('voirCategorie', { 'urlTypeCategorie': categorie.typeCategorie.url, 'urlCategorie': categorie.url }) }}">{{ categorie.nom }}</a>
+            {% endfor %}
+        {% endif %}
+    </p>
 
-    {% if page.categories is not empty %}
-        {% for categorie in page.categories %}
-            <span class="btnCategorie">{{ categorie.typeCategorie.nom }} : <a href="{{ path('voirCategorie', {'urlTypeCategorie':categorie.typeCategorie.url, 'urlCategorie':categorie.url}) }}">{{ categorie.nom }}</a></span>
-            {% if not loop.last %}
-             -
-            {% endif %}
-        {% endfor %}
+    {% if page.blocs is not empty %}
+        {% include('front/blocs.html.twig') with {'blocs': page.blocs} only %}
     {% endif %}
 
-    <main>
-        {% if page.blocs is not empty %}
-            {% include('front/blocs.html.twig') with {'blocs': page.blocs} only %}
-        {% endif %}
-    </main>
-
-    <aside class="clear blocCommentaires">
+    <div class="blocCommentaires">
         <h2>Commentaires sur "{{ page.titre }}"</h2>
         {% for message in app.session.flashbag.get('comOK') %}
             <p class="message">{{ message }}</p>
@@ -53,6 +51,6 @@
             </div>
             {% endif %}
         {% endfor %}
-    </aside>
+    </div>
 
 {% endblock %}

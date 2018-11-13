@@ -1,0 +1,58 @@
+//Bloc actualité
+.blocActualites{
+  h2{
+    color: $color-brand;
+  }
+}
+
+.blocActualites-page--infos{
+  font-style: italic;
+  line-height: 1.2;
+}
+
+//Bloc slider
+.blocSlider{
+  color: $white;
+  a{
+    color: $white;
+  }
+  .slick-prev, .slick-next{
+    width: 40px;
+    height: 40px;
+    z-index: 10;
+    text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  }
+  .slick-prev{
+    left: 1rem;
+  }
+  .slick-next{
+    right: 1rem;
+  }
+  .slick-prev::before, .slick-next::before{
+    font-size: 40px;
+    opacity: 1;
+    color: #FFF;
+  }
+  .slick-dots li button::before{
+    font-size: 1.2rem;
+    color: $color-brand;
+  }
+  .slick-dots li.slick-active button::before{
+    color: $color-brand;
+  }
+}
+
+.blocSlider-slide--texte{
+  padding: 1rem;
+  background-color: $color-brand;
+}
+
+.blocSlider-slide--titre{
+  font-size: 3rem;
+}
+
+//Bloc réseaux sociaux
+.blocReseauxSociaux svg {
+  font-size: 3rem;
+  margin-right: 2rem;
+}

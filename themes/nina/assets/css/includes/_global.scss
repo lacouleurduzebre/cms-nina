@@ -1,180 +1,48 @@
-/* HEADER */
+body{
+  background: url('../img/background.jpg');
+}
 
 body.connected .header_front{
   padding-top: 5rem;
 }
 
-header:not(.main-header){
-  border-bottom:1px solid;
-  p{
-    font-size:2rem;
-    margin-left:5rem;
-  }
-  div:first-of-type{
-    position: relative;
-    align-items: center;
-  }
-  ul{
-    justify-content: right;
-    li{
-      margin: 0 1rem;
-      list-style:none;
-    }
-  }
-  .logo{
-    max-width: 20rem;
-    img{
-      padding-bottom: 4px;
-    }
-  }
-}
-
-/* MENU BACK-OFFICE */
-
-#menuBack{
-  background-color: #9cfffa;
-  border:2px solid #007492;
-  border-right:none;
-  position: absolute;
-  right:0;
-  top:1rem;
-  color:#FFF;
-  padding:1rem;
-  display: flex;
-  align-items: center;
-  border-bottom-left-radius: 25px;
-  border-top-left-radius: 25px;
-  z-index: 10000;
-  .fa-arrow-left, .fa-arrow-right{
-    display: block;
-    font-size:2rem;
-  }
-  img{
-    width:4rem;
-    cursor:pointer;
-  }
-  > *{
-    margin:5px;
-    &:not(.btnMenuBack){
-      display: none;
-    }
-  }
-  .fa-cogs, .fa-pencil-alt, .fa-power-off{
-    font-size:2rem;
-    margin-right:5px;
-  }
-  a{
-    color:#007492;
-    font-weight:bold;
+.bouton, #form_envoi{
+  display: inline-block;
+  background-color: $color-brand;
+  color: $white;
+  border-radius: 5px;
+  padding: 1rem 1.5rem;
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+  text-decoration: none;
+  transition: background-color .3s;
+  &:hover{
+    background-color: $color-brand-dark;
     text-decoration: none;
-  }
-}
-.btnMenuBack{
-  text-align:center;
-}
-#connexion a{
-  color:mediumseagreen;
-  text-decoration: none;
-}
-#deconnexion a{
-  text-decoration: none;
-  color:red;
-}
-
-/* ACCUEIL */
-
-.actuAccueil{
-  padding: 1rem;
-  background-color: #ebff97;
-  margin-top:1rem;
-  margin-bottom:1rem;
-  img{
-    max-height:15rem;
-    width:auto;
+    color: $white;
   }
 }
 
-/* CATEGORIES */
-
-.description{
-  font-style: italic;
-}
-.extrait{
-  padding: 1rem;
-  background-color: #ebff97;
-  margin-top:1rem;
-  margin-bottom:1rem;
-  h2{
-    display: inline;
-  }
-}
-
-/* CONTENU */
-
-.message{
-  background-color: #a9e2a7;
-  padding: 1rem;
-  border: 2px solid #0b8006;
-  border-radius: 1rem;
-}
 main{
-  padding:1rem;
-}
-.btn{
-  border:1px solid;
-  padding:5px;
-  text-decoration: none;
-}
-.blocCommentaires{
-  margin-top:5rem;
-  label{
-    display:block;
+  background-color: rgba($white, .9);
+  div[class^="bloc"], h1, > p, > div > .description, > div > .extrait{
+    padding: 1rem;
   }
-  textarea{
-    width:50%;
+  div.blocSlider, div[class^="blocAnnexe"]{
+    padding: 0;
   }
 }
-.commentaire{
-  background-color: #8acbe0;
-  margin:1rem 0;
-  padding:1rem;
+
+h1, h2, h3{
+  color: $color-brand2;
 }
-.btnCategorie{
-  font-size:80%;
-  color:#666;
+
+.infos-page{
+  padding: 1rem;
+}
+
+#ariane{
+  padding: 1rem;
   a{
-    color:#666;
-    font-style:italic;
+    color: $color-brand2;
   }
-}
-
-/* ZONES */
-
-.zone{
-  border:1px solid red;
-  padding:2px;
-}
-
-/* FOOTER */
-
-footer{
-  clear:both;
-  height:15rem;
-  display:flex;
-  align-items:center;
-  justify-content: center;
-  border-top:1px solid #000000;
-  border-bottom:1px solid #000000;
-}
-
-/* LOGIN */
-
-.formulaireLogin{
-  background-color: #9cfffa;
-  border:2px solid #007492;
-  border-radius:1rem;
-  margin:5rem auto;
-  padding:5px;
-  width:25rem;
-  text-align: center;
 }

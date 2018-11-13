@@ -1,0 +1,11 @@
+.blocCommentaires{
+  label{
+    display: block;
+  }
+  input[type="text"], input[type="email"], textarea{
+    box-shadow: 0 0 0 1px $color-brand inset
+  }
+  #form_envoi{
+    margin-top: 2rem;
+  }
+}

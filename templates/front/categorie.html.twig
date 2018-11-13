@@ -5,10 +5,14 @@
 {% block main %}
 <h1>Liste des pages classées dans "{{ categorie.nom }}"</h1>
     <p class="description">{{ categorie.description|raw }}</p>
-    {% for page in pages %}
-    <div class="extrait">
-        <h2><a href="{{ path('voirPage', {'url':page.seo.url}) }}">{{ page.titre }}</a></h2>
-        <span>Publié le {{ page.datePublication|date("d/m/Y") }}{# par {{ page.auteur }}#}</span>
+    <div class="blocPageCategorie grid-3 small-1 has-gutter-xl">
+        {% for page in pages %}
+            <div class="categorie-page flex-container-v">
+                {{ blocAnnexe(page, 'Vignette') }}
+                <h2>{{ page.titre }}</h2>
+                {{ blocAnnexe(page, 'Resume') }}
+                <a class="bouton" href="{{ path("voirPage", { '_locale': page.langue.abreviation, 'url': page.seo.url}) }}">{% trans %}Voir la page{% endtrans %}</a>
+            </div>
+        {% endfor %}
     </div>
-    {% endfor %}
 {% endblock %}

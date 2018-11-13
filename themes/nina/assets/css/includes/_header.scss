@@ -1,67 +1,55 @@
-/* Menu de langue */
-.menuLangues{
-  li.active{
-    font-weight: bold;
-  }
+.header_front{
+  padding: 1rem;
+  text-align: center;
+  background-color: rgba($white, .7);
 }
 
-/* Menu principal */
-nav.menu_front{
-  border-bottom: 1px solid #000000;
-  margin-bottom: 2rem;
+.header_front .blocMenu{
+  margin-top: 5rem;
   ul{
+    padding: 0;
     list-style: none;
-    background-color:#FFF;
-    padding-left: 5px;
-    a{
-      text-decoration: none;
-      display: inline-block;
+    display: flex;
+    justify-content: center;
+  }
+  a{
+    color: $color-brand2;
+    text-decoration: none;
+  }
+  > div > ul > li{
+    &:after{
+      content: "-";
+      margin: 0 .5rem;
     }
-    ul{
-      display:none;
+    &:last-of-type:after{
+      content: "";
     }
   }
-  li{
-    margin:auto;
+  li.parent{
+    > ul{
+      display: none;
+      position: absolute;
+      text-align: left;
+      background-color: #FFF;
+      > li{
+        > a{
+          padding: .5rem 1rem;
+          display: inline-block;
+          width: 100%;
+          &:hover{
+            background-color: rgba($color-brand, .5);
+          }
+        }
+      }
+    }
+    &:hover{
+      > ul{
+        display: block;
+      }
+    }
   }
-}
-.current, .current_ancestor{
-  font-weight:bold;
-}
-.current_ancestor li:not(.current){
-  font-weight: normal;
 }
 
-nav.menu_front > ul{// Niveau 1
-  max-width: 96rem;
-  margin:auto;
-  display:flex;
-  > li{
-    position: relative;
-    &:hover > a{
-      background-color: #cdcdcd;
-    }
-    > a{
-      padding: 1rem;
-    }
-  }
-}
-
-nav.menu_front > ul > li >ul{// Niveau 2
-  position: absolute;
-  top: 42px;
-  max-width: none;
-  width: 20rem;
-  background-color: #cdcdcd;
-  padding: 0;
-  > li{
-    &:hover > a{
-      background-color: #b5b5b5;
-    }
-    > a{
-      padding: .5rem 0;
-      width: 100%;
-      padding-left:2rem;
-    }
-  }
+.logo{
+  max-width: 20rem;
 }

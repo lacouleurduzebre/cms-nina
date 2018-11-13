@@ -2,9 +2,9 @@
     {% for page in pagesDeLaCategorie(bloc.contenu.categorie) %}
         <div class="blocCategorie-page flex-container-v">
             {{ blocAnnexe(page, 'Vignette') }}
-            <p>{{ page.titre }}</p>
+            <h2>{{ page.titre }}</h2>
             {{ blocAnnexe(page, 'Resume') }}
-            <a class="lire" href="{{ page.seo.url }}">{{ "Découvrir"|trans|upper }}</a>
+            <a class="bouton lire" href="{{ page.seo.url }}">{{ "Lire la suite"|trans }}</a>
         </div>
     {% endfor %}
 </div>
