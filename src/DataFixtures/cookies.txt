@@ -1,0 +1,47 @@
+<h2>Qu'est-ce qu'un cookie ?</h2>
+
+Un Cookie est un petit fichier enregistrant des informations concernant votre navigation sur le site. En aucun cas les cookies ne permettent d'obtenir des informations enregistrées sur votre disque dur ou des informations personnelles. Les cookies permettent de vous reconnaître lorsque vous revenez sur notre site et de faciliter son utilisation.
+
+
+<h2>Comment gérer les cookies ?</h2>
+
+Vous pouvez configurer votre navigateur de manière à ce que les cookies soient enregistrés ou rejetés. Vous pouvez également accéder à d'autres paramètres via ce biais.
+
+<strong>Firefox :</strong>
+
+    Choisissez le menu « Outils » > « Options »
+    Cliquez sur l'option « Vie Privée »
+    Rubrique « Cookies »
+
+<strong>Chrome :</strong>
+
+    Choisissez le menu « Edition » > « Préférences »
+    Cliquez sur l'option « Données personnelles »
+    Rubrique « Cookies »
+
+<strong>Safari :</strong>
+
+    Choisissez le menu « Edition » > « Préférences »
+    Cliquez sur l'option « Données personnelles »
+    Rubrique « Cookies »
+
+<strong>Internet Explorer :</strong>
+
+    Choisissez le menu « Outils » puis « Options Internet »
+    Cliquez sur l'onglet « Confidentialité »
+    Sélectionnez le niveau souhaité à l'aide du curseur
+
+<h2>Conséquences du paramétrage des cookies</h2>
+
+Chaque paramètre que vous modifiez pourra avoir des conséquences sur votre navigation et sur les conditions d'accès à certains des services de ce site, comme par exemple la mémorisation de vos identifiants de formulaires ou de champs de commentaires. Le refus ou la suppression des cookies sur votre navigateur n'empêchera pas l'affichage de publicité sur les sites internet que vous visiterez. Celles-ci ne seront simplement plus adaptées à vos centres d'intérêts.
+
+
+<h2>Les cookies utilisés sur ce site</h2>
+
+Lorsque vous naviguez sur ce site, nous pouvons être amenés à installer divers cookies dans votre terminal, et ce pendant la durée de validité du cookie concerné (maximum 13 mois).
+
+Ces Cookies permettent :
+– d'établir des statistiques et volumes de fréquentation des divers éléments composant le site, afin d'améliorer nos services ;
+– d'adapter la présentation du site aux préférences d'affichage de votre terminal (langue ou résolution d'affichage par exemple) lors de vos visites, en fonction de votre matériel et des logiciels que vous utilisez;
+– de mémoriser des informations relatives à un formulaire que vous avez rempli (inscription, formulaire de contact ou champs de commentaire) ou à des services que vous avez utilisé sur le site;
+– de mettre en place des mesures de sécurité, par exemple lorsqu'il vous est demandé de vous connecter à nouveau à un contenu ou à un service après un certain laps de temps.

@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+  <file source-language="fr" target-language="fr" datatype="plaintext" original="file.ext">
+    <header>
+      <tool tool-id="symfony" tool-name="Symfony"/>
+    </header>
+    <body>
+      <trans-unit id="ssEkU20" resname="Nom">
+        <source>Nom</source>
+        <target>Nom</target>
+      </trans-unit>
+      <trans-unit id="Um4Ah8w" resname="Description">
+        <source>Description</source>
+        <target>Description</target>
+      </trans-unit>
+      <trans-unit id="3xbbWsa" resname="Activé">
+        <source>Activé</source>
+        <target>Activé</target>
+      </trans-unit>
+      <trans-unit id="suuRjjV" resname="Ordre">
+        <source>Ordre</source>
+        <target>Ordre</target>
+      </trans-unit>
+      <trans-unit id="s9.nsem" resname="Vide">
+        <source>Vide</source>
+        <target>Vide</target>
+      </trans-unit>
+      <trans-unit id="cdx0hz4" resname="Enregistrer">
+        <source>Enregistrer</source>
+        <target>Enregistrer</target>
+      </trans-unit>
+      <trans-unit id="TP85j0h" resname="Choisir une image dans la médiathèque">
+        <source>Choisir une image dans la médiathèque</source>
+        <target>Choisir une image dans la médiathèque</target>
+      </trans-unit>
+      <trans-unit id="Fc2xXch" resname="Monter le bloc">
+        <source>Monter le bloc</source>
+        <target>Monter le bloc</target>
+      </trans-unit>
+      <trans-unit id="1VHU2GA" resname="Descendre le bloc">
+        <source>Descendre le bloc</source>
+        <target>Descendre le bloc</target>
+      </trans-unit>
+      <trans-unit id="OZA7F13" resname="Options d'affichage">
+        <source>Options d'affichage</source>
+        <target>Options d'affichage</target>
+      </trans-unit>
+      <trans-unit id="NeR96dC" resname="Supprimer le bloc">
+        <source>Supprimer le bloc</source>
+        <target>Supprimer le bloc</target>
+      </trans-unit>
+      <trans-unit id="HY66ZpQ" resname="Êtes-vous sûr de vouloir supprimer ce bloc ?">
+        <source>Êtes-vous sûr de vouloir supprimer ce bloc ?</source>
+        <target>Êtes-vous sûr de vouloir supprimer ce bloc ?</target>
+      </trans-unit>
+      <trans-unit id="Rq05Fva" resname="Annuler">
+        <source>Annuler</source>
+        <target>Annuler</target>
+      </trans-unit>
+      <trans-unit id="Xl0CFs4" resname="Supprimer">
+        <source>Supprimer</source>
+        <target>Supprimer</target>
+      </trans-unit>
+      <trans-unit id="bBcovD9" resname="Aucun paramètre">
+        <source>Aucun paramètre</source>
+        <target>Aucun paramètre</target>
+      </trans-unit>
+      <trans-unit id="zAKPv_T" resname="Choisir une image">
+        <source>Choisir une image</source>
+        <target>Choisir une image</target>
+      </trans-unit>
+      <trans-unit id="wHBQyok" resname="Désactiver">
+        <source>Désactiver</source>
+        <target>Désactiver</target>
+      </trans-unit>
+      <trans-unit id="d79OiNv" resname="Activer">
+        <source>Activer</source>
+        <target>Activer</target>
+      </trans-unit>
+      <trans-unit id="dJIXwqn" resname="Voir le site">
+        <source>Voir le site</source>
+        <target>Voir le site</target>
+      </trans-unit>
+      <trans-unit id="q0Uca0i" resname="Mon profil">
+        <source>Mon profil</source>
+        <target>Mon profil</target>
+      </trans-unit>
+      <trans-unit id="_1_eksG" resname="Déconnexion">
+        <source>Déconnexion</source>
+        <target>Déconnexion</target>
+      </trans-unit>
+      <trans-unit id="k1NOPoq" resname="Menus">
+        <source>Menus</source>
+        <target>Menus</target>
+      </trans-unit>
+      <trans-unit id="SGz9y18" resname="Rechercher une page">
+        <source>Rechercher une page</source>
+        <target>Rechercher une page</target>
+      </trans-unit>
+      <trans-unit id="hjj0.z5" resname="Aucune page d'accueil n'a été définie pour cette langue">
+        <source>Aucune page d'accueil n'a été définie pour cette langue</source>
+        <target>Aucune page d'accueil n'a été définie pour cette langue</target>
+      </trans-unit>
+      <trans-unit id="87Nmf1B" resname="Choisir une page d'accueil">
+        <source>Choisir une page d'accueil</source>
+        <target>Choisir une page d'accueil</target>
+      </trans-unit>
+      <trans-unit id="HyZIu_7" resname="Aucun résultat">
+        <source>Aucun résultat</source>
+        <target>Aucun résultat</target>
+      </trans-unit>
+      <trans-unit id="h5DnMfX" resname="Créer une nouvelle sauvegarde">
+        <source>Créer une nouvelle sauvegarde</source>
+        <target>Créer une nouvelle sauvegarde</target>
+      </trans-unit>
+      <trans-unit id="dQyctsp" resname="Date de la sauvegarde">
+        <source>Date de la sauvegarde</source>
+        <target>Date de la sauvegarde</target>
+      </trans-unit>
+      <trans-unit id="zaqrRC0" resname="Télécharger">
+        <source>Télécharger</source>
+        <target>Télécharger</target>
+      </trans-unit>
+      <trans-unit id="Vl4v8bt" resname="Nombre de pages">
+        <source>Nombre de pages</source>
+        <target>Nombre de pages</target>
+      </trans-unit>
+      <trans-unit id="sAVyghl" resname="Nombre total :">
+        <source>Nombre total :</source>
+        <target>Nombre total :</target>
+      </trans-unit>
+      <trans-unit id="8x.n4QK" resname="Nombre de pages publiées :">
+        <source>Nombre de pages publiées :</source>
+        <target>Nombre de pages publiées :</target>
+      </trans-unit>
+      <trans-unit id="_5LH44G" resname="En">
+        <source>En</source>
+        <target>En</target>
+      </trans-unit>
+      <trans-unit id="56wHhma" resname=":">
+        <source>:</source>
+        <target>:</target>
+      </trans-unit>
+      <trans-unit id="qlyzBYG" resname="Derniers commentaires">
+        <source>Derniers commentaires</source>
+        <target>Derniers commentaires</target>
+      </trans-unit>
+      <trans-unit id="tVEas_l" resname="Commentaires en attente de validation">
+        <source>Commentaires en attente de validation</source>
+        <target>Commentaires en attente de validation</target>
+      </trans-unit>
+      <trans-unit id="ozsw3Om" resname="Aucun commentaire en attente de validation">
+        <source>Aucun commentaire en attente de validation</source>
+        <target>Aucun commentaire en attente de validation</target>
+      </trans-unit>
+      <trans-unit id="CjCoFdZ" resname="Page">
+        <source>Page</source>
+        <target>Page</target>
+      </trans-unit>
+      <trans-unit id="WIDlngw" resname="Auteur">
+        <source>Auteur</source>
+        <target>Auteur</target>
+      </trans-unit>
+      <trans-unit id="mcQKtAW" resname="Date">
+        <source>Date</source>
+        <target>Date</target>
+      </trans-unit>
+      <trans-unit id="FBk1u6O" resname="Dernières pages">
+        <source>Dernières pages</source>
+        <target>Dernières pages</target>
+      </trans-unit>
+      <trans-unit id="BztcdhV" resname="Aucune page publiée pour le moment">
+        <source>Aucune page publiée pour le moment</source>
+        <target>Aucune page publiée pour le moment</target>
+      </trans-unit>
+      <trans-unit id="l4mJ_nN" resname="publiée le">
+        <source>publiée le</source>
+        <target>publiée le</target>
+      </trans-unit>
+      <trans-unit id="7BkZ03h" resname="Liste des catégories">
+        <source>Liste des catégories</source>
+        <target>Liste des catégories</target>
+      </trans-unit>
+      <trans-unit id="MBu0s5Z" resname="Aucune catégorie n'a été créée pour le moment">
+        <source>Aucune catégorie n'a été créée pour le moment</source>
+        <target>Aucune catégorie n'a été créée pour le moment</target>
+      </trans-unit>
+      <trans-unit id="YQDFSuZ" resname="Derniers inscrits">
+        <source>Derniers inscrits</source>
+        <target>Derniers inscrits</target>
+      </trans-unit>
+      <trans-unit id="y.t.GgV" resname="dernière connexion le">
+        <source>dernière connexion le</source>
+        <target>dernière connexion le</target>
+      </trans-unit>
+      <trans-unit id="P4GUkxq" resname="Le thème a été modifié">
+        <source>Le thème a été modifié</source>
+        <target>Le thème a été modifié</target>
+      </trans-unit>
+      <trans-unit id="v.o611m" resname="Le thème n'a pas pu être modifié">
+        <source>Le thème n'a pas pu être modifié</source>
+        <target>Le thème n'a pas pu être modifié</target>
+      </trans-unit>
+      <trans-unit id="06ShWTZ" resname="Auteur du thème :">
+        <source>Auteur du thème :</source>
+        <target>Auteur du thème :</target>
+      </trans-unit>
+      <trans-unit id="9t9V9SJ" resname="Site internet de l'auteur du thème :">
+        <source>Site internet de l'auteur du thème :</source>
+        <target>Site internet de l'auteur du thème :</target>
+      </trans-unit>
+      <trans-unit id="Lc07R5s" resname="Description :">
+        <source>Description :</source>
+        <target>Description :</target>
+      </trans-unit>
+      <trans-unit id="LZrQLg7" resname="Créer une traduction">
+        <source>Créer une traduction</source>
+        <target>Créer une traduction</target>
+      </trans-unit>
+      <trans-unit id="nOI.yY7" resname="Modification des traductions en">
+        <source>Modification des traductions en</source>
+        <target>Modification des traductions en</target>
+      </trans-unit>
+      <trans-unit id="cw8EcCt" resname="Erreur 404">
+        <source>Erreur 404</source>
+        <target>Erreur 404</target>
+      </trans-unit>
+      <trans-unit id="2ElQaA2" resname="Erreur 404 - Page non trouvée">
+        <source>Erreur 404 - Page non trouvée</source>
+        <target>Erreur 404 - Page non trouvée</target>
+      </trans-unit>
+      <trans-unit id="0wBqpK4" resname="Il semble que la page que vous essayez d'atteindre n'existe pas ou ait été supprimée.">
+        <source>Il semble que la page que vous essayez d'atteindre n'existe pas ou ait été supprimée.</source>
+        <target>Il semble que la page que vous essayez d'atteindre n'existe pas ou ait été supprimée.</target>
+      </trans-unit>
+      <trans-unit id="0mUcXQB" resname="Souhaitez-vous">
+        <source>Souhaitez-vous</source>
+        <target>Souhaitez-vous</target>
+      </trans-unit>
+      <trans-unit id="y75JrAr" resname="retourner à l'accueil ?">
+        <source>retourner à l'accueil ?</source>
+        <target>retourner à l'accueil ?</target>
+      </trans-unit>
+      <trans-unit id="UzFhc1Y" resname="Accueil">
+        <source>Accueil</source>
+        <target>Accueil</target>
+      </trans-unit>
+      <trans-unit id="NpPQAiB" resname="Première page">
+        <source>Première page</source>
+        <target>Première page</target>
+      </trans-unit>
+      <trans-unit id="AwHUENs" resname="Page précédente">
+        <source>Page précédente</source>
+        <target>Page précédente</target>
+      </trans-unit>
+      <trans-unit id="EHM_eP9" resname="Page suivante">
+        <source>Page suivante</source>
+        <target>Page suivante</target>
+      </trans-unit>
+      <trans-unit id="kegk7YJ" resname="Dernière page">
+        <source>Dernière page</source>
+        <target>Dernière page</target>
+      </trans-unit>
+      <trans-unit id="4SzzGIY" resname="Liste des termes">
+        <source>Liste des termes</source>
+        <target>Liste des termes</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

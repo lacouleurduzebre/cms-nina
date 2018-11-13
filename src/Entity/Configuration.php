@@ -53,13 +53,6 @@ class Configuration
     /**
      * @var string
      *
-     * @ORM\Column(name="emailNewsletter", type="string", length=255)
-     */
-    private $emailNewsletter;
-
-    /**
-     * @var string
-     *
      * @ORM\Column(name="analytics", type="text", nullable=true)
      */
     private $analytics;
@@ -195,30 +188,6 @@ class Configuration
     public function getEmailMaintenance()
     {
         return $this->emailMaintenance;
-    }
-
-    /**
-     * Set emailNewsletter
-     *
-     * @param string $emailNewsletter
-     *
-     * @return Configuration
-     */
-    public function setEmailNewsletter($emailNewsletter)
-    {
-        $this->emailNewsletter = $emailNewsletter;
-
-        return $this;
-    }
-
-    /**
-     * Get emailNewsletter
-     *
-     * @return string
-     */
-    public function getEmailNewsletter()
-    {
-        return $this->emailNewsletter;
     }
 
     /**

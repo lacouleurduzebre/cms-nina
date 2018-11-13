@@ -76,7 +76,8 @@ easy_admin:
                 icon: ''
                 children:
                   - { entity: 'Langue', label: 'Langues', type: 'entity', menu_index: 0, submenu_index: 0, icon: '', default: true, params: { } }
-                  - { route: 'traductionsPages', label: 'Traduction des pagess', type: 'route', menu_index: 0, submenu_index: 0, icon: '', default: true, params: { } }
+                  - { route: 'traductionsPages', label: 'Traduction des pages', type: 'route', menu_index: 0, submenu_index: 0, icon: '', default: true, params: { } }
+                  - { route: 'modifierTraductions', label: 'Traduction des templates', type: 'route', menu_index: 0, submenu_index: 0, icon: '', default: true, params: { } }
               - label: 'Interface'
                 icon: ''
                 children:
@@ -92,4 +93,3 @@ easy_admin:
                 - { label: 'Thèmes', icon: '', route: 'theme' }
                 - { label: 'Blocs', icon: '', route: 'configurationBlocs' }
                 - { label: 'Sauvegardes', icon: '', route: 'sauvegarde' }
-                - { label: 'Traduction des templates', icon: '', route: 'modifierTraductions' }
