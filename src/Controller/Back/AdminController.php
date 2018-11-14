@@ -394,6 +394,11 @@ class AdminController extends BaseAdminController
                 $utilisateurs = $repositoryUtilisateur->findBy(array(), array('id' => 'ASC'), 5);
                 $blocs['derniersInscrits'] = $utilisateurs;
             }
+
+            /* Nouvelles de version */
+            if(in_array('logVersion', $blocsUser)){
+                $blocs['logVersion'] = 'ok';
+            }
         }
 
         return $this->render('back/tableauDeBord.html.twig', array(

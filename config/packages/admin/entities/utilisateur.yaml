@@ -37,7 +37,7 @@ easy_admin:
                     - { type: 'tab', label: "Personnalisation de l'interface" }
                     - { property: 'langue', label: "Langue de l'interface" }
                     - { property: 'couleurBO', type: 'choice', label: "Thème de l'interface d'administration", type_options: { choices: { gris: 'gris', bleu: 'bleu' } } }
-                    - { property: 'blocsTableauDeBord', type: 'choice', label: 'Informations présentées sur le tableau de bord', type_options: { multiple: true, expanded: true, choices: { 'Nombre de pages': nombreDePages, 'Derniers commentaires': derniersCommentaires, 'Dernières pages': dernieresPages, 'Liste des catégories': listeCategories, 'Derniers inscrits': derniersInscrits } } }
+                    - { property: 'blocsTableauDeBord', type: 'choice', label: 'Informations présentées sur le tableau de bord', type_options: { multiple: true, expanded: true, choices: { 'Nombre de pages': nombreDePages, 'Derniers commentaires': derniersCommentaires, 'Dernières pages': dernieresPages, 'Liste des catégories': listeCategories, 'Derniers inscrits': derniersInscrits, 'Nouvelles de version': logVersion } } }
             edit:
                 actions:
                     - { name: 'delete', label: 'Supprimer', title: 'Supprimer', icon: 'trash', css_class: '' }

@@ -118,3 +118,8 @@
         {% endfor %}
     </ul>
 {% endblock %}
+
+{% block logVersion %}
+    <h2>{% trans %}Nouvelles de version{% endtrans %}</h2>
+    {{ include('back/logVersion.html.twig') }}
+{% endblock %}
