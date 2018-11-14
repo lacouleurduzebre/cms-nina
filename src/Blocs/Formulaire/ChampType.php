@@ -29,11 +29,11 @@ class ChampType extends AbstractType
         $builder->add('type', ChoiceType::class, array(
             'label' => 'Type de champ',
             'choices' => array(
-                'Texte' => 'text',
-                'Zone de texte' => 'textarea',
+                'Ligne de texte' => 'text',
+                'Paragraphe' => 'textarea',
                 'Sélecteur déroulant' => 'select',
-                'Champ à choix (plusieurs réponses possibles)' => 'checkbox',
-                'Champ à choix (une réponse)' => 'radio'
+                'Choix (plusieurs réponses possibles)' => 'checkbox',
+                'Choix (une seule réponse possible)' => 'radio'
             )
         ))
             ->add('position', HiddenType::class, array(

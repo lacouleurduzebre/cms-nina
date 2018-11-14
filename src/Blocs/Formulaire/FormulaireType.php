@@ -24,11 +24,7 @@ class FormulaireType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('submit', TextType::class, array(
-                'label' => "Texte du bouton d'envoi",
-                'help' => "Par défaut : \"Envoyer\""
-            ))
-            ->add('destinataires', CollectionType::class, array(
+        $builder->add('destinataires', CollectionType::class, array(
                 'entry_type' => TextType::class,
                 'entry_options' => array(
                     'label' => false
@@ -47,6 +43,10 @@ class FormulaireType extends AbstractType
                 'label_format' => 'champ',
                 'allow_add' => true,
                 'allow_delete' => true,
+            ))
+            ->add('submit', TextType::class, array(
+                'label' => "Texte du bouton d'envoi",
+                'help' => "Par défaut : \"Envoyer\""
             ));
     }
 

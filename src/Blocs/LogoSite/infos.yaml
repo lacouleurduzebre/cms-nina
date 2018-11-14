@@ -1,0 +1,6 @@
+nom: 'Logo du site'
+description: 'Affiche le logo et/ou le nom du site'
+type: contenu
+icone: 'fas fa-building'
+priorite: 21
+actif: oui

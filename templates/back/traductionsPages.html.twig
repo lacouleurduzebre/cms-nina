@@ -26,15 +26,11 @@
                             {% for langue in langues %}
                                 {% if langue != langueDefaut %}
                                     <td>
-                                    {% if page.traductions is not empty %}
-                                        {% if page.traductions[langue.id] is defined and page.traductions[langue.id] is not empty %}
-                                            {% set traduction = getTraduction(page.traductions[langue.id]) %}
-                                            <a href="{{ path('easyadmin', {'action':'edit', 'entity':'Page_Active', 'id':traduction.id}) }}">{{ traduction.titre }}</a>
-                                        {% else %}
-                                            <a class="vert" href="{{ path('admin', { action: 'new', entity: 'Page_Active', pageOriginale: page.id, langue: langue.id, 'confirmation': 'oui' }) }}"><i class="fas fa-plus"></i> {{ "Créer une traduction"|trans }}</a>
-                                        {% endif %}
+                                    {% if page.traductions is not empty and page.traductions[langue.id] is defined and page.traductions[langue.id] is not empty %}
+                                        {% set traduction = getTraduction(page.traductions[langue.id]) %}
+                                        <a href="{{ path('easyadmin', {'action':'edit', 'entity':'Page_Active', 'id':traduction.id}) }}">{{ traduction.titre }}</a>
                                     {% else %}
-                                        <i class="fas fa-times rouge"></i>
+                                        <a class="vert" href="{{ path('admin', { action: 'new', entity: 'Page_Active', pageOriginale: page.id, langue: langue.id, 'confirmation': 'oui' }) }}"><i class="fas fa-plus"></i> {{ "Créer une traduction"|trans }}</a>
                                     {% endif %}
                                     </td>
                                 {% endif %}
@@ -44,4 +40,27 @@
                 </tbody>
         </table>
     {% endif %}
+
+    <h2>{{ "Pages en langue étrangère non rattachées à une page dans la langue par défaut"|trans }}</h2>
+    {% for langue in langues %}
+        {% if not langue.defaut %}
+            <h3>{{ langue.nom }}</h3>
+            {% if langue.pages is not empty %}
+                <table class="table">
+                    <tbody>
+                        {% for page in langue.pages %}
+                            {% if page.traductions[langueDefaut.id] is not defined or page.traductions[langueDefaut.id] is empty %}
+                                <tr>
+                                    <td><a href="{{ path('easyadmin', {'action':'edit', 'entity':'Page_Active', 'id':page.id}) }}">{{ page.titre }}</a></td>
+                                    <td><a class="vert" href="{{ path('easyadmin', {'action':'edit', 'entity':'Page_Active', 'id':page.id, 'activeTab':7}) }}"><i class="fas fa-link"></i> {{ "Lier cette traduction"|trans }}</a></td>
+                                </tr>
+                            {% endif %}
+                        {% endfor %}
+                    </tbody>
+                </table>
+            {% else %}
+                <p>{{ "Toutes les pages dans cette langue sont liées à une page dans la langue par défaut" }}</p>
+            {% endif %}
+        {% endif %}
+    {% endfor %}
 {% endblock %}

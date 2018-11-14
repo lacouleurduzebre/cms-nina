@@ -99,11 +99,12 @@ class AdminController extends BaseAdminController
                 $event->getForm()->add('pageAccueil', EntityType::class, [
                     'required' => false,
                     'class' => Page::class,
+                    'choice_label' => 'titreMenu',
                     'query_builder' => function (EntityRepository $er) use ($langue) {
                         return $er->createQueryBuilder('p')
                             ->andWhere('p.langue = :langue')
                             ->setParameters(array('langue' => $langue))
-                            ->orderBy('p.titre', 'ASC');
+                            ->orderBy('p.titreMenu', 'ASC');
                     }
                 ]);
 

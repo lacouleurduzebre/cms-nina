@@ -54,15 +54,18 @@ footer .blocMenu{
 }
 
 .scrollTop{
+  display: none;
+  cursor: pointer;
   position: fixed;
   right: 1rem;
   bottom: 1rem;
   border-radius: 50%;
   background-color: $color-brand2;
   width: 5rem;
+  padding-top:.5rem;
+  text-align: center;
   height: 5rem;
   color: #FFF;
-  display: flex;
   justify-content: center;
   align-items: center;
   font-size: 4rem;

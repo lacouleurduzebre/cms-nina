@@ -9,6 +9,7 @@
 namespace App\Controller\Back;
 
 
+use App\Entity\Bloc;
 use App\Entity\Langue;
 use App\Entity\Page;
 use Symfony\Bundle\FrameworkBundle\Console\Application;
@@ -22,6 +23,23 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class TraductionController extends Controller
 {
+    /**
+     * @Route("/admin/traductions/pages", name="traductionsPages")
+     * @param Request $request
+     * @param KernelInterface $kernel
+     * @return Response
+     */
+    public function traductionsPagesAction(Request $request){
+        $repoPage = $this->getDoctrine()->getRepository(Page::class);
+        $repoLangue = $this->getDoctrine()->getRepository(Langue::class);
+
+        $langues = $repoLangue->findAll();
+        $langue = $repoLangue->findOneBy(array('defaut' => true));
+        $pages = $repoPage->findBy(array('active' => true, 'corbeille' => false, 'langue' => $langue));
+
+        return $this->render('back/traductionsPages.html.twig', array('pages' => $pages, 'langues' => $langues, 'langueDefaut' => $langue));
+    }
+
     /**
      * @Route("/admin/traductions/modifier", name="modifierTraductions")
      * @param Request $request
@@ -87,22 +105,5 @@ class TraductionController extends Controller
         }
 
         return $this->render('back/traductionsTemplates.html.twig', array('traductions'=>$xml, 'langues'=>$locale, 'langueXML'=>$langueXML));
-    }
-
-    /**
-     * @Route("/admin/traductions/pages", name="traductionsPages")
-     * @param Request $request
-     * @param KernelInterface $kernel
-     * @return Response
-     */
-    public function traductionsPagesAction(Request $request){
-        $repoPage = $this->getDoctrine()->getRepository(Page::class);
-        $repoLangue = $this->getDoctrine()->getRepository(Langue::class);
-
-        $langues = $repoLangue->findAll();
-        $langue = $repoLangue->findOneBy(array('defaut' => true));
-        $pages = $repoPage->findBy(array('active' => true, 'corbeille' => false, 'langue' => $langue));
-
-        return $this->render('back/traductionsPages.html.twig', array('pages' => $pages, 'langues' => $langues, 'langueDefaut' => $langue));
     }
 }

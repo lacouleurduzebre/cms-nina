@@ -1,0 +1,14 @@
+{% if bloc.contenu.logo.0 is defined %}
+    <p>
+        <a href="{{ path('accueil') }}">
+            <img class="logo" src="{{ config.logo }}" alt="CMS Nina">
+        </a>
+    </p>
+{% endif %}
+{% if bloc.contenu.nom.0 is defined %}
+    <p>
+        <a href="{{ path('accueil') }}">
+            {{ config.nom }}
+        </a>
+    </p>
+{% endif %}
