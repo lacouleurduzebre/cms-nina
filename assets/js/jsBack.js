@@ -702,7 +702,9 @@ $(document).ready(function(){
 
     //Onglet actif en fonction de l'url
     get = parseURLParams(location.href);
-    if(get.activeTab){
-        $('.nav-tabs li:nth-of-type('+get.activeTab[0]+') > a').click();
+    if(typeof(get) != 'undefined'){
+        if(get.activeTab){
+            $('.nav-tabs li:nth-of-type('+get.activeTab[0]+') > a').click();
+        }
     }
 });

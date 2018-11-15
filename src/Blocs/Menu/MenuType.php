@@ -9,6 +9,7 @@
 namespace App\Blocs\Menu;
 
 
+use App\Entity\Langue;
 use App\Entity\Menu;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Form\AbstractType;
@@ -26,11 +27,18 @@ class MenuType extends AbstractType
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        $repoLangue = $this->em->getRepository(Langue::class);
+        $langues = $repoLangue->findAll();
+
         $repoMenu = $this->em->getRepository(Menu::class);
         $objetsMenus = $repoMenu->findAll();
         $menus = [];
         foreach($objetsMenus as $objetMenu){
-            $menus[$objetMenu->getNom()] = $objetMenu->getId();
+            if(count($langues) > 1){
+                $menus[$objetMenu->getLangue()->getAbreviation().' - '.$objetMenu->getNom()] = $objetMenu->getId();
+            }else{
+                $menus[$objetMenu->getNom()] = $objetMenu->getId();
+            }
         }
 
         $builder

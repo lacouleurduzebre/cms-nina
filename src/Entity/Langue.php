@@ -43,7 +43,7 @@ class Langue
     private $active = true;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Page", mappedBy="langue")
+     * @ORM\OneToMany(targetEntity="App\Entity\Page", mappedBy="langue", cascade={"persist", "remove"})
      */
     private $pages;
 
