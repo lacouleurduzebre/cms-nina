@@ -141,7 +141,7 @@ $(document).ready(function(){
             },
             "delete":{
                 "icon": "fa fa-trash-alt",
-                "label": "Supprimer",
+                "label": "Mettre à la corbeille",
                 "action": function(){
                     idPage = $('#'+node.id).find('.page').attr('id');
                     window.location.href = baseURL+Routing.generate('easyadmin', { action: 'corbeille', entity: 'Page_Active', id: idPage });

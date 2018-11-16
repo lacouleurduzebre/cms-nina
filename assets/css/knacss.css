@@ -2506,18 +2506,24 @@ button:focus {
 .listeBlocs-fermeture, .listeBlocsAnnexes-fermeture, #popup-ajoutPage-close {
   color: #000;
   position: absolute;
-  top: 2rem;
-  right: 4rem;
   cursor: pointer;
   font-size: 3rem;
-  background-color: #fff;
-  border-radius: 50%;
-  width: 4rem;
-  height: 4rem;
   display: flex;
   justify-content: center;
   align-items: center;
   transition: .3s; }
+
+.listeBlocs-fermeture, .listeBlocsAnnexes-fermeture {
+  top: 2rem;
+  right: 4rem;
+  background-color: #fff;
+  border-radius: 50%;
+  width: 4rem;
+  height: 4rem; }
+
+#popup-ajoutPage-close {
+  top: 1rem;
+  right: 1.5rem; }
 
 /* Page de login */
 body {

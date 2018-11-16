@@ -1731,14 +1731,44 @@ body.notFull .main-sidebar #btnArbo svg {
   align-items: center; }
   #popup-ajoutPage h2 {
     color: #0791B3;
-    margin-bottom: 1rem; }
+    margin-bottom: 1rem;
+    font-family: 'Cabin'; }
+  #popup-ajoutPage label {
+    display: block;
+    cursor: pointer;
+    color: #0791B3; }
   #popup-ajoutPage p {
     color: #0791B3; }
+  #popup-ajoutPage input[type="submit"] {
+    display: inline-block;
+    padding: 1rem 1.5rem;
+    cursor: pointer;
+    user-select: none;
+    transition: 0.25s;
+    text-align: center;
+    vertical-align: middle;
+    white-space: nowrap;
+    text-decoration: none;
+    color: #fff;
+    border: none;
+    border-radius: 0;
+    background-color: #A1BA1D;
+    font-family: inherit;
+    font-size: inherit;
+    line-height: 1;
+    box-shadow: none;
+    font-family: 'Cabin'; }
+
+#ajoutPage-titre {
+  box-shadow: none;
+  border-bottom: 1px solid #0791B3;
+  background-color: transparent; }
 
 #popup-ajoutPage-close {
   position: absolute; }
 
 .popup-ajoutPage-formulaire {
+  position: relative;
   background-color: #fff;
   padding: 2rem; }
   .popup-ajoutPage-formulaire input[type="text"] {
@@ -1753,17 +1783,21 @@ body.notFull .main-sidebar #btnArbo svg {
 .listeBlocs-fermeture, .listeBlocsAnnexes-fermeture, #popup-ajoutPage-close {
   color: #000;
   position: absolute;
-  top: 2rem;
-  right: 4rem;
   cursor: pointer;
   font-size: 3rem;
-  background-color: #fff;
-  border-radius: 50%;
-  width: 4rem;
-  height: 4rem;
   display: flex;
   justify-content: center;
   align-items: center;
   transition: .3s; }
+
+.listeBlocs-fermeture, .listeBlocsAnnexes-fermeture {
+  background-color: #fff;
+  border-radius: 50%;
+  width: 4rem;
+  height: 4rem; }
+
+#popup-ajoutPage-close {
+  top: 1rem;
+  right: 1.5rem; }
 
 /*# sourceMappingURL=back.css.map */

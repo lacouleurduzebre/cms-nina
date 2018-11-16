@@ -1,5 +1,5 @@
 nom: Vignette
-description: 'Image présentant l''article sur l''accueil ou dans les listes de pages'
+description: "Image présentant l'article dans les blocs listant des pages  (ex: blocs actualité, rubrique, catégorie,...)"
 type: annexe
 icone: 'fas fa-file-image'
 priorite: 3
