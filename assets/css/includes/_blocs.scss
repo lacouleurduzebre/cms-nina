@@ -129,6 +129,7 @@ div[id^="page_active_blocs"]{
   position: absolute;
   top: 1rem;
   right: 2rem;
+  z-index: 10;
   > *{
     display: inline-block;
     > svg, > span > svg{

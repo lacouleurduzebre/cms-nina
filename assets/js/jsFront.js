@@ -86,4 +86,15 @@ $(document).ready(function(){
             $('.scrollTop').show();
         }
     });
+
+    //Burger
+    $('#burger').click(function(){
+        $(this).toggleClass('actif');
+        $(this).find('svg').toggleClass('fa-bars fa-times');
+    });
+
+    //Clic sur élément de menu parent
+    $('li.parent').click(function(){
+        $(this).toggleClass('actif');
+    })
 });

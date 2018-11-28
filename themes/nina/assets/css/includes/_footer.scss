@@ -62,12 +62,14 @@ footer .blocMenu{
   border-radius: 50%;
   background-color: $color-brand2;
   width: 5rem;
-  padding-top:.5rem;
   text-align: center;
   height: 5rem;
   color: #FFF;
-  justify-content: center;
-  align-items: center;
   font-size: 4rem;
   border: 1px solid;
+  svg{
+    display: block;
+    margin-left: 1.2rem;
+    margin-top: 0.3rem;
+  }
 }

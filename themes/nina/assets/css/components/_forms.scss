@@ -52,6 +52,8 @@ textarea {
   transition: 0.25s;
   transition-property: box-shadow, background-color, color, border;
   appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
 }
 
 [type="submit"] {

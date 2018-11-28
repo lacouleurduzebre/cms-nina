@@ -1,5 +1,8 @@
-{% for categorie in categoriesDeType(bloc.contenu.typeCategorie) %}
-    <div class="blocTypeCategorie-categorie">
-        <a href="{{ path('voirCategorie', { 'urlTypeCategorie': categorie.typeCategorie.url, 'urlCategorie': categorie.url }) }}">{{ categorie.nom }}</a>
-    </div>
-{% endfor %}
+<div class="grid-3-small-2-tiny-1 has-gutter-xl">
+    {% for categorie in categoriesDeType(bloc.contenu.typeCategorie) %}
+        <div class="blocTypeCategorie-categorie flex-container-v">
+            <h2>{{ categorie.nom }}</h2>
+            <a class="bouton lire" href="{{ path('voirCategorie', { 'urlTypeCategorie': categorie.typeCategorie.url, 'urlCategorie': categorie.url }) }}">{{ "Voir toutes les pages de cette catégorie"|trans }}</a>
+        </div>
+    {% endfor %}
+</div>

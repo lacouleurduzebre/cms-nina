@@ -1,10 +1,12 @@
 <form action="" id="{{ bloc.id }}" class="blocFormulaire-formulaire" method="POST">
     {% for champ in bloc.contenu.champs|sortBy('position') %}
         <div>
-            <label {% if champ.requis is not empty %}class="required"{% endif %} for="champ{{ loop.index }}">{{ champ.label }}</label>
-            {% if champ.requis is not empty %}
-                <span>*</span>
-            {% endif %}
+            <label {% if champ.requis is not empty %}class="required"{% endif %} for="champ{{ loop.index }}">
+                {{ champ.label }}
+                {% if champ.requis is not empty %}
+                    <span>*</span>
+                {% endif %}
+            </label>
             {% if champ.type == "text" %}
                 <input id="champ{{ loop.index }}" name="{{ champ.label }}" type="text">
             {% elseif champ.type == "textarea" %}
@@ -20,8 +22,8 @@
                 {% set numChamp = loop.index %}
                 {% for choix in champ.choix %}
                     <p>
-                        <label for="champ{{ numChamp }}choix{{ loop.index }}">
-                            <input type="checkbox" id="champ{{ numChamp }}choix{{ loop.index }}" name="{{ champ.label }}" value="{{ choix }}">
+                        <label class="labelCheck" for="champ{{ numChamp }}choix{{ loop.index }}">
+                            <input type="checkbox" id="champ{{ numChamp }}choix{{ loop.index }}" class="checkbox" name="{{ champ.label }}" value="{{ choix }}">
                             {{ choix }}
                         </label>
                     </p>
@@ -30,7 +32,7 @@
                 {% set numChamp = loop.index %}
                 {% for choix in champ.choix %}
                     <p>
-                        <label for="champ{{ numChamp }}choix{{ loop.index }}">
+                        <label class="labelCheck" for="champ{{ numChamp }}choix{{ loop.index }}">
                             <input type="radio" id="champ{{ numChamp }}choix{{ loop.index }}" name="{{ champ.label }}" value="{{ choix }}">
                             {{ choix }}
                         </label>
@@ -39,6 +41,6 @@
             {% endif %}
         </div>
     {% endfor %}
-    <input type="submit" value="{% if bloc.contenu.submit is not empty %}{{ bloc.contenu.submit }}{% else %}{{ 'Envoyer'|trans }}{% endif %}">
+    <input type="submit" class="bouton" value="{% if bloc.contenu.submit is not empty %}{{ bloc.contenu.submit }}{% else %}{{ 'Envoyer'|trans }}{% endif %}">
     <div class="message{{ bloc.id }}"></div>
 </form>

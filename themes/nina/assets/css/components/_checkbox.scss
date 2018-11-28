@@ -24,6 +24,8 @@
 .switch,
 .checkbox,
 .radio {
+  -moz-appearance: none;
+  -webkit-appearance: none;
   appearance: none;
   vertical-align: text-bottom;
   outline: 0;

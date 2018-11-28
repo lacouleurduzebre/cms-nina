@@ -34,6 +34,6 @@ class PageTwig extends \Twig_Extension
         $repoPage = $this->doctrine->getRepository(Page::class);
         $page = $repoPage->find($idPage);
 
-        return $this->twig->render('front/blocs.html.twig', array('page' => $page));
+        return $this->twig->render('front/blocs.html.twig', array('blocs' => $page->getBlocs()));
     }
 }

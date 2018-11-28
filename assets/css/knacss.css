@@ -3321,7 +3321,8 @@ div[id^="page_active_blocs"] > div > .collection-empty {
 .bloc-barreActions {
   position: absolute;
   top: 1rem;
-  right: 2rem; }
+  right: 2rem;
+  z-index: 10; }
   .bloc-barreActions > * {
     display: inline-block; }
     .bloc-barreActions > * > svg, .bloc-barreActions > * > span > svg {

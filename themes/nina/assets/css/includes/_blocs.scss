@@ -1,8 +1,21 @@
+.blocActualites, .blocTypeCategorie, .blocCategorie, .blocRubrique{
+  h2{
+    line-height: 1.1;
+  }
+}
+
 //Bloc actualité
 .blocActualites{
   h2{
     color: $color-brand;
   }
+  .bouton{
+    margin-top: 1rem;
+  }
+}
+
+main div.blocActualites-page--texte, main div.blocActualites-page--image{
+  padding: 0;
 }
 
 .blocActualites-page--infos{
@@ -42,6 +55,12 @@
   }
 }
 
+.slick-slide img{
+  max-height: 30rem;
+  width: 100%;
+  object-fit: cover;
+}
+
 .blocSlider-slide--texte{
   padding: 1rem;
   background-color: $color-brand;
@@ -52,7 +71,71 @@
 }
 
 //Bloc réseaux sociaux
-.blocReseauxSociaux svg {
-  font-size: 3rem;
-  margin-right: 2rem;
+.blocReseauxSociaux{
+  display: flex;
+  a{
+    background-color: $color-brand;
+    color: $white;
+    width: 4rem;
+    height: 4rem;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 .5rem;
+    &:hover{
+      background-color: darken($color-brand, 10);
+    }
+  }
+  svg {
+    font-size: 3rem;
+  }
+}
+
+
+//Bloc vidéo
+.blocVideo iframe{
+  width: 100%;
+  height: 100%;
+  min-height: 30rem;
+  max-width: 50rem;
+}
+
+//Blocs formulaire et inscription
+.blocFormulaire, .blocInscription, .blocCommentaires{
+  label:not(.labelCheck){
+    display: block;
+    font-weight: bold;
+    span{
+      color: red;
+    }
+  }
+  input[type="text"], textarea, select, input[type='checkbox'], input[type="password"], input[type="email"]{
+    box-shadow: 0 0 0 1px #5CBFEE inset;
+  }
+  input[type="text"], textarea, input[type="password"], input[type="email"]{
+    width: 100%;
+    max-width: 50rem;
+  }
+}
+
+.blocInscription{
+  input[type="submit"]{
+    margin-top: 2rem;
+  }
+}
+
+//Bloc menu de langue
+.menuLangues{
+  list-style: none;
+  li{
+    margin: 0 1rem;
+  }
+}
+
+//Bloc galerie
+.blocGalerie > div > div{
+  @include respond-to("small"){
+    margin-bottom: 2rem;
+  }
 }

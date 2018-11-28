@@ -2,35 +2,98 @@
   padding: 1rem;
   text-align: center;
   background-color: rgba($white, .7);
+  position: relative;
+}
+
+.header_front .menuLangues{
+  padding: 0;
+  justify-content: flex-end;
+  li{
+    &.active{
+      font-weight: bold;
+    }
+    a{
+      text-decoration: none;
+      color: $color-brand2;
+    }
+  }
 }
 
 .header_front .blocMenu{
-  margin-top: 5rem;
+  @include respond-to("medium"){
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 100;
+    background-color: #FFF;
+    height: 100vh;
+    width: 100vw;
+    padding-top: 7rem;
+  }
   ul{
     padding: 0;
     list-style: none;
-    display: flex;
-    justify-content: center;
+    @include respond-to("medium-up"){
+      display: flex;
+      justify-content: center;
+    }
   }
   a{
     color: $color-brand2;
     text-decoration: none;
+    @include respond-to("medium"){
+      font-weight: bold;
+      color: $color-brand;
+      display: flex;
+      text-align: left;
+      padding: 1rem;
+    }
   }
   > div > ul > li{
-    &:after{
-      content: "-";
-      margin: 0 .5rem;
-    }
-    &:last-of-type:after{
-      content: "";
+    @include respond-to("medium-up"){
+      &:after{
+        content: "-";
+        margin: 0 .5rem;
+      }
+      &:last-of-type:after{
+        content: "";
+      }
     }
   }
   li.parent{
+    @include respond-to("medium"){
+      position: relative;
+      &:after{
+        content: ">";
+        color: $color-brand;
+        font-weight: bold;
+        transform: rotate(90deg);
+        margin-left: auto;
+        width: 4.4rem;
+        height: 4rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: absolute;
+        top: 0;
+        right: 0;
+      }
+      > a{
+        width: calc(100% - 4rem);
+      }
+    }
     > ul{
       display: none;
-      position: absolute;
       text-align: left;
       background-color: #FFF;
+      z-index: 100;
+      @include respond-to("medium-up"){
+        position: absolute;
+      }
+      @include respond-to("medium"){
+        padding-left: 2rem;
+      }
       > li{
         position: relative;
         > a{
@@ -47,9 +110,18 @@
         }
       }
     }
-    &:hover{
-      > ul{
-        display: block;
+    @include respond-to("medium-up"){
+      &:hover {
+        > ul {
+          display: block;
+        }
+      }
+    }
+    @include respond-to("medium"){
+      &.actif{
+        > ul{
+          display: block;
+        }
       }
     }
   }
@@ -57,4 +129,35 @@
 
 .logo{
   max-width: 20rem;
+}
+
+
+//Burger
+#burger{
+  text-align: left;
+  color: $color-brand;
+  font-size: 3rem;
+  background-color: #FFF;
+  display: inline-block;
+  margin-right: 100%;
+  padding: 0 1rem;
+  border-radius: 10px;
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+  cursor: pointer;
+  z-index: 150;
+  position: relative;
+  margin-bottom: 1rem;
+  @include respond-to("medium-up"){
+    display: none;
+  }
+  &.actif + div .blocMenu{
+    display: block;
+  }
+}
+
+//Menu langues
+.blocMenuLangues .flex-container{
+  @include respond-to("small"){
+    flex-direction: row;
+  }
 }
