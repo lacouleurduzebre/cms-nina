@@ -2617,7 +2617,10 @@ h1, h2, h3 {
   cursor: pointer;
   z-index: 150;
   position: relative;
-  margin-bottom: 1rem; }
+  margin-bottom: 1rem;
+  width: 4.5rem;
+  height: 4.5rem;
+  text-align: center; }
   @media (min-width: 768px) {
     #burger {
       display: none; } }

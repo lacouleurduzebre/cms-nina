@@ -134,7 +134,6 @@
 
 //Burger
 #burger{
-  text-align: left;
   color: $color-brand;
   font-size: 3rem;
   background-color: #FFF;
@@ -147,6 +146,9 @@
   z-index: 150;
   position: relative;
   margin-bottom: 1rem;
+  width: 4.5rem;
+  height: 4.5rem;
+  text-align: center;
   @include respond-to("medium-up"){
     display: none;
   }
