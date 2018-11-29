@@ -1,9 +1,9 @@
 <form action="" id="{{ bloc.id }}" class="blocFormulaire-formulaire" method="POST">
     {% for champ in bloc.contenu.champs|sortBy('position') %}
         <div>
-            <label {% if champ.requis is not empty %}class="required"{% endif %} for="champ{{ loop.index }}">
+            <label {% if champ.requis is defined and champ.requis is not empty %}class="required"{% endif %} for="champ{{ loop.index }}">
                 {{ champ.label }}
-                {% if champ.requis is not empty %}
+                {% if champ.requis is defined and champ.requis is not empty %}
                     <span>*</span>
                 {% endif %}
             </label>

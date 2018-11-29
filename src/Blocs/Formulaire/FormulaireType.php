@@ -14,6 +14,7 @@ use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormInterface;
@@ -33,6 +34,12 @@ class FormulaireType extends AbstractType
                 'label_format' => 'destinataire',
                 'allow_add' => true,
                 'allow_delete' => true
+            ))
+            ->add('objet', TextType::class, array(
+                'label' => "Objet du mail envoyé"
+            ))
+            ->add('messageConfirmation', TextareaType::class, array(
+                'label' => "Message affiché après l'envoi du mail"
             ))
             ->add('champs', CollectionType::class, array(
                 'entry_type' => ChampType::class,

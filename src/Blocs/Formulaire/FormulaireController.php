@@ -10,8 +10,10 @@ namespace App\Blocs\Formulaire;
 
 
 use App\Entity\Bloc;
+use App\Entity\Configuration;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 class FormulaireController extends Controller
@@ -26,16 +28,20 @@ class FormulaireController extends Controller
 
             $bloc = $this->getDoctrine()->getRepository(Bloc::class)->find($idBloc);
             $destinataires = $bloc->getContenu()['destinataires'];
+            $objet = $bloc->getContenu()['objet'];
+
+            $config = $this->getDoctrine()->getRepository(Configuration::class)->find(1);
+            $expediteur = $config->getEmailContact();
 
             //Préparation mail
-            /*$mail = new \Swift_Message('Contact');
-            $mail->setFrom('blabla')//Expéditeur ??
+            $mail = new \Swift_Message($objet);
+            $mail->setFrom($expediteur)
                 ->setTo($destinataires)
-                ->setBody($this->render('Blocs/Formulaire/Mail.html.twig', array('donnees' => $donnees)));
+                ->setBody($this->renderView('Blocs/Formulaire/Mail.html.twig', array('donnees' => $donnees)), 'text/html');
 
-            $mailer->send($mail);*/
+            $mailer->send($mail);
 
-            return $this->render('Blocs/Formulaire/Mail.html.twig', array('donnees' => $donnees));
+            return new Response($bloc->getContenu()['messageConfirmation']);
         }
         return false;
     }

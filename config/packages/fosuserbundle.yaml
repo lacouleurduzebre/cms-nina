@@ -4,8 +4,8 @@ fos_user:
     firewall_name: principal
     user_class: App\Entity\Utilisateur
     from_email:
-        address: "contact@lacouleurduzebre.com"
-        sender_name: "contact@lacouleurduzebre.com"
+        address: "maintenance@lacouleurduzebre.com"
+        sender_name: "maintenance@lacouleurduzebre.com"
     registration:
         confirmation:
             enabled: true
