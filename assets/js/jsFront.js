@@ -11,17 +11,10 @@ $(document).ready(function(){
         message = '';
 
         $(this).find('label.required').each(function(){
-            // console.log($(this).html());
-            for (var i=0; i < donnees.length; i++) {
-                if (donnees[i].name === $(this).html()) {
-                    if(donnees[i].value !== ""){
-                        return true;
-                    }else{
-                        break;
-                    }
-                }
+            idChamp = $(this).attr('for');
+            if($('#'+idChamp).val() === ''){
+                message = message.concat('<p>Merci de compléter le champ "'+$(this).html()+'"</p>');
             }
-            message = message.concat('<p>Merci de compléter le champ "'+$(this).html()+'"</p>');
         });
 
         if(message === ''){
