@@ -82,6 +82,10 @@
       > a{
         width: calc(100% - 4rem);
       }
+      &.actif:after{
+        transform: rotate(-90deg);
+        padding-bottom: 5px;
+      }
     }
     > ul{
       display: none;
@@ -100,8 +104,10 @@
           padding: .5rem 1rem;
           display: inline-block;
           width: 100%;
-          &:hover{
-            background-color: rgba($color-brand, .5);
+          @include respond-to("medium-up"){
+            &:hover{
+              background-color: rgba($color-brand, .5);
+            }
           }
         }
         > ul{
