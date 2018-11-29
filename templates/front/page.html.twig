@@ -37,12 +37,14 @@
     {% endif %}
 
     <div class="blocCommentaires">
-        <h2>Commentaires sur "{{ page.titre }}"</h2>
+        <h2>Commentaires sur "{{ page.titre }}" ({{ page.commentaires|length }})</h2>
         {% for message in app.session.flashbag.get('comOK') %}
             <p class="message">{{ message }}</p>
         {% endfor %}
-        <h3>Ajouter un commentaire</h3>
-        {{ form(form) }}
+        <p class="blocCommentaires-ajout">Ajouter un commentaire<i class="fas fa-angle-down mls"></i></p>
+        <div class="blocCommentaires-formulaire">
+            {{ form(form) }}
+        </div>
         {% for commentaire in commentaires %}
             {% if commentaire.corbeille == false and commentaire.valide == true %}
             <div class="commentaire">

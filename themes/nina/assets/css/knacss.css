@@ -2789,11 +2789,19 @@ main div.blocActualites-page--texte, main div.blocActualites-page--image {
   .blocGalerie > div > div {
     margin-bottom: 2rem; } }
 
+.blocTypeCategorie-categorie .bouton {
+  padding: .5rem 1rem; }
+
 .blocCommentaires label {
   display: block; }
 .blocCommentaires input[type="text"], .blocCommentaires input[type="email"], .blocCommentaires textarea {
   box-shadow: 0 0 0 1px #5CBFEE inset; }
 .blocCommentaires #form_envoi {
   margin-top: 2rem; }
+.blocCommentaires .blocCommentaires-ajout {
+  text-decoration: underline;
+  cursor: pointer; }
+.blocCommentaires .blocCommentaires-formulaire {
+  display: none; }
 
 /*# sourceMappingURL=knacss.css.map */

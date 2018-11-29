@@ -96,5 +96,11 @@ $(document).ready(function(){
     //Clic sur élément de menu parent
     $('li.parent').click(function(){
         $(this).toggleClass('actif');
-    })
+    });
+
+    //Toggle formulaire ajout de commentaire
+    $('.blocCommentaires-ajout').click(function(){
+        $(this).find('svg').toggleClass('fa-angle-down fa-angle-up');
+        $(this).next('div').slideToggle();
+    });
 });
