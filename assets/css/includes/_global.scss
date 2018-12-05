@@ -22,3 +22,27 @@
   top: 1rem;
   right: 1.5rem;
 }
+
+.listeBlocs, .listeBlocsAnnexes, .conteneurChargement {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 1000;
+  background-color: rgba(164, 161, 161, 0.8);
+  padding: 5rem;
+  align-items: center;
+}
+
+.conteneurChargement{
+  display: none;
+  font-size: 15rem;
+  color: $color-brand2;
+  &.actif{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}

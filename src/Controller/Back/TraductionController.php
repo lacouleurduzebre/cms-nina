@@ -9,13 +9,16 @@
 namespace App\Controller\Back;
 
 
-use App\Entity\Bloc;
+use App\Entity\Configuration;
 use App\Entity\Langue;
 use App\Entity\Page;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Bundle\FrameworkBundle\Console\Application;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Console\Input\ArrayInput;
 use Symfony\Component\Console\Output\NullOutput;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\KernelInterface;
@@ -25,11 +28,9 @@ class TraductionController extends Controller
 {
     /**
      * @Route("/admin/traductions/pages", name="traductionsPages")
-     * @param Request $request
-     * @param KernelInterface $kernel
      * @return Response
      */
-    public function traductionsPagesAction(Request $request){
+    public function traductionsPagesAction(){
         $repoPage = $this->getDoctrine()->getRepository(Page::class);
         $repoLangue = $this->getDoctrine()->getRepository(Langue::class);
 
@@ -41,69 +42,127 @@ class TraductionController extends Controller
     }
 
     /**
-     * @Route("/admin/traductions/modifier", name="modifierTraductions")
+     * @Route("/admin/traductions/templates", name="traductionsTemplates")
+     * @param Request $request
+     * @return Response
+     */
+    public function traductionsTemplatesAction(Request $request){
+        //Choix de la langue et du domaine
+        $formChoix = $this->createFormBuilder();
+        $formChoix
+            ->add('domaine', ChoiceType::class, array(
+                'label' => 'Modifier les traductions du ',
+                'choices' => array(
+                    'Back-Office' => 'back',
+                    'Front-Office' => 'front',
+                    'Thème actif' => 'theme'
+                ),
+                'required' => true
+            ))
+            ->add('langue', EntityType::class, array(
+                'label' => 'en ',
+                'class' => Langue::class,
+                'required' => true
+            ))
+            ->add('Traduire', SubmitType::class, array(
+                'attr' => array(
+                    'class' => 'btn'
+                )
+            ));
+
+        $form = $formChoix->getForm();
+
+        //Redirection vers la liste des segments à traduire si le choix de la langue et du domaine a été fait
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $data = $form->getData();
+
+            return $this->redirectToRoute('modifierTraductionsTemplates', array('domaine' => $data['domaine'], 'abreviation' => $data['langue']->getAbreviation()));
+        }
+
+        return $this->render('back/traductionsTemplatesChoix.html.twig', array('form' => $form->createView()));
+    }
+
+    /**
+     * @Route("/admin/traductions/templates/modifier/{domaine}/{abreviation}", name="modifierTraductionsTemplates")
      * @param Request $request
      * @param KernelInterface $kernel
      * @return Response
      */
-    public function modifierAction(Request $request, KernelInterface $kernel){
+    public function modifierAction(Request $request, KernelInterface $kernel, $domaine, $abreviation){
         $app = $this->get('kernel')->getProjectDir();
-        $base = dirname($app);
 
-        $repository = $this->getDoctrine()->getRepository(Langue::class);
-        $locale = $repository->findAll();
+        //Enregistrement via ajax
+        if($request->isXmlHttpRequest()){
+            $dossier = $this->getDossierByDomaine($app, $domaine);
+            $fichier = $request->get('fichier');
+            $segments = $request->get('segments');
 
-        $xml = null;
-        $langueXML = null;
-        $bundleXML = null;
+            $document = simplexml_load_file($dossier.'/'.$fichier.'.'.strtolower($abreviation).'.xlf');
+            $document->registerXPathNamespace('u', 'urn:oasis:names:tc:xliff:document:2.0');
 
-        if($request->isMethod('GET') && isset($_GET['langue'])){
-            $langueXML = $_GET['langue'];
-            // si le fichier de traduction n'existe pas
-            if(!file_exists($app.'/translations/messages.'.$langueXML.'.xlf')){
-                // on créé le fichier messages.xx.xlf avec une ligne de commande
-                $application = new Application($kernel);
-                $application->setAutoExit(false);
-
-                $input = new ArrayInput(array(
-                    'command' => 'translation:update',
-                    '--output-format' => 'xlf',
-                    'locale' => $langueXML,
-                    '--force' => true
-                ));
-
-                $output = new NullOutput();
-                $application->run($input, $output);
+            foreach($segments as $segment){
+                $anciennetraduction = $document->xpath("//u:unit[@id='".$segment['name']."']");
+                $anciennetraduction[0]->segment->target = $segment['value'];
             }
 
-            //on ouvre le fichier de traduction
-            if($document = simplexml_load_file($app.'/translations/messages.'.$langueXML.'.xlf', 'SimpleXMLElement', LIBXML_NOWARNING)){
-                $document->registerXPathNamespace('u', 'urn:oasis:names:tc:xliff:document:1.2');
-                $xml = $document->file->body->children();
-            }else{
-                $request->getSession()->getFlashBag()->add('pasDeTrad', 'Aucun message à traduire');
+            if($document->asXML($dossier.'/'.$fichier.'.'.strtolower($abreviation).'.xlf')){
+                return new Response('ok');
+            }
 
-                return $this->render('back/traductionsTemplates.html.twig', array('traductions'=>$xml, 'langues'=>$locale, 'langueXML'=>$langueXML));
+            return new Response('pas ok');
+        }
+
+        $domaines = array(
+            'back' => 'back-office',
+            'front' => 'front-office',
+            'theme' => 'thème actif'
+        );
+
+        //Ligne de commande générant les fichiers de traduction
+        $repoLangue = $this->getDoctrine()->getRepository(Langue::class);
+        $langue = $repoLangue->findOneBy(array('abreviation' => $abreviation));
+
+        $application = new Application($kernel);
+        $application->setAutoExit(false);
+
+        $input = new ArrayInput(array(
+            'command' => 'translation:extract',
+            'configuration' => $domaine,
+            'locale' => strtolower($abreviation),
+        ));
+
+        $output = new NullOutput();
+        $application->run($input, $output);
+
+        //Recherche du dossier contenant les traductions, en fonction du domaine
+        $dossier = $this->getDossierByDomaine($app, $domaine);
+
+        //Ouverture de tous les fichiers du dossier
+        $files = glob($dossier.'/*.{xlf}', GLOB_BRACE);
+        $fichiers = [];
+        foreach($files as $file) {
+            if($document = simplexml_load_file($file, 'SimpleXMLElement', LIBXML_NOWARNING)){
+                $document->registerXPathNamespace('u', 'urn:oasis:names:tc:xliff:document:2.0');
+                $xml = $document->file;
+                $fichiers[basename($file, '.'.$abreviation.'.xlf')] = $xml;
             }
         }
 
-        if($request->isMethod('POST')){
-            $document = simplexml_load_file($app.'/translations/messages.'.$_POST['langueXML'].'.xlf');
-            $document->registerXPathNamespace('u', 'urn:oasis:names:tc:xliff:document:1.2');
-            $donnees=$_POST['traductions'];
+        return $this->render('back/traductionsTemplates.html.twig', array('fichiers' => $fichiers, 'domaine' => $domaines[$domaine], 'langue' => $langue));
+    }
 
-            foreach($donnees as $id => $nouvelletraduction){
-                $xpath = "//u:trans-unit[@id='".$id."']";
-                $anciennetraduction = $document->xpath($xpath);
-                $anciennetraduction[0]->target = $nouvelletraduction;
-            }
-
-            if($document->asXML($app.'/translations/messages.'.$_POST['langueXML'].'.xlf')){
-                $request->getSession()->getFlashBag()->add('tradOK', 'La traduction a bien été enregistrée');
-            }
-
+    private function getDossierByDomaine($app, $domaine){
+        if($domaine == 'back'){
+            $dossier = $app.'/translations/back';
+        }else if($domaine == 'front'){
+            $dossier = $app.'/translations/front';
+        }else{
+            $repoConfig = $this->getDoctrine()->getRepository(Configuration::class);
+            $theme = $repoConfig->find(1)->getTheme();
+            $dossier = $app.'/themes/'.$theme.'/translations';
         }
 
-        return $this->render('back/traductionsTemplates.html.twig', array('traductions'=>$xml, 'langues'=>$locale, 'langueXML'=>$langueXML));
+        return $dossier;
     }
 }

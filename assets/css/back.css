@@ -755,19 +755,27 @@ body.connected {
       display: block; }
   .sidebar-menu > li > ul > li > a > span {
     padding-right: 1rem; }
-  .sidebar-menu > li > ul > li a {
+  .sidebar-menu > li > ul > li > a {
     border-bottom: 1px solid #FFF;
     padding: 1rem; }
-    .sidebar-menu > li > ul > li a svg:not(.fa-power-off) {
+    .sidebar-menu > li > ul > li > a svg:not(.fa-power-off) {
       transform: rotate(-90deg);
       margin-left: auto; }
-  .sidebar-menu > li > ul > li:last-of-type > a {
+  .sidebar-menu > li > ul > li:last-child > a {
     border: none; }
 
 .sidebar-menu li > ul > li > ul {
   top: 0;
   left: 100%;
   background-color: #68655f; }
+  .sidebar-menu li > ul > li > ul > li > a {
+    border-bottom: 1px solid #FFF;
+    padding: 1rem; }
+    .sidebar-menu li > ul > li > ul > li > a svg:not(.fa-power-off) {
+      transform: rotate(-90deg);
+      margin-left: auto; }
+  .sidebar-menu li > ul > li > ul > li:last-child > a {
+    border: none; }
 
 /* Menu compte */
 .navbar-custom-menu {
@@ -1791,6 +1799,8 @@ body.notFull .main-sidebar #btnArbo svg {
   transition: .3s; }
 
 .listeBlocs-fermeture, .listeBlocsAnnexes-fermeture {
+  top: 2rem;
+  right: 4rem;
   background-color: #fff;
   border-radius: 50%;
   width: 4rem;
@@ -1799,5 +1809,26 @@ body.notFull .main-sidebar #btnArbo svg {
 #popup-ajoutPage-close {
   top: 1rem;
   right: 1.5rem; }
+
+.listeBlocs, .listeBlocsAnnexes, .conteneurChargement {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 1000;
+  background-color: rgba(164, 161, 161, 0.8);
+  padding: 5rem;
+  align-items: center; }
+
+.conteneurChargement {
+  display: none;
+  font-size: 15rem;
+  color: #0791B3; }
+  .conteneurChargement.actif {
+    display: flex;
+    align-items: center;
+    justify-content: center; }
 
 /*# sourceMappingURL=back.css.map */

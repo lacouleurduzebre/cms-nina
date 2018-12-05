@@ -220,16 +220,6 @@ div[id^="page_active_blocs"]{
 
 //Liste blocs
 .listeBlocs, .listeBlocsAnnexes{
-  display: none;
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  z-index: 1000;
-  background-color: rgba(164, 161, 161, 0.8);
-  padding: 5rem;
-  align-items: center;
   &.actif{
     display: flex;
   }

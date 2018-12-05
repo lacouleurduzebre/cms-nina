@@ -28,6 +28,7 @@ composer.phar
 /public/sauvegardes/mediatheque/*
 /sauvegardes/bdd/*
 /sauvegardes/mediatheque/*
+/translations/
 /var/
 /vendor/
 ###< symfony/framework-bundle ###

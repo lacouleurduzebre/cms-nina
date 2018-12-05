@@ -88,7 +88,7 @@ body.connected{
     > a > span{
       padding-right: 1rem;
     }
-    a{
+    > a{
       border-bottom: 1px solid #FFF;
       padding: 1rem;
       svg:not(.fa-power-off){
@@ -96,7 +96,7 @@ body.connected{
         margin-left: auto;
       }
     }
-    &:last-of-type > a{
+    &:last-child > a{
       border: none;
     }
   }
@@ -106,7 +106,19 @@ body.connected{
   top: 0;
   left: 100%;
   background-color: darken($color-primary, 5);
+  > li > a{
+    border-bottom: 1px solid #FFF;
+    padding: 1rem;
+    svg:not(.fa-power-off){
+      transform: rotate(-90deg);
+      margin-left: auto;
+    }
+  }
+  > li:last-child > a{
+    border: none;
+  }
 }
+
 
 /* Menu compte */
 .navbar-custom-menu{

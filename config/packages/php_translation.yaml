@@ -1,0 +1,19 @@
+translation:
+    locales: ["fr"]
+    edit_in_place:
+        enabled: false
+        config_name: app
+    configs:
+        back:
+            dirs: ["%kernel.project_dir%/templates/back", "%kernel.project_dir%/src"]
+            output_dir: "%kernel.project_dir%/translations/back"
+            excluded_names: ["*TestCase.php", "*Test.php"]
+            excluded_dirs: [cache, data, logs, Blocs]
+        front:
+            dirs: ["%kernel.project_dir%/templates/bundles", "%kernel.project_dir%/templates/front", "%kernel.project_dir%/src/Blocs"]
+            output_dir: "%kernel.project_dir%/translations/front"
+            excluded_names: ["*TestCase.php", "*Test.php"]
+            excluded_dirs: [cache, data, logs]
+        theme:
+            dirs: ["%kernel.project_dir%/themes/%theme%"]
+            output_dir: "%kernel.project_dir%/themes/%theme%/translations"

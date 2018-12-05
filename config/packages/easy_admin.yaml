@@ -77,7 +77,7 @@ easy_admin:
                 children:
                   - { entity: 'Langue', label: 'Langues', type: 'entity', menu_index: 0, submenu_index: 0, icon: '', default: true, params: { } }
                   - { route: 'traductionsPages', label: 'Traduction des pages', type: 'route', menu_index: 0, submenu_index: 0, icon: '', default: true, params: { } }
-                  - { route: 'modifierTraductions', label: 'Traduction des templates', type: 'route', menu_index: 0, submenu_index: 0, icon: '', default: true, params: { } }
+                  - { route: 'traductionsTemplates', label: 'Traduction des templates', type: 'route', menu_index: 0, submenu_index: 0, icon: '', default: true, params: { } }
               - label: 'Interface'
                 icon: ''
                 children:

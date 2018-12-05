@@ -1,0 +1,20 @@
+{% extends 'back/base.html.twig' %}
+
+{% block content %}
+    {% for message in app.session.flashbag.get('tradOK') %}
+        <p class="messageY"><i class="fas fa-check"></i>{{ message }}</p>
+    {% endfor %}
+    {% for message in app.session.flashbag.get('noDoc') %}
+        <p class="messageN">{{ message }}</p>
+    {% endfor %}
+    {% for message in app.session.flashbag.get('pasDeTrad') %}
+        <p class="messageN">{{ message }}</p>
+    {% endfor %}
+
+    <h1>Modification des traductions des templates</h1>
+    <div>
+        {{ form_start(form, { 'attr': { 'class': 'traductionTemplateChoix' } }) }}
+        {{ form_widget(form) }}
+        {{ form_end(form) }}
+    </div>
+{% endblock %}

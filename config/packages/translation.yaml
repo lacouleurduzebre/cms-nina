@@ -3,5 +3,6 @@ framework:
     translator:
         paths:
             - '%kernel.project_dir%/translations'
+            - '%kernel.project_dir%/themes/%theme%/translations'
         fallbacks:
             - 'fr'
