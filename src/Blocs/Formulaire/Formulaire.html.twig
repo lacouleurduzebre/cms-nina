@@ -8,7 +8,7 @@
                 {% endif %}
             </label>
             {% if champ.type == "text" %}
-                <input id="champ{{ loop.index }}" name="{{ champ.label }}" type="text">
+                <input id="champ{{ loop.index }}" name="{{ champ.label }}" class="select" type="text">
             {% elseif champ.type == "textarea" %}
                 <textarea id="champ{{ loop.index }}" name="{{ champ.label }}" cols="30" rows="10"></textarea>
             {% elseif champ.type == "select" %}
@@ -33,7 +33,7 @@
                 {% for choix in champ.choix %}
                     <p>
                         <label class="labelCheck" for="champ{{ numChamp }}choix{{ loop.index }}">
-                            <input type="radio" id="champ{{ numChamp }}choix{{ loop.index }}" name="{{ champ.label }}" value="{{ choix }}">
+                            <input type="radio" class="radio" id="champ{{ numChamp }}choix{{ loop.index }}" name="{{ champ.label }}" value="{{ choix }}">
                             {{ choix }}
                         </label>
                     </p>
