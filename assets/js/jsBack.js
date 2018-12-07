@@ -725,6 +725,16 @@ $(document).ready(function(){
         });
     });
 
+    //Vider le cacher (page traduction des templates)
+    $('#viderCache').click(function(e){
+        e.preventDefault();
+        $('.conteneurChargement').addClass('actif');
+        $.ajax(window.location.href).done(function(){
+            $('.conteneurChargement').removeClass('actif');
+            alert('Le cache a été vidé');
+        });
+    });
+
     //Copie des segments sources (traduction templates)
     $('.traductionTemplate-copie').click(function(){
         if(confirm('La valeur de tous les champs sera écrasée')){

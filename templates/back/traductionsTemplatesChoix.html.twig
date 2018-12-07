@@ -17,4 +17,10 @@
         {{ form_widget(form) }}
         {{ form_end(form) }}
     </div>
+
+    <div class="conteneurChargement">
+        <i class="fas fa-sync fa-spin"></i>
+    </div>
+
+    <p class="mtm"><i class="fas fa-exclamation-triangle rouge mrs"></i>{{ "Il faut parfois"|trans }} <a id="viderCache" href="#">{{ "vider le cache"|trans }}</a> {{ "pour que les nouvelles traductions apparaissent sur le site"|trans }}</p>
 {% endblock %}

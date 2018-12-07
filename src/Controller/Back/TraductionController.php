@@ -44,9 +44,25 @@ class TraductionController extends Controller
     /**
      * @Route("/admin/traductions/templates", name="traductionsTemplates")
      * @param Request $request
+     * @param KernelInterface $kernel
      * @return Response
      */
-    public function traductionsTemplatesAction(Request $request){
+    public function traductionsTemplatesAction(Request $request, KernelInterface $kernel){
+        //Vider le cache
+        if($request->isXmlHttpRequest()){
+            $application = new Application($kernel);
+            $application->setAutoExit(false);
+
+            $input = new ArrayInput(array(
+                'command' => 'cache:clear'
+            ));
+
+            $output = new NullOutput();
+            $application->run($input, $output);
+
+            return new Response('ok');
+        }
+
         //Choix de la langue et du domaine
         $formChoix = $this->createFormBuilder();
         $formChoix
