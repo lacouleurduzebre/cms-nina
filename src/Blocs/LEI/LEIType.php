@@ -28,6 +28,11 @@ class LEIType extends AbstractType
                 'label' => 'Nombre limite de résultats',
                 'help' => "Si aucune limite n'est précisée, tous les résultats seront affichés",
                 'required' => false
+            ))
+            ->add('clef_moda', TextType::class, array(
+                'label' => 'Limiter à la clé de modalité :',
+                'help' => "Filtrer les résultats pour ne conserver que les fiches répondant à ce critère",
+                'required' => false
             ));
     }
 

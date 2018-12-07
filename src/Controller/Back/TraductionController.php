@@ -92,6 +92,8 @@ class TraductionController extends Controller
     public function modifierAction(Request $request, KernelInterface $kernel, $domaine, $abreviation){
         $app = $this->get('kernel')->getProjectDir();
 
+        $abreviation = strtolower($abreviation);
+
         //Enregistrement via ajax
         if($request->isXmlHttpRequest()){
             $dossier = $this->getDossierByDomaine($app, $domaine);
@@ -139,7 +141,7 @@ class TraductionController extends Controller
         $dossier = $this->getDossierByDomaine($app, $domaine);
 
         //Ouverture de tous les fichiers du dossier
-        $files = glob($dossier.'/*.{xlf}', GLOB_BRACE);
+        $files = glob($dossier.'/*.'.$abreviation.'.{xlf}', GLOB_BRACE);
         $fichiers = [];
         foreach($files as $file) {
             if($document = simplexml_load_file($file, 'SimpleXMLElement', LIBXML_NOWARNING)){
