@@ -32,7 +32,8 @@ class AccueilController extends Controller
             $langue = $repoLangue->findOneBy(array('abreviation' => $_locale));
 
             if(!$langue){//Si l'utilisateur essaye de naviguer sur une langue qui n'existe page
-                throw new NotFoundHttpException('Vous essayez de naviguer dans une langue non compatible avec ce site');
+                $langue = $repoLangue->findOneBy(array('defaut' => true));
+                return $this->redirectToRoute('accueilLocale', array('_locale' => $langue->getAbreviation()));
             }
 
             $locale = $request->getLocale();
