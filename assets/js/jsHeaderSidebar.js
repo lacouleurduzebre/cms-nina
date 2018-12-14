@@ -37,7 +37,7 @@ $(document).ready(function(){
     $('.arbo-langues a').click(function(){
         idLangue = $(this).attr('class');
         Cookies.set('langueArbo', idLangue, { expires: 7 });
-        location.reload();
+        location.href = '/admin/?entity=Page_Active&action=list'
     });
 
     /* Menu contextuel de la page d'accueil */

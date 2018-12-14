@@ -1,7 +1,13 @@
 {% trans_default_domain 'FOSUserBundle' %}
 
+<div class="retourAccueil">
+    <a href="{{ path('accueil') }}">
+        <i class="fas fa-arrow-left"></i> {{ "Retour au site"|trans }}
+    </a>
+</div>
+
 {% if error %}
-    <div><i class="fas fa-exclamation-circle"></i>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+    <div class="errors"><i class="fas fa-exclamation-circle"></i>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
 {% endif %}
 
 <form class="mw960p center" action="{{ path("fos_user_security_check") }}" method="post">

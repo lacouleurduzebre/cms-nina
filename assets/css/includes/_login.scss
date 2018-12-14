@@ -14,7 +14,7 @@ body{
   > *{
     background-color: rgba(255,255,255,.8);
     border-radius: 1rem;
-    padding:2rem 6rem;
+    padding: 2rem 6rem;
     font-size: 1.4rem;
     > img, > input{
       display: block;
@@ -45,7 +45,7 @@ body{
       }
     }
   }
-  > div{//Message d'erreur
+  .errors{//Message d'erreur
     background-color: rgba(255,0,0,.8);
     color: #FFF;
     font-weight: bold;
@@ -55,6 +55,17 @@ body{
     svg{
       font-size: 2rem;
       margin-right: 1rem;
+    }
+  }
+  .retourAccueil{
+    position: absolute;
+    left: 1rem;
+    top: 1rem;
+    font-weight: bold;
+    padding: 1rem;
+    a{
+      text-decoration: none;
+      color: $color-brand2;
     }
   }
 }
