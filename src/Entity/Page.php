@@ -122,6 +122,11 @@ class Page
      */
     private $blocsAnnexes;
 
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $affichageSousNiveaux = true;
+
     public function __construct()
     {
         $this->datePublication = new \DateTime();
@@ -562,6 +567,18 @@ class Page
                 $blocsAnnex->setPage(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getAffichageSousNiveaux(): ?bool
+    {
+        return $this->affichageSousNiveaux;
+    }
+
+    public function setAffichageSousNiveaux(?bool $affichageSousNiveaux): self
+    {
+        $this->affichageSousNiveaux = $affichageSousNiveaux;
 
         return $this;
     }
