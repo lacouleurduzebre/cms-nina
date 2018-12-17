@@ -41,6 +41,13 @@
             if (0 == parentDiv.children().length && 'undefined' !== parentDiv.attr('data-empty-collection')) {
                 $(parentDiv.attr('data-empty-collection')).insertBefore(parentDiv);
             }
+
+            $('.formulaire-actions-enregistrer').attr('disabled', false);
+            $(window).bind('beforeunload', function(){
+                if(!clicEnregistrement){
+                    return 'Êtes-vous sûr de vouloir quitter cette page ? Des données pourraient ne pas avoir été enregistrées';
+                }
+            });
             });
         {% endset %}
 

@@ -2469,7 +2469,7 @@ body {
   body.connected .header_front {
     padding-top: 5rem; } }
 
-.bouton, #form_envoi, input[type="submit"] {
+.bouton, #form_envoi, input[type="submit"], button[type="submit"] {
   display: inline-block;
   background-color: #5CBFEE;
   color: #fff;
@@ -2478,7 +2478,7 @@ body {
   box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
   text-decoration: none;
   transition: background-color .3s; }
-  .bouton:hover, #form_envoi:hover, input[type="submit"]:hover {
+  .bouton:hover, #form_envoi:hover, input[type="submit"]:hover, button[type="submit"]:hover {
     background-color: #2eade9;
     text-decoration: none;
     color: #fff; }
@@ -2797,6 +2797,16 @@ main div.blocActualites-page--texte, main div.blocActualites-page--image {
 
 .blocTypeCategorie-categorie .bouton {
   padding: .5rem 1rem; }
+
+.blocRecherche form {
+  display: flex; }
+  .blocRecherche form button[type="submit"] {
+    border-radius: 0;
+    box-shadow: none;
+    margin-left: -1px;
+    border-top: 1px solid #000;
+    border-right: 1px solid #000;
+    border-bottom: 1px solid #000; }
 
 .blocCommentaires label {
   display: block; }

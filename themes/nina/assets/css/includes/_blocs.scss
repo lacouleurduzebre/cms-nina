@@ -144,3 +144,16 @@ main div.blocActualites-page--texte, main div.blocActualites-page--image{
 .blocTypeCategorie-categorie .bouton{
   padding: .5rem 1rem;
 }
+
+//Bloc recherche
+.blocRecherche form{
+  display: flex;
+  button[type="submit"]{
+    border-radius: 0;
+    box-shadow: none;
+    margin-left: -1px;
+    border-top: 1px solid #000;
+    border-right: 1px solid #000;
+    border-bottom: 1px solid #000;
+  }
+}
