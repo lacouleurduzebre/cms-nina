@@ -1,0 +1,14 @@
+{% extends 'front/base.html.twig' %}
+
+{% block main %}
+    <h1>{{ "Résultats de recherche pour : "|trans }}"{{ app.request.get('recherche') }}"</h1>
+    {% if pages is empty %}
+        <p class="pas">{{ "Aucun résultat"|trans }}</p>
+    {% endif %}
+    <div class="blocRecherche">
+        {% for page in pages %}
+            <h3>{{ page.titre }}</h3>
+            <p><a href="{{ path('voirPage', { url: page.seo.url }) }}">{{ "Voir la page"|trans }}</a></p>
+        {% endfor %}
+    </div>
+{% endblock %}

@@ -11,7 +11,7 @@
     {# Lien page précédente - texte #}
     <li>
         {% if page != 1 %}
-            <a href="?page={{ page - 1 }}">{{ "Page précédente"|trans }}</a>
+            <a href="?page={{ page - 1 }}"><span>{{ "Page précédente"|trans }}</span></a>
         {% else %}
             <span>{{ "Page précédente"|trans }}</span>
         {% endif %}
@@ -65,7 +65,7 @@
     {# Lien page suivante - texte #}
     <li>
         {% if page != nbPages %}
-            <a href="?page={{ page + 1 }}">{{ "Page suivante"|trans }}</a>
+            <a href="?page={{ page + 1 }}"><span>{{ "Page suivante"|trans }}</span></a>
         {% else %}
             <span>{{ "Page suivante"|trans }}</span>
         {% endif %}

@@ -144,4 +144,23 @@ class PageRepository extends \Doctrine\ORM\EntityRepository
 
         return $qb->getQuery()->getResult();
     }
+
+    public function recherche($motsCles){
+        $resultats = [];
+
+        foreach($motsCles as $motCle){
+            $qb = $this
+                ->createQueryBuilder('p')
+                ->where('p.titre LIKE :motCle')
+                ->orWhere('p.titreMenu LIKE :motCle')
+                ->setParameters(array('motCle' => '%'.$motCle.'%'));
+
+            $pages = $qb->getQuery()->getResult();
+            foreach($pages as $page){
+                $resultats['page'.$page->getId()] = $page;
+            }
+        }
+
+        return $resultats;
+    }
 }

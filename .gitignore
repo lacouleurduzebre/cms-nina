@@ -18,9 +18,11 @@ composer.phar
 
 ###> symfony/framework-bundle ###
 .env
+/public/theme
 /public/theme/
 /public/themes_thumbs/*
 /public/assets
+/public/assets/
 /public/bundles/
 /public/uploads/
 /public/thumbs/

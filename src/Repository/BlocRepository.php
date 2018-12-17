@@ -19,6 +19,27 @@ class BlocRepository extends ServiceEntityRepository
         parent::__construct($registry, Bloc::class);
     }
 
+    public function recherche($motsCles){
+        $resultats = [];
+
+        foreach($motsCles as $motCle){
+            $qb = $this
+                ->createQueryBuilder('b')
+                ->where('b.type = "texte"')
+                ->where('b.contenu LIKE :motCle')
+                ->setParameters(array('motCle' => '%'.$motCle.'%'));
+
+            $blocs = $qb->getQuery()->getResult();
+            foreach($blocs as $bloc){
+                if($bloc->getPage()){
+                    $resultats['page'.$bloc->getPage()->getId()] = $bloc->getPage();
+                };
+            }
+        }
+
+        return $resultats;
+    }
+
 //    /**
 //     * @return Bloc[] Returns an array of Bloc objects
 //     */
