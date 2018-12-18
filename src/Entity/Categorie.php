@@ -50,6 +50,7 @@ class Categorie
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\TypeCategorie", inversedBy="categories")
+     * @ORM\JoinColumn(nullable=false)
      */
     private $typeCategorie;
 

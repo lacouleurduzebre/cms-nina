@@ -244,7 +244,7 @@ button,
 html [type="button"],
 [type="reset"],
 [type="submit"] {
-  -webkit-appearance: button;
+  -webkit-appearance: none;
 }
 
 button::-moz-focus-inner,

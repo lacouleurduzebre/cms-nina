@@ -22,8 +22,13 @@ $(document).ready(function(){
         toolbar1: "formatselect | image | media | link unlink | copy paste pastetext | bold italic underline | alignleft aligncenter alignright | bullist numlist | code | undo redo",
 
         init_instance_callback: function (editor) {
-            editor.on('change', function (e) {
-                saveCloseFormulaire();
+            editor.on('Change', function (e) {
+                $('.formulaire-actions-enregistrer').attr("disabled", false);
+                $(window).bind('beforeunload', function(){
+                    if(!clicEnregistrement){
+                        return 'Êtes-vous sûr de vouloir quitter cette page ? Des données pourraient ne pas avoir été enregistrées';
+                    }
+                });
             });
         }
     };

@@ -1790,7 +1790,6 @@ body.notFull .main-sidebar #btnArbo svg {
 
 .listeBlocs-fermeture, .listeBlocsAnnexes-fermeture, #popup-ajoutPage-close {
   color: #000;
-  position: absolute;
   cursor: pointer;
   font-size: 3rem;
   display: flex;
@@ -1799,8 +1798,9 @@ body.notFull .main-sidebar #btnArbo svg {
   transition: .3s; }
 
 .listeBlocs-fermeture, .listeBlocsAnnexes-fermeture {
+  position: fixed;
   top: 2rem;
-  right: 4rem;
+  right: 2rem;
   background-color: #fff;
   border-radius: 50%;
   width: 4rem;
@@ -1808,7 +1808,8 @@ body.notFull .main-sidebar #btnArbo svg {
 
 #popup-ajoutPage-close {
   top: 1rem;
-  right: 1.5rem; }
+  right: 1.5rem;
+  position: absolute; }
 
 .listeBlocs, .listeBlocsAnnexes, .conteneurChargement {
   display: none;
@@ -1821,6 +1822,18 @@ body.notFull .main-sidebar #btnArbo svg {
   background-color: rgba(164, 161, 161, 0.8);
   padding: 5rem;
   align-items: center; }
+  @media (max-width: 575px) {
+    .listeBlocs, .listeBlocsAnnexes, .conteneurChargement {
+      padding: 5rem 6.5rem; } }
+  .listeBlocs ul, .listeBlocsAnnexes ul, .conteneurChargement ul {
+    padding: 0; }
+
+@media (max-width: 1199px) {
+  .listeBlocs [class*="grid-6"].has-gutter-l > li, .listeBlocsAnnexes [class*="grid-6"].has-gutter-l > li {
+    width: calc(100% / 3 - 2rem - 0.01px); } }
+@media (max-width: 575px) {
+  .listeBlocs [class*="grid-6"].has-gutter-l > li, .listeBlocsAnnexes [class*="grid-6"].has-gutter-l > li {
+    width: 100%; } }
 
 .conteneurChargement {
   display: none;

@@ -222,6 +222,7 @@ div[id^="page_active_blocs"]{
 .listeBlocs, .listeBlocsAnnexes{
   &.actif{
     display: flex;
+    overflow-y: scroll;
   }
   &.chargement{
     .listeBlocs-chargement, .listeBlocsAnnexes-chargement{
@@ -243,6 +244,10 @@ div[id^="page_active_blocs"]{
       margin-bottom: 2rem;
       text-align: center;
       border: 3px solid $white;
+      @include respond-to("small"){
+        padding: 1rem;
+        margin-bottom: 1rem;
+      }
       &:hover{
         border-color: $color-brand2;
       }
@@ -250,6 +255,9 @@ div[id^="page_active_blocs"]{
         font-size: 4rem;
         margin-bottom: .5rem;
         color: $color-brand2;
+        @include respond-to("small"){
+          font-size: 3rem;
+        }
       }
     }
   }
@@ -266,6 +274,7 @@ div[id^="page_active_blocs"]{
 
 .bloc-nom{
   font-size: 2rem;
+  line-height: 1;
 }
 
 .listeBlocs-chargement, .listeBlocsAnnexes-chargement{

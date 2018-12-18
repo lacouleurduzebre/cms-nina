@@ -1,6 +1,5 @@
 .listeBlocs-fermeture, .listeBlocsAnnexes-fermeture, #popup-ajoutPage-close{
   color: $black;
-  position: absolute;
   cursor: pointer;
   font-size: 3rem;
   display: flex;
@@ -10,8 +9,9 @@
 }
 
 .listeBlocs-fermeture, .listeBlocsAnnexes-fermeture{
+  position: fixed;
   top: 2rem;
-  right: 4rem;
+  right: 2rem;
   background-color: $white;
   border-radius: 50%;
   width: 4rem;
@@ -21,6 +21,7 @@
 #popup-ajoutPage-close{
   top: 1rem;
   right: 1.5rem;
+  position: absolute;
 }
 
 .listeBlocs, .listeBlocsAnnexes, .conteneurChargement {
@@ -34,6 +35,23 @@
   background-color: rgba(164, 161, 161, 0.8);
   padding: 5rem;
   align-items: center;
+  @include respond-to("small"){
+    padding: 5rem 6.5rem;
+  }
+  ul{
+    padding: 0;
+  }
+}
+
+.listeBlocs, .listeBlocsAnnexes{
+  [class*="grid-6"].has-gutter-l > li{
+    @include respond-to("extra-large"){
+      width: calc(100% / 3 - 2rem - 0.01px);
+    }
+    @include respond-to("small"){
+      width: 100%;
+    }
+  }
 }
 
 .conteneurChargement{
