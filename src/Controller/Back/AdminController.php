@@ -154,8 +154,7 @@ class AdminController extends BaseAdminController
             //Catégories
             $categories = $pageOriginale->getCategories();
             foreach($categories as $categorie){
-                $nvCategorie = clone $categorie;
-                $nvPage->addCategory($nvCategorie);
+                $nvPage->addCategory($categorie);
             }
 
            $langue = $this->getDoctrine()->getRepository(Langue::class)->find($this->request->get('langue'));

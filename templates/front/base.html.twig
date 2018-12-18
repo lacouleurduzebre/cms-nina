@@ -59,6 +59,9 @@
         </div>
 
         {% block javascripts %}
+            {% if config.analytics is not empty %}
+                {{ config.analytics|raw }}
+            {% endif %}
             <script src="{{ asset('assets/js/jscookie/cookie.js') }}"></script>
             <script src="{{ asset('assets/js/fancybox/jquery.fancybox.min.js') }}"></script>
             <script src="{{ asset('assets/js/jsFront.js') }}"></script>

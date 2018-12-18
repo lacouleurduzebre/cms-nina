@@ -1686,6 +1686,10 @@ body.notFull .main-sidebar #btnArbo svg {
     height: 25px;
     display: block; }
 
+/* Jstree */
+#jstree-marker {
+  z-index: 1000; }
+
 /* Clic droit sur arbo */
 .vakata-context, #pageAccueil-menu {
   z-index: 1000;

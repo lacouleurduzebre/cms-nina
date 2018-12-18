@@ -20,5 +20,5 @@ easy_admin:
                     - { property: 'editeur', label: 'Éditeur' }
                     - emailContact
                     - emailMaintenance
-                    - { property: 'analytics', label: 'Clé Google Analytics' }
+                    - { property: 'analytics', label: 'Script Google Analytics', type_options: { attr: { class: 'notTinymce' } } }
                     - { property: 'maintenance', label: 'Mode maintenance', help: "Si le mode maintenance est activé, votre site ne sera pas accessible aux utilisateurs anonymes" }

@@ -254,6 +254,11 @@ body.notFull .main-sidebar{
   }
 }
 
+/* Jstree */
+#jstree-marker{
+  z-index: 1000;
+}
+
 /* Clic droit sur arbo */
 .vakata-context, #pageAccueil-menu{
   z-index: 1000;

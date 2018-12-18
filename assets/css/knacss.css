@@ -3021,6 +3021,14 @@ body.list #flash-messages > * {
 #page_active_datePublication, #page_active_dateDepublication {
   display: flex; }
 
+.error-block {
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: red;
+  width: 100vw;
+  height: 100vh; }
+
 #tdb {
   padding: 2rem; }
   #tdb h2 {
