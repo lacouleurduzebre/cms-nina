@@ -38,7 +38,7 @@ class FormulaireType extends AbstractType
             ->add('objet', TextType::class, array(
                 'label' => "Objet du mail envoyé"
             ))
-            ->add('messageConfirmation', TextareaType::class, array(
+            ->add('messageConfirmation', TextType::class, array(
                 'label' => "Message affiché après l'envoi du mail"
             ))
             ->add('champs', CollectionType::class, array(
