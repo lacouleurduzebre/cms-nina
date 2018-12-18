@@ -78,6 +78,12 @@
                     });
             });
         });
+
+        function responsive_filemanager_callback(field_id){
+            if($('#'+field_id).val().substr(location.origin).length > 0) {
+                $('#'+field_id).val($('#'+field_id).val().replace(location.origin, ''));
+            }
+        }
     </script>
     <div id="mediatheque"></div>
     {{ include('@EasyAdmin/default/includes/_select2_widget.html.twig') }}

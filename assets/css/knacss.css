@@ -2569,7 +2569,8 @@ body {
       margin: 0 auto 1rem auto; }
     #loginPage > * label {
       color: #0791B3;
-      margin-top: 1.5rem; }
+      margin-top: 1.5rem;
+      display: block; }
     #loginPage > * input {
       border-radius: 5px;
       box-shadow: none;

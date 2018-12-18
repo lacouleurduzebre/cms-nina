@@ -60,17 +60,20 @@ easy_admin:
               - label: 'Pages'
                 icon: ''
                 children:
-                  - { entity: 'Page_Active', label: 'Toutes les pages', type: 'entity', menu_index: 0, submenu_index: 0, icon: '', default: true, params: { } }
+                  - { route: 'admin', label: 'Ajouter une page', type: 'route', menu_index: 0, submenu_index: 0, icon: 'fa-plus-circle mrs', default: true, params: { action: 'new', entity: 'Page_Active' } }
+                  - { entity: 'Page_Active', label: 'Pages', type: 'entity', menu_index: 0, submenu_index: 0, icon: '', default: true, params: { } }
                   - { entity: 'Page_Corbeille', label: 'Pages à la corbeille', type: 'entity', menu_index: 0, submenu_index: 0, icon: '', default: true, params: { } }
               - label: 'Commentaires'
                 icon: ''
                 children:
-                  - { entity: 'Commentaire_Actif', label: 'Tous les commentaires', type: 'entity', menu_index: 0, submenu_index: 0, icon: '', default: true, params: { } }
+                  - { entity: 'Commentaire_Actif', label: 'Commentaires', type: 'entity', menu_index: 0, submenu_index: 0, icon: '', default: true, params: { } }
                   - { entity: 'Commentaire_Corbeille', label: 'Commentaires à la corbeille', type: 'entity', menu_index: 0, submenu_index: 0, icon: '', default: true, params: { } }
               - label: 'Catégories'
                 icon: ''
                 children:
-                  - { entity: 'Categorie', label: 'Toutes les catégories', type: 'entity', menu_index: 0, submenu_index: 0, icon: '', default: true, params: { } }
+                  - { route: 'admin', label: 'Ajouter une catégorie', type: 'route', menu_index: 0, submenu_index: 0, icon: 'fa-plus-circle mrs', default: true, params: { action: 'new', entity: 'Categorie' } }
+                  - { entity: 'Categorie', label: 'Catégories', type: 'entity', menu_index: 0, submenu_index: 0, icon: '', default: true, params: { } }
+                  - { route: 'admin', label: 'Ajouter un type de catégorie', type: 'route', menu_index: 0, submenu_index: 0, icon: 'fa-plus-circle mrs', default: true, params: { action: 'new', entity: 'TypeCategorie' } }
                   - { entity: 'TypeCategorie', label: 'Types de catégories', type: 'entity', menu_index: 0, submenu_index: 0, icon: '', default: true, params: { } }
               - label: 'Langues'
                 icon: ''

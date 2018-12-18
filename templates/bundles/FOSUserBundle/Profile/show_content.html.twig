@@ -1,0 +1,12 @@
+{% trans_default_domain 'FOSUserBundle' %}
+
+<div class="retourAccueil">
+    <a href="{{ path('accueil') }}">
+        <i class="fas fa-arrow-left"></i> {{ "Retour au site"|trans }}
+    </a>
+</div>
+
+<div class="fos_user_user_show">
+    <p>{{ 'profile.show.username'|trans }}: {{ user.username }}</p>
+    <p>{{ 'profile.show.email'|trans }}: {{ user.email }}</p>
+</div>
