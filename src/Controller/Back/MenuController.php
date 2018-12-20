@@ -9,6 +9,7 @@
 namespace App\Controller\Back;
 
 
+use App\Entity\Configuration;
 use App\Entity\Langue;
 use App\Entity\Menu;
 use App\Entity\MenuPage;
@@ -123,6 +124,7 @@ class MenuController extends Controller
             $repoSEO = $em->getRepository(SEO::class);
             $repoMenu = $em->getRepository(Menu::class);
             $repoLangue = $em->getRepository(Langue::class);
+            $config = $em->getRepository(Configuration::class)->find(1);
 
             //Création page
             $page = new Page();
@@ -135,6 +137,8 @@ class MenuController extends Controller
             $page->setTitreMenu($titreMenu);
             $page->setAuteur($user);
             $page->setAuteurDerniereModification($user);
+            $page->setAffichageCommentaires($config->getAffichageCommentaires());
+            $page->setAffichageDatePublication($config->getAffichageDatePublication());
             $SEO = new SEO();
             $SEO->setMetaTitre($metaTitre)->setUrl($url)->setMetaDescription($metaDescription);
             $page->setSeo($SEO);

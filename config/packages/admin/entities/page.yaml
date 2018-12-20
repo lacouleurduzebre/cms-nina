@@ -57,6 +57,8 @@ easy_admin:
                     - { property: 'SEO', type: 'App\Form\Type\SEOType', type_options: { by_reference: true, label: false } }
                     - { type: 'tab', label: 'Affichage' }
                     - { property: 'affichageSousNiveaux', label: 'Afficher les pages enfants dans les menus' }
+                    - { property: 'affichageCommentaires', label: 'Autoriser les commentaires' }
+                    - { property: 'affichageDatePublication', label: 'Afficher la date de publication' }
                     - { property: 'blocsAnnexes', type: 'collection', type_options: { entry_type: 'App\Form\Type\BlocAnnexeType', by_reference: false } }
                     - { type: 'tab', label: 'Catégories' }
                     - categories

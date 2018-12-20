@@ -12,6 +12,7 @@ namespace App\Event;
 use App\Entity\MenuPage;
 use App\Entity\Bloc;
 use App\Entity\Page;
+use App\Service\Configuration;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\EventDispatcher\GenericEvent;
@@ -74,5 +75,7 @@ class PageAdmin implements EventSubscriberInterface
         if(!$entity->getAuteur()){
             $entity->setAuteur($user);
         }
+
+        return;
     }
 }

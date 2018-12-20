@@ -22,10 +22,14 @@
     <h1 class="titre-page">{{ page.titre }}</h1>
 
     <p class="infos-page">
-        {{ 'Publié le'|trans }}
-        {{ page.datePublication|date("d/m/Y") }}
+        {% if page.affichageDatePublication %}
+            {{ 'Publié le'|trans }}
+            {{ page.datePublication|date("d/m/Y") }}
+        {% endif %}
         {% if page.categories is not empty %}
-            {{ 'dans les catégories'|trans }}
+            {% if page.affichageDatePublication %}
+                {{ 'dans les catégories'|trans }}
+            {% endif %}
             {% for categorie in page.categories %}
                 <a class="bouton-categorie" href="{{ path('voirCategorie', { 'urlTypeCategorie': categorie.typeCategorie.url, 'urlCategorie': categorie.url }) }}">{{ categorie.nom }}</a>
             {% endfor %}
@@ -36,23 +40,25 @@
         {% include('front/blocs.html.twig') with {'blocs': page.blocs} only %}
     {% endif %}
 
-    <div class="blocCommentaires">
-        <h2>Commentaires sur "{{ page.titre }}" ({{ page.commentaires|length }})</h2>
-        {% for message in app.session.flashbag.get('comOK') %}
-            <p class="message">{{ message }}</p>
-        {% endfor %}
-        <p class="blocCommentaires-ajout">Ajouter un commentaire<i class="fas fa-angle-down mls"></i></p>
-        <div class="blocCommentaires-formulaire">
-            {{ form(form) }}
-        </div>
-        {% for commentaire in commentaires %}
-            {% if commentaire.corbeille == false and commentaire.valide == true %}
-            <div class="commentaire">
-                <p>Par <strong>{{ commentaire.auteur }}</strong> le {{ commentaire.date|date("d/m/Y") }} à {{ commentaire.date|date("G:i") }}</p>
-                <p class="pas">{{ commentaire.contenu|raw }}</p>
+    {% if page.affichageCommentaires %}
+        <div class="blocCommentaires">
+            <h2>Commentaires sur "{{ page.titre }}" ({{ page.commentaires|length }})</h2>
+            {% for message in app.session.flashbag.get('comOK') %}
+                <p class="message">{{ message }}</p>
+            {% endfor %}
+            <p class="blocCommentaires-ajout">Ajouter un commentaire<i class="fas fa-angle-down mls"></i></p>
+            <div class="blocCommentaires-formulaire">
+                {{ form(form) }}
             </div>
-            {% endif %}
-        {% endfor %}
-    </div>
+            {% for commentaire in commentaires %}
+                {% if commentaire.corbeille == false and commentaire.valide == true %}
+                <div class="commentaire">
+                    <p>Par <strong>{{ commentaire.auteur }}</strong> le {{ commentaire.date|date("d/m/Y") }} à {{ commentaire.date|date("G:i") }}</p>
+                    <p class="pas">{{ commentaire.contenu|raw }}</p>
+                </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+    {% endif %}
 
 {% endblock %}

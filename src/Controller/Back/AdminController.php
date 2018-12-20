@@ -10,6 +10,7 @@ namespace App\Controller\Back;
 
 use App\Entity\Categorie;
 use App\Entity\Commentaire;
+use App\Entity\Configuration;
 use App\Entity\Langue;
 use App\Entity\MenuPage;
 use App\Entity\Page;
@@ -24,6 +25,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Event\EasyAdminEvents;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
+use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -110,6 +112,21 @@ class AdminController extends BaseAdminController
 
             });
         }
+        return $formBuilder;
+    }
+
+    //Nouvelle page : checkboxes affichage commentaires / date publi en fonction de la config
+    protected function createPage_ActiveEntityFormBuilder($entity, $view){
+        $formBuilder = parent::createEntityFormBuilder($entity, $view);
+
+        if($view == "new") {
+            $config = $this->getDoctrine()->getRepository(Configuration::class)->find(1);
+            $page = $formBuilder->getData();
+
+            $page->setAffichageCommentaires($config->getAffichageCommentaires());
+            $page->setAffichageDatePublication($config->getAffichageDatePublication());
+        }
+
         return $formBuilder;
     }
 

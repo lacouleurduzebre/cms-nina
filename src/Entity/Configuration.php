@@ -74,9 +74,21 @@ class Configuration
      */
     private $maintenance;
 
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $affichageCommentaires;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $affichageDatePublication;
+
     public function __construct()
     {
         $this->maintenance = false;
+        $this->affichageCommentaires = true;
+        $this->affichageDatePublication = true;
     }
 
     public function __toString()
@@ -258,6 +270,30 @@ class Configuration
     public function setMaintenance(bool $maintenance): self
     {
         $this->maintenance = $maintenance;
+
+        return $this;
+    }
+
+    public function getAffichageCommentaires(): ?bool
+    {
+        return $this->affichageCommentaires;
+    }
+
+    public function setAffichageCommentaires(bool $affichageCommentaires): self
+    {
+        $this->affichageCommentaires = $affichageCommentaires;
+
+        return $this;
+    }
+
+    public function getAffichageDatePublication(): ?bool
+    {
+        return $this->affichageDatePublication;
+    }
+
+    public function setAffichageDatePublication(bool $affichageDatePublication): self
+    {
+        $this->affichageDatePublication = $affichageDatePublication;
 
         return $this;
     }

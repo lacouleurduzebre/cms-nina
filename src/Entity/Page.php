@@ -5,6 +5,7 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\RegistryInterface;
 
 /**
  * page
@@ -126,6 +127,16 @@ class Page
      * @ORM\Column(type="boolean")
      */
     private $affichageSousNiveaux = true;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $affichageCommentaires = true;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $affichageDatePublication = true;
 
     public function __construct()
     {
@@ -579,6 +590,30 @@ class Page
     public function setAffichageSousNiveaux(?bool $affichageSousNiveaux): self
     {
         $this->affichageSousNiveaux = $affichageSousNiveaux;
+
+        return $this;
+    }
+
+    public function getAffichageCommentaires(): ?bool
+    {
+        return $this->affichageCommentaires;
+    }
+
+    public function setAffichageCommentaires(bool $affichageCommentaires): self
+    {
+        $this->affichageCommentaires = $affichageCommentaires;
+
+        return $this;
+    }
+
+    public function getAffichageDatePublication(): ?bool
+    {
+        return $this->affichageDatePublication;
+    }
+
+    public function setAffichageDatePublication(bool $affichageDatePublication): self
+    {
+        $this->affichageDatePublication = $affichageDatePublication;
 
         return $this;
     }
