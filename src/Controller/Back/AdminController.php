@@ -464,8 +464,18 @@ class AdminController extends BaseAdminController
 
             if($class == 'Page'){
                 $repoMenuPage = $this->getDoctrine()->getRepository(MenuPage::class);
-                $menuPage = $repoMenuPage->findOneBy(array('page' => $entity));
-                $this->em->remove($menuPage);
+                $menuPages = $repoMenuPage->findBy(array('page' => $entity));
+
+                foreach($menuPages as $menuPage){
+                    $this->em->remove($menuPage);
+                }
+
+                //Si la page était parent d'une autre, on remonte ses enfants à la racine du menu
+                $menuPagesOrphelins = $repoMenuPage->findBy(array('pageParent' => $entity));
+                foreach($menuPagesOrphelins as $menuPage){
+                    $menuPage->setPageParent(null);
+                }
+
                 $this->em->flush();
             }
 
@@ -477,10 +487,14 @@ class AdminController extends BaseAdminController
         }
         $this->em->flush();
 
-        return $this->redirectToRoute('easyadmin', array(
-            'action' => 'list',
-            'entity' => $this->request->query->get('entity'),
-        ));
+        if(!$this->request->isXmlHttpRequest()){
+            return $this->redirectToRoute('easyadmin', array(
+                'action' => 'list',
+                'entity' => $this->request->query->get('entity'),
+            ));
+        }
+
+        return new Response('ok');
     }
 
     public function voirAction(){

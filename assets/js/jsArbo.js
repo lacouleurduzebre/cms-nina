@@ -205,7 +205,7 @@ $(document).ready(function(){
         if (node.type === 'root' || node.type === 'orphan'){
             delete items.delete;
             delete items.duplicate;
-            delete items.remove;
+            // delete items.remove;
             delete items.alias;
             delete items.see;
             delete items.home;
@@ -213,7 +213,7 @@ $(document).ready(function(){
 
         if($('#'+node.id).closest('div').attr('id') === 'menu-0'){
             delete items.alias;
-            delete items.remove;
+            // delete items.remove;
             if(node.type !== 'root' && node.type !== 'orphan'){
                 delete items.create;
             }else{
@@ -310,17 +310,6 @@ $(document).ready(function(){
         }, 100);
     });
 
-    /*$('.sidebar-menus div[id^="menu"]').on('move_node.jstree copy_node.jstree', function(e, data){
-        idMenuComplet = $('#'+data.node.id).parents('div').attr('id');
-        if(data.node.type !== 'home'){
-            if(idMenuComplet === 'menu-0'){
-                data.node.type = 'orphan'
-            }else{
-                data.node.type = 'default'
-            }
-        }
-    });*/
-
     $('.sidebar-menus div[id^="menu"]').on('move_node.jstree copy_node.jstree', enregistrementMenu);
 
     $('.sidebar-menus div[id^="menu"]').on('create_node.jstree', function(e, data){
@@ -341,26 +330,9 @@ $(document).ready(function(){
         $('#popup-ajoutPage').remove();
     });
 
-        //Informations supplémentaires : réutilisation titre
-    $('body').on('click', '#ajoutPage-infosTitre', function(){
-        titre = $('#ajoutPage-titre').val();
-        if($(this).is(':checked')){
-            remplirInfos(titre);
-            $('body').on('keyup', '#ajoutPage-titre', function(){
-                titre = $('#ajoutPage-titre').val();
-                remplirInfos(titre);
-            });
-        }else{
-            $('body').off('keyup', '#ajoutPage-titre');
-        }
-    });
-
         //Informations supplémentaires : édition manuelle
     $('body').on('click', '#ajoutPage-infosManu', function(){
         $('#ajoutPage-infos').slideToggle();
-        if(!$(this).is(':checked') && !$('#ajoutPage-infosTitre').is(':checked')){
-          $('#ajoutPage-infosTitre').click();
-        }
     });
 
     remplirInfos = function(titre){
@@ -435,7 +407,9 @@ $(document).ready(function(){
 
              node = $('#'+idMenuComplet).jstree("get_node", idNode);
 
-             nouveauNode = $('#'+idMenuComplet).jstree("create_node", node, titreMenu+'<span class="menuPage" id="'+idMenuPage+'"></span><span class="page" id="'+idPage+'"></span>', 'first', false, false);
+             nouveauNode = $('#'+idMenuComplet).jstree("create_node", node, titreMenu+'<span class="menuPage" id="'+idMenuPage+'"></span><span class="page" id="'+idPage+'"></span>', 'last', false, false);
+
+             $('#'+idNode).jstree("open_all");
          })
          .fail(function(){
             $('#loader-arbo.'+idMenuComplet).html("<i class='fas fa-times'></i>").delay(600).fadeOut();
