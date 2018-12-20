@@ -6,7 +6,7 @@ $(document).ready(function(){
                 "icon": "fa fa-pencil-alt",
                 "label": "Éditer",
                 "action": function(){
-                    if(node.type === 'root'){//Si Menu
+                    if(node.type === 'root' || node.type === 'orphan'){//Si Menu
                         idMenu = $('#'+node.id).parents('div').attr('id').substr(5);
                         window.location.href = baseURL+Routing.generate('easyadmin', { action: 'edit', entity: 'Menu', id: idMenu });
                     }else{//Si Page
@@ -35,7 +35,7 @@ $(document).ready(function(){
                 "icon": "fa fa-plus",
                 "label": "Ajouter une page enfant",
                 "action": function(){
-                    if(node.type === 'root'){//Si Menu
+                    if(node.type === 'root' || node.type === 'orphan'){//Si Menu
                         idPageParent = null;
                     }else{//Si Page
                         idPageParent = $('#'+node.id).find('.page').attr('id');
@@ -112,14 +112,13 @@ $(document).ready(function(){
                     window.location.href = baseURL+Routing.generate('easyadmin', { action: 'dupliquer', entity: 'Page_Active', id: idPage });
                 }
             },
-            "remove":{
+            /*"remove":{
                 "icon": "fa fa-minus",
                 "label": "Retirer du menu",
                 "action": function(){
                     idMenuPage = $('#'+node.id).find('.menuPage').attr('id');
                     idMenu = $('#'+node.id).parents('div').attr('id');
                     $('#loader-arbo.'+idMenu).fadeIn().html("<i class='fas fa-sync fa-spin'></i>");
-
                     $.ajax({
                         url: baseURL+Routing.generate('retirerDuMenu'),
                         method: "post",
@@ -138,7 +137,7 @@ $(document).ready(function(){
                             $('#loader-arbo.'+idMenu).html("<i class='fas fa-times'></i>").delay(600).fadeOut();
                         });
                 }
-            },
+            },*/
             "delete":{
                 "icon": "fa fa-trash-alt",
                 "label": "Mettre à la corbeille",
@@ -203,7 +202,7 @@ $(document).ready(function(){
         });
 
         //On enlève les options inutiles pour les menus
-        if (node.type === 'root'){
+        if (node.type === 'root' || node.type === 'orphan'){
             delete items.delete;
             delete items.duplicate;
             delete items.remove;
@@ -215,7 +214,7 @@ $(document).ready(function(){
         if($('#'+node.id).closest('div').attr('id') === 'menu-0'){
             delete items.alias;
             delete items.remove;
-            if(node.type !== 'root'){
+            if(node.type !== 'root' && node.type !== 'orphan'){
                 delete items.create;
             }else{
                 delete items.edit;
@@ -244,6 +243,10 @@ $(document).ready(function(){
             "default" : {
                 "icon" : "fas fa-file"
             },
+            "orphan" : {
+                "icon" : "fas fa-folder",
+                "max_depth" : 1
+            },
             "home" : {
                 "icon" : "fas fa-home"
             }
@@ -256,7 +259,7 @@ $(document).ready(function(){
         },
         "dnd": {
             "is_draggable" : function(nodes, event){
-                return(nodes[0].type !== 'root');
+                return(nodes[0].type !== 'root' && nodes[0].type !== 'orphan');
             }
         }
     };
@@ -276,7 +279,7 @@ $(document).ready(function(){
             idMenuPage = $('#'+idLi).find('.menuPage').attr('id');
             idPage = $('#'+idLi).find('.page').attr('id');
 
-            if($(this).parent('ul').parent('li').parent('ul').hasClass('jstree-container-ul')){
+            if($(this).parent('ul').parent('li').parent('ul').hasClass('jstree-container-ul') || idMenu === '0'){
                 idPageParent = null;
             }else{
                 idLiParent = $(this).parent('ul').parent('li').attr('id');
@@ -284,7 +287,7 @@ $(document).ready(function(){
             }
             menuPage = [idMenuPage, idPage, position, idPageParent, idMenu];
 
-            console.log(menuPage);
+            // console.log(menuPage);
 
             arbo.push(menuPage);
         });
@@ -306,6 +309,17 @@ $(document).ready(function(){
             data.instance.show_contextmenu(data.node)
         }, 100);
     });
+
+    /*$('.sidebar-menus div[id^="menu"]').on('move_node.jstree copy_node.jstree', function(e, data){
+        idMenuComplet = $('#'+data.node.id).parents('div').attr('id');
+        if(data.node.type !== 'home'){
+            if(idMenuComplet === 'menu-0'){
+                data.node.type = 'orphan'
+            }else{
+                data.node.type = 'default'
+            }
+        }
+    });*/
 
     $('.sidebar-menus div[id^="menu"]').on('move_node.jstree copy_node.jstree', enregistrementMenu);
 

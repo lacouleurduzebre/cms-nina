@@ -92,6 +92,7 @@ class MenuController extends Controller
                 return new Response('pas orpheline');
             }else{//Oui -> on modifie menuPage
                 $menuPage->setMenu(null);
+                $menuPage->setPageParent(null);
                 $em->persist($menuPage);
                 $em->flush();
                 return new Response('orpheline');
