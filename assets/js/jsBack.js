@@ -744,4 +744,9 @@ $(document).ready(function(){
             });
         }
     });
+
+    //Apercu mobile et tablette
+    $('#apercuMobile').click(function(){
+        $('body').append('<div class="conteneurLightbox">div.<iframe width="350px" height="650px" src="'+$('.action-voir').attr("href")+'"></iframe></div>')
+    });
 });

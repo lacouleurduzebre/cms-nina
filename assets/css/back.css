@@ -1815,8 +1815,7 @@ body.notFull .main-sidebar #btnArbo svg {
   right: 1.5rem;
   position: absolute; }
 
-.listeBlocs, .listeBlocsAnnexes, .conteneurChargement {
-  display: none;
+.listeBlocs, .listeBlocsAnnexes, .conteneurChargement, .conteneurLightbox {
   position: fixed;
   top: 0;
   left: 0;
@@ -1827,10 +1826,13 @@ body.notFull .main-sidebar #btnArbo svg {
   padding: 5rem;
   align-items: center; }
   @media (max-width: 575px) {
-    .listeBlocs, .listeBlocsAnnexes, .conteneurChargement {
+    .listeBlocs, .listeBlocsAnnexes, .conteneurChargement, .conteneurLightbox {
       padding: 5rem 6.5rem; } }
-  .listeBlocs ul, .listeBlocsAnnexes ul, .conteneurChargement ul {
+  .listeBlocs ul, .listeBlocsAnnexes ul, .conteneurChargement ul, .conteneurLightbox ul {
     padding: 0; }
+
+.listeBlocs, .listeBlocsAnnexes, .conteneurChargement {
+  display: none; }
 
 @media (max-width: 1199px) {
   .listeBlocs [class*="grid-6"].has-gutter-l > li, .listeBlocsAnnexes [class*="grid-6"].has-gutter-l > li {

@@ -24,8 +24,7 @@
   position: absolute;
 }
 
-.listeBlocs, .listeBlocsAnnexes, .conteneurChargement {
-  display: none;
+.listeBlocs, .listeBlocsAnnexes, .conteneurChargement, .conteneurLightbox {
   position: fixed;
   top: 0;
   left: 0;
@@ -41,6 +40,10 @@
   ul{
     padding: 0;
   }
+}
+
+.listeBlocs, .listeBlocsAnnexes, .conteneurChargement{
+  display: none;
 }
 
 .listeBlocs, .listeBlocsAnnexes{

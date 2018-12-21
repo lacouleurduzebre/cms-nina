@@ -14,6 +14,9 @@
     transition: 0.25s;
     svg{
       transition: 0.25s;
+      @include respond-to("medium-up"){
+        margin-right: .5rem;
+      }
     }
   }
   .formulaire-actions-enregistrer{
@@ -21,11 +24,6 @@
     @include respond-to("medium"){
       span{
         display: none;
-      }
-    }
-    svg{
-      @include respond-to("medium-up"){
-        margin-right: .5rem;
       }
     }
     &[disabled]:hover{
@@ -113,12 +111,6 @@
     right: 1rem;
     padding-top: 1rem;
     width: 20rem;
-    > div a:first-of-type{
-      padding-top: 1.6rem;
-    }
-    > div a:last-of-type{
-      padding-bottom: 1.6rem;
-    }
   }
   .ombre{
     box-shadow: 4px 4px 4px rgba(0,0,0,.25);
@@ -126,12 +118,14 @@
   &:hover > div{
     display: block;
   }
-  a{
+  a, span{
     padding: .8rem 0 .8rem 4rem;
     display: block;
     padding-left: 2rem;
     background-color: $white;
     text-decoration: none;
+    color: #000;
+    cursor: pointer;
     &:hover{
       text-decoration: underline;
     }
