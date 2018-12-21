@@ -2,12 +2,17 @@
 mkdir('sauvegardes');
 mkdir('sauvegardes/mediatheque');
 mkdir('sauvegardes/bdd');
+mkdir('public/themes_thumbs');
 mkdir('public/uploads');
 mkdir('translations');
 mkdir('themes/nina/translations');
 
-//symlink('assets', 'public/assets');
-//symlink('themes/nina/assets', 'public/theme');
+if(!file_exists('public/assets')){
+    symlink('assets', 'public/assets');
+}
+if(!file_exists('public/theme')){
+    symlink('themes/nina/assets', 'public/theme');
+}
 
 if(!file_exists('config/packages/doctrine_migrations.yaml')){
     copy('config/defaut/defaut_doctrine_migrations.yaml', 'config/packages/doctrine_migrations.yaml');
