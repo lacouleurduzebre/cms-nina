@@ -23,3 +23,6 @@ if(!file_exists('src/Service/NamingStrategy.php')){
 if(!file_exists('config/services.yaml')){
     copy('config/defaut/defaut_services.yaml', 'config/services.yaml');
 }
+if(!file_exists('src/Blocs/configBlocs.yaml')){
+    copy('config/defaut/defaut_configBlocs.yaml', 'src/Blocs/configBlocs.yaml');
+}

@@ -2,5 +2,3 @@ nom: Bouton
 description: Lien interne ou externe sous forme de bouton
 type: contenu
 icone: 'fas fa-link'
-priorite: 1
-actif: oui

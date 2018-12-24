@@ -2,5 +2,3 @@ nom: 'Moteur de recherche'
 description: 'Permet aux utilisateurs de trouver une page en fonction de son titre ou de ses blocs de texte'
 type: contenu
 icone: 'fas fa-search'
-priorite: 16
-actif: oui

@@ -2,5 +2,3 @@ nom: 'Type de catégorie'
 description: 'Liste toutes les catégories appartenant au type de catégorie choisi'
 type: contenu
 icone: 'fas fa-tags'
-priorite: 9
-actif: oui

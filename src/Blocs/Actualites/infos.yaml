@@ -2,5 +2,3 @@ nom: Actualités
 description: 'Liste les dernières pages de tout le site, ou les dernières pages d''une catégorie'
 type: contenu
 icone: 'far fa-newspaper'
-priorite: 20
-actif: oui

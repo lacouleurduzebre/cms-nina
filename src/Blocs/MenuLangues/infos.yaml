@@ -2,5 +2,3 @@ nom: 'Menu des langues'
 description: 'Boutons permettant de modifier la langue du site'
 type: contenu
 icone: 'fas fa-language'
-priorite: 21
-actif: oui

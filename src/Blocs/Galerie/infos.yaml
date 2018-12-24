@@ -2,5 +2,3 @@ nom: Galerie
 description: 'Affiche une galerie d''images avec diaporama'
 type: contenu
 icone: 'fas fa-images'
-priorite: 3
-actif: oui

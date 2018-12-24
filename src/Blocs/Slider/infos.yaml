@@ -2,5 +2,3 @@ nom: Slider
 description: 'Galerie défilante constituée d''images et éventuellement de textes'
 type: contenu
 icone: 'far fa-images'
-priorite: 4
-actif: oui

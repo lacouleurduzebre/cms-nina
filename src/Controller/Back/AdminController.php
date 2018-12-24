@@ -301,14 +301,17 @@ class AdminController extends BaseAdminController
         $types = array_combine(array_values($types), array_values($types));
         unset($types["."]);
         unset($types[".."]);
+        unset($types["configBlocs.yaml"]);
+        $config = Yaml::parseFile('../src/Blocs/configBlocs.yaml');
 
         $repoBlocAnnexe = $this->getDoctrine()->getRepository(\App\Entity\BlocAnnexe::class);
 
         $blocs = [];
         foreach($types as $type){
             $infos = Yaml::parseFile('../src/Blocs/'.$type.'/infos.yaml');
-            if($infos['actif'] == 'oui' && $infos['type'] == $typeBloc){
+            if($config[$type]['actif'] == 'oui' && $infos['type'] == $typeBloc){
                 $blocs[$type] = $infos;
+                $blocs[$type]['priorite'] = $config[$type]['priorite'];
                 if($typeBloc == 'annexe' && $entity != null){
                     $blocAnnexe = $repoBlocAnnexe->findOneBy(array('page' => $entity, 'type' => $type));
                     if($blocAnnexe){

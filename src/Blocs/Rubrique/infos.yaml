@@ -2,5 +2,3 @@ nom: Rubrique
 description: 'Affiche une liste de toutes les pages enfants de cette page (par rapport au menu principal)'
 type: contenu
 icone: 'fas fa-folder'
-priorite: 10
-actif: oui

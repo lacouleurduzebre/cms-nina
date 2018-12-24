@@ -15,6 +15,7 @@ composer.phar
 /config/services.yaml
 /config/packages/doctrine_migrations.yaml
 /src/Service/NamingStrategy.php
+/src/Blocs/configBlocs.yaml
 
 ###> symfony/framework-bundle ###
 .env

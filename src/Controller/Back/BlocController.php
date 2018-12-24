@@ -44,31 +44,29 @@ class BlocController extends Controller
         if($request->isXmlHttpRequest()){
             $action = $request->get('action');
             if($action == 'actif'){
-                $typeBloc = $request->get('typeBloc');
                 $type = $request->get('type');
                 $actif = $request->get('actif');
 
-                $infos = Yaml::parseFile('../src/Blocs/'.$type.'/infos.yaml');
+                $infos = Yaml::parseFile('../src/Blocs/configBlocs.yaml');
 
-                ($actif == 'true') ? $infos['actif'] = 'oui' : $infos['actif'] = 'non';
+                ($actif == 'true') ? $infos[$type]['actif'] = 'oui' : $infos[$type]['actif'] = 'non';
 
                 $nvConfig = Yaml::dump($infos);
 
-                file_put_contents('../src/Blocs/'.$type.'/infos.yaml', $nvConfig);
+                file_put_contents('../src/Blocs/configBlocs.yaml', $nvConfig);
 
                 return new Response ('ok');
             }else if($action == 'priorite'){
-                $typeBloc = $request->get('typeBloc');
                 $blocs = $request->get('blocs');
 
                 foreach($blocs as $type => $priorite){
-                    $infos = Yaml::parseFile('../src/Blocs/'.$type.'/infos.yaml');
-                    if($infos['priorite'] != $priorite){
-                        $infos['priorite'] = (int)$priorite;
+                    $infos = Yaml::parseFile('../src/Blocs/configBlocs.yaml');
+                    if($infos[$type]['priorite'] != $priorite){
+                        $infos[$type]['priorite'] = (int)$priorite;
 
                         $nvInfos = Yaml::dump($infos);
 
-                        file_put_contents('../src/Blocs/'.$type.'/infos.yaml', $nvInfos);
+                        file_put_contents('../src/Blocs/configBlocs.yaml', $nvInfos);
                     }
                 }
 
@@ -91,13 +89,17 @@ class BlocController extends Controller
         $types = array_combine(array_values($types), array_values($types));
         unset($types["."]);
         unset($types[".."]);
+        unset($types["configBlocs.yaml"]);
 
         $blocs = [];
         $blocsContenu = [];
         $blocsAnnexes = [];
+        $config = Yaml::parseFile('../src/Blocs/configBlocs.yaml');
         foreach($types as $type){
             $infos = Yaml::parseFile('../src/Blocs/'.$type.'/infos.yaml');
             $infos['identifiant'] = $type;
+            $infos['priorite'] = $config[$type]['priorite'];
+            $infos['actif'] = $config[$type]['actif'];
             if($infos['type'] == 'contenu'){
                 $blocsContenu[$type] = $infos;
             }else{

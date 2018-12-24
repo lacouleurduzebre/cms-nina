@@ -64,7 +64,7 @@ easy_admin:
                     - auteurDerniereModification
                     - { property: 'blocsAnnexes', type: 'collection', type_options: { entry_type: 'App\Form\Type\BlocAnnexeType', by_reference: false } }
                     - { type: 'tab', label: 'Catégories' }
-                    - categories
+                    - { property: 'categories', type_options: { query_builder: 'App\Repository\CategorieRepository::orderByNom' } }
                     - { type: 'tab', label: 'Commentaires' }
                     - { property: 'affichageCommentaires', label: 'Autoriser les commentaires' }
                     - { property: 'commentaires', type: 'collection', type_options: { entry_type: 'App\Form\Type\CommentaireType', by_reference: false, label_format: 'Commentaires' } }

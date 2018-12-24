@@ -2,5 +2,3 @@ nom: Menu
 description: 'Affiche l''un des menus du site'
 type: contenu
 icone: 'fas fa-list'
-priorite: 11
-actif: oui
