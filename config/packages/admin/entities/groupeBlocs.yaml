@@ -24,9 +24,11 @@ easy_admin:
                     - { name: 'delete', label: 'Supprimer', title: 'Supprimer', icon: 'trash', css_class: '' }
                     - { name: 'list', label: 'Retour', title: 'Retour', icon: 'arrow-left', css_class: '' }
                 fields:
+                    - { type: 'tab', label: 'Contenus' }
                     - nom
+                    - { property: 'blocs', type: 'collection', type_options: { entry_type: 'App\Form\Type\BlocType', by_reference: false } }
+                    - { type: 'tab', label: 'Paramètres' }
+                    - langue
                     - identifiant
                     - region
                     - position
-                    - langue
-                    - { property: 'blocs', type: 'collection', type_options: { entry_type: 'App\Form\Type\BlocType', by_reference: false } }

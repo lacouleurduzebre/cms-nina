@@ -9,6 +9,7 @@
 namespace App\Blocs\Bouton;
 
 
+use App\Form\Type\LienFichierType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
@@ -22,14 +23,8 @@ class BoutonType extends AbstractType
     {
         $builder
             ->add('lien', TextType::class, array(
-                "help" => "Pour les liens externes, ne pas oublier d'ajouter le préfixe http:// ou https://"
-            ))
-            ->add('texte', TextType::class, array(
-                "label" => "Texte du lien",
-            ))
-            ->add('titre', TextType::class, array(
-                "label" => "Titre au survol",
-                "required" => false
+                "help" => "Pour les liens externes, ne pas oublier d'ajouter le préfixe http:// ou https://",
+                "label" => "Lien"
             ))
             ->add('blank', ChoiceType::class, array(
                 "choices" => array(
@@ -37,7 +32,15 @@ class BoutonType extends AbstractType
                 ),
                 "required" => false,
                 "expanded" => true,
-                "multiple" => true
+                "multiple" => true,
+                "label" => false
+            ))
+            ->add('texte', TextType::class, array(
+                "label" => "Texte du lien",
+            ))
+            ->add('titre', TextType::class, array(
+                "label" => "Titre au survol",
+                "required" => false
             ));
     }
 

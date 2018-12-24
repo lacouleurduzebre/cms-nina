@@ -1041,3 +1041,16 @@
         <p>{{ data.username }}</p>
     {% endif %}
 {% endblock %}
+
+{% block bouton_widget -%}
+    {{- form_label(form.children.lien) -}}
+    {{- form_widget(form.children.lien) -}}
+    <a class="iframe ouvrirMediatheque" href='/filemanager/dialog.php?type=2&field_id={{ form.children.lien.vars.id }}' type="button">{{ 'Choisir un fichier dans la médiathèque'|trans }}</a>
+    <script>
+        $('.ouvrirMediatheque').fancybox({
+            type: 'iframe',
+            minHeight: '600'
+        });
+    </script>
+    {{- form_end(form) -}}
+{%- endblock %}
