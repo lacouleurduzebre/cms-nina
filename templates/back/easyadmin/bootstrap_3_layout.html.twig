@@ -326,6 +326,9 @@
                     collection.data('count', ++numItems);
 
                     collection.append(newItem).trigger('easyadmin.collection.item-added');
+
+                    tinymce.remove();
+                    tinymce.init(optionsTinyMCE);
                 });
             {% endset %}
 
@@ -945,6 +948,41 @@
 {# FIN BLOC ANNEXE #}
 
 {% block image_widget %}
+    <strong>{{ 'Image'|trans }}</strong>
+    <div>
+        {{- form_widget(form.children.image) -}}
+    </div>
+    <div>
+        <a class="iframe bloc_image_bouton_mediatheque" href='/filemanager/dialog.php?type=1&field_id={{ form.children.image.vars.id }}' type="button">{{ 'Choisir une image'|trans }}</a>
+        <div class="bloc_image_apercu_mediatheque">
+            <img src="{{ form.children.image.vars.value }}" alt="">
+        </div>
+    </div>
+    <div>
+        {{- form_label(form.children.titre) -}}
+        {{- form_widget(form.children.titre) -}}
+    </div>
+    <div>
+        {{- form_label(form.children.description) -}}
+        {{- form_widget(form.children.description) -}}
+    </div>
+    <strong>{{ 'Lien'|trans }}</strong>
+    <div>
+        {{- form_label(form.children.lien) -}}
+        {{- form_widget(form.children.lien) -}}
+    </div>
+    <div class="mts">
+        {{- form_widget(form.children.blank) -}}
+    </div>
+    <script>
+        $('.bloc_image_bouton_mediatheque').fancybox({
+            type: 'iframe',
+            minHeight: '600'
+        });
+    </script>
+{% endblock %}
+
+{% block image_defaut_widget %}
     <div>
         {{- form_label(form.children.image) -}}
         {{- form_widget(form.children.image) -}}
@@ -961,11 +999,7 @@
     </div>
     <div>
         {{- form_label(form.children.description) -}}
-        {% if form.parent.parent is not empty and form.parent.parent.vars.name == 'Slide' %}
-            {{- form_widget(form.children.description) -}}
-        {% else %}
-            {{- form_widget(form.children.description, {'attr': {'class': 'notTinymce'}}) -}}
-        {% endif %}
+        {{- form_widget(form.children.description) -}}
     </div>
     <script>
         $('.bloc_image_bouton_mediatheque').fancybox({
@@ -974,33 +1008,6 @@
         });
     </script>
 {% endblock %}
-
-{% block vignette_widget %}
-    <div {% if form.vars.attr['class'] is defined %}class="{{ form.vars.attr['class'] }}"{% endif %}>
-        <div>
-            {{- form_label(form.children.image) -}}
-            {{- form_widget(form.children.image) -}}
-        </div>
-        <div>
-            <a class="iframe bloc_image_bouton_mediatheque" href='/filemanager/dialog.php?type=1&field_id={{ form.children.image.vars.id }}' type="button">{{ 'Choisir une image'|trans }}</a>
-            <div class="bloc_image_apercu_mediatheque">
-                <img src="{{ form.children.image.vars.value }}" alt="">
-            </div>
-        </div>
-        <div>
-            {{- form_label(form.children.titre) -}}
-            {{- form_widget(form.children.titre) -}}
-        </div>
-        <script>
-            $('.bloc_image_bouton_mediatheque').fancybox({
-                type: 'iframe',
-                minHeight: '600'
-            });
-        </script>
-    </div>
-{% endblock %}
-
-{[
 
 {% block slide_widget %}
     <div class="dragSlide">

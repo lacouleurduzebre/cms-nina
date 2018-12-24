@@ -10,10 +10,10 @@ namespace App\Blocs\Image;
 
 
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\ButtonType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
-use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\UrlType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -24,15 +24,23 @@ class ImageType extends AbstractType
         $builder
             ->add('image', TextType::class, array(
                 'required' => false,
-                'label' => 'Image'
             ))
             ->add('titre', TextType::class, array(
                 'required' => false,
-                'label' => 'Titre'
             ))
-            ->add('description', TextareaType::class, array(
+            ->add('description', TextType::class, array(
                 'required' => false,
-                'label' => 'Description'
+            ))
+            ->add('lien', UrlType::class, array(
+                'label' => 'Url'
+            ))
+            ->add('blank', ChoiceType::class, array(
+                'label' => false,
+                'multiple' => true,
+                'expanded' => true,
+                'choices' => array(
+                    'Ouvrir dans une nouvelle fenêtre' => 1
+                )
             ));
     }
 

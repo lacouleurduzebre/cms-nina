@@ -302,6 +302,14 @@ div[id^="page_active_blocs"]{
   }
 }
 
+//Image
+.bloc-image{
+  strong{
+    color: $color-brand2;
+    font-size: 2rem;
+  }
+}
+
 //Slider et Galerie (+ drag formulaire)
 .dragSlide, .dragGalerie, .dragChamp{
   font-size: 2rem;
@@ -375,7 +383,6 @@ div[id^="page_active_blocs"]{
     border: none;
   }
 }
-
 
 //Confirmation suppression
 .suppressionBloc{

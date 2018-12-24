@@ -10,6 +10,7 @@ namespace App\Blocs\Galerie;
 
 
 use App\Blocs\Image\ImageType;
+use App\Form\Type\ImageDefautType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
@@ -21,7 +22,7 @@ class GalerieImageType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('image', ImageType::class, array(
+        $builder->add('image', ImageDefautType::class, array(
             'label' => false,
         ))
         ->add('position', HiddenType::class, array(

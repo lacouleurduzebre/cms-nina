@@ -2,17 +2,14 @@
     {% if bloc.contenu.Slide is defined %}
         {% for slide in bloc.contenu.Slide|sortBy('position') %}
             <div>
-                <img src="{{ slide.image.image }}" {% if slide.image.titre is defined %}alt="{{ slide.image.titre }}"{% endif %}>
-                {% if slide.image.titre is not empty or slide.image.description is not empty or slide.lien is not empty %}
+                <img src="{{ slide.image.image }}" {% if slide.image.titre is defined %}title="{{ slide.image.titre }}"{% endif %} {% if slide.image.description is defined %}alt="{{ slide.image.description }}"{% endif %}>
+                {% if slide.texte is not empty or slide.lien is not empty %}
                     <div class="blocSlider-slide--texte">
-                        {% if slide.image.titre is not empty %}
-                            <p class="blocSlider-slide--titre">{{ slide.image.titre }}</p>
-                        {% endif %}
-                        {% if slide.image.description is not empty %}
-                            <p class="blocSlider-slide--description">{{ slide.image.description|raw }}</p>
+                        {% if slide.texte is not empty %}
+                            <div class="slide--texte">{{ slide.texte|raw }}</div>
                         {% endif %}
                         {% if slide.lien is not empty %}
-                            <p class="blocSlider-slide--lien"><a href="{{ slide.lien }}">{{ "Lire la suite"|trans }}</a></p>
+                            <p class="slide--lien"><a href="{{ slide.lien }}">{{ "Lire la suite"|trans }}</a></p>
                         {% endif %}
                     </div>
                 {% endif %}
@@ -23,7 +20,7 @@
 
 <script>
     options = {};
-    {% if bloc.contenu.nbSlides is defined and bloc.contenu.nbSlides != 1 %}
+    {% if bloc.contenu.nbSlides is defined and bloc.contenu.nbSlides is not empty and bloc.contenu.nbSlides != 1 %}
         options["slidesToShow"] = {{ bloc.contenu.nbSlides }};
         options["slidesToScroll"] = {{ bloc.contenu.nbSlides }};
         options["infinite"] = true;

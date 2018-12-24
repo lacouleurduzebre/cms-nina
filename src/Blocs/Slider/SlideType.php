@@ -9,10 +9,11 @@
 namespace App\Blocs\Slider;
 
 
-use App\Blocs\Image\ImageType;
+use App\Form\Type\ImageDefautType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -22,10 +23,13 @@ class SlideType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('image', ImageType::class, array(
+            ->add('image', ImageDefautType::class, array(
                 'label' => false
             ))
             ->add('position', HiddenType::class, array(
+            ))
+            ->add('texte', TextareaType::class, array(
+                'label' => 'Texte'
             ))
             ->add('lien', TextType::class, array(
                 'required' => false,

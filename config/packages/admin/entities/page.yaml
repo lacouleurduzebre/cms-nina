@@ -53,7 +53,7 @@ easy_admin:
                     - { property: 'titre', type: 'text' }
                     - { property: 'titreMenu', label: 'Titre dans les menus' }
                     - { property: 'blocs', type: 'collection', type_options: { entry_type: 'App\Form\Type\BlocType', by_reference: false } }
-                    - { type: 'tab', label: 'SEO' }
+                    - { type: 'tab', label: 'Référencement' }
                     - { property: 'SEO', type: 'App\Form\Type\SEOType', type_options: { by_reference: true, label: false } }
                     - { type: 'tab', label: 'Affichage' }
                     - { property: 'affichageSousNiveaux', label: 'Afficher les pages enfants dans les menus' }

@@ -1,11 +1,11 @@
 Actualites:
-    priorite: 23
+    priorite: 24
     actif: oui
 Annuaire:
     priorite: 20
     actif: oui
 Bandeau:
-    priorite: 5
+    priorite: 3
     actif: oui
 Bouton:
     priorite: 6
@@ -26,13 +26,13 @@ Image:
     priorite: 2
     actif: oui
 Inscription:
-    priorite: 21
+    priorite: 22
     actif: non
 LEI:
     priorite: 17
     actif: oui
 LogoSite:
-    priorite: 24
+    priorite: 23
     actif: oui
 Menu:
     priorite: 13
@@ -50,13 +50,13 @@ Recherche:
     priorite: 19
     actif: oui
 ReseauxSociaux:
-    priorite: 22
+    priorite: 21
     actif: oui
 Resume:
     priorite: 1
     actif: oui
 Rubrique:
-    priorite: 3
+    priorite: 4
     actif: oui
 Slider:
     priorite: 8
@@ -68,7 +68,7 @@ Texte:
     priorite: 1
     actif: oui
 Titre:
-    priorite: 4
+    priorite: 3
     actif: oui
 TypeCategorie:
     priorite: 12
@@ -80,5 +80,5 @@ Videos:
     priorite: 10
     actif: oui
 Vignette:
-    priorite: 3
+    priorite: 2
     actif: oui

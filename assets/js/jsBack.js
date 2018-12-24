@@ -552,7 +552,9 @@ $(document).ready(function(){
                     });
 
                     tinymce.remove();
-                    tinymce.init(optionsTinyMCE)
+                    tinymce.init(optionsTinyMCE);
+
+                    $('#'+type).addClass('disabled');
                 })
                 .fail(function () {
                     $('.listeBlocsAnnexes').removeClass('actif chargement');
@@ -631,6 +633,10 @@ $(document).ready(function(){
                 url: window.location.href,
                 data: {action: 'priorite', blocs: blocs, typeBloc: typeBloc}
             })
+                .done(function(){
+                    $('.alert-enregistrement').show();
+
+                })
                 .fail(function(){
                     $('.content-wrapper').prepend('<p>Une erreur est survenue</p>');
                 })

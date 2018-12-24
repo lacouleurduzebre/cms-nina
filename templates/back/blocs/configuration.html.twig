@@ -1,6 +1,13 @@
 {% extends 'back/base.html.twig' %}
 
 {% block content %}
+    <div id="flash-messages">
+        <div class="alert alert-enregistrement" style="display: none;">
+            <i class="fas fa-check-circle mrs"></i>
+            <span>Enregistrement terminé</span>
+        </div>
+    </div>
+
     <h1>Configuration des blocs</h1>
     <h2>Blocs</h2>
     {% include('back/blocs/tableauConfiguration.html.twig') with { 'blocs' : blocs, 'type' : 'Blocs' } only %}

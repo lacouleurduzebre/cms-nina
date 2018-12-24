@@ -2,13 +2,25 @@
     {% if bloc.contenu.titre is not empty %}
         <figure>
             {% if bloc.contenu.image is not empty %}
-                <img src="{{ bloc.contenu.image }}" {% if bloc.contenu.description is not empty %}alt="{{ bloc.contenu.description }}"{% endif %}>
+                {% if bloc.contenu.lien is defined and bloc.contenu.lien is not empty %}
+                    <a href="{{ bloc.contenu.lien }}" {% if bloc.contenu.blank is defined and bloc.contenu.blank is not empty and bloc.contenu.blank %}target="_blank"{% endif %}>
+                {% endif %}
+                <img src="{{ bloc.contenu.image }}" {% if bloc.contenu.description is defined and bloc.contenu.description is not empty %}alt="{{ bloc.contenu.description }}"{% endif %}>
+                {% if bloc.contenu.lien is defined and bloc.contenu.lien is not empty %}
+                    </a>
+                {% endif %}
             {% endif %}
             <figcaption>{{ bloc.contenu.titre }}</figcaption>
         </figure>
     {% else %}
         {% if bloc.contenu.image is not empty %}
-            <img src="{{ bloc.contenu.image }}" {% if bloc.contenu.description is not empty %}alt="{{ bloc.contenu.description }}"{% endif %}>
+            {% if bloc.contenu.lien is defined and bloc.contenu.lien is not empty %}
+                <a href="{{ bloc.contenu.lien }}" {% if bloc.contenu.blank is defined and bloc.contenu.blank is not empty and bloc.contenu.blank %}target="_blank"{% endif %}>
+            {% endif %}
+            <img src="{{ bloc.contenu.image }}" {% if bloc.contenu.description is defined and bloc.contenu.description is not empty %}alt="{{ bloc.contenu.description }}"{% endif %}>
+            {% if bloc.contenu.lien is defined and bloc.contenu.lien is not empty %}
+                </a>
+            {% endif %}
         {% endif %}
     {% endif %}
 {% endif %}
