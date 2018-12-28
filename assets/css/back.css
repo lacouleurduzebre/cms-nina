@@ -1842,7 +1842,7 @@ body.notFull #sidebar-logo {
   .surbrillanceOff .surbrillance {
     display: none; }
 
-.listeBlocs-fermeture, .listeBlocsAnnexes-fermeture, #popup-ajoutPage-close {
+.listeBlocs-fermeture, .listeBlocsAnnexes-fermeture, #popup-ajoutPage-close, .conteneurApercu-fermeture {
   color: #000;
   cursor: pointer;
   font-size: 3rem;
@@ -1851,7 +1851,7 @@ body.notFull #sidebar-logo {
   align-items: center;
   transition: .3s; }
 
-.listeBlocs-fermeture, .listeBlocsAnnexes-fermeture {
+.listeBlocs-fermeture, .listeBlocsAnnexes-fermeture, .conteneurApercu-fermeture {
   position: fixed;
   top: 2rem;
   right: 2rem;
@@ -1865,7 +1865,7 @@ body.notFull #sidebar-logo {
   right: 1.5rem;
   position: absolute; }
 
-.listeBlocs, .listeBlocsAnnexes, .conteneurChargement, .conteneurLightbox {
+.listeBlocs, .listeBlocsAnnexes, .conteneurChargement, #conteneurApercu {
   position: fixed;
   top: 0;
   left: 0;
@@ -1876,12 +1876,12 @@ body.notFull #sidebar-logo {
   padding: 5rem;
   align-items: center; }
   @media (max-width: 575px) {
-    .listeBlocs, .listeBlocsAnnexes, .conteneurChargement, .conteneurLightbox {
+    .listeBlocs, .listeBlocsAnnexes, .conteneurChargement, #conteneurApercu {
       padding: 5rem 6.5rem; } }
-  .listeBlocs ul, .listeBlocsAnnexes ul, .conteneurChargement ul, .conteneurLightbox ul {
+  .listeBlocs ul, .listeBlocsAnnexes ul, .conteneurChargement ul, #conteneurApercu ul {
     padding: 0; }
 
-.listeBlocs, .listeBlocsAnnexes, .conteneurChargement {
+.listeBlocs, .listeBlocsAnnexes, .conteneurChargement, #conteneurApercu {
   display: none; }
 
 @media (max-width: 1199px) {

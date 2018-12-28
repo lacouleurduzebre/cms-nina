@@ -2504,7 +2504,7 @@ button:focus {
 .alert:empty, .alert--primary:empty, .alert--success:empty, .alert--info:empty, .alert--warning:empty, .alert--danger:empty, .alert--inverse:empty, .alert--ghost:empty {
   display: none; }
 
-.listeBlocs-fermeture, .listeBlocsAnnexes-fermeture, #popup-ajoutPage-close {
+.listeBlocs-fermeture, .listeBlocsAnnexes-fermeture, #popup-ajoutPage-close, .conteneurApercu-fermeture {
   color: #000;
   cursor: pointer;
   font-size: 3rem;
@@ -2513,7 +2513,7 @@ button:focus {
   align-items: center;
   transition: .3s; }
 
-.listeBlocs-fermeture, .listeBlocsAnnexes-fermeture {
+.listeBlocs-fermeture, .listeBlocsAnnexes-fermeture, .conteneurApercu-fermeture {
   position: fixed;
   top: 2rem;
   right: 2rem;
@@ -2527,7 +2527,7 @@ button:focus {
   right: 1.5rem;
   position: absolute; }
 
-.listeBlocs, .listeBlocsAnnexes, .conteneurChargement, .conteneurLightbox {
+.listeBlocs, .listeBlocsAnnexes, .conteneurChargement, #conteneurApercu {
   position: fixed;
   top: 0;
   left: 0;
@@ -2538,12 +2538,12 @@ button:focus {
   padding: 5rem;
   align-items: center; }
   @media (max-width: 575px) {
-    .listeBlocs, .listeBlocsAnnexes, .conteneurChargement, .conteneurLightbox {
+    .listeBlocs, .listeBlocsAnnexes, .conteneurChargement, #conteneurApercu {
       padding: 5rem 6.5rem; } }
-  .listeBlocs ul, .listeBlocsAnnexes ul, .conteneurChargement ul, .conteneurLightbox ul {
+  .listeBlocs ul, .listeBlocsAnnexes ul, .conteneurChargement ul, #conteneurApercu ul {
     padding: 0; }
 
-.listeBlocs, .listeBlocsAnnexes, .conteneurChargement {
+.listeBlocs, .listeBlocsAnnexes, .conteneurChargement, #conteneurApercu {
   display: none; }
 
 @media (max-width: 1199px) {
@@ -3030,9 +3030,15 @@ body.list #flash-messages > * {
   width: 100vw;
   height: 100vh; }
 
-.conteneurLightbox {
-  display: flex;
-  justify-content: center; }
+#conteneurApercu {
+  text-align: center;
+  overflow-y: scroll; }
+
+.fond-mobile {
+  display: inline-block;
+  padding: 4.1rem 3.8rem 16rem 3.6rem;
+  background-image: url("/assets/img/fond-iframe-mobile.png");
+  background-repeat: no-repeat; }
 
 #tdb {
   padding: 2rem; }

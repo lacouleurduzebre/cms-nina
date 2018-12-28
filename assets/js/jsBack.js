@@ -753,6 +753,11 @@ $(document).ready(function(){
 
     //Apercu mobile et tablette
     $('#apercuMobile').click(function(){
-        $('body').append('<div class="conteneurLightbox">div.<iframe width="350px" height="650px" src="'+$('.action-voir').attr("href")+'"></iframe></div>')
+        $('#conteneurApercu').show().append('<div class="conteneurApercu-fermeture"><i class="fas fa-times"></i></div><div class="fond-mobile"><iframe width="350px" height="650px" src="'+$('.action-voir').attr("href")+'"></iframe></div>')
+    });
+
+        //Fermeture
+    $('#conteneurApercu').on('click', '.conteneurApercu-fermeture', function(){
+        $('#conteneurApercu').hide().empty();
     });
 });

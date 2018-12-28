@@ -1,4 +1,4 @@
-.listeBlocs-fermeture, .listeBlocsAnnexes-fermeture, #popup-ajoutPage-close{
+.listeBlocs-fermeture, .listeBlocsAnnexes-fermeture, #popup-ajoutPage-close, .conteneurApercu-fermeture{
   color: $black;
   cursor: pointer;
   font-size: 3rem;
@@ -8,7 +8,7 @@
   transition: .3s;
 }
 
-.listeBlocs-fermeture, .listeBlocsAnnexes-fermeture{
+.listeBlocs-fermeture, .listeBlocsAnnexes-fermeture, .conteneurApercu-fermeture{
   position: fixed;
   top: 2rem;
   right: 2rem;
@@ -24,7 +24,7 @@
   position: absolute;
 }
 
-.listeBlocs, .listeBlocsAnnexes, .conteneurChargement, .conteneurLightbox {
+.listeBlocs, .listeBlocsAnnexes, .conteneurChargement, #conteneurApercu {
   position: fixed;
   top: 0;
   left: 0;
@@ -42,7 +42,7 @@
   }
 }
 
-.listeBlocs, .listeBlocsAnnexes, .conteneurChargement{
+.listeBlocs, .listeBlocsAnnexes, .conteneurChargement, #conteneurApercu{
   display: none;
 }
 
