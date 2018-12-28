@@ -45,20 +45,32 @@ class PageRepository extends \Doctrine\ORM\EntityRepository
         return $qb->getQuery()->getResult();
     }
 
-    public function pagesPublieesCategorie($categorie, $langue, $limite = null, $offset = null){
+    //Pour le bloc catégorie
+    public function pagesPublieesCategorie($categorie, $langue, $resultats, $limite = null, $offset = null){
         $timestamp = new \DateTime();
         $date = $timestamp->format('Y-m-d H:i:s');
 
         $qb = $this
-            ->createQueryBuilder('p')
-                ->where('p.corbeille = 0')
-                ->andWhere('p.active = 1')
-                ->andWhere('p.langue = :langue')
-                ->andWhere('p.datePublication < :date')
-                ->andWhere(':categorie MEMBER OF p.categories')
-                ->andWhere('p.dateDepublication > :date OR p.dateDepublication IS NULL')
-                    ->setParameters(array('langue' => $langue, 'date' => $date, 'categorie' => $categorie))
-            ->orderBy('p.datePublication', 'DESC');
+            ->createQueryBuilder('p');
+
+        if(!$resultats){
+            $qb->select('count(p.id)');
+        }
+
+        $qb->where('p.corbeille = 0')
+            ->andWhere('p.active = 1')
+            ->andWhere('p.langue = :langue')
+            ->andWhere('p.datePublication < :date')
+            ->andWhere('p.dateDepublication > :date OR p.dateDepublication IS NULL');
+
+        if($categorie != 0){
+            $qb->andWhere(':categorie MEMBER OF p.categories');
+            $qb->setParameters(array('langue' => $langue, 'date' => $date, 'categorie' => $categorie));
+        }else{
+            $qb->setParameters(array('langue' => $langue, 'date' => $date));
+        }
+
+        $qb->orderBy('p.datePublication', 'DESC');
 
         if($limite){
             $qb->setMaxResults($limite);
@@ -68,10 +80,14 @@ class PageRepository extends \Doctrine\ORM\EntityRepository
             $qb->setFirstResult($offset);
         }
 
-        return $qb->getQuery()->getResult();
+        if($resultats){
+            return $qb->getQuery()->getResult();
+        }else{
+            return $qb->getQuery()->getSingleScalarResult();
+        }
     }
 
-    public function nombrePagesPublieesCategorie($categorie, $langue, $limite = null){
+    /*public function nombrePagesPublieesCategorie($categorie, $langue, $limite = null){
         $timestamp = new \DateTime();
         $date = $timestamp->format('Y-m-d H:i:s');
 
@@ -94,7 +110,7 @@ class PageRepository extends \Doctrine\ORM\EntityRepository
         }else{
             return $nbResultats;
         }
-    }
+    }*/
 
     public function nombreTotal(){
         $qb = $this
@@ -160,4 +176,25 @@ class PageRepository extends \Doctrine\ORM\EntityRepository
 
         return $resultats;
     }
+
+    /*//Pages avec au moins une catégorie, pour le bloc Catégorie
+    public function pagesAvecCategories($langue, $resultats, $limite = false){
+        $qb = $this
+            ->createQueryBuilder('p')
+            ->where('p.categories IS NOT EMPTY')
+            ->andwhere('p.langue = :langue')
+            ->setParameters(array('langue' => $langue));
+
+        $nbResultats = $qb->getQuery()->getSingleScalarResult();
+
+        if($limite && $limite < $nbResultats){
+            $qb->setMaxResults($limite);
+        }
+
+        if($resultats){
+            return $qb->getQuery()->getResult();
+        }else{
+            return $nbResultats;
+        }
+    }*/
 }

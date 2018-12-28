@@ -3,9 +3,9 @@
         {% for slide in bloc.contenu.Slide|sortBy('position') %}
             <div>
                 <img src="{{ slide.image.image }}" {% if slide.image.titre is defined %}title="{{ slide.image.titre }}"{% endif %} {% if slide.image.description is defined %}alt="{{ slide.image.description }}"{% endif %}>
-                {% if slide.texte is not empty or slide.lien is not empty %}
+                {% if slide.texte is defined or slide.lien is defined %}
                     <div class="blocSlider-slide--texte">
-                        {% if slide.texte is not empty %}
+                        {% if slide.texte is defined and slide.texte is not empty %}
                             <div class="slide--texte">{{ slide.texte|raw }}</div>
                         {% endif %}
                         {% if slide.lien is not empty %}

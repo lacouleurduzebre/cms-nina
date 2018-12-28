@@ -28,8 +28,9 @@ class CategorieType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $repoCategorie = $this->em->getRepository(Categorie::class);
-        $objetsCategories = $repoCategorie->findAll();
+        $objetsCategories = $repoCategorie->findBy(array(), array('nom' => 'ASC'));
         $categories = [];
+        $categories['Toutes'] = 0;
         foreach($objetsCategories as $objetCategorie){
             $categories[$objetCategorie->getNom()] = $objetCategorie->getId();
         }
@@ -42,6 +43,17 @@ class CategorieType extends AbstractType
                 'label' => 'Nombre limite de résultats',
                 'help' => "Si aucune limite n'est précisée, tous les résultats seront affichés",
                 'required' => false
+            ))
+            ->add('pagination', ChoiceType::class, array(
+                'choices' => array(
+                    'Activer la pagination' => 1
+                ),
+                'expanded' => true,
+                'label' => false,
+                'multiple' => true
+            ))
+            ->add('resultatsParPage', NumberType::class, array(
+                'label' => 'Nombre de résultats par page'
             ));
     }
 

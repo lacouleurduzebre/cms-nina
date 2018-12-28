@@ -1,5 +1,11 @@
+{% set resultats = pagesDeLaCategorie(langueActive, bloc.contenu) %}
+
+<div class="pagination">
+    {{ resultats.pagination|raw }}
+</div>
+
 <div class="grid-3-small-2-tiny-1 has-gutter-xl">
-    {% for page in pagesDeLaCategorie(bloc.contenu.categorie) %}
+    {% for page in resultats['pages'] %}
         <div class="blocCategorie-page flex-container-v">
             {{ blocAnnexe(page, 'Vignette') }}
             <h2>{{ page.titre }}</h2>
@@ -7,4 +13,8 @@
             <a class="bouton lire" href="{{ page.seo.url }}">{{ "Lire la suite"|trans }}</a>
         </div>
     {% endfor %}
+</div>
+
+<div class="pagination">
+    {{ resultats.pagination|raw }}
 </div>

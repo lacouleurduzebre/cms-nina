@@ -31,7 +31,7 @@ class ImageType extends AbstractType
             ->add('description', TextType::class, array(
                 'required' => false,
             ))
-            ->add('lien', UrlType::class, array(
+            ->add('lien', TextType::class, array(
                 'label' => 'Url'
             ))
             ->add('blank', ChoiceType::class, array(
