@@ -77,4 +77,22 @@ $(document).ready(function(){
             $('#recherche-arbo').val("");
             $('#recherche-arbo-vidange').addClass('hidden');
         });
+
+    /* Visualisation des groupes de blocs */
+    $('#btn-toggle-groupes-blocs').click(function(e){
+        e.preventDefault();
+        $(this).toggleClass('actif');
+        $('.groupeBlocs').each(function(){
+            //Position static
+            if($(this).css('position') === 'static'){
+                $(this).css('position', 'relative');
+            }
+            
+            if($(this).find('.surbrillance').length > 0){
+                $(this).toggleClass('surbrillanceOff');
+            }else{
+                $(this).append('<div class="surbrillance"><a href="/admin/?action=edit&entity=GroupeBlocs&id='+$(this).attr('id')+'"><i class="fas fa-pencil-alt"></i></a></div>');
+            }
+        });
+    });
 });

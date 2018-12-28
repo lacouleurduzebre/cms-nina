@@ -28,6 +28,7 @@
 body.notFull{
   @include respond-to("medium-up"){
     margin-left: 30rem !important;
+    overflow-x: hidden;
   }
   .main-sidebar{
     height: 100vh;
@@ -49,7 +50,7 @@ body.notFull{
 }
 
 body.notFull .main-sidebar{
-  .sidebar-menus, #sidebar-logo{
+  .sidebar-menus{
     display: block;
   }
   #btnArbo svg{
@@ -381,4 +382,66 @@ body.notFull .main-sidebar{
 
 #ajoutPage-infos{
   display: none;
+}
+
+//Boutons d'édition de la page et des groupes de blocs
+body.notFull #sidebar-logo{
+  display: flex;
+  .logo{
+    padding: 0.5rem;
+  }
+}
+
+#btn-edition-page, #btn-toggle-groupes-blocs{
+  color: $white;
+  padding: 1rem;
+  display: flex;
+  align-items: center;
+  border-radius: 10px;
+  font-size: 2rem;
+  box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.25);
+  background-color: lighten($color-brand2, 5);
+  &:hover{
+    background-color: darken($color-brand2, 10);
+  }
+}
+
+#btn-toggle-groupes-blocs{
+  margin-left: auto;
+  margin-right: 1rem;
+  &.actif{
+    background-color: $color-brand;
+    &:hover{
+      background-color: darken($color-brand, 10);
+    }
+  }
+}
+
+//Surbrillance des groupes de blocs
+.surbrillance{
+  border: 4px dashed #FF0000;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  a{
+    background-color: #FF0000;
+    padding: .5rem;
+    border-radius: 50%;
+    color: $white;
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    width: 4rem;
+    font-size: 2rem;
+    text-align: center;
+    &:hover{
+      background-color: darken(#FF0000, 10);
+    }
+  }
+  .surbrillanceOff &{
+    display: none;
+  }
 }
