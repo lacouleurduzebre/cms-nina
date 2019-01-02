@@ -32,3 +32,15 @@
 #flash-messages.traductionTemplate-messages .alert-enregistrement{
   display: none;
 }
+
+.traductionTemplate-onglet{
+  label{
+    line-height: 1;
+  }
+  .flex-container{
+    align-items: center;
+  }
+  input[type="text"]{
+    border: 1px solid $color-brand2;
+  }
+}

@@ -3673,4 +3673,15 @@ body.edit .bloc-reseauxsociaux input[type="text"], body.new .bloc-reseauxsociaux
 #flash-messages.traductionTemplate-messages .alert-enregistrement {
   display: none; }
 
+.traductionTemplate-onglet label {
+  line-height: 1; }
+.traductionTemplate-onglet .flex-container, .traductionTemplate-onglet .flex-container--row,
+.traductionTemplate-onglet .flex-row, .traductionTemplate-onglet .flex-container--column,
+.traductionTemplate-onglet .flex-column, .traductionTemplate-onglet .flex-container--row-reverse,
+.traductionTemplate-onglet .flex-row-reverse, .traductionTemplate-onglet .flex-container--column-reverse,
+.traductionTemplate-onglet .flex-column-reverse {
+  align-items: center; }
+.traductionTemplate-onglet input[type="text"] {
+  border: 1px solid #0791B3; }
+
 /*# sourceMappingURL=knacss.css.map */

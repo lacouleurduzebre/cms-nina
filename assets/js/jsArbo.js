@@ -266,7 +266,13 @@ $(document).ready(function(){
 
     // $('.sidebar-menus div[id^="menu"]').jstree(options);//Menus
     $('.sidebar-menus div[id^="menu"]').each(function(){//Initialisation
-        options.state = { "key" : $(this).attr('id')};
+        options.state = {
+            "key" : $(this).attr('id'),
+            filter : function (state) {
+                delete state.core.selected;
+                return state;
+            }
+        };
         $(this).jstree(options);
     });
 

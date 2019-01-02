@@ -20,14 +20,14 @@
                 {% endfor %}
             </ul>
             {% for nom, segments in fichiers %}
-            <div id="{{ nom }}" class="tab-pane {% if loop.first %}active{% endif %}">
+            <div id="{{ nom }}" class="tab-pane traductionTemplate-onglet {% if loop.first %}active{% endif %} ">
                 <h2>{{ nom }}</h2>
                 <button class="mbs traductionTemplate-copie">{{ "Copier les sources" }}</button>
                 <form data-fichier="{{ nom }}">
                     {% for segment in segments.unit %}
-                        <div>
-                            <label for="{{ segment.attributes.id }}">{{ segment.segment.source }}</label>
-                            <input class="w100" type="text" name="{{ segment.attributes.id }}" value="{{ segment.segment.target }}">
+                        <div class="flex-container mw1140p mbs">
+                            <label class="w30 prs" for="{{ segment.attributes.id }}">{{ segment.segment.source }}</label>
+                            <input class="w70" type="text" name="{{ segment.attributes.id }}" id="{{ segment.attributes.id }}" value="{{ segment.segment.target }}">
                         </div>
                     {% endfor %}
                     <a href="#" class="mts btn traductionTemplate" data-fichier="{{ nom }}">{{ "Enregistrer les traductions"|trans }}</a>
