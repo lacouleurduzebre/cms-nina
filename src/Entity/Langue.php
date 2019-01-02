@@ -45,6 +45,7 @@ class Langue
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Page", mappedBy="langue", cascade={"persist", "remove"})
+     * @ORM\OrderBy({"titre" = "ASC"})
      */
     private $pages;
 

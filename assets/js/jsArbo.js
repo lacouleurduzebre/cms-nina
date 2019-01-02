@@ -227,12 +227,11 @@ $(document).ready(function(){
     //Initialisation JSTree
     options = {
         "plugins" : [
-            "dnd", "types", "contextmenu"
+            "dnd", "types", "contextmenu", "state"
         ],
         "contextmenu":{
             "items": menuContextuel
         },
-        //"state" : { "key" : "menuVertical"},//Pour sauvegarder l'état de l'arbo. Rajouter le plugin state
         "types" : {
             "#" : {
                 "valid_children" : ["root"]
@@ -260,11 +259,16 @@ $(document).ready(function(){
         "dnd": {
             "is_draggable" : function(nodes, event){
                 return(nodes[0].type !== 'root' && nodes[0].type !== 'orphan');
-            }
+            },
+            "touch" : "selected"
         }
     };
 
-    $('.sidebar-menus div[id^="menu"]').jstree(options);//Menus
+    // $('.sidebar-menus div[id^="menu"]').jstree(options);//Menus
+    $('.sidebar-menus div[id^="menu"]').each(function(){//Initialisation
+        options.state = { "key" : $(this).attr('id')};
+        $(this).jstree(options);
+    });
 
     enregistrementMenu = function(e, data){
         idMenuComplet = $('#'+data.node.id).parents('div').attr('id');
@@ -320,7 +324,7 @@ $(document).ready(function(){
     });
 
     $('.sidebar-menus div[id^="menu"]').on('ready.jstree', function(){
-        $(this).jstree().open_all();
+        // $(this).jstree().open_all();
 //            context_hide();
     });
 
