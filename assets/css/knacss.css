@@ -3033,12 +3033,47 @@ body.list #flash-messages > * {
 #conteneurApercu {
   text-align: center;
   overflow-y: scroll; }
+  #conteneurApercu .fa-stack {
+    position: fixed;
+    top: 2rem;
+    right: 7rem;
+    background-color: #fff;
+    border-radius: 50%;
+    width: 4rem;
+    height: 4rem;
+    transform: rotate(45deg);
+    color: #000;
+    font-size: 1.4rem;
+    cursor: pointer; }
+
+.fond-mobile, .fond-tablette {
+  display: inline-block;
+  background-repeat: no-repeat; }
+  #conteneurApercu.paysage .fond-mobile, #conteneurApercu.paysage .fond-tablette {
+    height: auto;
+    background-position: top right; }
+  .fond-mobile iframe, .fond-tablette iframe {
+    border: none; }
 
 .fond-mobile {
-  display: inline-block;
-  padding: 4.1rem 3.8rem 16rem 3.6rem;
-  background-image: url("/assets/img/fond-iframe-mobile.png");
-  background-repeat: no-repeat; }
+  padding: 4.1rem 3.8rem 15rem 3.6rem;
+  background-image: url("/assets/img/fond-iframe-mobile-double.png");
+  height: 84rem; }
+  #conteneurApercu.paysage .fond-mobile {
+    padding: 3.8rem 15rem 3.6rem 4.1rem; }
+    #conteneurApercu.paysage .fond-mobile iframe {
+      width: 65rem;
+      height: 35rem; }
+
+.fond-tablette {
+  padding: 5.8rem 6.2rem 19rem 5.8rem;
+  background-image: url("/assets/img/fond-iframe-tablette-double.png");
+  height: 128rem; }
+  #conteneurApercu.paysage .fond-tablette {
+    padding: 6.2rem 19rem 5.8rem 5.8rem; }
+    #conteneurApercu.paysage .fond-tablette iframe {
+      width: 103rem;
+      height: 77rem; }
 
 #tdb {
   padding: 2rem; }

@@ -36,6 +36,10 @@ body.notFull{
   }
 }
 
+body.full{
+  margin-left: 0 !important;
+}
+
 /* Toggle colonne gauche */
 .main-sidebar{
   height: 3.8rem;

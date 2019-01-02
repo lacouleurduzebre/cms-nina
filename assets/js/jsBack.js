@@ -752,12 +752,28 @@ $(document).ready(function(){
     });
 
     //Apercu mobile et tablette
-    $('#apercuMobile').click(function(){
-        $('#conteneurApercu').show().append('<div class="conteneurApercu-fermeture"><i class="fas fa-times"></i></div><div class="fond-mobile"><iframe width="350px" height="650px" src="'+$('.action-voir').attr("href")+'"></iframe></div>')
-    });
-
         //Fermeture
     $('#conteneurApercu').on('click', '.conteneurApercu-fermeture', function(){
-        $('#conteneurApercu').hide().empty();
+        $('#conteneurApercu').removeClass('paysage').hide().empty();
+    });
+
+    insertionIframe = function(type, largeur, hauteur){
+        $('#conteneurApercu').show().append('<span id="rotation-'+type+'" class="fa-stack" onclick="$(this).closest(\'div\').toggleClass(\'paysage\')"><i class="fas fa-sync fa-stack-2x"></i><i class="fas fa-mobile fa-stack-1x"></i></span><div class="conteneurApercu-fermeture"><i class="fas fa-times"></i></div><div class="fond-'+type+'"><iframe id="iframeApercu" width="'+largeur+'" height="'+hauteur+'" src="'+$('.action-voir').attr("href")+'" onload="$(this).contents().find(\'.main-header\').hide(); $(this).contents().find(\'.main-sidebar\').hide(); $(this).contents().find(\'body\').removeClass(\'connected notFull\').addClass(\'full\');"></iframe></div>');
+    };
+
+    $('#conteneurApercu').on('load', '#iframeApercu', function(){
+        $(this).contents().find('.main-header').hide();
+        $(this).contents().find('.main-sidebar').hide();
+        $(this).contents().find('body').removeClass('connected notFull').addClass('full');
+    });
+
+        //Mobile
+    $('#apercuMobile').click(function(){
+        insertionIframe('mobile', 350, 650);
+    });
+
+        //Tablette
+    $('#apercuTablette').click(function(){
+        insertionIframe('tablette', 770, 1030);
     });
 });
