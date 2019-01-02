@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * TypeCategorie
@@ -23,7 +24,7 @@ class TypeCategorie
 
     /**
      * @var string
-     *
+     * @Assert\NotBlank
      * @ORM\Column(name="nom", type="string", length=255)
      */
     private $nom;
@@ -31,13 +32,13 @@ class TypeCategorie
     /**
      * @var string
      *
-     * @ORM\Column(name="description", type="text")
+     * @ORM\Column(name="description", type="text", nullable=true)
      */
     private $description;
 
     /**
      * @var string
-     *
+     * @Assert\NotBlank
      * @ORM\Column(name="url", type="string", length=255)
      */
     private $url;
@@ -60,7 +61,11 @@ class TypeCategorie
 
     public function __toString()
     {
-        return $this->getNom();
+        if($this->getNom()){
+            return $this->getNom();
+        }
+
+        return 'Type de catégorie';
     }
 
     /**

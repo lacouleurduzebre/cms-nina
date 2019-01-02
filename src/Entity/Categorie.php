@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Categorie
@@ -22,7 +23,7 @@ class Categorie
 
     /**
      * @var string
-     *
+     * @Assert\NotBlank
      * @ORM\Column(name="nom", type="string", length=255)
      */
     private $nom;
@@ -36,7 +37,7 @@ class Categorie
 
     /**
      * @var string
-     *
+     * @Assert\NotBlank
      * @ORM\Column(name="url", type="string", length=255)
      */
     private $url;
@@ -67,7 +68,11 @@ class Categorie
 
     public function __toString()
     {
-        return $this->getNom();
+        if($this->getNom()){
+            return $this->getNom();
+        }
+
+        return 'Catégorie';
     }
 
     /**

@@ -27,7 +27,7 @@
     {% endif %}
 
     {% block entity_form %}
-        {{ form(form) }}
+        {{ form(form, {attr: {novalidate: "novalidate"}}) }}
     {% endblock entity_form %}
 
     {% block delete_form %}

@@ -5,7 +5,7 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Bridge\Doctrine\RegistryInterface;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * page
@@ -25,7 +25,7 @@ class Page
 
     /**
      * @var string
-     *
+     * @Assert\NotBlank
      * @ORM\Column(name="titre", type="text")
      */
     private $titre;
@@ -49,7 +49,7 @@ class Page
 
     /**
      * @var \DateTime
-     *
+     * @Assert\NotBlank
      * @ORM\Column(name="date_publication", type="datetime")
      */
     private $datePublication;

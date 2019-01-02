@@ -5,6 +5,7 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\GroupeBlocsRepository")
@@ -19,6 +20,8 @@ class GroupeBlocs
     private $id;
 
     /**
+     * @var string
+     * @Assert\NotBlank
      * @ORM\Column(type="string", length=255)
      */
     private $nom;
@@ -41,6 +44,7 @@ class GroupeBlocs
     private $region;
 
     /**
+     * @Assert\NotBlank
      * @ORM\Column(type="string", length=255)
      */
     private $identifiant;
@@ -70,7 +74,7 @@ class GroupeBlocs
         return $this->nom;
     }
 
-    public function setNom(string $nom): self
+    public function setNom($nom)
     {
         $this->nom = $nom;
 
@@ -137,7 +141,7 @@ class GroupeBlocs
         return $this->identifiant;
     }
 
-    public function setIdentifiant(string $identifiant): self
+    public function setIdentifiant($identifiant)
     {
         $this->identifiant = $identifiant;
 

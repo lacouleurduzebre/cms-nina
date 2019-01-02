@@ -2736,6 +2736,11 @@ body.new ul.nav-tabs, body.edit ul.nav-tabs {
   top: 10.5rem;
   width: 100%;
   z-index: 10; }
+  body.new ul.nav-tabs .label-danger, body.edit ul.nav-tabs .label-danger {
+    padding: 0 .7rem;
+    border-radius: 50%;
+    background-color: red;
+    margin-left: .5rem; }
 body.new.gris ul.nav-tabs, body.edit.gris ul.nav-tabs {
   background-color: #75726B; }
 
@@ -3023,12 +3028,11 @@ body.list #flash-messages > * {
   display: flex; }
 
 .error-block {
-  position: fixed;
-  top: 0;
-  left: 0;
-  background-color: red;
-  width: 100vw;
-  height: 100vh; }
+  color: red; }
+  .error-block .label-danger {
+    font-weight: bold; }
+    .error-block .label-danger:after {
+      content: " : "; }
 
 #conteneurApercu {
   text-align: center;
