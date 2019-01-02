@@ -24,8 +24,8 @@ easy_admin:
                 title: 'Résultats de recherche'
                 fields:
                     - titre
-                    - auteur
                     - categories
+                    - langue.nom
             show:
                 fields:
                     - titre

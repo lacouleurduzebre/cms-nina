@@ -34,10 +34,12 @@ $(document).ready(function(){
     $('.sidebar-menus div[id^="menu"]').on('ready.jstree open_node.jstree move_node.jstree', surbrillancePageActive);
 
     /* Changement de la langue de l'arbo */
-    $('.arbo-langues a').click(function(){
+    $('.arbo-langues a').click(function(e){
+        e.preventDefault();
         idLangue = $(this).attr('class');
+        nomlangue = $(this).attr('id');
         Cookies.set('langueArbo', idLangue, { expires: 7 });
-        location.href = '/admin/?entity=Page_Active&action=list'
+        location.href = $(this).attr('href');
     });
 
     /* Menu contextuel de la page d'accueil */

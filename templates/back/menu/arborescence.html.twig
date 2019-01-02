@@ -8,7 +8,7 @@
     <div class="arbo-langues">
         {% for langue in langues %}
             <span {% if langueArbo == langue %}class="current"{% endif %}>
-                <a class="{{ langue.id }}" href="#">{{ langue.abreviation|upper }}</a>
+                <a class="{{ langue.id }}" href="{{ path('admin', { 'action': 'search', 'entity': 'Page_Active', 'query': langue.nom}) }}">{{ langue.abreviation|upper }}</a>
             </span>
         {% endfor %}
     </div>

@@ -78,6 +78,10 @@
                     });
             });
         });
+
+        function responsive_filemanager_callback(field_id){
+            $('#'+field_id).val($('#'+field_id).val().replace(window.origin, ''));
+        }
     </script>
     <div id="mediatheque"></div>
     <div id="conteneurApercu"></div>
