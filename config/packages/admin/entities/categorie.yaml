@@ -3,7 +3,8 @@ easy_admin:
         Categorie:
             class: App\Entity\Categorie
             controller: App\Controller\Back\AdminController
-            label: 'Catégories'
+            label: 'Catégorie'
+            labels: 'Catégories'
             list:
                 actions:
                     - { name: 'voir', label: '', title: 'Voir', icon: 'eye' }
@@ -38,3 +39,5 @@ easy_admin:
                     - { property: 'url' }
                     - { property : 'categorieParent', label: 'Catégorie parent', type: 'entity', type_options: { class: 'App\Entity\Categorie' } }
                     - { property : 'typeCategorie', label: 'Type' }
+            edit:
+                title: nom

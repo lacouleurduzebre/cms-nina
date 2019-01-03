@@ -3,7 +3,8 @@ easy_admin:
         Utilisateur:
             class: App\Entity\Utilisateur
             controller: App\Controller\Back\UtilisateurController
-            label: 'Utilisateurs'
+            label: 'Utilisateur'
+            labels: 'Utilisateurs'
             list:
                 fields:
                     - { property: 'imageProfil', type: 'image' }
@@ -39,6 +40,7 @@ easy_admin:
                     - { property: 'couleurBO', type: 'choice', label: "Thème de l'interface d'administration", type_options: { choices: { gris: 'gris', bleu: 'bleu' } } }
                     - { property: 'blocsTableauDeBord', type: 'choice', label: 'Informations présentées sur le tableau de bord', type_options: { multiple: true, expanded: true, choices: { 'Nombre de pages': nombreDePages, 'Derniers commentaires': derniersCommentaires, 'Dernières pages': dernieresPages, 'Liste des catégories': listeCategories, 'Derniers inscrits': derniersInscrits, 'Nouvelles de version': logVersion } } }
             edit:
+                title: username
                 actions:
                     - { name: 'delete', label: 'Supprimer', title: 'Supprimer', icon: 'trash', css_class: '' }
                     - { name: 'list', label: 'Retour', title: 'Retour', icon: 'arrow-left', css_class: '' }

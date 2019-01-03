@@ -4,6 +4,7 @@ easy_admin:
             class: App\Entity\Region
             controller: App\Controller\Back\AdminController
             label: 'Région'
+            labels: 'Régions'
             list:
                 sort: 'position'
                 fields:
@@ -21,3 +22,5 @@ easy_admin:
                     - nom
                     - identifiant
                     - position
+            edit:
+                title: nom

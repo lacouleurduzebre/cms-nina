@@ -13,7 +13,15 @@
 {% block content_title %}
 {% spaceless %}
     {% set _default_title = 'edit.page_title'|trans(_trans_parameters, 'EasyAdminBundle') %}
-    {{ _entity_config.edit.title is defined ? _entity_config.edit.title|trans(_trans_parameters) : _default_title }}
+    {% if _entity_config.edit.title is defined %}
+        {% if _entity_config.edit.title == '%entity_label%' %}
+            {{ _entity_config.edit.title|trans(_trans_parameters) }}
+        {% else %}
+            {{ _entity_config.label|trans(_trans_parameters) }} : {{ attribute(entity, _entity_config.edit.title) }}
+        {% endif %}
+    {% else %}
+        {{ _default_title }}
+    {% endif %}
 {% endspaceless %}
 {% endblock %}
 

@@ -3,7 +3,8 @@ easy_admin:
         Langue:
             class: App\Entity\Langue
             controller: App\Controller\Back\AdminController
-            label: 'Langues'
+            label: 'Langue'
+            labels: 'Langues'
             list:
                 sort: 'abreviation'
                 fields:
@@ -31,3 +32,5 @@ easy_admin:
                     - { property: 'metaTitre', label: 'Meta-titre général pour cette langue' }
                     - { property: 'metaDescription', label: 'Meta-description générale pour cette langue' }
                     #Page d'accueil : dans AdminController, uniquement durant l'édition
+            edit:
+                title: nom

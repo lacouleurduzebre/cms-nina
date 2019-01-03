@@ -3,7 +3,8 @@ easy_admin:
         TypeCategorie:
             class: App\Entity\TypeCategorie
             controller: App\Controller\Back\AdminController
-            label: 'Types de catégories'
+            label: 'Type de catégories'
+            labels: 'Types de catégories'
             list:
                 actions:
                     - { name: 'voir', label: '', title: 'Voir', icon: 'eye' }
@@ -30,3 +31,5 @@ easy_admin:
                     - langue
                     - description
                     - url
+            edit:
+                title: nom

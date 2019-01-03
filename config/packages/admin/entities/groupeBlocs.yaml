@@ -3,7 +3,8 @@ easy_admin:
         GroupeBlocs:
             class: App\Entity\GroupeBlocs
             controller: App\Controller\Back\AdminController
-            label: 'Groupes de blocs'
+            label: 'Groupe de blocs'
+            labels: 'Groupes de blocs'
             list:
                 fields:
                     - nom
@@ -32,3 +33,5 @@ easy_admin:
                     - identifiant
                     - region
                     - position
+            edit:
+                title: nom

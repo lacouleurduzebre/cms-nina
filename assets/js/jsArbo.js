@@ -277,10 +277,10 @@ $(document).ready(function(){
     });
 
     enregistrementMenu = function(e, data){
-        idMenuComplet = $('#'+data.node.id).parents('div').attr('id');
+        $(this).jstree('open_node', data.node.parent);
+        idMenuComplet = $('#'+data.node.id).closest('div').attr('id');
         $('#loader-arbo.'+idMenuComplet).fadeIn().html("<i class='fas fa-sync fa-spin'></i>");
         arbo = [];
-        $(this).jstree('open_node', data.node.parent);
         $(this).find('.jstree-container-ul li').find('li').each(function(){
             position = $(this).index();
 

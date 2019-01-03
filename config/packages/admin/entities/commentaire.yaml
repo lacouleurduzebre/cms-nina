@@ -3,7 +3,8 @@ easy_admin:
         Commentaire_Actif:
             class: App\Entity\Commentaire
             controller: App\Controller\Back\AdminController
-            label: 'Commentaires'
+            label: 'Commentaire'
+            labels: 'Commentaires'
             disabled_actions: ['delete']
             list:
                 dql_filter: 'entity.corbeille = false'

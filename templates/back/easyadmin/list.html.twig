@@ -1,6 +1,6 @@
 {% set _entity_config = easyadmin_entity(app.request.query.get('entity')) %}
 {% trans_default_domain _entity_config.translation_domain %}
-{% set _trans_parameters = { '%entity_name%': _entity_config.name|trans, '%entity_label%': _entity_config.label|trans } %}
+{% set _trans_parameters = { '%entity_name%': _entity_config.name|trans, '%entity_label%': _entity_config.labels|trans } %}
 
 {% extends _entity_config.templates.layout %}
 
@@ -34,7 +34,7 @@
         {{ (_entity_config.search.title is defined ? _entity_config.search.title|transchoice(paginator.nbResults) : _default_title)|raw }}
     {% else %}
         {% set _default_title = 'list.page_title'|trans(_trans_parameters, 'EasyAdminBundle') %}
-        {{ (_entity_config.list.title is defined ? _entity_config.list.title|trans(_trans_parameters) : _default_title)|raw }}
+        {{ "Liste des "|trans }}{{ (_entity_config.list.title is defined ? _entity_config.list.title|trans(_trans_parameters)|lower : _default_title)|raw }}
     {% endif %}
 {% endspaceless %}
 {% endblock %}

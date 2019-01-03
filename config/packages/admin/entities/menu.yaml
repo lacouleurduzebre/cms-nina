@@ -3,7 +3,8 @@ easy_admin:
         Menu:
             class: App\Entity\Menu
             controller: App\Controller\Back\AdminController
-            label: 'Menus'
+            label: 'Menu'
+            labels: 'Menus'
             list:
                 fields:
                     - nom
@@ -21,5 +22,6 @@ easy_admin:
                     - nom
                     - langue
             edit:
+                title: nom
                 fields:
                     - -langue
