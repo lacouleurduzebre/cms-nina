@@ -115,7 +115,7 @@ class AdminController extends BaseAdminController
         return $formBuilder;
     }
 
-    //Nouvelle page : checkboxes affichage commentaires / date publi en fonction de la config
+    //Nouvelle page : checkboxes affichage commentaires / date publi / auteur en fonction de la config
     protected function createPage_ActiveEntityFormBuilder($entity, $view){
         $formBuilder = parent::createEntityFormBuilder($entity, $view);
 
@@ -125,6 +125,7 @@ class AdminController extends BaseAdminController
 
             $page->setAffichageCommentaires($config->getAffichageCommentaires());
             $page->setAffichageDatePublication($config->getAffichageDatePublication());
+            $page->setAffichageAuteur($config->getAffichageAuteur());
         }
 
         return $formBuilder;

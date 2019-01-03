@@ -138,6 +138,11 @@ class Page
      */
     private $affichageDatePublication = true;
 
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $affichageAuteur = true;
+
     public function __construct()
     {
         $this->datePublication = new \DateTime();
@@ -614,6 +619,18 @@ class Page
     public function setAffichageDatePublication(bool $affichageDatePublication): self
     {
         $this->affichageDatePublication = $affichageDatePublication;
+
+        return $this;
+    }
+
+    public function getAffichageAuteur(): ?bool
+    {
+        return $this->affichageAuteur;
+    }
+
+    public function setAffichageAuteur(bool $affichageAuteur): self
+    {
+        $this->affichageAuteur = $affichageAuteur;
 
         return $this;
     }

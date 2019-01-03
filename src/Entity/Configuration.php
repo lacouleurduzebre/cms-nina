@@ -84,6 +84,11 @@ class Configuration
      */
     private $affichageDatePublication;
 
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $affichageAuteur;
+
     public function __construct()
     {
         $this->maintenance = false;
@@ -294,6 +299,18 @@ class Configuration
     public function setAffichageDatePublication(bool $affichageDatePublication): self
     {
         $this->affichageDatePublication = $affichageDatePublication;
+
+        return $this;
+    }
+
+    public function getAffichageAuteur(): ?bool
+    {
+        return $this->affichageAuteur;
+    }
+
+    public function setAffichageAuteur(bool $affichageAuteur): self
+    {
+        $this->affichageAuteur = $affichageAuteur;
 
         return $this;
     }

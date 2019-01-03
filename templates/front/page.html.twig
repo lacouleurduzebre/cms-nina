@@ -26,6 +26,10 @@
             {{ 'Publié le'|trans }}
             {{ page.datePublication|date("d/m/Y") }}
         {% endif %}
+        {% if page.affichageAuteur %}
+            {{ 'par'|trans }}
+            {{ page.auteur|date("d/m/Y") }}
+        {% endif %}
         {% if page.categories is not empty %}
             {% if page.affichageDatePublication %}
                 {{ 'dans les catégories'|trans }}

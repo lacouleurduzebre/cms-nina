@@ -139,6 +139,7 @@ class MenuController extends Controller
             $page->setAuteurDerniereModification($user);
             $page->setAffichageCommentaires($config->getAffichageCommentaires());
             $page->setAffichageDatePublication($config->getAffichageDatePublication());
+            $page->setAffichageAuteur($config->getAffichageAuteur());
             $SEO = new SEO();
             $SEO->setMetaTitre($metaTitre)->setUrl($url)->setMetaDescription($metaDescription);
             $page->setSeo($SEO);
