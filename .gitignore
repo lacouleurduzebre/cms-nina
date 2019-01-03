@@ -33,6 +33,7 @@ composer.phar
 /public/sauvegardes/mediatheque/*
 /sauvegardes/bdd/*
 /sauvegardes/mediatheque/*
+/sauvegardes/*
 /translations/
 /var/
 /vendor/
