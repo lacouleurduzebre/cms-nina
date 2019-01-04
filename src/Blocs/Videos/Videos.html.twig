@@ -1,7 +1,17 @@
+{% set resultats = listeVideos(bloc.contenu) %}
+
+<div class="pagination">
+    {{ resultats.pagination|raw }}
+</div>
+
 <div class="grid-3-small-2-tiny-1 has-gutter-xl">
-    {% for bloc in listerToutesLesVideos().blocsVideos %}
+    {% for bloc in resultats['donnees'] %}
         <div class="blocVideos-video">
-            {%  include 'Blocs/Video/Video.html.twig' with{'bloc' : bloc} only %}
+            <iframe src="https://www.youtube.com/embed/{{ bloc.contenu.video }}?rel=0" frameborder="0" allowfullscreen width="100%" height="500"></iframe>
         </div>
     {% endfor %}
+</div>
+
+<div class="pagination">
+    {{ resultats.pagination|raw }}
 </div>

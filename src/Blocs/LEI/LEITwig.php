@@ -16,10 +16,9 @@ use Twig\Environment;
 
 class LEITwig extends \Twig_Extension
 {
-    public function __construct(RegistryInterface $doctrine, Environment $twig, Pagination $pagination)
+    public function __construct(RegistryInterface $doctrine, Pagination $pagination)
     {
         $this->doctrine = $doctrine;
-        $this->twig = $twig;
         $this->pagination = $pagination;
     }
 
@@ -33,19 +32,10 @@ class LEITwig extends \Twig_Extension
     public function listeLEI($parametres)
     {
         $flux = $parametres['flux'];
-        $limite = $parametres['limite'];
         $cle = $parametres['clef_moda'];
-        if(isset($parametres['pagination'][0])){
-            $pagination = $parametres['pagination'][0];
-        }else{
-            $pagination = null;
-        };
-        $resultatsParPage = isset($parametres['resultatsParPage']) ? $parametres['resultatsParPage'] : 9;
-        
+
         $xml = simplexml_load_file($flux);
         $fiches = $xml->xpath("//Resultat/sit_liste");
-
-        $resultats = [];
 
         //Limitation à la clé de modalité
         if(isset($cle)){
@@ -65,35 +55,8 @@ class LEITwig extends \Twig_Extension
             $fiches =  $fichesTriees;
         }
 
-        //Limitation du nombre de résultats
-        if($limite != null){
-            $fiches = array_splice($fiches, 0, $limite);
-        }
+        $page = isset($_GET['page']) ? $_GET['page'] : 1;
 
-        //Pagination
-        $nbResultats = count($fiches);
-
-        if($pagination == 1) {
-            if(!isset($_GET['page'])){
-                $fiches = array_splice($fiches, 0, $resultatsParPage);
-            }else{
-                $pageActuelle = $this->pagination->testPageActuelle($_GET['page'], $nbResultats, $resultatsParPage);
-                $offset = ($pageActuelle - 1) * $resultatsParPage;
-                $fiches = array_splice($fiches, $offset, $resultatsParPage);
-            }
-        }
-
-        $resultats['fiches'] = $fiches;
-        $resultats['nbResultats'] = $nbResultats;
-        if($pagination == 1){
-            if(!isset($pageActuelle)){
-                $pageActuelle = 1;
-            }
-            $resultats['pagination'] = $this->pagination->renderPagination($nbResultats, $resultatsParPage, $pageActuelle);
-        }else{
-            $resultats['pagination'] = null;
-        }
-
-        return $resultats;
+        return $this->pagination->getPagination($fiches, $parametres, $page);
     }
 }

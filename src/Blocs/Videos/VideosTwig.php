@@ -10,27 +10,31 @@ namespace App\Blocs\Videos;
 
 
 use App\Entity\Bloc;
+use App\Service\Pagination;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
 class VideosTwig extends \Twig_Extension
 {
-    public function __construct(RegistryInterface $doctrine)
+    public function __construct(RegistryInterface $doctrine, Pagination $pagination)
     {
         $this->doctrine = $doctrine;
+        $this->pagination = $pagination;
     }
 
     public function getFunctions()
     {
         return array(
-            new \Twig_SimpleFunction('listerToutesLesVideos', array($this, 'listerToutesLesVideos')),
+            new \Twig_SimpleFunction('listeVideos', array($this, 'listeVideos')),
         );
     }
 
-    public function listerToutesLesVideos()
+    public function listeVideos($parametres)
     {
         $repoBloc = $this->doctrine->getRepository(Bloc::class);
         $blocsVideos = $repoBloc->findBy(array("type" => "Video"));
 
-        return array('blocsVideos' => $blocsVideos);
+        $page = isset($_GET['page']) ? $_GET['page'] : 1;
+
+        return $this->pagination->getPagination($blocsVideos, $parametres, $page);
     }
 }

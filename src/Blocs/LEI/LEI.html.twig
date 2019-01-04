@@ -5,7 +5,7 @@
 </div>
 
 <div class="fichesLEI grid-3 has-gutter-l">
-    {% for fiche in resultats['fiches'] %}
+    {% for fiche in resultats['donnees'] %}
         <div class="ficheLEI fiche-{{ fiche.PRODUIT }}">
             <p class="ficheLEI-commune">{{ fiche.ADRPROD_LIBELLE_COMMUNE }}</p>
             {% if fiche.CRITERES.Crit.0 is not empty %}
