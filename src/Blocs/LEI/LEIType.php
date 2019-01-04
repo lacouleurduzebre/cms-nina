@@ -9,10 +9,11 @@
 namespace App\Blocs\LEI;
 
 
+use App\Form\Type\LimiteType;
+use App\Form\Type\PaginationType;
+use App\Form\Type\ResultatsParPageType;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
-use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -30,22 +31,9 @@ class LEIType extends AbstractType
                 'help' => "Filtrer les résultats pour ne conserver que les fiches répondant à ce critère",
                 'required' => false
             ))
-            ->add('limite', NumberType::class, array(
-                'label' => 'Nombre limite de résultats',
-                'help' => "Si aucune limite n'est précisée, tous les résultats seront affichés",
-                'required' => false
-            ))
-            ->add('pagination', ChoiceType::class, array(
-                'choices' => array(
-                    'Activer la pagination' => 1
-                ),
-                'expanded' => true,
-                'label' => false,
-                'multiple' => true
-            ))
-            ->add('resultatsParPage', NumberType::class, array(
-                'label' => 'Nombre de résultats par page'
-            ));
+            ->add('limite', LimiteType::class)
+            ->add('pagination', PaginationType::class)
+            ->add('resultatsParPage', ResultatsParPageType::class);
     }
 
     public function configureOptions(OptionsResolver $resolver)
