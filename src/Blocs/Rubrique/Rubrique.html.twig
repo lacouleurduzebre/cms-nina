@@ -1,5 +1,11 @@
+{% set resultats = listePagesEnfants(bloc.page, bloc.contenu) %}
+
+<div class="pagination">
+    {{ resultats.pagination|raw }}
+</div>
+
 <div class="grid-3-small-2-tiny-1 has-gutter-xl">
-    {% for page in listerPagesEnfants(bloc.page).pages %}
+    {% for page in resultats['donnees'] %}
         <div class="blocRubrique-page flex-container-v">
             {{ blocAnnexe(page, 'Vignette') }}
             <h2>{{ page.titre }}</h2>
@@ -7,4 +13,8 @@
             <a class="bouton lire" href="{{ path("voirPage", { '_locale': page.langue.abreviation, 'url': page.seo.url}) }}">{% trans %}Voir la page{% endtrans %}</a>
         </div>
     {% endfor %}
+</div>
+
+<div class="pagination">
+    {{ resultats.pagination|raw }}
 </div>

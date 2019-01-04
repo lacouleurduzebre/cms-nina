@@ -1,5 +1,11 @@
+{% set resultats = listeUtilisateurs(bloc.contenu) %}
+
+<div class="pagination">
+    {{ resultats.pagination|raw }}
+</div>
+
 <div class="grid-3-small-2-tiny-1 has-gutter-xl">
-    {% for utilisateur in listerUtilisateurs() %}
+    {% for utilisateur in resultats['donnees'] %}
         <div class="blocAnnuaire-utilisateur flex-container-v">
             {% if utilisateur.imageProfil is not empty %}
                 <img src="uploads/{{ utilisateur.imageProfil }}" alt="{{ utilisateur.username }}">
@@ -8,4 +14,8 @@
             <p>{{ utilisateur.email }}</p>
         </div>
     {% endfor %}
+</div>
+
+<div class="pagination">
+    {{ resultats.pagination|raw }}
 </div>

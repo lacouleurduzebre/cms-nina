@@ -12,41 +12,40 @@ namespace App\Blocs\Rubrique;
 use App\Entity\Menu;
 use App\Entity\MenuPage;
 use App\Entity\Bloc;
+use App\Service\Pagination;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
 class RubriqueTwig extends \Twig_Extension
 {
-    public function __construct(RegistryInterface $doctrine)
+    public function __construct(RegistryInterface $doctrine, Pagination $pagination)
     {
         $this->doctrine = $doctrine;
+        $this->pagination = $pagination;
     }
 
     public function getFunctions()
     {
         return array(
-            new \Twig_SimpleFunction('listerPagesEnfants', array($this, 'listerPagesEnfants')),
+            new \Twig_SimpleFunction('listePagesEnfants', array($this, 'listePagesEnfants')),
         );
     }
 
-    public function listerPagesEnfants($page)
+    public function listePagesEnfants($pageParent, $parametres)
     {
         $repoMenu = $this->doctrine->getRepository(Menu::class);
-        $menuPrincipal = $repoMenu->findOneBy(array('defaut' => true, 'langue' => $page->getLangue()));
+        $menuPrincipal = $repoMenu->findOneBy(array('defaut' => true, 'langue' => $pageParent->getLangue()));
 
         $repoMenuPage = $this->doctrine->getRepository(MenuPage::class);
-        $menuPage = $repoMenuPage->findBy(array('menu' => $menuPrincipal, 'page' => $page));
 
-        if($menuPage){
-            $pages = [];
-            $menusPagesEnfants = $repoMenuPage->findBy(array('pageParent' => $page, 'menu' => $menuPrincipal));
-            foreach($menusPagesEnfants as $menuPageEnfant){
-                $pageEnfant = $menuPageEnfant->getPage();
-                $pages[] = $pageEnfant;
-            }
-        }else{
-            $pages = null;
+        $pages = [];
+        $menusPagesEnfants = $repoMenuPage->findBy(array('pageParent' => $pageParent, 'menu' => $menuPrincipal));
+        foreach($menusPagesEnfants as $menuPageEnfant){
+            $pageEnfant = $menuPageEnfant->getPage();
+            $pages[] = $pageEnfant;
         }
 
-        return array('pages' => $pages);
+        $page = isset($_GET['page']) ? $_GET['page'] : 1;
+
+        return $this->pagination->getPagination($pages, $parametres, $page);
     }
 }

@@ -10,28 +10,32 @@ namespace App\Blocs\Annuaire;
 
 
 use App\Entity\Utilisateur;
+use App\Service\Pagination;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 use Twig\Environment;
 
 class AnnuaireTwig extends \Twig_Extension
 {
-    public function __construct(RegistryInterface $doctrine, Environment $twig)
+    public function __construct(RegistryInterface $doctrine, Pagination $pagination)
     {
         $this->doctrine = $doctrine;
+        $this->pagination = $pagination;
     }
 
     public function getFunctions()
     {
         return array(
-            new \Twig_SimpleFunction('listerUtilisateurs', array($this, 'listerUtilisateurs')),
+            new \Twig_SimpleFunction('listeUtilisateurs', array($this, 'listeUtilisateurs')),
         );
     }
 
-    public function listerUtilisateurs()
+    public function listeUtilisateurs($parametres)
     {
         $repoUtilisateur = $this->doctrine->getRepository(Utilisateur::class);
         $utilisateurs = $repoUtilisateur->findAll();
 
-        return $utilisateurs;
+        $page = isset($_GET['page']) ? $_GET['page'] : 1;
+
+        return $this->pagination->getPagination($utilisateurs, $parametres, $page);
     }
 }

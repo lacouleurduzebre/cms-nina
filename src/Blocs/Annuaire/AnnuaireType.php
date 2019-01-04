@@ -9,11 +9,11 @@
 namespace App\Blocs\Annuaire;
 
 
+use App\Form\Type\LimiteType;
+use App\Form\Type\PaginationType;
+use App\Form\Type\ResultatsParPageType;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
-use Symfony\Component\Form\Extension\Core\Type\HiddenType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -21,13 +21,16 @@ class AnnuaireType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        $builder
+            ->add('limite', LimiteType::class)
+            ->add('pagination', PaginationType::class)
+            ->add('resultatsParPage', ResultatsParPageType::class);
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
             'data_class' => null,
-            'help' => "Bloc non paramétrable"
         ));
     }
 
