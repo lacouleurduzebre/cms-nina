@@ -36,7 +36,7 @@ easy_admin:
                     - nom
                     - langue
                     - description
-                    - { property: 'url' }
+                    - { property: 'url', label: 'Url' }
                     - { property : 'categorieParent', label: 'Catégorie parent', type: 'entity', type_options: { class: 'App\Entity\Categorie' } }
                     - { property : 'typeCategorie', label: 'Type' }
             edit:

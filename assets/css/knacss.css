@@ -2833,6 +2833,11 @@ body.notFull .select2-dropdown {
   display: flex;
   align-items: center; }
 
+.select2-container--bootstrap .select2-results__group {
+  color: #A1BA1D;
+  padding: 6px 12px 6px 6px;
+  font-size: 1.7rem; }
+
 .checkbox label, .nullable-control label {
   white-space: nowrap; }
   .checkbox label input, .nullable-control label input {
