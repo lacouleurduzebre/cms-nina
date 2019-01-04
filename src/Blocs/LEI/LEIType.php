@@ -10,6 +10,7 @@ namespace App\Blocs\LEI;
 
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -24,15 +25,26 @@ class LEIType extends AbstractType
             ->add('flux', TextType::class, array(
                 'label' => 'Url du flux LEI'
             ))
+            ->add('clef_moda', TextType::class, array(
+                'label' => 'Limiter à la clé de modalité :',
+                'help' => "Filtrer les résultats pour ne conserver que les fiches répondant à ce critère",
+                'required' => false
+            ))
             ->add('limite', NumberType::class, array(
                 'label' => 'Nombre limite de résultats',
                 'help' => "Si aucune limite n'est précisée, tous les résultats seront affichés",
                 'required' => false
             ))
-            ->add('clef_moda', TextType::class, array(
-                'label' => 'Limiter à la clé de modalité :',
-                'help' => "Filtrer les résultats pour ne conserver que les fiches répondant à ce critère",
-                'required' => false
+            ->add('pagination', ChoiceType::class, array(
+                'choices' => array(
+                    'Activer la pagination' => 1
+                ),
+                'expanded' => true,
+                'label' => false,
+                'multiple' => true
+            ))
+            ->add('resultatsParPage', NumberType::class, array(
+                'label' => 'Nombre de résultats par page'
             ));
     }
 

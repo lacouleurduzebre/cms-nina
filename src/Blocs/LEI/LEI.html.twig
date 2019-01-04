@@ -1,7 +1,11 @@
-{% set fiches = listeLEI(flux=bloc.contenu.flux, limite=bloc.contenu.limite, clef_moda=bloc.contenu.clef_moda|default(null)) %}
+{% set resultats = listeLEI(bloc.contenu) %}
+
+<div class="pagination">
+    {{ resultats.pagination|raw }}
+</div>
 
 <div class="fichesLEI grid-3 has-gutter-l">
-    {% for fiche in fiches %}
+    {% for fiche in resultats['fiches'] %}
         <div class="ficheLEI fiche-{{ fiche.PRODUIT }}">
             <p class="ficheLEI-commune">{{ fiche.ADRPROD_LIBELLE_COMMUNE }}</p>
             {% if fiche.CRITERES.Crit.0 is not empty %}
@@ -26,4 +30,8 @@
             <a class="ficheLEI-lien" href="/{{ app.request.locale }}/fiche/{{ fiche.NOM|replace({' ':'-'}) }}/{{ fiche.PRODUIT }}/{{ bloc.id }}">{% trans %}LIRE LA SUITE{% endtrans %}</a>
         </div>
     {% endfor %}
+</div>
+
+<div class="pagination">
+    {{ resultats.pagination|raw }}
 </div>
