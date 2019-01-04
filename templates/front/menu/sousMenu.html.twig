@@ -1,12 +1,12 @@
 <ul>
     {% for menuPage in menuPages|sortBy('position') %}
         {% if isPublie(menuPage.page) %}
-            <li {% if isParent(menuPage.page.id) and menuPage.page.affichageSousNiveaux %}class="parent"{% endif %}>
+            <li {% if isParent(menuPage) and menuPage.page.affichageSousNiveaux %}class="parent"{% endif %}>
                 <a href="{{ path('voirPage', {'_locale': menuPage.page.langue.abreviation, 'url':menuPage.page.seo.url}) }}">
                     {{ menuPage.page.titreMenu }}
                 </a>
                 {% if menuPage.page.affichageSousNiveaux %}
-                    {{ sousMenu(menuPage.page.id, 'front')|raw }}
+                    {{ sousMenu(menuPage, 'front')|raw }}
                 {% endif %}
             </li>
         {% endif %}

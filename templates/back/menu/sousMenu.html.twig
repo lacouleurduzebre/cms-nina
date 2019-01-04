@@ -5,7 +5,7 @@
                 <a href="#"><span class="menuPage" id="{{ menuPage.id }}"></span><span class="page" id="{{ menuPage.page.id }}"></span>
                     {{ menuPage.page.titreMenu }}
                 </a>
-                {{ sousMenu(menuPage.page.id, 'back')|raw }}
+                {{ sousMenu(menuPage, 'back')|raw }}
             </li>
         {% endif %}
     {% endfor %}

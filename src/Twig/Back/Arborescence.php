@@ -83,24 +83,21 @@ class Arborescence extends \Twig_Extension
         return $this->twig->render('back/menu/pagesOrphelines.html.twig', array('menuPagesOrphelines' => $pagesOrphelines, 'langueArbo' => $langue));
     }
 
-    public function sousMenu($id, $office)
+    public function sousMenu($menuPage, $office)
     {
         $repoLangue = $this->doctrine->getRepository(Langue::class);
 
-        if($office == 'back'){
-            if(isset($_COOKIE['langueArbo'])){
-                $langueArbo = $_COOKIE['langueArbo'];
-                $langue = $repoLangue->find($langueArbo);
-            }else{
-                $langue = $repoLangue->findOneBy(array('defaut' => 1));
-            }
-        }
-
         $repoMenuPage = $this->doctrine->getRepository(MenuPage::class);
-        $menuPages = $repoMenuPage->findBy(array('pageParent' => $id));
+        $menuPages = $repoMenuPage->findBy(array('pageParent' => $menuPage->getPage(), 'menu' => $menuPage->getMenu()));
 
         if ($menuPages){
             if($office == 'back'){
+                if(isset($_COOKIE['langueArbo'])){
+                    $langueArbo = $_COOKIE['langueArbo'];
+                    $langue = $repoLangue->find($langueArbo);
+                }else{
+                    $langue = $repoLangue->findOneBy(array('defaut' => 1));
+                }
                 return $this->twig->render('back/menu/sousMenu.html.twig', array('menuPages' => $menuPages, 'langueArbo' => $langue));
             }else{
                 return $this->twig->render('front/menu/sousMenu.html.twig', array('menuPages' => $menuPages));
@@ -110,10 +107,10 @@ class Arborescence extends \Twig_Extension
         }
     }
 
-    public function isParent($id)
+    public function isParent($menuPage)
     {
-        $emMenuPage = $this->doctrine->getRepository(MenuPage::class);
-        $menuPages = $emMenuPage->findBy(array('pageParent' => $id));
+        $repoMenuPage = $this->doctrine->getRepository(MenuPage::class);
+        $menuPages = $repoMenuPage->findBy(array('pageParent' => $menuPage->getPage(), 'menu' => $menuPage->getMenu()));
 
         if ($menuPages){
             return true;
