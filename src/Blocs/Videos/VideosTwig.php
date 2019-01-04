@@ -28,10 +28,10 @@ class VideosTwig extends \Twig_Extension
         );
     }
 
-    public function listeVideos($parametres)
+    public function listeVideos($langue, $parametres)
     {
         $repoBloc = $this->doctrine->getRepository(Bloc::class);
-        $blocsVideos = $repoBloc->findBy(array("type" => "Video"));
+        $blocsVideos = $repoBloc->videosPagesPubliees($langue);
 
         $page = isset($_GET['page']) ? $_GET['page'] : 1;
 

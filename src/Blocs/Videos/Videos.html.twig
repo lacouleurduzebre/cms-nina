@@ -1,4 +1,4 @@
-{% set resultats = listeVideos(bloc.contenu) %}
+{% set resultats = listeVideos(langueActive, bloc.contenu) %}
 
 <div class="pagination">
     {{ resultats.pagination|raw }}

@@ -26,7 +26,7 @@ class BlocRepository extends ServiceEntityRepository
             $qb = $this
                 ->createQueryBuilder('b')
                 ->where('b.type = "texte"')
-                ->where('b.contenu LIKE :motCle')
+                ->andWhere('b.contenu LIKE :motCle')
                 ->setParameters(array('motCle' => '%'.$motCle.'%'));
 
             $blocs = $qb->getQuery()->getResult();
@@ -40,32 +40,22 @@ class BlocRepository extends ServiceEntityRepository
         return $resultats;
     }
 
-//    /**
-//     * @return Bloc[] Returns an array of Bloc objects
-//     */
-    /*
-    public function findByExampleField($value)
-    {
-        return $this->createQueryBuilder('m')
-            ->andWhere('m.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('m.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
+    public function videosPagesPubliees($langue){
+        $timestamp = new \DateTime();
+        $date = $timestamp->format('Y-m-d H:i:s');
 
-    /*
-    public function findOneBySomeField($value): ?Bloc
-    {
-        return $this->createQueryBuilder('m')
-            ->andWhere('m.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
+        $qb = $this
+            ->createQueryBuilder('b')
+            ->join('b.page', 'p')
+            ->andWhere('b.type = :type')
+            ->andWhere('p.corbeille = 0')
+            ->andWhere('p.active = 1')
+            ->andWhere('p.langue = :langue')
+            ->andWhere('p.datePublication < :date')
+            ->andWhere('p.dateDepublication > :date OR p.dateDepublication IS NULL')
+            ->setParameters(array('langue' => $langue, 'date' => $date, 'type' => 'Video'))
+            ->orderBy('p.datePublication', 'DESC');
+
+        return $qb->getQuery()->getResult();
     }
-    */
 }
