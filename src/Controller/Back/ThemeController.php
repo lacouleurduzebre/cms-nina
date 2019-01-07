@@ -35,6 +35,11 @@ class ThemeController extends Controller
 
             //Miniature
             $racine = $this->get('kernel')->getProjectDir();
+
+            if(!file_exists($racine.'/public/themes_thumbs')){
+                mkdir($racine.'/public/themes_thumbs');
+            }
+
             $miniature = $racine.'/themes/'.$nomTheme.'/thumb.jpg';
             $lien = $racine.'/public/themes_thumbs/'.$nomTheme.'.jpg';
             if(!file_exists($lien)){

@@ -88,7 +88,7 @@ class Arborescence extends \Twig_Extension
         $repoLangue = $this->doctrine->getRepository(Langue::class);
 
         $repoMenuPage = $this->doctrine->getRepository(MenuPage::class);
-        $menuPages = $repoMenuPage->findBy(array('pageParent' => $menuPage->getPage(), 'menu' => $menuPage->getMenu()));
+        $menuPages = $repoMenuPage->findBy(array('parent' => $menuPage, 'menu' => $menuPage->getMenu()));
 
         if ($menuPages){
             if($office == 'back'){
@@ -110,7 +110,7 @@ class Arborescence extends \Twig_Extension
     public function isParent($menuPage)
     {
         $repoMenuPage = $this->doctrine->getRepository(MenuPage::class);
-        $menuPages = $repoMenuPage->findBy(array('pageParent' => $menuPage->getPage(), 'menu' => $menuPage->getMenu()));
+        $menuPages = $repoMenuPage->findBy(array('parent' => $menuPage, 'menu' => $menuPage->getMenu()));
 
         if ($menuPages){
             return true;

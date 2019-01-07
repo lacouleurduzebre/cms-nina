@@ -1,5 +1,5 @@
 {% for menuPage in menuPages|sortBy('position') %}
-    {% if menuPage.pageParent is empty and isPublie(menuPage.page) %}
+    {% if menuPage.parent is empty and isPublie(menuPage.page) %}
         <li {% if isParent(menuPage) and menuPage.page.affichageSousNiveaux %}class="parent"{% endif %}>
             <a href="{{ path('voirPage', {'_locale': menuPage.page.langue.abreviation, 'url':menuPage.page.seo.url}) }}">
                 {{ menuPage.page.titreMenu }}

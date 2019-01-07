@@ -29,12 +29,6 @@ class MenuPage
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Page")
-     * @ORM\JoinColumn(nullable=true)
-     */
-    private $pageParent;
-
-    /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Page")
      * @ORM\JoinColumn(nullable=false)
      */
     private $page;
@@ -44,6 +38,11 @@ class MenuPage
      * @ORM\JoinColumn(referencedColumnName="id", nullable=true)
      */
     private $menu;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\MenuPage")
+     */
+    private $parent;
 
     /**
      * Get id
@@ -77,30 +76,6 @@ class MenuPage
     public function getPosition()
     {
         return $this->position;
-    }
-
-    /**
-     * Set pageParent
-     *
-     * @param integer $pageParent
-     *
-     * @return MenuPage
-     */
-    public function setPageParent($pageParent)
-    {
-        $this->pageParent = $pageParent;
-    
-        return $this;
-    }
-
-    /**
-     * Get pageParent
-     *
-     * @return integer
-     */
-    public function getPageParent()
-    {
-        return $this->pageParent;
     }
 
     /**
@@ -149,5 +124,17 @@ class MenuPage
     public function getMenu()
     {
         return $this->menu;
+    }
+
+    public function getParent(): ?self
+    {
+        return $this->parent;
+    }
+
+    public function setParent(?self $parent): self
+    {
+        $this->parent = $parent;
+
+        return $this;
     }
 }
