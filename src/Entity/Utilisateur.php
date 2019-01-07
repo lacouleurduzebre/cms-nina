@@ -56,6 +56,16 @@ class Utilisateur extends BaseUser
      */
     private $blocsTableauDeBord;
 
+    /**
+     * @ORM\Column(type="smallint", nullable=true)
+     */
+    private $tentativesConnexion;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $dateDerniereTentativeConnexion;
+
     public function __construct()
     {
         parent::__construct();
@@ -202,6 +212,30 @@ class Utilisateur extends BaseUser
     public function setBlocsTableauDeBord(?array $blocsTableauDeBord): self
     {
         $this->blocsTableauDeBord = $blocsTableauDeBord;
+
+        return $this;
+    }
+
+    public function getTentativesConnexion(): ?int
+    {
+        return $this->tentativesConnexion;
+    }
+
+    public function setTentativesConnexion(?int $tentativesConnexion): self
+    {
+        $this->tentativesConnexion = $tentativesConnexion;
+
+        return $this;
+    }
+
+    public function getDateDerniereTentativeConnexion(): ?\DateTimeInterface
+    {
+        return $this->dateDerniereTentativeConnexion;
+    }
+
+    public function setDateDerniereTentativeConnexion(?\DateTimeInterface $dateDerniereTentativeConnexion): self
+    {
+        $this->dateDerniereTentativeConnexion = $dateDerniereTentativeConnexion;
 
         return $this;
     }
