@@ -36,9 +36,9 @@ $(document).ready(function(){
                 "label": "Ajouter une page enfant",
                 "action": function(){
                     if(node.type === 'root' || node.type === 'orphan'){//Si Menu
-                        idPageParent = null;
+                        idParent = null;
                     }else{//Si Page
-                        idPageParent = $('#'+node.id).find('.page').attr('id');
+                        idParent = $('#'+node.id).find('.menuPage').attr('id');
                     }
                     idMenu = $('#'+node.id).parents('div').attr('id').substr(5);
 
@@ -50,7 +50,7 @@ $(document).ready(function(){
                     $.get(baseURL+"/assets/js/popup-ajoutPage.html", function(data){
                         $('body').append(data);
                         $('#ajoutPage-idNode').val(node.id);
-                        $('#ajoutPage-idPageParent').val(idPageParent);
+                        $('#ajoutPage-idParent').val(idParent);
                         $('#ajoutPage-idMenu').val(idMenu);
                         $('#ajoutPage-idMenuComplet').val(idMenuComplet);
                         $('#ajoutPage-idLangue').val(idLangue);
@@ -293,9 +293,9 @@ $(document).ready(function(){
                 idPageParent = null;
             }else{
                 idLiParent = $(this).parent('ul').parent('li').attr('id');
-                idPageParent = $('#'+idLiParent).find('.page').attr('id');
+                idParent = $('#'+idLiParent).find('.menuPage').attr('id');
             }
-            menuPage = [idMenuPage, idPage, position, idPageParent, idMenu];
+            menuPage = [idMenuPage, idPage, position, idParent, idMenu];
 
             // console.log(menuPage);
 

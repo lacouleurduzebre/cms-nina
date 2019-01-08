@@ -37,13 +37,14 @@ class MenuController extends Controller
             //$item[0] menuPage
             //$item[1] page
             //$item[2] position
-            //$item[3] pageParent
+            //$item[3] parent
             //$item[4] menu
             foreach($arbo as $item){
                 $menuPage = $repositoryMenuPage->find($item[0]);
 
                 $repositoryMenu = $this->getDoctrine()->getRepository(Menu::class);
                 $repositoryPage = $this->getDoctrine()->getRepository(Page::class);
+                $repositoryMenuPage = $this->getDoctrine()->getRepository(MenuPage::class);
 
                 if($item[4] == 0){
                     $menuPage->setMenu(null);
@@ -52,12 +53,10 @@ class MenuController extends Controller
                     $menuPage->setMenu($menu);
                 }
 
-                $page = $repositoryPage->findOneBy(array('id'=>$item[1]));
-                $pageParent = $repositoryPage->findOneBy(array('id'=>$item[3]));
+                $page = $repositoryPage->find($item[1]);
+                $parent = $repositoryMenuPage->find($item[3]);
 
-                $menuPage->setPosition($item[2]);
-                $menuPage->setPage($page);
-                $menuPage->setPageParent($pageParent);
+                $menuPage->setPosition($item[2])->setPage($page)->setParent($parent);
 
                 $em->persist($menuPage);
             };
@@ -93,7 +92,7 @@ class MenuController extends Controller
                 return new Response('pas orpheline');
             }else{//Oui -> on modifie menuPage
                 $menuPage->setMenu(null);
-                $menuPage->setPageParent(null);
+                $menuPage->setParent(null);
                 $em->persist($menuPage);
                 $em->flush();
                 return new Response('orpheline');
@@ -120,9 +119,9 @@ class MenuController extends Controller
             //Infos pop-up
 
             $em = $this->getDoctrine()->getManager();
-            $repoPage = $em->getRepository(Page::class);
             $repoSEO = $em->getRepository(SEO::class);
             $repoMenu = $em->getRepository(Menu::class);
+            $repoMenuPage = $em->getRepository(MenuPage::class);
             $repoLangue = $em->getRepository(Langue::class);
             $config = $em->getRepository(Configuration::class)->find(1);
 
@@ -157,13 +156,13 @@ class MenuController extends Controller
             //Création menuPage
             $menuPage = new MenuPage();
 
-            $idPageParent = $data[array_search('ajoutPage-idPageParent', array_column($data, 'name'))]['value'];
-            $pageParent = $repoPage->find($idPageParent);
+            $idParent = $data[array_search('ajoutPage-idParent', array_column($data, 'name'))]['value'];
+            $parent = $repoMenuPage->find($idParent);
 
             $idMenu = $data[array_search('ajoutPage-idMenu', array_column($data, 'name'))]['value'];
             $menu = $repoMenu->find($idMenu);
 
-            $menuPage->setPosition(0)->setPage($page)->setPageParent($pageParent)->setMenu($menu);
+            $menuPage->setPosition(0)->setPage($page)->setParent($parent)->setMenu($menu);
 
             $em->persist($menuPage);
             $em->flush();
@@ -204,7 +203,7 @@ class MenuController extends Controller
                 $idMenu = $request->get('idMenu');
                 $menu = $repoMenu->find($idMenu);
 
-                $menuPage->setPosition(0)->setPage($page)->setPageParent(null)->setMenu($menu);
+                $menuPage->setPosition(0)->setPage($page)->setParent(null)->setMenu($menu);
             }
 
             $em->persist($menuPage);
