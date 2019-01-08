@@ -10,6 +10,7 @@ namespace App\Twig\Front;
 
 
 use App\Entity\MenuPage;
+use App\Entity\Page;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 use Twig\Environment;
 
@@ -28,9 +29,12 @@ class FilAriane extends \Twig_Extension
         );
     }
 
-    public function ariane($page){
+    public function ariane($idPage){
         $emMenu = $this->doctrine->getRepository(\App\Entity\Menu::class);
         $menuPrincipal = $emMenu->findOneBy(array('defaut' => true));
+
+        $emPage = $this->doctrine->getRepository(Page::class);
+        $page = $emPage->find($idPage);
 
         $emMenuPage = $this->doctrine->getRepository(MenuPage::class);
         $menuPage = $emMenuPage->findOneBy(array('menu' => $menuPrincipal, 'page' => $page));
@@ -39,14 +43,12 @@ class FilAriane extends \Twig_Extension
             $pageDansMenuPrincipal = true;
             $ariane = [];
 
-            $page = $menuPage->getPage();
             $ariane[] = $page;
 
-            $pageParent = $menuPage->getPageParent();
-            while($pageParent){
-                $ariane[] = $pageParent;
-                $menuPageParent = $emMenuPage->findOneBy(array('menu' => $menuPrincipal, 'page' => $pageParent));
-                $pageParent = $menuPageParent->getPageParent();
+            $menuPageParent = $menuPage->getParent();
+            while($menuPageParent){
+                $ariane[] = $menuPageParent->getPage();
+                $menuPageParent = $menuPageParent->getParent();
             }
             $ariane = array_reverse($ariane);
         }else{

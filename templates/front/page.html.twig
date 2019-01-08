@@ -28,7 +28,7 @@
         {% endif %}
         {% if page.affichageAuteur %}
             {{ 'par'|trans }}
-            {{ page.auteur|date("d/m/Y") }}
+            {{ page.auteur }}
         {% endif %}
         {% if page.categories is not empty %}
             {% if page.affichageDatePublication %}

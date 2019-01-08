@@ -20,9 +20,9 @@ class AppFixtures extends Fixture
     public function load(ObjectManager $manager)
     {
         $utilisateur = new Utilisateur();
-        $utilisateur->setUsername('adminlcdz')
+        $utilisateur->setUsername('admin')
             ->setEmail('maintenance@lacouleurduzebre.com')
-            ->setPlainPassword('dev2018')
+            ->setPlainPassword('admin')
             ->setEnabled(true);
         $manager->persist($utilisateur);
 
