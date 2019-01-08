@@ -94,6 +94,7 @@ class Configuration
         $this->maintenance = false;
         $this->affichageCommentaires = true;
         $this->affichageDatePublication = true;
+        $this->affichageAuteur = true;
     }
 
     public function __toString()
