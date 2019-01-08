@@ -2668,7 +2668,8 @@ body.list .table, body.list .table td, body.list .table th, .sauvegarde .table, 
     position: absolute;
     height: 100%; }
     .global-actions .action-search .input-group span.input-group-btn:not(.sidebar) {
-      right: 0; }
+      right: 0;
+      top: 0; }
     .global-actions .action-search .input-group span.input-group-btn button[type='submit'] {
       background-color: transparent;
       padding: 0 .5rem 0;

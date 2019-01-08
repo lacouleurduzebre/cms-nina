@@ -290,7 +290,7 @@ $(document).ready(function(){
             idPage = $('#'+idLi).find('.page').attr('id');
 
             if($(this).parent('ul').parent('li').parent('ul').hasClass('jstree-container-ul') || idMenu === '0'){
-                idPageParent = null;
+                idParent = null;
             }else{
                 idLiParent = $(this).parent('ul').parent('li').attr('id');
                 idParent = $('#'+idLiParent).find('.menuPage').attr('id');

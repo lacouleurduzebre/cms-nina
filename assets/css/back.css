@@ -770,7 +770,8 @@ body.connected {
   background-color: #68655f; }
   .sidebar-menu li > ul > li > ul > li > a {
     border-bottom: 1px solid #FFF;
-    padding: 1rem; }
+    padding: 1rem;
+    padding-right: 2rem; }
     .sidebar-menu li > ul > li > ul > li > a svg:not(.fa-power-off) {
       transform: rotate(-90deg); }
   .sidebar-menu li > ul > li > ul > li:last-child > a {

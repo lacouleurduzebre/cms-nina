@@ -29,7 +29,7 @@ class AppFixtures extends Fixture
         //Configuration générale
         $config = new Configuration();
         $config->setNom('Nouveau site')
-            ->setLogo('theme/img/logo.png')
+            ->setLogo('/theme/img/logo.png')
             ->setEmailContact('maintenance@lacouleurduzebre.com')
             ->setEmailMaintenance('maintenance@lacouleurduzebre.com')
             ->setEditeur('la couleur du Zèbre')
@@ -159,10 +159,22 @@ class AppFixtures extends Fixture
 
         $blocMenuPrincipal = new Bloc();
         $blocMenuPrincipal->setType('Menu')
-            ->setPosition(0)
+            ->setPosition(1)
             ->setGroupeBlocs($groupeBlocHeader)
             ->setContenu($contenuBlocMenuPrincipal);
         $manager->persist($blocMenuPrincipal);
+
+        //Bloc logo dans le header
+        $contenuBlocLogo = [];
+        $contenuBlocLogo['logo'] = 1;
+        $contenuBlocLogo['nom'] = 0;
+
+        $blocLogo = new Bloc();
+        $blocLogo->setType('LogoSite')
+            ->setPosition(0)
+            ->setGroupeBlocs($groupeBlocHeader)
+            ->setContenu($contenuBlocLogo);
+        $manager->persist($blocLogo);
 
         //Bloc menu dans le footer
         $groupeBlocFooter = new GroupeBlocs();

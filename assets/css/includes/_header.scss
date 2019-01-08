@@ -109,6 +109,7 @@ body.connected{
   > li > a{
     border-bottom: 1px solid #FFF;
     padding: 1rem;
+    padding-right: 2rem;
     svg:not(.fa-power-off){
       transform: rotate(-90deg);
     }
@@ -117,7 +118,6 @@ body.connected{
     border: none;
   }
 }
-
 
 /* Menu compte */
 .navbar-custom-menu{
