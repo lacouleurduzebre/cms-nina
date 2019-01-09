@@ -61,7 +61,7 @@ class PageRepository extends \Doctrine\ORM\EntityRepository
             ->andWhere('p.dateDepublication > :date OR p.dateDepublication IS NULL');
 
         if($categorie != 0){
-            $qb->andWhere(':categorie MEMBER OF c');
+            $qb->andWhere(':categorie MEMBER OF p.categories');
             $qb->setParameters(array('langue' => $langue, 'date' => $date, 'categorie' => $categorie));
         }else{
             $qb->andWhere('c IS NOT NULL');

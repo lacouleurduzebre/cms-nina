@@ -16,7 +16,8 @@ $(document).ready(function(){
         external_filemanager_path:"/filemanager/",
         external_plugins: { "filemanager" : "/filemanager/plugin.min.js"},
 
-        extended_valid_elements: 'i[class]',
+        extended_valid_elements: 'i[class=class]',
+
         block_formats: 'Paragraphe=p;Titre h2=h2;Titre h3=h3;Titre h4=h4;Titre h5=h5;Titre h6=h6',
         image_advtab: true,
         toolbar1: "formatselect | image | media | link unlink | copy paste pastetext | bold italic underline | alignleft aligncenter alignright | bullist numlist | code | undo redo",

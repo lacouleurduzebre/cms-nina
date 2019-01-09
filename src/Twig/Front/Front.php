@@ -29,6 +29,7 @@ class Front extends \Twig_Extension
         return array(
             new \Twig_SimpleFunction('regions', array($this, 'getRegions'), array('is_safe' => ['html'])),
             new \Twig_SimpleFunction('groupes', array($this, 'getGroupesBlocs'), array('is_safe' => ['html'])),
+            new \Twig_SimpleFunction('groupe', array($this, 'getGroupeBlocs'), array('is_safe' => ['html'])),
             new \Twig_SimpleFunction('blocAnnexe', array($this, 'getBlocAnnexe'), array('is_safe' => ['html'])),
         );
     }
@@ -81,6 +82,22 @@ class Front extends \Twig_Extension
             }else{
                 $rendu .= $this->twig->render('front/groupes/groupe.html.twig', array('groupe' => $groupeBlocs));
             }
+        }
+
+        return $rendu;
+    }
+
+    public function getGroupeBlocs($idGroupeBlocs)
+    {
+        $repoGroupeBlocs = $this->doctrine->getRepository(\App\Entity\GroupeBlocs::class);
+        $groupeBlocs = $repoGroupeBlocs->find($idGroupeBlocs);
+
+        $rendu = '';
+        $tpl = 'front/groupes/groupe-'.$groupeBlocs->getIdentifiant().'.html.twig';
+        if($this->twig->getLoader()->exists($tpl)){
+            $rendu .= $this->twig->render($tpl, array('groupe' => $groupeBlocs));
+        }else{
+            $rendu .= $this->twig->render('front/groupes/groupe.html.twig', array('groupe' => $groupeBlocs));
         }
 
         return $rendu;

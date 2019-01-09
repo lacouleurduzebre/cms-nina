@@ -40,7 +40,7 @@ class RubriqueTwig extends \Twig_Extension
         $menuPage = $repoMenuPage->findOneBy(array('page' => $pageParent));
 
         $pages = [];
-        $menusPagesEnfants = $repoMenuPage->findBy(array('parent' => $menuPage, 'menu' => $menuPrincipal));
+        $menusPagesEnfants = $repoMenuPage->findBy(array('parent' => $menuPage, 'menu' => $menuPrincipal), array('position' => 'ASC'));
         foreach($menusPagesEnfants as $menuPageEnfant){
             $pageEnfant = $menuPageEnfant->getPage();
             $pages[] = $pageEnfant;
