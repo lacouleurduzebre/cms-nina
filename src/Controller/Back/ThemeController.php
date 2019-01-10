@@ -34,14 +34,12 @@ class ThemeController extends Controller
             $themes[$nomTheme] = $infos;
 
             //Miniature
-            $racine = $this->get('kernel')->getProjectDir();
-
-            if(!file_exists($racine.'/public/themes_thumbs')){
-                mkdir($racine.'/public/themes_thumbs');
+            if(!file_exists(getcwd().'/themes_thumbs')){
+                mkdir(getcwd().'/themes_thumbs');
             }
 
-            $miniature = $racine.'/themes/'.$nomTheme.'/thumb.jpg';
-            $lien = $racine.'/public/themes_thumbs/'.$nomTheme.'.jpg';
+            $miniature = getcwd().'/../themes/'.$nomTheme.'/thumb.jpg';
+            $lien = getcwd().'/themes_thumbs/'.$nomTheme.'.jpg';
             if(!file_exists($lien)){
                 if(file_exists($miniature)){
                     symlink($miniature, $lien);
@@ -80,8 +78,7 @@ class ThemeController extends Controller
 
             //Symlink
                 //Suppression lien précédent
-            $racine = $this->get('kernel')->getProjectDir();
-            $linkfile = $racine.'/public/theme';
+            $linkfile = getcwd().'/theme';
             if(file_exists($linkfile)) {
                 if(is_link($linkfile)) {
                     rmdir($linkfile);
@@ -89,7 +86,7 @@ class ThemeController extends Controller
             }
 
                 //Création nouveau lien
-            symlink($racine.'/themes/'.$theme.'/assets', $linkfile);
+            symlink(getcwd().'/../themes/'.$theme.'/assets', $linkfile);
 
             //Fin Symlink
 

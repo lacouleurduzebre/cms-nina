@@ -69,7 +69,7 @@ class SauvegardeController extends Controller
 
             $env = new Dotenv();
             $env->load('../.env');
-            $mysqlUserName      = getenv('USERDB');
+            $mysqlUserName      = getenv('USER');
             $mysqlPassword      = getenv('PASSWORD');
             $mysqlHostName      = getenv('HOST');
             $DbName             = getenv('DATABASE');

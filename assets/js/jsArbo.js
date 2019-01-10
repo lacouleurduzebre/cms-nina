@@ -277,7 +277,7 @@ $(document).ready(function(){
     });
 
     enregistrementMenu = function(e, data){
-        $(this).jstree('open_node', data.node.parent);
+        $(this).jstree('open_all', data.node.parent);
         idMenuComplet = $('#'+data.node.id).closest('div').attr('id');
         $('#loader-arbo.'+idMenuComplet).fadeIn().html("<i class='fas fa-sync fa-spin'></i>");
         arbo = [];
@@ -297,7 +297,7 @@ $(document).ready(function(){
             }
             menuPage = [idMenuPage, idPage, position, idParent, idMenu];
 
-            // console.log(menuPage);
+            console.log(menuPage);
 
             arbo.push(menuPage);
         });

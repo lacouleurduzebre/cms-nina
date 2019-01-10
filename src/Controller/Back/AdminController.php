@@ -489,12 +489,12 @@ class AdminController extends BaseAdminController
 
                 foreach($menuPages as $menuPage){
                     $this->em->remove($menuPage);
-                }
 
-                //Si la page était parent d'une autre, on remonte ses enfants à la racine du menu
-                $menuPagesOrphelins = $repoMenuPage->findBy(array('pageParent' => $entity));
-                foreach($menuPagesOrphelins as $menuPage){
-                    $menuPage->setPageParent(null);
+                    //Si la page était parent d'une autre, on remonte ses enfants à la racine du menu
+                    $menuPagesOrphelines = $repoMenuPage->findBy(array('parent' => $menuPage));
+                    foreach($menuPagesOrphelines as $menuPage){
+                        $menuPage->setParent(null);
+                    }
                 }
 
                 $this->em->flush();
