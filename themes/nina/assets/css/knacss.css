@@ -2504,6 +2504,22 @@ h1, h2, h3 {
   #ariane a {
     color: #007492; }
 
+.pagination ul {
+  padding: 0;
+  list-style: none;
+  display: flex;
+  justify-content: center; }
+  .pagination ul li {
+    margin: 0 .5rem; }
+  .pagination ul, .pagination ul a {
+    color: #007492;
+    font-weight: bold;
+    text-decoration: none; }
+  .pagination ul li:not(.pagination-active) span {
+    opacity: .5; }
+  .pagination ul li.pagination-active span {
+    color: #000; }
+
 .header_front {
   padding: 1rem;
   text-align: center;

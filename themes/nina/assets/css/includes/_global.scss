@@ -51,3 +51,26 @@ h1, h2, h3{
     color: $color-brand2;
   }
 }
+
+.pagination{
+  ul{
+    padding: 0;
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    li{
+      margin: 0 .5rem;
+    }
+    &, a{
+      color: $color-brand2;
+      font-weight: bold;
+      text-decoration: none;
+    }
+    li:not(.pagination-active) span{
+      opacity: .5;
+    }
+    li.pagination-active span{
+      color: $black;
+    }
+  }
+}

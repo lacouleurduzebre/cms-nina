@@ -2,18 +2,20 @@
     {# Lien première page - texte #}
     <li>
         {% if page != 1 %}
-            <a href="?page=1">{{ "Première page"|trans }}</a>
+            <a href="?page=1">{#{{ "Première page"|trans }}#}<i class="fas fa-angle-double-left"></i></a>
         {% else %}
-            <span>{{ "Première page"|trans }}</span>
+            {#<span>{{ "Première page"|trans }}</span>#}
+            <span><i class="fas fa-angle-double-left"></i></span>
         {% endif %}
     </li>
 
     {# Lien page précédente - texte #}
     <li>
         {% if page != 1 %}
-            <a href="?page={{ page - 1 }}"><span>{{ "Page précédente"|trans }}</span></a>
+            <a href="?page={{ page - 1 }}">{#{{ "Page précédente"|trans }}#}<i class="fas fa-angle-left"></i></a>
         {% else %}
-            <span>{{ "Page précédente"|trans }}</span>
+            {#<span>{{ "Page précédente"|trans }}</span>#}
+            <span><i class="fas fa-angle-left"></i></span>
         {% endif %}
     </li>
 
@@ -65,18 +67,20 @@
     {# Lien page suivante - texte #}
     <li>
         {% if page != nbPages %}
-            <a href="?page={{ page + 1 }}"><span>{{ "Page suivante"|trans }}</span></a>
+            <a href="?page={{ page + 1 }}">{#{{ "Page suivante"|trans }}#}<i class="fas fa-angle-right"></i></a>
         {% else %}
-            <span>{{ "Page suivante"|trans }}</span>
+            {#<span>{{ "Page suivante"|trans }}</span>#}
+            <span><i class="fas fa-angle-right"></i></span>
         {% endif %}
     </li>
 
     {# Lien dernière page - texte #}
     <li>
         {% if page != nbPages %}
-            <a href="?page={{ nbPages }}">{{ "Dernière page"|trans }}</a>
+            <a href="?page={{ nbPages }}">{#{{ "Dernière page"|trans }}#}<i class="fas fa-angle-double-right"></i></a>
         {% else %}
-            <span>{{ "Dernière page"|trans }}</span>
+            {#<span>{{ "Dernière page"|trans }}</span>#}
+            <span><i class="fas fa-angle-double-right"></i></span>
         {% endif %}
     </li>
 </ul>
