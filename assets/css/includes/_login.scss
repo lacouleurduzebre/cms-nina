@@ -58,20 +58,9 @@ body{
       margin-right: 1rem;
     }
   }
-  .retourAccueil{
-    position: absolute;
-    left: 1rem;
-    top: 1rem;
-    font-weight: bold;
-    padding: 1rem;
-    a{
-      text-decoration: none;
-      color: $color-brand2;
-    }
-  }
 }
 
-.mdpOublie{
+.mdpOublie, .retourAccueil{
   color:#818485;
   text-decoration: none;
   &:hover{

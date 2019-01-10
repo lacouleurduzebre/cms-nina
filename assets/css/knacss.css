@@ -2611,20 +2611,11 @@ body {
     #loginPage .errors svg {
       font-size: 2rem;
       margin-right: 1rem; }
-  #loginPage .retourAccueil {
-    position: absolute;
-    left: 1rem;
-    top: 1rem;
-    font-weight: bold;
-    padding: 1rem; }
-    #loginPage .retourAccueil a {
-      text-decoration: none;
-      color: #0791B3; }
 
-.mdpOublie {
+.mdpOublie, .retourAccueil {
   color: #818485;
   text-decoration: none; }
-  .mdpOublie:hover {
+  .mdpOublie:hover, .retourAccueil:hover {
     color: #000;
     text-decoration: none; }
 
@@ -2669,6 +2660,7 @@ body.list .table, body.list .table td, body.list .table th, .sauvegarde .table, 
     height: 100%; }
     .global-actions .action-search .input-group span.input-group-btn:not(.sidebar) {
       right: 0;
+      position: absolute;
       top: 0; }
     .global-actions .action-search .input-group span.input-group-btn button[type='submit'] {
       background-color: transparent;

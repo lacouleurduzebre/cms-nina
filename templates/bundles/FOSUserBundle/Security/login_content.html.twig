@@ -1,11 +1,5 @@
 {% trans_default_domain 'FOSUserBundle' %}
 
-<div class="retourAccueil">
-    <a href="{{ path('accueil') }}">
-        <i class="fas fa-arrow-left"></i> {{ "Retour au site"|trans }}
-    </a>
-</div>
-
 {% if error %}
     <div class="errors"><i class="fas fa-exclamation-circle"></i>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
 {% endif %}
@@ -22,9 +16,16 @@
     <label for="password">{{ 'security.login.password'|trans }}</label>
     <input type="password" id="password" name="_password" required="required" autocomplete="current-password" />
 
-    <a href="{{ path("fos_user_resetting_request") }}" class="mdpOublie fr">{% trans %}Mot de passe oublié ?{% endtrans %}</a>
+    <div class="mts">
+        <a href="{{ path('accueil') }}" class="retourAccueil">
+            {#<i class="fas fa-arrow-left"></i> #}{{ "Retour au site"|trans }}
+        </a>
+        <a href="{{ path("fos_user_resetting_request") }}" class="mdpOublie fr">{% trans %}Mot de passe oublié ?{% endtrans %}</a>
+    </div>
+
     {#<input type="checkbox" id="remember_me" name="_remember_me" value="on" />
     <label for="remember_me">{{ 'security.login.remember_me'|trans }}</label>#}
 
     <input type="submit" id="_submit" class="center" name="_submit" value="{{ 'security.login.submit'|trans }}" />
+
 </form>
