@@ -166,8 +166,8 @@ class AppFixtures extends Fixture
 
         //Bloc logo dans le header
         $contenuBlocLogo = [];
-        $contenuBlocLogo['logo'] = 1;
-        $contenuBlocLogo['nom'] = 0;
+        $contenuBlocLogo['logo'] = [1];
+        $contenuBlocLogo['nom'] = [0];
 
         $blocLogo = new Bloc();
         $blocLogo->setType('LogoSite')
