@@ -2478,7 +2478,7 @@ body {
   box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
   text-decoration: none;
   transition: background-color .3s; }
-  .bouton:hover, #form_envoi:hover, input[type="submit"]:hover, button[type="submit"]:hover {
+  .bouton:hover, .bouton:focus, .bouton:active, #form_envoi:hover, #form_envoi:focus, #form_envoi:active, input[type="submit"]:hover, input[type="submit"]:focus, input[type="submit"]:active, button[type="submit"]:hover, button[type="submit"]:focus, button[type="submit"]:active {
     background-color: #2eade9;
     text-decoration: none;
     color: #fff; }
@@ -2807,6 +2807,55 @@ main div.blocActualites-page--texte, main div.blocActualites-page--image {
     border-top: 1px solid #000;
     border-right: 1px solid #000;
     border-bottom: 1px solid #000; }
+
+.ficheLEI {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 4rem; }
+
+.ficheLEI-commune {
+  color: #5CBFEE;
+  font-weight: bold;
+  margin-bottom: 0; }
+
+.ficheLEI-image, .ficheLEI-sansImage {
+  height: 30rem; }
+  .ficheLEI-image img, .ficheLEI-sansImage img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover; }
+
+.ficheLEI-sansImage a {
+  color: #5cbfee4d;
+  font-size: 15rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%; }
+
+.ficheLEI-titre {
+  font-weight: bold;
+  color: #5CBFEE;
+  font-size: 1.8rem;
+  line-height: 1.2;
+  margin-top: 1rem; }
+
+.ficheLEI-description {
+  flex: 1; }
+
+#galerieFiche, .pageFiche-sousTitre, .pageFiche-presentation, .pageFiche-adresse, .pageFiche-contact {
+  padding-left: 1rem;
+  padding-right: 1rem; }
+
+#galerieFiche {
+  max-width: 50rem; }
+  #galerieFiche a {
+    width: 100%; }
+  #galerieFiche img {
+    height: 100%;
+    max-height: 30rem;
+    width: 100%;
+    object-fit: cover; }
 
 .blocCommentaires label {
   display: block; }

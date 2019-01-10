@@ -26,6 +26,7 @@ class LEITwig extends \Twig_Extension
     {
         return array(
             new \Twig_SimpleFunction('listeLEI', array($this, 'listeLEI')),
+            new \Twig_SimpleFunction('getPhotoPrincipale', array($this, 'getPhotoPrincipale')),
         );
     }
 
@@ -58,5 +59,24 @@ class LEITwig extends \Twig_Extension
         $page = isset($_GET['page']) ? $_GET['page'] : 1;
 
         return $this->pagination->getPagination($fiches, $parametres, $page);
+    }
+
+    public function getPhotoPrincipale($criteres){
+        $photo = [];
+
+        if($criteres->xpath("Crit[@CLEF_CRITERE='736000294']")){
+            $photo['photo'] = $criteres->xpath("Crit[@CLEF_CRITERE='736000294']")[0];//Lorraine
+        }
+        if($criteres->xpath("Crit[@CLEF_CRITERE='1900421']")){
+            $photo['photo'] = 'https://'.$criteres->xpath("Crit[@CLEF_CRITERE='1900421']")[0];//Alsace
+        }
+        if($criteres->xpath("Crit[@CLEF_CRITERE='736001119']")){
+            $photo['credits'] = $criteres->xpath("Crit[@CLEF_CRITERE='736001119']")[0];//Lorraine
+        }
+        if($criteres->xpath("Crit[@CLEF_CRITERE='1900480']")){
+            $photo['credits'] = $criteres->xpath("Crit[@CLEF_CRITERE='1900480']")[0];//Alsace
+        }
+
+        return $photo;
     }
 }

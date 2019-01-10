@@ -8,10 +8,11 @@
     {% for fiche in resultats['donnees'] %}
         <div class="ficheLEI fiche-{{ fiche.PRODUIT }}">
             <p class="ficheLEI-commune">{{ fiche.ADRPROD_LIBELLE_COMMUNE }}</p>
-            {% if fiche.CRITERES.Crit.0 is not empty %}
+            {% set photo = getPhotoPrincipale(fiche.CRITERES) %}
+            {% if photo.photo is defined %}
                 <div class="ficheLEI-image">
                     <a href="/{{ app.request.locale }}/fiche/{{ fiche.NOM|replace({' ':'-'}) }}/{{ fiche.PRODUIT }}/{{ bloc.id }}">
-                        <img src="https://{{ fiche.CRITERES.Crit.0 }}" alt="{{ fiche.NOM }}">
+                        <img src="{{ photo.photo }}" {% if photo.credits is defined %}title="{{ "Crédits : "|trans }}{{ photo.credits }}"{% endif %}>
                     </a>
                 </div>
             {% else %}
@@ -27,7 +28,9 @@
                     {{ fiche.COMMENTAIRE|truncate(50) }}
                 {% endif %}
             </p>
-            <a class="ficheLEI-lien" href="/{{ app.request.locale }}/fiche/{{ fiche.NOM|replace({' ':'-'}) }}/{{ fiche.PRODUIT }}/{{ bloc.id }}">{% trans %}LIRE LA SUITE{% endtrans %}</a>
+            <div class="ficheLEI-lien">
+                <a class="bouton" href="/{{ app.request.locale }}/fiche/{{ fiche.NOM|replace({' ':'-'}) }}/{{ fiche.PRODUIT }}/{{ bloc.id }}">{% trans %}LIRE LA SUITE{% endtrans %}</a>
+            </div>
         </div>
     {% endfor %}
 </div>

@@ -17,7 +17,7 @@ body.connected .header_front{
   box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
   text-decoration: none;
   transition: background-color .3s;
-  &:hover{
+  &:hover, &:focus, &:active{
     background-color: $color-brand-dark;
     text-decoration: none;
     color: $white;
