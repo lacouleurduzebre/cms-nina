@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Commentaire;
 use App\Entity\Langue;
+use App\Entity\MenuPage;
 use App\Entity\SEO;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
@@ -72,6 +73,19 @@ class PageController extends Controller
             $commentaire->setAuteur('Anonyme');
         }
 
+        /* Menus */
+        $repoMenuPages = $this->getDoctrine()->getRepository(MenuPage::class);
+        $menusPages = $repoMenuPages->findBy(array('page' => $page));
+        $menus = [];
+        foreach($menusPages as $menuPage){
+            $menu = $menuPage->getMenu();
+            if($menu){
+                $menus[] = $menu->getId();
+            }
+        }
+        $menus = array_unique($menus);
+        /* Fin menus */
+
         /* Commentaires */
             $commentaire->setPage($page);
 
@@ -100,6 +114,6 @@ class PageController extends Controller
             }
         /* Fin commentaires */
 
-        return $this->render('front/page.html.twig', array('page'=>$page, 'form'=>$form->createView(), 'commentaires'=>$commentaires));
+        return $this->render('front/page.html.twig', array('page'=>$page, 'form'=>$form->createView(), 'commentaires'=>$commentaires, 'menusDeLaPage'=>$menus));
     }
 }

@@ -42,7 +42,7 @@ class ThemeController extends Controller
             $lien = getcwd().'/themes_thumbs/'.$nomTheme.'.jpg';
             if(!file_exists($lien)){
                 if(file_exists($miniature)){
-                    symlink($miniature, $lien);
+                    copy($miniature, $lien);
                 }
             }
         }
