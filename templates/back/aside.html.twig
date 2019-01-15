@@ -9,7 +9,7 @@
                     <a class="logo" href="{{ path('tableauDeBord') }}">
                         <img src="{{ asset('assets/img/logoNinaBlanc.png') }}" alt="CMS Nina 3.0">
                     </a>
-                    {% if page is defined %}
+                    {% if page is defined and page is not empty %}
                         <a id="btn-toggle-groupes-blocs" href="#" title="{{ 'Visualiser les groupes de blocs'|trans }}"><i class="fas fa-th-large"></i></a>
                         <a id="btn-edition-page" href="{{ path('admin', { action: 'edit', entity: 'Page_Active', id: page.id }) }}" title="{{ 'Éditer la page'|trans }}"><i class="fas fa-pencil-alt"></i></a>
                     {% endif %}
