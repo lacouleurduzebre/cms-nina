@@ -291,21 +291,48 @@ $(document).ready(function(){
             $('#'+type).removeClass('disabled');
         });
 
-    /* Changement de thème */
-    $('.theme').click(function(){
-       theme = $(this).attr('id');
-       $('.messages .loader').show();
-
+    /* Thèmes */
+        // Installation
+    $('.installation-theme').click(function(){
+        lien = $(this).data('lien');
+        nom = $(this).data('nom');
+        bouton = $(this);
+        $('.messages .loader').show();
         $.ajax({
-            url: Routing.generate('modifierTheme'),
+            url: Routing.generate('installerTheme'),
+            method: "post",
+            data: {lien: lien, nom: nom}
+        })
+            .done(function(){
+                $('.messages .loader').hide();
+                $('.message-ok').empty().append('<i class="fas fa-check-circle"></i>Le thème a été installé').fadeIn().delay(800).fadeOut();
+                bouton.hide();
+                bouton.parent().append('<button class="activation-theme" data-theme="'+nom+'">Activer</button>');
+            })
+            .fail(function(){
+                $('.message-fail').fadeIn().delay(800).fadeOut();
+            });
+    });
+
+    $('.theme-actions').on('click', '.activation-theme', function(){
+        theme = $(this).data('theme');
+        bouton = $(this);
+        $('.messages .loader').show();
+        $.ajax({
+            url: Routing.generate('changerTheme'),
             method: "post",
             data: {theme: theme}
         })
             .done(function(){
                 $('.messages .loader').hide();
-                $('.message-ok').fadeIn().delay(800).fadeOut();
+                $('.message-ok').empty().append('<i class="fas fa-check-circle"></i>Le thème a été activé').fadeIn().delay(800).fadeOut();
+
+                nomAncienTheme = $('.theme.actif').attr('id');
+                $('.theme.actif').find('.theme-actions').append('<button class="activation-theme" data-theme="'+nomAncienTheme+'">Activer</button>');
+
                 $('.theme').removeClass('actif');
                 $('#'+theme).addClass('actif');
+                $('#'+theme).find('.activation-theme').remove();
             })
             .fail(function(){
                 $('.message-fail').fadeIn().delay(800).fadeOut();

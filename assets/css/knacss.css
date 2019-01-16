@@ -3160,10 +3160,11 @@ body.list #flash-messages > * {
   display: flex;
   flex-direction: column;
   padding: 1rem;
-  border: 2px solid #FFF;
-  cursor: pointer; }
-  .theme:hover, .theme.actif {
+  border: 2px solid #75726B; }
+  .theme.actif {
     border-color: #A1BA1D; }
+  .theme button {
+    background-color: #75726B; }
 
 .theme-illustration {
   flex: 1;
@@ -3174,6 +3175,10 @@ body.list #flash-messages > * {
   color: #FFF; }
   .theme-illustration svg {
     font-size: 10rem; }
+  .theme-illustration img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover; }
 
 .theme-actif {
   background-color: #A1BA1D;

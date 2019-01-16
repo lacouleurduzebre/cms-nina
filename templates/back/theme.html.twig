@@ -4,18 +4,22 @@
     <h1>Thèmes</h1>
     <div class="messages">
         <div class="loader"><i class="fas fa-sync fa-spin"></i></div>
-        <div class="message-ok"><i class="fas fa-check-circle"></i>{{ "Le thème a été modifié"|trans }}</div>
-        <div class="message-fail"><i class="fas fa-times"></i>{{ "Le thème n'a pas pu être modifié"|trans }}</div>
+        <div class="message-ok"></div>
+        <div class="message-fail"><i class="fas fa-times"></i>{{ "Une erreur est survenue"|trans }}</div>
     </div>
     <div class="grid-3 has-gutter-xl themes">
         {% for nom,theme in themes %}
             <div id="{{ nom }}" class="theme{% if config.theme == nom %} actif{% endif %}">
                 <div class="theme-illustration">
                     <div class="theme-actif">{{ 'Activé'|trans }}</div>
-                    {% if assetExists(app.request.baseUrl~'themes_thumbs/'~nom~'.jpg') %}
-                        <img src="{{ asset('themes_thumbs/'~nom~'.jpg') }}" alt="{{ nom }}">
+                    {% if theme.installe %}
+                        {% if assetExists(app.request.baseUrl~'themes_thumbs/'~nom~'.jpg') %}
+                            <img src="{{ asset('themes_thumbs/'~nom~'.jpg') }}" alt="{{ nom }}">
+                        {% else %}
+                            <i class="fas fa-camera"></i>
+                        {% endif %}
                     {% else %}
-                        <i class="fas fa-camera"></i>
+                        <img src="https://www.cms-nina.fr/themes-nina/{{ nom }}.jpg" alt="{{ nom }}">
                     {% endif %}
                 </div>
                 <div class="theme-infos">
@@ -23,6 +27,17 @@
                     <p><strong>{{ "Auteur : "|trans }}</strong>{{ theme.auteur }}</p>
                     <p><strong>{{ "Site de l'auteur : "|trans }}</strong><a href="{{ theme.site }}">{{ theme.site }}</a></p>
                     <p><strong>{{ "Description : "|trans }}</strong>{{ theme.description }}</p>
+                </div>
+                <div class="theme-actions txtcenter">
+                    {% if not theme.installe %}
+                        <button class="installation-theme" data-lien="{{ theme.lien }}" data-nom="{{ nom }}">Installer</button>
+                    {% endif %}
+                    {#{% if theme.installe and nom != 'nina' %}
+                        <button class="maj-theme">Mettre à jour</button>
+                    {% endif %}#}
+                    {% if theme.installe and config.theme != nom %}
+                        <button class="activation-theme" data-theme="{{ nom }}">Activer</button>
+                    {% endif %}
                 </div>
             </div>
         {% endfor %}

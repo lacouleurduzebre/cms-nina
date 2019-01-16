@@ -11,6 +11,7 @@ namespace App\Controller\Back;
 
 use App\Entity\Configuration;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -32,6 +33,7 @@ class ThemeController extends Controller
             $config = Yaml::parseFile('../themes/'.$nomTheme.'/config.yaml');
             $infos = $config['infos'];
             $themes[$nomTheme] = $infos;
+            $themes[$nomTheme]['installe'] = 1;
 
             //Miniature
             if(!file_exists(getcwd().'/themes_thumbs')){
@@ -47,13 +49,23 @@ class ThemeController extends Controller
             }
         }
 
+        //Thèmes externes
+        $themesExternes = Yaml::parse(file_get_contents('https://www.cms-nina.fr/themes-nina/themes-nina.yml'));
+        foreach($themesExternes as $nomTheme => $theme){
+            if(!array_key_exists($nomTheme, $themes)){
+                $themes[$nomTheme] = $theme;
+                $themes[$nomTheme]['installe'] = 0;
+            }
+        }
+        //Fin thèmes externes
+
         return $this->render('back/theme.html.twig', array('themes' => $themes));
     }
 
     /**
-     * @Route("/theme/modifier", name="modifierTheme")
+     * @Route("/theme/changer", name="changerTheme")
      */
-    public function modifierThemeAction(Request $request){
+    public function changerThemeAction(Request $request, Filesystem $filesystem){
         if($request->isXmlHttpRequest()){
             $theme = $request->get('theme');
 
@@ -86,11 +98,65 @@ class ThemeController extends Controller
             }
 
                 //Création nouveau lien
-            symlink(getcwd().'/../themes/'.$theme.'/assets', $linkfile);
+            $filesystem->symlink(getcwd().'/../themes/'.$theme.'/assets', $linkfile);
 
             //Fin Symlink
 
             return new Response('ok');
+        };
+
+        return false;
+    }
+
+    /**
+     * @Route("/theme/installer", name="installerTheme")
+     */
+    public function installerThemeAction(Request $request, Filesystem $filesystem){
+        if($request->isXmlHttpRequest()){
+            $lien = $request->get('lien');
+            $nom = $request->get('nom');
+
+            $tmp = '../themes/theme.zip';
+
+            copy($lien, $tmp);
+
+            $zip = new \ZipArchive();
+            $fichier = $zip->open($tmp);
+            if ($fichier) {
+                //Nom du dossier contenu dans le zip
+                $nomDossier = substr($zip->getNameIndex(0), 0, -1);
+
+                //Extraction
+                $zip->extractTo('../themes/');
+                $zip->close();
+
+                //Suppression zip
+                unlink($tmp);
+
+                //Renommage dossier
+                $dossierTheme = '../themes/'.$nom;
+                $filesystem->rename('../themes/'.$nomDossier, $dossierTheme, true);
+
+                //Création du dossier "translations" s'il n'existe pas
+                if(!file_exists($dossierTheme.'/translations')){
+                    mkdir($dossierTheme.'/translations');
+                }
+            } else {
+                return false;
+            }
+
+            return new Response('ok');
+        };
+
+        return false;
+    }
+
+    /**
+     * @Route("/theme/maj", name="majTheme")
+     */
+    public function majThemeAction(Request $request){
+        if($request->isXmlHttpRequest()){
+
         };
 
         return false;
