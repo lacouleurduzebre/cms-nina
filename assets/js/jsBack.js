@@ -748,6 +748,7 @@ $(document).ready(function(){
         $('.conteneurChargement').addClass('actif');
         $.ajax({
             url: window.location.href,
+            method: 'POST',
             data:{
                 fichier: fichier,
                 segments: $('form[data-fichier="'+fichier+'"]').serializeArray()
