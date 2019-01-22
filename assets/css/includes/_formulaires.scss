@@ -1,0 +1,19 @@
+.infobulle{
+  display: inline-block;
+  position: relative;
+  span{
+    display: none;
+    position: absolute;
+    bottom: 100%;
+    left: 100%;
+    white-space: nowrap;
+    border: 1px solid;
+    padding: .5rem;
+    box-shadow: 0 0 5px;
+    z-index: 100;
+    background-color: #FFF;
+  }
+  &:hover span{
+    display: block;
+  }
+}

@@ -30,7 +30,7 @@ easy_admin:
                     - abreviation
                     - { property: 'code', label: 'Code de la langue sous la forme xx-XX' }
                     - { property: 'metaTitre', label: 'Meta-titre général pour cette langue' }
-                    - { property: 'metaDescription', label: 'Meta-description générale pour cette langue' }
+                    - { property: 'metaDescription', label: 'Meta-description générale pour cette langue', type_options: { attr: { class: 'notTinymce' } } }
                     #Page d'accueil : dans AdminController, uniquement durant l'édition
             edit:
                 title: nom

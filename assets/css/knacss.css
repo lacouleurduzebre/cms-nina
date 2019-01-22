@@ -3687,4 +3687,21 @@ body.edit .bloc-reseauxsociaux input[type="text"], body.new .bloc-reseauxsociaux
 .traductionTemplate-onglet input[type="text"] {
   border: 1px solid #0791B3; }
 
+.infobulle {
+  display: inline-block;
+  position: relative; }
+  .infobulle span {
+    display: none;
+    position: absolute;
+    bottom: 100%;
+    left: 100%;
+    white-space: nowrap;
+    border: 1px solid;
+    padding: .5rem;
+    box-shadow: 0 0 5px;
+    z-index: 100;
+    background-color: #FFF; }
+  .infobulle:hover span {
+    display: block; }
+
 /*# sourceMappingURL=knacss.css.map */
