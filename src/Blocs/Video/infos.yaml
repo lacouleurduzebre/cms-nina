@@ -1,4 +1,4 @@
-nom: 'Vidéo Youtube'
-description: 'Affiche un lecteur vidéo youtube'
+nom: 'Vidéo'
+description: 'Affiche un lecteur vidéo'
 type: contenu
 icone: 'fab fa-youtube'

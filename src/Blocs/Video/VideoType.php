@@ -22,7 +22,7 @@ class VideoType extends AbstractType
     {
         $builder
             ->add('video', TextType::class, array(
-                'label' => 'identifiant de la vidéo'
+                'label' => 'Url de la vidéo'
             ));
     }
 
