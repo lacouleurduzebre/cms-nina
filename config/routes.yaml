@@ -34,6 +34,10 @@ sitemap:
     resource: "../src/Controller/SitemapController.php"
     type: annotation
 
+rss:
+    resource: "../src/Controller/RSSController.php"
+    type: annotation
+
 controllersBack:
     resource: "../src/Controller/Back"
     type: annotation

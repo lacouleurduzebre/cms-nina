@@ -46,7 +46,7 @@ class PageRepository extends \Doctrine\ORM\EntityRepository
     }
 
     //Pour le bloc catégorie
-    public function pagesPublieesCategorie($categorie, $langue){
+    public function pagesPublieesCategorie($categorie, $langue, $limite = null){
         $timestamp = new \DateTime();
         $date = $timestamp->format('Y-m-d H:i:s');
 
@@ -69,6 +69,10 @@ class PageRepository extends \Doctrine\ORM\EntityRepository
         }
 
         $qb->orderBy('p.datePublication', 'DESC');
+
+        if($limite){
+            $qb->setMaxResults($limite+1);
+        }
 
         return $qb->getQuery()->getResult();
     }

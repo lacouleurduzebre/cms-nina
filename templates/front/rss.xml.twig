@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:dc="http://purl.org/dc/elements/1.1/" >
+    <channel>
+        <title><![CDATA[{{ config.nom }}]]></title>
+        <link><![CDATA[{{ url('accueil') }}]]></link>
+        <description><![CDATA[{{ langueActive.metaDescription }}]]></description>
+        <image>
+            <url><![CDATA[{{ url('accueil') }}{{ config.logo }}]]></url>
+            <title><![CDATA[{{ config.nom }}]]></title>
+            <link><![CDATA[{{ url('accueil') }}]]></link>
+        </image>
+        <lastBuildDate>{{ date('now')|date('D, F d, Y H:i:s T') }}</lastBuildDate>
+        <pubDate>{{ date('now')|date('D, F d, Y H:i:s T') }}</pubDate>
+        <language>{{ langueActive.abreviation }}</language>
+        <generator>CMS Nina</generator>
+        {% for page in pages %}
+            <item>
+                <guid>
+                    <![CDATA[{{ url('voirPage', { locale: langueActive.abreviation, url: page.seo.url }) }}]]>
+                </guid>
+                <title>
+                    <![CDATA[{{ page.titre }}]]>
+                </title>
+                <link>
+                    <![CDATA[{{ url('voirPage', { locale: langueActive.abreviation, url: page.seo.url }) }}]]>
+                </link>
+                <description>
+                    {% if blocAnnexe(page, 'Resume') %}
+                        <![CDATA[{{ blocAnnexe(page, 'Resume') }}]]>
+                    {% endif %}
+                </description>
+                <pubDate>
+                    <![CDATA[{{ page.datePublication|date('D, d M Y H:i:s T') }}]]>
+                </pubDate>
+                <content:encoded>
+                    {% if page.blocs is not empty %}
+                        {% set contenu %}
+                        {% include('front/blocs.html.twig') with {'blocs': page.blocs} only %}
+                        {% endset %}
+                        {{ contenu|striptags|truncate(300) }}
+                    {% endif %}
+                </content:encoded>
+                {% if blocAnnexe(page, 'Vignette') %}
+                    <enclosure url="{{ app.request.baseUrl }}{{ blocAnnexe(page, 'Vignette', false) }}"/>
+                {% endif %}
+            </item>
+        {% endfor %}
+    </channel>
+</rss>

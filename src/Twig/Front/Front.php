@@ -103,12 +103,16 @@ class Front extends \Twig_Extension
         return $rendu;
     }
 
-    public function getBlocAnnexe($page, $type){
+    public function getBlocAnnexe($page, $type, $complet = true){
         $repoBlocAnnexe = $this->doctrine->getRepository(\App\Entity\BlocAnnexe::class);
         $blocAnnexe = $repoBlocAnnexe->findOneBy(array('page' => $page, 'type' => $type));
 
         if($blocAnnexe){
-            return $this->twig->render('Blocs/'.$type.'/'.$type.'.html.twig', array('bloc' => $blocAnnexe));
+            if($complet){
+                return $this->twig->render('Blocs/'.$type.'/'.$type.'.html.twig', array('bloc' => $blocAnnexe));
+            }else{
+                return $this->twig->render('Blocs/'.$type.'/'.$type.'Brut.html.twig', array('bloc' => $blocAnnexe));
+            }
         }
 
         return false;
