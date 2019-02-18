@@ -63,6 +63,10 @@ class CategorieController extends Controller
         $typeCategorie = $em->getRepository(TypeCategorie::class)->findOneBy(array('url'=>$urlTypeCategorie));
         $categorie = $em->getRepository(Categorie::class)->findOneBy(array('url'=>$urlCategorie));
 
+        if(!$categorie or !$typeCategorie){
+            throw new NotFoundHttpException('Cette page n\'existe pas ou a été supprimée');
+        }
+
         if($categorie->getTypeCategorie() == $typeCategorie){
             $repoLangue = $this->getDoctrine()->getRepository(Langue::class);
             $locale = $request->getLocale();
