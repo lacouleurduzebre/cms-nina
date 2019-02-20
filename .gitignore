@@ -21,6 +21,7 @@ composer.phar
 
 ###> symfony/framework-bundle ###
 .env
+/cron/
 /public/theme
 /public/theme/
 /public/themes_thumbs/*
