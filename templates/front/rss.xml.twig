@@ -16,13 +16,13 @@
         {% for page in pages %}
             <item>
                 <guid>
-                    <![CDATA[{{ url('voirPage', { locale: langueActive.abreviation, url: page.seo.url }) }}]]>
+                    <![CDATA[{{ url('voirPage', { url: page.seo.url }) }}]]>
                 </guid>
                 <title>
                     <![CDATA[{{ page.titre }}]]>
                 </title>
                 <link>
-                    <![CDATA[{{ url('voirPage', { locale: langueActive.abreviation, url: page.seo.url }) }}]]>
+                    <![CDATA[{{ url('voirPage', { url: page.seo.url }) }}]]>
                 </link>
                 <description>
                     {% if blocAnnexe(page, 'Resume') %}
@@ -37,11 +37,11 @@
                         {% set contenu %}
                         {% include('front/blocs.html.twig') with {'blocs': page.blocs} only %}
                         {% endset %}
-                        {{ contenu|striptags|truncate(300) }}
+                        {{ contenu|striptags|truncate(500) }}
                     {% endif %}
                 </content:encoded>
                 {% if blocAnnexe(page, 'Vignette') %}
-                    <enclosure url="{{ app.request.baseUrl }}{{ blocAnnexe(page, 'Vignette', false) }}"/>
+                    <enclosure url="{{ blocAnnexe(page, 'Vignette', false) }}"/>
                 {% endif %}
             </item>
         {% endfor %}
