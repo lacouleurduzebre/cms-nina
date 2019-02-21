@@ -2,4 +2,4 @@ twig:
     paths: ['%kernel.project_dir%/themes/%theme%/templates', '%kernel.project_dir%/templates', '%kernel.project_dir%/src']
     debug: '%kernel.debug%'
     strict_variables: '%kernel.debug%'
-    cache: false
+    cache: '%kernel.project_dir%/var/cache/twig'
