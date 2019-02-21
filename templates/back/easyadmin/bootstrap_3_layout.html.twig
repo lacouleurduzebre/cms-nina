@@ -1042,14 +1042,29 @@
 {% endblock %}
 
 {% block bouton_widget -%}
-    {{- form_label(form.children.lien) -}}
-    {{- form_widget(form.children.lien) -}}
-    <a class="iframe ouvrirMediatheque" href='/filemanager/dialog.php?type=2&field_id={{ form.children.lien.vars.id }}' type="button">{{ 'Choisir un fichier dans la médiathèque'|trans }}</a>
+    <div>
+        {{- form_label(form.children.lien) -}}
+        {{- form_widget(form.children.lien) -}}
+    </div>
+    <div class="mbm">
+        <a class="iframe ouvrirMediatheque" href='/filemanager/dialog.php?type=2&field_id={{ form.children.lien.vars.id }}' type="button">{{ 'Choisir un fichier dans la médiathèque'|trans }}</a>
+    </div>
+    <div>
+        {{- form_label(form.children.blank) -}}
+        {{- form_widget(form.children.blank) -}}
+    </div>
+    <div>
+        {{- form_label(form.children.texte) -}}
+        {{- form_widget(form.children.texte) -}}
+    </div>
+    <div>
+        {{- form_label(form.children.titre) -}}
+        {{- form_widget(form.children.titre) -}}
+    </div>
     <script>
         $('.ouvrirMediatheque').fancybox({
             type: 'iframe',
             minHeight: '600'
         });
     </script>
-    {{- form_end(form) -}}
 {%- endblock %}

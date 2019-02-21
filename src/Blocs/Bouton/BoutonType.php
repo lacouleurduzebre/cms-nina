@@ -40,7 +40,8 @@ class BoutonType extends AbstractType
             ))
             ->add('titre', TextType::class, array(
                 "label" => "Titre au survol",
-                "required" => false
+                "required" => false,
+                "help" => null
             ));
     }
 

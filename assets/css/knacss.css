@@ -2860,7 +2860,6 @@ a[class$='image_bouton_mediatheque'] {
 
 .ouvrirMediatheque, a[class$='image_bouton_mediatheque'] {
   display: inline-block;
-  margin-top: 1rem;
   background-color: #0791B3;
   padding: .5rem;
   border-radius: 5px;
