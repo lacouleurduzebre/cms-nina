@@ -13,7 +13,6 @@
         <pubDate>{{ date('now')|date('D, F d, Y H:i:s T') }}</pubDate>
         <language>{{ langueActive.abreviation }}</language>
         <generator>CMS Nina</generator>
-        {{ dump(vignettes) }}
         {% for page in pages %}
             <item>
                 <guid>
@@ -45,7 +44,7 @@
                     {% endif %}
                 </content:encoded>
                 {% if blocAnnexe(page, 'Vignette') %}
-                    <enclosure url="{{ blocAnnexe(page, 'Vignette', false) }}" length="{{ vignettes[page.id]['taille'] }}" type="{{ vignettes[page.id]['type'] }}"/>
+                    <enclosure url="{{ blocAnnexe(page, 'Vignette', false) }}" {% if vignettes[page.id] is defined %}length="{{ vignettes[page.id]['taille'] }}" type="{{ vignettes[page.id]['type'] }}"{% endif %} />
                 {% endif %}
             </item>
         {% endfor %}

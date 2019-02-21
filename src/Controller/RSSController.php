@@ -19,7 +19,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class RSSController extends Controller
 {
     /**
-     * @Route("/{_locale}/rss.xml", name="rss")
+     * @Route("/{_locale}/rss.xml", defaults={"_format"="xml"}, name="rss")
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
