@@ -297,7 +297,7 @@ $(document).ready(function(){
             }
             menuPage = [idMenuPage, idPage, position, idParent, idMenu];
 
-            console.log(menuPage);
+            // console.log(menuPage);
 
             arbo.push(menuPage);
         });
@@ -320,7 +320,7 @@ $(document).ready(function(){
         }, 100);
     });
 
-    $('.sidebar-menus div[id^="menu"]').on('move_node.jstree copy_node.jstree', enregistrementMenu);
+    $('.sidebar-menus div[id^="menu"]').on('move_node.jstree copy_node.jstree create_node.jstree', enregistrementMenu);
 
     $('.sidebar-menus div[id^="menu"]').on('create_node.jstree', function(e, data){
         idMenuComplet = $('#'+data.node.id).parents('div').attr('id');
@@ -417,7 +417,7 @@ $(document).ready(function(){
 
              node = $('#'+idMenuComplet).jstree("get_node", idNode);
 
-             nouveauNode = $('#'+idMenuComplet).jstree("create_node", node, titreMenu+'<span class="menuPage" id="'+idMenuPage+'"></span><span class="page" id="'+idPage+'"></span>', 'last', false, false);
+             nouveauNode = $('#'+idMenuComplet).jstree("create_node", node, titreMenu+'<span class="menuPage" id="'+idMenuPage+'"></span><span class="page" id="'+idPage+'"></span>', 'first', false, false);
 
              $('#'+idNode).jstree("open_all");
          })

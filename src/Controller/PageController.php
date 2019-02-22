@@ -51,7 +51,11 @@ class PageController extends Controller
         }
 
         if($langue->getPageAccueil() == $page){
-            return $this->redirectToRoute('accueil');
+            if($langue->getDefaut()){
+                return $this->redirectToRoute('accueil');
+            }else{
+                return $this->redirectToRoute('accueilLocale', array('_locale' => $langue->getAbreviation()));
+            }
         }
 
         $timestamp = new \DateTime();
