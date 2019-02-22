@@ -38,7 +38,6 @@ src/Blocs/configBlocs.yaml
 /translations/
 /var/
 /vendor/
-!/vendor/filemanager/
 ###< symfony/framework-bundle ###
 
 ###> symfony/webpack-encore-pack ###
