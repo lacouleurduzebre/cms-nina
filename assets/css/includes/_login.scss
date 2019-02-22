@@ -3,6 +3,7 @@ body{
   margin:0;
 }
 
+
 #loginPage{
   height:100vh;
   width:100vw;
@@ -16,11 +17,18 @@ body{
     border-radius: 1rem;
     padding: 2rem 6rem;
     font-size: 1.4rem;
+    @include respond-to("small"){
+      width: 90%;
+      padding: 2rem;
+    }
     > img, > input{
       display: block;
     }
     img{
       margin:0 auto 1rem auto;
+      @include respond-to("small"){
+        max-width: 10rem;
+      }
     }
     label{
       color: $color-brand2;
@@ -34,6 +42,9 @@ body{
       background-color: #FFF;
       &[type="text"], &[type="password"]{
         width: 35rem;
+        @include respond-to("small"){
+          width: 100%;
+        }
       }
       &[type="submit"]{
         margin: 3.5rem auto 0 auto;

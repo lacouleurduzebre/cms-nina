@@ -2579,10 +2579,17 @@ body {
     border-radius: 1rem;
     padding: 2rem 6rem;
     font-size: 1.4rem; }
+    @media (max-width: 575px) {
+      #loginPage > * {
+        width: 90%;
+        padding: 2rem; } }
     #loginPage > * > img, #loginPage > * > input {
       display: block; }
     #loginPage > * img {
       margin: 0 auto 1rem auto; }
+      @media (max-width: 575px) {
+        #loginPage > * img {
+          max-width: 10rem; } }
     #loginPage > * label {
       color: #0791B3;
       margin-top: 1.5rem;
@@ -2594,6 +2601,9 @@ body {
       background-color: #FFF; }
       #loginPage > * input[type="text"], #loginPage > * input[type="password"] {
         width: 35rem; }
+        @media (max-width: 575px) {
+          #loginPage > * input[type="text"], #loginPage > * input[type="password"] {
+            width: 100%; } }
       #loginPage > * input[type="submit"] {
         margin: 3.5rem auto 0 auto;
         background-color: #0791B3;
