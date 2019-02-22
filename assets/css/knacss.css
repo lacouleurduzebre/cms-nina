@@ -3338,7 +3338,7 @@ body.list #flash-messages > * {
     cursor: pointer; } }
 
 @media (max-width: 767px) {
-  tr.ouvert td:first-of-type svg {
+  tr.ouvert td:first-of-type > svg {
     transform: rotate(180deg); }
   tr.ouvert td:not(:first-of-type) {
     display: block; } }

@@ -65,7 +65,7 @@ class SauvegardeController extends Controller
     public function sauvegarderBDDAction(Request $request){
         if($request->isXmlHttpRequest()){
             $timestamp = time();
-            $date = date('d/m/Y h:i', $timestamp);
+            $date = date('d/m/Y H:i', $timestamp);
 
             $env = new Dotenv();
             $env->load('../.env');
@@ -117,7 +117,7 @@ class SauvegardeController extends Controller
     public function sauvegardeMediathequeAction(Request $request){
         if($request->isXmlHttpRequest()){
             $timestamp = time();
-            $date = date('d/m/Y h:i', $timestamp);
+            $date = date('d/m/Y H:i', $timestamp);
 
             $this->zip('./uploads', './../sauvegardes/mediatheque/mediatheque'.$timestamp.'.zip');
 

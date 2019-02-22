@@ -28,7 +28,7 @@
 
 tr.ouvert{
   @include respond-to("medium"){
-    td:first-of-type svg{
+    td:first-of-type > svg{
       transform: rotate(180deg);
     }
     td:not(:first-of-type){
