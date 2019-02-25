@@ -1,5 +1,7 @@
 $(document).ready(function(){
     clicEnregistrement = false;
+    count = 0;
+
     //Bouton d'enregistrement / Confirmation fermeture page
     function saveCloseFormulaire(){
         $('.formulaire-actions-enregistrer').attr("disabled", false);
@@ -273,6 +275,11 @@ $(document).ready(function(){
         $('form').on('click', '.suppressionBloc-supprimer', function(e){
             e.preventDefault();
 
+            if(count === 0){
+                entite = $('.listeBlocs').siblings('form').attr('name');
+                count = $('#'+entite+'_blocs').find('.field-bloc').length;
+            }
+
             $(this).closest('.field-bloc').slideUp(600, function(){
                 $(this).remove();
                 saveCloseFormulaire();
@@ -514,7 +521,11 @@ $(document).ready(function(){
                 saveCloseFormulaire();
 
                 $('.listeBlocs').removeClass('actif chargement');
-                count = $('#'+entite+'_blocs').find('.field-bloc').length;
+                if(count === 0){
+                    count = $('#'+entite+'_blocs').find('.field-bloc').length;
+                }else{
+                    count++;
+                }
 
                 var form = data.replace(/bloc_/g, entite+'_blocs_'+count+'_')
                     .replace(/bloc\[/g, entite+'[blocs]['+count+'][');
