@@ -4,11 +4,14 @@ namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+
 
 /**
  * SEO
  *
  * @ORM\Entity(repositoryClass="App\Repository\SEORepository")
+ * @UniqueEntity(fields={"url"}, message="L'url {{ value }} est déjà utilisée pour une autre page")
  */
 class SEO
 {
@@ -24,7 +27,7 @@ class SEO
     /**
      * @var string
      * @Assert\NotBlank
-     * @ORM\Column(name="url", type="string", length=255)
+     * @ORM\Column(name="url", type="string", length=255, unique=true)
      */
     private $url;
 

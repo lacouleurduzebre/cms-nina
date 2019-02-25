@@ -95,6 +95,7 @@ class Page
 
     /**
      * @ORM\OneToOne(targetEntity="App\Entity\SEO", inversedBy="page", cascade={"remove", "persist"})
+     * @Assert\Valid
      */
     private $seo;
 
