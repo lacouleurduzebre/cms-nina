@@ -93,13 +93,20 @@ class ThemeController extends Controller
             $linkfile = $this->getParameter('kernel.project_dir').'/public/theme';
             if(file_exists($linkfile)) {
                 if(is_link($linkfile)) {
-                    rmdir($linkfile);
+                    if(strpos(php_uname('s'), 'Win') !== false){
+                        rmdir($linkfile);
+                    }else{
+                        unlink($linkfile);
+                    }
                 }
             }
 
                 //Création nouveau lien
-            $filesystem->symlink($this->getParameter('kernel.project_dir').'/themes/'.$theme.'/assets', $linkfile);
-
+            if(strpos(php_uname('s'), 'Win') !== false){
+                $filesystem->symlink($this->getParameter('kernel.project_dir').'/themes/'.$theme.'/assets', $linkfile);
+            }else{
+                exec('ln -s '.$this->getParameter('kernel.project_dir').'/themes/'.$theme.'/assets '.$linkfile);
+            }
             //Fin Symlink
 
             return new Response('ok');
