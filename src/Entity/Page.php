@@ -70,6 +70,7 @@ class Page
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Langue", inversedBy="pages")
+     * @ORM\JoinColumn(onDelete="CASCADE")
      */
     private $langue;
 

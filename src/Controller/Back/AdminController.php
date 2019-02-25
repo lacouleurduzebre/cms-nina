@@ -8,24 +8,21 @@
 
 namespace App\Controller\Back;
 
+use App\Entity\BlocAnnexe;
 use App\Entity\Categorie;
 use App\Entity\Commentaire;
 use App\Entity\Configuration;
 use App\Entity\Langue;
 use App\Entity\MenuPage;
 use App\Entity\Page;
-use App\Entity\SEO;
 use App\Entity\TypeCategorie;
 use App\Entity\Utilisateur;
-use App\Twig\Front\BlocAnnexe;
 use Doctrine\ORM\EntityRepository;
-use Doctrine\ORM\Mapping\Entity;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AdminController as BaseAdminController;
 use EasyCorp\Bundle\EasyAdminBundle\Event\EasyAdminEvents;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
-use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -86,6 +83,16 @@ class AdminController extends BaseAdminController
                 $page->setTraductions($trads);
                 $em->persist($page);
             }
+        }
+    }
+
+    //Suppression d'une langue : réinitialisation cookie langueArbo
+    protected function removeLangueEntity($entity){
+        $this::removeEntity($entity);
+
+        if (isset($_COOKIE['langueArbo'])) {
+            unset($_COOKIE['langueArbo']);
+            setcookie('langueArbo', '', time() - 3600, '/');
         }
     }
 
@@ -305,7 +312,7 @@ class AdminController extends BaseAdminController
         unset($types["configBlocs.yaml"]);
         $config = Yaml::parseFile('../src/Blocs/configBlocs.yaml');
 
-        $repoBlocAnnexe = $this->getDoctrine()->getRepository(\App\Entity\BlocAnnexe::class);
+        $repoBlocAnnexe = $this->getDoctrine()->getRepository(BlocAnnexe::class);
 
         $blocs = [];
         foreach($types as $type){

@@ -90,7 +90,7 @@ class ThemeController extends Controller
 
             //Symlink
                 //Suppression lien précédent
-            $linkfile = getcwd().'/theme';
+            $linkfile = $this->getParameter('kernel.project_dir').'/public/theme';
             if(file_exists($linkfile)) {
                 if(is_link($linkfile)) {
                     rmdir($linkfile);
@@ -98,7 +98,7 @@ class ThemeController extends Controller
             }
 
                 //Création nouveau lien
-            $filesystem->symlink(getcwd().'/../themes/'.$theme.'/assets', $linkfile);
+            $filesystem->symlink($this->getParameter('kernel.project_dir').'/themes/'.$theme.'/assets', $linkfile);
 
             //Fin Symlink
 

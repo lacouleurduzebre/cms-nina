@@ -43,7 +43,7 @@ class Menu
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Langue")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=false, onDelete="CASCADE")
      */
     private $langue;
 

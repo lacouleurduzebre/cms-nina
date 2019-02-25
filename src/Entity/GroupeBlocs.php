@@ -28,12 +28,12 @@ class GroupeBlocs
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Langue")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=false, onDelete="CASCADE")
      */
     private $langue;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Bloc", mappedBy="groupeBlocs", orphanRemoval=true, cascade={"persist"})
+     * @ORM\OneToMany(targetEntity="App\Entity\Bloc", mappedBy="groupeBlocs", orphanRemoval=true, cascade={"persist", "remove"})
      * @ORM\OrderBy({"position" = "ASC"})
      */
     private $blocs;

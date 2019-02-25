@@ -56,6 +56,7 @@ class Langue
 
     /**
      * @ORM\OneToOne(targetEntity="App\Entity\Page", cascade={"persist", "remove"})
+     * @ORM\JoinColumn(onDelete="CASCADE")
      */
     private $pageAccueil;
 
