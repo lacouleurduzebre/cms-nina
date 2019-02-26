@@ -2,7 +2,7 @@ easy_admin:
     entities:
         Langue:
             class: App\Entity\Langue
-            controller: App\Controller\Back\AdminController
+            controller: App\Controller\Back\Admin\LangueAdminController
             label: 'Langue'
             labels: 'Langues'
             list:

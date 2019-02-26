@@ -35,6 +35,9 @@
     {% else %}
         {% set _default_title = 'list.page_title'|trans(_trans_parameters, 'EasyAdminBundle') %}
         {{ "Liste des "|trans }}{{ (_entity_config.list.title is defined ? _entity_config.list.title|trans(_trans_parameters)|lower : _default_title)|raw }}
+        {% if filtreCategorie is defined %}
+            {{ "dans la catégorie \""~filtreCategorie.nom~"\"" }}
+        {% endif %}
     {% endif %}
 {% endspaceless %}
 {% endblock %}
@@ -45,6 +48,9 @@
             {% block content_title_wrapper %}
                 <h1 class="title">{{ block('content_title') }}</h1>
             {% endblock %}
+            {% if filtreCategorie is defined %}
+                <a class="btn mts mbm" href="{{ path("easyadmin", { action: 'list', entity: 'Page_Active' }) }}"><i class="fas fa-arrow-left mrs"></i>{{ "Retour à la liste de toutes les pages"|trans }}</a>
+            {% endif %}
         </div>
 
         <div class="col-sm-7">

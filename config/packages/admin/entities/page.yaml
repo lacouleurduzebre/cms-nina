@@ -2,7 +2,7 @@ easy_admin:
     entities:
         Page_Active:
             class: App\Entity\Page
-            controller: App\Controller\Back\AdminController
+            controller: App\Controller\Back\Admin\PageAdminController
             label: 'Page'
             labels: 'Pages'
             disabled_actions: ['delete']
@@ -79,7 +79,7 @@ easy_admin:
 
         Page_Corbeille:
             class: App\Entity\Page
-            controller: App\Controller\Back\AdminController
+            controller: App\Controller\Back\Admin\PageAdminController
             label: 'Page à la corbeille'
             labels: 'Pages à la corbeille'
             disabled_actions: ['edit']
@@ -91,8 +91,6 @@ easy_admin:
                 fields:
                     - titre
                     - auteur
-                    - { property: 'categories', label: 'Catégories' }
                     - { property: 'dateCreation', label: 'Date de création' }
                     - { property: 'datePublication', label: 'Date de publication' }
-                    - { property: 'seo.url', label: 'Url' }
                     - langue

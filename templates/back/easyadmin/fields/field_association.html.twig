@@ -29,9 +29,12 @@
         {% if value|length > 0 %}
             {% for item in value|slice(0, entity_config.show.max_results) %}
                 {% if link_parameters is defined %}
-                    {# the empty string concatenation is needed when the primary key is an object (e.g. an Uuid object) #}
-                    {% set primary_key_value = '' ~ attribute(item, link_parameters.primary_key_name) %}
-                    <a href="{{ path('easyadmin', link_parameters|merge({ id: primary_key_value, referer: '' })) }}">{{ item }}</a>{% if not loop.last %}<span>, </span>{% endif %}
+                    {% if link_parameters.entity == 'Categorie' %}
+                        <a href="{{ path('easyadmin', { action: 'list', entity: 'Page_Active', categorie: item.id }) }}">{{ item }}</a>{% if not loop.last %}<span>, </span>{% endif %}
+                    {% else %}
+                        {% set primary_key_value = '' ~ attribute(item, link_parameters.primary_key_name) %}
+                        <a href="{{ path('easyadmin', link_parameters|merge({ id: primary_key_value, referer: '' })) }}">{{ item }}</a>{% if not loop.last %}<span>, </span>{% endif %}
+                    {% endif %}
                 {% else %}
                     {{ item }}{% if not loop.last %}<span>, </span>{% endif %}
                 {% endif %}

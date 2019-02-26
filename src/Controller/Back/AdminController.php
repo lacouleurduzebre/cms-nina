@@ -11,18 +11,13 @@ namespace App\Controller\Back;
 use App\Entity\BlocAnnexe;
 use App\Entity\Categorie;
 use App\Entity\Commentaire;
-use App\Entity\Configuration;
 use App\Entity\Langue;
 use App\Entity\MenuPage;
 use App\Entity\Page;
 use App\Entity\TypeCategorie;
 use App\Entity\Utilisateur;
-use Doctrine\ORM\EntityRepository;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AdminController as BaseAdminController;
 use EasyCorp\Bundle\EasyAdminBundle\Event\EasyAdminEvents;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
-use Symfony\Component\Form\FormEvent;
-use Symfony\Component\Form\FormEvents;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -51,151 +46,8 @@ class AdminController extends BaseAdminController
         $this->addFlash('enregistrement', "<span>\"".$entity."\" : enregistrement terminé</span>");
     }
 
-    protected function persistPage_ActiveEntity($entity)//new
-    {
-        $this::persistEntity($entity);
-
-        $this->setTraductions($entity);
-
-        $this->getDoctrine()->getManager()->flush();
-    }
-
-    protected function updatePage_ActiveEntity($entity)//edit
-    {
-        $this->setTraductions($entity);
-
-        $this::updateEntity($entity);
-    }
-
-    protected function setTraductions($entity){
-        $em = $this->getDoctrine()->getManager();
-        $repoPage = $this->getDoctrine()->getRepository(Page::class);
-
-        $langue = $entity->getLangue()->getId();
-        $id = $entity->getId();
-        $traductions = $entity->getTraductions();
-
-        foreach($traductions as $traduction){
-            if($traduction){
-                $page = $repoPage->find($traduction);
-                $trads = $page->getTraductions();
-                $trads[$langue] = $id;
-                $page->setTraductions($trads);
-                $em->persist($page);
-            }
-        }
-    }
-
-    //Suppression d'une langue : réinitialisation cookie langueArbo
-    protected function removeLangueEntity($entity){
-        $this::removeEntity($entity);
-
-        if (isset($_COOKIE['langueArbo'])) {
-            unset($_COOKIE['langueArbo']);
-            setcookie('langueArbo', '', time() - 3600, '/');
-        }
-    }
-
-    //Édition d'une langue : seule les pages dans cette langue peuvent être choisies comme page d'accueil
-    protected function createLangueEntityFormBuilder($entity, $view){
-        $formBuilder = parent::createEntityFormBuilder($entity, $view);
-
-        if($view == "edit" && $formBuilder->getData()) {
-
-            $langue = $formBuilder->getData();
-
-            $formBuilder->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event) use ($langue) {
-                $event->getForm()->add('pageAccueil', EntityType::class, [
-                    'required' => false,
-                    'class' => Page::class,
-                    'choice_label' => 'titreMenu',
-                    'query_builder' => function (EntityRepository $er) use ($langue) {
-                        return $er->createQueryBuilder('p')
-                            ->andWhere('p.langue = :langue')
-                            ->setParameters(array('langue' => $langue))
-                            ->orderBy('p.titreMenu', 'ASC');
-                    }
-                ]);
-
-            });
-        }
-        return $formBuilder;
-    }
-
-    //Nouvelle page : checkboxes affichage commentaires / date publi / auteur en fonction de la config
-    protected function createPage_ActiveEntityFormBuilder($entity, $view){
-        $formBuilder = parent::createEntityFormBuilder($entity, $view);
-
-        if($view == "new") {
-            $config = $this->getDoctrine()->getRepository(Configuration::class)->find(1);
-            $page = $formBuilder->getData();
-
-            $page->setAffichageCommentaires($config->getAffichageCommentaires());
-            $page->setAffichageDatePublication($config->getAffichageDatePublication());
-            $page->setAffichageAuteur($config->getAffichageAuteur());
-        }
-
-        return $formBuilder;
-    }
-
     //Ajout de la liste des blocs dans $parameters
-    protected function newPage_ActiveAction(){
-        return $this->newAvecListeBlocs();
-    }
-
-    protected function newGroupeBlocsAction(){
-        return $this->newAvecListeBlocs();
-    }
-
-    //Traductions de page : ajout de la langue et de la page originale dans les données du formulaire
-    protected function createNewPage_ActiveEntity()
-    {
-        if($this->request->get('pageOriginale')){
-            $pageOriginale = $this->getDoctrine()->getRepository(Page::class)->find($this->request->get('pageOriginale'));
-
-            $nvPage = new Page();
-
-            //Contenus
-            $nvPage->setTitre($pageOriginale->getTitre());
-            $nvPage->setTitreMenu($pageOriginale->getTitreMenu());
-
-            $blocs = $pageOriginale->getBLocs();
-            foreach($blocs as $bloc){
-                $nvBloc = clone $bloc;
-                $nvPage->addBloc($nvBloc);
-            }
-
-            //SEO
-            $nvSEO = clone $pageOriginale->getSEO();
-            $nvPage->setSEO($nvSEO);
-
-            //Affichage
-            $blocsAnnexes = $pageOriginale->getBLocsAnnexes();
-            foreach($blocsAnnexes as $blocAnnexe){
-                $nvBlocAnnexe = clone $blocAnnexe;
-                $nvPage->addBlocsAnnex($nvBlocAnnexe);
-            }
-
-            //Catégories
-            $categories = $pageOriginale->getCategories();
-            foreach($categories as $categorie){
-                $nvPage->addCategory($categorie);
-            }
-
-           $langue = $this->getDoctrine()->getRepository(Langue::class)->find($this->request->get('langue'));
-            $nvPage->setLangue($langue);
-
-            $trads = $nvPage->getTraductions();
-            $trads[$pageOriginale->getLangue()->getId()] = $this->request->get('pageOriginale');
-            $nvPage->setTraductions($trads);
-
-            return $nvPage;
-        }else{
-            return parent::createNewEntity();
-        }
-    }
-
-    private function newAvecListeBlocs(){
+    public function newAvecListeBlocs(){
         $this->dispatch(EasyAdminEvents::PRE_NEW);
 
         $entity = $this->executeDynamicMethod('createNew<EntityName>Entity');
@@ -240,16 +92,7 @@ class AdminController extends BaseAdminController
         return $this->executeDynamicMethod('render<EntityName>Template', array('new', $this->entity['templates']['new'], $parameters));
     }
 
-    //Ajout de la liste des blocs dans $parameters
-    protected function editPage_ActiveAction(){
-        return $this->editAvecListeBlocs();
-    }
-
-    protected function editGroupeBlocsAction(){
-        return $this->editAvecListeBlocs();
-    }
-
-    private function editAvecListeBlocs(){
+    public function editAvecListeBlocs(){
         $this->dispatch(EasyAdminEvents::PRE_EDIT);
 
         $id = $this->request->query->get('id');
