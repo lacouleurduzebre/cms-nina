@@ -27,6 +27,11 @@ class RSSController extends Controller
         $repoLangue = $this->getDoctrine()->getRepository(Langue::class);
         $langue = $repoLangue->findOneBy(array('abreviation' => $request->getLocale()));
 
+        if(!$langue){
+            $langue = $repoLangue->findOneBy(array('defaut' => true));
+            return $this->redirectToRoute('rss', array('_locale' => $langue->getAbreviation()));
+        }
+
         $repoPage = $this->getDoctrine()->getRepository(Page::class);
         $pages = $repoPage->pagesPublieesCategorie(0, $langue, 10);
 

@@ -1,46 +1,48 @@
 <form action="" id="{{ bloc.id }}" class="blocFormulaire-formulaire" method="POST">
-    {% for champ in bloc.contenu.champs|sortBy('position') %}
-        <div>
-            <label {% if champ.requis is defined and champ.requis is not empty %}class="required"{% endif %} for="champ{{ loop.index }}">
-                {{ champ.label }}
-                {% if champ.requis is defined and champ.requis is not empty %}
-                    <span>*</span>
-                {% endif %}
-            </label>
-            {% if champ.type == "text" %}
-                <input id="champ{{ loop.index }}" name="{{ champ.label }}" class="select" type="text">
-            {% elseif champ.type == "textarea" %}
-                <textarea id="champ{{ loop.index }}" name="{{ champ.label }}" cols="30" rows="10"></textarea>
-            {% elseif champ.type == "select" %}
-                <select name="{{ champ.label }}" id="champ{{ loop.index }}">
-                    <option value=""></option>
+    {% if bloc.contenu.champs is defined %}
+        {% for champ in bloc.contenu.champs|sortBy('position') %}
+            <div>
+                <label {% if champ.requis is defined and champ.requis is not empty %}class="required"{% endif %} for="champ{{ loop.index }}">
+                    {{ champ.label }}
+                    {% if champ.requis is defined and champ.requis is not empty %}
+                        <span>*</span>
+                    {% endif %}
+                </label>
+                {% if champ.type == "text" %}
+                    <input id="champ{{ loop.index }}" name="{{ champ.label }}" class="select" type="text">
+                {% elseif champ.type == "textarea" %}
+                    <textarea id="champ{{ loop.index }}" name="{{ champ.label }}" cols="30" rows="10"></textarea>
+                {% elseif champ.type == "select" %}
+                    <select name="{{ champ.label }}" id="champ{{ loop.index }}">
+                        <option value=""></option>
+                        {% for choix in champ.choix %}
+                            <option value="{{ choix }}">{{ choix }}</option>
+                        {% endfor %}
+                    </select>
+                {% elseif champ.type == "checkbox" %}
+                    {% set numChamp = loop.index %}
                     {% for choix in champ.choix %}
-                        <option value="{{ choix }}">{{ choix }}</option>
+                        <p>
+                            <label class="labelCheck" for="champ{{ numChamp }}choix{{ loop.index }}">
+                                <input type="checkbox" id="champ{{ numChamp }}choix{{ loop.index }}" class="checkbox" name="{{ champ.label }}" value="{{ choix }}">
+                                {{ choix }}
+                            </label>
+                        </p>
                     {% endfor %}
-                </select>
-            {% elseif champ.type == "checkbox" %}
-                {% set numChamp = loop.index %}
-                {% for choix in champ.choix %}
-                    <p>
-                        <label class="labelCheck" for="champ{{ numChamp }}choix{{ loop.index }}">
-                            <input type="checkbox" id="champ{{ numChamp }}choix{{ loop.index }}" class="checkbox" name="{{ champ.label }}" value="{{ choix }}">
-                            {{ choix }}
-                        </label>
-                    </p>
-                {% endfor %}
-            {% elseif champ.type == "radio" %}
-                {% set numChamp = loop.index %}
-                {% for choix in champ.choix %}
-                    <p>
-                        <label class="labelCheck" for="champ{{ numChamp }}choix{{ loop.index }}">
-                            <input type="radio" class="radio" id="champ{{ numChamp }}choix{{ loop.index }}" name="{{ champ.label }}" value="{{ choix }}">
-                            {{ choix }}
-                        </label>
-                    </p>
-                {% endfor %}
-            {% endif %}
-        </div>
-    {% endfor %}
+                {% elseif champ.type == "radio" %}
+                    {% set numChamp = loop.index %}
+                    {% for choix in champ.choix %}
+                        <p>
+                            <label class="labelCheck" for="champ{{ numChamp }}choix{{ loop.index }}">
+                                <input type="radio" class="radio" id="champ{{ numChamp }}choix{{ loop.index }}" name="{{ champ.label }}" value="{{ choix }}">
+                                {{ choix }}
+                            </label>
+                        </p>
+                    {% endfor %}
+                {% endif %}
+            </div>
+        {% endfor %}
+    {% endif %}
     <input type="submit" class="bouton" value="{% if bloc.contenu.submit is not empty %}{{ bloc.contenu.submit }}{% else %}{{ 'Envoyer'|trans }}{% endif %}">
     <div class="message{{ bloc.id }}"></div>
 </form>

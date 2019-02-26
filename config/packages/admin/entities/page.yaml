@@ -19,6 +19,7 @@ easy_admin:
                     - auteur
                     - { property: 'categories', label: 'Catégories' }
                     - { property: 'dateCreation', label: 'Date de création' }
+                    - { property: 'datePublication', label: 'Date de publication' }
                     - langue
                     - active
             search:
@@ -92,5 +93,6 @@ easy_admin:
                     - auteur
                     - { property: 'categories', label: 'Catégories' }
                     - { property: 'dateCreation', label: 'Date de création' }
+                    - { property: 'datePublication', label: 'Date de publication' }
                     - { property: 'seo.url', label: 'Url' }
                     - langue
