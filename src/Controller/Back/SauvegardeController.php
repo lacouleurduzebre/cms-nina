@@ -73,9 +73,11 @@ class SauvegardeController extends Controller
             $mysqlPassword      = getenv('PASSWORD');
             $mysqlHostName      = getenv('HOST');
             $DbName             = getenv('DATABASE');
+            $prefixe            = getenv('PREFIXE');
             $mysqldump=exec('which mysqldump');
+            $mysql=exec('which mysql');
 
-            $command = "$mysqldump --opt -h $mysqlHostName -u $mysqlUserName --password=$mysqlPassword $DbName > ./../sauvegardes/bdd/dump$timestamp.sql";
+            $command = "$mysqldump --opt -h $mysqlHostName -u $mysqlUserName --password=$mysqlPassword $DbName $($mysql -D $DbName -Bse \"show tables like '$prefixe\_%'\") > ./../sauvegardes/bdd/dump$timestamp.sql";
 
             exec($command);
 
