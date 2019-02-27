@@ -104,9 +104,8 @@ main div.blocActualites-page--texte, main div.blocActualites-page--image{
 //Blocs formulaire et inscription
 .blocFormulaire, .blocInscription, .blocCommentaires{
   label:not(.labelCheck){
-    display: block;
     font-weight: bold;
-    span{
+    + span{
       color: red;
     }
   }
@@ -116,6 +115,13 @@ main div.blocActualites-page--texte, main div.blocActualites-page--image{
   input[type="text"], textarea, input[type="password"], input[type="email"]{
     width: 100%;
     max-width: 50rem;
+  }
+  p[class^="erreur-bloc"], .erreur{
+    color: red;
+  }
+  .bouton{
+    margin-top: 1rem;
+    margin-bottom: 1rem;
   }
 }
 

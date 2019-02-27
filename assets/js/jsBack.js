@@ -205,8 +205,9 @@ $(document).ready(function(){
     });
 
     /* Menu blocs */
-    $('form').on('click', '.bloc-menu span', function(){
-        $(this).closest('div').toggleClass('actif');
+    $('form').on('click', '.bloc-menu', function(){
+        $('.bloc-menu').not(this).closest('.bloc-barreActions').removeClass('actif');
+        $(this).closest('.bloc-barreActions').toggleClass('actif');
         $(this).closest('div').find('.suppressionBloc').hide();
     });
 

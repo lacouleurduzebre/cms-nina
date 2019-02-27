@@ -6,18 +6,20 @@ $(document).ready(function(){
         idBloc = $(this).attr('id');
         donnees = $(this).serializeArray();
 
-        $('.message'+idBloc).html('');
-
-        message = '';
+        erreur = false;
+        $('.erreur-bloc'+idBloc).remove();
 
         $(this).find('label.required').each(function(){
             idChamp = $(this).attr('for');
             if($('#'+idChamp).val() === ''){
-                message = message.concat('<p>Merci de compléter le champ "'+$(this).html()+'"</p>');
+                erreur = true;
+                message = '<p class="erreur-bloc'+idBloc+'">Merci de compléter le champ "'+$(this).html().trim()+'"</p>';
+                $(this).closest('div').append(message);
             }
         });
 
-        if(message === ''){
+        if(erreur === false){
+            $('.message'+idBloc).html('').removeClass('erreur');
             $.ajax({
                 url: window.location.origin+"/admin/envoiMail",
                 method: "post",
@@ -27,7 +29,8 @@ $(document).ready(function(){
                     $('.message'+idBloc).html(data);
                 });
         }else{
-            $('.message'+idBloc).addClass('error').append(message);
+            message = 'Il y a des erreurs dans le formulaire';
+            $('.message'+idBloc).html('').addClass('erreur').append(message);
         }
     });
 

@@ -2789,15 +2789,19 @@ main div.blocActualites-page--texte, main div.blocActualites-page--image {
   max-width: 50rem; }
 
 .blocFormulaire label:not(.labelCheck), .blocInscription label:not(.labelCheck), .blocCommentaires label:not(.labelCheck) {
-  display: block;
   font-weight: bold; }
-  .blocFormulaire label:not(.labelCheck) span, .blocInscription label:not(.labelCheck) span, .blocCommentaires label:not(.labelCheck) span {
+  .blocFormulaire label:not(.labelCheck) + span, .blocInscription label:not(.labelCheck) + span, .blocCommentaires label:not(.labelCheck) + span {
     color: red; }
 .blocFormulaire input[type="text"], .blocFormulaire textarea, .blocFormulaire select, .blocFormulaire input[type='checkbox'], .blocFormulaire input[type="password"], .blocFormulaire input[type="email"], .blocInscription input[type="text"], .blocInscription textarea, .blocInscription select, .blocInscription input[type='checkbox'], .blocInscription input[type="password"], .blocInscription input[type="email"], .blocCommentaires input[type="text"], .blocCommentaires textarea, .blocCommentaires select, .blocCommentaires input[type='checkbox'], .blocCommentaires input[type="password"], .blocCommentaires input[type="email"] {
   box-shadow: 0 0 0 1px #5CBFEE inset; }
 .blocFormulaire input[type="text"], .blocFormulaire textarea, .blocFormulaire input[type="password"], .blocFormulaire input[type="email"], .blocInscription input[type="text"], .blocInscription textarea, .blocInscription input[type="password"], .blocInscription input[type="email"], .blocCommentaires input[type="text"], .blocCommentaires textarea, .blocCommentaires input[type="password"], .blocCommentaires input[type="email"] {
   width: 100%;
   max-width: 50rem; }
+.blocFormulaire p[class^="erreur-bloc"], .blocFormulaire .erreur, .blocInscription p[class^="erreur-bloc"], .blocInscription .erreur, .blocCommentaires p[class^="erreur-bloc"], .blocCommentaires .erreur {
+  color: red; }
+.blocFormulaire .bouton, .blocInscription .bouton, .blocCommentaires .bouton {
+  margin-top: 1rem;
+  margin-bottom: 1rem; }
 
 .blocInscription input[type="submit"] {
   margin-top: 2rem; }
