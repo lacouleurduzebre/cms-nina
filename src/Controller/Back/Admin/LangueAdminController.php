@@ -15,7 +15,13 @@ use Doctrine\ORM\EntityRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
+use Symfony\Component\Routing\Annotation\Route;
 
+/**
+ * Class LangueAdminController
+ * @package App\Controller\Back\Admin
+ * @Route("/admin")
+ */
 class LangueAdminController extends AdminController
 {
     //Suppression d'une langue : réinitialisation cookie langueArbo

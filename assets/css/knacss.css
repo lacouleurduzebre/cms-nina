@@ -3258,7 +3258,7 @@ body.list #flash-messages > * {
 .action-corbeille, .action-delete {
   color: #D9534F; }
 
-.action-list {
+.action-list, .action-voirPages {
   color: #cb8300; }
 
 .action-corbeille .fa-recycle {

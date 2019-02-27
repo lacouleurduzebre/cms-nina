@@ -303,7 +303,7 @@ class AdminController extends BaseAdminController
         $this->em->persist($menuPage);
         $this->em->flush();
 
-        return $this->redirectToRoute('easyadmin', array(
+        return $this->redirectToRoute('admin', array(
             'action' => 'edit',
             'entity' => 'Page_Active',
             'id' => $nouvellePage->getId()
@@ -359,7 +359,7 @@ class AdminController extends BaseAdminController
         $this->em->flush();
 
         if(!$this->request->isXmlHttpRequest()){
-            return $this->redirectToRoute('easyadmin', array(
+            return $this->redirectToRoute('admin', array(
                 'action' => 'list',
                 'entity' => $this->request->query->get('entity'),
             ));
@@ -411,6 +411,17 @@ class AdminController extends BaseAdminController
                 'action' => 'edit',
                 'entity' => 'Page_Active',
                 'id' => $idPage
+            )
+        );
+    }
+
+    public function voirPagesAction(){
+        $idCategorie = $this->request->query->get('id');
+
+        return $this->redirectToRoute('admin', array(
+                'action' => 'list',
+                'entity' => 'Page_Active',
+                'categorie' => $idCategorie
             )
         );
     }

@@ -8,6 +8,7 @@ easy_admin:
             list:
                 actions:
                     - { name: 'voir', label: '', title: 'Voir', icon: 'eye' }
+                    - { name: 'voirPages', label: '', title: 'Voir les pages de cette catégories', icon: 'file-alt' }
                 sort: 'nom'
                 fields:
                     - nom

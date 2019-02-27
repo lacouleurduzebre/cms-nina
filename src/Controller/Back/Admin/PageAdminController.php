@@ -14,8 +14,13 @@ use App\Entity\Categorie;
 use App\Entity\Configuration;
 use App\Entity\Langue;
 use App\Entity\Page;
-use EasyCorp\Bundle\EasyAdminBundle\Event\EasyAdminEvents;
+use Symfony\Component\Routing\Annotation\Route;
 
+/**
+ * Class PageAdminController
+ * @package App\Controller\Back\Admin
+ * @Route("/admin")
+ */
 class PageAdminController extends AdminController
 {
     //Afficher toutes les pages d'une catégorie avec ?categorie=X

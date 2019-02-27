@@ -10,7 +10,13 @@ namespace App\Controller\Back\Admin;
 
 
 use App\Controller\Back\AdminController;
+use Symfony\Component\Routing\Annotation\Route;
 
+/**
+ * Class GroupeBlocsAdminController
+ * @package App\Controller\Back\Admin
+ * @Route("/admin")
+ */
 class GroupeBlocsAdminController extends AdminController
 {
     protected function newGroupeBlocsAction(){
