@@ -767,7 +767,7 @@
 
     <div id="page_active_blocs_" {% if form.children.type.vars.value is defined %}class="bloc-{{ form.children.type.vars.value|lower }}"{% endif %}>
         <div class="form-group type">
-            {{- form_label(form.children.type) -}}
+            <label>{{ form.children.type.vars.label|raw }}</label>
             {{- form_widget(form.children.type) -}}
             {% if form.children.contenu is defined %}
                 <div class="bloc-help {% if form_help(form.children.contenu) is empty %}hide{% endif %}">

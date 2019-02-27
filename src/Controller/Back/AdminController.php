@@ -271,9 +271,49 @@ class AdminController extends BaseAdminController
             }
         }
 
+        //Version
+        exec('cd ..');
+        exec('git log -1', $versionBrut);
+
+        foreach($versionBrut as $line){
+            if (!empty($line)) {
+                // Commit
+                if (strpos($line, 'commit') !== false) {
+                    $hash = explode(' ', $line);
+                    $hash = trim(end($hash));
+                    $version = [
+                        'message' => ''
+                    ];
+                    $version['numero'] = $hash;
+                } // Author
+                else if (strpos($line, 'Author') !== false) {
+                    $author = explode(':', $line);
+                    $author = trim(end($author));
+                    $version['auteur'] = $author;
+                } // Date
+                else if (strpos($line, 'Date') !== false) {
+                    $date = explode(':', $line, 2);
+                    $date = trim(end($date));
+                    $version['date'] = date('d/m/Y', strtotime($date));
+                } // Message
+                else {
+                    $version['message'] .= $line . " ";
+                }
+            }
+        }
+
+        //Màj dispo ?
+        exec('git remote update');
+        $versionLocale = exec('git rev-parse origin master');
+        $versionEnLigne = exec('git rev-pase origin/master');
+
+        $majDispo = ($versionLocale == $versionEnLigne);
+
         return $this->render('back/tableauDeBord.html.twig', array(
             'user' => $user,
             'blocs' => $blocs,
+            'version' => $version,
+            'majDispo' => $majDispo
         ));
     }
 

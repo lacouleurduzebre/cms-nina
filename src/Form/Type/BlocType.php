@@ -27,7 +27,9 @@ class BlocType extends AbstractType
         if($options['type'] != ''){//Ajax
             $infos = Yaml::parseFile('../src/Blocs/'.$options['type'].'/infos.yaml');
             $description = $infos['description'];
+            $icone = $infos['icone'];
             $nom = $infos['nom'];
+            $label = '<i class="'.$icone.' mrs"></i>'.$nom;
             $builder->add('contenu', 'App\Blocs\\'.$options['type'].'\\'.$options['type'].'Type', array(
                 'label' => false,
                 'help' => $description,
@@ -36,7 +38,7 @@ class BlocType extends AbstractType
             ))
             ->add('type', HiddenType::class, array(
                 'data' => $options['type'],
-                'label' => $nom
+                'label' => $label
             ));
         }else{//Chargement du formulaire
             $builder->add('type', HiddenType::class)
@@ -67,6 +69,9 @@ class BlocType extends AbstractType
             if ($bloc){//Bloc déjà existant
                 $type = $bloc->getType();
                 $infos = Yaml::parseFile('../src/Blocs/'.$type.'/infos.yaml');
+                $icone = $infos['icone'];
+                $nom = $infos['nom'];
+                $label = '<i class="'.$icone.' mrs"></i>'.$nom;
                 $form->add('contenu', 'App\Blocs\\'.$type.'\\'.$type.'Type', array(
                     'label' => false,
                     'help' => $infos['description'],
@@ -76,7 +81,7 @@ class BlocType extends AbstractType
                     )*/
                 ))
                     ->add('type', HiddenType::class, array(
-                        'label' => $infos['nom']
+                        'label' => $label
                     ));
             }
         });
