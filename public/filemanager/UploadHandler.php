@@ -380,6 +380,10 @@ class UploadHandler
 			$file->error = $this->get_error_message('accept_file_types');
 			return false;
 		}
+		if (preg_match($this->options['image_file_types'], $file->name) && function_exists('exif_imagetype') && !@exif_imagetype($uploaded_file)) {
+			$file->error = $this->get_error_message('accept_file_types');
+			return false;
+		}
 		if ($uploaded_file && is_uploaded_file($uploaded_file)) {
 			$file_size = $this->get_file_size($uploaded_file);
 		} else {
@@ -519,7 +523,7 @@ class UploadHandler
 		// Remove path information and dots around the filename, to prevent uploading
 		// into different directories or replacing hidden system files.
 		// Also remove control characters and spaces (\x00..\x20) around the filename:
-		$name = trim($this->basename(stripslashes($name)), ".\x00..\x20");
+		$name = trim($this->basename(stripslashes($name)), "\x00..\x20");
 		// Use a timestamp for empty filenames:
 		if (!$name) {
 			$name = str_replace('.', '-', microtime(true));
@@ -1330,6 +1334,11 @@ class UploadHandler
 				'',
 				$content_disposition_header
 			)) : null;
+		// TODO check
+		// if (isset($content_disposition_header) && !empty($content_disposition_header) ) {
+		//	 $file_name = str_replace('attachment; filename=&#34;', '', $content_disposition_header);
+		//   $file_name = str_replace('&#34;', '', $file_name);
+		// }
 		// Parse the Content-Range header, which has the following form:
 		// Content-Range: bytes 0-524287/2000000
 		$content_range_header = $this->get_server_var('HTTP_CONTENT_RANGE');

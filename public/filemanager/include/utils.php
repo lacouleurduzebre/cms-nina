@@ -1,6 +1,6 @@
 <?php
 
-if ($_SESSION['RF']["verify"] != "RESPONSIVEfilemanager")
+if (!isset($_SESSION['RF']) || $_SESSION['RF']["verify"] != "RESPONSIVEfilemanager")
 {
 	die('forbiden');
 }
@@ -48,7 +48,7 @@ if ( ! function_exists('trans'))
 		|| ! is_readable('lang/' . basename($_SESSION['RF']['language']) . '.php')
 	)
 	{
-		$lang = $default_language;
+		$lang = $config['default_language'];
 
 		if (isset($_GET['lang']) && $_GET['lang'] != 'undefined' && $_GET['lang'] != '')
 		{
@@ -56,7 +56,7 @@ if ( ! function_exists('trans'))
 			$lang = trim($lang);
 		}
 
-		if ($lang != $default_language)
+		if ($lang != $config['default_language'])
 		{
 			$path_parts = pathinfo($lang);
 			$lang = $path_parts['basename'];
@@ -94,14 +94,63 @@ if ( ! function_exists('trans'))
 	}
 }
 
+
+function checkRelativePathPartial($path){
+	if (strpos($path, '../') !== false
+        || strpos($path, './') !== false
+        || strpos($path, '/..') !== false
+        || strpos($path, '..\\') !== false
+        || strpos($path, '\\..') !== false
+        || strpos($path, '.\\') !== false
+        || $path === ".."
+    ){
+		return false;
+    }
+    return true;
+}
+
+/**
+* Check relative path
+*
+* @param  string  $path
+*
+* @return boolean is it correct?
+*/
+function checkRelativePath($path){
+	$path_correct = checkRelativePathPartial($path);
+	if($path_correct){
+		$path_decoded = rawurldecode($path);
+		$path_correct = checkRelativePathPartial($path_decoded);
+	}
+    return $path_correct;
+}
+
+/**
+* Check if the given path is an upload dir based on config
+*
+* @param  string  $path
+* @param  array $config
+*
+* @return boolean is it an upload dir?
+*/
+function isUploadDir($path, $config){
+	$upload_dir = $config['current_path'];
+	$thumbs_dir = $config['thumbs_base_path'];
+	if (realpath($path) === realpath($upload_dir) || realpath($path) === realpath($thumbs_dir))
+	{
+		return true;
+	}
+	return false;
+}
+
 /**
 * Delete file
 *
 * @param  string  $path
 * @param  string $path_thumb
-* @param  string $config
+* @param  array $config
 *
-* @return  nothing
+* @return null
 */
 function deleteFile($path,$path_thumb,$config){
 	if ($config['delete_files']){
@@ -141,7 +190,7 @@ function deleteFile($path,$path_thumb,$config){
 			{
 				if ($path!="" && $path[strlen($path)-1] != "/") $path.="/";
 
-				$base_dir=$path.substr_replace($info['dirname']."/", '', 0, strlen($current_path));
+				$base_dir=$path.substr_replace($info['dirname']."/", '', 0, strlen($config['current_path']));
 				if (file_exists($base_dir.$config['fixed_image_creation_name_to_prepend'][$k].$info['filename'].$config['fixed_image_creation_to_append'][$k].".".$info['extension']))
 				{
 					unlink($base_dir.$config['fixed_image_creation_name_to_prepend'][$k].$info['filename'].$config['fixed_image_creation_to_append'][$k].".".$info['extension']);
@@ -171,7 +220,7 @@ function deleteDir($dir,$ftp = null, $config = null)
 		}
 
 	}else{
-		if ( ! file_exists($dir))
+		if ( ! file_exists($dir) || isUploadDir($dir, $config))
 		{
 			return false;
 		}
@@ -219,7 +268,7 @@ function duplicate_file( $old_path, $name, $ftp = null, $config = null )
 			return null;
 		}
 	}else{
-		if (file_exists($old_path))
+		if (file_exists($old_path) && is_file($old_path))
 		{
 			if (file_exists($new_path) && $old_path == $new_path)
 			{
@@ -253,7 +302,7 @@ function rename_file($old_path, $name, $ftp = null, $config = null)
 			return false;
 		}
 	}else{
-		if (file_exists($old_path))
+		if (file_exists($old_path) && is_file($old_path))
 		{
 			$new_path = $info['dirname'] . "/" . $name . "." . $info['extension'];
 			if (file_exists($new_path) && $old_path == $new_path)
@@ -302,13 +351,12 @@ function rename_folder($old_path, $name, $ftp = null, $config = null)
 			return $ftp->rename("/".$old_path, "/".$new_path);
 		}
 	}else{
-		if (file_exists($old_path))
+		if (file_exists($old_path) && is_dir($old_path) && !isUploadDir($old_path, $config))
 		{
 			if (file_exists($new_path) && $old_path == $new_path)
 			{
 				return false;
 			}
-
 			return rename($old_path, $new_path);
 		}
 	}
@@ -420,7 +468,7 @@ function makeSize($size)
 */
 function folder_info($path,$count_hidden=true)
 {
-	global $hidden_folders,$hidden_files;
+	global $config;
 	$total_size = 0;
 	$files = scandir($path);
 	$cleanPath = rtrim($path, '/') . '/';
@@ -430,7 +478,7 @@ function folder_info($path,$count_hidden=true)
 	{
 		if ($t != "." && $t != "..")
 		{
-			if ($count_hidden or !(in_array($t,$hidden_folders) or in_array($t,$hidden_files)))
+			if ($count_hidden or !(in_array($t,$config['hidden_folders']) or in_array($t,$config['hidden_files'])))
 			{
 				$currentFile = $cleanPath . $t;
 				if (is_dir($currentFile))
@@ -460,7 +508,7 @@ function folder_info($path,$count_hidden=true)
 */
 function filescount($path,$count_hidden=true)
 {
-	global $hidden_folders,$hidden_files;
+	global $config;
 	$total_count = 0;
 	$files = scandir($path);
 	$cleanPath = rtrim($path, '/') . '/';
@@ -469,7 +517,7 @@ function filescount($path,$count_hidden=true)
 	{
 		if ($t != "." && $t != "..")
 		{
-			if ($count_hidden or !(in_array($t,$hidden_folders) or in_array($t,$hidden_files)))
+			if ($count_hidden or !(in_array($t,$config['hidden_folders']) or in_array($t,$config['hidden_files'])))
 			{
 				$currentFile = $cleanPath . $t;
 				if (is_dir($currentFile))
@@ -496,11 +544,12 @@ function filescount($path,$count_hidden=true)
 */
 function checkresultingsize($sizeAdded)
 {
-	global $MaxSizeTotal,$current_path;
-	if ($MaxSizeTotal !== false && is_int($MaxSizeTotal)) {
-		list($sizeCurrentFolder,$fileCurrentNum,$foldersCurrentCount) = folder_info($current_path,false);
+    global $config;
+
+	if ($config['MaxSizeTotal'] !== false && is_int($config['MaxSizeTotal'])) {
+		list($sizeCurrentFolder,$fileCurrentNum,$foldersCurrentCount) = folder_info($config['current_path'],false);
 		// overall size over limit
-		if (($MaxSizeTotal * 1024 * 1024) < ($sizeCurrentFolder + $sizeAdded)) {
+		if (($config['MaxSizeTotal'] * 1024 * 1024) < ($sizeCurrentFolder + $sizeAdded)) {
 			return false;
 		}
 	}
@@ -519,21 +568,21 @@ function create_folder($path = null, $path_thumbs = null,$ftp = null,$config = n
 		$ftp->mkdir($path);
 		$ftp->mkdir($path_thumbs);
 	}else{
-		if(file_exists($path)){
+		if(file_exists($path) || file_exists($path_thumbs)){
 			return false;
 		}
 		$oldumask = umask(0);
+		$permission = 0755;
+		if(isset($config['folderPermission'])){
+			$permission = $config['folderPermission'];
+		}
 		if ($path && !file_exists($path))
 		{
-			$permission = $config['folderPermission'];
-			if(isset($config['folderPermission'])){
-				$permission = $config['folderPermission'];
-			}
 			mkdir($path, $permission, true);
 		} // or even 01777 so you get the sticky bit set
-		if ($path_thumbs && ! file_exists($path_thumbs))
+		if ($path_thumbs)
 		{
-			mkdir($path_thumbs, $config['folderPermission'], true) or die("$path_thumbs cannot be found");
+			mkdir($path_thumbs, $permission, true) or die("$path_thumbs cannot be found");
 		} // or even 01777 so you get the sticky bit set
 		umask($oldumask);
 		return true;
@@ -566,6 +615,34 @@ function check_files_extensions_on_path($path, $ext)
 	}
 }
 
+
+/**
+* Check file extension 
+*
+* @param  string  $extension
+* @param  array   $config
+*/
+
+function check_file_extension($extension,$config){
+	$check = false;
+	if (!$config['ext_blacklist']) {
+		if(in_array(mb_strtolower($extension), $conf['ext'])){
+			$check = true;
+		}
+    } else {
+    	if(!in_array(mb_strtolower($extension), $conf['ext_blacklist'])){
+			$check = true;
+		}
+    }
+
+	if($config['files_without_extension'] && $extension == ''){
+		$check = true;
+	}
+
+	return $check;
+}
+
+
 /**
 * Get file extension present in PHAR file
 *
@@ -574,13 +651,13 @@ function check_files_extensions_on_path($path, $ext)
 * @param  string  $basepath
 * @param  string  $ext
 */
-function check_files_extensions_on_phar($phar, &$files, $basepath, $ext)
+function check_files_extensions_on_phar($phar, &$files, $basepath, $config)
 {
 	foreach ($phar as $file)
 	{
 		if ($file->isFile())
 		{
-			if (in_array(mb_strtolower($file->getExtension()), $ext))
+			if (check_file_extension($file->getExtension()))
 			{
 				$files[] = $basepath . $file->getFileName();
 			}
@@ -590,7 +667,7 @@ function check_files_extensions_on_phar($phar, &$files, $basepath, $ext)
 			if ($file->isDir())
 			{
 				$iterator = new DirectoryIterator($file);
-				check_files_extensions_on_phar($iterator, $files, $basepath . $file->getFileName() . '/', $ext);
+				check_files_extensions_on_phar($iterator, $files, $basepath . $file->getFileName() . '/', $config);
 			}
 		}
 	}
@@ -608,6 +685,38 @@ function fix_get_params($str)
 	return strip_tags(preg_replace("/[^a-zA-Z0-9\.\[\]_| -]/", '', $str));
 }
 
+
+/**
+* Check extension
+*
+* @param  string  $extension
+* @param  array   $config
+*
+* @return bool
+*/
+function check_extension($extension,$config){
+	$extension = fix_strtolower($extension);
+	if((!$config['ext_blacklist'] && !in_array($extension, $config['ext'])) || ($config['ext_blacklist'] && in_array($extension, $config['ext_blacklist']))){
+		return false;
+	}
+	return true;
+}
+
+
+
+
+/**
+* Sanitize filename
+*
+* @param  string  $str
+*
+* @return string
+*/
+function sanitize($str)
+{
+	return strip_tags(htmlspecialchars($str));
+}
+
 /**
 * Cleanup filename
 *
@@ -621,6 +730,7 @@ function fix_get_params($str)
 */
 function fix_filename($str, $config, $is_folder = false)
 {
+	$str = sanitize($str);
 	if ($config['convert_spaces'])
 	{
 		$str = str_replace(' ', $config['replace_with'], $str);
@@ -650,7 +760,7 @@ function fix_filename($str, $config, $is_folder = false)
 	// Empty or incorrectly transliterated filename.
 	// Here is a point: a good file UNKNOWN_LANGUAGE.jpg could become .jpg in previous code.
 	// So we add that default 'file' name to fix that issue.
-	if (strpos($str, '.') === 0 && $is_folder === false)
+	if (!$config['empty_filename'] && strpos($str, '.') === 0 && $is_folder === false)
 	{
 		$str = 'file' . $str;
 	}
@@ -762,7 +872,12 @@ function image_check_memory_usage($img, $max_breedte, $max_hoogte)
 		$K64 = 65536; // number of bytes in 64K
 		$memory_usage = memory_get_usage();
 		if(ini_get('memory_limit') > 0 ){
-			$memory_limit = abs(intval(str_replace('M', '', ini_get('memory_limit')) * 1024 * 1024));
+			
+			$mem = ini_get('memory_limit');
+			$memory_limit = 0;
+			if (strpos($mem, 'M') !== false) $memory_limit = abs(intval(str_replace(array('M'), '', $mem) * 1024 * 1024));
+			if (strpos($mem, 'G') !== false) $memory_limit = abs(intval(str_replace(array('G'), '', $mem) * 1024 * 1024 * 1024));
+			
 			$image_properties = getimagesize($img);
 			$image_width = $image_properties[0];
 			$image_height = $image_properties[1];
@@ -792,9 +907,11 @@ function image_check_memory_usage($img, $max_breedte, $max_hoogte)
 *
 * @return  bool
 */
-function ends_with($haystack, $needle)
-{
-	return $needle === "" || substr($haystack, -strlen($needle)) === $needle;
+if(!function_exists('ends_with')){
+	function ends_with($haystack, $needle)
+	{
+		return $needle === "" || substr($haystack, -strlen($needle)) === $needle;
+	}
 }
 
 /**
@@ -1226,4 +1343,3 @@ function AddErrorLocation()
 	}
 	return "";
 }
-?>
