@@ -313,6 +313,11 @@
                     // Use a counter to avoid having the same index more than once
                     var numItems = collection.data('count') || collection.children('div.form-group').length;
 
+                    //Vérif numItems est unique
+                    while($('#{{ id }}').find('div[id=\'{{ id }}_'+numItems+'\']').length > 0){
+                        numItems++;
+                    }
+
                     collection.prev('.collection-empty').remove();
 
                     var newItem = collection.attr('data-prototype')
@@ -325,6 +330,11 @@
                     collection.data('count', ++numItems);
 
                     collection.append(newItem).trigger('easyadmin.collection.item-added');
+
+                    //Position
+                    $('#{{ id }} input[id$=\'position\']').each(function(){
+                        $(this).val($(this).closest('.form-group').index());
+                    });
 
                     tinymce.remove();
                     tinymce.init(optionsTinyMCE);

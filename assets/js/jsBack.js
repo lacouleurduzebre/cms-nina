@@ -35,7 +35,7 @@ $(document).ready(function(){
 
     /* Restauration de l'onglet actif */
     if(Cookies.get('ongletActif')){
-        $('#'+Cookies.get('ongletActif')).tab('show');
+        $('#'+Cookies.get('ongletActif')).click();
         Cookies.remove('ongletActif');
     }
 
