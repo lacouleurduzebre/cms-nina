@@ -46,7 +46,7 @@ class PageRepository extends \Doctrine\ORM\EntityRepository
     }
 
     //Pour le bloc catégorie
-    public function pagesPublieesCategorie($categorie, $langue, $limite = null){
+    public function pagesPublieesCategorie($categorie, $langue, $limite = null, $tri = null){
         $timestamp = new \DateTime();
         $date = $timestamp->format('Y-m-d H:i:s');
 
@@ -68,7 +68,11 @@ class PageRepository extends \Doctrine\ORM\EntityRepository
             $qb->setParameters(array('langue' => $langue, 'date' => $date));
         }
 
-        $qb->orderBy('p.datePublication', 'DESC');
+        if($tri == 'alpha'){
+            $qb->orderBy('p.titre', 'ASC');
+        }else{
+            $qb->orderBy('p.datePublication', 'DESC');
+        }
 
         if($limite){
             $qb->setMaxResults($limite+1);

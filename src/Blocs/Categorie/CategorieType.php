@@ -41,6 +41,15 @@ class CategorieType extends AbstractType
             ->add('categorie', ChoiceType::class, array(
                 'choices' => $categories
             ))
+            ->add('tri', ChoiceType::class, array(
+                'label' => 'Tri par ordre',
+                'choices' => array(
+                    'Alphabétique' => 'alpha',
+                    'Chronologique' => 'chrono'
+                ),
+                'multiple' => false,
+                'expanded' => true
+            ))
             ->add('limite', LimiteType::class)
             ->add('pagination', PaginationType::class)
             ->add('resultatsParPage', ResultatsParPageType::class);

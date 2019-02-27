@@ -20,8 +20,11 @@ $(document).ready(function(){
         $('#modal-delete').css('display', 'flex');
     });
 
-    /* Résolution du problème de textarea vide avec tinymce */
+    /* Résolution du problème de textarea vide avec tinymce + enregistrement onglet actif */
     $('.formulaire-actions-enregistrer').click(function(){
+        if($('.nav-tabs li.active').length > 0){
+            Cookies.set('ongletActif', $('.nav-tabs li.active a').attr('id'), { expires: 7 });
+        }
         clicEnregistrement = true;
         tinyMCE.triggerSave();
     });
@@ -29,6 +32,12 @@ $(document).ready(function(){
     $('.action-save').click(function(){
         tinyMCE.triggerSave();
     });
+
+    /* Restauration de l'onglet actif */
+    if(Cookies.get('ongletActif')){
+        $('#'+Cookies.get('ongletActif')).tab('show');
+        Cookies.remove('ongletActif');
+    }
 
     /* URL automatique */
     function str2url(str,encoding,ucfirst)
