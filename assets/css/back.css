@@ -1907,4 +1907,7 @@ body.notFull #sidebar-logo {
     align-items: center;
     justify-content: center; }
 
+.hidden {
+  display: none; }
+
 /*# sourceMappingURL=back.css.map */

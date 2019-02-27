@@ -63,7 +63,7 @@ easy_admin:
                     - datePublication
                     - dateDepublication
                     - { property: 'affichageAuteur', label: "Afficher l'auteur" }
-                    - auteur
+                    - { property: 'auteur', type_options: { disabled: true } }
                     - auteurDerniereModification
                     - { property: 'blocsAnnexes', type: 'collection', type_options: { entry_type: 'App\Form\Type\BlocAnnexeType', by_reference: false } }
                     - { type: 'tab', label: 'Catégories' }

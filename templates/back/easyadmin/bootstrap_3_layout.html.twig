@@ -1040,15 +1040,23 @@
 {% endblock %}
 
 {% block _page_active_auteur_widget %}
-    {% if data is not empty %}
-        <p>{{ data.username }}</p>
-    {% endif %}
+    <p>
+        {% if data is not empty %}
+            {{ data.username }}
+        {% else %}
+            <i>{{ "Compte supprimé"|trans }}</i>
+        {% endif %}
+    </p>
 {% endblock %}
 
 {% block _page_active_auteurDerniereModification_widget %}
-    {% if data is not empty %}
-        <p>{{ data.username }}</p>
-    {% endif %}
+    <p>
+        {% if data is not empty %}
+            {{ data.username }}
+        {% else %}
+            <i>{{ "Compte supprimé"|trans }}</i>
+        {% endif %}
+    </p>
 {% endblock %}
 
 {% block bouton_widget -%}

@@ -2562,6 +2562,9 @@ button:focus {
     align-items: center;
     justify-content: center; }
 
+.hidden {
+  display: none; }
+
 /* Page de login */
 body {
   margin: 0; }

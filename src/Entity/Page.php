@@ -32,11 +32,13 @@ class Page
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Utilisateur", inversedBy="pages")
+     * @ORM\JoinColumn(onDelete="SET NULL")
      */
     private $auteur;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Utilisateur", inversedBy="pagesModifiees")
+     * @ORM\JoinColumn(onDelete="SET NULL")
      */
     private $auteurDerniereModification;
 

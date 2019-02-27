@@ -29,7 +29,11 @@
             {% endif %}
             {% if page.affichageAuteur %}
                 {{ 'par'|trans }}
-                {{ page.auteur }}
+                {% if page.auteur is not empty %}
+                    {{ page.auteur }}
+                {% else %}
+                    <i>{{ "Compte supprimé"|trans }}</i>
+                {% endif %}
             {% endif %}
             {% if page.categories is not empty %}
                 {% if page.affichageDatePublication %}
