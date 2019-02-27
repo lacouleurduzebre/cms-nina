@@ -50,23 +50,36 @@ $(document).ready(function(){
     });
 
     /* Filtre arbo */
-    $('#recherche-arbo').on('keyup', function(){
-        $(this).next('svg').removeClass('hidden');
+    var typingTimer;                //timer identifier
+
+    function rechercheArbo () {
+        console.log('recherche');
+        $("#recherche-arbo-chargement").removeClass('hidden');
+        $("#recherche-arbo-loupe").addClass('hidden');
+        $("#recherche-arbo-vidange").addClass('hidden');
         langue = $('.arbo-langues .current a').attr('class');
-        recherche = $(this).val();
+        recherche = $('#recherche-arbo').val();
         $.ajax({
             url: '/filtreArbo',
             method: "post",
             data: {langue: langue, recherche: recherche}
         })
             .done(function(data){
-                console.log(data);
+                $("#recherche-arbo-vidange").removeClass('hidden');
+                $("#recherche-arbo-chargement").addClass('hidden');
                 $('#recherche-arbo-resultats').html('').append(data).show();
                 $('.arborescence').hide();
             })
             .fail(function(){
-                console.log('FAIL');
+                $("#recherche-arbo-vidange").removeClass('hidden');
+                $("#recherche-arbo-chargement").addClass('hidden');
+                $('#recherche-arbo-resultats').html('').append('Une erreur est survenue').show();
             });
+    }
+
+    $('#recherche-arbo').on('keyup', function(){
+        clearTimeout(typingTimer);
+        typingTimer = setTimeout(rechercheArbo, 600);
     })
         .on('click', function(e){//Bloque le lancement de la vidange en cliquant sur le champ
            e.stopPropagation();
@@ -78,6 +91,7 @@ $(document).ready(function(){
             $('.arborescence').show();
             $('#recherche-arbo').val("");
             $('#recherche-arbo-vidange').addClass('hidden');
+            $('#recherche-arbo-loupe').removeClass('hidden');
         });
 
     /* Visualisation des groupes de blocs */

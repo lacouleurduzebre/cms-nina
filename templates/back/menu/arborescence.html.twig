@@ -1,7 +1,10 @@
 <header>
-    <div class="txtcenter arbo-titre active">
-        <i class="fas fa-sitemap"></i> <span>{% trans %}Menus{% endtrans %}</span>
-        <a href="#" id="btnArbo"><i class="fas fa-chevron-circle-down"></i></a>
+    <div class="arbo-titre active">
+        <a href="#" id="btnArbo" class="txtcenter">
+            <i class="fas fa-sitemap"></i>
+            <span>{% trans %}Menus{% endtrans %}</span>
+            <i class="fas fa-chevron-circle-down"></i>
+        </a>
     </div>
 </header>
 <div class="sidebar-menus">
@@ -16,7 +19,9 @@
         <div class="sidebar global-actions">
             <div class="form-action action-search">
                 <div class="input-group">
-                    <input id="recherche-arbo" class="form-control" type="search" name="query" value="" placeholder="{{ "Rechercher une page"|trans }}">
+                    <input id="recherche-arbo" class="form-control" type="search" name="query" value="" placeholder="{{ "Recherche"|trans }}">
+                    <i id="recherche-arbo-loupe" class="fas fa-search"></i>
+                    <i id="recherche-arbo-chargement" class="hidden fas fa-spin fa-sync"></i>
                     <i id="recherche-arbo-vidange" class="hidden fas fa-times"></i>
                 </div>
             </div>

@@ -1538,7 +1538,7 @@ body.full {
 
 body.notFull .main-sidebar .sidebar-menus {
   display: block; }
-body.notFull .main-sidebar #btnArbo svg {
+body.notFull .main-sidebar #btnArbo .fa-chevron-circle-down {
   transform: rotate(180deg); }
 
 /* Arborescence */
@@ -1552,7 +1552,6 @@ body.notFull .main-sidebar #btnArbo svg {
     line-height: 20px; }
 
 .arbo-titre {
-  padding: .6rem 0;
   height: 3.8rem;
   box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
   position: relative;
@@ -1564,11 +1563,15 @@ body.notFull .main-sidebar #btnArbo svg {
       display: none; } }
   .arbo-titre.active {
     background-color: #A1BA1D; }
-  .arbo-titre .fa-sitemap {
-    margin-right: 1rem; }
+  .arbo-titre svg {
+    margin: 0 1rem; }
   .arbo-titre #btnArbo {
+    display: block;
+    height: 100%;
+    width: 100%;
     margin-left: 1rem;
-    color: #FFF; }
+    color: #FFF;
+    padding: .6rem 0; }
 
 .arbo-langues {
   background-color: #7b8e16;
