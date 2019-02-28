@@ -10,6 +10,7 @@ namespace App\Controller;
 
 
 use App\Entity\Langue;
+use App\Service\Page;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -23,33 +24,11 @@ class AccueilController extends Controller
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function indexAction($_locale = null, Request $request)
+    public function indexAction($_locale = null, Page $spage)
     {
         $accueil = 'accueil';//Marquer le body
-        $repoLangue = $this->getDoctrine()->getRepository(Langue::class);
 
-        if(isset($_locale)){
-            $langue = $repoLangue->findOneBy(array('abreviation' => $_locale));
-
-            if(!$langue){//Si l'utilisateur essaye de naviguer sur une langue qui n'existe page
-                $langue = $repoLangue->findOneBy(array('defaut' => true));
-                return $this->redirectToRoute('accueilLocale', array('_locale' => $langue->getAbreviation()));
-            }
-
-            $locale = $request->getLocale();
-            if($locale !== $_locale){//Si la locale n'est pas la langue sur laquelle l'utilisateur souhaite naviguer, on la modifie
-                $request->getSession()->set('_locale', $_locale);
-            }
-        }else{//On utilise la langue par défaut si aucune locale n'est précisée
-            $langue = $repoLangue->findOneBy(array('defaut' => true));
-
-            $locale = $request->getLocale();
-            if($locale !== $langue->getAbreviation()){//Si la locale n'est pas la langue par défaut, on la modifie
-                $request->getSession()->set('_locale', $langue->getAbreviation());
-            }
-        }
-
-        $page = $langue->getPageAccueil();
+        $page = $spage->getPageActive();
 
         return $this->render('front/accueil.html.twig', array('page'=>$page, 'accueil'=>$accueil));
     }

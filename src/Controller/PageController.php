@@ -6,6 +6,7 @@ use App\Entity\Commentaire;
 use App\Entity\Langue;
 use App\Entity\MenuPage;
 use App\Entity\SEO;
+use App\Service\Page;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
@@ -23,47 +24,8 @@ class PageController extends Controller
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
-    public function voirAction(Request $request, $url){
-        //$_locale
-        $repoLangue = $this->getDoctrine()->getRepository(Langue::class);
-        $langue = $repoLangue->findOneBy(array('abreviation' => $request->getLocale()));
-
-        if(!$langue){//Si l'utilisateur essaye de naviguer sur une langue qui n'existe page
-            $langue = $repoLangue->findOneBy(array('defaut' => true));
-            return $this->redirectToRoute('accueilLocale', array('_locale' => $langue->getAbreviation()));
-        }
-
-        $repository = $this->getDoctrine()->getRepository(SEO::class);
-        $seos = $repository->findByUrl($url);
-
-        if(!$seos){
-            throw new NotFoundHttpException('Cette page n\'existe pas ou a été supprimée');
-        }
-
-        foreach($seos as $seo){
-            if($langue == $seo->getPage()->getLangue()){
-                $page = $seo->getPage();
-            }
-        }
-
-        if(!isset($page)){
-            throw new NotFoundHttpException('Cette page n\'existe pas ou a été supprimée');
-        }
-
-        if($langue->getPageAccueil() == $page){
-            if($langue->getDefaut()){
-                return $this->redirectToRoute('accueil');
-            }else{
-                return $this->redirectToRoute('accueilLocale', array('_locale' => $langue->getAbreviation()));
-            }
-        }
-
-        $timestamp = new \DateTime();
-        $date = $timestamp->format('Y-m-d H:i:s');
-
-        if(!$page->getDatePublication() < $date && $page->getDateDepublication() > $date && $page->getCorbeille()=="0" && $page->getActive()=="1") {
-            throw new NotFoundHttpException('Cette page n\'est plus accessible');
-        }
+    public function voirAction(Request $request, $url, Page $spage){
+        $page = $spage->getPageActive();
 
         $commentaires = $page->getCommentaires();
 
@@ -113,7 +75,7 @@ class PageController extends Controller
 
                     $request->getSession()->getFlashBag()->add('comOK', 'Votre commentaire a été enregistré et sera mis en ligne une fois validé');
 
-                    return $this->redirectToRoute('voirPage', array('url' => $seo->getUrl()));
+                    return $this->redirectToRoute('voirPage', array('url' => $url));
                 }
             }
         /* Fin commentaires */

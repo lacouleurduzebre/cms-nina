@@ -11,17 +11,19 @@ namespace App\Twig\Front;
 use App\Entity\Bloc;
 use App\Entity\Langue;
 use App\Entity\Region;
+use App\Service\Page;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Twig\Environment;
 
 class Front extends \Twig_Extension
 {
-    public function __construct(RegistryInterface $doctrine, Environment $twig, RequestStack $requestStack)
+    public function __construct(RegistryInterface $doctrine, Environment $twig, RequestStack $requestStack, Page $page)
     {
         $this->doctrine = $doctrine;
         $this->twig = $twig;
         $this->request = $requestStack->getCurrentRequest();
+        $this->pageActive = $page->getPageActive();
     }
 
     public function getFunctions()
@@ -49,9 +51,9 @@ class Front extends \Twig_Extension
         foreach($regions as $region){
             $tpl = 'front/regions/region-'.$region->getIdentifiant().'.html.twig';
             if($this->twig->getLoader()->exists($tpl)){
-                $rendu .= $this->twig->render($tpl, array('region' => $region));
+                $rendu .= $this->twig->render($tpl, array('region' => $region, 'page' => $this->pageActive));
             }else{
-                $rendu .= $this->twig->render('front/regions/region.html.twig', array('region' => $region));
+                $rendu .= $this->twig->render('front/regions/region.html.twig', array('region' => $region, 'page' => $this->pageActive));
             }
         }
 
@@ -78,9 +80,9 @@ class Front extends \Twig_Extension
         foreach($groupesBlocs as $groupeBlocs){
             $tpl = 'front/groupes/groupe-'.$groupeBlocs->getIdentifiant().'.html.twig';
             if($this->twig->getLoader()->exists($tpl)){
-                $rendu .= $this->twig->render($tpl, array('groupe' => $groupeBlocs));
+                $rendu .= $this->twig->render($tpl, array('groupe' => $groupeBlocs, 'page' => $this->pageActive));
             }else{
-                $rendu .= $this->twig->render('front/groupes/groupe.html.twig', array('groupe' => $groupeBlocs));
+                $rendu .= $this->twig->render('front/groupes/groupe.html.twig', array('groupe' => $groupeBlocs, 'page' => $this->pageActive));
             }
         }
 
@@ -97,7 +99,7 @@ class Front extends \Twig_Extension
         if($this->twig->getLoader()->exists($tpl)){
             $rendu .= $this->twig->render($tpl, array('groupe' => $groupeBlocs));
         }else{
-            $rendu .= $this->twig->render('front/groupes/groupe.html.twig', array('groupe' => $groupeBlocs));
+            $rendu .= $this->twig->render('front/groupes/groupe.html.twig', array('groupe' => $groupeBlocs, 'page' => $this->pageActive));
         }
 
         return $rendu;
@@ -109,9 +111,9 @@ class Front extends \Twig_Extension
 
         if($blocAnnexe){
             if($complet){
-                return $this->twig->render('Blocs/'.$type.'/'.$type.'.html.twig', array('bloc' => $blocAnnexe));
+                return $this->twig->render('Blocs/'.$type.'/'.$type.'.html.twig', array('bloc' => $blocAnnexe, 'page' => $this->pageActive));
             }else{
-                return $this->twig->render('Blocs/'.$type.'/'.$type.'Brut.html.twig', array('bloc' => $blocAnnexe));
+                return $this->twig->render('Blocs/'.$type.'/'.$type.'Brut.html.twig', array('bloc' => $blocAnnexe, 'page' => $this->pageActive));
             }
         }
 
