@@ -2862,6 +2862,14 @@ body.notFull .select2-dropdown {
 .form-group {
   margin-top: 1rem; }
 
+#page_active_commentaires .field-commentaire {
+  position: relative;
+  padding: 1rem 2rem;
+  margin: 1rem 0;
+  background-color: #F7F7F7; }
+#page_active_commentaires .field-date > div {
+  display: flex; }
+
 /* Sauvegarde du formulaire */
 #form-actions-row {
   margin-top: 1rem; }
@@ -3368,6 +3376,8 @@ body.list #flash-messages > * {
   padding: 1rem 2rem;
   margin: 1rem 0;
   background-color: #F7F7F7; }
+  .form-group.field-bloc.nvBloc, .form-group.field-bloc_annexe.nvBloc {
+    opacity: 0; }
   .form-group.field-bloc.focus, .form-group.field-bloc_annexe.focus {
     box-shadow: 0 0 1rem #056982; }
   .form-group.field-bloc > label, .form-group.field-bloc_annexe > label {

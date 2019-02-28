@@ -867,23 +867,23 @@
         </div>
         <div class="bloc-menu">
             <span><i class="fas fa-ellipsis-v"></i></span>
-            <ul>
-                <li>
-                    <a href="#" class="supprimerBloc"><i class="fas fa-trash"></i>{{ "Supprimer le bloc"|trans }}</a>
-                    <div class="suppressionBloc">
-                        <p><strong>{{ "Êtes-vous sûr de vouloir supprimer ce bloc ?"|trans }}</strong></p>
-                        <button type="button" class="btn suppressionBloc-annuler">
-                            {{ "Annuler"|trans }}
-                        </button>
-                        <button type="button" class="btn btn-danger suppressionBlocAnnexe-supprimer">
-                            <i class="fa fa-trash"></i>
-                            {{ "Supprimer"|trans }}
-                        </button>
-                    </div>
-                </li>
-            </ul>
         </div>
     </div>
+    <ul>
+        <li>
+            <a href="#" class="supprimerBloc"><i class="fas fa-trash"></i>{{ "Supprimer le bloc"|trans }}</a>
+            <div class="suppressionBloc">
+                <p><strong>{{ "Êtes-vous sûr de vouloir supprimer ce bloc ?"|trans }}</strong></p>
+                <button type="button" class="btn suppressionBloc-annuler">
+                    {{ "Annuler"|trans }}
+                </button>
+                <button type="button" class="btn btn-danger suppressionBlocAnnexe-supprimer">
+                    <i class="fa fa-trash"></i>
+                    {{ "Supprimer"|trans }}
+                </button>
+            </div>
+        </li>
+    </ul>
 
     <div id="page_active_blocsAnnexes" {% if form.children.type.vars.value is defined %}class="blocAnnexe-{{ form.children.type.vars.value|lower }}"{% endif %}>
         <div class="form-group type">

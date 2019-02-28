@@ -1,6 +1,7 @@
 $(document).ready(function(){
     clicEnregistrement = false;
     count = 0;
+    countBA = 0;
 
     //Bouton d'enregistrement / Confirmation fermeture page
     function saveCloseFormulaire(){
@@ -290,8 +291,10 @@ $(document).ready(function(){
                 count = $('#'+entite+'_blocs').find('.field-bloc').length;
             }
 
-            $(this).closest('.field-bloc').slideUp(600, function(){
-                $(this).remove();
+            $(this).closest('.field-bloc').fadeTo(500, 0, function(){
+                $(this).slideUp(300, function(){
+                    $(this).remove();
+                });
                 saveCloseFormulaire();
             });
         });
@@ -299,8 +302,14 @@ $(document).ready(function(){
         $('form').on('click', '.suppressionBlocAnnexe-supprimer', function(e){
             e.preventDefault();
 
-            $(this).closest('.field-bloc_annexe').slideUp(600, function(){
-                $(this).remove();
+            if(count === 0){
+                count = $('#page_active_blocsAnnexes').find('.field-bloc_annexe').length;
+            }
+
+            $(this).closest('.field-bloc_annexe').fadeTo(500, 0, function(){
+                $(this).slideUp(300, function(){
+                    $(this).remove();
+                });
                 saveCloseFormulaire();
             });
 
@@ -531,6 +540,7 @@ $(document).ready(function(){
                 saveCloseFormulaire();
 
                 $('.listeBlocs').removeClass('actif chargement');
+
                 if(count === 0){
                     count = $('#'+entite+'_blocs').find('.field-bloc').length;
                 }else{
@@ -540,12 +550,35 @@ $(document).ready(function(){
                 var form = data.replace(/bloc_/g, entite+'_blocs_'+count+'_')
                     .replace(/bloc\[/g, entite+'[blocs]['+count+'][');
 
-                bloc = '<div id="nvBloc'+count+'" class="form-group field-bloc">'+form+'</div>';
+                bloc = '<div id="nvBloc'+count+'" class="form-group field-bloc nvBloc">'+form+'</div>';
                 if($('.listeBlocs').attr('id') === 'apres'){
                     $('#'+entite+'_blocs').append(bloc);
                 }else{
                     $('#'+entite+'_blocs').prepend(bloc);
                 }
+
+                //Anim ajout de bloc
+                $('.field-bloc').removeClass('focus');
+                nvBloc = $('#nvBloc'+count);
+                nvBloc.addClass('focus');
+
+                var elOffset = nvBloc.offset().top;
+                var elHeight = nvBloc.height();
+                var windowHeight = $(window).height();
+
+                if (elHeight < windowHeight) {
+                    offset = elOffset - ((windowHeight / 2) - (elHeight / 2));
+                }
+                else {
+                    offset = elOffset;
+                }
+
+                $('body, html').animate({
+                    scrollTop: offset
+                }, 600, 'swing', function(){
+                    nvBloc.fadeTo(600, 1);
+                });
+                //
 
                 $('#'+entite+'_blocs').prev('.empty').remove();
 
@@ -555,9 +588,6 @@ $(document).ready(function(){
 
                 tinymce.remove();
                 tinymce.init(optionsTinyMCE);
-
-                location.href = "#";
-                location.href = "#nvBloc"+count;
             })
             .fail(function(){
                 $('.listeBlocs').removeClass('actif chargement');
@@ -581,17 +611,45 @@ $(document).ready(function(){
                     saveCloseFormulaire();
 
                     $('.listeBlocsAnnexes').removeClass('actif chargement');
-                    count = $('#page_active_blocsAnnexes').find('.field-bloc_annexe').length;
+
+                    if(count === 0){
+                        count = $('#page_active_blocsAnnexes').find('.field-bloc_annexe').length;
+                    }else{
+                        count++;
+                    }
 
                     var form = data.replace(/bloc_annexe_/g, 'page_active_blocsAnnexes_' + count + '_')
                         .replace(/bloc_annexe\[/g, 'page_active[blocsAnnexes][' + count + '][');
 
-                    bloc = '<div id="nvBlocAnnexe' + count + '" class="form-group field-bloc_annexe">' + form + '</div>';
+                    bloc = '<div id="nvBlocAnnexe' + count + '" class="form-group field-bloc_annexe nvBloc">' + form + '</div>';
                     if ($('.listeBlocsAnnexes').attr('id') === 'apres') {
                         $('#page_active_blocsAnnexes').append(bloc);
                     } else {
                         $('#page_active_blocsAnnexes').prepend(bloc);
                     }
+
+                    //Anim ajout de bloc
+                    $('.field-bloc_annexe').removeClass('focus');
+                    nvBloc = $('#nvBlocAnnexe'+count);
+                    nvBloc.addClass('focus');
+
+                    var elOffset = nvBloc.offset().top;
+                    var elHeight = nvBloc.height();
+                    var windowHeight = $(window).height();
+
+                    if (elHeight < windowHeight) {
+                        offset = elOffset - ((windowHeight / 2) - (elHeight / 2));
+                    }
+                    else {
+                        offset = elOffset;
+                    }
+
+                    $('body, html').animate({
+                        scrollTop: offset
+                    }, 600, 'swing', function(){
+                        nvBloc.fadeTo(600, 1);
+                    });
+                    //
 
                     $('#page_active_blocsAnnexes').prev('.empty').remove();
 
