@@ -1,6 +1,56 @@
 {% use 'form_div_layout.html.twig' %}
 
+{% block javascript_ajout %}
+    <script>
+        function ajoutItem(id, nom, position, verifs){
+            if (event.preventDefault) event.preventDefault(); else event.returnValue = false;
+
+            var collection = $('#'+id);
+            // Use a counter to avoid having the same index more than once
+            var numItems = collection.data('count') || collection.children('div.form-group').length;
+
+            //Vérif numItems est unique
+            if(verifs){
+                while(collection.find('div[id=\'{{ id }}_'+numItems+'\']').length > 0){
+                    numItems++;
+                }
+            }
+
+            collection.prev('.collection-empty').remove();
+
+            console.log(collection.attr('data-prototype'));
+
+            var newItem = collection.attr('data-prototype')
+                .replace(/\>__name__label__\</g, '>' + numItems + '<')
+                .replace(/__name__/g, numItems);
+
+            console.log(newItem);
+
+            // Increment the counter and store it in the collection
+            collection.data('count', ++numItems);
+
+            if(position === 'avant'){
+                collection.prepend(newItem).trigger('easyadmin.collection.item-added');
+            }else{
+                collection.append(newItem).trigger('easyadmin.collection.item-added');
+            }
+
+            //Position
+            if(verifs){
+                $('#'+id+' input[id$="position"]').each(function(){
+                    $(this).val($(this).closest('.form-group').index());
+                });
+
+                tinymce.remove();
+                tinymce.init(optionsTinyMCE);
+            }
+        }
+    </script>
+{% endblock %}
+
 {% block form_start -%}
+    {{ block('javascript_ajout') }}
+
     {% if block_prefixes is defined and 'easyadmin' == block_prefixes|slice(-2)|first %}
         {% set attr = attr|merge({
             'class': [
@@ -305,44 +355,8 @@
         {{ block('form_row') }}
 
         {% if allow_add|default(false) %}
-            {% set js_add_item %}
-                $(function() {
-                    if (event.preventDefault) event.preventDefault(); else event.returnValue = false;
-
-                    var collection = $('#{{ id }}');
-                    // Use a counter to avoid having the same index more than once
-                    var numItems = collection.data('count') || collection.children('div.form-group').length;
-
-                    //Vérif numItems est unique
-                    while($('#{{ id }}').find('div[id=\'{{ id }}_'+numItems+'\']').length > 0){
-                        numItems++;
-                    }
-
-                    collection.prev('.collection-empty').remove();
-
-                    var newItem = collection.attr('data-prototype')
-                        .replace(/\>__name__label__\</g, '>' + numItems + '<')
-                        .replace(/_{{ name }}___name__/g, '_{{ name }}_' + numItems)
-                        .replace(/{{ name }}\]\[__name__\]/g, '{{ name }}][' + numItems + ']')
-                    ;
-
-                    // Increment the counter and store it in the collection
-                    collection.data('count', ++numItems);
-
-                    collection.append(newItem).trigger('easyadmin.collection.item-added');
-
-                    //Position
-                    $('#{{ id }} input[id$=\'position\']').each(function(){
-                        $(this).val($(this).closest('.form-group').index());
-                    });
-
-                    tinymce.remove();
-                    tinymce.init(optionsTinyMCE);
-                });
-            {% endset %}
-
             <div class="text-right field-collection-action">
-                <a href="#" onclick="{{ js_add_item|raw }}" class="text-primary">
+                <a href="#" onclick="ajoutItem('{{ id }}', '{{ name }}', 'apres', true)" class="text-primary">
                     <i class="fa fa-plus-square"></i>
                     {% if label_format is not empty %}
                         Ajouter {{ label_format }}
@@ -354,6 +368,38 @@
         {% endif %}
     </div>
 {% endblock collection_row %}
+
+{% block collection_row_double %}
+    <div class="form-group field-{{ name }} {% if value is empty %}vide{% endif %}">
+        {% if allow_add|default(false) %}
+            <div class="text-right field-collection-action">
+                <a href="#" onclick="ajoutItem('{{ id }}', '{{ name }}', 'avant', true)" class="text-primary">
+                    <i class="fa fa-plus-square"></i>
+                    {% if label_format is not empty %}
+                        Ajouter {{ label_format }}
+                    {% else %}
+                        {{ (form|length == 0 ? 'action.add_new_item' : 'action.add_another_item')|trans({}, 'EasyAdminBundle') }}
+                    {% endif %}
+                </a>
+            </div>
+        {% endif %}
+
+        {{ block('form_row') }}
+
+        {% if allow_add|default(false) %}
+            <div class="text-right field-collection-action">
+                <a href="#" onclick="ajoutItem('{{ id }}', '{{ name }}', 'apres', true)" class="text-primary">
+                    <i class="fa fa-plus-square"></i>
+                    {% if label_format is not empty %}
+                        Ajouter {{ label_format }}
+                    {% else %}
+                        {{ (form|length == 0 ? 'action.add_new_item' : 'action.add_another_item')|trans({}, 'EasyAdminBundle') }}
+                    {% endif %}
+                </a>
+            </div>
+        {% endif %}
+    </div>
+{% endblock collection_row_double %}
 
 {% block button_row -%}
     <div class="form-group field-{{ block_prefixes|slice(-2)|first }} {{ easyadmin.field.css_class|default('') }}">
@@ -821,31 +867,8 @@
     {% endif %}
 
     {% if allow_add|default(false) %}
-        {% set js_add_item %}
-            $(function() {
-            if (event.preventDefault) event.preventDefault(); else event.returnValue = false;
-
-            var collection = $('#{{ id }}');
-            // Use a counter to avoid having the same index more than once
-            var numItems = collection.data('count') || collection.children('div.form-group').length;
-
-            collection.prev('.collection-empty').remove();
-
-            var newItem = collection.attr('data-prototype')
-            .replace(/\>__name__label__\</g, '>' + numItems + '<')
-            .replace(/_{{ name }}___name__/g, '_{{ name }}_' + numItems)
-            .replace(/{{ name }}\]\[__name__\]/g, '{{ name }}][' + numItems + ']')
-            ;
-
-            // Increment the counter and store it in the collection
-            collection.data('count', ++numItems);
-
-            collection.append(newItem).trigger('easyadmin.collection.item-added');
-            });
-        {% endset %}
-
         <div class="text-right field-collection-action">
-            <a href="#" onclick="{{ js_add_item|raw }}" class="text-primary">
+            <a href="#" onclick="ajoutItem('{{ id }}', '{{ name }}', 'apres', false)" class="text-primary">
                 <i class="fa fa-plus-square"></i>
                 {{ (form|length == 0 ? 'action.add_new_item' : 'action.add_another_item')|trans({}, 'EasyAdminBundle') }}
             </a>
@@ -923,31 +946,8 @@
     {% endif %}
 
     {% if allow_add|default(false) %}
-        {% set js_add_item %}
-            $(function() {
-            if (event.preventDefault) event.preventDefault(); else event.returnValue = false;
-
-            var collection = $('#{{ id }}');
-            // Use a counter to avoid having the same index more than once
-            var numItems = collection.data('count') || collection.children('div.form-group').length;
-
-            collection.prev('.collection-empty').remove();
-
-            var newItem = collection.attr('data-prototype')
-            .replace(/\>__name__label__\</g, '>' + numItems + '<')
-            .replace(/_{{ name }}___name__/g, '_{{ name }}_' + numItems)
-            .replace(/{{ name }}\]\[__name__\]/g, '{{ name }}][' + numItems + ']')
-            ;
-
-            // Increment the counter and store it in the collection
-            collection.data('count', ++numItems);
-
-            collection.append(newItem).trigger('easyadmin.collection.item-added');
-            });
-        {% endset %}
-
         <div class="text-right field-collection-action">
-            <a href="#" onclick="{{ js_add_item|raw }}" class="text-primary">
+            <a href="#" onclick="ajoutItem('{{ id }}', '{{ name }}', 'apres', false)" class="text-primary">
                 <i class="fa fa-plus-square"></i>
                 {{ (form|length == 0 ? 'action.add_new_item' : 'action.add_another_item')|trans({}, 'EasyAdminBundle') }}
             </a>
@@ -1086,3 +1086,33 @@
         });
     </script>
 {%- endblock %}
+
+{# Images des blocs galerie #}
+{% block _page_active_blocs_entry_contenu_images_row %}
+    {{ block('collection_row_double') }}
+{% endblock %}
+
+{% block _Galerie_contenu_images_row %}{# ajax #}
+    {{ block('collection_row_double') }}
+{% endblock %}
+{# Images des blocs galerie #}
+
+{# Slides des blocs slider #}
+{% block _page_active_blocs_entry_contenu_Slide_row %}
+    {{ block('collection_row_double') }}
+{% endblock %}
+
+{% block _Slider_contenu_Slide_row %}{# ajax #}
+    {{ block('collection_row_double') }}
+{% endblock %}
+{# Slides des blocs slider #}
+
+{# Champs des blocs formulaire #}
+{% block _page_active_blocs_entry_contenu_champs_row %}
+    {{ block('collection_row_double') }}
+{% endblock %}
+
+{% block _Formulaire_contenu_champs_row %}{# ajax #}
+    {{ block('collection_row_double') }}
+{% endblock %}
+{# Champs des blocs formulaire #}
