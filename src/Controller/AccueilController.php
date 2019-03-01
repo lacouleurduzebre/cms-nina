@@ -29,6 +29,9 @@ class AccueilController extends Controller
         $accueil = 'accueil';//Marquer le body
 
         $page = $spage->getPageActive();
+        if(!($page instanceof \App\Entity\Page)){
+            return $page;
+        }
 
         return $this->render('front/accueil.html.twig', array('page'=>$page, 'accueil'=>$accueil));
     }

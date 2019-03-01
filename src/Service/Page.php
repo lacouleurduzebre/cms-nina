@@ -62,9 +62,9 @@ class Page
 
                 if($langue->getPageAccueil() == $page){
                     if($langue->getDefaut()){
-                        return $this->redirectToRoute('accueil');
+                        return new RedirectResponse($this->router->generate('accueil'));
                     }else{
-                        return $this->redirectToRoute('accueilLocale', array('_locale' => $langue->getAbreviation()));
+                        return new RedirectResponse($this->router->generate('accueilLocale', array('_locale' => $langue->getAbreviation())));
                     }
                 }
 
@@ -82,7 +82,7 @@ class Page
 
                     if(!$langue){//Si l'utilisateur essaye de naviguer sur une langue qui n'existe page
                         $langue = $repoLangue->findOneBy(array('defaut' => true));
-                        return $this->redirectToRoute('accueilLocale', array('_locale' => $langue->getAbreviation()));
+                        return new RedirectResponse($this->router->generate('accueilLocale', array('_locale' => $langue->getAbreviation())));
                     }
 
                     if($locale !== $_locale){//Si la locale n'est pas la langue sur laquelle l'utilisateur souhaite naviguer, on la modifie
@@ -102,6 +102,6 @@ class Page
             return $page;
         }
 
-        return false;
+        return null;
     }
 }

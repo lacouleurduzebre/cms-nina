@@ -27,6 +27,10 @@ class PageController extends Controller
     public function voirAction(Request $request, $url, Page $spage){
         $page = $spage->getPageActive();
 
+        if(!($page instanceof \App\Entity\Page)){
+            return $page;
+        }
+
         $commentaires = $page->getCommentaires();
 
         $commentaire = new Commentaire();
