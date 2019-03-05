@@ -308,6 +308,12 @@ $(document).ready(function(){
         })
             .done(function(){
                 $('#loader-arbo.'+idMenuComplet).fadeIn().html("<i class='fas fa-check'></i>").delay(600).fadeOut();
+
+                if(e.type === 'create_node'){
+                    idPage = $('#'+data.node.id).find('.page').attr('id');
+                    url = Routing.generate('easyadmin', { 'action' : 'edit', 'entity' : 'Page_Active', 'id' : idPage });
+                    window.location.href = url;
+                }
             })
             .fail(function(){
                 $('#loader-arbo.'+idMenuComplet).fadeIn().html("<i class='fas fa-times'></i>").delay(600).fadeOut();
