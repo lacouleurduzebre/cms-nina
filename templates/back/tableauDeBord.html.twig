@@ -8,7 +8,7 @@
             <div class="version">
                 {{ "Version numéro"|trans~" "~version.numero|slice(0,6)~" "~"du"|trans~" "~version.date }}
                 {% if majDispo %}
-                    {{ "Une nouvelle version de Nina est disponible"|trans }}
+                    <div>{{ "Une nouvelle version de Nina est disponible"|trans }}</div>
                 {% else %}
                     <div class="vert"><i class="fas fa-check-circle"></i> {{ "Votre version de Nina est à jour"|trans }}</div>
                 {% endif %}

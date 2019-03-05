@@ -304,10 +304,14 @@ class AdminController extends BaseAdminController
 
         //Màj dispo ?
         exec('git remote update');
-        $versionLocale = exec('git rev-parse origin master');
-        $versionEnLigne = exec('git rev-pase origin/master');
+        $versionLocale = exec('git rev-parse master');
+        $versionEnLigne = exec('git rev-parse origin/master');
 
-        $majDispo = ($versionLocale == $versionEnLigne);
+        if($versionLocale != $versionEnLigne){
+            $majDispo = true;
+        }else{
+            $majDispo = false;
+        }
 
         return $this->render('back/tableauDeBord.html.twig', array(
             'user' => $user,
