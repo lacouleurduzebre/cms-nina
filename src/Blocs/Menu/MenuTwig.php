@@ -9,17 +9,19 @@
 namespace App\Blocs\Menu;
 
 use App\Entity\Langue;
+use App\Service\Page;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Twig\Environment;
 
 class MenuTwig extends \Twig_Extension
 {
-    public function __construct(RegistryInterface $doctrine, Environment $twig, RequestStack $requestStack)
+    public function __construct(RegistryInterface $doctrine, Environment $twig, RequestStack $requestStack, Page $spage)
     {
         $this->doctrine = $doctrine;
         $this->twig = $twig;
         $this->request = $requestStack->getCurrentRequest();
+        $this->spage = $spage;
     }
 
     public function getFunctions()
@@ -35,6 +37,8 @@ class MenuTwig extends \Twig_Extension
         $menus = [];
         $menus[] = $emMenu->find($id);
 
-        return $this->twig->render('front/menu/menus.html.twig', array('menus' => $menus));
+        $page = $this->spage->getPageActive();
+
+        return $this->twig->render('front/menu/menus.html.twig', array('menus' => $menus, 'page' => $page));
     }
 }
