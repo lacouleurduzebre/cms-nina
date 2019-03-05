@@ -97,6 +97,11 @@
         </li>
     {% endblock header_custom_menu %}
 </ul>
-<a id="voirSite" href="{{ path('accueil') }}" title="{% trans %}Voir le site{% endtrans %}"><i class="far fa-eye"></i></a>
+
+{% if app.request.get('_route') == "admin" or app.request.get('_route') == "easyadmin" %}
+    <a id="voirSite" href="{{ path('accueil') }}" title="{% trans %}Voir le site{% endtrans %}"><i class="far fa-eye"></i></a>
+{% elseif page is defined %}
+    <a id="voirSite" href="{{ path('admin', { entity: 'Page_Active', action: 'edit', id: page.id }) }}" title="{{ "Éditer cette page"|trans }}"><i class="fas fa-pencil-alt"></i></a>
+{% endif %}
 
 {% block main_menu_after %}{% endblock %}
