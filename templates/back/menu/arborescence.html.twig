@@ -8,13 +8,15 @@
     </div>
 </header>
 <div class="sidebar-menus">
-    <div class="arbo-langues">
-        {% for langue in langues %}
-            <span {% if langueArbo == langue %}class="current"{% endif %}>
-                <a class="{{ langue.id }}" href="{{ path('admin', { 'action': 'search', 'entity': 'Page_Active', 'query': langue.nom}) }}">{{ langue.abreviation|upper }}</a>
-            </span>
-        {% endfor %}
-    </div>
+    {% if langues|length > 1 %}
+        <div class="arbo-langues">
+            {% for langue in langues %}
+                <span {% if langueArbo == langue %}class="current"{% endif %}>
+                    <a class="{{ langue.id }}" href="{{ path('admin', { 'action': 'search', 'entity': 'Page_Active', 'query': langue.nom}) }}">{{ langue.abreviation|upper }}</a>
+                </span>
+            {% endfor %}
+        </div>
+    {% endif %}
     {% block search_action %}
         <div class="sidebar global-actions">
             <div class="form-action action-search">
