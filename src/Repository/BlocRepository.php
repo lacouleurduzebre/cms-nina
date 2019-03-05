@@ -25,9 +25,9 @@ class BlocRepository extends ServiceEntityRepository
         foreach($motsCles as $motCle){
             $qb = $this
                 ->createQueryBuilder('b')
-                ->where('b.type = "texte"')
+                ->where('b.type = :type')
                 ->andWhere('b.contenu LIKE :motCle')
-                ->setParameters(array('motCle' => '%'.$motCle.'%'));
+                ->setParameters(array('motCle' => '%'.$motCle.'%', 'type' => 'texte'));
 
             $blocs = $qb->getQuery()->getResult();
             foreach($blocs as $bloc){
