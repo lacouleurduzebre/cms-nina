@@ -11,20 +11,16 @@
 
             //Vérif numItems est unique
             if(verifs){
-                while(collection.find('div[id=\'{{ id }}_'+numItems+'\']').length > 0){
+                while(collection.find("div[id='"+id+"_"+numItems+"']").length > 0){
                     numItems++;
                 }
             }
 
             collection.prev('.collection-empty').remove();
 
-            console.log(collection.attr('data-prototype'));
-
             var newItem = collection.attr('data-prototype')
                 .replace(/\>__name__label__\</g, '>' + numItems + '<')
                 .replace(/__name__/g, numItems);
-
-            console.log(newItem);
 
             // Increment the counter and store it in the collection
             collection.data('count', ++numItems);
