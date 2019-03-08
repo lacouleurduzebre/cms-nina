@@ -35,7 +35,7 @@ class CategorieTwig extends \Twig_Extension
 
         $repoPage = $this->doctrine->getRepository(Page::class);
 
-        if($parametres['tri'] == 'alpha'){
+        if(array_key_exists('tri', $parametres) && $parametres['tri'] == 'alpha'){
             $pages = $repoPage->pagesPublieesCategorie($categorie, $langue, null, 'alpha');
         }else{
             $pages = $repoPage->pagesPublieesCategorie($categorie, $langue);
