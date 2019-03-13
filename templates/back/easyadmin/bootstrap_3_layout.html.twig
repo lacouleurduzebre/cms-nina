@@ -3,7 +3,7 @@
 {% block javascript_ajout %}
     <script>
         function ajoutItem(id, nom, position, verifs){
-            if (event.preventDefault) event.preventDefault(); else event.returnValue = false;
+            //if (event.preventDefault) event.preventDefault(); else event.returnValue = false;
 
             var collection = $('#'+id);
             // Use a counter to avoid having the same index more than once
@@ -352,7 +352,7 @@
 
         {% if allow_add|default(false) %}
             <div class="text-right field-collection-action">
-                <a href="#" onclick="ajoutItem('{{ id }}', '{{ name }}', 'apres', true)" class="text-primary">
+                <a href="#" onclick="if (event.preventDefault) event.preventDefault(); else event.returnValue = false; ajoutItem('{{ id }}', '{{ name }}', 'apres', true)" class="text-primary">
                     <i class="fa fa-plus-square"></i>
                     {% if label_format is not empty %}
                         Ajouter {{ label_format }}
@@ -369,7 +369,7 @@
     <div class="form-group field-{{ name }} {% if value is empty %}vide{% endif %}">
         {% if allow_add|default(false) %}
             <div class="text-right field-collection-action">
-                <a href="#" onclick="ajoutItem('{{ id }}', '{{ name }}', 'avant', true)" class="text-primary">
+                <a href="#" onclick="if (event.preventDefault) event.preventDefault(); else event.returnValue = false; ajoutItem('{{ id }}', '{{ name }}', 'avant', true)" class="text-primary">
                     <i class="fa fa-plus-square"></i>
                     {% if label_format is not empty %}
                         Ajouter {{ label_format }}
@@ -384,7 +384,7 @@
 
         {% if allow_add|default(false) %}
             <div class="text-right field-collection-action">
-                <a href="#" onclick="ajoutItem('{{ id }}', '{{ name }}', 'apres', true)" class="text-primary">
+                <a href="#" onclick="if (event.preventDefault) event.preventDefault(); else event.returnValue = false; ajoutItem('{{ id }}', '{{ name }}', 'apres', true)" class="text-primary">
                     <i class="fa fa-plus-square"></i>
                     {% if label_format is not empty %}
                         Ajouter {{ label_format }}
@@ -864,7 +864,7 @@
 
     {% if allow_add|default(false) %}
         <div class="text-right field-collection-action">
-            <a href="#" onclick="ajoutItem('{{ id }}', '{{ name }}', 'apres', false)" class="text-primary">
+            <a href="#" onclick="if (event.preventDefault) event.preventDefault(); else event.returnValue = false; ajoutItem('{{ id }}', '{{ name }}', 'apres', false)" class="text-primary">
                 <i class="fa fa-plus-square"></i>
                 {{ (form|length == 0 ? 'action.add_new_item' : 'action.add_another_item')|trans({}, 'EasyAdminBundle') }}
             </a>
@@ -943,7 +943,7 @@
 
     {% if allow_add|default(false) %}
         <div class="text-right field-collection-action">
-            <a href="#" onclick="ajoutItem('{{ id }}', '{{ name }}', 'apres', false)" class="text-primary">
+            <a href="#" onclick="if (event.preventDefault) event.preventDefault(); else event.returnValue = false; ajoutItem('{{ id }}', '{{ name }}', 'apres', false)" class="text-primary">
                 <i class="fa fa-plus-square"></i>
                 {{ (form|length == 0 ? 'action.add_new_item' : 'action.add_another_item')|trans({}, 'EasyAdminBundle') }}
             </a>

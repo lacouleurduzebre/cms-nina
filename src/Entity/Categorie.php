@@ -57,6 +57,7 @@ class Categorie
 
     /**
      * @ORM\ManyToMany(targetEntity="App\Entity\Page", mappedBy="categories")
+     * @ORM\OrderBy({"datePublication" = "DESC"})
      */
     private $pages;
 
