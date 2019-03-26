@@ -21,7 +21,7 @@ $(document).ready(function(){
         if(erreur === false){
             $('.message'+idBloc).html('').removeClass('erreur');
             $.ajax({
-                url: window.location.origin+"/admin/envoiMail",
+                url: window.location.origin+"/envoiMail",
                 method: "post",
                 data: {donnees: donnees, idBloc: idBloc}
             })

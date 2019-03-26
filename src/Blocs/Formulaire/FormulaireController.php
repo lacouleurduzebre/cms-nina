@@ -19,7 +19,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class FormulaireController extends Controller
 {
     /**
-     * @Route("/admin/envoiMail", name="envoiMail")
+     * @Route("/envoiMail", name="envoiMail")
      */
     public function envoiMailAction(Request $request, \Swift_Mailer $mailer){
         if($request->isXmlHttpRequest()){
