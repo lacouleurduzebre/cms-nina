@@ -272,9 +272,10 @@ class AdminController extends BaseAdminController
         }
 
         //Version
-        exec('cd ..');
-        exec('git log -1', $versionBrut);
+        exec('which git', $git);
+        exec('cd ..; '.$git[0].' log -1', $versionBrut);
 
+        $version = [];
         foreach($versionBrut as $line){
             if (!empty($line)) {
                 // Commit
@@ -297,15 +298,18 @@ class AdminController extends BaseAdminController
                     $version['date'] = date('d/m/Y', strtotime($date));
                 } // Message
                 else {
+                    if(!key_exists('message', $version)){
+                        $version['message'] = '';
+                    }
                     $version['message'] .= $line . " ";
                 }
             }
         }
 
         //Màj dispo ?
-        exec('git remote update');
-        $versionLocale = exec('git rev-parse master');
-        $versionEnLigne = exec('git rev-parse origin/master');
+        exec($git[0].' remote update');
+        $versionLocale = exec($git[0].' rev-parse master');
+        $versionEnLigne = exec($git[0].' rev-parse origin/master');
 
         if($versionLocale != $versionEnLigne){
             $majDispo = true;
