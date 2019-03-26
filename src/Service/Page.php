@@ -30,6 +30,9 @@ class Page
     {
         $currentRequest = $this->request->getCurrentRequest();
         if($currentRequest){
+            $routes = ['accueil', 'accueilLocale', 'voirPage'];
+            $route = $currentRequest->attributes->get('_route');
+
             $locale = $currentRequest->getLocale();
             $url = $currentRequest->attributes->get('url');
 
@@ -47,6 +50,9 @@ class Page
                 $seos = $repository->findByUrl($url);
 
                 if(!$seos){
+                    if(!in_array($route, $routes)){
+                        return null;
+                    }
                     throw new NotFoundHttpException('Cette page n\'existe pas ou a été supprimée');
                 }
 
@@ -77,17 +83,15 @@ class Page
             }else{
                 $repoLangue = $this->doctrine->getRepository(Langue::class);
 
-                if(isset($_locale)){
-                    $langue = $repoLangue->findOneBy(array('abreviation' => $_locale));
+                if(isset($locale)){
+                    $langue = $repoLangue->findOneBy(array('abreviation' => $locale));
 
                     if(!$langue){//Si l'utilisateur essaye de naviguer sur une langue qui n'existe page
                         $langue = $repoLangue->findOneBy(array('defaut' => true));
                         return new RedirectResponse($this->router->generate('accueilLocale', array('_locale' => $langue->getAbreviation())));
                     }
 
-                    if($locale !== $_locale){//Si la locale n'est pas la langue sur laquelle l'utilisateur souhaite naviguer, on la modifie
-                        $currentRequest->getSession()->set('_locale', $_locale);
-                    }
+                    $currentRequest->getSession()->set('_locale', $locale);
                 }else{//On utilise la langue par défaut si aucune locale n'est précisée
                     $langue = $repoLangue->findOneBy(array('defaut' => true));
 
