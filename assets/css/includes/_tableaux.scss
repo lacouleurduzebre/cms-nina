@@ -1,3 +1,7 @@
+.table-responsive{
+  margin-top: 2rem;
+}
+
 .table{
   @include respond-to("medium"){
     tr th:not(:first-of-type), tr td:not(:first-of-type){

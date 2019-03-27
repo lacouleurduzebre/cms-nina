@@ -63,6 +63,7 @@ easy_admin:
                   - { route: 'admin', label: 'Ajouter une page', type: 'route', menu_index: 0, submenu_index: 0, icon: 'fa-plus-circle mrs', default: true, params: { action: 'new', entity: 'Page_Active' } }
                   - { entity: 'Page_Active', label: 'Toutes les pages', type: 'entity', menu_index: 0, submenu_index: 0, icon: '', default: true, params: { } }
                   - { entity: 'Page_Corbeille', label: 'Pages à la corbeille', type: 'entity', menu_index: 0, submenu_index: 0, icon: '', default: true, params: { } }
+              - { entity: 'SEO', label: 'Référencement', icon: '' }
               - label: 'Commentaires'
                 icon: ''
                 children:

@@ -3297,7 +3297,7 @@ body.list .table, body.list .table td, body.list .table th, .sauvegarde .table, 
 }
 
 .global-actions .action-new {
-  margin: 2rem 0;
+  margin: 2rem 0 0;
 }
 .global-actions .action-search .input-group {
   position: relative;
@@ -4143,6 +4143,10 @@ body.list #flash-messages > * {
 }
 .formulaire-actions-liste a:hover, .formulaire-actions-liste span:hover {
   text-decoration: underline;
+}
+
+.table-responsive {
+  margin-top: 2rem;
 }
 
 @media (max-width: 767px) {
