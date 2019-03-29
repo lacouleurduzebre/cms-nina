@@ -21,8 +21,8 @@ class SEOType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('url', TextType::class)
             ->add('metaTitre', TextType::class)
+            ->add('url', TextType::class)
             ->add('metaDescription', TextareaType::class, array(
                 'attr' => array('class' => 'notTinymce'),
             ));

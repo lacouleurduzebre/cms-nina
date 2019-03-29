@@ -42,6 +42,10 @@ controllersBack:
     resource: "../src/Controller/Back"
     type: annotation
 
+SEO:
+    resource: "../src/Controller/SEOController.php"
+    type: annotation
+
 langue:
     resource: "../src/Controller/LangueController.php"
     type: annotation

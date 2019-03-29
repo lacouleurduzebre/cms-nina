@@ -4650,4 +4650,61 @@ body.edit .bloc-reseauxsociaux input[type=text], body.new .bloc-reseauxsociaux i
   display: block;
 }
 
+.listeSEO-conteneur {
+  max-width: 59rem;
+}
+.listeSEO-conteneur > div {
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.25);
+  padding: 1rem;
+  margin: 1rem 0;
+}
+.listeSEO-conteneur .metaTitre, .listeSEO-conteneur #seo_metaTitre {
+  color: #1a0dab;
+  font-size: 1.8rem;
+}
+.listeSEO-conteneur .url, .listeSEO-conteneur #seo_url {
+  color: #006621;
+  font-size: 1.4rem;
+}
+.listeSEO-conteneur .metaDescription, .listeSEO-conteneur #seo_metaDescription {
+  color: #545454;
+  font-size: 1.3rem;
+}
+.listeSEO-conteneur .actions {
+  margin-top: 2rem;
+}
+
+.listeSEO-SEO {
+  position: relative;
+}
+
+.listeSEO-actions {
+  margin-top: 1rem;
+  text-align: right;
+}
+.listeSEO-actions span {
+  cursor: pointer;
+  margin-right: 1rem;
+}
+
+.listeSEO-SEO-champs {
+  padding: 1rem;
+  display: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #FFF;
+}
+.listeSEO-SEO-champs label {
+  display: none;
+}
+.listeSEO-SEO-champs input[type=text], .listeSEO-SEO-champs textarea {
+  border: none;
+  box-shadow: none;
+  padding: 0;
+  width: 100%;
+}
+
 /*# sourceMappingURL=knacss.css.map */

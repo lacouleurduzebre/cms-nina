@@ -883,4 +883,21 @@ $(document).ready(function(){
     $('#apercuTablette').click(function(){
         insertionIframe('tablette', 770, 1030);
     });
+
+    //Page référencement
+    //Édtion
+    $('.listeSEO-edition').click(function(){
+        id = $(this).closest('.listeSEO-SEO').data('id');
+        $.ajax({
+            url: '/admin/seo/edition',
+            method: 'POST',
+            data:{
+                id: id
+            }
+        }).done(function(data){
+            champs = $('.listeSEO-SEO-champs[data-id="'+id+'"]');
+            champs.html(data).show();
+            champs.closest('.listeSEO-SEO').height($('.listeSEO-SEO-champs[data-id="'+id+'"] > div').height());
+        });
+    });
 });
