@@ -885,7 +885,7 @@ $(document).ready(function(){
     });
 
     //Page référencement
-    //Édtion
+    //Édition
     $('.listeSEO-edition').click(function(){
         id = $(this).closest('.listeSEO-SEO').data('id');
         $.ajax({

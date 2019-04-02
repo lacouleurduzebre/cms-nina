@@ -21,13 +21,20 @@
                         {% elseif field == "metaDescription" %}
                             {% set truncate = 150 %}
                         {% endif %}
-                        {{ easyadmin_render_field_for_show_view(_entity_config.name, item, metadata)|truncate(truncate) }}
+                        {% if truncate is defined %}
+                            {{ easyadmin_render_field_for_show_view(_entity_config.name, item, metadata)|truncate(truncate) }}
+                        {% else %}
+                            {{ easyadmin_render_field_for_show_view(_entity_config.name, item, metadata)|striptags }}
+                        {% endif %}
                     </div>
                 {% endfor %}
 
                 <div class="listeSEO-actions">
                     <span class="listeSEO-edition" title="{{ "Modifier"|trans }}">
                         <i class="fas fa-pencil-alt"></i>
+                    </span>
+                    <span class="listeSEO-voirPage" title="{{ "Voir la page"|trans }}">
+                        <a href="{{ path('admin', { 'action': 'edit', 'entity': 'Page_Active', 'id' : item.page.id }) }}" target="_blank" ><i class="fas fa-file-alt"></i></a>
                     </span>
                     <span class="listeSEO-raz" title="{{ "Réinitialiser"|trans }}">
                         <i class="fas fa-undo"></i>

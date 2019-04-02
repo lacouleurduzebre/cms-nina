@@ -2,8 +2,19 @@
   max-width: 59rem;
   > div{
     box-shadow: 0 0 4px rgba(0, 0, 0, 0.25);
-    padding: 1rem;
     margin: 1rem 0;
+    padding: 1rem 0;
+    > div{
+      padding: 0 1rem;
+    }
+  }
+  .page{
+    font-style: italic;
+    font-size: 1.4rem;
+    color: lighten($color-base, 30);
+    border-bottom: 1px solid;
+    padding-bottom: .5rem;
+    margin-bottom: .5rem;
   }
   .metaTitre, #seo_metaTitre{
     color: #1a0dab;
@@ -48,9 +59,10 @@
     display: none;
   }
   input[type="text"], textarea{
-    border: none;
-    box-shadow: none;
     padding: 0;
     width: 100%;
+  }
+  > div > div{
+    margin-bottom: .5rem;
   }
 }

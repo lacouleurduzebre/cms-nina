@@ -3398,7 +3398,7 @@ body.new ul.nav-tabs, body.edit ul.nav-tabs {
   background: #0791B3;
   top: 10.5rem;
   width: 100%;
-  z-index: 10;
+  z-index: 100;
 }
 body.new ul.nav-tabs .label-danger, body.edit ul.nav-tabs .label-danger {
   padding: 0 0.7rem;
@@ -3474,7 +3474,7 @@ body.edit .content-header, body.new .content-header {
   margin-left: -1rem;
   top: 3.8rem;
   padding: 1.2rem 0;
-  z-index: 10;
+  z-index: 100;
 }
 body.edit.gris .content-header, body.new.gris .content-header {
   background-color: #75726B;
@@ -4655,8 +4655,19 @@ body.edit .bloc-reseauxsociaux input[type=text], body.new .bloc-reseauxsociaux i
 }
 .listeSEO-conteneur > div {
   box-shadow: 0 0 4px rgba(0, 0, 0, 0.25);
-  padding: 1rem;
   margin: 1rem 0;
+  padding: 1rem 0;
+}
+.listeSEO-conteneur > div > div {
+  padding: 0 1rem;
+}
+.listeSEO-conteneur .page {
+  font-style: italic;
+  font-size: 1.4rem;
+  color: #b3b3b3;
+  border-bottom: 1px solid;
+  padding-bottom: 0.5rem;
+  margin-bottom: 0.5rem;
 }
 .listeSEO-conteneur .metaTitre, .listeSEO-conteneur #seo_metaTitre {
   color: #1a0dab;
@@ -4701,10 +4712,11 @@ body.edit .bloc-reseauxsociaux input[type=text], body.new .bloc-reseauxsociaux i
   display: none;
 }
 .listeSEO-SEO-champs input[type=text], .listeSEO-SEO-champs textarea {
-  border: none;
-  box-shadow: none;
   padding: 0;
   width: 100%;
+}
+.listeSEO-SEO-champs > div > div {
+  margin-bottom: 0.5rem;
 }
 
 /*# sourceMappingURL=knacss.css.map */
