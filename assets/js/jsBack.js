@@ -885,9 +885,10 @@ $(document).ready(function(){
     });
 
     //Page référencement
-    //Édition
-    $('.listeSEO-edition').click(function(){
+        //Édition
+    $('.listeSEO-action-edition').click(function(){
         id = $(this).closest('.listeSEO-SEO').data('id');
+
         $.ajax({
             url: '/admin/seo/edition',
             method: 'POST',
@@ -895,9 +896,57 @@ $(document).ready(function(){
                 id: id
             }
         }).done(function(data){
-            champs = $('.listeSEO-SEO-champs[data-id="'+id+'"]');
-            champs.html(data).show();
-            champs.closest('.listeSEO-SEO').height($('.listeSEO-SEO-champs[data-id="'+id+'"] > div').height());
+            champs = $('.listeSEO-edition[data-id="'+id+'"]');
+            formulaire = champs.find('.listeSEO-formulaire');
+            formulaire.html(data);
+            champs.show();
+            champs.closest('.listeSEO-SEO').height($('.listeSEO-edition[data-id="'+id+'"]').height());
+        });
+    });
+
+        //Enregistrement
+    $('.listeSEO-edition').on('click', '.listeSEO-action-enregistrer', function(){
+        $(this).closest('.listeSEO-SEO').addClass('chargement');
+        id = $(this).closest('.listeSEO-SEO').data('id');
+        formulaire = $(this).prev('.listeSEO-formulaire').find('form');
+
+        $.ajax({
+            url: '/admin/seo/edition',
+            method: 'POST',
+            data:{
+                id: id,
+                donnees: formulaire.serializeArray()
+            }
+        }).done(function(data){
+            conteneur = $('.listeSEO-SEO[data-id="'+id+'"]');
+            conteneur.removeClass('chargement').find('.listeSEO-apercu').html(data);
+            conteneur.find('.listeSEO-edition').hide();
+            conteneur.height('auto');
+        });
+    });
+
+        //Modif url
+    $('.listeSEO-edition').on('keyup', 'input[name="seo[url]"]', function(){
+        urlNonFormattee = $(this).val();
+        url = str2url(urlNonFormattee, 'UTF-8', true);
+        $(this).val(url);
+    });
+
+        //Réinitialisation
+    $('.listeSEO-action-raz').click(function(){
+        $(this).closest('.listeSEO-SEO').addClass('chargement');
+        id = $(this).closest('.listeSEO-SEO').data('id');
+
+        $.ajax({
+            url: '/admin/seo/raz',
+            method: 'POST',
+            data:{
+                id: id
+            }
+        }).done(function(data){
+            $('.listeSEO-SEO[data-id="'+id+'"]')
+                .removeClass('chargement')
+                .find('.listeSEO-apercu').html(data);
         });
     });
 });

@@ -4661,7 +4661,7 @@ body.edit .bloc-reseauxsociaux input[type=text], body.new .bloc-reseauxsociaux i
 .listeSEO-conteneur > div > div {
   padding: 0 1rem;
 }
-.listeSEO-conteneur .page {
+.listeSEO-conteneur .titre {
   font-style: italic;
   font-size: 1.4rem;
   color: #b3b3b3;
@@ -4688,6 +4688,19 @@ body.edit .bloc-reseauxsociaux input[type=text], body.new .bloc-reseauxsociaux i
 .listeSEO-SEO {
   position: relative;
 }
+.listeSEO-SEO .filtreChargement {
+  display: none;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 100;
+  background-color: rgba(254, 254, 254, 0.7);
+}
+.listeSEO-SEO.chargement .filtreChargement {
+  display: block;
+}
 
 .listeSEO-actions {
   margin-top: 1rem;
@@ -4697,26 +4710,47 @@ body.edit .bloc-reseauxsociaux input[type=text], body.new .bloc-reseauxsociaux i
   cursor: pointer;
   margin-right: 1rem;
 }
+.listeSEO-actions span:last-of-type {
+  margin-right: 0;
+}
 
-.listeSEO-SEO-champs {
+.listeSEO-conteneur > div > .listeSEO-edition {
   padding: 1rem;
+}
+
+.listeSEO-edition {
   display: none;
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
-  height: 100%;
   background-color: #FFF;
 }
-.listeSEO-SEO-champs label {
+.listeSEO-edition label {
   display: none;
 }
-.listeSEO-SEO-champs input[type=text], .listeSEO-SEO-champs textarea {
-  padding: 0;
+.listeSEO-edition input[type=text], .listeSEO-edition textarea {
+  padding: 0 0.5rem;
   width: 100%;
+  background-color: transparent;
 }
-.listeSEO-SEO-champs > div > div {
+.listeSEO-edition form > div > div {
   margin-bottom: 0.5rem;
+}
+.listeSEO-edition button[type=submit] {
+  display: none;
+}
+
+.listeSEO-formulaire {
+  padding-bottom: 3rem;
+}
+
+.listeSEO-action-enregistrer {
+  position: absolute;
+  bottom: 1rem;
+  right: 1rem;
+  color: #A1BA1D;
+  cursor: pointer;
 }
 
 /*# sourceMappingURL=knacss.css.map */

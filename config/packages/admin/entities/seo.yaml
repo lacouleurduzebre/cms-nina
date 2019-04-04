@@ -7,14 +7,14 @@ easy_admin:
             labels: 'SEO'
             disabled_actions: ['new', 'delete']
             templates:
-                list: 'back/easyadmin/listSEO.html.twig'
+                list: 'back/easyadmin/SEO/listSEO.html.twig'
             list:
                 sort: ['metaTitre', 'ASC']
-                fields:
-                    - page
-                    - metaTitre
-                    - url
-                    - metaDescription
+#                fields: Écrasé par le tpl listSEO.html.twig
+#                    - page
+#                    - metaTitre
+#                    - url
+#                    - metaDescription
             search:
                 sort: ['url', 'ASC']
                 fields:

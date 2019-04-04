@@ -1,0 +1,15 @@
+<div class="titre">
+    {{ item.page.titre }}
+</div>
+
+<div class="metaTitre">
+    {{ item.metaTitre|truncate(65) }}
+</div>
+
+<div class="url">
+    {{ item.url|truncate(75) }}
+</div>
+
+<div class="metaDescription">
+    {{ item.metaDescription|truncate(150)|raw }}
+</div>

@@ -8,7 +8,7 @@
       padding: 0 1rem;
     }
   }
-  .page{
+  .titre{
     font-style: italic;
     font-size: 1.4rem;
     color: lighten($color-base, 30);
@@ -35,6 +35,21 @@
 
 .listeSEO-SEO{
   position: relative;
+  .filtreChargement{
+    display: none;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 100;
+    background-color: rgba(#FEFEFE, .7);
+  }
+  &.chargement{
+    .filtreChargement{
+      display: block;
+    }
+  }
 }
 
 .listeSEO-actions{
@@ -43,26 +58,47 @@
   span{
     cursor: pointer;
     margin-right: 1rem;
+    &:last-of-type{
+      margin-right: 0;
+    }
   }
 }
 
-.listeSEO-SEO-champs{
+.listeSEO-conteneur > div > .listeSEO-edition{
   padding: 1rem;
+}
+
+.listeSEO-edition{
   display: none;
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
-  height: 100%;
   background-color: #FFF;
   label{
     display: none;
   }
   input[type="text"], textarea{
-    padding: 0;
+    padding: 0 .5rem;
     width: 100%;
+    background-color: transparent;
   }
-  > div > div{
+  form > div > div{
     margin-bottom: .5rem;
   }
+  button[type='submit']{
+    display: none;
+  }
+}
+
+.listeSEO-formulaire{
+  padding-bottom: 3rem;
+}
+
+.listeSEO-action-enregistrer{
+  position: absolute;
+  bottom: 1rem;
+  right: 1rem;
+  color: $color-brand;
+  cursor: pointer;
 }
