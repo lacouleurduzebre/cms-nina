@@ -131,6 +131,9 @@ body.notFull .main-sidebar{
 .arborescence{
   height: calc(100% - 11rem);
   overflow-y: auto;
+  .langueUnique &{
+    height: calc(100% - 5rem);
+  }
   > .menu:first-of-type{
     margin-top: 0;
   }

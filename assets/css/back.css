@@ -2057,6 +2057,9 @@ body.notFull .main-sidebar #btnArbo .fa-chevron-circle-down {
   height: calc(100% - 11rem);
   overflow-y: auto;
 }
+.langueUnique .arborescence {
+  height: calc(100% - 5rem);
+}
 .arborescence > .menu:first-of-type {
   margin-top: 0;
 }
