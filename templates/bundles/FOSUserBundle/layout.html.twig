@@ -17,18 +17,21 @@
             {#{% endif %}#}
         {#</div>#}
 
-        {% if app.request.hasPreviousSession %}
-            {% for type, messages in app.session.flashbag.all() %}
-                {% for message in messages %}
-                    <div class="flash-{{ type }}">
-                        {{ message }}
-                    </div>
+        <div id="loginPage">
+            {% if app.request.hasPreviousSession %}
+                {% for type, messages in app.session.flashbag.all() %}
+                    {% for message in messages %}
+                        <div class="flash-{{ type }}">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
                 {% endfor %}
-            {% endfor %}
-        {% endif %}
+            {% endif %}
 
-        {% block fos_user_content %}
-        {% endblock fos_user_content %}
+            {% block fos_user_content %}
+            {% endblock fos_user_content %}
+        </div>
+
         <script src="{{ asset('assets/js/jquery-3.2.1.min.js') }}"></script>
         <script src="{{ asset('assets/js/fontawesome-all.min.js') }}"></script>
     </body>

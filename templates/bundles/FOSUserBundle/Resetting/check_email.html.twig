@@ -3,9 +3,7 @@
 {% trans_default_domain 'FOSUserBundle' %}
 
 {% block fos_user_content %}
-<div id="loginPage">
     <p class="mw960p center">
         {{ 'resetting.check_email'|trans({'%tokenLifetime%': tokenLifetime})|nl2br }}
     </p>
-</div>
 {% endblock %}

@@ -3246,6 +3246,9 @@ body {
   font-size: 2rem;
   margin-right: 1rem;
 }
+#loginPage div[class^=flash] {
+  margin: 2rem;
+}
 
 .mdpOublie, .retourAccueil {
   color: #818485;
