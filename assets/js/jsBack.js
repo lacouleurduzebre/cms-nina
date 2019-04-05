@@ -474,8 +474,9 @@ $(document).ready(function(){
        $(this).closest('div').fadeOut();
     });
 
-    /* Score SEO */
+    //Score SEO
     scoreSEO = function(champ, nbCaracteres, score){
+        $('#page_active_SEO > .raz').removeClass('ok');
         if(nbCaracteres < (score / 3)){
             champ.siblings('.progression').attr('class', 'progression rouge');
             champ.prev('.nbCaracteres').find('.seo-attention').remove();
@@ -524,6 +525,24 @@ $(document).ready(function(){
         champ: $('#page_active_SEO_metaDescription'),
         score: 150
     }, scoreSEOLive);
+
+    //Réinitialisation onglet SEO d'une page
+    $('#page_active_SEO > .raz').click(function(){
+        if(!$(this).hasClass('ok')){
+            $('#page_active_SEO_url').val(str2url($('#page_active_titre').val()).substr(0, 75));
+            scoreSEOChargement($('#page_active_SEO_url'), 75);
+
+            $('#page_active_SEO_metaTitre').val($('#page_active_titre').val().substr(0, 65));
+            scoreSEOChargement($('#page_active_SEO_metaTitre'), 65);
+
+            $('#page_active_SEO_metaDescription').val($('#page_active_titre').val().substr(0, 150));
+            scoreSEOChargement($('#page_active_SEO_metaDescription'), 150);
+
+            saveCloseFormulaire();
+
+            $(this).addClass('ok');
+        }
+    })
 
     //Ajout de blocs via liste des blocs
     $('.listeBlocs li').click(function(){
@@ -904,11 +923,11 @@ $(document).ready(function(){
         });
     });
 
-        //Enregistrement
+        //Enregistrer
     $('.listeSEO-edition').on('click', '.listeSEO-action-enregistrer', function(){
         $(this).closest('.listeSEO-SEO').addClass('chargement');
         id = $(this).closest('.listeSEO-SEO').data('id');
-        formulaire = $(this).prev('.listeSEO-formulaire').find('form');
+        formulaire = $(this).closest('div').siblings('.listeSEO-formulaire').find('form');
 
         $.ajax({
             url: '/admin/seo/edition',
@@ -925,11 +944,61 @@ $(document).ready(function(){
         });
     });
 
+        //Annuler
+    $('.listeSEO-edition').on('click', '.listeSEO-action-annuler', function(){
+        $(this).closest('.listeSEO-edition').hide();
+        $(this).closest('.listeSEO-SEO').height('auto');
+    });
+
         //Modif url
     $('.listeSEO-edition').on('keyup', 'input[name="seo[url]"]', function(){
         urlNonFormattee = $(this).val();
         url = str2url(urlNonFormattee, 'UTF-8', true);
         $(this).val(url);
+    });
+
+        //Modif score
+    /*scoreSEOSimple = function(longueur, limite){
+        if(longueur < (limite/3) || longueur > limite){
+            return 'danger';
+        }else if(longueur > (limite/3)*2){
+            return 'success';
+        }else{
+            return 'warning';
+        }
+    };*/
+
+    scoreSEOPageReferencement= function(element, limite, classProgression){
+        longueur = element.val().length;
+
+        if(longueur < (limite/3) || longueur > limite){
+            nvClass = 'danger';
+        }else if(longueur > (limite/3)*2){
+            nvClass = 'success';
+        }else{
+            nvClass = 'warning';
+        }
+
+        progression = element.closest('.listeSEO-edition').find(classProgression);
+        progression.attr('title', longueur+' / '+limite);
+        progression.removeClass('warning danger success').addClass(nvClass);
+    };
+
+    $('.listeSEO-edition').on('change keyup', '#seo_metaTitre', function(){
+        scoreSEOPageReferencement($(this), 65, '.progression-metaTitre');
+    });
+
+    $('.listeSEO-edition').on('change keyup', '#seo_url', function(){
+        scoreSEOPageReferencement($(this), 75, '.progression-url');
+    });
+
+    $('.listeSEO-edition').on('change keyup', '#seo_metaDescription', function(){
+        scoreSEOPageReferencement($(this), 150, '.progression-metaDescription');
+    });
+
+        //Voir la page
+    $('.listeSEO-action-voirPage').click(function(){
+        Cookies.set('ongletActif', '_easyadmin_form_design_element_4-tab', { expires: 7 });
     });
 
         //Réinitialisation

@@ -1,0 +1,10 @@
+{% set scoreMetaTitre = item.metaTitre|length %}
+{% set scoreUrl = item.url|length %}
+{% set scoreMetaDescription = item.metaDescription|length %}
+
+<div class="progression-metaTitre {% if scoreMetaTitre > 65 or scoreMetaTitre < 65/3 %}danger{% elseif scoreMetaTitre > (65/3)*2 %}success{% else %}warning{% endif %}" title="{{ scoreMetaTitre }} / 65">
+</div>
+<div class="progression-url {% if scoreUrl > 75 or scoreUrl < 75/3 %}danger{% elseif scoreUrl > (75/3)*2 %}success{% else %}warning{% endif %}" title="{{ scoreUrl }} / 75">
+</div>
+<div class="progression-metaDescription {% if scoreMetaDescription > 150 or scoreMetaDescription < 150/3 %}danger{% elseif scoreMetaDescription > (150/3)*2 %}success{% else %}warning{% endif %}" title="{{ scoreMetaDescription }} / 150">
+</div>

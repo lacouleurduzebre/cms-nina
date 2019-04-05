@@ -668,6 +668,7 @@
 
 {% block _page_active_SEO_widget %}
     <div id="page_active_SEO">
+        <a class="btn--warning raz" data-url="{{ path('razSEO', { 'id': form.vars.value.id }) }}">{{ "Réinitialiser"|trans }}</a>
         <div class="form-group field-text">
             {{- form_label(form.children.url) -}}
             <div class="progression">

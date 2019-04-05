@@ -36,7 +36,7 @@ class SEOController extends Controller
                 ->add('Enregistrer', SubmitType::class);
 
             if(!$donnees){
-                $tpl = $this->render('back/formulaireComplet.html.twig', array('form' => $form->createView()))->getContent();
+                $tpl = $this->render('back/easyadmin/SEO/_SEO-edition.html.twig', array('form' => $form->createView()))->getContent();
             }else{
                 $SEO->setMetaTitre($donnees[0]['value']);
                 $SEO->setUrl($donnees[1]['value']);
@@ -69,20 +69,20 @@ class SEOController extends Controller
 
             //Méta-titre
             $titre = $page->getTitre();
-            $SEO->setMetaTitre($titre);
+            $SEO->setMetaTitre(substr($titre, 0, 65));
 
             //Méta-description
             $repoBloc = $this->getDoctrine()->getRepository(Bloc::class);
             $blocTexte = $repoBloc->premierBlocTexte($page);
             if($blocTexte){
-                $SEO->setMetaDescription(strip_tags($blocTexte[0]->getContenu()['texte']));
+                $SEO->setMetaDescription(substr(strip_tags($blocTexte[0]->getContenu()['texte']), 0, 150));
             }else{
-                $SEO->setMetaDescription($titre);
+                $SEO->setMetaDescription(substr($titre, 0, 150));
             }
 
             //Url
             $url = $this->slugify($titre);
-            $SEO->setUrl($url);
+            $SEO->setUrl(substr($url, 0, 75));
 
             //Enregistrement
             $em->persist($SEO);
