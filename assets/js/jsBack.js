@@ -320,8 +320,8 @@ $(document).ready(function(){
     /* Thèmes */
         // Installation
     $('.installation-theme').click(function(){
-        lien = $(this).data('lien');
-        nom = $(this).data('nom');
+        lien = $(this).closest('.theme-actions').data('lien');
+        nom = $(this).closest('.theme-actions').data('nom');
         bouton = $(this);
         $('.messages .loader').show();
         $.ajax({
@@ -332,16 +332,19 @@ $(document).ready(function(){
             .done(function(){
                 $('.messages .loader').hide();
                 $('.message-ok').empty().append('<i class="fas fa-check-circle"></i>Le thème a été installé').fadeIn().delay(800).fadeOut();
+
                 bouton.hide();
-                bouton.parent().append('<button class="activation-theme" data-theme="'+nom+'">Activer</button>');
+                bouton.siblings('.activation-theme').show();
+                bouton.siblings('.desinstallation-theme').show();
             })
             .fail(function(){
                 $('.message-fail').fadeIn().delay(800).fadeOut();
             });
     });
 
+        //Activation
     $('.theme-actions').on('click', '.activation-theme', function(){
-        theme = $(this).data('theme');
+        theme = $(this).closest('.theme-actions').data('nom');
         bouton = $(this);
         $('.messages .loader').show();
         $.ajax({
@@ -354,11 +357,37 @@ $(document).ready(function(){
                 $('.message-ok').empty().append('<i class="fas fa-check-circle"></i>Le thème a été activé').fadeIn().delay(800).fadeOut();
 
                 nomAncienTheme = $('.theme.actif').attr('id');
-                $('.theme.actif').find('.theme-actions').append('<button class="activation-theme" data-theme="'+nomAncienTheme+'">Activer</button>');
+                $('.theme.actif').find(".activation-theme").show();
 
                 $('.theme').removeClass('actif');
                 $('#'+theme).addClass('actif');
-                $('#'+theme).find('.activation-theme').remove();
+
+                bouton.hide();
+                bouton.siblings('.desinstallation-theme').hide();
+            })
+            .fail(function(){
+                $('.message-fail').fadeIn().delay(800).fadeOut();
+            });
+    });
+
+        //Désinstallation
+    $('.theme-actions').on('click', '.desinstallation-theme', function(){
+        nom = $(this).closest('.theme-actions').data('nom');
+        lien = $(this).closest('.theme-actions').data('lien');
+        bouton = $(this);
+        $('.messages .loader').show();
+        $.ajax({
+            url: '/admin/theme/desinstaller',
+            method: "post",
+            data: {nom: nom}
+        })
+            .done(function(data){
+                $('.messages .loader').hide();
+                $('.message-ok').empty().append('<i class="fas fa-check-circle"></i>Le thème a été désinstallé').fadeIn().delay(800).fadeOut();
+
+                bouton.hide();
+                bouton.siblings('.activation-theme').hide();
+                bouton.siblings('.installation-theme').show();
             })
             .fail(function(){
                 $('.message-fail').fadeIn().delay(800).fadeOut();

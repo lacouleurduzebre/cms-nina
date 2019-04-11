@@ -24,10 +24,15 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\KernelInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
+/**
+ * Class TraductionController
+ * @package App\Controller\Back
+ * @Route("/admin")
+ */
 class TraductionController extends Controller
 {
     /**
-     * @Route("/admin/traductions/pages", name="traductionsPages")
+     * @Route("/traductions/pages", name="traductionsPages")
      * @return Response
      */
     public function traductionsPagesAction(){
@@ -42,7 +47,7 @@ class TraductionController extends Controller
     }
 
     /**
-     * @Route("/admin/traductions/templates", name="traductionsTemplates")
+     * @Route("/traductions/templates", name="traductionsTemplates")
      * @param Request $request
      * @param KernelInterface $kernel
      * @return Response
@@ -100,7 +105,7 @@ class TraductionController extends Controller
     }
 
     /**
-     * @Route("/admin/traductions/templates/modifier/{domaine}/{abreviation}", name="modifierTraductionsTemplates")
+     * @Route("/traductions/templates/modifier/{domaine}/{abreviation}", name="modifierTraductionsTemplates")
      * @param Request $request
      * @param KernelInterface $kernel
      * @return Response

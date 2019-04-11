@@ -28,16 +28,13 @@
                     <p><strong>{{ "Site de l'auteur : "|trans }}</strong><a href="{{ theme.site }}">{{ theme.site }}</a></p>
                     <p><strong>{{ "Description : "|trans }}</strong>{{ theme.description }}</p>
                 </div>
-                <div class="theme-actions txtcenter">
-                    {% if not theme.installe %}
-                        <button class="installation-theme" data-lien="{{ theme.lien }}" data-nom="{{ nom }}">Installer</button>
-                    {% endif %}
+                <div class="theme-actions txtcenter" {% if nom != "nina" %}data-lien="{{ theme.lien }}"{% endif %} data-nom="{{ nom }}">
+                    <button class="installation-theme{% if theme.installe %} hidden{% endif %}">{{ "Installer"|trans }}</button>
                     {#{% if theme.installe and nom != 'nina' %}
                         <button class="maj-theme">Mettre à jour</button>
                     {% endif %}#}
-                    {% if theme.installe and config.theme != nom %}
-                        <button class="activation-theme" data-theme="{{ nom }}">Activer</button>
-                    {% endif %}
+                    <button class="activation-theme{% if not theme.installe or config.theme == nom %} hidden{% endif %}">{{ "Activer"|trans }}</button>
+                    <button class="desinstallation-theme{% if not theme.installe or nom == 'nina' or config.theme == nom %} hidden{% endif %}">{{ "Désinstaller"|trans }}</button>
                 </div>
             </div>
         {% endfor %}

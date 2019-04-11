@@ -17,10 +17,15 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Yaml\Yaml;
 
+/**
+ * Class ThemeController
+ * @package App\Controller\Back
+ * @Route("/admin")
+ */
 class ThemeController extends Controller
 {
     /**
-     * @Route("/admin/theme", name="theme")
+     * @Route("/theme", name="theme")
      */
     public function themeAction(){
         $nomThemes = scandir('../themes');
@@ -55,6 +60,8 @@ class ThemeController extends Controller
             if(!array_key_exists($nomTheme, $themes)){
                 $themes[$nomTheme] = $theme;
                 $themes[$nomTheme]['installe'] = 0;
+            }else{
+                $themes[$nomTheme]['lien'] = $theme['lien'];
             }
         }
         //Fin thèmes externes
@@ -150,6 +157,27 @@ class ThemeController extends Controller
                 }
             } else {
                 return false;
+            }
+
+            return new Response('ok');
+        };
+
+        return false;
+    }
+
+    /**
+     * @Route("/theme/desinstaller", name="desinstallerTheme")
+     */
+    public function desinstallerThemeAction(Request $request, Filesystem $filesystem){
+        if($request->isXmlHttpRequest()){
+            $nom = $request->get('nom');
+
+            if(strpos(php_uname('s'), 'Win') !== false){
+                exec('echo %cd%', $pwd);
+                exec('del /s /q  '.$pwd[0].'/../themes/'.$nom);
+            }else{
+                exec('pwd', $pwd);
+                exec('rm -rf '.$pwd[0].'/../themes/'.$nom);
             }
 
             return new Response('ok');

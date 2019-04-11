@@ -21,10 +21,15 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\User\UserInterface;
 
+/**
+ * Class MenuController
+ * @package App\Controller\Back
+ * @Route("/admin")
+ */
 class MenuController extends Controller
 {
     /**
-     * @Route("/admin/menu/enregistrer", name="enregistrerMenu")
+     * @Route("/menu/enregistrer", name="enregistrerMenu")
      * @param Request $request
      * @return bool|Response
      */
@@ -70,7 +75,7 @@ class MenuController extends Controller
     }
 
     /**
-     * @Route("/admin/menu/retirer", name="retirerDuMenu")
+     * @Route("/menu/retirer", name="retirerDuMenu")
      * @param Request $request
      * @return bool|Response
      */
@@ -103,7 +108,7 @@ class MenuController extends Controller
     }
 
     /**
-     * @Route("/admin/menu/ajouter", name="ajouterPageEnfant")
+     * @Route("/menu/ajouter", name="ajouterPageEnfant")
      * @param Request $request
      * @return bool|Response
      */
@@ -177,7 +182,7 @@ class MenuController extends Controller
     }
 
     /**
-     * @Route("/admin/menu/alias", name="creerAlias")
+     * @Route("/menu/alias", name="creerAlias")
      * @param Request $request
      * @return bool|Response
      */
@@ -220,7 +225,7 @@ class MenuController extends Controller
     }
 
     /**
-     * @Route("/admin/menu/voirPage", name="urlPage")
+     * @Route("/menu/voirPage", name="urlPage")
      * @param Request $request
      * @return bool|Response
      */
@@ -241,7 +246,7 @@ class MenuController extends Controller
     }
 
     /**
-     * @Route("/admin/menu/definirPageAccueil", name="definirPageAccueil")
+     * @Route("/menu/definirPageAccueil", name="definirPageAccueil")
      * @param Request $request
      * @return bool|Response
      */
@@ -276,7 +281,7 @@ class MenuController extends Controller
     }
 
     /**
-     * @Route("/admin/menu/changerMenuPrincipal", name="changerMenuPrincipal")
+     * @Route("/menu/changerMenuPrincipal", name="changerMenuPrincipal")
      * @param Request $request
      * @return bool|Response
      */

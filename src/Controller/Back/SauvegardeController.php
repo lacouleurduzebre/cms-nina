@@ -19,10 +19,15 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\ResponseHeaderBag;
 use Symfony\Component\Routing\Annotation\Route;
 
+/**
+ * Class SauvegardeController
+ * @package App\Controller\Back
+ * @Route("/admin")
+ */
 class SauvegardeController extends Controller
 {
     /**
-     * @Route("/admin/sauvegarde", name="sauvegarde")
+     * @Route("/sauvegarde", name="sauvegarde")
      * @param Request $request
      * @return bool|Response
      */
@@ -58,7 +63,7 @@ class SauvegardeController extends Controller
     }
 
     /**
-     * @Route("/admin/sauvegarde/bdd", name="sauvegarderBDD")
+     * @Route("/sauvegarde/bdd", name="sauvegarderBDD")
      * @param Request $request
      * @return bool|Response
      */
@@ -92,7 +97,7 @@ class SauvegardeController extends Controller
     }
 
     /**
-     * @Route("/admin/sauvegarde/supprimerDumps", name="supprimerDumps")
+     * @Route("/sauvegarde/supprimerDumps", name="supprimerDumps")
      * @param Request $request
      * @return bool|Response
      */
@@ -114,7 +119,7 @@ class SauvegardeController extends Controller
     }
 
     /**
-     * @Route("/admin/sauvegarde/mediatheque", name="sauvegarderMediatheque")
+     * @Route("/sauvegarde/mediatheque", name="sauvegarderMediatheque")
      * @param Request $request
      * @return bool|Response
      */
@@ -132,7 +137,7 @@ class SauvegardeController extends Controller
     }
 
     /**
-     * @Route("/admin/sauvegarde/telechargerDump", name="telechargerDump")
+     * @Route("/sauvegarde/telechargerDump", name="telechargerDump")
      * @param Request $request
      * @return bool|Response
      */

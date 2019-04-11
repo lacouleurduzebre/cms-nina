@@ -16,10 +16,15 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Yaml\Yaml;
 
+/**
+ * Class BlocController
+ * @package App\Controller\Back
+ * @Route("/admin")
+ */
 class BlocController extends Controller
 {
     /**
-     * @Route("/admin/bloc/ajouterBloc", name="ajouterBloc")
+     * @Route("/bloc/ajouterBloc", name="ajouterBloc")
      * @param Request $request
      * @return bool|Response
      */
@@ -36,7 +41,7 @@ class BlocController extends Controller
     }
 
     /**
-     * @Route("/admin/bloc/configuration", name="configurationBlocs")
+     * @Route("/bloc/configuration", name="configurationBlocs")
      * @param Request $request
      * @return bool|Response
      */

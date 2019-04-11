@@ -1,2 +1,2 @@
 fos_js_routing:
-    routes_to_expose: [ admin, ajouterBloc, resultatsRecherche, changerTheme, installerTheme, majTheme, sauvegarderBDD, sauvegarderMediatheque, supprimerDumps, urlPage, ajouterPageEnfant, enregistrerMenu, definirPageAccueil, retirerDuMenu, creerAlias, voirPage ]
+    routes_to_expose: [ admin, ajouterBloc, resultatsRecherche, changerTheme, installerTheme, desinstallerTheme, majTheme, sauvegarderBDD, sauvegarderMediatheque, supprimerDumps, urlPage, ajouterPageEnfant, enregistrerMenu, definirPageAccueil, retirerDuMenu, creerAlias, voirPage ]
