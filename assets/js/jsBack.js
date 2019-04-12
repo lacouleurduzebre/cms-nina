@@ -358,6 +358,10 @@ $(document).ready(function(){
 
                 nomAncienTheme = $('.theme.actif').attr('id');
                 $('.theme.actif').find(".activation-theme").show();
+                lien = $('.theme.actif').find(".theme-actions").data("lien");
+                if(typeof lien !== typeof undefined && lien !== false){
+                    $('.theme.actif').find(".desinstallation-theme").show();
+                }
 
                 $('.theme').removeClass('actif');
                 $('#'+theme).addClass('actif');
