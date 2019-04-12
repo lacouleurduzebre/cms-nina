@@ -358,6 +358,7 @@ $(document).ready(function(){
 
                 nomAncienTheme = $('.theme.actif').attr('id');
                 $('.theme.actif').find(".activation-theme").show();
+                // $('.theme.actif').find(".parametrage-theme").hide();
                 lien = $('.theme.actif').find(".theme-actions").data("lien");
                 if(typeof lien !== typeof undefined && lien !== false){
                     $('.theme.actif').find(".desinstallation-theme").show();
@@ -368,6 +369,7 @@ $(document).ready(function(){
 
                 bouton.hide();
                 bouton.siblings('.desinstallation-theme').hide();
+                // bouton.siblings('.parametrage-theme').show();
             })
             .fail(function(){
                 $('.message-fail').fadeIn().delay(800).fadeOut();

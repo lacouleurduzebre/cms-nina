@@ -2533,6 +2533,19 @@ button:hover {
   color: #fff;
   text-decoration: none;
 }
+.hidden.btn--ghost,
+.hidden.button--ghost, .hidden.btn--inverse,
+.hidden.button--inverse, .hidden.btn--danger,
+.hidden.button--danger, .hidden.btn--warning,
+.hidden.button--warning, .hidden.btn--info,
+.hidden.button--info, .hidden.btn--success,
+.hidden.button--success, .hidden.btn--primary,
+.hidden.button--primary, .hidden.btn:not(.toggle),
+.hidden.button,
+.hidden[type=button],
+button.hidden {
+  display: none;
+}
 
 .btn:not(.toggle):focus,
 .button:focus,
@@ -3900,9 +3913,6 @@ body.list #flash-messages > * {
 .theme.actif {
   border-color: #A1BA1D;
 }
-.theme button {
-  background-color: #75726B;
-}
 
 .theme-illustration {
   flex: 1;
@@ -3919,6 +3929,10 @@ body.list #flash-messages > * {
   height: 100%;
   width: 100%;
   object-fit: cover;
+}
+
+.theme-actions button, .theme-actions .btn {
+  background-color: #75726B;
 }
 
 .theme-actif {

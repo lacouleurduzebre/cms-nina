@@ -10,8 +10,14 @@ namespace App\Controller\Back;
 
 
 use App\Entity\Configuration;
+use App\Form\Type\ImageDefautType;
+use App\Form\Type\ImageSimpleType;
+use App\Form\Type\ImageType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Filesystem\Filesystem;
+use Symfony\Component\Form\Extension\Core\Type\FormType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -66,7 +72,7 @@ class ThemeController extends Controller
         }
         //Fin thèmes externes
 
-        return $this->render('back/theme.html.twig', array('themes' => $themes));
+        return $this->render('back/themes/theme.html.twig', array('themes' => $themes));
     }
 
     /**
@@ -184,6 +190,58 @@ class ThemeController extends Controller
         };
 
         return false;
+    }
+
+    /**
+     * @Route("/theme/parametrer/{nom}", name="parametrerTheme")
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     */
+    public function parametrerThemeAction(Request $request, $nom){
+        //Champs
+        $fichierDefaut = Yaml::parseFile('../themes/'.$nom.'/config.yaml');
+
+        if(key_exists('champs', $fichierDefaut)){
+            $champs = $fichierDefaut['champs'];
+
+            //Valeurs
+            $nomFichierParametres = '../themes/'.$nom.'/parametres.yaml';
+            if(!file_exists($nomFichierParametres)){
+                $fichiersParametres = fopen($nomFichierParametres, "w");
+                fclose($fichiersParametres);
+            }
+            $parametres = Yaml::parseFile($nomFichierParametres);
+
+            //Formulaire
+            $form = $this->createForm(FormType::class);
+
+            foreach($champs as $champ => $infos){
+                if($parametres && key_exists($nom, $parametres)){//Paramètre modifié par l'utilisateur
+                    $data = $parametres[$nom];
+                }else{//Paramètre par défaut
+                    $data = $infos['defaut'];
+                }
+
+                if($infos['type'] == 'image'){
+                    $form->add($champ, ImageSimpleType::class, array(
+                        'label' => $infos['label']
+                    ));
+                }else{
+                    $form->add($champ, 'Symfony\Component\Form\Extension\Core\Type\\'.ucfirst($infos['type']).'Type', array(
+                        'label' => $infos['label']
+                    ));
+                }
+
+                $form->get($champ)->setData($data);
+            }
+
+            $form->add('Envoyer', SubmitType::class);
+        }else{//Pas de paramètres
+            $champs = null;
+        }
+
+        //Template
+        return $this->render('back/themes/parametres.html.twig', array('nom' => $nom, 'champs' => $champs, 'form' => isset($form) ? $form->createView() : null ));
     }
 
     /**

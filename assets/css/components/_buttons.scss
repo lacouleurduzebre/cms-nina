@@ -28,6 +28,9 @@
     color: $white;
     text-decoration: none;
   }
+  &.hidden{
+    display: none;
+  }
 }
 
 .btn:not(.toggle),

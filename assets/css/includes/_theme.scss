@@ -26,9 +26,6 @@
   &.actif{
     border-color: $color-brand;
   }
-  button{
-    background-color: $color-primary;
-  }
 }
 
 .theme-illustration{
@@ -45,6 +42,12 @@
     height: 100%;
     width: 100%;
     object-fit: cover;
+  }
+}
+
+.theme-actions{
+  button, .btn{
+    background-color: $color-primary;
   }
 }
 

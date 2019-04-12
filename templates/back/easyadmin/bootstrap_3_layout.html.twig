@@ -1015,6 +1015,24 @@
     </script>
 {% endblock %}
 
+{% block image_simple_widget %}
+    <div>
+        {{- form_widget(form) -}}
+    </div>
+    <div>
+        <a class="iframe bloc_image_bouton_mediatheque" href='/filemanager/dialog.php?type=1&field_id={{ form.vars.id }}' type="button">{{ 'Choisir une image'|trans }}</a>
+        <div class="bloc_image_apercu_mediatheque">
+            <img src="{{ form.vars.value }}" alt="">
+        </div>
+    </div>
+    <script>
+        $('.bloc_image_bouton_mediatheque').fancybox({
+            type: 'iframe',
+            minHeight: '600'
+        });
+    </script>
+{% endblock %}
+
 {% block slide_widget %}
     <div class="dragSlide">
         <i class="fas fa-arrows-alt"></i>

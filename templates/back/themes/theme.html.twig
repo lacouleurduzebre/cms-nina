@@ -30,6 +30,7 @@
                 </div>
                 <div class="theme-actions txtcenter" {% if theme.lien is defined %}data-lien="{{ theme.lien }}"{% endif %} data-nom="{{ nom }}">
                     <button class="installation-theme{% if theme.installe or theme.lien is not defined%} hidden{% endif %}">{{ "Installer"|trans }}</button>
+                    {#<a class="parametrage-theme btn{% if config.theme != nom %} hidden{% endif %}" href="{{ path('parametrerTheme', { 'nom' : nom }) }}">{{ "Paramétrer"|trans }}</a>#}
                     {#<button class="maj-theme{% if not theme.installe %} hidden{% endif %}">Mettre à jour</button>#}
                     <button class="activation-theme{% if not theme.installe or config.theme == nom %} hidden{% endif %}">{{ "Activer"|trans }}</button>
                     <button class="desinstallation-theme{% if not theme.installe or theme.lien is not defined or config.theme == nom %} hidden{% endif %}">{{ "Désinstaller"|trans }}</button>

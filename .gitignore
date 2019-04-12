@@ -4,6 +4,7 @@
 
 /themes/*
 !/themes/nina/
+/themes/nina/parametres.yaml
 
 ###> OVH ###
 .bash_history
