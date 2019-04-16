@@ -328,9 +328,9 @@
     {% set _field_type = easyadmin.field.fieldType|default('default') %}
     <div class="form-group {% if (not compound or force_error|default(false)) and not valid %}has-error{% endif %} field-{{ block_prefixes|slice(-2)|first }}">
         {{- form_label(form) -}}
-        {% if easyadmin.field.help|default('') != '' %}
-            <div class="infobulle"><i class="fa fa-info-circle"></i><span>{{ easyadmin.field.help|trans(domain = easyadmin.entity.translation_domain)|raw }}</span></div>
-        {% endif %}
+        {#{% if help|default('') != '' %}
+            <div class="infobulle"><i class="fa fa-info-circle"></i><span>{{ help|trans(domain = easyadmin.entity.translation_domain)|raw }}</span></div>
+        {% endif %}#}
         {{- form_widget(form) -}}
 
         {% if _field_type in ['datetime', 'datetime_immutable', 'date', 'date_immutable', 'time', 'time_immutable', 'birthday'] and easyadmin.field.nullable|default(false) %}
@@ -1040,6 +1040,13 @@
     {{- form_widget(form) -}}
 {% endblock %}
 
+{% block case_widget %}
+    <div class="dragCase">
+        <i class="fas fa-arrows-alt"></i>
+    </div>
+    {{- form_widget(form) -}}
+{% endblock %}
+
 {% block galerie_image_widget %}
     <div class="dragGalerie">
         <i class="fas fa-arrows-alt"></i>
@@ -1131,3 +1138,13 @@
     {{ block('collection_row_double') }}
 {% endblock %}
 {# Champs des blocs formulaire #}
+
+{# Cases des blocs grille #}
+{% block _page_active_blocs_entry_contenu_cases_row %}
+    {{ block('collection_row_double') }}
+{% endblock %}
+
+{% block _Grille_contenu_cases_row %}{# ajax #}
+    {{ block('collection_row_double') }}
+{% endblock %}
+{# Cases des blocs grille #}

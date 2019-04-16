@@ -214,6 +214,16 @@ $(document).ready(function(){
         }
     });
 
+    $(".bloc-grille div[id$='contenu_cases']").sortable({
+        handle: '.dragCase',
+        update: function(event, ui){
+            $('.field-case').each(function(){
+                $(this).find("input[id$='position']").val($(this).index());
+                saveCloseFormulaire();
+            });
+        }
+    });
+
     /* Menu blocs */
     $('form').on('click', '.bloc-menu', function(){
         $('.bloc-menu').not(this).closest('.bloc-barreActions').removeClass('actif');
@@ -1052,5 +1062,22 @@ $(document).ready(function(){
                 .removeClass('chargement')
                 .find('.listeSEO-apercu').html(data);
         });
+    });
+
+    //Bloc grille : affichage ou non des champs titre, image et texte
+    $('.bloc-grille select[id$="page"]').each(function(){
+        if($(this).val() === ''){
+            $(this).closest('div.field-case').removeClass('page');
+        }else{
+            $(this).closest('div.field-case').addClass('page');
+        }
+    });
+
+    $('#page_active_blocs').on('change', '.bloc-grille select[id$="page"]', function(){
+        if($(this).val() === ''){
+            $(this).closest('div.field-case').removeClass('page');
+        }else{
+            $(this).closest('div.field-case').addClass('page');
+        }
     });
 });

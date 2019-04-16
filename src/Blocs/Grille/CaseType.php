@@ -13,8 +13,9 @@ use App\Blocs\Bouton\BoutonType;
 use App\Entity\Page;
 use App\Form\Type\ImageDefautType;
 use App\Repository\PageRepository;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
@@ -24,17 +25,26 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class CaseType extends AbstractType
 {
+    public function __construct(EntityManagerInterface $em)
+    {
+        $this->em = $em;
+    }
+
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        $repoPage = $this->em->getRepository(Page::class);
+        $objetsPages = $repoPage->findAll();
+        $pages = [];
+
+        foreach($objetsPages as $objetPage){
+            $pages[$objetPage->getTitre()] = $objetPage->getId();
+        }
+
         $builder
             ->add('position', HiddenType::class, array(
             ))
-            ->add('page', EntityType::class, array(
-                'class' => Page::class,
-                'query_builder' => function (PageRepository $er) {
-                    return $er->createQueryBuilder('p')
-                        ->orderBy('p.titre', 'ASC');
-                },
+            ->add('page', ChoiceType::class, array(
+                'choices' => $pages,
                 'required' => false,
                 'label' => 'Page',
                 'help' => "Si vous choisissez d'afficher une page, son titre, son résumé et sa vignette seront utilisées"

@@ -4438,7 +4438,7 @@ div[id^=page_active_blocs] > div > .collection-empty {
   font-size: 2rem;
 }
 
-.dragSlide, .dragGalerie, .dragChamp {
+.dragSlide, .dragGalerie, .dragChamp, .dragCase {
   font-size: 2rem;
   color: #0791B3;
   position: absolute;
@@ -4446,13 +4446,13 @@ div[id^=page_active_blocs] > div > .collection-empty {
   right: 1rem;
 }
 
-.field-Slide > div > div, .bloc-galerie .field-images > div > div {
+.field-Slide > div > div, .bloc-galerie .field-images > div > div, .field-cases > div > div {
   display: flex;
   flex-wrap: wrap;
   margin: 0 -1rem;
 }
 
-.field-slide, .bloc-galerie .field-galerie_image {
+.field-slide, .bloc-galerie .field-galerie_image, .field-case {
   position: relative;
   padding: 1rem;
   background-color: #EDEDED;
@@ -4542,6 +4542,24 @@ div[id^=page_active_blocs] > div > .collection-empty {
 
 body.edit .bloc-reseauxsociaux input[type=text], body.new .bloc-reseauxsociaux input[type=text] {
   width: calc(100% - 4rem) !important;
+}
+
+.bloc-grille .radio {
+  display: inline-block;
+  margin-right: 2rem;
+}
+.bloc-grille select {
+  width: 100%;
+}
+.bloc-grille .field-bouton, .bloc-grille .field-image_defaut {
+  padding: 1rem;
+  background-color: #E1E0E0;
+}
+.bloc-grille .field-bouton > label, .bloc-grille .field-image_defaut > label {
+  font-weight: bold;
+}
+.bloc-grille .field-case.page > div > .field-text, .bloc-grille .field-case.page > div > .field-textarea, .bloc-grille .field-case.page > div > .field-image_defaut {
+  display: none;
 }
 
 .traductionTemplateChoix div {

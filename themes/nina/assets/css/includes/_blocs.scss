@@ -226,3 +226,17 @@ main div.blocActualites-page--texte, main div.blocActualites-page--image{
     object-fit: cover;
   }
 }
+
+//Bloc grille
+.blocGrille{
+  text-align: center;
+  > div > div{
+    margin-bottom: 4rem;
+  }
+  img{
+    width: 20rem;
+    height: 20rem;
+    border-radius: 50%;
+    margin-bottom: 2rem;
+  }
+}

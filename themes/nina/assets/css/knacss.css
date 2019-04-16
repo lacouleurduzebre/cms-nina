@@ -3577,6 +3577,19 @@ main div.blocActualites-page--texte, main div.blocActualites-page--image {
   object-fit: cover;
 }
 
+.blocGrille {
+  text-align: center;
+}
+.blocGrille > div > div {
+  margin-bottom: 4rem;
+}
+.blocGrille img {
+  width: 20rem;
+  height: 20rem;
+  border-radius: 50%;
+  margin-bottom: 2rem;
+}
+
 .blocCommentaires label {
   display: block;
 }

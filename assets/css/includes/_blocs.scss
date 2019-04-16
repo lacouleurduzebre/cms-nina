@@ -313,8 +313,8 @@ div[id^="page_active_blocs"]{
   }
 }
 
-//Slider et Galerie (+ drag formulaire)
-.dragSlide, .dragGalerie, .dragChamp{
+//Slider, Grille et Galerie (+ drag formulaire)
+.dragSlide, .dragGalerie, .dragChamp, .dragCase{
   font-size: 2rem;
   color: $color-brand2;
   position: absolute;
@@ -322,13 +322,13 @@ div[id^="page_active_blocs"]{
   right: 1rem;
 }
 
-.field-Slide > div > div, .bloc-galerie .field-images > div > div{
+.field-Slide > div > div, .bloc-galerie .field-images > div > div, .field-cases > div > div{
   display: flex;
   flex-wrap: wrap;
   margin: 0 -1rem;
 }
 
-.field-slide, .bloc-galerie .field-galerie_image{
+.field-slide, .bloc-galerie .field-galerie_image, .field-case{
   position: relative;
   padding: 1rem;
   background-color: #EDEDED;
@@ -433,5 +433,28 @@ div[id^="page_active_blocs"]{
 body.edit, body.new{
   .bloc-reseauxsociaux input[type="text"]{
     width: calc(100% - 4rem) !important;
+  }
+}
+
+//Bloc grille
+.bloc-grille{
+  .radio{
+    display: inline-block;
+    margin-right: 2rem;
+  }
+  select{
+    width: 100%;
+  }
+  .field-bouton, .field-image_defaut{
+    padding: 1rem;
+    background-color: #E1E0E0;
+    > label{
+      font-weight: bold;
+    }
+  }
+  .field-case.page{
+    > div > .field-text, > div > .field-textarea, > div > .field-image_defaut{
+      display: none;
+    }
   }
 }
