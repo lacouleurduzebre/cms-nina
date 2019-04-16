@@ -1,0 +1,4 @@
+nom: Grille
+description: "Grille d'images et de texte sur 2, 3 ou 4 colonnes"
+type: contenu
+icone: 'fas fa-grip-horizontal'

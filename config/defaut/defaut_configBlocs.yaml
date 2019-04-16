@@ -16,6 +16,9 @@ Formulaire:
 Galerie:
     priorite: 7
     actif: oui
+Grille:
+    priorite: 28
+    actif: oui
 GroupeBlocs:
     priorite: 11
     actif: oui

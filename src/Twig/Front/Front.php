@@ -33,6 +33,7 @@ class Front extends \Twig_Extension
             new \Twig_SimpleFunction('groupes', array($this, 'getGroupesBlocs'), array('is_safe' => ['html'])),
             new \Twig_SimpleFunction('groupe', array($this, 'getGroupeBlocs'), array('is_safe' => ['html'])),
             new \Twig_SimpleFunction('blocAnnexe', array($this, 'getBlocAnnexe'), array('is_safe' => ['html'])),
+            new \Twig_SimpleFunction('page', array($this, 'getPage')),
         );
     }
 
@@ -118,5 +119,12 @@ class Front extends \Twig_Extension
         }
 
         return false;
+    }
+
+    public function getPage($id){
+        $repoPage = $this->doctrine->getRepository(\App\Entity\Page::class);
+        $page = $repoPage->find($id);
+
+        return $page;
     }
 }

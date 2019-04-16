@@ -1,0 +1,35 @@
+{% if bloc.contenu.cases is defined %}
+    {% set cases = bloc.contenu.cases %}
+    <div class="grid-{{ bloc.contenu.nbColonnes }}-small-2-tiny-1 has-gutter-xl">
+        {% for case in cases|sortBy('position') %}
+            <div>
+                {% if case.page is not empty %}
+                    {% set page = page(case.page) %}
+                    {{ blocAnnexe(page, "Vignette") }}
+                    <h3>{{ page.titre }}</h3>
+                    {{ blocAnnexe(page, "Resume") }}
+                {% else %}
+                    <img src="{{ case.image.image }}" alt="{{ case.image.description }}" title="{{ case.image.titre }}">
+                    <h3>{{ case.titre }}</h3>
+                    <div>
+                        {{ case.texte|raw }}
+                    </div>
+                {% endif %}
+                {% if case.lien.lien is defined and case.lien.lien is not empty %}
+                    <a class="bouton" href="{{ case.lien.lien }}"
+                            {% if case.lien.blank is defined and case.lien.blank.0 == '1' %}
+                                target="_blank"
+                            {% endif %}
+                            {% if case.lien.titre is defined and case.lien.titre is not empty %}
+                                title="{{ case.lien.titre }}"
+                            {% endif %}
+                    >
+                        {% if case.lien.texte is defined %}
+                            {{ case.lien.texte }}
+                        {% endif %}
+                    </a>
+                {% endif %}
+            </div>
+        {% endfor %}
+    </div>
+{% endif %}
