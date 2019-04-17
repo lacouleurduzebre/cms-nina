@@ -12,7 +12,7 @@
 
 {% block main %}
     <h1 class="pageFiche-titre">{{ fiche.NOM }}</h1>
-    <h2 class="pageFiche-sousTitre">{{ fiche.TYPE_NOM }}</h2>
+    {% if fiche.TYPE_NOM is defined %}<h2 class="pageFiche-sousTitre">{{ fiche.TYPE_NOM }}</h2>{% endif %}
     {% if fiche.CRITERES is defined and fiche.CRITERES.Crit is not empty %}
         <div id="galerieFiche" class="pageFiche-conteneurImages flex-container">
             {% set photo = getPhotoPrincipale(fiche.CRITERES) %}
@@ -27,7 +27,7 @@
     <div class="pageFiche-presentation">
         <h3>{{ "Présentation"|trans }}</h3>
         {% if fiche.COMMENTAIRE is defined %}
-            <p>{{ fiche.COMMENTAIRE }}</p>
+            <p>{{ fiche.COMMENTAIRE|raw }}</p>
         {% endif %}
     </div>
 

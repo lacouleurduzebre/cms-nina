@@ -5,11 +5,15 @@
             <div>
                 {% if case.page is not empty %}
                     {% set page = page(case.page) %}
-                    {{ blocAnnexe(page, "Vignette") }}
+                    <div class="blocGrille-case-image">
+                        <img src="{{ blocAnnexe(page, "Vignette", false) }}" alt="{{ page.titre }}" title="{{ page.titre }}">
+                    </div>
                     <h3>{{ page.titre }}</h3>
                     {{ blocAnnexe(page, "Resume") }}
                 {% else %}
-                    <img src="{{ case.image.image }}" alt="{{ case.image.description }}" title="{{ case.image.titre }}">
+                    <div class="blocGrille-case-image">
+                        <img src="{{ case.image.image }}" alt="{{ case.image.description }}" title="{{ case.image.titre }}">
+                    </div>
                     <h3>{{ case.titre }}</h3>
                     <div>
                         {{ case.texte|raw }}

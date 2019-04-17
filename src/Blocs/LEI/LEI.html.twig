@@ -25,7 +25,7 @@
             <p class="ficheLEI-titre">{{ fiche.NOM }}</p>
             <p class="ficheLEI-description">
                 {% if fiche.COMMENTAIRE is defined and fiche.COMMENTAIRE is not empty %}
-                    {{ fiche.COMMENTAIRE|truncate(50) }}
+                    {{ fiche.COMMENTAIRE|truncate(100)|striptags }}
                 {% endif %}
             </p>
             <div class="ficheLEI-lien">
