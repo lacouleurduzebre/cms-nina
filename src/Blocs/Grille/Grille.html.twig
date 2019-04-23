@@ -21,7 +21,7 @@
                 {% endif %}
                 {% if case.lien.lien is defined and case.lien.lien is not empty %}
                     <a class="bouton" href="{{ case.lien.lien }}"
-                            {% if case.lien.blank is defined and case.lien.blank.0 == '1' %}
+                            {% if case.lien.blank is not empty and case.lien.blank.0 == '1' %}
                                 target="_blank"
                             {% endif %}
                             {% if case.lien.titre is defined and case.lien.titre is not empty %}
