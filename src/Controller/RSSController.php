@@ -33,7 +33,7 @@ class RSSController extends Controller
         }
 
         $repoPage = $this->getDoctrine()->getRepository(Page::class);
-        $pages = $repoPage->pagesPublieesCategorie(0, $langue, 10);
+        $pages = $repoPage->pagesPublieesCategorie(0, $langue, 20);
 
         $repoBlocAnnexe = $this->getDoctrine()->getRepository(BlocAnnexe::class);
         $vignettes = [];

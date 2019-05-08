@@ -160,7 +160,7 @@ class SauvegardeController extends Controller
      * @param  string $destination destination zip file (will be created if it doesn't already exist)
      * @return boolean              true if successful
      */
-    public function zip($source, $destination)
+    public static function zip($source, $destination)
     {
         if (!extension_loaded('zip') || !file_exists($source)) {
             return false;
