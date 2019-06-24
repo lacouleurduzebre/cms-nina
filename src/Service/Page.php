@@ -33,6 +33,10 @@ class Page
             $routes = ['accueil', 'accueilLocale', 'voirPage'];
             $route = $currentRequest->attributes->get('_route');
 
+            if(!in_array($route, $routes)){
+                return null;
+            }
+
             $locale = $currentRequest->getLocale();
             $url = $currentRequest->attributes->get('url');
 

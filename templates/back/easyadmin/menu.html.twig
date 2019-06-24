@@ -97,7 +97,6 @@
         </li>
     {% endblock header_custom_menu %}
 </ul>
-
 {% if page.id is defined %}
     <a id="voirSite" href="{{ path('admin', { entity: 'Page_Active', action: 'edit', id: page.id }) }}" title="{{ "Éditer cette page"|trans }}"><i class="fas fa-pencil-alt"></i></a>
 {% else %}
