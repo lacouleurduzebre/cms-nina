@@ -50,7 +50,8 @@ class NamingStrategy implements \Doctrine\ORM\Mapping\NamingStrategy
             $className = substr($className, strrpos($className, '\\') + 1);
         }
 
-        return 'nina_' . $this->underscore($className);
+        $prefixe = getenv('PREFIXE') ?? 'nina';
+        return $prefixe . '_' . $this->underscore($className);
     }
 
     /**
@@ -102,7 +103,8 @@ class NamingStrategy implements \Doctrine\ORM\Mapping\NamingStrategy
      */
     public function joinTableName($sourceEntity, $targetEntity, $propertyName = null)
     {
-        return 'nina_' . $this->classToJoinTableName($sourceEntity) . '_' . $this->classToJoinTableName($targetEntity);
+        $prefixe = getenv('PREFIXE') ?? 'nina';
+        return $prefixe . '_' . $this->classToJoinTableName($sourceEntity) . '_' . $this->classToJoinTableName($targetEntity);
     }
     
     /**
