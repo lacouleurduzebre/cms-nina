@@ -33,10 +33,6 @@ class Page
             $routes = ['accueil', 'accueilLocale', 'voirPage'];
             $route = $currentRequest->attributes->get('_route');
 
-            if(!in_array($route, $routes)){
-                return null;
-            }
-
             $locale = $currentRequest->getLocale();
             $url = $currentRequest->attributes->get('url');
 
@@ -85,6 +81,10 @@ class Page
                     throw new NotFoundHttpException('Cette page n\'est plus accessible');
                 }
             }else{
+                if(!in_array($route, $routes)){
+                    return null;
+                }
+
                 $repoLangue = $this->doctrine->getRepository(Langue::class);
 
                 if(isset($locale)){
