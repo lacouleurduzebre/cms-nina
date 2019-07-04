@@ -10,14 +10,11 @@ namespace App\Controller\Back;
 
 
 use App\Entity\Configuration;
-use App\Form\Type\ImageDefautType;
 use App\Form\Type\ImageSimpleType;
-use App\Form\Type\ImageType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -121,6 +118,7 @@ class ThemeController extends Controller
                 exec('ln -s '.$this->getParameter('kernel.project_dir').'/themes/'.$theme.'/assets '.$linkfile);
             }
             //Fin Symlink
+            exec('php bin/console cache:clear');
 
             return new Response('ok');
         };
