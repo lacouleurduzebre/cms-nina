@@ -1,7 +1,5 @@
 {% for menuPage in menuPagesOrphelines %}
     <li {% if langueArbo.pageAccueil is not empty and menuPage.page == langueArbo.pageAccueil %}data-jstree='{"type":"home"}'{% endif %}>
-        <a href="#"><span class="menuPage" id="{{ menuPage.id }}"></span><span class="page" id="{{ menuPage.page.id }}"></span>
-            {{ menuPage.page.titreMenu }}
-        </a>
+        <a href="#"><span class="menuPage" id="{{ menuPage.id }}"></span><span class="page" id="{{ menuPage.page.id }}"></span>{{ menuPage.page.titreMenu }}</a>
     </li>
 {% endfor %}

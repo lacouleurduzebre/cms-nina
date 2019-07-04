@@ -66,36 +66,39 @@ $(document).ready(function(){
                 "icon": "fa fa-home",
                 "label": "Définir comme page d'accueil",
                 "action": function(){
-                    idPage = $('#'+node.id).find('.page').attr('id');
-                    idMenuComplet = $('#'+node.id).parents('div').attr('id');
+                    nomPage = $('#'+node.id+'_anchor').get(0).innerText;
+                    if(confirm("Définir la page \""+nomPage+"\" comme page d'accueil ?")){
+                        idPage = $('#'+node.id).find('.page').attr('id');
+                        idMenuComplet = $('#'+node.id).parents('div').attr('id');
 
-                    $('#loader-arbo.'+idMenuComplet).fadeIn().html("<i class='fas fa-sync fa-spin'></i>");
+                        $('#loader-arbo.'+idMenuComplet).fadeIn().html("<i class='fas fa-sync fa-spin'></i>");
 
-                    $.ajax({
-                        url: baseURL+Routing.generate('definirPageAccueil'),
-                        method: "post",
-                        data: {idPage: idPage}
-                    })
-                        .done(function(data){
-                            $('#loader-arbo.'+idMenuComplet).fadeIn().html("<i class='fas fa-check'></i>").delay(600).fadeOut();
-
-                            $('li[data-jstree="{\\"type\\":\\"home\\"}"]').find('svg').removeClass('fa-home').addClass('fa-file');
-                            $('li[data-jstree="{\\"type\\":\\"home\\"}"]').attr('data-jstree', '');
-
-                            $('#'+node.id).attr('data-jstree', '{"type":"home"}');
-                            $('#'+node.id).find('svg').removeClass('fa-file').addClass('fa-home');
-
-                            //Changement du lien pour éditer la page d'accueil au dessus de l'arbo
-                            $('#pageAccueil-menu > li:first-child > a').attr('href', '/admin/?entity=Page_Active&action=edit&id='+idPage);
-                            $('.pageAccueil-titre').html(data);
-                            if($('.pageAccueil').find('a').hasClass('sansPageAccueil')){
-                                $('.pageAccueil > a').attr('class', 'pageAccueil-page');
-                                $('.pageAccueil p').hide();
-                            }
+                        $.ajax({
+                            url: baseURL+Routing.generate('definirPageAccueil'),
+                            method: "post",
+                            data: {idPage: idPage}
                         })
-                        .fail(function(){
-                            $('#loader-arbo.'+idMenuComplet).html("<i class='fas fa-times'></i>").delay(600).fadeOut();
-                        });
+                            .done(function(data){
+                                $('#loader-arbo.'+idMenuComplet).fadeIn().html("<i class='fas fa-check'></i>").delay(600).fadeOut();
+
+                                $('li[data-jstree="{\\"type\\":\\"home\\"}"]').find('svg').removeClass('fa-home').addClass('fa-file');
+                                $('li[data-jstree="{\\"type\\":\\"home\\"}"]').attr('data-jstree', '');
+
+                                $('#'+node.id).attr('data-jstree', '{"type":"home"}');
+                                $('#'+node.id).find('svg').removeClass('fa-file').addClass('fa-home');
+
+                                //Changement du lien pour éditer la page d'accueil au dessus de l'arbo
+                                $('#pageAccueil-menu > li:first-child > a').attr('href', '/admin/?entity=Page_Active&action=edit&id='+idPage);
+                                $('.pageAccueil-titre').html(data);
+                                if($('.pageAccueil').find('a').hasClass('sansPageAccueil')){
+                                    $('.pageAccueil > a').attr('class', 'pageAccueil-page');
+                                    $('.pageAccueil p').hide();
+                                }
+                            })
+                            .fail(function(){
+                                $('#loader-arbo.'+idMenuComplet).html("<i class='fas fa-times'></i>").delay(600).fadeOut();
+                            });
+                    }
                 }
             },
             "alias":{
