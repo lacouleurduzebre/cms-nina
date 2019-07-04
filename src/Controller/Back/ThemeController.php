@@ -118,7 +118,6 @@ class ThemeController extends Controller
                 exec('ln -s '.$this->getParameter('kernel.project_dir').'/themes/'.$theme.'/assets '.$linkfile);
             }
             //Fin Symlink
-            exec('php bin/console cache:clear');
 
             return new Response('ok');
         };

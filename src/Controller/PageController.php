@@ -28,7 +28,7 @@ class PageController extends Controller
         $page = $spage->getPageActive();
 
         if(!($page instanceof \App\Entity\Page)){
-            return $page;
+            throw new NotFoundHttpException('Cette page n\'existe pas ou a été supprimée');
         }
 
         $commentaires = $page->getCommentaires();
