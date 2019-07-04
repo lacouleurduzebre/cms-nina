@@ -75,7 +75,7 @@ class PageRepository extends \Doctrine\ORM\EntityRepository
         }
 
         if($limite){
-            $qb->setMaxResults($limite+1);
+            $qb->setMaxResults($limite);
         }
 
         return $qb->getQuery()->getResult();

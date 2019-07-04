@@ -89,12 +89,18 @@ class Configuration
      */
     private $affichageAuteur;
 
+    /**
+     * @ORM\Column(type="smallint", nullable=true)
+     */
+    private $nbArticlesFluxRSS;
+
     public function __construct()
     {
         $this->maintenance = false;
         $this->affichageCommentaires = true;
         $this->affichageDatePublication = true;
         $this->affichageAuteur = true;
+        $this->nbArticlesFluxRSS = 20;
     }
 
     public function __toString()
@@ -312,6 +318,18 @@ class Configuration
     public function setAffichageAuteur(bool $affichageAuteur): self
     {
         $this->affichageAuteur = $affichageAuteur;
+
+        return $this;
+    }
+
+    public function getNbArticlesFluxRSS(): ?int
+    {
+        return $this->nbArticlesFluxRSS;
+    }
+
+    public function setNbArticlesFluxRSS(?int $nbArticlesFluxRSS): self
+    {
+        $this->nbArticlesFluxRSS = $nbArticlesFluxRSS;
 
         return $this;
     }

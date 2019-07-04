@@ -262,7 +262,7 @@
         <div class="checkbox">
             {{- form_label(form, null, { widget: parent() }) -}}
             {% if easyadmin.field.help is defined %}
-            {{ easyadmin.field.help }}
+                <p class="help-text">{{ easyadmin.field.help }}</p>
             {% endif %}
         </div>
     {%- endif %}

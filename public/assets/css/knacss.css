@@ -2400,7 +2400,7 @@ textarea {
   box-shadow: 0 0 0 1px #0791B3 inset;
   color: #666666;
   vertical-align: middle;
-  padding: 0.5rem 1rem;
+  padding: 0.3rem 1rem;
   margin: 0;
   transition: 0.25s;
   transition-property: box-shadow, background-color, color, border;

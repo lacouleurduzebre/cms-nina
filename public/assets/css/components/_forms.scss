@@ -52,7 +52,7 @@ textarea {
   box-shadow: 0 0 0 1px $color-brand2 inset;
   color: $color-base;
   vertical-align: middle;
-  padding: $spacer-tiny $spacer-small;
+  padding: 0.3rem $spacer-small;
   margin: 0;
   transition: 0.25s;
   transition-property: box-shadow, background-color, color, border;

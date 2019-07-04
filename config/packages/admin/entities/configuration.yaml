@@ -17,13 +17,18 @@ easy_admin:
                 actions:
                     - { name: 'list', label: 'Retour', title: 'Retour', icon: 'arrow-left', css_class: '' }
                 fields:
+                    - { type: 'group', label: 'Identité', icon: 'copyright' }
                     - { property: 'nom', label: 'Nom du site' }
                     - { property: 'logo', type: 'text' }
+                    - { type: 'group', label: 'Contact', icon: 'at' }
                     - { property: 'editeur', label: 'Éditeur' }
                     - emailContact
                     - emailMaintenance
-                    - { property: 'analytics', label: 'Script Google Analytics', type_options: { attr: { class: 'notTinymce' } } }
+                    - { type: 'group', label: 'Publication', icon: 'newspaper' }
                     - { property: 'affichageCommentaires', label: 'Autoriser les commentaires sur les nouvelles pages' }
                     - { property: 'affichageDatePublication', label: 'Afficher la date de publication sur les nouvelles pages' }
                     - { property: 'affichageAuteur', label: "Afficher l'auteur sur les nouvelles pages" }
+                    - { type: 'group', label: 'Développement', icon: 'cog' }
+                    - { property: 'analytics', label: 'Script Google Analytics', type_options: { attr: { class: 'notTinymce' } } }
+                    - { property: 'nbArticlesFluxRSS', label: "Nombre de pages à afficher dans le flux rss" }
                     - { property: 'maintenance', label: 'Mode maintenance', help: "Si le mode maintenance est activé, votre site ne sera pas accessible aux utilisateurs anonymes" }

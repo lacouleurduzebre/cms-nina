@@ -10,6 +10,7 @@ namespace App\Controller;
 
 
 use App\Entity\BlocAnnexe;
+use App\Entity\Configuration;
 use App\Entity\Langue;
 use App\Entity\Page;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -33,7 +34,15 @@ class RSSController extends Controller
         }
 
         $repoPage = $this->getDoctrine()->getRepository(Page::class);
-        $pages = $repoPage->pagesPublieesCategorie(0, $langue, 20);
+
+        //Nombre de pages à afficher dans la config
+        $repoConfig = $this->getDoctrine()->getRepository(Configuration::class);
+        $config = $repoConfig->find(1);
+        $nbPages = $config->getNbArticlesFluxRSS();
+
+        $nbPages = $nbPages ?? 20;
+
+        $pages = $repoPage->pagesPublieesCategorie(0, $langue, $nbPages);
 
         $repoBlocAnnexe = $this->getDoctrine()->getRepository(BlocAnnexe::class);
         $vignettes = [];

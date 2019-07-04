@@ -19,7 +19,7 @@ class Configuration
 
     public function getConfig(){
         $repo = $this->doctrine->getRepository(\App\Entity\Configuration::class);
-        $config = $repo->findOneBy(array("id"=>"1"));
+        $config = $repo->find(1);
 
         return $config;
     }
