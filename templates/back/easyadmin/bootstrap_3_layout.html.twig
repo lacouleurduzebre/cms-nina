@@ -334,7 +334,7 @@
         {{- form_widget(form) -}}
 
         {% if _field_type in ['datetime', 'datetime_immutable', 'date', 'date_immutable', 'time', 'time_immutable', 'birthday'] and easyadmin.field.nullable|default(false) %}
-            <div class="nullable-control">
+            <div class="nullable-control checkbox">
                 <label>
                     <input type="checkbox" {% if data is null %}checked="checked"{% endif %}>
                     {{ 'label.nullable_field'|trans({}, 'EasyAdminBundle')}}
@@ -567,7 +567,7 @@
 {% block easyadmin_widget_groups %}
     {% for group_name, group_config in easyadmin_form_groups if not group_config.form_tab or group_config.form_tab == tab_name %}
         <div class="field-group col-xs-12 {{ group_config.css_class|default('') }}">
-            <div class="box box-default">
+            <div class="box box-default {% if group_config.label|default(false) or group_config.icon|default(false) %}groupeDeChamps{% endif %}">
                 {% if group_config.label|default(false) or group_config.icon|default(false) %}
                     <div class="box-header with-border">
                         <h3 class="box-title">
@@ -581,7 +581,7 @@
 
                 <div class="box-body">
                     {% if group_config.help|default(false) %}
-                        <p class="help-block">{{ group_config.help|trans(domain = _translation_domain)|nl2br|raw }}</p>
+                        <p class="help-block">{{ group_config.help|trans(domain = _translation_domain)|raw }}</p>
                     {% endif %}
 
                     <div class="row">
@@ -849,7 +849,7 @@
     </div>
 
     {% if _field_type in ['datetime', 'datetime_immutable', 'date', 'date_immutable', 'time', 'time_immutable', 'birthday'] and easyadmin.field.nullable|default(false) %}
-        <div class="nullable-control">
+        <div class="nullable-control checkbox">
             <label>
                 <input type="checkbox" {% if data is null %}checked="checked"{% endif %}>
                 {{ 'label.nullable_field'|trans({}, 'EasyAdminBundle')}}
@@ -928,7 +928,7 @@
     </div>
 
     {% if _field_type in ['datetime', 'datetime_immutable', 'date', 'date_immutable', 'time', 'time_immutable', 'birthday'] and easyadmin.field.nullable|default(false) %}
-        <div class="nullable-control">
+        <div class="nullable-control checkbox">
             <label>
                 <input type="checkbox" {% if data is null %}checked="checked"{% endif %}>
                 {{ 'label.nullable_field'|trans({}, 'EasyAdminBundle')}}

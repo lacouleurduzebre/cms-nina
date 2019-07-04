@@ -31,8 +31,10 @@ easy_admin:
                     - { type: 'tab', label: 'Paramètres du compte' }
                     - { property: 'username', label: 'Pseudonyme' }
                     - { property: 'email', label: 'E-mail' }
-                    - { property: 'password', type: 'repeated', label: 'Mot de passe', type_options: { type: 'Symfony\Component\Form\Extension\Core\Type\PasswordType', required: false, first_options: { label: 'Mot de passe' }, second_options: { label: 'Répéter le mot de passe' } } }
+                    - { type: 'group', label: 'Mot de passe', icon: 'key', help: "Pour changer de mot de passer, utilisez <a href=\"/profile/change-password\">ce formulaire</a>" }
+                    - { type: 'group', label: 'Image de profil', icon: 'camera' }
                     - { property: 'imageProfil', type: 'text', label: 'Image de profil' }
+                    - { type: 'group', label: 'Statut', icon: 'user-cog' }
                     - { property: 'enabled', label: 'Activé' }
                     - { property: 'roles', label: 'Rôles' }
                     - { type: 'tab', label: "Personnalisation de l'interface" }

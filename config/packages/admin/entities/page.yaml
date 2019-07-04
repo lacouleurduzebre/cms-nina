@@ -58,14 +58,18 @@ easy_admin:
                     - { type: 'tab', label: 'Référencement' }
                     - { property: 'SEO', type: 'App\Form\Type\SEOType', type_options: { by_reference: true, label: false } }
                     - { type: 'tab', label: 'Affichage' }
+                    - { type: 'group', label: 'Affichage des pages enfants', icon: 'file-alt' }
                     - { property: 'affichageSousNiveaux', label: 'Afficher les pages enfants dans les menus' }
+                    - { type: 'group', label: 'Publication', icon: 'newspaper' }
                     - { property: 'affichageDatePublication', label: 'Afficher la date de publication' }
                     - datePublication
                     - dateDepublication
+                    - { type: 'group', label: 'Auteur(s)', icon: 'feather-alt' }
                     - { property: 'affichageAuteur', label: "Afficher l'auteur" }
                     - { property: 'auteur', type_options: { disabled: true } }
                     - auteurDerniereModification
-                    - { property: 'blocsAnnexes', type: 'collection', type_options: { entry_type: 'App\Form\Type\BlocAnnexeType', by_reference: false } }
+                    - { type: 'group', label: 'Blocs annexes', icon: 'shapes' }
+                    - { property: 'blocsAnnexes', label: false, type: 'collection', type_options: { entry_type: 'App\Form\Type\BlocAnnexeType', by_reference: false } }
                     - { type: 'tab', label: 'Catégories' }
                     - { property: 'categories', type_options: { query_builder: 'App\Repository\CategorieRepository::orderByNom', group_by: 'typeCategorie' } }
                     - { type: 'tab', label: 'Commentaires' }

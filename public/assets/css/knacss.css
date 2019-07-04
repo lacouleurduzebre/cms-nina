@@ -3270,6 +3270,10 @@ body {
   text-decoration: none;
 }
 
+.retourAccueil {
+  margin-bottom: 2rem;
+}
+
 /* Centre */
 html, .content-wrapper, .sf-toolbar-clearer {
   background-color: #fcfcfc;
@@ -3597,6 +3601,7 @@ a[class$=image_bouton_mediatheque] {
   border-radius: 5px;
   color: #fff;
   text-decoration: none;
+  margin-top: 1rem;
 }
 .ouvrirMediatheque:hover, .ouvrirMediatheque:active, .ouvrirMediatheque:focus, a[class$=image_bouton_mediatheque]:hover, a[class$=image_bouton_mediatheque]:active, a[class$=image_bouton_mediatheque]:focus {
   background-color: #056982;
@@ -4628,6 +4633,28 @@ body.edit .bloc-reseauxsociaux input[type=text], body.new .bloc-reseauxsociaux i
 }
 .infobulle:hover span {
   display: block;
+}
+
+.groupeDeChamps {
+  background: #F7F7F7;
+  padding: 1rem;
+  margin: 1rem 0;
+  border: 1px solid #CACACA;
+}
+.groupeDeChamps .box-header {
+  color: #0791B3;
+}
+.groupeDeChamps .box-header h3 {
+  display: flex;
+  align-items: center;
+}
+.groupeDeChamps .box-header svg {
+  font-size: 2rem;
+  margin-right: 1rem;
+}
+
+#page_active_dateDepublication {
+  margin-bottom: 0.5rem;
 }
 
 .listeSEO-conteneur {
