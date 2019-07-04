@@ -91,26 +91,16 @@ $(document).ready(function(){
         }, creationURL );
 
         /* Modification de l'url */
-            /* Des pages */
-        $('#page_active_SEO_url').on('keyup', function(){
+        urlPropre = function(){
             urlNonFormattee = $(this).val();
             url = str2url(urlNonFormattee, 'UTF-8', true);
             $(this).val(url);
-        });
+        };
 
-            /* Des catégories */
-        $('#categorie_url').on('keyup', function(){
-            urlNonFormattee = $(this).val();
-            url = str2url(urlNonFormattee, 'UTF-8', true);
-            $(this).val(url);
-        });
+        $('#page_active_SEO_url, #categorie_url, #typecategorie_url').on('keyup', urlPropre);
 
-            /* Des types de catégories */
-        $('#typecategorie_url').on('keyup', function(){
-            urlNonFormattee = $(this).val();
-            url = str2url(urlNonFormattee, 'UTF-8', true);
-            $(this).val(url);
-        });
+            /* Ajout de page enfant dans l'arbo */
+        $('body').on('keyup', '#ajoutPage-url', urlPropre);
 
     /* Méta-titre automatique */
     $('#page_active_titre').on('keyup', function(){
