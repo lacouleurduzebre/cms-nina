@@ -25,8 +25,6 @@ composer.phar
 /public/theme
 /public/theme/
 /public/themes_thumbs/*
-/public/assets
-/public/assets/
 /public/bundles/
 /public/uploads/
 /public/thumbs/

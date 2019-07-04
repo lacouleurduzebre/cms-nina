@@ -3909,6 +3909,7 @@ body.list #flash-messages > * {
   flex-direction: column;
   padding: 1rem;
   border: 2px solid #75726B;
+  margin-bottom: 4rem;
 }
 .theme.actif {
   border-color: #A1BA1D;

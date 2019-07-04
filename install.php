@@ -27,9 +27,6 @@ if(!file_exists('themes/nina/translations')){
 
 //Symlink des assets du back-office et du thème Nina
 $filesystem = new \Symfony\Component\Filesystem\Filesystem();
-if(!file_exists('public/assets')){
-    $filesystem->symlink(getcwd().'/assets', getcwd().'/public/assets');
-}
 if(!file_exists('public/theme')){
     $filesystem->symlink(getcwd().'/themes/nina/assets', getcwd().'/public/theme');
 }
