@@ -115,7 +115,7 @@ class ThemeController extends Controller
             if(strpos(php_uname('s'), 'Win') !== false){
                 $filesystem->symlink($this->getParameter('kernel.project_dir').'/themes/'.$theme.'/assets', $linkfile);
             }else{
-                exec('ln -s '.$this->getParameter('kernel.project_dir').'/themes/'.$theme.'/assets '.$linkfile);
+                exec('ln -s ../themes/'.$theme.'/assets '.$linkfile);
             }
             //Fin Symlink
 
