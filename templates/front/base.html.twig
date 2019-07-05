@@ -6,10 +6,10 @@
     {% if not config.maintenance or is_granted('IS_AUTHENTICATED_REMEMBERED') %}
         <title>{% block title %}{% if langueActive.metaTitre is not empty %}{{ langueActive.metaTitre }}{% else %}{{ config.nom }}{% endif %}{% endblock %}</title>
         {% block stylesheets %}
-            <link rel="stylesheet" href="{{ asset('theme/css/knacss.css') }}" type="text/css">
             <link rel="stylesheet" href="{{ asset('assets/js/slickslider/slick.css') }}" type="text/css">
             <link rel="stylesheet" href="{{ asset('assets/js/slickslider/slick-theme.css') }}" type="text/css">
             <link rel="stylesheet" href="{{ asset('assets/js/fancybox/jquery.fancybox.min.css') }}" type="text/css">
+            {{ include('front/extraCss.html.twig') }}
             {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
                 <link href="https://fonts.googleapis.com/css?family=Cabin:400,700" rel="stylesheet">
                 <link rel="stylesheet" href="{{ asset('assets/js/jstree/themes/style.css') }}">
@@ -65,7 +65,7 @@
             <script src="{{ asset('assets/js/jscookie/cookie.js') }}"></script>
             <script src="{{ asset('assets/js/fancybox/jquery.fancybox.min.js') }}"></script>
             <script src="{{ asset('assets/js/jsFront.js') }}"></script>
-            <script src="{{ asset('theme/js/script.js') }}"></script>
+            {{ include('front/extraJs.html.twig') }}
             {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
                 <script src="{{ asset('assets/js/jsHeaderSidebar.js') }}"></script>
                 <script src="{{ asset('assets/js/jstree/jstree.min.js') }}"></script>
