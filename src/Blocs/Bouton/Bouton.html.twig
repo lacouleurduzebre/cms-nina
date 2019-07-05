@@ -1,5 +1,5 @@
 <a class="bouton" href="{{ bloc.contenu.lien }}"
-   {% if bloc.contenu.blank is defined and bloc.contenu.blank.0 == '1' %}
+   {% if bloc.contenu.blank.0 is defined and bloc.contenu.blank.0 %}
        target="_blank"
    {% endif %}
    {% if bloc.contenu.titre is defined and bloc.contenu.titre is not empty %}
