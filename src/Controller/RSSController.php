@@ -25,17 +25,7 @@ class RSSController extends Controller
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
-    public function rssAction(\App\Service\Langue $slangue, Request $request, $_locale = null){
-        $repoLangue = $this->getDoctrine()->getRepository(Langue::class);
-        if($_locale){
-            $langue = $repoLangue->findOneBy(array('abreviation' => $_locale));
-            if(!$langue){
-                return $this->redirectToRoute('rss');
-            }
-        }else{
-            $langue = $repoLangue->findOneBy(array('defaut' => true));
-        }
-
+    public function rssAction(\App\Service\Langue $slangue, $_locale = null){
         //Test route : locale ou non
         $redirection = $slangue->redirectionLocale('rss', $_locale);
         if($redirection){
@@ -51,6 +41,11 @@ class RSSController extends Controller
 
         $nbPages = $nbPages ?? 20;
 
+        $repoLangue = $this->getDoctrine()->getRepository(Langue::class);
+        $langue = $repoLangue->findOneBy(array('abreviation' => $_locale));
+        if(!$langue){
+            $langue = $repoLangue->findOneBy(array('defaut' => true));
+        }
         $pages = $repoPage->pagesPublieesCategorie(0, $langue, $nbPages);
 
         $repoBlocAnnexe = $this->getDoctrine()->getRepository(BlocAnnexe::class);

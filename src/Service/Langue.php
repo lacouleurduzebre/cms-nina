@@ -25,8 +25,11 @@ class Langue
         $repoLangue = $this->doctrine->getRepository(\App\Entity\Langue::class);
         $nbLangues = $repoLangue->nombreActives();
 
-        if(isset($locale) && $nbLangues == 1){
-            return new RedirectResponse($this->router->generate($route, $options), 301);
+        if(isset($locale)){
+            $langue = $repoLangue->findOneBy(array('abreviation' => $locale));
+            if($nbLangues == 1 || !$langue){
+                return new RedirectResponse($this->router->generate($route, $options), 301);
+            }
         }elseif(!isset($locale) && $nbLangues > 1){
             $langueDefaut = $repoLangue->findOneBy(array('defaut' => 1))->getAbreviation();
             $options['_locale'] = $langueDefaut;
