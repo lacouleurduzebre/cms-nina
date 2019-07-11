@@ -23,7 +23,7 @@ class Langue
 
     public function redirectionLocale($route, $locale, $options = []){
         $repoLangue = $this->doctrine->getRepository(\App\Entity\Langue::class);
-        $nbLangues = $repoLangue->nombreTotal();
+        $nbLangues = $repoLangue->nombreActives();
 
         if(isset($locale) && $nbLangues == 1){
             return new RedirectResponse($this->router->generate($route, $options), 301);

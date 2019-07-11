@@ -10,9 +10,10 @@ namespace App\Repository;
  */
 class LangueRepository extends \Doctrine\ORM\EntityRepository
 {
-    public function nombreTotal(){
+    public function nombreActives(){
         $qb = $this
             ->createQueryBuilder('l')
+            ->where('l.active = 1')
             ->select('count(l.id)');
 
         return $qb->getQuery()->getSingleScalarResult();

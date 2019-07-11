@@ -75,8 +75,12 @@ class Globals extends \Twig_Extension implements \Twig_Extension_GlobalsInterfac
         //Langue active
         if($this->request){
             $locale = $this->request->getLocale();
-            $repoLangue = $this->doctrine->getRepository(Langue::class);
-            $langueActive = $repoLangue->findOneBy(array('abreviation'=>$locale));
+            if($locale){
+                $langueActive = $repoLangue->findOneBy(array('abreviation'=>$locale));
+            }
+            if(!$langueActive){
+                $langueActive = $repoLangue->findOneBy(array('defaut'=>1));
+            }
         }else{
             $langueActive = null;
         }

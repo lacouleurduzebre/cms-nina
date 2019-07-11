@@ -20,17 +20,26 @@ use Symfony\Component\Routing\Annotation\Route;
 class RSSController extends Controller
 {
     /**
-     * @Route("/{_locale}/rss.xml", defaults={"_format"="xml"}, name="rss")
+     * @Route("/rss.xml", defaults={"_format"="xml"}, name="rss")
+     * @Route("/{_locale}/rss.xml", defaults={"_format"="xml"}, name="rssLocale")
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
-    public function rssAction(Request $request){
+    public function rssAction(\App\Service\Langue $slangue, Request $request, $_locale = null){
         $repoLangue = $this->getDoctrine()->getRepository(Langue::class);
-        $langue = $repoLangue->findOneBy(array('abreviation' => $request->getLocale()));
-
-        if(!$langue){
+        if($_locale){
+            $langue = $repoLangue->findOneBy(array('abreviation' => $_locale));
+            if(!$langue){
+                return $this->redirectToRoute('rss');
+            }
+        }else{
             $langue = $repoLangue->findOneBy(array('defaut' => true));
-            return $this->redirectToRoute('rss', array('_locale' => $langue->getAbreviation()));
+        }
+
+        //Test route : locale ou non
+        $redirection = $slangue->redirectionLocale('rss', $_locale);
+        if($redirection){
+            return $redirection;
         }
 
         $repoPage = $this->getDoctrine()->getRepository(Page::class);
