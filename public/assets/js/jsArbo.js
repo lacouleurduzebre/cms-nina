@@ -115,32 +115,6 @@ $(document).ready(function(){
                     window.location.href = baseURL+Routing.generate('easyadmin', { action: 'dupliquer', entity: 'Page_Active', id: idPage });
                 }
             },
-            /*"remove":{
-                "icon": "fa fa-minus",
-                "label": "Retirer du menu",
-                "action": function(){
-                    idMenuPage = $('#'+node.id).find('.menuPage').attr('id');
-                    idMenu = $('#'+node.id).parents('div').attr('id');
-                    $('#loader-arbo.'+idMenu).fadeIn().html("<i class='fas fa-sync fa-spin'></i>");
-                    $.ajax({
-                        url: baseURL+Routing.generate('retirerDuMenu'),
-                        method: "post",
-                        data: {idMenuPage: idMenuPage}
-                    })
-                        .done(function(data){
-                            $('#loader-arbo.'+idMenu).fadeIn().html("<i class='fas fa-check'></i>").delay(600).fadeOut();
-                            idPage = $('#'+node.id).find('.page').attr('id');
-                            if(data === "orpheline"){
-                                nodeParent = $('#menu-0').jstree("get_node", $('#menu-0 > ul > li'));
-                                $('#menu-0').jstree("create_node", nodeParent, node, 'first');
-                            }
-                            $('#'+idMenu).jstree().delete_node([node.id]);
-                        })
-                        .fail(function(){
-                            $('#loader-arbo.'+idMenu).html("<i class='fas fa-times'></i>").delay(600).fadeOut();
-                        });
-                }
-            },*/
             "delete":{
                 "icon": "fa fa-trash-alt",
                 "label": "Mettre à la corbeille",

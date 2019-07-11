@@ -75,39 +75,6 @@ class MenuController extends Controller
     }
 
     /**
-     * @Route("/menu/retirer", name="retirerDuMenu")
-     * @param Request $request
-     * @return bool|Response
-     */
-    public function retirerDuMenuAction(Request $request){
-        if($request->isXmlHttpRequest()){
-            $em = $this->getDoctrine()->getManager();
-            $emMenuPage = $this->getDoctrine()->getRepository(MenuPage::class);
-
-            //Recherche du menuPage à modifier
-            $idMenuPage = $request->get('idMenuPage');
-            $menuPage = $emMenuPage->find($idMenuPage);
-
-            //Page orpheline ?
-            $page = $menuPage->getPage();
-            $menuPages = $emMenuPage->findBy(array('page' => $page));
-            if(sizeof($menuPages) > 1){//Non -> on supprime ce menuPage
-                $em->remove($menuPage);
-                $em->flush();
-                return new Response('pas orpheline');
-            }else{//Oui -> on modifie menuPage
-                $menuPage->setMenu(null);
-                $menuPage->setParent(null);
-                $em->persist($menuPage);
-                $em->flush();
-                return new Response('orpheline');
-            }
-        };
-
-        return false;
-    }
-
-    /**
      * @Route("/menu/ajouter", name="ajouterPageEnfant")
      * @param Request $request
      * @return bool|Response
