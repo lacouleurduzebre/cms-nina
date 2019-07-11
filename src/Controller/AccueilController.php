@@ -25,21 +25,16 @@ class AccueilController extends Controller
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function indexAction(Page $spage, $_locale = null)
+    public function indexAction(Page $spage, \App\Service\Langue $slangue, $_locale = null)
     {
-        //Test route
-        $repoLangue = $this->getDoctrine()->getRepository(Langue::class);
-        $nbLangues = $repoLangue->nombreTotal();
-
-        if(isset($_locale) && $nbLangues == 1){
-            return new RedirectResponse($this->generateUrl('accueil'), 301);
-        }elseif(!isset($_locale) && $nbLangues > 1){
-            $langueDefaut = $repoLangue->findOneBy(array('defaut' => 1))->getAbreviation();
-            return new RedirectResponse($this->generateUrl('accueilLocale', array('_locale' => $langueDefaut)), 301);
+        //Test route : locale ou non
+        $redirection = $slangue->redirectionLocale('accueil', $_locale);
+        if($redirection){
+            return $redirection;
         }
-        //Fin test route
 
-        $accueil = 'accueil';//Marquer le body
+        //Marquer le body
+        $accueil = 'accueil';
 
         $page = $spage->getPageActive();
         if(!($page instanceof \App\Entity\Page)){
