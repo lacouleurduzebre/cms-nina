@@ -13,6 +13,7 @@ use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
@@ -26,6 +27,10 @@ class PageController extends Controller
      */
     public function voirAction(Request $request, $url, Page $spage){
         $page = $spage->getPageActive();
+
+        if($page instanceof RedirectResponse){
+            return $page;
+        }
 
         if(!($page instanceof \App\Entity\Page)){
             throw new NotFoundHttpException('Cette page n\'existe pas ou a été supprimée');
