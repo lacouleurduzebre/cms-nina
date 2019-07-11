@@ -18,13 +18,23 @@ use Symfony\Component\Routing\Annotation\Route;
 class SitemapController extends Controller
 {
     /**
-     * @Route("/{_locale}/sitemap.xml", defaults={"_format"="xml"}, name="sitemap")
+     * @Route("/sitemap.xml", defaults={"_format"="xml"}, name="sitemap")
+     * @Route("/{_locale}/sitemap.xml", defaults={"_format"="xml"}, name="sitemapLocale")
      */
-    public function sitemapAction($_locale, Request $request){
-        $repoPage = $this->getDoctrine()->getRepository(Page::class);
-        $repoLangue = $this->getDoctrine()->getRepository(Langue::class);
+    public function sitemapAction(\App\Service\Langue $slangue, $_locale = null){
+        //Test route : locale ou non
+        $redirection = $slangue->redirectionLocale('sitemap', $_locale);
+        if($redirection){
+            return $redirection;
+        }
 
+        $repoPage = $this->getDoctrine()->getRepository(Page::class);
+
+        $repoLangue = $this->getDoctrine()->getRepository(Langue::class);
         $langue = $repoLangue->findOneBy(array('abreviation' => $_locale));
+        if(!$langue){
+            $langue = $repoLangue->findOneBy(array('defaut' => true));
+        }
 
         $pages = $repoPage->pagesPubliees($langue);
 
