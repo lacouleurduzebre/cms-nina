@@ -57,6 +57,9 @@ body.connected{
     height:100%;
     display: flex;
     align-items: center;
+    > a{
+      transition: background-color .3s .1s;
+    }
     > a span{
       margin-left: 1rem;
       @include respond-to("extra-large"){
@@ -76,11 +79,15 @@ body.connected{
       background-color: darken($color-primary, 15);
     }
     > ul{//Nv 2
-      display: none;
+      visibility: hidden;
+      opacity: 0;
+      transition: visibility .3s .1s, opacity .3s .1s;
       position: absolute;
       top:38px;
     }
     &:hover > ul{
+      visibility: visible;
+      opacity: 1;
       display: block;
     }
   }

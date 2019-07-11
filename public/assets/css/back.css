@@ -942,6 +942,9 @@ body.connected {
   display: flex;
   align-items: center;
 }
+.sidebar-menu > li > a {
+  transition: background-color 0.3s 0.1s;
+}
 .sidebar-menu > li > a span {
   margin-left: 1rem;
 }
@@ -963,11 +966,15 @@ body.connected {
   background-color: #4d4b46;
 }
 .sidebar-menu li > ul {
-  display: none;
+  visibility: hidden;
+  opacity: 0;
+  transition: visibility 0.3s 0.1s, opacity 0.3s 0.1s;
   position: absolute;
   top: 38px;
 }
 .sidebar-menu li:hover > ul {
+  visibility: visible;
+  opacity: 1;
   display: block;
 }
 .sidebar-menu > li > ul > li > a > span {
