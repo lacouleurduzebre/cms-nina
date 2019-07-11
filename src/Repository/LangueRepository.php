@@ -10,4 +10,11 @@ namespace App\Repository;
  */
 class LangueRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function nombreTotal(){
+        $qb = $this
+            ->createQueryBuilder('l')
+            ->select('count(l.id)');
+
+        return $qb->getQuery()->getSingleScalarResult();
+    }
 }
