@@ -11,6 +11,7 @@ namespace App\Blocs\Recherche;
 
 use App\Entity\Bloc;
 use App\Entity\Page;
+use App\Service\Langue;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -18,9 +19,16 @@ use Symfony\Component\Routing\Annotation\Route;
 class RechercheController extends Controller
 {
     /**
-     * @Route("/{_locale}/recherche", name="recherche")
+     * @Route("/recherche", name="recherche")
+     * @Route("/{_locale}/recherche", name="rechercheLocale")
      */
-    public function rechercheAction(Request $request){
+    public function rechercheAction(Request $request, Langue $slangue, $_locale = null){
+        //Test route : locale ou non
+        $redirection = $slangue->redirectionLocale('recherche', $_locale);
+        if($redirection){
+            return $redirection;
+        }
+
         $recherche = $request->get('recherche');
 
         $motsCles = explode(' ', $recherche);
