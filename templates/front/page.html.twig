@@ -40,7 +40,7 @@
                     {{ 'dans les catégories'|trans }}
                 {% endif %}
                 {% for categorie in page.categories %}
-                    <a class="bouton-categorie" href="{{ path('voirCategorie', { 'urlTypeCategorie': categorie.typeCategorie.url, 'urlCategorie': categorie.url }) }}">{{ categorie.nom }}</a>
+                    <a class="bouton-categorie" href="{{ path('voirCategorie', { 'urlTypeCategorie': categorie.typeCategorie.url, 'urlCategorie': categorie.url }) }}"><i class="fas fa-tag"></i>{{ categorie.nom }}</a>
                 {% endfor %}
             {% endif %}
         </p>

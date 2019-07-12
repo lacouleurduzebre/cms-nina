@@ -105,6 +105,10 @@ class Page
                 }
 
                 $page = $langue->getPageAccueil();
+
+                if(!$page){
+                    throw new NotFoundHttpException('Aucune page d\'accueil configurée pour cette langue');
+                }
             }
 
             return $page;
