@@ -30,7 +30,7 @@ class Page
     {
         $currentRequest = $this->request->getCurrentRequest();
         if($currentRequest){
-            $routes = ['accueil', 'accueilLocale', 'voirPage'];
+            $routes = ['accueil', 'accueilLocale', 'voirPage', 'voirPageLocale'];
             $route = $currentRequest->attributes->get('_route');
 
             $locale = $currentRequest->getLocale();

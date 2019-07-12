@@ -20,7 +20,9 @@ class RechercheController extends Controller
 {
     /**
      * @Route("/recherche", name="recherche")
-     * @Route("/{_locale}/recherche", name="rechercheLocale")
+     * @Route("/{_locale}/recherche", name="rechercheLocale", requirements={
+     *     "_locale"="^[A-Za-z]{1,2}$"
+     * })
      */
     public function rechercheAction(Request $request, Langue $slangue, $_locale = null){
         //Test route : locale ou non

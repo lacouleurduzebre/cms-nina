@@ -21,7 +21,9 @@ class RSSController extends Controller
 {
     /**
      * @Route("/rss.xml", defaults={"_format"="xml"}, name="rss")
-     * @Route("/{_locale}/rss.xml", defaults={"_format"="xml"}, name="rssLocale")
+     * @Route("/{_locale}/rss.xml", defaults={"_format"="xml"}, name="rssLocale", requirements={
+     *     "_locale"="^[A-Za-z]{1,2}$"
+     * })
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */

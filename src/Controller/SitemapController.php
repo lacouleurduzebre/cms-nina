@@ -19,7 +19,9 @@ class SitemapController extends Controller
 {
     /**
      * @Route("/sitemap.xml", defaults={"_format"="xml"}, name="sitemap")
-     * @Route("/{_locale}/sitemap.xml", defaults={"_format"="xml"}, name="sitemapLocale")
+     * @Route("/{_locale}/sitemap.xml", defaults={"_format"="xml"}, name="sitemapLocale", requirements={
+     *     "_locale"="^[A-Za-z]{1,2}$"
+     * })
      */
     public function sitemapAction(\App\Service\Langue $slangue, $_locale = null){
         //Test route : locale ou non

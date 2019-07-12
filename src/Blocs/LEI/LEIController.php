@@ -20,7 +20,9 @@ class LEIController extends Controller
 {
     /**
      * @Route("/fiche/{url}/{idFiche}/{idBloc}", name="voirFicheLEI")
-     * @Route("/{_locale}/fiche/{url}/{idFiche}/{idBloc}", name="voirFicheLEILocale")
+     * @Route("/{_locale}/fiche/{url}/{idFiche}/{idBloc}", name="voirFicheLEILocale", requirements={
+     *     "_locale"="^[A-Za-z]{1,2}$"
+     * })
      * @param Request $request
      * @param $idFiche
      * @param $url

@@ -22,7 +22,9 @@ class PageController extends Controller
 {
     /**
      * @Route("/{url}", name="voirPage")
-     * @Route("/{_locale}/{url}", name="voirPageLocale")
+     * @Route("/{_locale}/{url}", name="voirPageLocale", requirements={
+     *     "_locale"="^[A-Za-z]{1,2}$"
+     * })
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */

@@ -21,7 +21,9 @@ class CategorieController extends Controller
 {
     /**
      * @Route("/categorie/{urlTypeCategorie}/{urlCategorie}", name="voirCategorie")
-     * @Route("/{_locale}/categorie/{urlTypeCategorie}/{urlCategorie}", name="voirCategorieLocale")
+     * @Route("/{_locale}/categorie/{urlTypeCategorie}/{urlCategorie}", name="voirCategorieLocale", requirements={
+     *     "_locale"="^[A-Za-z]{1,2}$"
+     * })
      * @param $_locale
      * @param $urlTypeCategorie
      * @param $urlCategorie
@@ -62,7 +64,9 @@ class CategorieController extends Controller
 
     /**
      * @Route("/categorie/{urlTypeCategorie}", name="voirTypeCategorie")
-     * @Route("/{_locale}/categorie/{urlTypeCategorie}", name="voirTypeCategorieLocale")
+     * @Route("/{_locale}/categorie/{urlTypeCategorie}", name="voirTypeCategorieLocale", requirements={
+     *     "_locale"="^[A-Za-z]{1,2}$"
+     * })
      * @param $urlTypeCategorie
      * @return \Symfony\Component\HttpFoundation\Response
      */

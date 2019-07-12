@@ -21,7 +21,9 @@ class AccueilController extends Controller
 {
     /**
      * @Route("/", name="accueil")
-     * @Route("/{_locale}", name="accueilLocale")
+     * @Route("/{_locale}", name="accueilLocale", requirements={
+     *     "_locale"="^[A-Za-z]{1,2}$"
+     * })
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\Response
      */
