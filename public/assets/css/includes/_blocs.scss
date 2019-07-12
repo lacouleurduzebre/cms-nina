@@ -364,6 +364,14 @@ div[id^="page_active_blocs"]{
   }
 }
 
+//Groupe de blocs
+.bloc-groupeblocs-edition{
+  align-items: center;
+  a{
+    text-decoration: none;
+  }
+}
+
 //Blocs ouverts / fermés
 #page_active_blocs_, #page_active_blocsAnnexes{
   .hide{

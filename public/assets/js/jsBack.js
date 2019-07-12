@@ -1070,4 +1070,9 @@ $(document).ready(function(){
             $(this).closest('div.field-case').addClass('page');
         }
     });
+
+    //Bloc groupe de blocs : modif du lien si valeur qui change
+    $('.bloc-groupeblocs-edition select').on('change', function(){
+       $(this).next('a').attr('href', Routing.generate('admin', { action: 'edit', entity: 'GroupeBlocs', id: $(this).val() }));
+    });
 });

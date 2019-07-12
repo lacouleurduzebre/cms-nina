@@ -4488,6 +4488,13 @@ div[id^=page_active_blocs] > div > .collection-empty {
   background-color: #E1E0E0;
 }
 
+.bloc-groupeblocs-edition {
+  align-items: center;
+}
+.bloc-groupeblocs-edition a {
+  text-decoration: none;
+}
+
 #page_active_blocs_ .hide, #page_active_blocsAnnexes .hide {
   display: none;
 }
