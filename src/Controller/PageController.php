@@ -21,11 +21,18 @@ use Symfony\Component\Routing\Annotation\Route;
 class PageController extends Controller
 {
     /**
-     * @Route("/{_locale}/{url}", name="voirPage")
+     * @Route("/{url}", name="voirPage")
+     * @Route("/{_locale}/{url}", name="voirPageLocale")
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
-    public function voirAction(Request $request, $url, Page $spage){
+    public function voirAction(Request $request, Page $spage, \App\Service\Langue $slangue, $url, $_locale = null){
+        //Test route : locale ou non
+        $redirection = $slangue->redirectionLocale('voirPage', $_locale, array('url' => $url));
+        if($redirection){
+            return $redirection;
+        }
+
         $page = $spage->getPageActive();
 
         if($page instanceof RedirectResponse){
