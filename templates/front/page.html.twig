@@ -23,7 +23,6 @@
     {% endif %}
 {% endblock %}
 {% block main %}
-    {{ dump(app.request) }}
     {% for message in app.session.flashbag.get('OK') %}
         <p class="message">{{ message }}</p>
     {% endfor %}

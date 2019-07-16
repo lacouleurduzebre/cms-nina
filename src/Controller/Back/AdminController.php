@@ -433,7 +433,7 @@ class AdminController extends BaseAdminController
             $page = $this->em->getRepository(Page::class)->find($id);
             $url = $page->getSeo()->getUrl();
             $locale = $page->getLangue()->getAbreviation();
-            return $this->redirectToRoute('voirPage', array('_locale' => $locale, 'url' => $url));
+            return $this->redirectToRoute('voirPageLocale', array('_locale' => $locale, 'url' => $url));
         }
     }
 
