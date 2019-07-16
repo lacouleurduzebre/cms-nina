@@ -4664,6 +4664,19 @@ body.edit .bloc-reseauxsociaux input[type=text], body.new .bloc-reseauxsociaux i
   margin-bottom: 0.5rem;
 }
 
+#page_active_SEO .metaTitre, #page_active_SEO #seo_metaTitre, .listeSEO-conteneur .metaTitre, .listeSEO-conteneur #seo_metaTitre {
+  color: #1a0dab;
+  font-size: 1.8rem;
+}
+#page_active_SEO .url, #page_active_SEO #seo_url, .listeSEO-conteneur .url, .listeSEO-conteneur #seo_url {
+  color: #006621;
+  font-size: 1.4rem;
+}
+#page_active_SEO .metaDescription, #page_active_SEO #seo_metaDescription, .listeSEO-conteneur .metaDescription, .listeSEO-conteneur #seo_metaDescription {
+  color: #545454;
+  font-size: 1.3rem;
+}
+
 .listeSEO-conteneur {
   max-width: 59rem;
 }
@@ -4682,18 +4695,6 @@ body.edit .bloc-reseauxsociaux input[type=text], body.new .bloc-reseauxsociaux i
   border-bottom: 1px solid;
   padding-bottom: 0.5rem;
   margin-bottom: 0.5rem;
-}
-.listeSEO-conteneur .metaTitre, .listeSEO-conteneur #seo_metaTitre {
-  color: #1a0dab;
-  font-size: 1.8rem;
-}
-.listeSEO-conteneur .url, .listeSEO-conteneur #seo_url {
-  color: #006621;
-  font-size: 1.4rem;
-}
-.listeSEO-conteneur .metaDescription, .listeSEO-conteneur #seo_metaDescription {
-  color: #545454;
-  font-size: 1.3rem;
 }
 .listeSEO-conteneur .actions {
   margin-top: 2rem;

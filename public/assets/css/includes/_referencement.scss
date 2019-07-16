@@ -1,4 +1,19 @@
-//Page référencement
+//Page et onglet référencement
+#page_active_SEO, .listeSEO-conteneur{
+  .metaTitre, #seo_metaTitre{
+    color: #1a0dab;
+    font-size: 1.8rem;
+  }
+  .url, #seo_url{
+    color: #006621;
+    font-size: 1.4rem;
+  }
+  .metaDescription, #seo_metaDescription{
+    color: #545454;
+    font-size: 1.3rem;
+  }
+}
+
 .listeSEO-conteneur{
   max-width: 59rem;
   > div{
@@ -16,18 +31,6 @@
     border-bottom: 1px solid;
     padding-bottom: .5rem;
     margin-bottom: .5rem;
-  }
-  .metaTitre, #seo_metaTitre{
-    color: #1a0dab;
-    font-size: 1.8rem;
-  }
-  .url, #seo_url{
-    color: #006621;
-    font-size: 1.4rem;
-  }
-  .metaDescription, #seo_metaDescription{
-    color: #545454;
-    font-size: 1.3rem;
   }
   .actions{
     margin-top: 2rem;

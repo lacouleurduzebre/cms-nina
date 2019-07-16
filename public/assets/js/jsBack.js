@@ -561,6 +561,12 @@ $(document).ready(function(){
         score: 150
     }, scoreSEOLive);
 
+    //Aperçu Google
+    $('#page_active_SEO_url, #page_active_SEO_metaTitre, #page_active_SEO_metaDescription').on('keyup', function(){
+        identifiant = $(this).attr('id').split('_').pop();
+        $('.listeSEO-apercu .'+identifiant).html($(this).val());
+    });
+
     //Réinitialisation onglet SEO d'une page
     $('#page_active_SEO > .raz').click(function(){
         if(!$(this).hasClass('ok')){
@@ -576,8 +582,13 @@ $(document).ready(function(){
             saveCloseFormulaire();
 
             $(this).addClass('ok');
+
+            $('#page_active_SEO_url, #page_active_SEO_metaTitre, #page_active_SEO_metaDescription').each(function(){
+                identifiant = $(this).attr('id').split('_').pop();
+                $('.listeSEO-apercu .'+identifiant).html($(this).val());
+            });
         }
-    })
+    });
 
     //Ajout de blocs via liste des blocs
     $('.listeBlocs li').click(function(){
