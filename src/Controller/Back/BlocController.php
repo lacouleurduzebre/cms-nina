@@ -84,8 +84,9 @@ class BlocController extends Controller
 
             $blocsContenu = $blocs['contenu'];
             $blocsAnnexes = $blocs['annexe'];
+            $entityConfig = ['name' => 'ConfigBloc'];
 
-            return $this->render('back/blocs/configuration.html.twig', array('blocs'=>$blocsContenu, 'blocsAnnexes'=>$blocsAnnexes));
+            return $this->render('back/blocs/configuration.html.twig', array('blocs'=>$blocsContenu, 'blocsAnnexes'=>$blocsAnnexes, '_entity_config'=>$entityConfig));
         }
     }
 

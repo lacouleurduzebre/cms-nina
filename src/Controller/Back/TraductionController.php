@@ -43,7 +43,9 @@ class TraductionController extends Controller
         $langue = $repoLangue->findOneBy(array('defaut' => true));
         $pages = $repoPage->findBy(array('active' => true, 'corbeille' => false, 'langue' => $langue));
 
-        return $this->render('back/traductionsPages.html.twig', array('pages' => $pages, 'langues' => $langues, 'langueDefaut' => $langue));
+        $entityConfig = ['name' => 'Traduction'];
+
+        return $this->render('back/traductionsPages.html.twig', array('pages' => $pages, 'langues' => $langues, 'langueDefaut' => $langue, '_entity_config' => $entityConfig));
     }
 
     /**
@@ -101,7 +103,9 @@ class TraductionController extends Controller
             return $this->redirectToRoute('modifierTraductionsTemplates', array('domaine' => $data['domaine'], 'abreviation' => $data['langue']->getAbreviation()));
         }
 
-        return $this->render('back/traductionsTemplatesChoix.html.twig', array('form' => $form->createView()));
+        $entityConfig = ['name' => 'Traduction'];
+
+        return $this->render('back/traductionsTemplatesChoix.html.twig', array('form' => $form->createView(), '_entity_config' => $entityConfig));
     }
 
     /**
@@ -172,7 +176,9 @@ class TraductionController extends Controller
             }
         }
 
-        return $this->render('back/traductionsTemplates.html.twig', array('fichiers' => $fichiers, 'domaine' => $domaines[$domaine], 'langue' => $langue));
+        $entityConfig = ['name' => 'Traduction'];
+
+        return $this->render('back/traductionsTemplates.html.twig', array('fichiers' => $fichiers, 'domaine' => $domaines[$domaine], 'langue' => $langue, '_entity_config' => $entityConfig));
     }
 
     private function getDossierByDomaine($app, $domaine){

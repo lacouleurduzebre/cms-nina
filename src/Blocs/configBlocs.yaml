@@ -5,10 +5,10 @@ Bandeau:
     priorite: 5
     actif: oui
 Bouton:
-    priorite: 6
+    priorite: 5
     actif: oui
 Categorie:
-    priorite: 5
+    priorite: 6
     actif: oui
 Formulaire:
     priorite: 14
@@ -17,13 +17,13 @@ Galerie:
     priorite: 7
     actif: oui
 Grille:
-    priorite: 28
+    priorite: 25
     actif: oui
 GroupeBlocs:
     priorite: 11
     actif: oui
 Image:
-    priorite: 2
+    priorite: 1
     actif: oui
 Inscription:
     priorite: 21
@@ -32,13 +32,13 @@ LEI:
     priorite: 17
     actif: oui
 LogoSite:
-    priorite: 24
+    priorite: 23
     actif: oui
 Menu:
     priorite: 13
     actif: oui
 MenuLangues:
-    priorite: 25
+    priorite: 24
     actif: oui
 Page:
     priorite: 16
@@ -65,7 +65,7 @@ Template:
     priorite: 15
     actif: oui
 Texte:
-    priorite: 1
+    priorite: 2
     actif: oui
 Titre:
     priorite: 4

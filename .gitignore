@@ -16,6 +16,7 @@ composer.phar
 /config/services.yaml
 /config/packages/doctrine_migrations.yaml
 /src/Blocs/configBlocs.yaml
+src/Blocs/configBlocs.yaml
 /src/Migrations/
 /src/Migrations/*
 

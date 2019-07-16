@@ -59,7 +59,9 @@ class SauvegardeController extends Controller
             $dumpsMediatheque[$dump] = date('d/m/Y h:i', $timestamp);
         }
 
-        return $this->render('back/sauvegarde.html.twig', array('dumpsBdd'=>$dumpsBdd, 'dumpsMediatheque'=>$dumpsMediatheque));
+        $entityConfig = ['name' => 'Sauvegarde'];
+
+        return $this->render('back/sauvegarde.html.twig', array('dumpsBdd'=>$dumpsBdd, 'dumpsMediatheque'=>$dumpsMediatheque, '_entity_config'=>$entityConfig));
     }
 
     /**

@@ -100,6 +100,20 @@
         {% for js_asset in easyadmin_config('design.assets.js') %}
             <script src="{{ asset(js_asset) }}"></script>
         {% endfor %}
+
+        {% if _entity_config is defined %}
+            {% if _entity_config.name == 'Page_Active' %}
+                <script src="{{ asset('assets/js/partials/jsBackPage.js') }}"></script>
+            {% endif %}
+
+            {% set partials = ['Utilisateur', 'SEO', 'Langue', 'ConfigBloc', 'Theme', 'Sauvegarde', 'Traduction'] %}
+            {% if _entity_config.name == 'Page_Active' or _entity_config.name == 'GroupeBlocs' %}
+                <script src="{{ asset('assets/js/partials/jsBackBloc.js') }}"></script>
+            {% elseif _entity_config.name in partials %}
+                <script src="{{ asset('assets/js/partials/jsBack'~_entity_config.name~'.js') }}"></script>
+            {% endif %}
+        {% endif %}
+
     </body>
     {% endblock body %}
 </html>

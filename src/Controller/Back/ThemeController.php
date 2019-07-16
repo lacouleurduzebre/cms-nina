@@ -69,7 +69,9 @@ class ThemeController extends Controller
         }
         //Fin thèmes externes
 
-        return $this->render('back/themes/theme.html.twig', array('themes' => $themes));
+        $entityConfig = ['name' => 'Theme'];
+
+        return $this->render('back/themes/theme.html.twig', array('themes' => $themes, '_entity_config' => $entityConfig));
     }
 
     /**
