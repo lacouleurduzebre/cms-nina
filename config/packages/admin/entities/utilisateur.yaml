@@ -31,7 +31,7 @@ easy_admin:
                     - { type: 'tab', label: 'Paramètres du compte' }
                     - { property: 'username', label: 'Pseudonyme' }
                     - { property: 'email', label: 'E-mail' }
-                    - { type: 'group', label: 'Mot de passe', icon: 'key', help: "Pour changer de mot de passer, utilisez <a href=\"/profile/change-password\">ce formulaire</a>" }
+                    - { type: 'group', label: 'Mot de passe', icon: 'key', help: "Pour changer de mot de passer, utilisez <a id=\"modifMDP\" href=\"/profile/change-password\">ce formulaire</a>" }
                     - { type: 'group', label: 'Image de profil', icon: 'camera' }
                     - { property: 'imageProfil', type: 'text', label: 'Image de profil' }
                     - { type: 'group', label: 'Statut', icon: 'user-cog' }

@@ -1086,4 +1086,10 @@ $(document).ready(function(){
     $('.bloc-groupeblocs-edition select').on('change', function(){
        $(this).next('a').attr('href', Routing.generate('admin', { action: 'edit', entity: 'GroupeBlocs', id: $(this).val() }));
     });
+
+    //Modif du mot de passe
+    $('#modifMDP').fancybox({
+        type: 'iframe',
+        minHeight: '600'
+    });
 });
