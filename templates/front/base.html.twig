@@ -70,6 +70,9 @@
             <script src="{{ asset('assets/js/jscookie/cookie.js') }}"></script>
             <script src="{{ asset('assets/js/fancybox/jquery.fancybox.min.js') }}"></script>
             <script src="{{ asset('assets/js/jsFront.js') }}"></script>
+            {% if config is not defined %}
+                <script src="{{ asset('assets/js/jsInstalleur.js') }}"></script>
+            {% endif %}
             {{ include('front/extraJs.html.twig') }}
             {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
                 <script src="{{ asset('assets/js/jsHeaderSidebar.js') }}"></script>
