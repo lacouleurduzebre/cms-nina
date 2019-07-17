@@ -12,6 +12,8 @@ namespace App\Controller;
 use App\Entity\Langue;
 use App\Service\Page;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Form\Extension\Core\Type\PasswordType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -29,6 +31,13 @@ class AccueilController extends Controller
      */
     public function indexAction(Page $spage, \App\Service\Langue $slangue, $_locale = null)
     {
+        //Installeur
+        $connexion = $this->getDoctrine()->getConnection()->isConnected();
+        if(!$connexion){
+            return $this->redirectToRoute('installeur', ['etape' => 1]);
+        }
+        //Fin installeur
+
         //Test route : locale ou non
         $redirection = $slangue->redirectionLocale('accueil', $_locale);
         if($redirection){

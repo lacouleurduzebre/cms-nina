@@ -29,68 +29,72 @@ class Globals extends \Twig_Extension implements \Twig_Extension_GlobalsInterfac
 
     public function getGlobals()
     {
-        //Config
-        $repoConfig = $this->doctrine->getRepository(Configuration::class);
-        $config = $repoConfig->find(1);
+        if($this->doctrine->getConnection()->isConnected()){
+            //Config
+            $repoConfig = $this->doctrine->getRepository(Configuration::class);
+            $config = $repoConfig->find(1);
 
-        //Thème
-        $theme = $config->getTheme();
+            //Thème
+            $theme = $config->getTheme();
 
-        if(!$theme){
-            $theme = 'nina';
-        }
-
-        //Paramètres du thèmes
-        $configTheme = null;
-
-        $fichierDefaut = Yaml::parseFile('../themes/'.$theme.'/config.yaml');
-
-        if(key_exists('champs', $fichierDefaut)){
-            $champs = $fichierDefaut['champs'];
-
-            $nomFichierParametres = '../themes/'.$theme.'/parametres.yaml';
-            if(!file_exists($nomFichierParametres)){
-                $fichiersParametres = fopen($nomFichierParametres, "w");
-                fclose($fichiersParametres);
+            if(!$theme){
+                $theme = 'nina';
             }
-            $configTheme = Yaml::parseFile($nomFichierParametres);
 
-            foreach($champs as $champ => $infos){
-                if($configTheme && key_exists($theme, $configTheme)){//Paramètre modifié par l'utilisateur
-                    $data = $configTheme[$theme];
-                }else{//Paramètre par défaut
-                    $data = $infos['defaut'];
+            //Paramètres du thèmes
+            $configTheme = null;
+
+            $fichierDefaut = Yaml::parseFile('../themes/'.$theme.'/config.yaml');
+
+            if(key_exists('champs', $fichierDefaut)){
+                $champs = $fichierDefaut['champs'];
+
+                $nomFichierParametres = '../themes/'.$theme.'/parametres.yaml';
+                if(!file_exists($nomFichierParametres)){
+                    $fichiersParametres = fopen($nomFichierParametres, "w");
+                    fclose($fichiersParametres);
                 }
-                $configTheme[$champ] = $data;
-            }
-        }
+                $configTheme = Yaml::parseFile($nomFichierParametres);
 
-        //Page active
-        $page = $this->servicePage->getPageActive();
-
-        //Langues
-        $repoLangue = $this->doctrine->getRepository(Langue::class);
-        $langues = $repoLangue->findBy(array('active' => '1'));
-
-        //Langue active
-        if($this->request){
-            $locale = $this->request->getLocale();
-            if($locale){
-                $langueActive = $repoLangue->findOneBy(array('abreviation'=>$locale));
+                foreach($champs as $champ => $infos){
+                    if($configTheme && key_exists($theme, $configTheme)){//Paramètre modifié par l'utilisateur
+                        $data = $configTheme[$theme];
+                    }else{//Paramètre par défaut
+                        $data = $infos['defaut'];
+                    }
+                    $configTheme[$champ] = $data;
+                }
             }
-            if(!$langueActive){
-                $langueActive = $repoLangue->findOneBy(array('defaut'=>1));
+
+            //Page active
+            $page = $this->servicePage->getPageActive();
+
+            //Langues
+            $repoLangue = $this->doctrine->getRepository(Langue::class);
+            $langues = $repoLangue->findBy(array('active' => '1'));
+
+            //Langue active
+            if($this->request){
+                $locale = $this->request->getLocale();
+                if($locale){
+                    $langueActive = $repoLangue->findOneBy(array('abreviation'=>$locale));
+                }
+                if(!$langueActive){
+                    $langueActive = $repoLangue->findOneBy(array('defaut'=>1));
+                }
+            }else{
+                $langueActive = null;
             }
+
+            return array(
+                'config' => $config,
+                'page' => $page,
+                'langues' => $langues,
+                'langueActive' => $langueActive,
+                'theme' => $theme
+            );
         }else{
-            $langueActive = null;
+            return [];
         }
-
-        return array(
-            'config' => $config,
-            'page' => $page,
-            'langues' => $langues,
-            'langueActive' => $langueActive,
-            'theme' => $theme
-        );
     }
 }

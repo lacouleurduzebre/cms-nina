@@ -1,0 +1,11 @@
+{% extends 'front/base.html.twig' %}
+
+{% block main %}
+    <h1>Configuration de la base de données</h1>
+
+    {{ form_start(form) }}
+    {{ form(form) }}
+    {{ form_end(form) }}
+
+    <button>Tester la connexion</button>
+{% endblock %}

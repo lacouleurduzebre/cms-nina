@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html {% if langueActive is not empty %}lang="{{ langueActive.code }}"{% endif %}>
+<html {% if langueActive is defined and langueActive is not empty %}lang="{{ langueActive.code }}"{% endif %}>
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-    {% if not config.maintenance or is_granted('IS_AUTHENTICATED_REMEMBERED') %}
-        <title>{% block title %}{% if langueActive.metaTitre is not empty %}{{ langueActive.metaTitre }}{% else %}{{ config.nom }}{% endif %}{% endblock %}</title>
+    {% if config is not defined or not config.maintenance or is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+        <title>{% block title %}{% if langueActive is defined and langueActive.metaTitre is not empty %}{{ langueActive.metaTitre }}{% elseif config is defined %}{{ config.nom }}{% endif %}{% endblock %}</title>
         {% block traductions %}{% endblock %}
         {% block stylesheets %}
             <link rel="stylesheet" href="{{ asset('assets/js/slickslider/slick.css') }}" type="text/css">
@@ -25,10 +25,10 @@
             <script src="{{ asset('assets/js/fosjsrouting/js/fos_js_routes.js') }}"></script>
         {% endif %}
         <link rel="icon" type="image/x-icon" href="{{ asset('assets/img/favicon.ico') }}" />
-        <meta name="description" content="{% block head %}{% if langueActive.metaDescription is not empty %}{{ langueActive.metaDescription }}{% endif %}{% endblock %}" />
+        <meta name="description" content="{% block head %}{% if langueActive is defined and langueActive.metaDescription is not empty %}{{ langueActive.metaDescription }}{% endif %}{% endblock %}" />
     {% endif %}
 </head>
-{% if not config.maintenance or is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+{% if config is not defined or not config.maintenance or is_granted('IS_AUTHENTICATED_REMEMBERED') %}
     <body class="front {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}connected {% endif %}{% if accueil is defined %}accueil {% endif %}">
 
         {# Menu horizontal du back office #}
@@ -40,7 +40,9 @@
             {{ include('back/aside.html.twig') }}
         {% endif %}
 
-        {{ regions('avant') }}
+        {% if config is defined %}
+            {{ regions('avant') }}
+        {% endif %}
 
         {# Si besoin d'un bloc sur toute la largeur de l'écran #}
         {% block before_main %}{% endblock %}
@@ -53,14 +55,16 @@
             </div>
         </main>
 
-        {{ regions('apres') }}
+        {% if config is defined %}
+            {{ regions('apres') }}
+        {% endif %}
 
         <div class="cookies" style="display: none">
             <p>En poursuivant votre navigation sur ce site : <a id="cookies-ok" href="#">vous acceptez l'utilisation de cookies</a> ou vous souhaitez <a href="{{ path('voirPage', { url: 'cookies' }) }}">en savoir plus</a>
         </div>
 
         {% block javascripts %}
-            {% if config.analytics is not empty %}
+            {% if config is defined and config.analytics is not empty %}
                 {{ config.analytics|raw }}
             {% endif %}
             <script src="{{ asset('assets/js/jscookie/cookie.js') }}"></script>
