@@ -37,25 +37,31 @@ class Front extends \Twig_Extension
     public function getRegions($position){
         $repoRegion = $this->doctrine->getRepository(Region::class);
 
-        $positionContenu = $repoRegion->findOneBy(array('identifiant' => 'contenu'))->getPosition();
+        $contenu = $repoRegion->findOneBy(array('identifiant' => 'contenu'));
 
-        if($position == 'avant'){
-            $regions = $repoRegion->getRegionsAvant($positionContenu);
-        }else{
-            $regions = $repoRegion->getRegionsApres($positionContenu);
-        }
+        if($contenu){
+            $positionContenu = $contenu->getPosition();
 
-        $rendu = '';
-        foreach($regions as $region){
-            $tpl = 'front/regions/region-'.$region->getIdentifiant().'.html.twig';
-            if($this->twig->getLoader()->exists($tpl)){
-                $rendu .= $this->twig->render($tpl, array('region' => $region));
+            if($position == 'avant'){
+                $regions = $repoRegion->getRegionsAvant($positionContenu);
             }else{
-                $rendu .= $this->twig->render('front/regions/region.html.twig', array('region' => $region));
+                $regions = $repoRegion->getRegionsApres($positionContenu);
             }
+
+            $rendu = '';
+            foreach($regions as $region){
+                $tpl = 'front/regions/region-'.$region->getIdentifiant().'.html.twig';
+                if($this->twig->getLoader()->exists($tpl)){
+                    $rendu .= $this->twig->render($tpl, array('region' => $region));
+                }else{
+                    $rendu .= $this->twig->render('front/regions/region.html.twig', array('region' => $region));
+                }
+            }
+
+            return $rendu;
         }
 
-        return $rendu;
+        return false;
     }
 
     public function getGroupesBlocs($idRegion)

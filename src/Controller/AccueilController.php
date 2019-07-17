@@ -9,6 +9,7 @@
 namespace App\Controller;
 
 
+use App\Entity\Configuration;
 use App\Entity\Langue;
 use App\Service\Page;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -32,9 +33,16 @@ class AccueilController extends Controller
     public function indexAction(Page $spage, \App\Service\Langue $slangue, $_locale = null)
     {
         //Installeur
-        $connexion = $this->getDoctrine()->getConnection()->connect();
-        if(!$connexion){
+        try {
+            $this->getDoctrine()->getConnection()->connect();
+        } catch (\Exception $e) {
             return $this->redirectToRoute('installeur', ['etape' => 1]);
+        }
+        $repoConfig = $this->getDoctrine()->getRepository(Configuration::class);
+        try {
+            $repoConfig->find(1);
+        } catch (\Exception $e) {
+            return $this->redirectToRoute('installeur', ['etape' => 2]);
         }
         //Fin installeur
 

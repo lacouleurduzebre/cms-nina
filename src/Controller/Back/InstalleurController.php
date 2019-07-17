@@ -28,7 +28,7 @@ class InstalleurController extends Controller
      */
     public function installeur($etape, Request $request){
         switch($etape){
-            case 1:
+            case 1: //Configuration de la BDD
                 $form = $this->createFormBuilder()
                     ->add('host', TextType::class, ['label' => 'Serveur'])
                     ->add('database', TextType::class, ['label' => 'Nom de la base de données'])
@@ -45,16 +45,18 @@ class InstalleurController extends Controller
 
                     if($this->testConnexion($request, $data) == 'ok'){
 
-                        //Déploiement structure bdd
+                        exec('which php', $php);
+                        exec($php[0].' ../bin/console doctrine:migrations:diff --filter-expression=/^'.$_ENV['PREFIXE'].'_/ -nq; '.$php[0].' ../bin/console doctrine:migrations:migrate -nq');
 
                         return $this->redirectToRoute('installeur', ['etape' => 2]);
                     }
                 }
 
                 return $this->render('installeur/1_configBDD.html.twig', ['form' => $form->createView()]);
-            case 2:
-                $connexion = $this->getDoctrine()->getConnection()->connect();
-                if(!$connexion){
+            case 2: //Configuration du site
+                try {
+                    $this->getDoctrine()->getConnection()->connect();
+                } catch (\Exception $e) {
                     return $this->redirectToRoute('installeur', ['etape' => 1]);
                 }
 
@@ -103,12 +105,21 @@ class InstalleurController extends Controller
                 }
             }
 
-            $connexion = $this->getDoctrine()->getConnection()->connect() ? 'ok' : 'echec';
+
+            try {
+                $this->getDoctrine()->getConnection()->connect();
+            } catch (\Exception $e) {
+                if ($request->isXmlHttpRequest()) {
+                    return new Response('echec');
+                }else{
+                    return 'echec';
+                }
+            }
 
             if ($request->isXmlHttpRequest()) {
-                return new Response($connexion);
+                return new Response('ok');
             }else{
-                return $connexion;
+                return 'ok';
             }
         }
     }

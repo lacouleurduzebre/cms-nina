@@ -42,9 +42,11 @@ class Globals extends \Twig_Extension implements \Twig_Extension_GlobalsInterfac
             $config = $repoConfig->find(1);
 
             //Thème
-            $theme = $config->getTheme();
+            if($config){
+                $theme = $config->getTheme();
+            }
 
-            if(!$theme){
+            if(!$config || !$theme){
                 $theme = 'nina';
             }
 
