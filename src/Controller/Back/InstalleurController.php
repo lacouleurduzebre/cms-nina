@@ -9,7 +9,11 @@
 namespace App\Controller\Back;
 
 
+use App\Blocs\Image\ImageType;
+use App\Entity\Configuration;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -60,14 +64,33 @@ class InstalleurController extends Controller
                     return $this->redirectToRoute('installeur', ['etape' => 1]);
                 }
 
-                $form = $this->createFormBuilder()
+                $repoConfig = $this->getDoctrine()->getRepository(Configuration::class);
+                if($repoConfig->find(1)){
+                    return $this->redirectToRoute('installeur', ['etape' => 3]);
+                }
+
+                $config = new Configuration();
+
+                $form = $this->createFormBuilder($config)
                     ->add('nom', TextType::class, ['label' => 'Nom du site'])
+                    ->add('editeur', TextType::class, ['label' => 'Éditeur du site'])
+                    ->add('emailContact', EmailType::class, ['label' => 'E-mail de contact'])
+                    ->add('emailMaintenance', EmailType::class, ['label' => 'E-mail de maintenance'])
+                    ->add('logo', FileType::class, ['label' => 'Logo'])
                     ->getForm();
 
                 $form->handleRequest($request);
 
                 if ($form->isSubmitted() && $form->isValid()) {
-                    //Création de la config
+                    $config = $form->getData();
+
+                    $em = $this->getDoctrine()->getManager();
+
+                    $config->setMaintenance(1);
+                    $em->persist($config);
+                    $em->flush();
+
+                    return $this->redirectToRoute('installeur', ['etape' => 4]);
                 }
 
                 return $this->render('installeur/2_configSite.html.twig', ['form' => $form->createView()]);
