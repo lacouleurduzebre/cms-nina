@@ -32,6 +32,13 @@ class Globals extends \Twig_Extension implements \Twig_Extension_GlobalsInterfac
         if($this->doctrine->getConnection()->isConnected()){
             //Config
             $repoConfig = $this->doctrine->getRepository(Configuration::class);
+
+            try {
+                $config = $repoConfig->find(1);
+            } catch (\Exception $e) {
+                return [];
+            }
+
             $config = $repoConfig->find(1);
 
             //Thème
@@ -46,23 +53,25 @@ class Globals extends \Twig_Extension implements \Twig_Extension_GlobalsInterfac
 
             $fichierDefaut = Yaml::parseFile('../themes/'.$theme.'/config.yaml');
 
-            if(key_exists('champs', $fichierDefaut)){
-                $champs = $fichierDefaut['champs'];
+            if($fichierDefaut){
+                if(key_exists('champs', $fichierDefaut)){
+                    $champs = $fichierDefaut['champs'];
 
-                $nomFichierParametres = '../themes/'.$theme.'/parametres.yaml';
-                if(!file_exists($nomFichierParametres)){
-                    $fichiersParametres = fopen($nomFichierParametres, "w");
-                    fclose($fichiersParametres);
-                }
-                $configTheme = Yaml::parseFile($nomFichierParametres);
-
-                foreach($champs as $champ => $infos){
-                    if($configTheme && key_exists($theme, $configTheme)){//Paramètre modifié par l'utilisateur
-                        $data = $configTheme[$theme];
-                    }else{//Paramètre par défaut
-                        $data = $infos['defaut'];
+                    $nomFichierParametres = '../themes/'.$theme.'/parametres.yaml';
+                    if(!file_exists($nomFichierParametres)){
+                        $fichiersParametres = fopen($nomFichierParametres, "w");
+                        fclose($fichiersParametres);
                     }
-                    $configTheme[$champ] = $data;
+                    $configTheme = Yaml::parseFile($nomFichierParametres);
+
+                    foreach($champs as $champ => $infos){
+                        if($configTheme && key_exists($theme, $configTheme)){//Paramètre modifié par l'utilisateur
+                            $data = $configTheme[$theme];
+                        }else{//Paramètre par défaut
+                            $data = $infos['defaut'];
+                        }
+                        $configTheme[$champ] = $data;
+                    }
                 }
             }
 

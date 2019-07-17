@@ -32,7 +32,7 @@ class AccueilController extends Controller
     public function indexAction(Page $spage, \App\Service\Langue $slangue, $_locale = null)
     {
         //Installeur
-        $connexion = $this->getDoctrine()->getConnection()->isConnected();
+        $connexion = $this->getDoctrine()->getConnection()->connect();
         if(!$connexion){
             return $this->redirectToRoute('installeur', ['etape' => 1]);
         }
