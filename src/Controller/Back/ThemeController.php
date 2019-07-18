@@ -246,6 +246,42 @@ class ThemeController extends Controller
         file_put_contents('../config/services.yaml', $nvFichier);
 
         //Symlink
+
+        //Téléchargement du thème s'il n'est pas installé
+        if(!file_exists($linkfileT.$theme)){
+            $themesExternes = Yaml::parse(file_get_contents('https://www.cms-nina.fr/themes-nina/themes-nina.yml'));
+            $lien = $themesExternes[$theme]['lien'];
+
+            $tmp = '../themes/theme.zip';
+
+            copy($lien, $tmp);
+
+            $zip = new \ZipArchive();
+            $fichier = $zip->open($tmp);
+            if ($fichier) {
+                //Nom du dossier contenu dans le zip
+                $nomDossier = substr($zip->getNameIndex(0), 0, -1);
+
+                //Extraction
+                $zip->extractTo('../themes/');
+                $zip->close();
+
+                //Suppression zip
+                unlink($tmp);
+
+                //Renommage dossier
+                $dossierTheme = '../themes/'.$theme;
+                $filesystem->rename('../themes/'.$nomDossier, $dossierTheme, true);
+
+                //Création du dossier "translations" s'il n'existe pas
+                if(!file_exists($dossierTheme.'/translations')){
+                    mkdir($dossierTheme.'/translations');
+                }
+            } else {
+                return false;
+            }
+        }
+
             //Suppression lien précédent
         if(file_exists($linkfileP)) {
             if(is_link($linkfileP)) {

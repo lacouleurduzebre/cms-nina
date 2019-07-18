@@ -10,7 +10,11 @@
             <link rel="stylesheet" href="{{ asset('assets/js/slickslider/slick.css') }}" type="text/css">
             <link rel="stylesheet" href="{{ asset('assets/js/slickslider/slick-theme.css') }}" type="text/css">
             <link rel="stylesheet" href="{{ asset('assets/js/fancybox/jquery.fancybox.min.css') }}" type="text/css">
-            {{ include('front/extraCss.html.twig') }}
+            {% if installeur %}
+                <link rel="stylesheet" href="{{ asset('assets/css/installeur.css') }}" type="text/css">
+            {% else %}
+                {{ include('front/extraCss.html.twig') }}
+            {% endif %}
             {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
                 <link href="https://fonts.googleapis.com/css?family=Cabin:400,700" rel="stylesheet">
                 <link rel="stylesheet" href="{{ asset('assets/js/jstree/themes/style.css') }}">
@@ -70,10 +74,11 @@
             <script src="{{ asset('assets/js/jscookie/cookie.js') }}"></script>
             <script src="{{ asset('assets/js/fancybox/jquery.fancybox.min.js') }}"></script>
             <script src="{{ asset('assets/js/jsFront.js') }}"></script>
-            {% if config is not defined %}
+            {% if installeur %}
                 <script src="{{ asset('assets/js/jsInstalleur.js') }}"></script>
+            {% else %}
+                {{ include('front/extraJs.html.twig') }}
             {% endif %}
-            {{ include('front/extraJs.html.twig') }}
             {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
                 <script src="{{ asset('assets/js/jsHeaderSidebar.js') }}"></script>
                 <script src="{{ asset('assets/js/jstree/jstree.min.js') }}"></script>

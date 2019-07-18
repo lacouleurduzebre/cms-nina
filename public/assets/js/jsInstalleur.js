@@ -21,4 +21,11 @@ $(document).ready(function(){
                 $('#resultatTestConnexion').html('<i class="fas '+resultat+'"></i>');
             });
     });
+
+    $('.theme').click(function(){
+        $('.theme').not($(this)).removeClass('actif');
+        $(this).addClass('actif');
+        theme = $(this).attr('id');
+        $('#form_theme').val(theme);
+    });
 });

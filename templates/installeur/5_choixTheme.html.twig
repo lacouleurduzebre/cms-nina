@@ -2,7 +2,7 @@
 
 {% block main %}
     <h1>Choix du thème</h1>
-{{ dump() }}
+
     {% for nom,theme in themes %}
         <div id="{{ nom }}" class="theme">
             <div class="theme-illustration">
@@ -36,18 +36,4 @@
     {{ form(form) }}
     {{ form_end(form) }}
 
-{% endblock %}
-
-{% block javascripts %}
-    {{ parent() }}
-    <script>
-        $(function(){
-            $('.theme').click(function(){
-                $('.theme').not($(this)).removeClass('actif');
-                $(this).addClass('actif');
-                theme = $(this).attr('id');
-                $('#form_theme').val(theme);
-            })
-        });
-    </script>
 {% endblock %}
