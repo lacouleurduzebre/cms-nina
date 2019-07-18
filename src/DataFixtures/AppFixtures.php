@@ -17,35 +17,48 @@ use Doctrine\Common\Persistence\ObjectManager;
 
 class AppFixtures extends Fixture
 {
-    public function load(ObjectManager $manager)
+    public function load(ObjectManager $manager, $installeur = false)
     {
-        $utilisateur = new Utilisateur();
-        $utilisateur->setUsername('admin')
-            ->setEmail('maintenance@lacouleurduzebre.com')
-            ->setPlainPassword('admin')
-            ->setEnabled(true);
-        $manager->persist($utilisateur);
-
-        //Configuration générale
-        $config = new Configuration();
-        $config->setNom('Nouveau site')
-            ->setLogo('/theme/img/logo.png')
-            ->setEmailContact('maintenance@lacouleurduzebre.com')
-            ->setEmailMaintenance('maintenance@lacouleurduzebre.com')
-            ->setEditeur('la couleur du Zèbre')
-            ->setTheme('nina')
-            ->setMaintenance(true);
-        $manager->persist($config);
-
         $date = new \DateTime();
 
-        //Langue : français
-        $langue = new Langue();
-        $langue->setNom('français')
-            ->setAbreviation('fr')
-            ->setDefaut(true)
-            ->setCode('fr-FR');
-        $manager->persist($langue);
+        if(!$installeur){
+            $utilisateur = new Utilisateur();
+            $utilisateur->setUsername('admin')
+                ->setEmail('maintenance@lacouleurduzebre.com')
+                ->setPlainPassword('admin')
+                ->setEnabled(true);
+            $manager->persist($utilisateur);
+
+            //Configuration générale
+            $config = new Configuration();
+            $config->setNom('Nouveau site')
+                ->setLogo('/theme/img/logo.png')
+                ->setEmailContact('maintenance@lacouleurduzebre.com')
+                ->setEmailMaintenance('maintenance@lacouleurduzebre.com')
+                ->setEditeur('la couleur du Zèbre')
+                ->setTheme('nina')
+                ->setMaintenance(true);
+            $manager->persist($config);
+
+            //Langue : français
+            $langue = new Langue();
+            $langue->setNom('français')
+                ->setAbreviation('fr')
+                ->setDefaut(true)
+                ->setCode('fr-FR');
+            $manager->persist($langue);
+
+            $manager->flush();
+        }
+
+        $repoUtilisateur = $manager->getRepository(Utilisateur::class);
+        $utilisateur = $repoUtilisateur->find(1);
+
+        $repoConfig = $manager->getRepository(Configuration::class);
+        $config = $repoConfig->find(1);
+
+        $repoLangue = $manager->getRepository(Langue::class);
+        $langue = $repoLangue->find(1);
 
         //Page sans titre
         $seo = new SEO();
@@ -87,7 +100,11 @@ class AppFixtures extends Fixture
         $manager->persist($pageCookies);
 
         $contenuCookies = [];
-        $contenuCookies['texte'] = file_get_contents(getcwd().'/src/DataFixtures/cookies.txt');
+        if($installeur){
+            $contenuCookies['texte'] = file_get_contents('../src/DataFixtures/cookies.txt');
+        }else{
+            $contenuCookies['texte'] = file_get_contents(getcwd().'/src/DataFixtures/cookies.txt');
+        }
 
         $texteCookies = new Bloc();
         $texteCookies->setType('Texte')
@@ -123,7 +140,7 @@ class AppFixtures extends Fixture
         $manager->persist($menuPageFooter);
 
 
-        //Premier flush pour obtenir les id des menus
+        //Flush pour obtenir les id des menus
         $manager->flush();
 
         //Régions header, contenu et footer

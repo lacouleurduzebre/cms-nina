@@ -9,9 +9,13 @@
 namespace App\Controller\Back;
 
 
+use App\DataFixtures\AppFixtures;
 use App\Entity\Configuration;
 use App\Entity\Langue;
+use App\Entity\Menu;
+use App\Entity\Region;
 use App\Entity\Utilisateur;
+use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
@@ -33,7 +37,7 @@ class InstalleurController extends Controller
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function installeur($etape, Request $request, Filesystem $filesystem){
+    public function installeur($etape, Request $request, Filesystem $filesystem, ObjectManager $manager, AppFixtures $fixtures){
         switch($etape){
             case 1: //Configuration de la BDD
 
@@ -193,6 +197,7 @@ class InstalleurController extends Controller
                 $form->handleRequest($request);
 
                 if ($form->isSubmitted() && $form->isValid()) {
+                    //Enregistrement du thème
                     $config = $form->getData();
 
                     $em = $this->getDoctrine()->getManager();
@@ -204,6 +209,9 @@ class InstalleurController extends Controller
                     $linkfileP = $this->getParameter('kernel.project_dir').'/public/theme';
                     $linkfileT = $this->getParameter('kernel.project_dir').'/themes/';
                     ThemeController::changementTheme($theme, $linkfileP, $linkfileT, $filesystem);
+
+                    //Création de contenus
+                    $fixtures->load($manager, true);
 
                     return $this->redirectToRoute('installeur', ['etape' => 6]);
                 }
