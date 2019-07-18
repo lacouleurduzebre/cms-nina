@@ -62,14 +62,14 @@ class AppFixtures extends Fixture
 
         //Page sans titre
         $seo = new SEO();
-        $seo->setUrl('page-sans-titre')
-            ->setMetaTitre('Page sans titre')
-            ->setMetaDescription('Page sans titre');
+        $seo->setUrl('accueil')
+            ->setMetaTitre('Accueil')
+            ->setMetaDescription('Accueil');
         $manager->persist($seo);
 
         $page = new Page();
-        $page->setTitre('Page sans titre')
-            ->setTitreMenu('Page sans titre')
+        $page->setTitre('Accueil')
+            ->setTitreMenu('Accueil')
             ->setAuteur($utilisateur)
             ->setAuteurDerniereModification($utilisateur)
             ->setDateCreation($date)

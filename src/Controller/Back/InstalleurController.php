@@ -9,11 +9,15 @@
 namespace App\Controller\Back;
 
 
+use App\Controller\SEOController;
 use App\DataFixtures\AppFixtures;
 use App\Entity\Configuration;
 use App\Entity\Langue;
 use App\Entity\Menu;
+use App\Entity\MenuPage;
+use App\Entity\Page;
 use App\Entity\Region;
+use App\Entity\SEO;
 use App\Entity\Utilisateur;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -32,7 +36,7 @@ class InstalleurController extends Controller
 {
     /**
      * @Route("/installeur/{etape}", name="installeur", requirements={
-     *     "etape"="^[1-9]{1,1}$"
+     *     "etape"="^[1-7]{1,1}$"
      * })
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\Response
@@ -229,7 +233,7 @@ class InstalleurController extends Controller
     }
 
     /**
-     * @Route("/installeur/0", name="testConnexion")
+     * @Route("/installeur/0", name="installeurTestConnexion")
      * @param Request $request
      * @return @return bool|Response
      */
@@ -276,5 +280,57 @@ class InstalleurController extends Controller
                 return 'ok';
             }
         }
+    }
+
+    /**
+     * @Route("/installeur/8", name="installeurAjoutPage")
+     * @param Request $request
+     * @return @return bool|Response
+     */
+    public function ajoutPage(Request $request, SEOController $seoController){
+        if ($request->isXmlHttpRequest()) {
+            $titre = $request->get('titre');
+
+            $em = $this->getDoctrine()->getManager();
+
+            $seo = new SEO();
+            $seo->setUrl($seoController->slugify($titre))
+                ->setMetaTitre($titre)
+                ->setMetaDescription($titre);
+            $em->persist($seo);
+
+            $utilisateur = $this->getDoctrine()->getRepository(Utilisateur::class)->find(1);
+            $langue = $this->getDoctrine()->getRepository(Langue::class)->find(1);
+            $date = new \DateTime();
+
+            $page = new Page();
+            $page->setTitre($titre)
+                ->setTitreMenu($titre)
+                ->setAuteur($utilisateur)
+                ->setAuteurDerniereModification($utilisateur)
+                ->setDateCreation($date)
+                ->setDatePublication($date)
+                ->setLangue($langue)
+                ->setSEO($seo);
+            $em->persist($page);
+
+            $idMenu = $request->get('menu');
+            $menu = $this->getDoctrine()->getRepository(Menu::class)->find($idMenu);
+
+            $menuPage = new MenuPage();
+
+            $position = $this->getDoctrine()->getRepository(MenuPage::class)->positionMax($idMenu)->getPosition();
+
+            $menuPage->setPosition($position + 1)
+                ->setMenu($menu)
+                ->setPage($page);
+            $em->persist($menuPage);
+
+            $em->flush();
+
+            return new Response('ok');
+        }
+
+        return false;
     }
 }
