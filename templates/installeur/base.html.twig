@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+        <title>{% block title %}{{ "CMS Nina - Installation"|trans }}{% endblock %}</title>
+        {% block stylesheets %}
+            <link href="https://fonts.googleapis.com/css?family=Cabin:400,700" rel="stylesheet">
+            <link rel="stylesheet" href="{{ asset('assets/css/installeur.css') }}" type="text/css">
+        {% endblock %}
+        <script src="{{ asset('assets/js/jquery-3.2.1.min.js') }}"></script>
+        <script src="{{ asset('assets/js/fontawesome-all.min.js') }}"></script>
+        {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+            <script src="{{ asset('assets/js/fosjsrouting/js/router.js') }}"></script>
+            <script src="{{ asset('assets/js/fosjsrouting/js/fos_js_routes.js') }}"></script>
+        {% endif %}
+        <link rel="icon" type="image/x-icon" href="{{ asset('assets/img/favicon.ico') }}" />
+    </head>
+    <body>
+        <main class="mw1140p center flex-container">
+            {% block main %}{% endblock %}
+        </main>
+
+        {% block javascripts %}
+            <script src="{{ asset('assets/js/jsInstalleur.js') }}"></script>
+        {% endblock %}
+    </body>
+</html>
