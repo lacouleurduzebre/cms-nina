@@ -1,8 +1,6 @@
 {% extends 'installeur/base.html.twig' %}
 
 {% block main %}
-    <h1>Choix du thème</h1>
-
     {% for nom,theme in themes %}
         <div id="{{ nom }}" class="theme">
             <div class="theme-illustration">

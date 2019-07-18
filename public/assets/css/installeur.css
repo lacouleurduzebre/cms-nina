@@ -1,0 +1,43 @@
+.tunnel {
+  display: flex;
+  border: 1px solid;
+}
+.tunnel li {
+  margin-right: 2rem;
+}
+.tunnel li.active {
+  color: green;
+  font-weight: bold;
+}
+.tunnel li:after {
+  content: ">";
+  margin-left: 1rem;
+  color: #000;
+  font-weight: normal;
+}
+.tunnel li:last-of-type:after {
+  content: "";
+  margin-left: 0;
+}
+
+.theme-illustration {
+  max-width: 30rem;
+}
+.theme-illustration img {
+  width: 100%;
+}
+
+.theme-infos {
+  padding: 0 1rem;
+}
+
+.theme {
+  border: 2px solid transparent;
+  max-width: 30rem;
+  margin-bottom: 3rem;
+}
+.theme.actif {
+  border: 2px solid green;
+}
+
+/*# sourceMappingURL=installeur.css.map */

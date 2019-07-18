@@ -1,0 +1,43 @@
+//Global
+.tunnel{
+  display: flex;
+  border: 1px solid;
+  li{
+    margin-right: 2rem;
+    &.active{
+      color: green;
+      font-weight: bold;
+    }
+    &:after{
+      content: ">";
+      margin-left: 1rem;
+      color: #000;
+      font-weight: normal;
+    }
+    &:last-of-type:after{
+      content: "";
+      margin-left: 0;
+    }
+  }
+}
+
+//Étape 5 : Thème
+.theme-illustration{
+  max-width: 30rem;
+  img{
+    width: 100%;
+  }
+}
+
+.theme-infos{
+  padding: 0 1rem;
+}
+
+.theme{
+  border: 2px solid transparent;
+  max-width: 30rem;
+  margin-bottom: 3rem;
+  &.actif{
+    border: 2px solid green;
+  }
+}

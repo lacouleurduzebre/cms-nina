@@ -41,6 +41,41 @@ class InstalleurController extends Controller
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function installeur($etape, Request $request, Filesystem $filesystem, ObjectManager $manager, AppFixtures $fixtures){
+        $etapes = [
+            1 => [
+                'titre' => 'Base de données',
+                'titreComplet' => 'Configuration de la base de données'
+            ],
+            2 => [
+                'titre' => 'Configuration générale',
+                'titreComplet' => 'Configuration générale du site'
+            ],
+            3 => [
+                'titre' => 'langue',
+                'titreComplet' => 'Configuration de la langue par défaut'
+            ],
+            4 => [
+                'titre' => 'Utilisateur',
+                'titreComplet' => 'Création de l\'utilisateur admin'
+            ],
+            5 => [
+                'titre' => 'Thème',
+                'titreComplet' => 'Choix du thème'
+            ],
+            6 => [
+                'titre' => 'Contenus',
+                'titreComplet' => 'Création de pages'
+            ],
+            7 => [
+                'titre' => 'Installation terminée',
+                'titreComplet' => 'Installation terminée'
+            ],
+        ];
+
+        foreach($etapes as $numero => $infosEtape){
+            $etapes[$numero]['active'] = ($numero == $etape);
+        }
+
         switch($etape){
             case 1: //Configuration de la BDD
 
@@ -78,7 +113,7 @@ class InstalleurController extends Controller
                     }
                 }
 
-                return $this->render('installeur/1_configBDD.html.twig', ['form' => $form->createView()]);
+                return $this->render('installeur/1_configBDD.html.twig', ['etapes' => $etapes, 'form' => $form->createView()]);
 
             case 2: //Configuration du site
 
@@ -132,7 +167,7 @@ class InstalleurController extends Controller
                     }
                 }
 
-                return $this->render('installeur/2_configSite.html.twig', ['form' => $form->createView()]);
+                return $this->render('installeur/2_configSite.html.twig', ['etapes' => $etapes, 'form' => $form->createView()]);
 
             case 3: //Configuration de la langue par défaut
 
@@ -160,7 +195,7 @@ class InstalleurController extends Controller
                     return $this->redirectToRoute('installeur', ['etape' => 4]);
                 }
 
-                return $this->render('installeur/3_configLangue.html.twig', ['form' => $form->createView()]);
+                return $this->render('installeur/3_configLangue.html.twig', ['etapes' => $etapes, 'form' => $form->createView()]);
 
             case 4: //Configuration de l'utilisateur admin
 
@@ -187,7 +222,7 @@ class InstalleurController extends Controller
                     return $this->redirectToRoute('installeur', ['etape' => 5]);
                 }
 
-                return $this->render('installeur/4_configUtilisateur.html.twig', ['form' => $form->createView()]);
+                return $this->render('installeur/4_configUtilisateur.html.twig', ['etapes' => $etapes, 'form' => $form->createView()]);
 
             case 5: //Choix du thème
 
@@ -224,7 +259,7 @@ class InstalleurController extends Controller
                     return $this->redirectToRoute('installeur', ['etape' => 6]);
                 }
 
-                return $this->render('installeur/5_choixTheme.html.twig', ['form' => $form->createView(), 'themes' => $themes]);
+                return $this->render('installeur/5_choixTheme.html.twig', ['etapes' => $etapes, 'form' => $form->createView(), 'themes' => $themes]);
 
             case 6: //Création des contenus
 
@@ -242,11 +277,11 @@ class InstalleurController extends Controller
                     $pagesFooter[] = $menuPage->getPage()->getTitre();
                 }
 
-                return $this->render('installeur/6_creationContenus.html.twig', ['pagesHeader' => $pagesHeader, 'pagesFooter' => $pagesFooter]);
+                return $this->render('installeur/6_creationContenus.html.twig', ['etapes' => $etapes, 'pagesHeader' => $pagesHeader, 'pagesFooter' => $pagesFooter]);
 
             case 7: //Installation terminée
 
-                return $this->render('installeur/7_validation.html.twig');
+                return $this->render('installeur/7_validation.html.twig', ['etapes' => $etapes]);
         }
     }
 
