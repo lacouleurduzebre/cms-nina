@@ -11,6 +11,7 @@ namespace App\Twig\Front;
 
 use App\Entity\Configuration;
 use App\Entity\Langue;
+use App\Entity\Region;
 use App\Service\Page;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
@@ -34,9 +35,17 @@ class Globals extends \Twig_Extension implements \Twig_Extension_GlobalsInterfac
             $repoConfig = $this->doctrine->getRepository(Configuration::class);
 
             try {
-                $config = $repoConfig->find(1);
+                $repoConfig->find(1);
             } catch (\Exception $e) {
-                return [];
+                return ['installeur' => true];
+            }
+
+            $repoRegion = $this->doctrine->getRepository(Region::class);
+            $contenu = $repoRegion->findOneBy(array('identifiant' => 'contenu'));
+            if($contenu){
+                $installeur = false;
+            }else{
+                $installeur = true;
             }
 
             $config = $repoConfig->find(1);
@@ -102,10 +111,11 @@ class Globals extends \Twig_Extension implements \Twig_Extension_GlobalsInterfac
                 'page' => $page,
                 'langues' => $langues,
                 'langueActive' => $langueActive,
-                'theme' => $theme
+                'theme' => $theme,
+                'installeur' => $installeur
             );
         }else{
-            return [];
+            return ['installeur' => true];
         }
     }
 }

@@ -13,11 +13,11 @@ use App\Entity\Configuration;
 use App\Entity\Langue;
 use App\Entity\Utilisateur;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
-use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
-use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\HttpFoundation\Request;
@@ -33,7 +33,7 @@ class InstalleurController extends Controller
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function installeur($etape, Request $request){
+    public function installeur($etape, Request $request, Filesystem $filesystem){
         switch($etape){
             case 1: //Configuration de la BDD
 
@@ -98,7 +98,7 @@ class InstalleurController extends Controller
 
                     $em = $this->getDoctrine()->getManager();
 
-                    $config->setMaintenance(1);
+                    $config->setMaintenance(0);
                     $em->persist($config);
                     $em->flush();
 
@@ -179,8 +179,44 @@ class InstalleurController extends Controller
 
             case 5: //Choix du thème
 
+                $themes = ThemeController::listeThemes();
 
+                $repoConfig = $this->getDoctrine()->getRepository(Configuration::class);
 
+                $config = $repoConfig->find(1);
+
+                $form = $this->createFormBuilder($config)
+                    ->add('theme', HiddenType::class)
+                    ->add('Étape suivante', SubmitType::class)
+                    ->getForm();
+
+                $form->handleRequest($request);
+
+                if ($form->isSubmitted() && $form->isValid()) {
+                    $config = $form->getData();
+
+                    $em = $this->getDoctrine()->getManager();
+
+                    $em->persist($config);
+                    $em->flush();
+
+                    $theme = $form->get('theme')->getData();
+                    $linkfileP = $this->getParameter('kernel.project_dir').'/public/theme';
+                    $linkfileT = $this->getParameter('kernel.project_dir').'/themes/';
+                    ThemeController::changementTheme($theme, $linkfileP, $linkfileT, $filesystem);
+
+                    return $this->redirectToRoute('installeur', ['etape' => 6]);
+                }
+
+                return $this->render('installeur/5_choixTheme.html.twig', ['form' => $form->createView(), 'themes' => $themes]);
+
+            case 6: //Création des contenus
+
+                return $this->render('installeur/6_creationContenus.html.twig');
+
+            case 7: //Installation terminée
+
+                return $this->render('installeur/7_validation.html.twig');
         }
     }
 

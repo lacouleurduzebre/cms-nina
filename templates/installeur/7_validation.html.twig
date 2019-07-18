@@ -1,0 +1,9 @@
+{% extends 'front/base.html.twig' %}
+
+{% block main %}
+    <h1>{{ "Installation terminée"|trans }}</h1>
+
+    <p>{{ "L'installation de Nina est à présent terminée."|trans }}</p>
+    <p>{{ "Vous pouvez vous connecter au back-office avec les identifiants que vous venez de créer." }}</p>
+    <p><a href="{{ path('admin') }}">{{ "Se connecter à l'interface d'administration"|trans }}</a></p>
+{% endblock %}

@@ -31,43 +31,7 @@ class ThemeController extends Controller
      * @Route("/theme", name="theme")
      */
     public function themeAction(){
-        $nomThemes = scandir('../themes');
-        unset($nomThemes[0]);
-        unset($nomThemes[1]);
-        $nomThemes = array_values($nomThemes);
-
-        $themes = [];
-        foreach($nomThemes as $nomTheme){
-            $config = Yaml::parseFile('../themes/'.$nomTheme.'/config.yaml');
-            $infos = $config['infos'];
-            $themes[$nomTheme] = $infos;
-            $themes[$nomTheme]['installe'] = 1;
-
-            //Miniature
-            if(!file_exists(getcwd().'/themes_thumbs')){
-                mkdir(getcwd().'/themes_thumbs');
-            }
-
-            $miniature = getcwd().'/../themes/'.$nomTheme.'/thumb.jpg';
-            $lien = getcwd().'/themes_thumbs/'.$nomTheme.'.jpg';
-            if(!file_exists($lien)){
-                if(file_exists($miniature)){
-                    copy($miniature, $lien);
-                }
-            }
-        }
-
-        //Thèmes externes
-        $themesExternes = Yaml::parse(file_get_contents('https://www.cms-nina.fr/themes-nina/themes-nina.yml'));
-        foreach($themesExternes as $nomTheme => $theme){
-            if(!array_key_exists($nomTheme, $themes)){
-                $themes[$nomTheme] = $theme;
-                $themes[$nomTheme]['installe'] = 0;
-            }else{
-                $themes[$nomTheme]['lien'] = $theme['lien'];
-            }
-        }
-        //Fin thèmes externes
+        $themes = $this->listeThemes();
 
         $entityConfig = ['name' => 'Theme'];
 
@@ -91,35 +55,10 @@ class ThemeController extends Controller
             $em->persist($config);
             $em->flush();
 
-            //Modification de la configuration Twig
-            $fichier = Yaml::parseFile('../config/services.yaml');
-
-            $fichier['parameters']['theme'] = $theme;
-
-            $nvFichier = Yaml::dump($fichier);
-
-            file_put_contents('../config/services.yaml', $nvFichier);
-
-            //Symlink
-                //Suppression lien précédent
-            $linkfile = $this->getParameter('kernel.project_dir').'/public/theme';
-            if(file_exists($linkfile)) {
-                if(is_link($linkfile)) {
-                    if(strpos(php_uname('s'), 'Win') !== false){
-                        rmdir($linkfile);
-                    }else{
-                        unlink($linkfile);
-                    }
-                }
-            }
-
-                //Création nouveau lien
-            if(strpos(php_uname('s'), 'Win') !== false){
-                $filesystem->symlink($this->getParameter('kernel.project_dir').'/themes/'.$theme.'/assets', $linkfile);
-            }else{
-                exec('ln -s ../themes/'.$theme.'/assets '.$linkfile);
-            }
-            //Fin Symlink
+            //Config Twig et symlink
+            $linkfileP = $this->getParameter('kernel.project_dir').'/public/theme';
+            $linkfileT = $this->getParameter('kernel.project_dir').'/themes/';
+            $this->changementTheme($theme, $linkfileP, $linkfileT, $filesystem);
 
             return new Response('ok');
         };
@@ -252,5 +191,78 @@ class ThemeController extends Controller
         };
 
         return false;
+    }
+
+    public static function listeThemes(){
+        $nomThemes = scandir('../themes');
+        unset($nomThemes[0]);
+        unset($nomThemes[1]);
+        $nomThemes = array_values($nomThemes);
+
+        $themes = [];
+        foreach($nomThemes as $nomTheme){
+            $config = Yaml::parseFile('../themes/'.$nomTheme.'/config.yaml');
+            $infos = $config['infos'];
+            $themes[$nomTheme] = $infos;
+            $themes[$nomTheme]['installe'] = 1;
+
+            //Miniature
+            if(!file_exists(getcwd().'/themes_thumbs')){
+                mkdir(getcwd().'/themes_thumbs');
+            }
+
+            $miniature = getcwd().'/../themes/'.$nomTheme.'/thumb.jpg';
+            $lien = getcwd().'/themes_thumbs/'.$nomTheme.'.jpg';
+            if(!file_exists($lien)){
+                if(file_exists($miniature)){
+                    copy($miniature, $lien);
+                }
+            }
+        }
+
+        //Thèmes externes
+        $themesExternes = Yaml::parse(file_get_contents('https://www.cms-nina.fr/themes-nina/themes-nina.yml'));
+        foreach($themesExternes as $nomTheme => $theme){
+            if(!array_key_exists($nomTheme, $themes)){
+                $themes[$nomTheme] = $theme;
+                $themes[$nomTheme]['installe'] = 0;
+            }else{
+                $themes[$nomTheme]['lien'] = $theme['lien'];
+            }
+        }
+        //Fin thèmes externes
+
+        return $themes;
+    }
+
+    public static function changementTheme($theme, $linkfileP, $linkfileT, Filesystem $filesystem){
+        //Modification de la configuration Twig
+        $fichier = Yaml::parseFile('../config/services.yaml');
+
+        $fichier['parameters']['theme'] = $theme;
+
+        $nvFichier = Yaml::dump($fichier);
+
+        file_put_contents('../config/services.yaml', $nvFichier);
+
+        //Symlink
+            //Suppression lien précédent
+        if(file_exists($linkfileP)) {
+            if(is_link($linkfileP)) {
+                if(strpos(php_uname('s'), 'Win') !== false){
+                    rmdir($linkfileP);
+                }else{
+                    unlink($linkfileP);
+                }
+            }
+        }
+
+            //Création nouveau lien
+        if(strpos(php_uname('s'), 'Win') !== false){
+            $filesystem->symlink($linkfileT.$theme.'/assets', $linkfileP);
+        }else{
+            exec('ln -s ../themes/'.$theme.'/assets '.$linkfileP);
+        }
+        //Fin Symlink
     }
 }
