@@ -9,9 +9,10 @@
 namespace App\Controller\Back;
 
 
-use App\Blocs\Image\ImageType;
 use App\Entity\Configuration;
+use App\Entity\Langue;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
@@ -33,6 +34,7 @@ class InstalleurController extends Controller
     public function installeur($etape, Request $request){
         switch($etape){
             case 1: //Configuration de la BDD
+
                 $form = $this->createFormBuilder()
                     ->add('host', TextType::class, ['label' => 'Serveur'])
                     ->add('database', TextType::class, ['label' => 'Nom de la base de données'])
@@ -57,7 +59,9 @@ class InstalleurController extends Controller
                 }
 
                 return $this->render('installeur/1_configBDD.html.twig', ['form' => $form->createView()]);
+
             case 2: //Configuration du site
+
                 try {
                     $this->getDoctrine()->getConnection()->connect();
                 } catch (\Exception $e) {
@@ -76,7 +80,13 @@ class InstalleurController extends Controller
                     ->add('editeur', TextType::class, ['label' => 'Éditeur du site'])
                     ->add('emailContact', EmailType::class, ['label' => 'E-mail de contact'])
                     ->add('emailMaintenance', EmailType::class, ['label' => 'E-mail de maintenance'])
-                    ->add('logo', FileType::class, ['label' => 'Logo'])
+                    ->add('logo', TextType::class, ['label' => 'Logo'])
+                    ->add('langueFR', CheckboxType::class, [
+                        'label' => 'Définir le français comme langue par défaut',
+                        'mapped' => false,
+                        'required' => false
+                    ])
+                    ->add('Étape suivante', SubmitType::class)
                     ->getForm();
 
                 $form->handleRequest($request);
@@ -90,10 +100,57 @@ class InstalleurController extends Controller
                     $em->persist($config);
                     $em->flush();
 
-                    return $this->redirectToRoute('installeur', ['etape' => 4]);
+                    if($form->get('langueFR')->getData()){
+                        $langue = new Langue();
+                        $langue
+                            ->setNom('français')
+                            ->setAbreviation('fr')
+                            ->setActive(1)
+                            ->setDefaut(1)
+                            ->setCode('fr-FR');
+
+                        $em->persist($langue);
+                        $em->flush();
+
+                        return $this->redirectToRoute('installeur', ['etape' => 4]);
+                    }else{
+                        return $this->redirectToRoute('installeur', ['etape' => 3]);
+                    }
                 }
 
                 return $this->render('installeur/2_configSite.html.twig', ['form' => $form->createView()]);
+
+            case 3: //Configuration de la langue par défaut
+
+                $langue = new Langue();
+
+                $form = $this->createFormBuilder($langue)
+                    ->add('nom', TextType::class)
+                    ->add('abreviation', TextType::class, ['label' => 'Abréviation', 'help' => 'Deux lettres minuscules'])
+                    ->add('code', TextType::class, ['label' => 'Code de la langue', 'help' => 'Sous la forme xx-XX'])
+                    ->add('Étape suivante', SubmitType::class)
+                    ->getForm();
+
+                $form->handleRequest($request);
+
+                if ($form->isSubmitted() && $form->isValid()) {
+                    $langue = $form->getData();
+
+                    $em = $this->getDoctrine()->getManager();
+
+                    $langue->setActive(1)
+                        ->setDefaut(1);
+                    $em->persist($langue);
+                    $em->flush();
+
+                    return $this->redirectToRoute('installeur', ['etape' => 4]);
+                }
+
+                return $this->render('installeur/3_configLangue.html.twig', ['form' => $form->createView()]);
+
+            case 4: //Configuration de l'utilisateur admin
+
+                return new Response ('coucou');
         }
     }
 

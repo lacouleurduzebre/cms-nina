@@ -44,6 +44,10 @@ class AccueilController extends Controller
         } catch (\Exception $e) {
             return $this->redirectToRoute('installeur', ['etape' => 2]);
         }
+        $config = $repoConfig->find(1);
+        if(!$config){
+            return $this->redirectToRoute('installeur', ['etape' => 2]);
+        }
         //Fin installeur
 
         //Test route : locale ou non
