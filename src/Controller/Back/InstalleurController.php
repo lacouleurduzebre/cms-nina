@@ -72,12 +72,6 @@ class InstalleurController extends Controller
 
             case 2: //Configuration du site
 
-                try {
-                    $this->getDoctrine()->getConnection()->connect();
-                } catch (\Exception $e) {
-                    return $this->redirectToRoute('installeur', ['etape' => 1]);
-                }
-
                 $repoConfig = $this->getDoctrine()->getRepository(Configuration::class);
                 if($repoConfig->find(1)){
                     return $this->redirectToRoute('installeur', ['etape' => 3]);
@@ -224,7 +218,21 @@ class InstalleurController extends Controller
 
             case 6: //Création des contenus
 
-                return $this->render('installeur/6_creationContenus.html.twig');
+                $repoMenuPage = $this->getDoctrine()->getRepository(MenuPage::class);
+
+                $menusPagesHeader = $repoMenuPage->findBy(['menu' => 1], ['position' => 'ASC']);
+                $pagesHeader = [];
+                foreach($menusPagesHeader as $menuPage){
+                    $pagesHeader[] = $menuPage->getPage()->getTitre();
+                }
+
+                $menusPagesFooter = $repoMenuPage->findBy(['menu' => 2], ['position' => 'ASC']);
+                $pagesFooter = [];
+                foreach($menusPagesFooter as $menuPage){
+                    $pagesFooter[] = $menuPage->getPage()->getTitre();
+                }
+
+                return $this->render('installeur/6_creationContenus.html.twig', ['pagesHeader' => $pagesHeader, 'pagesFooter' => $pagesFooter]);
 
             case 7: //Installation terminée
 
