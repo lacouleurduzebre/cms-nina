@@ -16,7 +16,6 @@ use App\Entity\Langue;
 use App\Entity\Menu;
 use App\Entity\MenuPage;
 use App\Entity\Page;
-use App\Entity\Region;
 use App\Entity\SEO;
 use App\Entity\Utilisateur;
 use Doctrine\Common\Persistence\ObjectManager;
@@ -60,6 +59,17 @@ class InstalleurController extends Controller
                     $data = $form->getData();
 
                     if($this->testConnexion($request, $data) == 'ok'){
+                        $files = glob('../src/Migrations/*');
+                        foreach($files as $file){
+                            if(is_file($file))
+                                unlink($file);
+                        }
+
+                        $path = '../config/packages/doctrine_migrations.yaml';
+
+                        file_put_contents($path, str_replace(
+                        "#table_name: 'XX_migration_versions'", "table_name: '".$_ENV['PREFIXE']."_migration_versions'", file_get_contents($path)
+                        ));
 
                         exec('which php', $php);
                         exec($php[0].' ../bin/console doctrine:migrations:diff --filter-expression=/^'.$_ENV['PREFIXE'].'_/ -nq; '.$php[0].' ../bin/console doctrine:migrations:migrate -nq');
