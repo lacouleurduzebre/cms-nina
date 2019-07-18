@@ -11,11 +11,13 @@ namespace App\Controller\Back;
 
 use App\Entity\Configuration;
 use App\Entity\Langue;
+use App\Entity\Utilisateur;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
+use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\HttpFoundation\Request;
@@ -150,7 +152,35 @@ class InstalleurController extends Controller
 
             case 4: //Configuration de l'utilisateur admin
 
-                return new Response ('coucou');
+                $user = new Utilisateur();
+
+                $form = $this->createFormBuilder($user)
+                    ->add('username', TextType::class, ['label' => 'Identifiant / Pseudo'])
+                    ->add('email', EmailType::class, ['label' => 'Adresse e-mail'])
+                    ->add('plainPassword', TextType::class, ['label' => 'Mot de passe'])
+                    ->add('Étape suivante', SubmitType::class)
+                    ->getForm();
+
+                $form->handleRequest($request);
+
+                if ($form->isSubmitted() && $form->isValid()) {
+                    $user = $form->getData();
+
+                    $em = $this->getDoctrine()->getManager();
+
+                    $user->setEnabled(1);
+                    $em->persist($user);
+                    $em->flush();
+
+                    return $this->redirectToRoute('installeur', ['etape' => 5]);
+                }
+
+                return $this->render('installeur/4_configUtilisateur.html.twig', ['form' => $form->createView()]);
+
+            case 5: //Choix du thème
+
+
+
         }
     }
 
