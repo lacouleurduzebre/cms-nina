@@ -42,9 +42,26 @@ class InstalleurController extends Controller
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function installeur($etape, Request $request, Filesystem $filesystem, ObjectManager $manager, AppFixtures $fixtures){
-        $repoConfig = $this->getDoctrine()->getRepository(Configuration::class);
-        if($repoConfig->find(1) && $repoConfig->find(1)->getInstalle()){
-            return $this->redirectToRoute('accueil');
+        if($etape != 1){
+            try {
+                $this->getDoctrine()->getConnection()->connect();
+            } catch (\Exception $e) {
+                return $this->redirectToRoute('installeur', ['etape' => 1]);
+            }
+
+            if($etape != 2){
+                $repoConfig = $this->getDoctrine()->getRepository(Configuration::class);
+
+                try {
+                    $repoConfig->find(1);
+                } catch (\Exception $e) {
+                    return $this->redirectToRoute('installeur', ['etape' => 2]);
+                }
+
+                if($repoConfig->find(1) && $repoConfig->find(1)->getInstalle()){
+                    return $this->redirectToRoute('accueil');
+                }
+            }
         }
 
         $etapes = [
@@ -84,6 +101,20 @@ class InstalleurController extends Controller
 
         switch($etape){
             case 1: //Configuration de la BDD
+
+                if($this->getDoctrine()->getConnection()->connect()){
+                    try {
+                        $repoConfig->find(1);
+                    } catch (\Exception $e) {
+                        $exception = true;
+                    }
+
+                    if(!$exception){
+                        if($repoConfig->find(1) && $repoConfig->find(1)->getInstalle()){
+                            return $this->redirectToRoute('accueil');
+                        }
+                    }
+                }
 
                 $form = $this->createFormBuilder()
                     ->add('host', TextType::class, ['label' => 'Serveur'])
@@ -133,10 +164,6 @@ class InstalleurController extends Controller
                 } catch (\Exception $e) {
                     $this->redirectToRoute('installeur', ['etape' => 1]);
                 }
-
-                /*if($repoConfig->find(1)){
-                    return $this->redirectToRoute('installeur', ['etape' => 3]);
-                }*/
 
                 $config = new Configuration();
 

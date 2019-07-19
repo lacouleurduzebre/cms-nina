@@ -30,20 +30,28 @@ class Installeur implements EventSubscriberInterface
 
         $route = $request->get('_route');
 
-        if($route != 'installeur'){
-            /*try {
-                $this->getDoctrine()->getConnection()->connect();
+        if(isset($route) && $route != 'installeur'){
+            try {
+                $this->doctrine->getConnection()->connect();
             } catch (\Exception $e) {
-                return $this->redirectToRoute('installeur', ['etape' => 1]);
+                $redirection = 'installeur/1';
+                $event->setController(function () use($redirection) {
+                    return new RedirectResponse($redirection);
+                });
+                return;
             }
-            $repoConfig = $this->getDoctrine()->getRepository(Configuration::class);
+
+            $repoConfig = $this->doctrine->getRepository(Configuration::class);
             try {
                 $repoConfig->find(1);
             } catch (\Exception $e) {
-                return $this->redirectToRoute('installeur', ['etape' => 2]);
-            }*/
+                $redirection = 'installeur/2';
+                $event->setController(function () use($redirection) {
+                    return new RedirectResponse($redirection);
+                });
+                return;
+            }
 
-            $repoConfig = $this->doctrine->getRepository(Configuration::class);
             $config = $repoConfig->find(1);
             if(!$config || !$config->getInstalle()){
                 $redirection = 'installeur/1';
