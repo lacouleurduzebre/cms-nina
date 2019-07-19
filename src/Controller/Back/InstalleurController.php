@@ -41,6 +41,11 @@ class InstalleurController extends Controller
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function installeur($etape, Request $request, Filesystem $filesystem, ObjectManager $manager, AppFixtures $fixtures){
+        $repoConfig = $this->getDoctrine()->getRepository(Configuration::class);
+        if($repoConfig->find(1) && $repoConfig->find(1)->getInstalle()){
+            return $this->redirectToRoute('accueil');
+        }
+
         $etapes = [
             1 => [
                 'titre' => 'Base de données',
@@ -281,6 +286,14 @@ class InstalleurController extends Controller
 
             case 7: //Installation terminée
 
+                $em = $this->getDoctrine()->getManager();
+                $repoConfig = $this->getDoctrine()->getRepository(Configuration::class);
+                $config = $repoConfig->find(1);
+
+                $config->setInstalle(1);
+                $em->persist($config);
+                $em->flush();
+
                 return $this->render('installeur/7_validation.html.twig', ['etapes' => $etapes]);
         }
     }
@@ -291,6 +304,11 @@ class InstalleurController extends Controller
      * @return @return bool|Response
      */
     public function testConnexion(Request $request, $data = null){
+        $repoConfig = $this->getDoctrine()->getRepository(Configuration::class);
+        if($repoConfig->find(1) && $repoConfig->find(1)->getInstalle()){
+            return $this->redirectToRoute('accueil');
+        }
+
         $path = '../.env';
         if (file_exists($path)) {
             if ($request->isXmlHttpRequest()) {

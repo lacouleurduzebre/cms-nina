@@ -10,14 +10,9 @@ namespace App\Controller;
 
 
 use App\Entity\Configuration;
-use App\Entity\Langue;
 use App\Service\Page;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\Form\Extension\Core\Type\PasswordType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 
 class AccueilController extends Controller
@@ -32,24 +27,6 @@ class AccueilController extends Controller
      */
     public function indexAction(Page $spage, \App\Service\Langue $slangue, $_locale = null)
     {
-        //Installeur
-        try {
-            $this->getDoctrine()->getConnection()->connect();
-        } catch (\Exception $e) {
-            return $this->redirectToRoute('installeur', ['etape' => 1]);
-        }
-        $repoConfig = $this->getDoctrine()->getRepository(Configuration::class);
-        try {
-            $repoConfig->find(1);
-        } catch (\Exception $e) {
-            return $this->redirectToRoute('installeur', ['etape' => 2]);
-        }
-        $config = $repoConfig->find(1);
-        if(!$config){
-            return $this->redirectToRoute('installeur', ['etape' => 2]);
-        }
-        //Fin installeur
-
         //Test route : locale ou non
         $redirection = $slangue->redirectionLocale('accueil', $_locale);
         if($redirection){
