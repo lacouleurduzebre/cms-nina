@@ -30,6 +30,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Yaml\Yaml;
 
 class InstalleurController extends Controller
 {
@@ -107,9 +108,13 @@ class InstalleurController extends Controller
 
                         $path = '../config/packages/doctrine_migrations.yaml';
 
-                        file_put_contents($path, str_replace(
-                        "#table_name: 'XX_migration_versions'", "table_name: '".$_ENV['PREFIXE']."_migration_versions'", file_get_contents($path)
-                        ));
+                        $fichier = Yaml::parseFile($path);
+
+                        $fichier['doctrine_migrations']['table_name'] = $_ENV['PREFIXE']."_migration_versions'";
+
+                        $nvFichier = Yaml::dump($fichier);
+
+                        file_put_contents($path, $nvFichier);
 
                         exec('which php', $php);
                         exec($php[0].' ../bin/console doctrine:migrations:diff --filter-expression=/^'.$_ENV['PREFIXE'].'_/ -nq; '.$php[0].' ../bin/console doctrine:migrations:migrate -nq');
@@ -122,10 +127,16 @@ class InstalleurController extends Controller
 
             case 2: //Configuration du site
 
-                $repoConfig = $this->getDoctrine()->getRepository(Configuration::class);
-                if($repoConfig->find(1)){
-                    return $this->redirectToRoute('installeur', ['etape' => 3]);
+                //Vérif étape
+                try {
+                    $this->getDoctrine()->getConnection()->connect();
+                } catch (\Exception $e) {
+                    $this->redirectToRoute('installeur', ['etape' => 1]);
                 }
+
+                /*if($repoConfig->find(1)){
+                    return $this->redirectToRoute('installeur', ['etape' => 3]);
+                }*/
 
                 $config = new Configuration();
 
@@ -176,6 +187,11 @@ class InstalleurController extends Controller
 
             case 3: //Configuration de la langue par défaut
 
+                //Vérif étape
+                if(!$repoConfig->find(1)){
+                    $this->redirectToRoute('installeur', ['etape' => 2]);
+                }
+
                 $langue = new Langue();
 
                 $form = $this->createFormBuilder($langue)
@@ -204,6 +220,12 @@ class InstalleurController extends Controller
 
             case 4: //Configuration de l'utilisateur admin
 
+                //Vérif étape
+                $repoLangue = $this->getDoctrine()->getRepository(Langue::class);
+                if(!$repoLangue->find(1)){
+                    $this->redirectToRoute('installeur', ['etape' => 3]);
+                }
+
                 $user = new Utilisateur();
 
                 $form = $this->createFormBuilder($user)
@@ -231,9 +253,13 @@ class InstalleurController extends Controller
 
             case 5: //Choix du thème
 
-                $themes = ThemeController::listeThemes();
+                //Vérif étape
+                $repoUtilisateur = $this->getDoctrine()->getRepository(Utilisateur::class);
+                if(!$repoUtilisateur->find(1)){
+                    $this->redirectToRoute('installeur', ['etape' => 4]);
+                }
 
-                $repoConfig = $this->getDoctrine()->getRepository(Configuration::class);
+                $themes = ThemeController::listeThemes();
 
                 $config = $repoConfig->find(1);
 
@@ -268,6 +294,11 @@ class InstalleurController extends Controller
 
             case 6: //Création des contenus
 
+                //Vérif étape
+                if(!$repoConfig->find(1)->getTheme()){
+                    $this->redirectToRoute('installeur', ['etape' => 5]);
+                }
+
                 $repoMenuPage = $this->getDoctrine()->getRepository(MenuPage::class);
 
                 $menusPagesHeader = $repoMenuPage->findBy(['menu' => 1], ['position' => 'ASC']);
@@ -286,8 +317,12 @@ class InstalleurController extends Controller
 
             case 7: //Installation terminée
 
+                //Vérif étape
+                if(!$repoConfig->find(1)->getTheme()){
+                    $this->redirectToRoute('installeur', ['etape' => 5]);
+                }
+
                 $em = $this->getDoctrine()->getManager();
-                $repoConfig = $this->getDoctrine()->getRepository(Configuration::class);
                 $config = $repoConfig->find(1);
 
                 $config->setInstalle(1);
