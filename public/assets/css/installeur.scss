@@ -1,7 +1,22 @@
+@import "_config/variables";
+@import "_config/_mixins";
+@import "_library/base";
+
 //Global
+body{
+  font-family: 'Cabin', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+}
+
+main{
+  max-width: 90rem;
+  margin: auto;
+}
+
 .tunnel{
   display: flex;
+  justify-content: center;
   border: 1px solid;
+  margin-top: 2rem;
   li{
     margin-right: 2rem;
     &.active{
@@ -21,7 +36,31 @@
   }
 }
 
+.contenu{
+  max-width: 60rem;
+  margin: auto;
+}
+
+
+label{
+  display: inline-block;
+  font-weight: bold;
+  width: 20rem;
+}
+
+input{
+  margin-bottom: 1rem;
+  font-size: 1.6rem;
+}
+
 //Étape 5 : Thème
+.themes{
+  display: flex;
+  flex-wrap: wrap;
+  margin-left: -1rem;
+  margin-right: -1rem;
+}
+
 .theme-illustration{
   max-width: 30rem;
   img{
@@ -36,7 +75,8 @@
 .theme{
   border: 2px solid transparent;
   max-width: 30rem;
-  margin-bottom: 3rem;
+  width: calc(50% - 2rem);
+  margin: 0 1rem 3rem 1rem;
   &.actif{
     border: 2px solid green;
   }

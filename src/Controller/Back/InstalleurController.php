@@ -24,7 +24,6 @@ use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
-use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\HttpFoundation\Request;
@@ -120,7 +119,6 @@ class InstalleurController extends Controller
                         $exception = true;
                     }
                     if(!$exception){
-                        echo 'coucou';
                         if($repoConfig->find(1) && $repoConfig->find(1)->getInstalle()){
                             return $this->redirectToRoute('accueil');
                         }

@@ -18,31 +18,31 @@
     </head>
     <body>
         <main class="mw1140p center flex-container">
-            <ol class="tunnel">
-                {% set etapeDesactivee = false %}
-                {% for numero, etape in etapes %}
-                    {% if not loop.last %}
-                        {% if etape.active %}
-                            {% set etapeDesactivee = true %}
+            {% if app.request.get('etape') != 7 %}
+                <ol class="tunnel">
+                    {% set etapeDesactivee = false %}
+                    {% for numero, etape in etapes %}
+                        {% if not loop.last %}
+                            {% if etape.active %}
+                                {% set etapeDesactivee = true %}
+                            {% endif %}
+                            <li {% if etape.active %}class="active"{% endif %}>
+                                {% if not etapeDesactivee %}
+                                    <a href="{{ path('installeur', {etape: numero}) }}">
+                                {% endif %}
+                                {{ etape.titre }}
+                                {% if not etapeDesactivee %}
+                                    </a>
+                                {% endif %}
+                            </li>
                         {% endif %}
-                        <li {% if etape.active %}class="active"{% endif %}>
-                            {% if not etapeDesactivee %}
-                                <a href="{{ path('installeur', {etape: numero}) }}">
-                            {% endif %}
-                            {{ etape.titre }}
-                            {% if not etapeDesactivee %}
-                                </a>
-                            {% endif %}
-                        </li>
-                    {% endif %}
-                {% endfor %}
-            </ol>
-            <h1>
-                {% for etape in etapes %}
-                    {% if etape.active %}{{ etape.titreComplet }}{% endif %}
-                {% endfor %}
-            </h1>
-            {% block main %}{% endblock %}
+                    {% endfor %}
+                </ol>
+            {% endif %}
+            <div class="contenu">
+                <h1>{{ etapes[app.request.get('etape')].titreComplet }}</h1>
+                {% block main %}{% endblock %}
+            </div>
         </main>
 
         {% block javascripts %}
