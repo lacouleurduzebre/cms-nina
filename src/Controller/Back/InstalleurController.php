@@ -42,6 +42,9 @@ class InstalleurController extends Controller
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function installeur($etape, Request $request, Filesystem $filesystem, ObjectManager $manager, AppFixtures $fixtures){
+        $repoConfig = $this->getDoctrine()->getRepository(Configuration::class);
+
+        //Redirection vers étape 1 ou 2 si prob de connexion BDD
         if($etape != 1){
             try {
                 $this->getDoctrine()->getConnection()->connect();
@@ -49,21 +52,20 @@ class InstalleurController extends Controller
                 return $this->redirectToRoute('installeur', ['etape' => 1]);
             }
 
-            if($etape != 2){
-                $repoConfig = $this->getDoctrine()->getRepository(Configuration::class);
+            $repoLangue = $this->getDoctrine()->getRepository(Langue::class);
 
-                try {
-                    $repoConfig->find(1);
-                } catch (\Exception $e) {
-                    return $this->redirectToRoute('installeur', ['etape' => 2]);
-                }
+            try {
+                $repoConfig->find(1);
+            } catch (\Exception $e) {
+                return $this->redirectToRoute('installeur', ['etape' => 1]);
+            }
 
-                if($repoConfig->find(1) && $repoConfig->find(1)->getInstalle()){
-                    return $this->redirectToRoute('accueil');
-                }
+            if($repoConfig->find(1) && $repoConfig->find(1)->getInstalle()){
+                return $this->redirectToRoute('accueil');
             }
         }
 
+        //Titres des étapes
         $etapes = [
             1 => [
                 'titre' => 'Base de données',
@@ -95,6 +97,7 @@ class InstalleurController extends Controller
             ],
         ];
 
+        //Marquage de l'étape active
         foreach($etapes as $numero => $infosEtape){
             $etapes[$numero]['active'] = ($numero == $etape);
         }
@@ -102,14 +105,22 @@ class InstalleurController extends Controller
         switch($etape){
             case 1: //Configuration de la BDD
 
-                if($this->getDoctrine()->getConnection()->connect()){
+                //Vérif étape
+                $exception = false;
+                try {
+                    $this->getDoctrine()->getConnection()->connect();
+                } catch (\Exception $e) {
+                    $exception = true;
+                }
+
+                if(!$exception){
                     try {
                         $repoConfig->find(1);
                     } catch (\Exception $e) {
                         $exception = true;
                     }
-
                     if(!$exception){
+                        echo 'coucou';
                         if($repoConfig->find(1) && $repoConfig->find(1)->getInstalle()){
                             return $this->redirectToRoute('accueil');
                         }
@@ -117,11 +128,26 @@ class InstalleurController extends Controller
                 }
 
                 $form = $this->createFormBuilder()
-                    ->add('host', TextType::class, ['label' => 'Serveur'])
-                    ->add('database', TextType::class, ['label' => 'Nom de la base de données'])
-                    ->add('userdb', TextType::class, ['label' => 'Utilisateur'])
-                    ->add('password', PasswordType::class, ['label' => 'Mot de passe'])
-                    ->add('prefixe', TextType::class, ['label' => 'Préfixe'])
+                    ->add('host', TextType::class, [
+                        'label' => 'Serveur',
+                        'data' => getenv('HOST')
+                    ])
+                    ->add('database', TextType::class, [
+                        'label' => 'Nom de la base de données',
+                        'data' => getenv('DATABASE')
+                    ])
+                    ->add('userdb', TextType::class, [
+                        'label' => 'Utilisateur',
+                        'data' => getenv('USERDB')
+                    ])
+                    ->add('password', TextType::class, [
+                        'label' => 'Mot de passe',
+                        'data' => getenv('PASSWORD')
+                    ])
+                    ->add('prefixe', TextType::class, [
+                        'label' => 'Préfixe',
+                        'data' => getenv('PREFIXE')
+                    ])
                     ->add('Étape suivante', SubmitType::class)
                     ->getForm();
 
@@ -141,7 +167,7 @@ class InstalleurController extends Controller
 
                         $fichier = Yaml::parseFile($path);
 
-                        $fichier['doctrine_migrations']['table_name'] = $_ENV['PREFIXE']."_migration_versions'";
+                        $fichier['doctrine_migrations']['table_name'] = $form->get('prefixe')->getData()."_migration_versions";
 
                         $nvFichier = Yaml::dump($fichier);
 
@@ -165,7 +191,24 @@ class InstalleurController extends Controller
                     $this->redirectToRoute('installeur', ['etape' => 1]);
                 }
 
-                $config = new Configuration();
+                $exception = false;
+
+                try {
+                    $repoConfig->find(1);
+                } catch (\Exception $e) {
+                    $exception = true;
+                }
+
+                if(!$exception){
+                    if($repoConfig->find(1)){
+                        $config = $repoConfig->find(1);
+                    }else{
+                        $config = new Configuration();
+                    }
+                }else{
+                    $config = new Configuration();
+                }
+
 
                 $form = $this->createFormBuilder($config)
                     ->add('nom', TextType::class, ['label' => 'Nom du site'])
@@ -188,12 +231,16 @@ class InstalleurController extends Controller
 
                     $em = $this->getDoctrine()->getManager();
 
-                    $config->setMaintenance(0);
                     $em->persist($config);
                     $em->flush();
 
                     if($form->get('langueFR')->getData()){
-                        $langue = new Langue();
+                        if($repoLangue->find(1)){
+                            $langue = $repoLangue->find(1);
+                        }else{
+                            $langue = new Langue();
+                        }
+
                         $langue
                             ->setNom('français')
                             ->setAbreviation('fr')
@@ -219,7 +266,11 @@ class InstalleurController extends Controller
                     $this->redirectToRoute('installeur', ['etape' => 2]);
                 }
 
-                $langue = new Langue();
+                if($repoLangue->find(1)){
+                    $langue = $repoLangue->find(1);
+                }else{
+                    $langue = new Langue();
+                }
 
                 $form = $this->createFormBuilder($langue)
                     ->add('nom', TextType::class)
@@ -248,12 +299,16 @@ class InstalleurController extends Controller
             case 4: //Configuration de l'utilisateur admin
 
                 //Vérif étape
-                $repoLangue = $this->getDoctrine()->getRepository(Langue::class);
                 if(!$repoLangue->find(1)){
                     $this->redirectToRoute('installeur', ['etape' => 3]);
                 }
 
-                $user = new Utilisateur();
+                $repoUtilisateur = $this->getDoctrine()->getRepository(Utilisateur::class);
+                if($repoUtilisateur->find(1)){
+                    $user = $repoUtilisateur->find(1);
+                }else{
+                    $user = new Utilisateur();
+                }
 
                 $form = $this->createFormBuilder($user)
                     ->add('username', TextType::class, ['label' => 'Identifiant / Pseudo'])
@@ -366,9 +421,22 @@ class InstalleurController extends Controller
      * @return @return bool|Response
      */
     public function testConnexion(Request $request, $data = null){
-        $repoConfig = $this->getDoctrine()->getRepository(Configuration::class);
-        if($repoConfig->find(1) && $repoConfig->find(1)->getInstalle()){
-            return $this->redirectToRoute('accueil');
+        if(!$request->isXmlHttpRequest()){
+            $repoConfig = $this->getDoctrine()->getRepository(Configuration::class);
+
+            $exception = false;
+
+            try {
+                $repoConfig->find(1);
+            } catch (\Exception $e) {
+                $exception = true;
+            }
+
+            if(!$exception){
+                if($repoConfig->find(1) && $repoConfig->find(1)->getInstalle()){
+                    return $this->redirectToRoute('accueil');
+                }
+            }
         }
 
         $path = '../.env';

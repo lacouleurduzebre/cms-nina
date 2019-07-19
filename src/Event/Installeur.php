@@ -9,7 +9,6 @@
 namespace App\Event;
 
 
-use App\Controller\Back\InstalleurController;
 use App\Entity\Configuration;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -30,7 +29,7 @@ class Installeur implements EventSubscriberInterface
 
         $route = $request->get('_route');
 
-        if(isset($route) && $route != 'installeur'){
+        if(isset($route) && $route != 'installeur' && $route != 'installeurTestConnexion' && $route != 'installeurAjoutPage'){
             try {
                 $this->doctrine->getConnection()->connect();
             } catch (\Exception $e) {
