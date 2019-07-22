@@ -14,10 +14,10 @@
     {% if page.traductions is not empty %}
         {% for langue, traduction in page.traductions %}
             {% if langue == page.langue.id %}
-                <link rel="alternate" hreflang="{{ page.langue.abreviation }}" href="{{ app.request.baseUrl~path('voirPage', { _locale: page.langue.abreviation, url: page.seo.url}) }}" />
+                <link rel="alternate" hreflang="{{ page.langue.abreviation }}" href="{{ app.request.baseUrl~path('voirPageLocale', { _locale: page.langue.abreviation, url: page.seo.url}) }}" />
             {% elseif traduction is not empty %}
                 {% set pageTraduite = page(traduction) %}
-                <link rel="alternate" hreflang="{{ pageTraduite.langue.abreviation }}" href="{{ app.request.baseUrl~path('voirPage', { _locale: pageTraduite.langue.abreviation, url: pageTraduite.seo.url}) }}" />
+                <link rel="alternate" hreflang="{{ pageTraduite.langue.abreviation }}" href="{{ app.request.baseUrl~path('voirPageLocale', { _locale: pageTraduite.langue.abreviation, url: pageTraduite.seo.url}) }}" />
             {% endif %}
         {% endfor %}
     {% endif %}
@@ -52,7 +52,13 @@
                     {{ 'dans les catégories'|trans }}
                 {% endif %}
                 {% for categorie in page.categories %}
-                    <a class="bouton-categorie" href="{{ path('voirCategorie', { 'urlTypeCategorie': categorie.typeCategorie.url, 'urlCategorie': categorie.url }) }}"><i class="fas fa-tag"></i>{{ categorie.nom }}</a>
+                    <a class="bouton-categorie" href="
+                        {% if langues|length > 1 %}
+                            {{ path('voirCategorieLocale', { '_locale': categorie.typeCategorie.langue.abreviation, 'urlTypeCategorie': categorie.typeCategorie.url, 'urlCategorie': categorie.url }) }}
+                        {% else %}
+                            {{ path('voirCategorie', { 'urlTypeCategorie': categorie.typeCategorie.url, 'urlCategorie': categorie.url }) }}
+                        {% endif %}
+                    "><i class="fas fa-tag"></i>{{ categorie.nom }}</a>
                 {% endfor %}
             {% endif %}
         </p>

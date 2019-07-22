@@ -100,7 +100,13 @@
 {% if page.id is defined %}
     <a id="voirSite" href="{{ path('admin', { entity: 'Page_Active', action: 'edit', id: page.id }) }}" title="{{ "Éditer cette page"|trans }}"><i class="fas fa-pencil-alt"></i></a>
 {% else %}
-    <a id="voirSite" href="{{ path('accueil') }}" title="{% trans %}Voir le site{% endtrans %}"><i class="far fa-eye"></i></a>
+    <a id="voirSite" href="
+        {% if langues|length > 1 %}
+            {{ path('accueilLocale', { '_locale': langueActive.abreviation }) }}
+        {% else %}
+            {{ path('accueil') }}
+        {% endif %}
+    " title="{% trans %}Voir le site{% endtrans %}"><i class="far fa-eye"></i></a>
 {% endif %}
 
 {% block main_menu_after %}{% endblock %}

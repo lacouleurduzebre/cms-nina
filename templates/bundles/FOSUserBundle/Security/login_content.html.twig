@@ -17,7 +17,13 @@
     <input type="password" id="password" name="_password" required="required" autocomplete="current-password" />
 
     <div class="mts">
-        <a href="{{ path('accueil') }}" class="retourAccueil">
+        <a href="
+            {% if langues|length > 1 %}
+                {{ path('accueilLocale', { '_locale': langueActive.abreviation }) }}
+            {% else %}
+                {{ path('accueil') }}
+            {% endif %}
+        " class="retourAccueil">
             {#<i class="fas fa-arrow-left"></i> #}{{ "Retour au site"|trans }}
         </a>
         <a href="{{ path("fos_user_resetting_request") }}" class="mdpOublie fr">{% trans %}Mot de passe oublié ?{% endtrans %}</a>

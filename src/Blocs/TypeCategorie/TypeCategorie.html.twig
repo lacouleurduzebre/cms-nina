@@ -1,7 +1,13 @@
 <div class="flex-container">
     {% for categorie in categoriesDeType(bloc.contenu.typeCategorie) %}
         <div class="blocTypeCategorie-categorie flex-container-v mrs mbs">
-            <a class="bouton lire" href="{{ path('voirCategorie', { 'urlTypeCategorie': categorie.typeCategorie.url, 'urlCategorie': categorie.url }) }}"><i class="fas fa-tag mrs"></i>{{ categorie.nom }}</a>
+            <a class="bouton lire" href="
+                {% if langues|length > 1 %}
+                    {{ path('voirCategorieLocale', { '_locale': categorie.langue.abreviation, 'urlTypeCategorie': categorie.typeCategorie.url, 'urlCategorie': categorie.url }) }}
+                {% else %}
+                    {{ path('voirCategorie', { 'urlTypeCategorie': categorie.typeCategorie.url, 'urlCategorie': categorie.url }) }}
+                {% endif %}
+            "><i class="fas fa-tag mrs"></i>{{ categorie.nom }}</a>
         </div>
     {% endfor %}
 </div>

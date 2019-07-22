@@ -7,7 +7,13 @@
     <div class="description">{{ typeCategorie.description|raw }}</div>
     {% for categorie in categories %}
     <div class="extrait">
-        <h2><a href="{{ path('voirCategorie', {'urlTypeCategorie':typeCategorie.url, 'urlCategorie':categorie.url}) }}">{{ categorie.nom }}</a></h2>
+        <h2><a href="
+            {% if langues|length > 1 %}
+                {{ path('voirCategorieLocale', {'_locale': typeCategorie.langue.abreviation, 'urlTypeCategorie':typeCategorie.url, 'urlCategorie':categorie.url}) }}
+            {% else %}
+                {{ path('voirCategorie', {'urlTypeCategorie':typeCategorie.url, 'urlCategorie':categorie.url}) }}
+            {% endif %}
+        ">{{ categorie.nom }}</a></h2>
         <div class="description">{{ categorie.description|raw }}</div>
     </div>
     {% endfor %}

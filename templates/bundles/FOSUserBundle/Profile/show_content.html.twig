@@ -1,7 +1,13 @@
 {% trans_default_domain 'FOSUserBundle' %}
 
 <div class="retourAccueil">
-    <a href="{{ path('accueil') }}">
+    <a href="
+        {% if langues|length > 1 %}
+            {{ path('accueilLocale', { '_locale': langueActive.abreviation }) }}
+        {% else %}
+            {{ path('accueil') }}
+        {% endif %}
+    ">
         <i class="fas fa-arrow-left"></i> {{ "Retour au site"|trans }}
     </a>
 </div>
