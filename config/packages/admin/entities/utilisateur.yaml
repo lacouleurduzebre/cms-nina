@@ -27,11 +27,28 @@ easy_admin:
             form:
                 actions:
                     - { name: 'list', label: 'Retour', title: 'Retour', icon: 'arrow-left', css_class: '' }
+            new:
                 fields:
                     - { type: 'tab', label: 'Paramètres du compte' }
                     - { property: 'username', label: 'Pseudonyme' }
                     - { property: 'email', label: 'E-mail' }
-                    - { type: 'group', label: 'Mot de passe', icon: 'key', help: "Pour changer de mot de passer, utilisez <a id=\"modifMDP\" href=\"/profile/change-password\">ce formulaire</a>" }
+                    - { type: 'group', label: 'Mot de passe', icon: 'key' }
+                    - { property: 'plainPassword', type: 'repeated', type_options: { type: 'Symfony\Component\Form\Extension\Core\Type\PasswordType', first_options: { label: 'Mot de passe' }, second_options: { label: 'Répéter le mot de passe' } } }
+                    - { type: 'group', label: 'Image de profil', icon: 'camera' }
+                    - { property: 'imageProfil', type: 'text', label: 'Image de profil' }
+                    - { type: 'group', label: 'Statut', icon: 'user-cog' }
+                    - { property: 'enabled', label: 'Activé' }
+                    - { property: 'roles', label: 'Rôles' }
+            edit:
+                title: username
+                actions:
+                    - { name: 'delete', label: 'Supprimer', title: 'Supprimer', icon: 'trash', css_class: '' }
+                    - { name: 'list', label: 'Retour', title: 'Retour', icon: 'arrow-left', css_class: '' }
+                fields:
+                    - { type: 'tab', label: 'Paramètres du compte' }
+                    - { property: 'username', label: 'Pseudonyme' }
+                    - { property: 'email', label: 'E-mail' }
+                    - { type: 'group', label: 'Mot de passe', icon: 'key', css_class: 'mdp', help: "Pour changer de mot de passer, utilisez <a id=\"modifMDP\" href=\"/profile/change-password\">ce formulaire</a>" }
                     - { type: 'group', label: 'Image de profil', icon: 'camera' }
                     - { property: 'imageProfil', type: 'text', label: 'Image de profil' }
                     - { type: 'group', label: 'Statut', icon: 'user-cog' }
@@ -41,8 +58,3 @@ easy_admin:
                     - { property: 'langue', label: "Langue de l'interface" }
                     - { property: 'couleurBO', type: 'choice', label: "Thème de l'interface d'administration", type_options: { choices: { gris: 'gris', bleu: 'bleu' } } }
                     - { property: 'blocsTableauDeBord', type: 'choice', label: 'Informations présentées sur le tableau de bord', type_options: { multiple: true, expanded: true, choices: { 'Nombre de pages': nombreDePages, 'Derniers commentaires': derniersCommentaires, 'Dernières pages': dernieresPages, 'Liste des catégories': listeCategories, 'Derniers inscrits': derniersInscrits, 'Nouvelles de version': logVersion } } }
-            edit:
-                title: username
-                actions:
-                    - { name: 'delete', label: 'Supprimer', title: 'Supprimer', icon: 'trash', css_class: '' }
-                    - { name: 'list', label: 'Retour', title: 'Retour', icon: 'arrow-left', css_class: '' }

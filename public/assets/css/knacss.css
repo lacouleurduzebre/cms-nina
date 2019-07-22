@@ -4664,6 +4664,10 @@ body.edit .bloc-reseauxsociaux input[type=text], body.new .bloc-reseauxsociaux i
   margin-bottom: 0.5rem;
 }
 
+form.autreUtilisateur .mdp {
+  display: none;
+}
+
 #page_active_SEO .metaTitre, #page_active_SEO #seo_metaTitre, .listeSEO-conteneur .metaTitre, .listeSEO-conteneur #seo_metaTitre {
   color: #1a0dab;
   font-size: 1.8rem;

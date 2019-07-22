@@ -35,7 +35,12 @@
     {% endif %}
 
     {% block entity_form %}
-        {{ form(form, {attr: {novalidate: "novalidate"}}) }}
+        {% if _entity_config.name == 'Utilisateur' and _entity_id == app.user.id %}
+            {% set class = 'utilisateurCourant' %}
+        {% else %}
+            {% set class= 'autreUtilisateur' %}
+        {% endif %}
+        {{ form(form, {attr: {novalidate: "novalidate", class: class|default('')}}) }}
     {% endblock entity_form %}
 
     {% block delete_form %}
