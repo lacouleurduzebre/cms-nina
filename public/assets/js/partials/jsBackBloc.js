@@ -361,4 +361,13 @@ $(document).ready(function() {
             $(this).closest('div').siblings('.field-choix').slideUp().find('div[id$="choix"]').remove();
         }
     });
+
+    //Replier tous les blocs
+    $('#replierBlocs').click(function(e){
+        e.preventDefault();
+        $(this).closest('.form-group').find('.contenu').each(function(){
+            $(this).children('div').addClass('hide');
+        });
+        $(this).closest('.form-group').find('.toggleBloc').addClass('rotate');
+    })
 });
