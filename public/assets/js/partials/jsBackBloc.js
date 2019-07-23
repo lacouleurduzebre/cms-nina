@@ -55,6 +55,16 @@ $(document).ready(function() {
         }
     });
 
+    $(".bloc-accordeon div[id$='contenu_sections']").sortable({
+        handle: '.dragCase',
+        update: function(event, ui){
+            $('.field-section').each(function(){
+                $(this).find("input[id$='position']").val($(this).index());
+                saveCloseFormulaire();
+            });
+        }
+    });
+
     /* Menu blocs */
     $('form').on('click', '.bloc-menu', function(){
         $('.bloc-menu').not(this).closest('.bloc-barreActions').removeClass('actif');

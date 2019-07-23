@@ -1,0 +1,17 @@
+{% if bloc.contenu.sections is defined %}
+    {% set sections = bloc.contenu.sections %}
+    {% for section in sections|sortBy('position') %}
+        <div class="blocAccordeon-section">
+            {% if section.titre is defined and section.titre is not empty %}
+                <div class="blocAccordeon-titre">
+                    {{ section.titre }}
+                </div>
+            {% endif %}
+            {% if section.texte is defined and section.titre is not empty %}
+                <div class="blocAccordeon-texte hidden">
+                    {{ section.texte|raw }}
+                </div>
+            {% endif %}
+        </div>
+    {% endfor %}
+{% endif %}

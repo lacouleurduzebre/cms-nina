@@ -92,4 +92,10 @@ $(document).ready(function(){
         $(this).find('svg').toggleClass('fa-angle-down fa-angle-up');
         $(this).next('div').slideToggle();
     });
+
+    //Bloc accordéon
+    $('.blocAccordeon-titre').click(function(){
+        $(this).closest('.blocAccordeon-section').toggleClass('actif');
+        $(this).next('.blocAccordeon-texte').slideToggle();
+    });
 });
