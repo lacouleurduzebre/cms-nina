@@ -9,6 +9,7 @@
 namespace App\Blocs\TypeCategorie;
 
 
+use App\Controller\SEOController;
 use App\Entity\Categorie;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Bridge\Doctrine\RegistryInterface;
@@ -63,6 +64,18 @@ class TypeCategorieTwig extends \Twig_Extension
             $pages = array_slice($pages, 0, $limite);
         }
 
+        usort($pages, array($this, 'triTitre'));
+
         return $pages;
+    }
+
+    public function triTitre($a, $b){
+        $titreA = SEOController::slugify($a->getTitre(), ' ');
+        $titreB = SEOController::slugify($b->getTitre(), ' ');
+
+        if ($titreA == $titreB) {
+            return 0;
+        }
+        return ($titreA < $titreB) ? -1 : 1;
     }
 }

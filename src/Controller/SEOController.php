@@ -105,7 +105,7 @@ class SEOController extends Controller
         return $SEO;
     }
 
-    public function slugify($string, $delimiter = '-') {
+    public static function slugify($string, $delimiter = '-') {
         $clean = iconv('UTF-8', 'ASCII//TRANSLIT', $string);
         $clean = preg_replace("/[^a-zA-Z0-9\/_|+ -]/", '', $clean);
         $clean = strtolower($clean);
