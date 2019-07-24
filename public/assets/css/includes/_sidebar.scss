@@ -6,6 +6,8 @@
 /* Sidebar */
 .main-sidebar{
   font-family: 'Cabin';
+  font-size: 1.6rem;
+  line-height: 1.5;
   width: 30rem;
   position: fixed;
   color: #FFF;
@@ -283,6 +285,8 @@ body.notFull .main-sidebar{
 .vakata-context li > a, #pageAccueil-menu li > a{
   padding: 0 1rem;
   color: $color-primary;
+  font-size: 1.6rem;
+  font-family: 'Cabin';
 }
 
 .vakata-context li > a:hover, .vakata-context .vakata-context-hover > a, #pageAccueil-menu li > a:hover{
@@ -333,18 +337,28 @@ body.notFull .main-sidebar{
   padding: 5rem;
   display: flex;
   align-items: center;
+  font-family: 'Cabin';
+  font-size: 1.6rem;
+  line-height: 1.5;
   h2{
     color: $color-brand2;
     margin-bottom: 1rem;
     font-family: 'Cabin';
+    font-size: 2.8rem;
   }
   label{
     display: block;
     cursor: pointer;
     color: #0791B3;
+    margin-bottom: 0;
   }
   p{
     color: $color-brand2;
+  }
+  input[type="text"]{
+    box-shadow: none;
+    border-bottom: 1px solid $color-brand2;
+    background-color: transparent;
   }
   input[type="submit"]{
     display: inline-block;

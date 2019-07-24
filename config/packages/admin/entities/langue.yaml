@@ -27,7 +27,7 @@ easy_admin:
                     - { name: 'list', label: 'Retour', title: 'Retour', icon: 'arrow-left', css_class: '' }
                 fields:
                     - nom
-                    - { property: 'abreviation', label: 'Abréviation', help: 'deux lettres, de préférence en minuscules' }
+                    - { property: 'abreviation', label: 'Abréviation', type_options: { help: 'deux lettres, de préférence en minuscules' } }
                     - { property: 'code', label: 'Code de la langue sous la forme xx-XX' }
                     - { property: 'metaTitre', label: 'Meta-titre général pour cette langue' }
                     - { property: 'metaDescription', label: 'Meta-description générale pour cette langue', type_options: { attr: { class: 'notTinymce' } } }
