@@ -1,13 +1,30 @@
 <div class="flex-container">
-    {% for categorie in categoriesDeType(bloc.contenu.typeCategorie) %}
-        <div class="blocTypeCategorie-categorie flex-container-v mrs mbs">
-            <a class="bouton lire" href="
+    {% if bloc.contenu.affichage is defined and bloc.contenu.affichage == 'pages' %}
+        {% for page in pagesDeType(bloc.contenu.typeCategorie, bloc.contenu.limite) %}
+            <div class="blocTypeCategorie-page flex-container-v">
+                {{ blocAnnexe(page, 'Vignette') }}
+                <h3>{{ page.titre }}</h3>
+                {{ blocAnnexe(page, 'Resume') }}
+                <a class="bouton lire" href="
                 {% if langues|length > 1 %}
-                    {{ path('voirCategorieLocale', { '_locale': categorie.langue.abreviation, 'urlTypeCategorie': categorie.typeCategorie.url, 'urlCategorie': categorie.url }) }}
+                    {{ path("voirPageLocale", { '_locale': page.langue.abreviation, 'url': page.seo.url}) }}
                 {% else %}
-                    {{ path('voirCategorie', { 'urlTypeCategorie': categorie.typeCategorie.url, 'urlCategorie': categorie.url }) }}
+                    {{ path("voirPage", { 'url': page.seo.url}) }}
                 {% endif %}
-            "><i class="fas fa-tag mrs"></i>{{ categorie.nom }}</a>
-        </div>
-    {% endfor %}
+            ">{{ "Lire la suite"|trans }}</a>
+            </div>
+        {% endfor %}
+    {% else %}
+        {% for categorie in categoriesDeType(bloc.contenu.typeCategorie, bloc.contenu.limite) %}
+            <div class="blocTypeCategorie-categorie flex-container-v mrs mbs">
+                <a class="bouton lire" href="
+                    {% if langues|length > 1 %}
+                        {{ path('voirCategorieLocale', { '_locale': categorie.langue.abreviation, 'urlTypeCategorie': categorie.typeCategorie.url, 'urlCategorie': categorie.url }) }}
+                    {% else %}
+                        {{ path('voirCategorie', { 'urlTypeCategorie': categorie.typeCategorie.url, 'urlCategorie': categorie.url }) }}
+                    {% endif %}
+                "><i class="fas fa-tag mrs"></i>{{ categorie.nom }}</a>
+            </div>
+        {% endfor %}
+    {% endif %}
 </div>
