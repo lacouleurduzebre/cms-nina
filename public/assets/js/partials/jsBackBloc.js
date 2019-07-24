@@ -66,10 +66,16 @@ $(document).ready(function() {
     });
 
     /* Menu blocs */
-    $('form').on('click', '.bloc-menu', function(){
+    $('form').on('click', '.bloc-menu', function(e){
+        e.stopPropagation();
         $('.bloc-menu').not(this).closest('.bloc-barreActions').removeClass('actif');
         $(this).closest('.bloc-barreActions').toggleClass('actif');
         $(this).closest('div').find('.suppressionBloc').hide();
+    });
+
+    $('body').on('click', function(){
+        $('.bloc-barreActions').removeClass('actif');
+        $('.suppressionBloc').hide();
     });
 
     /* Monter */
@@ -124,7 +130,7 @@ $(document).ready(function() {
     /* Supprimer */
     $('form').on('click', '.supprimerBloc', function(e){
         e.preventDefault();
-
+        e.stopPropagation();
         $(this).next('div').show();
     });
 
