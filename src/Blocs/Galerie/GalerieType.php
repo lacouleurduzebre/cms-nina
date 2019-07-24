@@ -10,6 +10,7 @@ namespace App\Blocs\Galerie;
 
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -21,7 +22,15 @@ class GalerieType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('images', CollectionType::class, array(
+        $builder->add('affichage', ChoiceType::class, array(
+            'choices' => array(
+                'Lightbox (Afficher un diaporama)' => 'lightbox',
+                'Lien (Aller sur une page)' => 'liens'
+            ),
+            'label' => 'Action au clic',
+            'expanded' => true
+        ))
+            ->add('images', CollectionType::class, array(
             'entry_type' => GalerieImageType::class,
             'entry_options' => array(
                 'label' => false
