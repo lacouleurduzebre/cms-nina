@@ -2350,7 +2350,7 @@ body.notFull #sidebar-logo .logo {
   padding: 0.5rem;
 }
 
-#btn-edition-page, #btn-toggle-groupes-blocs {
+#btn-edition-page, #btn-toggle-blocs {
   color: #fff;
   padding: 1rem;
   display: flex;
@@ -2360,23 +2360,23 @@ body.notFull #sidebar-logo .logo {
   box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.25);
   background-color: #08a5cc;
 }
-#btn-edition-page:hover, #btn-toggle-groupes-blocs:hover {
+#btn-edition-page:hover, #btn-toggle-blocs:hover {
   background-color: #056982;
 }
 
-#btn-toggle-groupes-blocs {
+#btn-toggle-blocs {
   margin-left: auto;
   margin-right: 1rem;
 }
-#btn-toggle-groupes-blocs.actif {
+#btn-toggle-blocs.actif {
   background-color: #A1BA1D;
 }
-#btn-toggle-groupes-blocs.actif:hover {
+#btn-toggle-blocs.actif:hover {
   background-color: #7b8e16;
 }
 
 .surbrillance {
-  border: 4px dashed #FF0000;
+  border: 3px dashed transparent;
   width: 100%;
   height: 100%;
   max-width: none;
@@ -2384,20 +2384,23 @@ body.notFull #sidebar-logo .logo {
   top: 0;
   left: 0;
 }
+.surbrillance.focus {
+  border: 3px dashed #A1BA1D;
+}
 .surbrillance a {
-  background-color: #FF0000;
-  padding: 0.5rem;
+  border: 2px solid #A1BA1D;
+  padding: 0.6rem;
   border-radius: 50%;
-  color: #fff;
+  color: #A1BA1D;
   position: absolute;
-  top: 5px;
-  right: 5px;
-  width: 4rem;
-  font-size: 2rem;
+  top: 2px;
+  right: 2px;
+  width: 3.5rem;
+  font-size: 1.6rem;
   text-align: center;
 }
 .surbrillance a:hover {
-  background-color: #cc0000;
+  color: #7b8e16;
 }
 .surbrillanceOff .surbrillance {
   display: none;

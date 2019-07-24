@@ -395,4 +395,29 @@ $(document).ready(function() {
             $(this).closest('.field-bloc').addClass('desactive');
         }
     });
+
+    //Bloc actif
+    get = parseURLParams(location.href);
+    if(get.blocActif){
+        $('#page_active_blocs .contenu').not('[data-bloc="'+get.blocActif[0]+'"]').addClass('hide');
+
+        bloc = $('[data-bloc="'+get.blocActif[0]+'"]');
+
+        bloc.closest('.field-bloc').addClass('focus');
+
+        var elOffset = bloc.offset().top;
+        var elHeight = bloc.height();
+        var windowHeight = $(window).height();
+
+        if (elHeight < windowHeight) {
+            offset = elOffset - ((windowHeight / 2) - (elHeight / 2));
+        }
+        else {
+            offset = elOffset;
+        }
+
+        $('body, html').animate({
+            scrollTop: offset - 100
+        }, 600, 'swing');
+    }
 });
