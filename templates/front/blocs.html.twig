@@ -1,5 +1,5 @@
 {% if blocs is defined %}
-    {% for bloc in blocs %}
+    {% for bloc in blocs if bloc.active %}
         {% if bloc.htmlAvant is not empty %}
             {{ bloc.htmlAvant|raw }}
         {% endif %}

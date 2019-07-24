@@ -4177,6 +4177,10 @@ body.list #flash-messages > * {
   margin: 1rem 0;
   background-color: #F7F7F7;
 }
+.form-group.field-bloc.desactive, .form-group.field-bloc_annexe.desactive {
+  background-color: #DFDFDF;
+  opacity: 0.7 !important;
+}
 .form-group.field-bloc.nvBloc, .form-group.field-bloc_annexe.nvBloc {
   opacity: 0;
 }

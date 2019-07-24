@@ -379,5 +379,14 @@ $(document).ready(function() {
             $(this).children('div').addClass('hide');
         });
         $(this).closest('.form-group').find('.toggleBloc').addClass('rotate');
-    })
+    });
+
+    //Activation / désactivation des blocs
+    $('#page_active_blocs, #groupeblocs_blocs').on('change', 'input[id$="_active"]', function(){
+        if($(this).prop('checked')){
+            $(this).closest('.field-bloc').removeClass('desactive');
+        }else{
+            $(this).closest('.field-bloc').addClass('desactive');
+        }
+    });
 });
