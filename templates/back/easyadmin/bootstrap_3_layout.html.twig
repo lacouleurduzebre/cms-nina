@@ -1078,7 +1078,11 @@
     <div class="dragSlide">
         <i class="fas fa-arrows-alt"></i>
     </div>
-    {{- form_widget(form) -}}
+    {{- form_row(form.children.image) -}}
+    {{- form_row(form.children.position) -}}
+    {{- form_row(form.children.texte) -}}
+    {% set nv = 2 %}
+    {{ block('lien_page') }}
 {% endblock %}
 
 {% block case_widget %}
