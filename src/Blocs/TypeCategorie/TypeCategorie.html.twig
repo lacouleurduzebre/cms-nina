@@ -5,13 +5,7 @@
                 {{ blocAnnexe(page, 'Vignette') }}
                 <h3>{{ page.titre }}</h3>
                 {{ blocAnnexe(page, 'Resume') }}
-                <a class="bouton lire" href="
-                {% if langues|length > 1 %}
-                    {{ path("voirPageLocale", { '_locale': page.langue.abreviation, 'url': page.seo.url}) }}
-                {% else %}
-                    {{ path("voirPage", { 'url': page.seo.url}) }}
-                {% endif %}
-            ">{{ "Lire la suite"|trans }}</a>
+                <a class="bouton lire" href="{{ lienPage(page) }}">{{ "Lire la suite"|trans }}</a>
             </div>
         {% endfor %}
     {% else %}

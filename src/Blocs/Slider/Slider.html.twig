@@ -13,11 +13,7 @@
                                 <a href="
                                     {% if slide.page is defined and slide.page is not empty %}
                                         {% set page = page(slide.page) %}
-                                        {% if langues|length > 1 %}
-                                            {{ path("voirPageLocale", { '_locale': page.langue.abreviation, 'url': page.seo.url}) }}
-                                        {% else %}
-                                            {{ path("voirPage", { 'url': page.seo.url}) }}
-                                        {% endif %}
+                                        {{ lienPage(page) }}
                                     {% else %}
                                         {{ slide.lien }}
                                     {% endif %}

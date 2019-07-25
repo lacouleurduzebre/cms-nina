@@ -8,13 +8,7 @@
     <div class="blocRecherche">
         {% for page in pages %}
             <h3>{{ page.titre }}</h3>
-            <p><a href="
-                {% if langues|length > 1 %}
-                    {{ path("voirPageLocale", { '_locale': page.langue.abreviation, 'url': page.seo.url}) }}
-                {% else %}
-                    {{ path("voirPage", { 'url': page.seo.url}) }}
-                {% endif %}
-            ">{{ "Voir la page"|trans }}</a></p>
+            <p><a href="{{ lienPage(page) }}">{{ "Voir la page"|trans }}</a></p>
         {% endfor %}
     </div>
 {% endblock %}

@@ -10,11 +10,7 @@
                             {{ path('accueil') }}
                         {% endif %}
                     {% else %}
-                        {% if langues|length > 1 %}
-                            {{ path('voirPageLocale', {'_locale': menuPage.page.langue.abreviation, 'url' : menuPage.page.seo.url}) }}
-                        {% else %}
-                            {{ path('voirPage', {'url' : menuPage.page.seo.url}) }}
-                        {% endif %}
+                        {{ lienPage(menuPage.page) }}
                     {% endif %}
                 ">
                     {{ menuPage.page.titreMenu }}

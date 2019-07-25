@@ -10,13 +10,7 @@
                     </div>
                     <h3>{{ page.titre }}</h3>
                     {{ blocAnnexe(page, "Resume") }}
-                    <a href="
-                        {% if langues|length > 1 %}
-                            {{ path("voirPageLocale", { '_locale': page.langue.abreviation, 'url': page.seo.url}) }}
-                        {% else %}
-                            {{ path("voirPage", { 'url': page.seo.url}) }}
-                        {% endif %}
-                    " class="bouton">{{ "Voir la page"|trans }}</a>
+                    <a href="{{ lienPage(page) }}" class="bouton">{{ "Voir la page"|trans }}</a>
                 {% else %}
                     <div class="blocGrille-case-image">
                         <img src="{{ case.image.image }}" alt="{{ case.image.description }}" title="{{ case.image.titre }}">
@@ -29,11 +23,7 @@
                         <a class="bouton" href="
                             {% if case.lien.page is defined and case.lien.page is not empty %}
                                 {% set page = page(case.lien.page) %}
-                                {% if langues|length > 1 %}
-                                    {{ path("voirPageLocale", { '_locale': page.langue.abreviation, 'url': page.seo.url}) }}
-                                {% else %}
-                                    {{ path("voirPage", { 'url': page.seo.url}) }}
-                                {% endif %}
+                                {{ lienPage(page) }}
                             {% else %}
                                 {{ case.lien.lien }}
                             {% endif %}

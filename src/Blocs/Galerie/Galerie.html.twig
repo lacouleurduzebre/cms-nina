@@ -16,11 +16,7 @@
                         <p><a href='
                             {% if elementGalerie.page is defined and elementGalerie.page is not empty %}
                                 {% set page = page(elementGalerie.page) %}
-                                {% if langues|length > 1 %}
-                                    {{ path("voirPageLocale", { '_locale': page.langue.abreviation, 'url': page.seo.url}) }}
-                                {% else %}
-                                    {{ path("voirPage", { 'url': page.seo.url}) }}
-                                {% endif %}
+                                {{ lienPage(page) }}
                             {% else %}
                                 {{ elementGalerie.lien }}
                             {% endif %}
@@ -45,11 +41,7 @@
                     <a class="galerie" href="
                         {% if elementGalerie.page is defined and elementGalerie.page is not empty %}
                             {% set page = page(elementGalerie.page) %}
-                            {% if langues|length > 1 %}
-                                {{ path("voirPageLocale", { '_locale': page.langue.abreviation, 'url': page.seo.url}) }}
-                            {% else %}
-                                {{ path("voirPage", { 'url': page.seo.url}) }}
-                            {% endif %}
+                            {{ lienPage(page) }}
                         {% else %}
                             {{ elementGalerie.lien }}
                         {% endif %}
