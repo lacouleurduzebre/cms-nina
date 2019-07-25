@@ -9,7 +9,6 @@
 namespace App\Blocs\Bandeau;
 
 
-use App\Blocs\Image\ImageType;
 use App\Form\Type\ImageDefautType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\FormType;

@@ -1,12 +1,19 @@
 {% if bloc.contenu is not empty %}
+
+    {% if (bloc.contenu.lien is defined and bloc.contenu.lien is not empty) or (bloc.contenu.page is defined and bloc.contenu.page is not empty) %}
+        {% set lien = true %}
+    {% else %}
+        {% set lien = false %}
+    {% endif %}
+
     {% if bloc.contenu.titre is not empty %}
         <figure>
             {% if bloc.contenu.image is not empty %}
-                {% if bloc.contenu.lien is defined and bloc.contenu.lien is not empty %}
-                    <a href="{{ bloc.contenu.lien }}" {% if bloc.contenu.blank is defined and bloc.contenu.blank is not empty and bloc.contenu.blank %}target="_blank"{% endif %}>
+                {% if lien %}
+                    {{ block('lien') }}
                 {% endif %}
                 <img src="{{ bloc.contenu.image }}" {% if bloc.contenu.description is defined and bloc.contenu.description is not empty %}alt="{{ bloc.contenu.description }}"{% endif %}>
-                {% if bloc.contenu.lien is defined and bloc.contenu.lien is not empty %}
+                {% if lien %}
                     </a>
                 {% endif %}
             {% endif %}
@@ -14,13 +21,30 @@
         </figure>
     {% else %}
         {% if bloc.contenu.image is not empty %}
-            {% if bloc.contenu.lien is defined and bloc.contenu.lien is not empty %}
-                <a href="{{ bloc.contenu.lien }}" {% if bloc.contenu.blank is defined and bloc.contenu.blank is not empty and bloc.contenu.blank %}target="_blank"{% endif %}>
+            {% if lien %}
+                {{ block('lien') }}
             {% endif %}
             <img src="{{ bloc.contenu.image }}" {% if bloc.contenu.description is defined and bloc.contenu.description is not empty %}alt="{{ bloc.contenu.description }}"{% endif %}>
-            {% if bloc.contenu.lien is defined and bloc.contenu.lien is not empty %}
+            {% if lien %}
                 </a>
             {% endif %}
         {% endif %}
     {% endif %}
 {% endif %}
+
+{% block lien %}
+<a href="
+    {% if bloc.contenu.page is defined and bloc.contenu.page is not empty %}
+        {% set page = page(bloc.contenu.page) %}
+        {% if langues|length > 1 %}
+            {{ path("voirPageLocale", { '_locale': page.langue.abreviation, 'url': page.seo.url}) }}
+        {% else %}
+            {{ path("voirPage", { 'url': page.seo.url}) }}
+        {% endif %}
+    {% else %}
+        {{ bloc.contenu.lien }}
+    {% endif %}
+    "
+   {% if bloc.contenu.blank is defined and bloc.contenu.blank is not empty and bloc.contenu.blank %}target="_blank"{% endif %}
+>
+{% endblock %}

@@ -1001,8 +1001,8 @@
 {# FIN BLOC ANNEXE #}
 
 {% block image_widget %}
-    <strong>{{ 'Image'|trans }}</strong>
     <div>
+        {{- form_label(form.children.image) -}}
         {{- form_widget(form.children.image) -}}
     </div>
     <div>
@@ -1019,14 +1019,8 @@
         {{- form_label(form.children.description) -}}
         {{- form_widget(form.children.description) -}}
     </div>
-    <strong>{{ 'Lien'|trans }}</strong>
-    <div>
-        {{- form_label(form.children.lien) -}}
-        {{- form_widget(form.children.lien) -}}
-    </div>
-    <div class="mts">
-        {{- form_widget(form.children.blank) -}}
-    </div>
+    {% set nv = 1 %}
+    {{ block('lien_page') }}
     <script>
         $('.bloc_image_bouton_mediatheque').fancybox({
             type: 'iframe',
