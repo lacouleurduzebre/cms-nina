@@ -42,6 +42,7 @@ class BoutonType extends AbstractType
                 "label" => "Lien"
             ))
             ->add('page', ChoiceType::class, array(
+                "label" => "Page",
                 "choices" => $pages,
                 "required" => false
             ))
@@ -56,7 +57,7 @@ class BoutonType extends AbstractType
             ))
             ->add('texte', TextType::class, array(
                 "label" => "Texte du lien",
-                "help" => "\"Voir la page\" par défaut"
+                "help" => "Par défaut : le titre de la page, ou \"Voir la page\""
             ))
             ->add('titre', TextType::class, array(
                 "label" => "Titre au survol",

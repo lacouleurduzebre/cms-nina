@@ -4575,7 +4575,7 @@ body.edit .bloc-reseauxsociaux input[type=text], body.new .bloc-reseauxsociaux i
 .bloc-grille .field-bouton > label, .bloc-grille .field-image_defaut > label {
   font-weight: bold;
 }
-.bloc-grille .field-case.page > div > .field-text, .bloc-grille .field-case.page > div > .field-textarea, .bloc-grille .field-case.page > div > .field-image_defaut {
+.bloc-grille .field-case.page > div > .field-text, .bloc-grille .field-case.page > div > .field-textarea, .bloc-grille .field-case.page > div > .field-image_defaut, .bloc-grille .field-case.page > div > .field-bouton {
   display: none;
 }
 
