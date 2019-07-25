@@ -1098,7 +1098,10 @@
     <div class="dragGalerie">
         <i class="fas fa-arrows-alt"></i>
     </div>
-    {{- form_widget(form) -}}
+    {{ form_widget(form.children.position) }}
+    {{ form_widget(form.children.image) }}
+    {% set nv = 2 %}
+    {{ block('lien_page') }}
 {% endblock %}
 
 {% block champ_widget %}
@@ -1129,12 +1132,25 @@
 {% endblock %}
 
 {% block bouton_widget -%}
+    {% set nv = 1 %}
+    {{ block('lien_page') }}
+    <div>
+        {{- form_label(form.children.texte) -}}
+        {{- form_widget(form.children.texte) -}}
+    </div>
+    <div>
+        {{- form_label(form.children.titre) -}}
+        {{- form_widget(form.children.titre) -}}
+    </div>
+{%- endblock %}
+
+{% block lien_page %}
     <div class="grid-2 has-gutter-l">
-        <div class="field-case">
+        <div class="{% if nv == 2 %}tresFonce{% else %}fonce{% endif %}">
             {{- form_label(form.children.page) -}}
             {{- form_widget(form.children.page) -}}
         </div>
-        <div class="field-case">
+        <div class="{% if nv == 2 %}tresFonce{% else %}fonce{% endif %}">
             <div>
                 {{- form_label(form.children.lien) -}}
                 {{- form_widget(form.children.lien) -}}
@@ -1148,21 +1164,13 @@
         {{- form_label(form.children.blank) -}}
         {{- form_widget(form.children.blank) -}}
     </div>
-    <div>
-        {{- form_label(form.children.texte) -}}
-        {{- form_widget(form.children.texte) -}}
-    </div>
-    <div>
-        {{- form_label(form.children.titre) -}}
-        {{- form_widget(form.children.titre) -}}
-    </div>
     <script>
         $('.ouvrirMediatheque').fancybox({
             type: 'iframe',
             minHeight: '600'
         });
     </script>
-{%- endblock %}
+{% endblock %}
 
 {# Images des blocs galerie #}
 {% block _page_active_blocs_entry_contenu_images_row %}

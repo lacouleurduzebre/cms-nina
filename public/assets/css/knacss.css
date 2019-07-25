@@ -2446,6 +2446,7 @@ select {
   background-size: 1.2rem;
   display: block;
   min-width: 10rem;
+  max-width: 100%;
 }
 
 /* hiding IE11 arrow */
@@ -4149,6 +4150,19 @@ body.list #flash-messages > * {
   tr.ouvert td:not(:first-of-type) {
     display: block;
   }
+}
+
+.fonce, .tresFonce {
+  padding: 1rem;
+  margin: 1rem 2rem;
+}
+
+.fonce {
+  background-color: #EDEDED;
+}
+
+.tresFonce {
+  background-color: #E1E0E0;
 }
 
 /* Bouton pour ajouter un bloc */
