@@ -9,7 +9,9 @@
 namespace App\Blocs\Bouton;
 
 
+use App\Entity\Page;
 use App\Form\Type\LienFichierType;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
@@ -19,12 +21,29 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class BoutonType extends AbstractType
 {
+    public function __construct(EntityManagerInterface $em)
+    {
+        $this->em = $em;
+    }
+
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        $repoPage = $this->em->getRepository(Page::class);
+        $objetsPages = $repoPage->findAll();
+        $pages = [];
+
+        foreach($objetsPages as $objetPage){
+            $pages[$objetPage->getTitre()] = $objetPage->getId();
+        }
+
         $builder
             ->add('lien', TextType::class, array(
                 "help" => "Pour les liens externes, ne pas oublier d'ajouter le préfixe http:// ou https://",
                 "label" => "Lien"
+            ))
+            ->add('page', ChoiceType::class, array(
+                "choices" => $pages,
+                "required" => false
             ))
             ->add('blank', ChoiceType::class, array(
                 "choices" => array(
@@ -37,6 +56,7 @@ class BoutonType extends AbstractType
             ))
             ->add('texte', TextType::class, array(
                 "label" => "Texte du lien",
+                "help" => "\"Voir la page\" par défaut"
             ))
             ->add('titre', TextType::class, array(
                 "label" => "Titre au survol",
