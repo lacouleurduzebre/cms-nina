@@ -20,7 +20,7 @@ class PageRepository extends \Doctrine\ORM\EntityRepository
                 ->orderBy('p.datePublication', 'DESC');
     }
 
-    public function pagesPubliees($langue, $limite = null, $offset = null){
+    public function pagesPubliees($langue = null, $limite = null, $offset = null){
         $timestamp = new \DateTime();
         $date = $timestamp->format('Y-m-d H:i:s');
 
@@ -28,11 +28,17 @@ class PageRepository extends \Doctrine\ORM\EntityRepository
             ->createQueryBuilder('p')
                 ->where('p.corbeille = 0')
                 ->andWhere('p.active = 1')
-                ->andWhere('p.langue = :langue')
                 ->andWhere('p.datePublication < :date')
-                ->andWhere('p.dateDepublication > :date OR p.dateDepublication IS NULL')
-                    ->setParameters(array('langue' => $langue, 'date' => $date))
-            ->orderBy('p.datePublication', 'DESC');
+                ->andWhere('p.dateDepublication > :date OR p.dateDepublication IS NULL');
+
+        if($langue){
+            $qb->andWhere('p.langue = :langue')
+                ->setParameters(array('langue' => $langue, 'date' => $date));
+        }else{
+            $qb->setParameters(array('date' => $date));
+        }
+
+        $qb->orderBy('p.datePublication', 'DESC');
 
         if($limite){
             $qb->setMaxResults($limite);

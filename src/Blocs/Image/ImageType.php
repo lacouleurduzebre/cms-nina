@@ -28,7 +28,7 @@ class ImageType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $repoPage = $this->em->getRepository(Page::class);
-        $objetsPages = $repoPage->findAll();
+        $objetsPages = $repoPage->pagesPubliees();
         $pages = [];
 
         foreach($objetsPages as $objetPage){
