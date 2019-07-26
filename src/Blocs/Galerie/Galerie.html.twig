@@ -37,7 +37,7 @@
     {% else %}
         {% for elementGalerie in bloc.contenu.images|sortBy('position') %}
             <div>
-                {% if elementGalerie.lien is not empty or elementGalerie.page is not empty %}
+                {% if (elementGalerie.lien is defined and elementGalerie.lien is not empty) or (elementGalerie.page is defined and elementGalerie.page is not empty) %}
                     <a class="galerie" href="
                         {% if elementGalerie.page is defined and elementGalerie.page is not empty %}
                             {% set page = page(elementGalerie.page) %}
