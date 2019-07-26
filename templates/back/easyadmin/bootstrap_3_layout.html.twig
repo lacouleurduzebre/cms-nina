@@ -706,15 +706,21 @@
                 <p>La page apparaîtra de cette façon dans les résultats de Google : </p>
                 <div class="listeSEO-apercu">
                     <div class="metaTitre">
-                        {{ data.metaTitre|truncate(65) }}
+                        {% if data.metaTitre is defined %}
+                            {{ data.metaTitre|truncate(65) }}
+                        {% endif %}
                     </div>
 
                     <div class="url">
-                        {{ data.url|truncate(75) }}
+                        {% if data.url is defined %}
+                            {{ data.url|truncate(75) }}
+                        {% endif %}
                     </div>
 
                     <div class="metaDescription">
-                        {{ data.metaDescription|truncate(150)|raw }}
+                        {% if data.metaDescription is defined %}
+                            {{ data.metaDescription|truncate(150)|raw }}
+                        {% endif %}
                     </div>
                 </div>
             </div>
