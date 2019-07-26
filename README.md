@@ -1,6 +1,7 @@
-# Cms Nina
+# CMS Nina
 
-CMS Nina - Développé par [la couleur du zèbre](https://www.lacouleurduzebre.com/)
+A Symfony CMS - Content Management System / Système de gestion de contenu de site web sous Symfony
+Développé par [la couleur du zèbre](https://www.lacouleurduzebre.com/)
 
 Symfony 4 X EasyAdminBundle
 
