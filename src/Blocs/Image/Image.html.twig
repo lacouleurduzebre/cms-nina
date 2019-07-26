@@ -10,7 +10,16 @@
         <figure>
             {% if bloc.contenu.image is not empty %}
                 {% if lien %}
-                    {{ block('lien') }}
+                    <a href="
+                        {% if bloc.contenu.page is defined and bloc.contenu.page is not empty %}
+                            {% set page = page(bloc.contenu.page) %}
+                            {{ lienPage(page) }}
+                        {% else %}
+                            {{ bloc.contenu.lien }}
+                        {% endif %}
+                    "
+                    {% if bloc.contenu.blank is defined and bloc.contenu.blank is not empty and bloc.contenu.blank %}target="_blank"{% endif %}
+                    >
                 {% endif %}
                 <img src="{{ bloc.contenu.image }}" {% if bloc.contenu.description is defined and bloc.contenu.description is not empty %}alt="{{ bloc.contenu.description }}"{% endif %}>
                 {% if lien %}
@@ -22,7 +31,16 @@
     {% else %}
         {% if bloc.contenu.image is not empty %}
             {% if lien %}
-                {{ block('lien') }}
+                <a href="
+                    {% if bloc.contenu.page is defined and bloc.contenu.page is not empty %}
+                        {% set page = page(bloc.contenu.page) %}
+                        {{ lienPage(page) }}
+                    {% else %}
+                        {{ bloc.contenu.lien }}
+                    {% endif %}
+                "
+                {% if bloc.contenu.blank is defined and bloc.contenu.blank is not empty and bloc.contenu.blank %}target="_blank"{% endif %}
+                >
             {% endif %}
             <img src="{{ bloc.contenu.image }}" {% if bloc.contenu.description is defined and bloc.contenu.description is not empty %}alt="{{ bloc.contenu.description }}"{% endif %}>
             {% if lien %}
@@ -31,16 +49,3 @@
         {% endif %}
     {% endif %}
 {% endif %}
-
-{% block lien %}
-<a href="
-    {% if bloc.contenu.page is defined and bloc.contenu.page is not empty %}
-        {% set page = page(bloc.contenu.page) %}
-        {{ lienPage(page) }}
-    {% else %}
-        {{ bloc.contenu.lien }}
-    {% endif %}
-    "
-   {% if bloc.contenu.blank is defined and bloc.contenu.blank is not empty and bloc.contenu.blank %}target="_blank"{% endif %}
->
-{% endblock %}
