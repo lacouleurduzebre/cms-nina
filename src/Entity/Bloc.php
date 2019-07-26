@@ -59,14 +59,9 @@ class Bloc
     private $groupeBlocs;
 
     /**
-     * @ORM\Column(type="boolean", nullable=true)
+     * @ORM\Column(type="boolean", nullable=true, options={"default" : 1})
      */
-    private $active;
-
-    public function __construct()
-    {
-        $this->active = true;
-    }
+    private $active = true;
 
     public function getId()
     {
