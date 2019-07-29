@@ -200,7 +200,7 @@ class ThemeController extends Controller
         //Champs
         $fichierDefaut = Yaml::parseFile('../themes/'.$nom.'/config.yaml');
 
-        if(key_exists('champs', $fichierDefaut)){
+        if(key_exists('champs', $fichierDefaut)){//Paramètres ?
             $champs = $fichierDefaut['champs'];
 
             //Valeurs
@@ -215,8 +215,8 @@ class ThemeController extends Controller
             $form = $this->createForm(FormType::class);
 
             foreach($champs as $champ => $infos){
-                if($parametres && key_exists($nom, $parametres)){//Paramètre modifié par l'utilisateur
-                    $data = $parametres[$nom];
+                if($parametres && key_exists($champ, $parametres)){//Paramètre modifié par l'utilisateur
+                    $data = $parametres[$champ];
                 }else{//Paramètre par défaut
                     $data = $infos['defaut'];
                 }
@@ -248,6 +248,11 @@ class ThemeController extends Controller
             }
             $nvFichier = Yaml::dump($parametres);
             file_put_contents($nomFichierParametres, $nvFichier);
+
+            $this->addFlash(
+                'enregistrement',
+                'Les paramètres ont été enregistrés'
+            );
         }
 
         //Template
