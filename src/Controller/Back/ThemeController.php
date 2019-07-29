@@ -11,7 +11,6 @@ namespace App\Controller\Back;
 
 use App\Entity\Configuration;
 use App\Form\Type\ImageSimpleType;
-use ScssPhp\ScssPhp\Compiler;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
@@ -245,10 +244,10 @@ class ThemeController extends Controller
         $form->handleRequest($request);
         if($form->isSubmitted() && $form->isValid()){
             $data = $form->getData();
-            $nomFichierVariablesScss = '../themes/'.$nom.'/assets/css/_config/_parametres.scss';
 
+            $nomFichierVariablesScss = '../themes/'.$nom.'/assets/css/_config/_parametres.scss';
             foreach($data as $champ=>$valeur){
-                //Modif variable css
+                //Modif variables css
                 file_put_contents($nomFichierVariablesScss, str_replace(
                     '$'.$champ . ': ' . $parametres[$champ], '$'.$champ . ': ' . $valeur, file_get_contents($nomFichierVariablesScss)
                 ));
@@ -258,7 +257,12 @@ class ThemeController extends Controller
             }
 
             //Compilation SCSS
-            //$compilateur = new Compiler();
+            $nomFichierCss = '../themes/'.$nom.'/assets/css/knacss.css';
+            exec('pwd', $pwd);
+            exec($pwd[0].'/../vendor/scssphp/scssphp/bin/pscss '.$pwd[0].'/../themes/'.$nom.'/assets/css/knacss.scss', $css);
+
+            //Enregistrement fichier css
+            file_put_contents($nomFichierCss, $css);
 
             //Enregistrement config.yaml
             $nvFichier = Yaml::dump($parametres);

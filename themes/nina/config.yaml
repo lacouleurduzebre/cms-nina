@@ -3,12 +3,3 @@ infos:
     auteur: la couleur du Zèbre
     site: https://www.lacouleurduzebre.com
     description: Thème par défaut du CMS Nina
-champs:
-    couleur:
-        label: "Couleur principale"
-        type: color
-        defaut: "#5CBFEE"
-    fond:
-        label: "Image de fond"
-        type: image
-        defaut: "theme/img/background.jpg"
