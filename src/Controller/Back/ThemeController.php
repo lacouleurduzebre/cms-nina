@@ -239,6 +239,17 @@ class ThemeController extends Controller
             $champs = null;
         }
 
+        //Enregistrement des paramètres
+        $form->handleRequest($request);
+        if($form->isSubmitted() && $form->isValid()){
+            $data = $form->getData();
+            foreach($data as $champ=>$valeur){
+                $parametres[$champ] = $valeur;
+            }
+            $nvFichier = Yaml::dump($parametres);
+            file_put_contents($nomFichierParametres, $nvFichier);
+        }
+
         //Template
         return $this->render('back/themes/parametres.html.twig', array('nom' => $nom, 'champs' => $champs, 'form' => isset($form) ? $form->createView() : null ));
     }

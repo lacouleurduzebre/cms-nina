@@ -8,6 +8,7 @@
     {% if form is not empty %}
         {{ form(form) }}
     {% else %}
-        {{ "Ce thème n'est pas paramétrable"|trans }}
+        <p>{{ "Ce thème n'est pas paramétrable"|trans }}</p>
+        <p><a class="btn" href="{{ path("theme") }}">{{ "Retour"|trans }}</a></p>
     {% endif %}
 {% endblock %}
