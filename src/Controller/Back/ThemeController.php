@@ -11,6 +11,7 @@ namespace App\Controller\Back;
 
 use App\Entity\Configuration;
 use App\Form\Type\ImageSimpleType;
+use ScssPhp\ScssPhp\Compiler;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
@@ -214,11 +215,12 @@ class ThemeController extends Controller
             //Formulaire
             $form = $this->createForm(FormType::class);
 
+            $anciennesValeurs = [];
             foreach($champs as $champ => $infos){
                 if($parametres && key_exists($champ, $parametres)){//Paramètre modifié par l'utilisateur
-                    $data = $parametres[$champ];
+                    $anciennesValeurs[$champ] = $data = $parametres[$champ];
                 }else{//Paramètre par défaut
-                    $data = $infos['defaut'];
+                    $anciennesValeurs[$champ] = $data = $infos['defaut'];
                 }
 
                 if($infos['type'] == 'image'){
@@ -243,9 +245,22 @@ class ThemeController extends Controller
         $form->handleRequest($request);
         if($form->isSubmitted() && $form->isValid()){
             $data = $form->getData();
+            $nomFichierVariablesScss = '../themes/'.$nom.'/assets/css/_config/_parametres.scss';
+
             foreach($data as $champ=>$valeur){
+                //Modif variable css
+                file_put_contents($nomFichierVariablesScss, str_replace(
+                    '$'.$champ . ': ' . $parametres[$champ], '$'.$champ . ': ' . $valeur, file_get_contents($nomFichierVariablesScss)
+                ));
+
+                //Modif config.yaml
                 $parametres[$champ] = $valeur;
             }
+
+            //Compilation SCSS
+            //$compilateur = new Compiler();
+
+            //Enregistrement config.yaml
             $nvFichier = Yaml::dump($parametres);
             file_put_contents($nomFichierParametres, $nvFichier);
 
