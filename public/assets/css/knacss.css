@@ -4593,6 +4593,17 @@ body.edit .bloc-reseauxsociaux input[type=text], body.new .bloc-reseauxsociaux i
   display: none;
 }
 
+.field-galerie_image, .field-slide {
+  display: flex;
+  flex-direction: column;
+}
+.field-galerie_image .lien-page, .field-slide .lien-page {
+  order: 1;
+}
+.field-galerie_image .field-collection-item-action, .field-slide .field-collection-item-action {
+  order: 2;
+}
+
 .traductionTemplateChoix div {
   display: flex;
   align-items: center;

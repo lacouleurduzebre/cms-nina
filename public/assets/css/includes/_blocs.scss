@@ -484,3 +484,15 @@ body.edit, body.new{
     }
   }
 }
+
+//Images de galerie et slides
+.field-galerie_image, .field-slide{
+  display: flex;
+  flex-direction: column;
+  .lien-page{
+    order: 1;
+  }
+  .field-collection-item-action{
+    order: 2;
+  }
+}
