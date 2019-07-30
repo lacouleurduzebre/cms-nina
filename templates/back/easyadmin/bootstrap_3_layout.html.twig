@@ -71,44 +71,48 @@
 
 {# Widgets #}
 
-{% block form_widget %}
-    {{- parent() -}}
+{% block suppression_item %}
+    {% set remove_item_javascript %}
+        $(function() {
+        if (event.preventDefault) event.preventDefault(); else event.returnValue = false;
 
-    {% if form.parent.vars.allow_delete|default(false) %}
-        {% set remove_item_javascript %}
-            $(function() {
-            if (event.preventDefault) event.preventDefault(); else event.returnValue = false;
+        var containerDiv = $('#{{ id }}').parents('.form-group:first');
+        var parentDiv = containerDiv.parents('[data-prototype]:first');
+        containerDiv.remove();
+        parentDiv.trigger('easyadmin.collection.item-deleted');
 
-            var containerDiv = $('#{{ id }}').parents('.form-group:first');
-            var parentDiv = containerDiv.parents('[data-prototype]:first');
-            containerDiv.remove();
-            parentDiv.trigger('easyadmin.collection.item-deleted');
+        if (0 == parentDiv.children().length && 'undefined' !== parentDiv.attr('data-empty-collection')) {
+        $(parentDiv.attr('data-empty-collection')).insertBefore(parentDiv);
+        }
 
-            if (0 == parentDiv.children().length && 'undefined' !== parentDiv.attr('data-empty-collection')) {
-                $(parentDiv.attr('data-empty-collection')).insertBefore(parentDiv);
-            }
+        $('.formulaire-actions-enregistrer').attr('disabled', false);
+        $(window).bind('beforeunload', function(){
+        if(!clicEnregistrement){
+        return 'Êtes-vous sûr de vouloir quitter cette page ? Des données pourraient ne pas avoir été enregistrées';
+        }
+        });
+        });
+    {% endset %}
 
-            $('.formulaire-actions-enregistrer').attr('disabled', false);
-            $(window).bind('beforeunload', function(){
-                if(!clicEnregistrement){
-                    return 'Êtes-vous sûr de vouloir quitter cette page ? Des données pourraient ne pas avoir été enregistrées';
-                }
-            });
-            });
-        {% endset %}
-
-        <div class="text-right field-collection-item-action">
-            <a href="#" onclick="{{ remove_item_javascript|raw }}" class="text-danger">
-                <i class="fas fa-trash"></i>
-                <span>
+    <div class="text-right field-collection-item-action">
+        <a href="#" onclick="{{ remove_item_javascript|raw }}" class="text-danger">
+            <i class="fas fa-trash"></i>
+            <span>
                     {% if label_format is not empty %}
                         Supprimer {{ label_format }}
                     {% else %}
                         {{ 'action.remove_item'|trans({}, 'EasyAdminBundle') }}
                     {% endif %}
                 </span>
-            </a>
-        </div>
+        </a>
+    </div>
+{% endblock %}
+
+{% block form_widget %}
+    {{- parent() -}}
+
+    {% if form.parent.vars.allow_delete|default(false) %}
+        {{ block('suppression_item') }}
     {% endif %}
 {% endblock form_widget %}
 
@@ -1089,6 +1093,7 @@
     {{- form_row(form.children.texte) -}}
     {% set nv = 2 %}
     {{ block('lien_page') }}
+    {{ block('suppression_item') }}
 {% endblock %}
 
 {% block case_widget %}
@@ -1106,6 +1111,7 @@
     {{ form_widget(form.children.image) }}
     {% set nv = 2 %}
     {{ block('lien_page') }}
+    {{ block('suppression_item') }}
 {% endblock %}
 
 {% block champ_widget %}
