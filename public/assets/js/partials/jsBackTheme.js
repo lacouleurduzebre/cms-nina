@@ -80,4 +80,16 @@ $(document).ready(function() {
                 $('.message-fail').fadeIn().delay(800).fadeOut();
             });
     });
+
+    //Réinitialisation d'un paramètre
+    $('.reinitialisationParametres').click(function(e){
+        e.preventDefault();
+        valeur = $(this).data('parametre-defaut');
+        $(this).prev('input').val(valeur);
+        $(this).attr('disabled', true);
+    });
+
+    $('.parametrageTheme input').change(function(){
+        $(this).next('.reinitialisationParametres').attr('disabled', false);
+    });
 });

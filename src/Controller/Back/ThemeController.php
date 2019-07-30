@@ -249,7 +249,7 @@ class ThemeController extends Controller
             foreach($data as $champ=>$valeur){
                 //Modif variables css
                 file_put_contents($nomFichierVariablesScss, str_replace(
-                    '$'.$champ . ': ' . $parametres[$champ], '$'.$champ . ': ' . $valeur, file_get_contents($nomFichierVariablesScss)
+                    '$'.$champ . ': ' . $anciennesValeurs[$champ], '$'.$champ . ': ' . $valeur, file_get_contents($nomFichierVariablesScss)
                 ));
 
                 //Modif config.yaml
@@ -275,7 +275,9 @@ class ThemeController extends Controller
         }
 
         //Template
-        return $this->render('back/themes/parametres.html.twig', array('nom' => $nom, 'champs' => $champs, 'form' => isset($form) ? $form->createView() : null ));
+        $entityConfig = ['name' => 'Theme'];
+
+        return $this->render('back/themes/parametres.html.twig', array('nom' => $nom, 'champs' => $champs, 'form' => isset($form) ? $form->createView() : null, '_entity_config' => $entityConfig ));
     }
 
     /**

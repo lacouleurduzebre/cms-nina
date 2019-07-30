@@ -79,7 +79,7 @@
 
                 <section id="main" class="content">
                     {% block flash_messages %}
-                        {{ include(_entity_config is defined ? _entity_config.templates.flash_messages : 'back/easyadmin/flash_messages.html.twig') }}
+                        {{ include((_entity_config is defined and _entity_config.templates is defined) ? _entity_config.templates.flash_messages : 'back/easyadmin/flash_messages.html.twig') }}
                     {% endblock flash_messages %}
                     {% block main %}{% endblock %}
                 </section>

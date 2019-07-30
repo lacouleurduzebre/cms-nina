@@ -6,7 +6,17 @@
 {% block main %}
     <h1>{{ "Paramètres du thème"|trans }} "{{ nom }}"</h1>
     {% if form is not empty %}
-        {{ form(form) }}
+        {{ form_start(form, { attr: { 'class': 'parametrageTheme' } }) }}
+        {% for champ in form.children %}
+            <div>
+                {% if champs[champ.vars.name] is defined %}
+                    {{ form_label(champ) }}
+                    {{ form_widget(champ) }}
+                    <button class="reinitialisationParametres" {% if champ.vars.data == champs[champ.vars.name]['defaut'] %}disabled{% endif %} data-parametre-defaut="{{ champs[champ.vars.name]['defaut'] }}">Réinitialiser</button>
+                {% endif %}
+            </div>
+        {% endfor %}
+        {{ form_end(form) }}
     {% else %}
         <p>{{ "Ce thème n'est pas paramétrable"|trans }}</p>
     {% endif %}
