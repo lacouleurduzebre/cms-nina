@@ -736,7 +736,18 @@
     <div class="form-group field-collection">
         {{- form_label(form) -}}
 
-        <a id="replierBlocs" href="#">Replier tous les blocs</a>
+        <a id="replierBlocs" href="#">
+            <span class="btn">
+                {{ "Replier tous les blocs"|trans }}
+                <i class="fas fa-chevron-circle-up"></i>
+            </span>
+        </a>
+        <a id="deplierBlocs" class="hidden" href="#">
+            <span class="btn">
+                {{ "Déplier tous les blocs"|trans }}
+                <i class="fas fa-chevron-circle-down"></i>
+            </span>
+        </a>
 
         <div class="text-right field-collection-action mbs">
             <a href="#" onclick="$(function (){if (event.preventDefault) event.preventDefault(); else event.returnValue = false; $('.listeBlocs').attr('id', 'avant').addClass('actif')})" class="ajout-bloc">
