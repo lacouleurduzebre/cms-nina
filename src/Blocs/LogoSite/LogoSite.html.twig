@@ -1,11 +1,11 @@
-{% if bloc.contenu.logo.0 is defined %}
+{% if bloc.contenu.logo.0 is defined and bloc.contenu.logo.0 %}
     <p>
         <a href="{% if langues|length > 1 %}{{ path('accueilLocale', { '_locale': langueActive.abreviation }) }}{% else %}{{ path('accueil') }}{% endif %}">
             <img class="logo" src="{{ config.logo }}" alt="CMS Nina">
         </a>
     </p>
 {% endif %}
-{% if bloc.contenu.nom.0 is defined %}
+{% if bloc.contenu.nom.0 is defined and bloc.contenu.nom.0 %}
     <p>
         <a href="{% if langues|length > 1 %}{{ path('accueilLocale', { '_locale': langueActive.abreviation }) }}{% else %}{{ path('accueil') }}{% endif %}">
             {{ config.nom }}
