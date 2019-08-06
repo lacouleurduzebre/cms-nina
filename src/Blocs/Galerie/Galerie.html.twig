@@ -30,7 +30,7 @@
                     {% endif %}
                 "
                 href="{{ elementGalerie.image.image }}">
-                    <img src="{{ elementGalerie.image.image }}" {% if elementGalerie.image.titre is not empty %}alt="{{ elementGalerie.image.titre }}"{% endif %} {% if elementGalerie.image.description is not empty %}title="{{ elementGalerie.image.description }}"{% endif %}>
+                    <img src="{{ elementGalerie.image.image }}" {% if elementGalerie.image.titre is defined and elementGalerie.image.titre is not empty %}alt="{{ elementGalerie.image.titre }}"{% endif %} {% if elementGalerie.image.description is defined and elementGalerie.image.description is not empty %}title="{{ elementGalerie.image.description }}"{% endif %}>
                 </a>
             </div>
         {% endfor %}
