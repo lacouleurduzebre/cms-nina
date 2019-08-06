@@ -159,14 +159,16 @@ class AdminController extends BaseAdminController
 
         $blocs = [];
         foreach($types as $type){
-            $infos = Yaml::parseFile('../src/Blocs/'.$type.'/infos.yaml');
-            if($config[$type]['actif'] == 'oui' && $infos['type'] == $typeBloc){
-                $blocs[$type] = $infos;
-                $blocs[$type]['priorite'] = $config[$type]['priorite'];
-                if($typeBloc == 'annexe' && $entity != null){
-                    $blocAnnexe = $repoBlocAnnexe->findOneBy(array('page' => $entity, 'type' => $type));
-                    if($blocAnnexe){
-                        $blocs[$type]['disabled'] = true;
+            if(file_exists('../src/Blocs/'.$type.'/infos.yaml')){
+                $infos = Yaml::parseFile('../src/Blocs/'.$type.'/infos.yaml');
+                if($config[$type]['actif'] == 'oui' && $infos['type'] == $typeBloc){
+                    $blocs[$type] = $infos;
+                    $blocs[$type]['priorite'] = $config[$type]['priorite'];
+                    if($typeBloc == 'annexe' && $entity != null){
+                        $blocAnnexe = $repoBlocAnnexe->findOneBy(array('page' => $entity, 'type' => $type));
+                        if($blocAnnexe){
+                            $blocs[$type]['disabled'] = true;
+                        }
                     }
                 }
             }
