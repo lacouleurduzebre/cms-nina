@@ -1,0 +1,37 @@
+<link rel="canonical" href="{{ lienPage(page) }}" />
+<title>
+    {% if page.seo.metaTitre is not empty %}
+        {{ page.seo.metaTitre }}
+    {% else %}
+        {{ page.langue.metaTitre }}
+    {% endif %}
+</title>
+<meta name="description" content="
+    {% if page.seo.metaDescription is not empty %}
+        {{ page.seo.metaDescription|striptags }}
+    {% else %}
+        {{ page.langue.metaDescription|striptags }}
+    {% endif %}
+" />
+{% if page.traductions is not empty %}
+    {% for langue, traduction in page.traductions %}
+        {% if langue == page.langue.id %}
+            <link rel="alternate" hreflang="{{ page.langue.abreviation }}" href="{{ lienPage(page) }}" />
+        {% elseif traduction is not empty %}
+            {% set pageTraduite = page(traduction) %}
+            <link rel="alternate" hreflang="{{ pageTraduite.langue.abreviation }}" href="{{ lienPage(pageTraduite) }}" />
+        {% endif %}
+    {% endfor %}
+{% endif %}
+<meta property="og:title" content="{{ page.seo.metaTitre|striptags }}">
+<meta property="og:description" content="
+    {% if page.seo.metaDescription is not empty %}
+        {{ page.seo.metaDescription|striptags }}
+    {% else %}
+        {{ page.langue.metaDescription|striptags }}
+    {% endif %}
+">
+<meta property="og:url" content="{{ lienPage(page) }}">
+{% if blocAnnexe(page, 'Vignette') is not empty %}
+    <meta property="og:image" content="{{ blocAnnexe(page, 'Vignette', false) }}">
+{% endif %}

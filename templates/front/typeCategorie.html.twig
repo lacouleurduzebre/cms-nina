@@ -1,6 +1,23 @@
 {% extends 'front/base.html.twig' %}
 
-{% block title %}{{ parent() }} - {{ typeCategorie.nom }}{% endblock %}
+{% block head %}
+    <title>{{ typeCategorie.nom }}</title>
+    <meta name="description" content="
+        {% if typeCategorie.description is not empty %}
+            {{ typeCategorie.description|striptags }}
+        {% else %}
+            {{ typeCategorie.langue.metaDescription|striptags }}
+        {% endif %}
+    " />
+    <meta property="og:title" content="{{ typeCategorie.nom }}">
+    <meta property="og:description" content="
+        {% if typeCategorie.description is not empty %}
+            {{ typeCategorie.description|striptags }}
+        {% else %}
+            {{ typeCategorie.langue.metaDescription|striptags }}
+        {% endif %}
+    ">
+{% endblock %}
 
 {% block main %}
 <h1>{{ "Liste des termes"|trans }} "{{ typeCategorie.nom }}"</h1>

@@ -1,27 +1,10 @@
 {% extends 'front/base.html.twig' %}
 
-{% block title %}
-    {% if page.seo.metaTitre is not empty %}
-        {{ page.seo.metaTitre }}
-    {% else %}
-        {{ page.langue.metaTitre }}
-    {% endif %}
-{% endblock %}
 {% block head %}
-    {% if page.seo.metaDescription is not empty %}{{ page.seo.metaDescription|striptags }}{% else %}{{ page.langue.metaDescription|striptags }}{% endif %}
+    {{ include('front/page-meta.html.twig') }}
+    <meta property="og:type" content="article">
 {% endblock %}
-{% block traductions %}
-    {% if page.traductions is not empty %}
-        {% for langue, traduction in page.traductions %}
-            {% if langue == page.langue.id %}
-                <link rel="alternate" hreflang="{{ page.langue.abreviation }}" href="{{ app.request.baseUrl~path('voirPageLocale', { _locale: page.langue.abreviation, url: page.seo.url}) }}" />
-            {% elseif traduction is not empty %}
-                {% set pageTraduite = page(traduction) %}
-                <link rel="alternate" hreflang="{{ pageTraduite.langue.abreviation }}" href="{{ app.request.baseUrl~path('voirPageLocale', { _locale: pageTraduite.langue.abreviation, url: pageTraduite.seo.url}) }}" />
-            {% endif %}
-        {% endfor %}
-    {% endif %}
-{% endblock %}
+
 {% block main %}
     {% for message in app.session.flashbag.get('OK') %}
         <p class="message">{{ message }}</p>

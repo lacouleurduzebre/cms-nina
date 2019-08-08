@@ -1,8 +1,8 @@
 {% extends 'front/base.html.twig' %}
 
-{% block title %}{{ config.nom }} - {{ "Erreur 404"|trans }}{% endblock %}
-
-{% block head %}{% endblock %}
+{% block head %}
+    <title>{% if langueActive.metaTitre is not empty %}{{ config.nom }} - {{ "Erreur 404"|trans }}{% endif %}</title>
+{% endblock %}
 
 {% block main %}
     <div class="erreur404">

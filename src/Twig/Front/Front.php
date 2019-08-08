@@ -139,10 +139,20 @@ class Front extends \Twig_Extension
 
         $url = $page->getSeo()->getUrl();
 
-        if(count($langues) > 1){
-            return $this->router->generate("voirPageLocale", ['_locale' => $page->getLangue()->getAbreviation(), 'url' => $url]);
+        $langue = $page->getLangue();
+
+        if($langue->getPageAccueil() === $page){//Page d'accueil
+            if(count($langues) > 1){
+                return $this->router->generate("accueilLocale", ['_locale' => $page->getLangue()->getAbreviation()], 0);
+            }else{
+                return $this->router->generate("accueil", [], 0);
+            }
         }else{
-            return $this->router->generate("voirPage", ['url' => $url]);
+            if(count($langues) > 1){
+                return $this->router->generate("voirPageLocale", ['_locale' => $page->getLangue()->getAbreviation(), 'url' => $url], 0);
+            }else{
+                return $this->router->generate("voirPage", ['url' => $url], 0);
+            }
         }
     }
 }

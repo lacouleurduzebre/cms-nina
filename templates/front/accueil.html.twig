@@ -1,23 +1,10 @@
 {% extends 'front/base.html.twig' %}
 
-{% block title %}
-    {% if page is not empty and page.seo.metaTitre is not empty %}
-        {{ page.seo.metaTitre }}
-    {% elseif page is not empty %}
-        {{ page.langue.metaTitre }}
-    {% elseif langueActive.metaTitre is not empty %}
-        {{ langueActive.metaTitre }}
-    {% endif %}
-{% endblock %}
 {% block head %}
-    {% if page is not empty and page.seo.metaDescription is not empty %}
-        {{ page.seo.metaDescription|striptags }}
-    {% elseif page is not empty %}
-        {{ page.langue.metaDescription|striptags }}
-    {% elseif langueActive is not empty and langueActive.metaDescription is not empty %}
-        {{ langueActive.metaDescription|striptags }}
-    {% endif %}
+    {{ include('front/page-meta.html.twig') }}
+    <meta property="og:type" content="website">
 {% endblock %}
+
 {% block main %}
     {% if page is not empty %}
         {% if page.blocs is not empty %}
