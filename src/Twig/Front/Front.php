@@ -41,15 +41,21 @@ class Front extends \Twig_Extension
     public function getRegions($position){
         $repoRegion = $this->doctrine->getRepository(Region::class);
 
-        $positionContenu = $repoRegion->findOneBy(array('identifiant' => 'contenu'))->getPosition();
+        $regionContenu = $repoRegion->findOneBy(array('identifiant' => 'contenu'));
+        $positionContenu = $regionContenu->getPosition();
+
+        $rendu = '';
 
         if($position == 'avant'){
             $regions = $repoRegion->getRegionsAvant($positionContenu);
-        }else{
+        }elseif($position == 'apres'){
             $regions = $repoRegion->getRegionsApres($positionContenu);
+        }elseif($position == 'centre'){
+            $regions = [$regionContenu];
+        }else{
+            return false;
         }
 
-        $rendu = '';
         foreach($regions as $region){
             $tpl = 'front/regions/region-'.$region->getIdentifiant().'.html.twig';
             if($this->twig->getLoader()->exists($tpl)){
