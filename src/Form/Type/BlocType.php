@@ -82,7 +82,15 @@ class BlocType extends AbstractType
                 ))
                     ->add('type', HiddenType::class, array(
                         'label' => $label
+                    ))
+                    ->add('active', null, array(
+                        'label' => 'Activé'
                     ));
+            }else{
+                $form->add('active', null, array(
+                    'label' => 'Activé',
+                    'data' => true
+                ));
             }
         });
     }

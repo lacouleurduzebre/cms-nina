@@ -39,6 +39,14 @@ class TypeCategorieType extends AbstractType
                 'choices' => $typesCategories,
                 'label' => 'Type de catégorie'
             ))
+            ->add('affichage', ChoiceType::class, array(
+                'choices' => array(
+                    'Catégories' => 'categories',
+                    'Pages' => 'pages'
+                ),
+                'label' => 'Contenu à afficher',
+                'expanded' => true
+            ))
             ->add('limite', NumberType::class, array(
                 'label' => 'Nombre limite de résultats',
                 'help' => "Si aucune limite n'est précisée, tous les résultats seront affichés",

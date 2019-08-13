@@ -94,10 +94,12 @@ $(document).ready(function(){
             $('#recherche-arbo-loupe').removeClass('hidden');
         });
 
-    /* Visualisation des groupes de blocs */
-    $('#btn-toggle-groupes-blocs').click(function(e){
+    /* Visualisation des blocs */
+    $('#btn-toggle-blocs').click(function(e){
         e.preventDefault();
         $(this).toggleClass('actif');
+
+        //Groupes de blocs
         $('.groupeBlocs').each(function(){
             //Position static
             if($(this).css('position') === 'static'){
@@ -109,6 +111,28 @@ $(document).ready(function(){
             }else{
                 $(this).append('<div class="surbrillance"><a href="/admin/?action=edit&entity=GroupeBlocs&id='+$(this).attr('id')+'"><i class="fas fa-pencil-alt"></i></a></div>');
             }
+        });
+
+        //Blocs de la page
+        $('main > div[class^="bloc"]').each(function(){
+            //Position static
+            if($(this).css('position') === 'static'){
+                $(this).css('position', 'relative');
+            }
+
+            if($(this).find('.surbrillance').length > 0){
+                $(this).toggleClass('surbrillanceOff');
+            }else{
+                $(this).append('<div class="surbrillance"><a href="/admin/?action=edit&entity=Page_Active&id='+$('main').attr('id')+'&blocActif='+$(this).data('bloc')+'"><i class="fas fa-pencil-alt"></i></a></div>');
+            }
+        });
+
+        //Hover
+        $('.surbrillance a').hover(function(){
+            $(this).closest('.surbrillance').addClass('focus');
+        },
+        function(){
+            $(this).closest('.surbrillance').removeClass('focus');
         });
     });
 });

@@ -6,7 +6,7 @@
  * Time: 15:53
  */
 
-namespace App\Blocs\Galerie;
+namespace App\Blocs\Accordeon;
 
 
 use Symfony\Component\Form\AbstractType;
@@ -18,27 +18,19 @@ use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormView;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class GalerieType extends AbstractType
+class AccordeonType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('affichage', ChoiceType::class, array(
-            'choices' => array(
-                'Lightbox (Afficher un diaporama)' => 'lightbox',
-                'Lien (Aller sur une page)' => 'liens'
-            ),
-            'label' => 'Action au clic',
-            'expanded' => true
-        ))
-            ->add('images', CollectionType::class, array(
-            'entry_type' => GalerieImageType::class,
+        $builder->add('sections', CollectionType::class, array(
+            'entry_type' => SectionType::class,
             'entry_options' => array(
                 'label' => false
             ),
             'allow_add' => true,
             'allow_delete' => true,
             'label' => false,
-            'label_format' => 'image',
+            'label_format' => 'section',
             'required' => false
         ));
     }
@@ -56,7 +48,7 @@ class GalerieType extends AbstractType
 
     public function finishView(FormView $view, FormInterface $form, array $options)
     {
-        usort($view['images']->children, function (FormView $a, FormView $b) {
+        usort($view['sections']->children, function (FormView $a, FormView $b) {
             $objectA = $a->vars['data'];
             $objectB = $b->vars['data'];
 

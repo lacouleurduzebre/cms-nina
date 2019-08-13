@@ -9,18 +9,21 @@
 namespace App\Twig\Front;
 
 use App\Entity\Langue;
+use App\Entity\Page;
 use App\Entity\Region;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Twig\Environment;
 
 class Front extends \Twig_Extension
 {
-    public function __construct(RegistryInterface $doctrine, Environment $twig, RequestStack $requestStack)
+    public function __construct(RegistryInterface $doctrine, Environment $twig, RequestStack $requestStack, UrlGeneratorInterface $router)
     {
         $this->doctrine = $doctrine;
         $this->twig = $twig;
         $this->request = $requestStack->getCurrentRequest();
+        $this->router = $router;
     }
 
     public function getFunctions()
@@ -31,21 +34,26 @@ class Front extends \Twig_Extension
             new \Twig_SimpleFunction('groupe', array($this, 'getGroupeBlocs'), array('is_safe' => ['html'])),
             new \Twig_SimpleFunction('blocAnnexe', array($this, 'getBlocAnnexe'), array('is_safe' => ['html'])),
             new \Twig_SimpleFunction('page', array($this, 'getPage')),
+            new \Twig_SimpleFunction('lienPage', array($this, 'getLienPage')),
         );
     }
 
     public function getRegions($position){
         $repoRegion = $this->doctrine->getRepository(Region::class);
 
-        $contenu = $repoRegion->findOneBy(array('identifiant' => 'contenu'));
+        $regionContenu = $repoRegion->findOneBy(array('identifiant' => 'contenu'));
 
-        if($contenu){
-            $positionContenu = $contenu->getPosition();
+        if($regionContenu){
+            $positionContenu = $regionContenu->getPosition();
 
             if($position == 'avant'){
                 $regions = $repoRegion->getRegionsAvant($positionContenu);
-            }else{
+            }elseif($position == 'apres'){
                 $regions = $repoRegion->getRegionsApres($positionContenu);
+            }elseif($position == 'centre'){
+                $regions = [$regionContenu];
+            }else{
+                return false;
             }
 
             $rendu = '';
@@ -129,5 +137,32 @@ class Front extends \Twig_Extension
         $page = $repoPage->find($id);
 
         return $page;
+    }
+
+    public function getLienPage($page){
+        if(!$page instanceof Page){
+            return false;
+        }
+
+        $repoLangue = $this->doctrine->getRepository(Langue::class);
+        $langues = $repoLangue->findBy(array('active' => '1'));
+
+        $url = $page->getSeo()->getUrl();
+
+        $langue = $page->getLangue();
+
+        if($langue->getPageAccueil() === $page){//Page d'accueil
+            if(count($langues) > 1){
+                return $this->router->generate("accueilLocale", ['_locale' => $page->getLangue()->getAbreviation()], 0);
+            }else{
+                return $this->router->generate("accueil", [], 0);
+            }
+        }else{
+            if(count($langues) > 1){
+                return $this->router->generate("voirPageLocale", ['_locale' => $page->getLangue()->getAbreviation(), 'url' => $url], 0);
+            }else{
+                return $this->router->generate("voirPage", ['url' => $url], 0);
+            }
+        }
     }
 }

@@ -3,35 +3,51 @@
     <div class="grid-{{ bloc.contenu.nbColonnes }}-small-2-tiny-1 has-gutter-xl">
         {% for case in cases|sortBy('position') %}
             <div>
-                {% if case.page is not empty %}
+                {% if case.page is defined and case.page is not empty %}
                     {% set page = page(case.page) %}
                     <div class="blocGrille-case-image">
-                        <img src="{{ blocAnnexe(page, "Vignette", false) }}" alt="{{ page.titre }}" title="{{ page.titre }}">
+                        {{ blocAnnexe(page, "Vignette") }}
                     </div>
                     <h3>{{ page.titre }}</h3>
                     {{ blocAnnexe(page, "Resume") }}
+                    <a href="{{ lienPage(page) }}" class="bouton">{{ "Voir la page"|trans }}</a>
                 {% else %}
-                    <div class="blocGrille-case-image">
-                        <img src="{{ case.image.image }}" alt="{{ case.image.description }}" title="{{ case.image.titre }}">
-                    </div>
-                    <h3>{{ case.titre }}</h3>
+                    {% if case.image.image is defined %}
+                        <div class="blocGrille-case-image">
+                            <img src="{{ case.image.image }}" alt="{{ case.image.description }}" {% if case.image.titre is defined %}title="{{ case.image.titre }}"{% endif %}>
+                        </div>
+                    {% endif %}
+                    {% if case.titre is defined %}
+                        <h3>{{ case.titre }}</h3>
+                    {% endif %}
                     <div>
                         {{ case.texte|raw }}
                     </div>
-                {% endif %}
-                {% if case.lien.lien is defined and case.lien.lien is not empty %}
-                    <a class="bouton" href="{{ case.lien.lien }}"
-                            {% if case.lien.blank is not empty and case.lien.blank.0 == '1' %}
+                    {% if (case.lien.lien is defined and case.lien.lien is not empty) or (case.lien.page is defined and case.lien.page is not empty) %}
+                        <a class="bouton" href="
+                            {% if case.lien.page is defined and case.lien.page is not empty %}
+                                {% set page = page(case.lien.page) %}
+                                {{ lienPage(page) }}
+                            {% else %}
+                                {{ case.lien.lien }}
+                            {% endif %}
+                            "
+                            {% if case.lien.blank.0 is defined and case.lien.blank.0 %}
                                 target="_blank"
                             {% endif %}
                             {% if case.lien.titre is defined and case.lien.titre is not empty %}
                                 title="{{ case.lien.titre }}"
                             {% endif %}
-                    >
-                        {% if case.lien.texte is defined %}
-                            {{ case.lien.texte }}
-                        {% endif %}
-                    </a>
+                        >
+                            {% if case.lien.texte is defined and case.lien.texte is not empty %}
+                                {{ case.lien.texte }}
+                            {% elseif case.lien.page is defined and case.lien.page is not empty %}
+                                {{ page.titre }}
+                            {% else %}
+                                {{ "Voir la page"|trans }}
+                            {% endif %}
+                        </a>
+                    {% endif %}
                 {% endif %}
             </div>
         {% endfor %}

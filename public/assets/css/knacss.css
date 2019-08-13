@@ -2446,6 +2446,7 @@ select {
   background-size: 1.2rem;
   display: block;
   min-width: 10rem;
+  max-width: 100%;
 }
 
 /* hiding IE11 arrow */
@@ -4151,6 +4152,19 @@ body.list #flash-messages > * {
   }
 }
 
+.fonce, .tresFonce {
+  padding: 1rem;
+  margin: 1rem 2rem;
+}
+
+.fonce {
+  background-color: #EDEDED;
+}
+
+.tresFonce {
+  background-color: #E1E0E0;
+}
+
 /* Bouton pour ajouter un bloc */
 .ajout-bloc, .ajout-blocAnnexe {
   background-color: #0791B3;
@@ -4176,6 +4190,10 @@ body.list #flash-messages > * {
   padding: 1rem 2rem;
   margin: 1rem 0;
   background-color: #F7F7F7;
+}
+.form-group.field-bloc.desactive, .form-group.field-bloc_annexe.desactive {
+  background-color: #DFDFDF;
+  opacity: 0.7 !important;
 }
 .form-group.field-bloc.nvBloc, .form-group.field-bloc_annexe.nvBloc {
   opacity: 0;
@@ -4571,8 +4589,19 @@ body.edit .bloc-reseauxsociaux input[type=text], body.new .bloc-reseauxsociaux i
 .bloc-grille .field-bouton > label, .bloc-grille .field-image_defaut > label {
   font-weight: bold;
 }
-.bloc-grille .field-case.page > div > .field-text, .bloc-grille .field-case.page > div > .field-textarea, .bloc-grille .field-case.page > div > .field-image_defaut {
+.bloc-grille .field-case.page > div > .field-text, .bloc-grille .field-case.page > div > .field-textarea, .bloc-grille .field-case.page > div > .field-image_defaut, .bloc-grille .field-case.page > div > .field-bouton {
   display: none;
+}
+
+.field-galerie_image, .field-slide {
+  display: flex;
+  flex-direction: column;
+}
+.field-galerie_image .lien-page, .field-slide .lien-page {
+  order: 1;
+}
+.field-galerie_image .field-collection-item-action, .field-slide .field-collection-item-action {
+  order: 2;
 }
 
 .traductionTemplateChoix div {
@@ -4662,6 +4691,10 @@ body.edit .bloc-reseauxsociaux input[type=text], body.new .bloc-reseauxsociaux i
 
 #page_active_dateDepublication {
   margin-bottom: 0.5rem;
+}
+
+form.autreUtilisateur .mdp {
+  display: none;
 }
 
 #page_active_SEO .metaTitre, #page_active_SEO #seo_metaTitre, .listeSEO-conteneur .metaTitre, .listeSEO-conteneur #seo_metaTitre {

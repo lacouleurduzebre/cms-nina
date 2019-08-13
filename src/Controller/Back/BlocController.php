@@ -102,14 +102,16 @@ class BlocController extends Controller
         $blocsAnnexes = [];
         $config = Yaml::parseFile('../src/Blocs/configBlocs.yaml');
         foreach($types as $type){
-            $infos = Yaml::parseFile('../src/Blocs/'.$type.'/infos.yaml');
-            $infos['identifiant'] = $type;
-            $infos['priorite'] = $config[$type]['priorite'];
-            $infos['actif'] = $config[$type]['actif'];
-            if($infos['type'] == 'contenu'){
-                $blocsContenu[$type] = $infos;
-            }else{
-                $blocsAnnexes[$type] = $infos;
+            if(file_exists('../src/Blocs/'.$type.'/infos.yaml')){
+                $infos = Yaml::parseFile('../src/Blocs/'.$type.'/infos.yaml');
+                $infos['identifiant'] = $type;
+                $infos['priorite'] = $config[$type]['priorite'];
+                $infos['actif'] = $config[$type]['actif'];
+                if($infos['type'] == 'contenu'){
+                    $blocsContenu[$type] = $infos;
+                }else{
+                    $blocsAnnexes[$type] = $infos;
+                }
             }
         }
 

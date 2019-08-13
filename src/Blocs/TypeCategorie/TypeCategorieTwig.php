@@ -9,7 +9,9 @@
 namespace App\Blocs\TypeCategorie;
 
 
+use App\Controller\SEOController;
 use App\Entity\Categorie;
+use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
 class TypeCategorieTwig extends \Twig_Extension
@@ -23,17 +25,57 @@ class TypeCategorieTwig extends \Twig_Extension
     {
         return array(
             new \Twig_SimpleFunction('categoriesDeType', array($this, 'categoriesDeType')),
+            new \Twig_SimpleFunction('pagesDeType', array($this, 'pagesDeType')),
         );
     }
 
-    public function categoriesDeType($idTypeCategorie)
+    public function categoriesDeType($idTypeCategorie, $limite = null)
     {
         $repoCategorie = $this->doctrine->getRepository(Categorie::class);
-        $categories = $repoCategorie->findBy(array('typeCategorie' => $idTypeCategorie));
+        $categories = $repoCategorie->findBy(array('typeCategorie' => $idTypeCategorie), array('nom' => 'ASC'), $limite);
         if(!$categories){
             return false;
         }
 
         return $categories;
+    }
+
+    public function pagesDeType($idTypeCategorie, $limite = null)
+    {
+        $repoCategorie = $this->doctrine->getRepository(Categorie::class);
+        $categories = $repoCategorie->findBy(array('typeCategorie' => $idTypeCategorie));
+
+        if(!$categories){
+            return false;
+        }
+
+        $pages = new ArrayCollection();
+
+        foreach($categories as $categorie){
+            $pagesCategorie = $categorie->getPages();
+            $pages = new ArrayCollection(
+                array_unique(array_merge($pages->toArray(), $pagesCategorie->toArray()))
+            );
+        }
+
+        $pages = $pages->toArray();
+
+        if($limite){
+            $pages = array_slice($pages, 0, $limite);
+        }
+
+        usort($pages, array($this, 'triTitre'));
+
+        return $pages;
+    }
+
+    public function triTitre($a, $b){
+        $titreA = SEOController::slugify($a->getTitre(), ' ');
+        $titreB = SEOController::slugify($b->getTitre(), ' ');
+
+        if ($titreA == $titreB) {
+            return 0;
+        }
+        return ($titreA < $titreB) ? -1 : 1;
     }
 }

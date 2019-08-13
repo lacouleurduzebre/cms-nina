@@ -4,13 +4,13 @@
             <li {% if isParent(menuPage) and menuPage.page.affichageSousNiveaux %}class="parent"{% endif %}>
                 <a href="
                     {% if menuPage.page.langue.pageAccueil == menuPage.page %}
-                        {% if menuPage.page.langue.defaut %}
-                            {{ path('accueil') }}
+                        {% if langues|length > 1 %}
+                            {{ path('accueilLocale', { '_locale': menuPage.page.langue.abreviation }) }}
                         {% else %}
-                            {{ path('accueilLocale', { '_locale': menuPage.page.langue.abreviation}) }}
+                            {{ path('accueil') }}
                         {% endif %}
                     {% else %}
-                        {{ path('voirPage', {'_locale': menuPage.page.langue.abreviation, 'url' : menuPage.page.seo.url}) }}
+                        {{ lienPage(menuPage.page) }}
                     {% endif %}
                 ">
                     {{ menuPage.page.titreMenu }}

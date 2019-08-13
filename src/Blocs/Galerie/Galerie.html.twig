@@ -1,20 +1,57 @@
 <div id="galerie{{ bloc.id }}" class="grid-4-small-2-tiny-1 has-gutter-l">
-    {% for elementGalerie in bloc.contenu.images|sortBy('position') %}
-        <div>
-            <a
-            class="galerie"
-            data-fancybox="galerie{{ bloc.id }}"
-            data-caption="
-                {% if elementGalerie.image.titre is not empty %}
-                    <p><strong>{{ elementGalerie.image.titre }}</strong></p>
+    {% if bloc.contenu.affichage is not defined or bloc.contenu.affichage == 'lightbox' %}
+        {% for elementGalerie in bloc.contenu.images|sortBy('position') %}
+            <div>
+                <a
+                class="galerie"
+                data-fancybox="galerie{{ bloc.id }}"
+                data-caption="
+                    {% if elementGalerie.image.titre is defined and elementGalerie.image.titre is not empty %}
+                        <p><strong>{{ elementGalerie.image.titre }}</strong></p>
+                    {% endif %}
+                    {% if elementGalerie.image.description is defined and elementGalerie.image.description is not empty %}
+                        <p>{{ elementGalerie.image.description }}</p>
+                    {% endif %}
+                    {% if (elementGalerie.lien is defined and elementGalerie.lien is not empty) or (elementGalerie.page is defined and elementGalerie.page is not empty) %}
+                        <p><a href='
+                            {% if elementGalerie.page is defined and elementGalerie.page is not empty %}
+                                {% set page = page(elementGalerie.page) %}
+                                {{ lienPage(page) }}
+                            {% else %}
+                                {{ elementGalerie.lien }}
+                            {% endif %}
+                        ' {% if elementGalerie.blank is defined and elementGalerie.blank %}target='_blank'{% endif %}>
+                            {% if elementGalerie.page is defined and elementGalerie.page is not empty %}
+                                {{ page.titre }}
+                            {% else %}
+                                {{ elementGalerie.lien }}
+                            {% endif %}
+                        </a></p>
+                    {% endif %}
+                "
+                href="{{ elementGalerie.image.image }}">
+                    <img src="{{ elementGalerie.image.image }}" {% if elementGalerie.image.titre is defined and elementGalerie.image.titre is not empty %}alt="{{ elementGalerie.image.titre }}"{% endif %} {% if elementGalerie.image.description is defined and elementGalerie.image.description is not empty %}title="{{ elementGalerie.image.description }}"{% endif %}>
+                </a>
+            </div>
+        {% endfor %}
+    {% else %}
+        {% for elementGalerie in bloc.contenu.images|sortBy('position') %}
+            <div>
+                {% if (elementGalerie.lien is defined and elementGalerie.lien is not empty) or (elementGalerie.page is defined and elementGalerie.page is not empty) %}
+                    <a class="galerie" href="
+                        {% if elementGalerie.page is defined and elementGalerie.page is not empty %}
+                            {% set page = page(elementGalerie.page) %}
+                            {{ lienPage(page) }}
+                        {% else %}
+                            {{ elementGalerie.lien }}
+                        {% endif %}
+                    " {% if elementGalerie.blank is defined and elementGalerie.blank %}target="_blank"{% endif %}>
                 {% endif %}
-                {% if elementGalerie.image.description is not empty %}
-                    <p>{{ elementGalerie.image.description }}</p>
+                    <img src="{{ elementGalerie.image.image }}" {% if elementGalerie.image.titre is defined and elementGalerie.image.titre is not empty %}alt="{{ elementGalerie.image.titre }}"{% endif %} {% if elementGalerie.image.description is defined and elementGalerie.image.description is not empty %}title="{{ elementGalerie.image.description }}"{% endif %}>
+                {% if elementGalerie.lien is not empty %}
+                    </a>
                 {% endif %}
-            "
-            href="{{ elementGalerie.image.image }}">
-                <img src="{{ elementGalerie.image.image }}" {% if elementGalerie.image.titre is not empty %}alt="{{ elementGalerie.image.titre }}"{% endif %} {% if elementGalerie.image.description is not empty %}title="{{ elementGalerie.image.description }}"{% endif %}>
-            </a>
-        </div>
-    {% endfor %}
+            </div>
+        {% endfor %}
+    {% endif %}
 </div>

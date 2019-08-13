@@ -14,6 +14,8 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\FormEvent;
+use Symfony\Component\Form\FormEvents;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormView;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -22,17 +24,22 @@ class SliderType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('nbSlides', ChoiceType::class, array(
-            'label' => 'Nombre de slides à afficher simultanément',
-            'multiple' => false,
-            'expanded' => true,
-            'choices' => array(
-                '1' => 1,
-                '2' => 2,
-                '3' => 3
-            ),
-        ))
-            ->add('autoplay', ChoiceType::class, array(
+        $builder->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event) {
+            $slider = $event->getData();
+            $form = $event->getForm();
+
+            $optionsNbSlides = [
+                'label' => 'Nombre de slides à afficher simultanément',
+                'multiple' => false,
+                'expanded' => true,
+                'choices' => array(
+                    '1' => 1,
+                    '2' => 2,
+                    '3' => 3
+                )
+            ];
+
+            $optionsAutoplay = [
                 'label' => 'Lecture automatique',
                 'multiple' => false,
                 'expanded' => true,
@@ -40,8 +47,9 @@ class SliderType extends AbstractType
                     'oui' => 1,
                     'non' => 0
                 )
-            ))
-            ->add('fleches', ChoiceType::class, array(
+            ];
+
+            $optionsFleches = [
                 'label' => 'Flèches de navigation',
                 'multiple' => false,
                 'expanded' => true,
@@ -49,8 +57,9 @@ class SliderType extends AbstractType
                     'oui' => 1,
                     'non' => 0
                 )
-            ))
-            ->add('points', ChoiceType::class, array(
+            ];
+
+            $optionsPoints = [
                 'label' => 'Points de navigation',
                 'multiple' => false,
                 'expanded' => true,
@@ -58,18 +67,31 @@ class SliderType extends AbstractType
                     'oui' => 1,
                     'non' => 0
                 )
-            ))
-            ->add('Slide', CollectionType::class, array(
-            'entry_type' => SlideType::class,
-            'entry_options' => array(
-                'label' => false
-            ),
-            'allow_add' => true,
-            'allow_delete' => true,
-            'label' => false,
-            'label_format' => 'slide',
-            'required' => false
-        ));
+            ];
+
+            if(!$slider){//Nouveau slider
+                $optionsNbSlides['data'] = 1;
+                $optionsAutoplay['data'] = 1;
+                $optionsFleches['data'] = 1;
+                $optionsPoints['data'] = 1;
+            }
+
+            $form->add('nbSlides', ChoiceType::class, $optionsNbSlides)
+                ->add('autoplay', ChoiceType::class, $optionsAutoplay)
+                ->add('fleches', ChoiceType::class, $optionsFleches)
+                ->add('points', ChoiceType::class, $optionsPoints)
+                ->add('Slide', CollectionType::class, array(
+                    'entry_type' => SlideType::class,
+                    'entry_options' => array(
+                        'label' => false
+                    ),
+                    'allow_add' => true,
+                    'allow_delete' => true,
+                    'label' => false,
+                    'label_format' => 'slide',
+                    'required' => false
+                ));
+        });
     }
 
     public function configureOptions(OptionsResolver $resolver)

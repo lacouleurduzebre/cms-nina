@@ -215,7 +215,7 @@ $(document).ready(function(){
     $('#viderCache').click(function(e){
         e.preventDefault();
         $('.conteneurChargement').addClass('actif');
-        $.ajax(window.location.href).done(function(){
+        $.ajax("/admin/traductions/templates").done(function(){
             $('.conteneurChargement').removeClass('actif');
             alert('Le cache a été vidé');
         });

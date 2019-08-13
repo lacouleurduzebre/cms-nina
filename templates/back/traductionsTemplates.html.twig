@@ -10,9 +10,6 @@
     <h1>Modification des traductions des templates du {{ domaine }} ({{ langue.nom }})</h1>
 
     {% if fichiers is not empty %}
-        <div class="conteneurChargement">
-            <i class="fas fa-sync fa-spin"></i>
-        </div>
         <div id="tabs">
             <ul class="nav-tabs-traductions">
                 {% for nom, segments in fichiers %}

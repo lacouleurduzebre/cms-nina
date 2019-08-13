@@ -2,12 +2,24 @@
 <rss version="2.0" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:dc="http://purl.org/dc/elements/1.1/" >
     <channel>
         <title><![CDATA[{{ config.nom }}]]></title>
-        <link><![CDATA[{{ url('accueil') }}]]></link>
+        <link>
+            {% if langues|length > 1 %}
+                <![CDATA[{{ url('accueilLocale', { '_locale': langueActive.abreviation }) }}]]>
+            {% else %}
+                <![CDATA[{{ url('accueil') }}]]>
+            {% endif %}
+        </link>
         <description><![CDATA[{{ langueActive.metaDescription }}]]></description>
         <image>
             <url><![CDATA[{{ url('accueil') }}{{ config.logo }}]]></url>
             <title><![CDATA[{{ config.nom }}]]></title>
-            <link><![CDATA[{{ url('accueil') }}]]></link>
+            <link>
+                {% if langues|length > 1 %}
+                    <![CDATA[{{ url('accueilLocale', { '_locale': langueActive.abreviation }) }}]]>
+                {% else %}
+                    <![CDATA[{{ url('accueil') }}]]>
+                {% endif %}
+            </link>
         </image>
         <lastBuildDate>{{ date('now')|date('D, F d, Y H:i:s T') }}</lastBuildDate>
         <pubDate>{{ date('now')|date('D, F d, Y H:i:s T') }}</pubDate>
@@ -16,13 +28,21 @@
         {% for page in pages %}
             <item>
                 <guid>
-                    <![CDATA[{{ url('voirPage', { url: page.seo.url }) }}]]>
+                    {% if langues|length > 1 %}
+                        <![CDATA[{{ url('voirPageLocale', { '_locale': page.langue.abreviation, 'url': page.seo.url }) }}]]>
+                    {% else %}
+                        <![CDATA[{{ url('voirPage', { 'url': page.seo.url }) }}]]>
+                    {% endif %}
                 </guid>
                 <title>
                     <![CDATA[{{ page.titre }}]]>
                 </title>
                 <link>
-                    <![CDATA[{{ url('voirPage', { url: page.seo.url }) }}]]>
+                    {% if langues|length > 1 %}
+                        <![CDATA[{{ url('voirPageLocale', { '_locale': page.langue.abreviation, 'url': page.seo.url }) }}]]>
+                    {% else %}
+                        <![CDATA[{{ url('voirPage', { 'url': page.seo.url }) }}]]>
+                    {% endif %}
                 </link>
                 <description>
                     {% if page.blocs is not empty %}

@@ -1,9 +1,26 @@
 {% extends 'front/base.html.twig' %}
 
-{% block title %}{{ parent() }} - {{ categorie.nom }}{% endblock %}
+{% block head %}
+    <title>{{ categorie.nom }}</title>
+    <meta name="description" content="
+        {% if categorie.description is not empty %}
+            {{ categorie.description|striptags }}
+        {% else %}
+            {{ categorie.langue.metaDescription|striptags }}
+        {% endif %}
+    " />
+    <meta property="og:title" content="{{ categorie.nom }}">
+    <meta property="og:description" content="
+        {% if categorie.description is not empty %}
+            {{ categorie.description|striptags }}
+        {% else %}
+            {{ categorie.langue.metaDescription|striptags }}
+        {% endif %}
+    ">
+{% endblock %}
 
 {% block main %}
-<h1>Liste des pages classées dans "{{ categorie.nom }}"</h1>
+    <h1>Liste des pages classées dans "{{ categorie.nom }}"</h1>
     <p class="description">{{ categorie.description|raw }}</p>
     <div class="blocPageCategorie grid-3 small-1 has-gutter-xl">
         {% for page in pages %}
@@ -11,7 +28,7 @@
                 {{ blocAnnexe(page, 'Vignette') }}
                 <h2>{{ page.titre }}</h2>
                 {{ blocAnnexe(page, 'Resume') }}
-                <a class="bouton" href="{{ path("voirPage", { '_locale': page.langue.abreviation, 'url': page.seo.url}) }}">{% trans %}Voir la page{% endtrans %}</a>
+                <a class="bouton" href="{{ lienPage(page) }}">{% trans %}Voir la page{% endtrans %}</a>
             </div>
         {% endfor %}
     </div>

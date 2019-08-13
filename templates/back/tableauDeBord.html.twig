@@ -5,13 +5,28 @@
         <h1>Tableau de bord</h1>
         <p>Bienvenue {{ app.user.username }}</p>
         {% if version is not empty %}
-            <div class="version">
-                {{ "Version numéro"|trans~" "~version.numero|slice(0,6)~" "~"du"|trans~" "~version.date }}
-                {% if majDispo %}
-                    <div>{{ "Une nouvelle version de Nina est disponible"|trans }}</div>
-                {% else %}
-                    <div class="vert"><i class="fas fa-check-circle"></i> {{ "Votre version de Nina est à jour"|trans }}</div>
-                {% endif %}
+            <div class="tdb-bloc">
+                <div class="version">
+                    {{ "Version numéro"|trans~" "~version.numero|slice(0,6)~" "~"du"|trans~" "~version.date }}
+                    {% if majDispo %}
+                        <div>{{ "Une nouvelle version de Nina est disponible"|trans }}</div>
+                    {% else %}
+                        <div class="vert"><i class="fas fa-check-circle"></i> {{ "Votre version de Nina est à jour"|trans }}</div>
+                    {% endif %}
+                    {{ "Mode :" }}
+                    {% if app.environment == 'dev' %}
+                        <span class="rouge">
+                            {{ "Développement"|trans }}
+                        </span>
+                    {% else %}
+                        <span class="vert">
+                            {{ "Production"|trans }}
+                        </span>
+                    {% endif %}
+                    <p>
+                        <a href="#" id="viderCache">Vider le cache</a>
+                    </p>
+                </div>
             </div>
         {% endif %}
         <div class="grid-2-small-1 has-gutter-xl tdb-blocs">

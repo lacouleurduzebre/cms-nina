@@ -58,6 +58,11 @@ class Bloc
      */
     private $groupeBlocs;
 
+    /**
+     * @ORM\Column(type="boolean", nullable=true, options={"default" : 1})
+     */
+    private $active = true;
+
     public function getId()
     {
         return $this->id;
@@ -155,6 +160,18 @@ class Bloc
     public function setGroupeBlocs(?GroupeBlocs $groupeBlocs): self
     {
         $this->groupeBlocs = $groupeBlocs;
+
+        return $this;
+    }
+
+    public function getActive(): ?bool
+    {
+        return $this->active;
+    }
+
+    public function setActive(?bool $active): self
+    {
+        $this->active = $active;
 
         return $this;
     }

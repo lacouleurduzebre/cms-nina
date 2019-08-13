@@ -8,7 +8,7 @@
     <div class="blocRecherche">
         {% for page in pages %}
             <h3>{{ page.titre }}</h3>
-            <p><a href="{{ path('voirPage', { url: page.seo.url }) }}">{{ "Voir la page"|trans }}</a></p>
+            <p><a href="{{ lienPage(page) }}">{{ "Voir la page"|trans }}</a></p>
         {% endfor %}
     </div>
 {% endblock %}

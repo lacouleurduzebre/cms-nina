@@ -1,0 +1,4 @@
+nom: Accordéon
+description: "Sections déroulantes avec titre et texte (pour créer une FAQ par exemple)"
+type: contenu
+icone: 'fas fa-stream'

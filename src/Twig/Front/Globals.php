@@ -59,26 +59,26 @@ class Globals extends \Twig_Extension implements \Twig_Extension_GlobalsInterfac
                 $theme = 'nina';
             }
 
-            //Paramètres du thèmes
+            //Paramètres du thème
             $configTheme = null;
 
-            $fichierDefaut = Yaml::parseFile('../themes/'.$theme.'/config.yaml');
+            if(file_exists('../themes/'.$theme.'/config.yaml')) {
+                $fichierDefaut = Yaml::parseFile('../themes/' . $theme . '/config.yaml');
 
-            if($fichierDefaut){
-                if(key_exists('champs', $fichierDefaut)){
+                if (key_exists('champs', $fichierDefaut)) {
                     $champs = $fichierDefaut['champs'];
 
-                    $nomFichierParametres = '../themes/'.$theme.'/parametres.yaml';
-                    if(!file_exists($nomFichierParametres)){
+                    $nomFichierParametres = '../themes/' . $theme . '/parametres.yaml';
+                    if (!file_exists($nomFichierParametres)) {
                         $fichiersParametres = fopen($nomFichierParametres, "w");
                         fclose($fichiersParametres);
                     }
                     $configTheme = Yaml::parseFile($nomFichierParametres);
 
-                    foreach($champs as $champ => $infos){
-                        if($configTheme && key_exists($theme, $configTheme)){//Paramètre modifié par l'utilisateur
+                    foreach ($champs as $champ => $infos) {
+                        if ($configTheme && key_exists($theme, $configTheme)) {//Paramètre modifié par l'utilisateur
                             $data = $configTheme[$theme];
-                        }else{//Paramètre par défaut
+                        } else {//Paramètre par défaut
                             $data = $infos['defaut'];
                         }
                         $configTheme[$champ] = $data;
@@ -114,8 +114,8 @@ class Globals extends \Twig_Extension implements \Twig_Extension_GlobalsInterfac
                 'theme' => $theme,
                 'installeur' => $installeur
             );
-        }else{
-            return ['installeur' => true];
         }
+
+        return ['installeur' => true];
     }
 }

@@ -1,0 +1,19 @@
+{% if page is defined and page is not empty %}
+    {% set lienPage = lienPage(page) %}
+
+    {% if bloc.contenu.facebook.0 is defined %}
+        <a class="bouton" href="https://www.facebook.com/sharer.php?u={{ lienPage }}" target="_blank" alt="{{ "Partager sur Facebook"|trans }}">
+            <i class="fab fa-facebook-f"></i> {{ "Partager sur Facebook"|trans }}
+        </a>
+    {% endif %}
+    {% if bloc.contenu.twitter.0 is defined %}
+        <a class="bouton" href="https://twitter.com/intent/tweet?url={{ lienPage }}&text={{ page.titre }}&hashtags={{ config.nom|replace({' ': '', '&': ''}) }}" target="_blank" alt="{{ "Partager sur Twitter"|trans }}">
+            <i class="fab fa-twitter"></i> {{ "Partager sur Twitter"|trans }}
+        </a>
+    {% endif %}
+    {% if bloc.contenu.linkedIn.0 is defined %}
+        <a class="bouton" href="https://www.linkedin.com/shareArticle?mini=true&url={{ lienPage }}&title={{ page.titre|truncate(200) }}{% if blocAnnexe(page, 'Resume') %}&summary={{ blocAnnexe(page, 'Resume', false)|striptags|truncate(256) }}{% endif %}" target="_blank" alt="{{ "Partager sur LinkedIn"|trans }}">
+            <i class="fab fa-linkedin-in"></i> {{ "Partager sur LinkedIn"|trans }}
+        </a>
+    {% endif %}
+{% endif %}

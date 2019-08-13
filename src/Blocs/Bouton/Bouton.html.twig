@@ -1,12 +1,23 @@
-<a class="bouton" href="{{ bloc.contenu.lien }}"
+<a class="bouton" href="
+        {% if bloc.contenu.page is defined and bloc.contenu.page is not empty %}
+            {% set page = page(bloc.contenu.page) %}
+            {{ lienPage(page) }}
+        {% else %}
+            {{ bloc.contenu.lien }}
+        {% endif %}
+    "
    {% if bloc.contenu.blank.0 is defined and bloc.contenu.blank.0 %}
        target="_blank"
    {% endif %}
    {% if bloc.contenu.titre is defined and bloc.contenu.titre is not empty %}
-       title="{{ bloc.contenu.titre }}"
+        title="{{ bloc.contenu.titre }}"
    {% endif %}
 >
-    {% if bloc.contenu.texte is defined %}
+    {% if bloc.contenu.texte is defined and bloc.contenu.texte is not empty %}
         {{ bloc.contenu.texte }}
+    {% elseif bloc.contenu.page is defined and bloc.contenu.page is not empty %}
+        {{ page.titre }}
+    {% else %}
+        {{ "Voir la page"|trans }}
     {% endif %}
 </a>

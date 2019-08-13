@@ -1,13 +1,19 @@
 {% extends 'front/base.html.twig' %}
 
-{% block title %}{{ config.nom }} - {{ "Erreur 404"|trans }}{% endblock %}
-
-{% block head %}{% endblock %}
+{% block head %}
+    <title>{% if langueActive.metaTitre is not empty %}{{ config.nom }} - {{ "Erreur 404"|trans }}{% endif %}</title>
+{% endblock %}
 
 {% block main %}
     <div class="erreur404">
         <h1>{{ "Erreur 404 - Page non trouvée"|trans }}</h1>
         <p>{{ "Il semble que la page que vous essayez d'atteindre n'existe pas ou ait été supprimée."|trans }}</p>
-        <p>{{ "Souhaitez-vous"|trans }} <a href="{{ path("accueil") }}">{{ "retourner à l'accueil"|trans }}</a> ?</p>
+        <p>{{ "Souhaitez-vous"|trans }} <a href="
+            {% if langues|length > 1 %}
+                {{ path('accueilLocale', { '_locale': langueActive.abreviation }) }}
+            {% else %}
+                {{ path('accueil') }}
+            {% endif %}
+        ">{{ "retourner à l'accueil"|trans }}</a> ?</p>
     </div>
 {% endblock %}

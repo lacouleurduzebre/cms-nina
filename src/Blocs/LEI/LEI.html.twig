@@ -11,13 +11,13 @@
             {% set photo = getPhotoPrincipale(fiche.CRITERES) %}
             {% if photo.photo is defined %}
                 <div class="ficheLEI-image">
-                    <a href="/{{ app.request.locale }}/fiche/{{ fiche.NOM|replace({' ':'-'}) }}/{{ fiche.PRODUIT }}/{{ bloc.id }}">
+                    <a href="{% if langues|length > 1 %}/{{ langueActive.abreviation }}{% endif %}/fiche/{{ fiche.NOM|replace({' ':'-'}) }}/{{ fiche.PRODUIT }}/{{ bloc.id }}">
                         <img src="{{ photo.photo }}" {% if photo.credits is defined %}title="{{ "Crédits : "|trans }}{{ photo.credits }}"{% endif %}>
                     </a>
                 </div>
             {% else %}
                 <div class="ficheLEI-sansImage flex-container">
-                    <a href="/{{ app.request.locale }}/fiche/{{ fiche.NOM|replace({' ':'-'}) }}/{{ fiche.PRODUIT }}/{{ bloc.id }}">
+                    <a href="{% if langues|length > 1 %}/{{ langueActive.abreviation }}{% endif %}/fiche/{{ fiche.NOM|replace({' ':'-'}) }}/{{ fiche.PRODUIT }}/{{ bloc.id }}">
                         <i class="fas fa-camera"></i>
                     </a>
                 </div>
@@ -29,7 +29,7 @@
                 {% endif %}
             </p>
             <div class="ficheLEI-lien">
-                <a class="bouton" href="/{{ app.request.locale }}/fiche/{{ fiche.NOM|replace({' ':'-'}) }}/{{ fiche.PRODUIT }}/{{ bloc.id }}">{% trans %}LIRE LA SUITE{% endtrans %}</a>
+                <a class="bouton" href="{% if langues|length > 1 %}/{{ langueActive.abreviation }}{% endif %}/fiche/{{ fiche.NOM|replace({' ':'-'}) }}/{{ fiche.PRODUIT }}/{{ bloc.id }}">{% trans %}LIRE LA SUITE{% endtrans %}</a>
             </div>
         </div>
     {% endfor %}

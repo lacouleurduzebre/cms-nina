@@ -10,7 +10,7 @@
             {{ blocAnnexe(page, 'Vignette') }}
             <h2>{{ page.titre }}</h2>
             {{ blocAnnexe(page, 'Resume') }}
-            <a class="bouton lire" href="{{ path("voirPage", { '_locale': page.langue.abreviation, 'url': page.seo.url}) }}">{% trans %}Voir la page{% endtrans %}</a>
+            <a class="bouton lire" href="{{ lienPage(page) }}">{% trans %}Voir la page{% endtrans %}</a>
         </div>
     {% endfor %}
 </div>

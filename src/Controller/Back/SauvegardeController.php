@@ -43,7 +43,7 @@ class SauvegardeController extends Controller
 
         foreach($exportsBdd as $dump){
             $timestamp = str_replace(array("dump", ".zip"), '', $dump);
-            $dumpsBdd[$dump] = date('d/m/Y h:i', $timestamp);
+            $dumpsBdd[$dump] = date('d/m/Y H:i', $timestamp);
         }
 
         //Liste des tous les dumps médiathèque
@@ -56,7 +56,7 @@ class SauvegardeController extends Controller
 
         foreach($exportsMediatheque as $dump){
             $timestamp = str_replace(array("mediatheque", ".zip"), '', $dump);
-            $dumpsMediatheque[$dump] = date('d/m/Y h:i', $timestamp);
+            $dumpsMediatheque[$dump] = date('d/m/Y H:i', $timestamp);
         }
 
         $entityConfig = ['name' => 'Sauvegarde'];
