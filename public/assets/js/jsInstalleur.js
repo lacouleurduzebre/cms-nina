@@ -24,7 +24,14 @@ $(document).ready(function(){
             });
     });
 
-    //Etape 5 : Thème
+    //Étape 2 : Config et langue
+    $('#form_langueFR').prop('checked', true);
+
+    $('#form_langueFR').on('change', function(){
+        $('.formulaireLangue').slideToggle();
+    });
+
+    //Etape 4 : Thème
     $('.theme').click(function(){
         $('.theme').not($(this)).removeClass('actif');
         $(this).addClass('actif');
@@ -32,7 +39,7 @@ $(document).ready(function(){
         $('#form_theme').val(theme);
     });
 
-    //Étape 6 : Contenus
+    //Étape 5 : Contenus
     $('#ajoutPageHeader, #ajoutPageFooter').click(function(){
         menu = $(this).data('menu');
         $(this).prev('div').append('<p><i class="fas fa-file"></i><input type="text"><button class="ajoutPage" data-menu="'+menu+'">Enregistrer</button></p>');
@@ -45,7 +52,7 @@ $(document).ready(function(){
             $(this).hide().closest('p').append('<i class="fas fa-sync fa-spin"></i>');
             elem = $(this);
             $.ajax({
-                url: '/installeur/8',
+                url: '/installeur/7',
                 method: "post",
                 data: {titre: titre, menu: menu}
             })

@@ -77,26 +77,21 @@ class InstalleurController extends Controller
                 'icone' => 'cogs'
             ],
             3 => [
-                'titre' => 'langue',
-                'titreComplet' => 'Configuration de la langue par défaut',
-                'icone' => 'comments'
-            ],
-            4 => [
                 'titre' => 'Utilisateur',
                 'titreComplet' => 'Création du compte administrateur',
                 'icone' => 'user'
             ],
-            5 => [
+            4 => [
                 'titre' => 'Thème',
                 'titreComplet' => 'Choix du thème',
                 'icone' => 'paint-brush'
             ],
-            6 => [
+            5 => [
                 'titre' => 'Contenus',
                 'titreComplet' => 'Création de pages',
                 'icone' => 'laptop'
             ],
-            7 => [
+            6 => [
                 'titre' => 'Installation terminée',
                 'titreComplet' => 'Installation terminée',
                 'icone' => 'check-circle'
@@ -214,7 +209,7 @@ class InstalleurController extends Controller
                     $config = new Configuration();
                 }
 
-
+                //Formulaire config
                 $form = $this->createFormBuilder($config)
                     ->add('nom', TextType::class, ['label' => 'Nom du site'])
                     ->add('editeur', TextType::class, ['label' => 'Organisme'])
@@ -225,7 +220,25 @@ class InstalleurController extends Controller
                         'mapped' => false,
                         'required' => false
                     ])
-                    ->add('etapeSuivante', SubmitType::class, ['label' => 'Étape suivante'])
+                    ->add('nomLangue', TextType::class, [
+                        'mapped' => false,
+                        'required' => false
+                    ])
+                    ->add('abreviationLangue', TextType::class, [
+                        'label' => 'Abréviation',
+                        'help' => 'Deux lettres minuscules',
+                        'mapped' => false,
+                        'required' => false
+                    ])
+                    ->add('codeLangue', TextType::class, [
+                        'label' => 'Code de la langue',
+                        'help' => 'Sous la forme xx-XX',
+                        'mapped' => false,
+                        'required' => false
+                    ])
+                    ->add('etapeSuivante', SubmitType::class, [
+                        'label' => 'Étape suivante'
+                    ])
                     ->getForm();
 
                 $form->handleRequest($request);
@@ -239,73 +252,40 @@ class InstalleurController extends Controller
                     $em->persist($config);
                     $em->flush();
 
-                    if($form->get('langueFR')->getData()){
-                        if($repoLangue->find(1)){
-                            $langue = $repoLangue->find(1);
-                        }else{
-                            $langue = new Langue();
-                        }
+                    if($repoLangue->find(1)){
+                        $langue = $repoLangue->find(1);
+                    }else{
+                        $langue = new Langue();
+                    }
 
+                    $langue->setActive(1)
+                        ->setDefaut(1);
+
+                    if($form->get('langueFR')->getData()){
                         $langue
                             ->setNom('français')
                             ->setAbreviation('fr')
-                            ->setActive(1)
-                            ->setDefaut(1)
                             ->setCode('fr-FR');
-
-                        $em->persist($langue);
-                        $em->flush();
-
-                        return $this->redirectToRoute('installeur', ['etape' => 4]);
-                    }else{
-                        return $this->redirectToRoute('installeur', ['etape' => 3]);
+                    }else{//Langue autre que le français
+                        $langue
+                            ->setNom($form->get('nomLangue')->getData())
+                            ->setAbreviation($form->get('abreviationLangue')->getData())
+                            ->setCode($form->get('codeLangue')->getData());
                     }
+
+                    $em->persist($langue);
+                    $em->flush();
+
+                    return $this->redirectToRoute('installeur', ['etape' => 3]);
                 }
 
                 return $this->render('installeur/2_configSite.html.twig', ['etapes' => $etapes, 'form' => $form->createView()]);
 
-            case 3: //Configuration de la langue par défaut
-
-                //Vérif étape
-                if(!$repoConfig->find(1)){
-                    $this->redirectToRoute('installeur', ['etape' => 2]);
-                }
-
-                if($repoLangue->find(1)){
-                    $langue = $repoLangue->find(1);
-                }else{
-                    $langue = new Langue();
-                }
-
-                $form = $this->createFormBuilder($langue)
-                    ->add('nom', TextType::class)
-                    ->add('abreviation', TextType::class, ['label' => 'Abréviation', 'help' => 'Deux lettres minuscules'])
-                    ->add('code', TextType::class, ['label' => 'Code de la langue', 'help' => 'Sous la forme xx-XX'])
-                    ->add('etapeSuivante', SubmitType::class, ['label' => 'Étape suivante'])
-                    ->getForm();
-
-                $form->handleRequest($request);
-
-                if ($form->isSubmitted() && $form->isValid()) {
-                    $langue = $form->getData();
-
-                    $em = $this->getDoctrine()->getManager();
-
-                    $langue->setActive(1)
-                        ->setDefaut(1);
-                    $em->persist($langue);
-                    $em->flush();
-
-                    return $this->redirectToRoute('installeur', ['etape' => 4]);
-                }
-
-                return $this->render('installeur/3_configLangue.html.twig', ['etapes' => $etapes, 'form' => $form->createView()]);
-
-            case 4: //Configuration de l'utilisateur admin
+            case 3: //Configuration de l'utilisateur admin
 
                 //Vérif étape
                 if(!$repoLangue->find(1)){
-                    $this->redirectToRoute('installeur', ['etape' => 3]);
+                    $this->redirectToRoute('installeur', ['etape' => 2]);
                 }
 
                 $repoUtilisateur = $this->getDoctrine()->getRepository(Utilisateur::class);
@@ -333,17 +313,17 @@ class InstalleurController extends Controller
                     $em->persist($user);
                     $em->flush();
 
-                    return $this->redirectToRoute('installeur', ['etape' => 5]);
+                    return $this->redirectToRoute('installeur', ['etape' => 4]);
                 }
 
-                return $this->render('installeur/4_configUtilisateur.html.twig', ['etapes' => $etapes, 'form' => $form->createView()]);
+                return $this->render('installeur/3_configUtilisateur.html.twig', ['etapes' => $etapes, 'form' => $form->createView()]);
 
-            case 5: //Choix du thème
+            case 4: //Choix du thème
 
                 //Vérif étape
                 $repoUtilisateur = $this->getDoctrine()->getRepository(Utilisateur::class);
                 if(!$repoUtilisateur->find(1)){
-                    $this->redirectToRoute('installeur', ['etape' => 4]);
+                    $this->redirectToRoute('installeur', ['etape' => 3]);
                 }
 
                 $themes = ThemeController::listeThemes();
@@ -374,16 +354,16 @@ class InstalleurController extends Controller
                     //Création de contenus
                     $fixtures->load($manager, true);
 
-                    return $this->redirectToRoute('installeur', ['etape' => 6]);
+                    return $this->redirectToRoute('installeur', ['etape' => 5]);
                 }
 
-                return $this->render('installeur/5_choixTheme.html.twig', ['etapes' => $etapes, 'form' => $form->createView(), 'themes' => $themes]);
+                return $this->render('installeur/4_choixTheme.html.twig', ['etapes' => $etapes, 'form' => $form->createView(), 'themes' => $themes]);
 
-            case 6: //Création des contenus
+            case 5: //Création des contenus
 
                 //Vérif étape
                 if(!$repoConfig->find(1)->getTheme()){
-                    $this->redirectToRoute('installeur', ['etape' => 5]);
+                    $this->redirectToRoute('installeur', ['etape' => 4]);
                 }
 
                 $repoMenuPage = $this->getDoctrine()->getRepository(MenuPage::class);
@@ -400,9 +380,9 @@ class InstalleurController extends Controller
                     $pagesFooter[] = $menuPage->getPage()->getTitre();
                 }
 
-                return $this->render('installeur/6_creationContenus.html.twig', ['etapes' => $etapes, 'pagesHeader' => $pagesHeader, 'pagesFooter' => $pagesFooter]);
+                return $this->render('installeur/5_creationContenus.html.twig', ['etapes' => $etapes, 'pagesHeader' => $pagesHeader, 'pagesFooter' => $pagesFooter]);
 
-            case 7: //Installation terminée
+            case 6: //Installation terminée
 
                 //Vérif étape
                 if(!$repoConfig->find(1)->getTheme()){
@@ -416,7 +396,7 @@ class InstalleurController extends Controller
                 $em->persist($config);
                 $em->flush();
 
-                return $this->render('installeur/7_validation.html.twig', ['etapes' => $etapes]);
+                return $this->render('installeur/6_validation.html.twig', ['etapes' => $etapes]);
         }
     }
 
@@ -489,7 +469,7 @@ class InstalleurController extends Controller
     }
 
     /**
-     * @Route("/installeur/8", name="installeurAjoutPage")
+     * @Route("/installeur/7", name="installeurAjoutPage")
      * @param Request $request
      * @return @return bool|Response
      */

@@ -29,7 +29,17 @@
   }
 }
 
-//Étape 5 : Thème
+//Étape 2 : Config et langue
+.formulaireLangue{
+  display: none;
+  h2{
+    color: $black;
+    font-size: 2.5rem;
+    font-weight: $weight-bold;
+  }
+}
+
+//Étape 4 : Thème
 .themes{
   display: flex;
   flex-wrap: wrap;
@@ -89,7 +99,7 @@
   }
 }
 
-//Étape 6 : Contenus
+//Étape 5 : Contenus
 #creationPages{
   background-color: #F7F7F7;
   min-width: 35rem;
@@ -152,8 +162,8 @@ button[id^="ajoutPage"]{
   }
 }
 
-//Étape 7 : Installation terminée
-.etape-7{
+//Étape 6 : Installation terminée
+.etape-6{
   text-align: center;
   color: $black;
   font-size: 1.8rem;
@@ -176,7 +186,7 @@ button[id^="ajoutPage"]{
 }
 
   //Boutons
-.etape-7 .boutonsLarges{
+.etape-6 .boutonsLarges{
   margin-top: 2.5rem;
   a{
     width: calc(50% - 2rem);

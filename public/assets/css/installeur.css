@@ -2652,6 +2652,15 @@ footer img {
   color: #5CB85C;
 }
 
+.formulaireLangue {
+  display: none;
+}
+.formulaireLangue h2 {
+  color: #000;
+  font-size: 2.5rem;
+  font-weight: 700;
+}
+
 .themes {
   display: flex;
   flex-wrap: wrap;
@@ -2773,32 +2782,32 @@ button[id^=ajoutPage] svg {
   color: #fff;
 }
 
-.etape-7 {
+.etape-6 {
   text-align: center;
   color: #000;
   font-size: 1.8rem;
   line-height: 1.2;
 }
-.etape-7 div {
+.etape-6 div {
   width: 100%;
 }
-.etape-7 div:first-of-type {
+.etape-6 div:first-of-type {
   margin-bottom: 5rem;
 }
-.etape-7 h2 {
+.etape-6 h2 {
   color: #A1BA1D;
   font-size: 2.4rem;
 }
-.etape-7 h2 svg {
+.etape-6 h2 svg {
   font-size: 4.8rem;
   display: block;
   margin: 0 auto 0.5rem;
 }
 
-.etape-7 .boutonsLarges {
+.etape-6 .boutonsLarges {
   margin-top: 2.5rem;
 }
-.etape-7 .boutonsLarges a {
+.etape-6 .boutonsLarges a {
   width: calc(50% - 2rem);
   margin: 0 1rem;
   border: 1px solid #A1BA1D;
@@ -2807,7 +2816,7 @@ button[id^=ajoutPage] svg {
   padding: 0.5rem;
   text-decoration: none;
 }
-.etape-7 .boutonsLarges a.btnFonce {
+.etape-6 .boutonsLarges a.btnFonce {
   background-color: #A1BA1D;
   color: #fff;
 }

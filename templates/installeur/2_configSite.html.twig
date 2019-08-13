@@ -1,5 +1,24 @@
 {% extends 'installeur/base.html.twig' %}
 
 {% block main %}
-    {% include('installeur/formulaireSimple.html.twig') %}
+    {{ form_start(form) }}
+    {{ form_row(form.nom) }}
+    {{ form_row(form.editeur) }}
+    {{ form_row(form.emailContact) }}
+    {{ form_row(form.logo) }}
+    {{ form_row(form.langueFR) }}
+    <div class="formulaireLangue">
+        {{ form_row(form.nomLangue) }}
+        {{ form_row(form.abreviationLangue) }}
+        {{ form_row(form.codeLangue) }}
+    </div>
+    <div class="boutons">
+        {% if app.request.get('etape') == 1 %}
+            <a id="testConnexion">{{ "Tester la connexion"|trans }}</a>
+        {% else %}
+            <a class="etapePrecedente" href="{{ path('installeur', { 'etape': app.request.get('etape') - 1 }) }}">{{ "Étape précédente"|trans }}</a>
+        {% endif %}
+        {{ form_row(form.etapeSuivante) }}
+    </div>
+    {{ form_end(form) }}
 {% endblock %}
