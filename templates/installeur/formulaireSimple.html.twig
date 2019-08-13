@@ -1,0 +1,15 @@
+{{ form_start(form) }}
+    {% for id, champ in form.children %}
+        {% if id != 'etapeSuivante' %}
+            {{ form_row(champ) }}
+        {% endif %}
+    {% endfor %}
+<div class="boutons">
+    {% if app.request.get('etape') == 1 %}
+        <a id="testConnexion">{{ "Tester la connexion"|trans }}</a>
+    {% else %}
+        <a class="etapePrecedente" href="{{ path('installeur', { 'etape': app.request.get('etape') - 1 }) }}">{{ "Revenir en arrière"|trans }}</a>
+    {% endif %}
+    {{ form_row(form.etapeSuivante) }}
+</div>
+{{ form_end(form) }}

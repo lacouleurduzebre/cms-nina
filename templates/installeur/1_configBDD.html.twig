@@ -1,10 +1,6 @@
 {% extends 'installeur/base.html.twig' %}
 
 {% block main %}
-    {{ form_start(form) }}
-    {{ form(form) }}
-    {{ form_end(form) }}
-
-    <button id="testConnexion">Tester la connexion</button>
+    {% include('installeur/formulaireSimple.html.twig') %}
     <span id="resultatTestConnexion"></span>
 {% endblock %}

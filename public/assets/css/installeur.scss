@@ -1,83 +1,28 @@
+@import "_vendor/reboot"; // Bootstrap reboot (basic reset) (CSS file renamed and imported as if it was a partial because of libsass)
+
+// WARNING : you should comment the following @import (variables)
+// and move variables file from knacss folder to your own project folder!
 @import "_config/variables";
-@import "_config/_mixins";
-@import "_library/base";
+@import "_config/mixins";
 
-//Global
-body{
-  font-family: 'Cabin', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
-}
+// Core Libraries
+@import "_library/base";         // basic styles
+@import "_library/layout";       // alignment, modules, positionning
+@import "_library/utilities";    // width and spacer helpers
+@import "_library/responsive";   // Responsive Web Design helpers
+// @import "_library/wordpress"; // WordPress reset and basic styles
 
-main{
-  max-width: 90rem;
-  margin: auto;
-}
+// New Grid System by default (Grid Layout). If you prefer old "Flexbox" Grid System, replace file with "_library/grillade-flex"
+// Note that none of these files are prefixed by an underscore, in order to compile them.
+@import "_library/grillade-flex"; // grid system with Grid Layout
 
-.tunnel{
-  display: flex;
-  justify-content: center;
-  border: 1px solid;
-  margin-top: 2rem;
-  li{
-    margin-right: 2rem;
-    &.active{
-      color: green;
-      font-weight: bold;
-    }
-    &:after{
-      content: ">";
-      margin-left: 1rem;
-      color: #000;
-      font-weight: normal;
-    }
-    &:last-of-type:after{
-      content: "";
-      margin-left: 0;
-    }
-  }
-}
+// Components
+@import "components/forms";      // forms consistency and styles
+@import "components/checkbox";   // checkbox, radio, switch styles
+@import "components/tabs";       // tabs styles
+@import "components/tags";        // tags styles
 
-.contenu{
-  max-width: 60rem;
-  margin: auto;
-}
-
-
-label{
-  display: inline-block;
-  font-weight: bold;
-  width: 20rem;
-}
-
-input{
-  margin-bottom: 1rem;
-  font-size: 1.6rem;
-}
-
-//Étape 5 : Thème
-.themes{
-  display: flex;
-  flex-wrap: wrap;
-  margin-left: -1rem;
-  margin-right: -1rem;
-}
-
-.theme-illustration{
-  max-width: 30rem;
-  img{
-    width: 100%;
-  }
-}
-
-.theme-infos{
-  padding: 0 1rem;
-}
-
-.theme{
-  border: 2px solid transparent;
-  max-width: 30rem;
-  width: calc(50% - 2rem);
-  margin: 0 1rem 3rem 1rem;
-  &.actif{
-    border: 2px solid green;
-  }
-}
+@import "installeur/global";
+@import "installeur/header";
+@import "installeur/footer";
+@import "installeur/etapes";

@@ -4,20 +4,34 @@
     <div id="creationPages">
         <div>
             <h2>Menu principal</h2>
-            {% for page in pagesHeader %}
-                <p>{{ page }}</p>
-            {% endfor %}
+            <div class="pages">
+                {% for page in pagesHeader %}
+                    <p>
+                        {% if loop.first %}
+                            <i class="fas fa-home"></i>
+                        {% else %}
+                            <i class="fas fa-file"></i>
+                        {% endif %}
+                        {{ page }}
+                    </p>
+                {% endfor %}
+            </div>
+            <button id="ajoutPageHeader" data-menu="1"><i class="fas fa-plus"></i>Ajouter une page</button>
         </div>
-        <button id="ajoutPageHeader" data-menu="1"><i class="fas fa-plus"></i>Ajouter une page</button>
 
         <div>
             <h2>Menu du pied de page</h2>
-            {% for page in pagesFooter %}
-                <p>{{ page }}</p>
-            {% endfor %}
+            <div class="pages">
+                {% for page in pagesFooter %}
+                    <p><i class="fas fa-file"></i>{{ page }}</p>
+                {% endfor %}
+            </div>
+            <button id="ajoutPageFooter" data-menu="2"><i class="fas fa-plus"></i>Ajouter une page</button>
         </div>
-        <button id="ajoutPageFooter" data-menu="2"><i class="fas fa-plus"></i>Ajouter une page</button>
     </div>
 
-    <a href="{{ path('installeur', { etape: 7 }) }}">Terminer l'installation</a>
+    <div class="boutons">
+        <a class="etapePrecedente" href="{{ path('installeur', { etape: 6 }) }}">{{ "Revenir en arrière"|trans }}</a>
+        <a id="terminerInstallation" href="{{ path('installeur', { etape: 7 }) }}">Terminer l'installation</a>
+    </div>
 {% endblock %}

@@ -1,0 +1,16 @@
+footer{
+  background-color: $color-brand2;
+  padding: 8rem 2rem;
+  color: $white;
+  margin-top: 10rem;
+  > div{
+    justify-content: space-between;
+    > div{
+      display: flex;
+      align-items: center;
+    }
+  }
+  img{
+    margin: 0 2rem;
+  }
+}

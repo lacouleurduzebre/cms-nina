@@ -1,0 +1,194 @@
+.etapePrecedente, #testConnexion, #terminerInstallation{
+  display: inline-block;
+  background: #EEEEEE;
+  color: $black;
+  border-radius: .5rem;
+  font-size: 1.8rem;
+  padding: .5rem 3rem;
+  text-decoration: none;
+  &:hover{
+    color: $black;
+    text-decoration: none;
+  }
+}
+
+//Étape 1 : BDD
+#testConnexion{
+  cursor: pointer;
+  position: relative;
+  svg{
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+  }
+  .fa-times{
+    color: $color-danger;
+  }
+  .fa-check{
+    color: $color-success;
+  }
+}
+
+//Étape 5 : Thème
+.themes{
+  display: flex;
+  flex-wrap: wrap;
+  margin-left: -1rem;
+  margin-right: -1rem;
+}
+
+.theme-illustration{
+  height: 18rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 6rem;
+  img{
+    width: 100%;
+    .objectfit &{
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+}
+
+.theme-infos{
+  padding: 2.5rem 1rem 0;
+  color: $black;
+  position: relative;
+  h2{
+    font-size: 2rem;
+    font-weight: $weight-bold;
+  }
+  a{
+    color: $black;
+  }
+}
+
+.theme{
+  border: 1px solid #E8E8E8;
+  max-width: 30rem;
+  width: calc(50% - 2rem);
+  margin: 0 1rem 3rem 1rem;
+  &.actif{
+    border-color: $color-brand;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+    .active{
+      display: block;
+    }
+  }
+  .active{
+    display: none;
+    position: absolute;
+    right: 0;
+    top: 0;
+    font-size: 1.4rem;
+    background-color: $color-brand;
+    color: $white;
+    padding: .5rem 2rem;
+  }
+}
+
+//Étape 6 : Contenus
+#creationPages{
+  background-color: #F7F7F7;
+  min-width: 35rem;
+  h2{
+    background-color: #E1E1E1;
+    margin-bottom: 0;
+    padding: 1rem;
+    font-size: 1.6rem;
+    font-weight: $weight-bold;
+  }
+  .pages{
+    box-shadow: inset 0 4px 4px -2px rgba(0, 0, 0, 0.25);
+    padding: 1rem 2rem 0;
+    p{
+      display: flex;
+      align-items: center;
+    }
+    svg{
+      margin-right: .5rem;
+    }
+  }
+  input[type=text]{
+    border: 1px solid $color-brand;
+    box-shadow: none;
+    height: 2.5rem;
+    background-color: transparent;
+    border-radius: 1rem;
+    color: $color-brand !important;
+    width: 60%;
+    margin: 0 1rem 0 .2rem;
+  }
+}
+
+button[id^="ajoutPage"], .ajoutPage{
+  border-radius: 2rem;
+  background-color: $color-brand2;
+  border: none;
+  color: $white;
+  font-size: 1.2rem;
+  display: flex;
+  align-items: center;
+  padding: .3rem 1rem;
+  cursor: pointer;
+}
+
+button[id^="ajoutPage"]{
+  margin-left: 2rem;
+  margin-bottom: 4rem;
+  svg{
+    margin-right: .2rem;
+  }
+}
+
+#terminerInstallation{
+  color: $white;
+  background-color: $color-brand;
+  margin-left: 3rem;
+  &:hover{
+    color: $white;
+  }
+}
+
+//Étape 7 : Installation terminée
+.etape-7{
+  text-align: center;
+  color: $black;
+  font-size: 1.8rem;
+  line-height: 1.2;
+  div{
+    width: 100%;
+    &:first-of-type{
+      margin-bottom: 5rem;
+    }
+  }
+  h2{
+    color: $color-brand;
+    font-size: 2.4rem;
+    svg{
+      font-size: 4.8rem;
+      display: block;
+      margin: 0 auto .5rem;
+    }
+  }
+}
+
+  //Boutons
+.etape-7 .boutonsLarges{
+  margin-top: 2.5rem;
+  a{
+    width: calc(50% - 2rem);
+    margin: 0 1rem;
+    border: 1px solid $color-brand;
+    color: $color-brand;
+    border-radius: .5rem;
+    padding: .5rem;
+    text-decoration: none;
+    &.btnFonce{
+      background-color: $color-brand;
+      color: $white;
+    }
+  }
+}

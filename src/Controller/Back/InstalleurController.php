@@ -68,31 +68,38 @@ class InstalleurController extends Controller
         $etapes = [
             1 => [
                 'titre' => 'Base de données',
-                'titreComplet' => 'Configuration de la base de données'
+                'titreComplet' => 'Configuration de la base de données',
+                'icone' => 'database'
             ],
             2 => [
                 'titre' => 'Configuration générale',
-                'titreComplet' => 'Configuration générale du site'
+                'titreComplet' => 'Configuration générale du site',
+                'icone' => 'cogs'
             ],
             3 => [
                 'titre' => 'langue',
-                'titreComplet' => 'Configuration de la langue par défaut'
+                'titreComplet' => 'Configuration de la langue par défaut',
+                'icone' => 'comments'
             ],
             4 => [
                 'titre' => 'Utilisateur',
-                'titreComplet' => 'Création de l\'utilisateur admin'
+                'titreComplet' => 'Création du compte administrateur',
+                'icone' => 'user'
             ],
             5 => [
                 'titre' => 'Thème',
-                'titreComplet' => 'Choix du thème'
+                'titreComplet' => 'Choix du thème',
+                'icone' => 'paint-brush'
             ],
             6 => [
                 'titre' => 'Contenus',
-                'titreComplet' => 'Création de pages'
+                'titreComplet' => 'Création de pages',
+                'icone' => 'laptop'
             ],
             7 => [
                 'titre' => 'Installation terminée',
-                'titreComplet' => 'Installation terminée'
+                'titreComplet' => 'Installation terminée',
+                'icone' => 'check-circle'
             ],
         ];
 
@@ -146,7 +153,7 @@ class InstalleurController extends Controller
                         'label' => 'Préfixe',
                         'data' => getenv('PREFIXE')
                     ])
-                    ->add('Étape suivante', SubmitType::class)
+                    ->add('etapeSuivante', SubmitType::class, ['label' => 'Étape suivante'])
                     ->getForm();
 
                 $form->handleRequest($request);
@@ -210,22 +217,22 @@ class InstalleurController extends Controller
 
                 $form = $this->createFormBuilder($config)
                     ->add('nom', TextType::class, ['label' => 'Nom du site'])
-                    ->add('editeur', TextType::class, ['label' => 'Éditeur du site'])
-                    ->add('emailContact', EmailType::class, ['label' => 'E-mail de contact'])
-                    ->add('emailMaintenance', EmailType::class, ['label' => 'E-mail de maintenance'])
+                    ->add('editeur', TextType::class, ['label' => 'Organisme'])
+                    ->add('emailContact', EmailType::class, ['label' => 'E-mail de l\'organisme'])
                     ->add('logo', TextType::class, ['label' => 'Logo'])
                     ->add('langueFR', CheckboxType::class, [
                         'label' => 'Définir le français comme langue par défaut',
                         'mapped' => false,
                         'required' => false
                     ])
-                    ->add('Étape suivante', SubmitType::class)
+                    ->add('etapeSuivante', SubmitType::class, ['label' => 'Étape suivante'])
                     ->getForm();
 
                 $form->handleRequest($request);
 
                 if ($form->isSubmitted() && $form->isValid()) {
                     $config = $form->getData();
+                    $config->setEmailMaintenance($config->getEmailContact());
 
                     $em = $this->getDoctrine()->getManager();
 
@@ -274,7 +281,7 @@ class InstalleurController extends Controller
                     ->add('nom', TextType::class)
                     ->add('abreviation', TextType::class, ['label' => 'Abréviation', 'help' => 'Deux lettres minuscules'])
                     ->add('code', TextType::class, ['label' => 'Code de la langue', 'help' => 'Sous la forme xx-XX'])
-                    ->add('Étape suivante', SubmitType::class)
+                    ->add('etapeSuivante', SubmitType::class, ['label' => 'Étape suivante'])
                     ->getForm();
 
                 $form->handleRequest($request);
@@ -309,10 +316,10 @@ class InstalleurController extends Controller
                 }
 
                 $form = $this->createFormBuilder($user)
-                    ->add('username', TextType::class, ['label' => 'Identifiant / Pseudo'])
+                    ->add('username', TextType::class, ['label' => 'Identifiant'])
                     ->add('email', EmailType::class, ['label' => 'Adresse e-mail'])
                     ->add('plainPassword', TextType::class, ['label' => 'Mot de passe'])
-                    ->add('Étape suivante', SubmitType::class)
+                    ->add('etapeSuivante', SubmitType::class, ['label' => 'Étape suivante'])
                     ->getForm();
 
                 $form->handleRequest($request);
@@ -345,7 +352,7 @@ class InstalleurController extends Controller
 
                 $form = $this->createFormBuilder($config)
                     ->add('theme', HiddenType::class)
-                    ->add('Étape suivante', SubmitType::class)
+                    ->add('etapeSuivante', SubmitType::class, ['label' => 'Étape suivante'])
                     ->getForm();
 
                 $form->handleRequest($request);

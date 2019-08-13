@@ -1,7 +1,7 @@
 {% extends 'installeur/base.html.twig' %}
 
 {% block main %}
-    <div class="themes">
+    <div class="themes grid-3-small-2-tiny-1 has-gutter-l">
         {% for nom,theme in themes %}
             <div id="{{ nom }}" class="theme">
                 <div class="theme-illustration">
@@ -16,17 +16,16 @@
                     {% endif %}
                 </div>
                 <div class="theme-infos">
+                    <span class="active">{{ "Activé"|trans }}</span>
                     <h2>{{ theme.nom }}</h2>
                     <p><strong>{{ "Auteur : "|trans }}</strong>{{ theme.auteur }}</p>
-                    <p><strong>{{ "Site de l'auteur : "|trans }}</strong><a href="{{ theme.site }}">{{ theme.site }}</a></p>
+                    <p><strong>{{ "Site de l'auteur : "|trans }}</strong><a target="_blank" href="{{ theme.site }}">{{ theme.site }}</a></p>
                     <p><strong>{{ "Description : "|trans }}</strong>{{ theme.description }}</p>
                 </div>
             </div>
         {% endfor %}
     </div>
 
-    {{ form_start(form) }}
-    {{ form(form) }}
-    {{ form_end(form) }}
+    {% include('installeur/formulaireSimple.html.twig') %}
 
 {% endblock %}
