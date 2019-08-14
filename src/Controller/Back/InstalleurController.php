@@ -35,7 +35,7 @@ class InstalleurController extends Controller
 {
     /**
      * @Route("/installeur/{etape}", name="installeur", requirements={
-     *     "etape"="^[1-7]{1,1}$"
+     *     "etape"="^[1-6]{1,1}$"
      * })
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\Response

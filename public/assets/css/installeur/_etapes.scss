@@ -9,6 +9,7 @@
   &:hover{
     color: $black;
     text-decoration: none;
+    background: darken(#EEEEEE, 10);
   }
 }
 
@@ -80,6 +81,9 @@
   max-width: 30rem;
   width: calc(50% - 2rem);
   margin: 0 1rem 3rem 1rem;
+  &:hover{
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+  }
   &.actif{
     border-color: $color-brand;
     box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
@@ -143,6 +147,9 @@ button[id^="ajoutPage"], .ajoutPage{
   align-items: center;
   padding: .3rem 1rem;
   cursor: pointer;
+  &:hover{
+    background-color: darken($color-brand2, 10);
+  }
 }
 
 button[id^="ajoutPage"]{
@@ -159,6 +166,7 @@ button[id^="ajoutPage"]{
   margin-left: 3rem;
   &:hover{
     color: $white;
+    background-color: darken($color-brand, 10);
   }
 }
 

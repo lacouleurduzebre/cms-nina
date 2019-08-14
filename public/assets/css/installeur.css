@@ -2567,6 +2567,9 @@ form > .checkbox label {
   padding: 0.5rem 3rem;
   margin-left: 3rem;
 }
+[type=submit]:hover {
+  background-color: #7b8e16;
+}
 
 button {
   background: #EEEEEE;
@@ -2634,6 +2637,7 @@ footer img {
 .etapePrecedente:hover, #testConnexion:hover, #terminerInstallation:hover {
   color: #000;
   text-decoration: none;
+  background: #d5d5d5;
 }
 
 #testConnexion {
@@ -2702,6 +2706,9 @@ footer img {
   width: calc(50% - 2rem);
   margin: 0 1rem 3rem 1rem;
 }
+.theme:hover {
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+}
 .theme.actif {
   border-color: #A1BA1D;
   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
@@ -2764,6 +2771,9 @@ button[id^=ajoutPage], .ajoutPage {
   padding: 0.3rem 1rem;
   cursor: pointer;
 }
+button[id^=ajoutPage]:hover, .ajoutPage:hover {
+  background-color: #056982;
+}
 
 button[id^=ajoutPage] {
   margin-left: 2rem;
@@ -2780,6 +2790,7 @@ button[id^=ajoutPage] svg {
 }
 #terminerInstallation:hover {
   color: #fff;
+  background-color: #7b8e16;
 }
 
 .etape-6 {
