@@ -29,7 +29,9 @@ class Installeur implements EventSubscriberInterface
 
         $route = $request->get('_route');
 
-        if(isset($route) && $route != 'installeur' && $route != 'installeurTestConnexion' && $route != 'installeurAjoutPage'){
+        $routesInstalleur = ['installeur', 'installeurTestConnexion', 'installeurEnregistrementPage', 'installeurSuppressionPage'];
+
+        if(isset($route) && !in_array($route, $routesInstalleur)){
             try {
                 $this->doctrine->getConnection()->connect();
             } catch (\Exception $e) {

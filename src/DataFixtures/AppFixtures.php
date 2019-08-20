@@ -60,58 +60,64 @@ class AppFixtures extends Fixture
         $repoLangue = $manager->getRepository(Langue::class);
         $langue = $repoLangue->find(1);
 
+        $repoSEO = $manager->getRepository(SEO::class);
+
         //Page sans titre
-        $seo = new SEO();
-        $seo->setUrl('accueil')
-            ->setMetaTitre('Accueil')
-            ->setMetaDescription('Accueil');
-        $manager->persist($seo);
+        if(!$repoSEO->findOneBy(array('url' => 'accueil'))){
+            $seo = new SEO();
+            $seo->setUrl('accueil')
+                ->setMetaTitre('Accueil')
+                ->setMetaDescription('Accueil');
+            $manager->persist($seo);
 
-        $page = new Page();
-        $page->setTitre('Accueil')
-            ->setTitreMenu('Accueil')
-            ->setAuteur($utilisateur)
-            ->setAuteurDerniereModification($utilisateur)
-            ->setDateCreation($date)
-            ->setDatePublication($date)
-            ->setLangue($langue)
-            ->setSEO($seo);
-        $manager->persist($page);
+            $page = new Page();
+            $page->setTitre('Accueil')
+                ->setTitreMenu('Accueil')
+                ->setAuteur($utilisateur)
+                ->setAuteurDerniereModification($utilisateur)
+                ->setDateCreation($date)
+                ->setDatePublication($date)
+                ->setLangue($langue)
+                ->setSEO($seo);
+            $manager->persist($page);
 
-        $langue->setPageAccueil($page);
-        $manager->persist($langue);
-
-        //Page cookies
-        $seoCookies = new SEO();
-        $seoCookies->setUrl('cookies')
-            ->setMetaTitre('À propos des cookies')
-            ->setMetaDescription('À propos des cookies');
-        $manager->persist($seoCookies);
-
-        $pageCookies = new Page();
-        $pageCookies->setTitre('À propos des cookies')
-            ->setTitreMenu('À propos des cookies')
-            ->setAuteur($utilisateur)
-            ->setAuteurDerniereModification($utilisateur)
-            ->setDateCreation($date)
-            ->setDatePublication($date)
-            ->setLangue($langue)
-            ->setSEO($seoCookies);
-        $manager->persist($pageCookies);
-
-        $contenuCookies = [];
-        if($installeur){
-            $contenuCookies['texte'] = file_get_contents('../src/DataFixtures/cookies.txt');
-        }else{
-            $contenuCookies['texte'] = file_get_contents(getcwd().'/src/DataFixtures/cookies.txt');
+            $langue->setPageAccueil($page);
+            $manager->persist($langue);
         }
 
-        $texteCookies = new Bloc();
-        $texteCookies->setType('Texte')
-            ->setPage($pageCookies)
-            ->setPosition(0)
-            ->setContenu($contenuCookies);
-        $manager->persist($texteCookies);
+        //Page cookies
+        if(!$repoSEO->findOneBy(array('url' => 'cookies'))) {
+            $seoCookies = new SEO();
+            $seoCookies->setUrl('cookies')
+                ->setMetaTitre('À propos des cookies')
+                ->setMetaDescription('À propos des cookies');
+            $manager->persist($seoCookies);
+
+            $pageCookies = new Page();
+            $pageCookies->setTitre('À propos des cookies')
+                ->setTitreMenu('À propos des cookies')
+                ->setAuteur($utilisateur)
+                ->setAuteurDerniereModification($utilisateur)
+                ->setDateCreation($date)
+                ->setDatePublication($date)
+                ->setLangue($langue)
+                ->setSEO($seoCookies);
+            $manager->persist($pageCookies);
+
+            $contenuCookies = [];
+            if($installeur){
+                $contenuCookies['texte'] = file_get_contents('../src/DataFixtures/cookies.txt');
+            }else{
+                $contenuCookies['texte'] = file_get_contents(getcwd().'/src/DataFixtures/cookies.txt');
+            }
+
+            $texteCookies = new Bloc();
+            $texteCookies->setType('Texte')
+                ->setPage($pageCookies)
+                ->setPosition(0)
+                ->setContenu($contenuCookies);
+            $manager->persist($texteCookies);
+        }
 
         //Menu principal
         $menu = new Menu();
@@ -120,11 +126,13 @@ class AppFixtures extends Fixture
             ->setDefaut(true);
         $manager->persist($menu);
 
-        $menuPage = new MenuPage();
-        $menuPage->setPosition(0)
-            ->setMenu($menu)
-            ->setPage($page);
-        $manager->persist($menuPage);
+        if(!$repoSEO->findOneBy(array('url' => 'accueil'))){
+            $menuPage = new MenuPage();
+            $menuPage->setPosition(0)
+                ->setMenu($menu)
+                ->setPage($page);
+            $manager->persist($menuPage);
+        }
 
         //Menu footer
         $menuFooter = new Menu();
@@ -133,12 +141,13 @@ class AppFixtures extends Fixture
             ->setDefaut(false);
         $manager->persist($menuFooter);
 
-        $menuPageFooter = new MenuPage();
-        $menuPageFooter->setPosition(0)
-            ->setMenu($menuFooter)
-            ->setPage($pageCookies);
-        $manager->persist($menuPageFooter);
-
+        if(!$repoSEO->findOneBy(array('url' => 'cookies'))){
+            $menuPageFooter = new MenuPage();
+            $menuPageFooter->setPosition(0)
+                ->setMenu($menuFooter)
+                ->setPage($pageCookies);
+            $manager->persist($menuPageFooter);
+        }
 
         //Flush pour obtenir les id des menus
         $manager->flush();

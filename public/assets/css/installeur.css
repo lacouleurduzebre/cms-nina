@@ -2752,7 +2752,7 @@ footer img {
   align-items: center;
 }
 #creationPages .pages svg {
-  margin-right: 0.5rem;
+  margin: 0 0.5rem;
 }
 #creationPages input[type=text] {
   border: 1px solid #A1BA1D;
@@ -2764,8 +2764,20 @@ footer img {
   width: 60%;
   margin: 0 1rem 0 0.2rem;
 }
+#creationPages .edition, #creationPages .suppression {
+  cursor: pointer;
+  background: transparent;
+  border: none;
+  padding: 0;
+}
+#creationPages .edition {
+  margin-left: 1rem;
+}
+#creationPages .suppression {
+  color: red;
+}
 
-button[id^=ajoutPage], .ajoutPage {
+button[id^=ajoutPage], .enregistrement {
   border-radius: 2rem;
   background-color: #0791B3;
   border: none;
@@ -2776,7 +2788,7 @@ button[id^=ajoutPage], .ajoutPage {
   padding: 0.3rem 1rem;
   cursor: pointer;
 }
-button[id^=ajoutPage]:hover, .ajoutPage:hover {
+button[id^=ajoutPage]:hover, .enregistrement:hover {
   background-color: #056982;
 }
 

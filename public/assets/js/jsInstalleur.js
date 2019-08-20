@@ -42,41 +42,76 @@ $(document).ready(function(){
     //Étape 5 : Contenus
     $('#ajoutPageHeader, #ajoutPageFooter').click(function(){
         menu = $(this).data('menu');
-        $(this).prev('div').append('<p><i class="fas fa-file"></i><input type="text"><button class="ajoutPage" data-menu="'+menu+'">Enregistrer</button></p>');
+        $(this).prev('div').append('<p><i class="fas fa-file"></i><input type="text"><button class="enregistrement" data-menu="'+menu+'">Enregistrer</button></p>');
     });
 
-    $('#creationPages').on('click', '.ajoutPage', function(){
+        //Enregistrement de page
+    $('#creationPages').on('click', '.enregistrement', function(){
+        $(this).hide().closest('p').append('<i class="fas fa-sync fa-spin"></i>');
+
         titre = $(this).prev('input').val();
         menu = $(this).data('menu');
+        elem = $(this);
+        idPage = $(this).closest('p').data('page');
+
+        if(idPage){//Édition
+            donnees = {titre: titre, idPage: idPage}
+        }else{//Ajout
+            donnees = {titre: titre, menu: menu}
+        }
+
         if(titre !== ''){
-            $(this).hide().closest('p').append('<i class="fas fa-sync fa-spin"></i>');
-            elem = $(this);
             $.ajax({
                 url: '/installeur/7',
                 method: "post",
-                data: {titre: titre, menu: menu}
+                data: donnees
             })
                 .done(function(data){
-                    if(data === 'ok'){
-                        resultat = 'fa-check';
-                    }else{
-                        resultat = 'fa-times';
-                    }
-
                     elem.closest('p').find('.fa-sync').remove();
-                    elem.closest('p').append('<i class="fas '+resultat+'"></i>');
+                    elem.closest('p').attr('data-page', data).append('<i class="fas fa-check"></i>');
 
                     setTimeout(function(){
-                        elem.closest('p').html('<i class="fas fa-file"></i>'+titre);
+                        elem.closest('p').html('<i class="fas fa-file"></i>'+titre+'<button class="edition"><i class="fas fa-pen"></i></button><button class="suppression"><i class="fas fa-trash"></i></button>');
                     }, 1000);
                 })
                 .fail(function(){
-                    resultat = 'fa-times';
-
                     elem.closest('p').find('svg').remove();
-                    elem.closest('p').append('<i class="fas '+resultat+'"></i>');
+                    elem.closest('p').append('<i class="fas fa-times"></i>');
                 });
         }
+    });
+
+        //Édition de page
+    $('#creationPages').on('click', '.edition', function(){
+        titre = $(this).closest('p').text().trim();
+        $(this).closest('p').html('<i class="fas fa-file"></i><input type="text" value="'+titre+'"><button class="enregistrement">Enregistrer</button>');
+    });
+
+    //Suppression de page
+    $('#creationPages').on('click', '.suppression', function(){
+        paragraphe = $(this).closest('p');
+        paragraphe.find('.suppression, .edition').hide();
+        paragraphe.append('<i class="fas fa-sync fa-spin"></i>');
+
+        idPage = paragraphe.data('page');
+
+        $.ajax({
+            url: '/installeur/8',
+            method: "post",
+            data: {idPage: idPage}
+        })
+            .done(function(data){
+                paragraphe.find('.fa-sync').remove();
+                paragraphe.attr('data-page', data).append('<i class="fas fa-check"></i>');
+
+                setTimeout(function(){
+                    paragraphe.remove();
+                }, 1000);
+            })
+            .fail(function(){
+                elem.closest('p').find('svg').remove();
+                elem.closest('p').append('<i class="fas fa-times"></i>');
+            });
     });
 
     //Modernizr

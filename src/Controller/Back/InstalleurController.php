@@ -383,13 +383,13 @@ class InstalleurController extends Controller
                 $menusPagesHeader = $repoMenuPage->findBy(['menu' => 1], ['position' => 'ASC']);
                 $pagesHeader = [];
                 foreach($menusPagesHeader as $menuPage){
-                    $pagesHeader[] = $menuPage->getPage()->getTitre();
+                    $pagesHeader[] = $menuPage->getPage();
                 }
 
                 $menusPagesFooter = $repoMenuPage->findBy(['menu' => 2], ['position' => 'ASC']);
                 $pagesFooter = [];
                 foreach($menusPagesFooter as $menuPage){
-                    $pagesFooter[] = $menuPage->getPage()->getTitre();
+                    $pagesFooter[] = $menuPage->getPage();
                 }
 
                 return $this->render('installeur/5_creationContenus.html.twig', ['etapes' => $etapes, 'pagesHeader' => $pagesHeader, 'pagesFooter' => $pagesFooter]);
@@ -481,48 +481,83 @@ class InstalleurController extends Controller
     }
 
     /**
-     * @Route("/installeur/7", name="installeurAjoutPage")
+     * @Route("/installeur/7", name="installeurEnregistrementPage")
      * @param Request $request
      * @return @return bool|Response
      */
-    public function ajoutPage(Request $request, SEOController $seoController){
+    public function enregistrementPage(Request $request, SEOController $seoController){
         if ($request->isXmlHttpRequest()) {
             $titre = $request->get('titre');
 
             $em = $this->getDoctrine()->getManager();
 
-            $seo = new SEO();
+            if($request->get('idPage')){//Édition
+                $repoPage = $this->getDoctrine()->getRepository(Page::class);
+                $page = $repoPage->find($request->get('idPage'));
+
+                $page->setTitre($titre);
+
+                $seo = $page->getSEO();
+            }else{//Ajout
+                $seo = new SEO();
+            }
+
             $seo->setUrl($seoController->slugify($titre))
                 ->setMetaTitre($titre)
                 ->setMetaDescription($titre);
+
+            if(!$request->get('idPage')){//Ajout
+                $utilisateur = $this->getDoctrine()->getRepository(Utilisateur::class)->find(1);
+                $langue = $this->getDoctrine()->getRepository(Langue::class)->find(1);
+                $date = new \DateTime();
+
+                $page = new Page();
+                $page->setTitre($titre)
+                    ->setTitreMenu($titre)
+                    ->setAuteur($utilisateur)
+                    ->setAuteurDerniereModification($utilisateur)
+                    ->setDateCreation($date)
+                    ->setDatePublication($date)
+                    ->setLangue($langue)
+                    ->setSEO($seo);
+
+                $idMenu = $request->get('menu');
+                $menu = $this->getDoctrine()->getRepository(Menu::class)->find($idMenu);
+
+                $menuPage = new MenuPage();
+
+                $position = $this->getDoctrine()->getRepository(MenuPage::class)->positionMax($idMenu)->getPosition();
+
+                $menuPage->setPosition($position + 1)
+                    ->setMenu($menu)
+                    ->setPage($page);
+                $em->persist($menuPage);
+            }
+
             $em->persist($seo);
-
-            $utilisateur = $this->getDoctrine()->getRepository(Utilisateur::class)->find(1);
-            $langue = $this->getDoctrine()->getRepository(Langue::class)->find(1);
-            $date = new \DateTime();
-
-            $page = new Page();
-            $page->setTitre($titre)
-                ->setTitreMenu($titre)
-                ->setAuteur($utilisateur)
-                ->setAuteurDerniereModification($utilisateur)
-                ->setDateCreation($date)
-                ->setDatePublication($date)
-                ->setLangue($langue)
-                ->setSEO($seo);
             $em->persist($page);
 
-            $idMenu = $request->get('menu');
-            $menu = $this->getDoctrine()->getRepository(Menu::class)->find($idMenu);
+            $em->flush();
 
-            $menuPage = new MenuPage();
+            return new Response($page->getId());
+        }
 
-            $position = $this->getDoctrine()->getRepository(MenuPage::class)->positionMax($idMenu)->getPosition();
+        return false;
+    }
 
-            $menuPage->setPosition($position + 1)
-                ->setMenu($menu)
-                ->setPage($page);
-            $em->persist($menuPage);
+    /**
+     * @Route("/installeur/8", name="installeurSuppressionPage")
+     * @param Request $request
+     * @return @return bool|Response
+     */
+    public function suppressionPage(Request $request){
+        if ($request->isXmlHttpRequest()) {
+            $em = $this->getDoctrine()->getManager();
+
+            $repoPage = $this->getDoctrine()->getRepository(Page::class);
+            $page = $repoPage->find($request->get('idPage'));
+
+            $em->remove($page);
 
             $em->flush();
 
