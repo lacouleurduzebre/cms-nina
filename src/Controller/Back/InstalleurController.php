@@ -23,6 +23,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -214,7 +215,11 @@ class InstalleurController extends Controller
                     ->add('nom', TextType::class, ['label' => 'Nom du site'])
                     ->add('editeur', TextType::class, ['label' => 'Organisme'])
                     ->add('emailContact', EmailType::class, ['label' => 'E-mail de l\'organisme'])
-                    ->add('logo', TextType::class, ['label' => 'Logo'])
+                    ->add('logo', FileType::class, [
+                        'label' => 'Logo',
+                        'data_class' => null,
+                        'mapped' => false
+                    ])
                     ->add('langueFR', CheckboxType::class, [
                         'label' => 'Définir le français comme langue par défaut',
                         'mapped' => false,
@@ -246,6 +251,13 @@ class InstalleurController extends Controller
                 if ($form->isSubmitted() && $form->isValid()) {
                     $config = $form->getData();
                     $config->setEmailMaintenance($config->getEmailContact());
+
+                    //Logo
+                    $logo = $form->get('logo')->getData();
+                    $format = $logo->guessExtension();
+                    $logo->move('uploads', 'logo.'.$format);
+                    $config->setLogo('uploads/logo.'.$format);
+                    //Fin logo
 
                     $em = $this->getDoctrine()->getManager();
 

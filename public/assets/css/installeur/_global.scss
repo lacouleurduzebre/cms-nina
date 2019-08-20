@@ -71,6 +71,11 @@ form > .checkbox{
   }
 }
 
+.checkbox input{
+  border: 1px solid #D3D3D3 !important;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+}
+
 [type=submit]{
   color: $white;
   background-color: $color-brand;
