@@ -10,19 +10,45 @@ use App\Entity\Menu;
 use App\Entity\MenuPage;
 use App\Entity\Page;
 use App\Entity\Region;
+use App\Entity\Role;
 use App\Entity\SEO;
 use App\Entity\Utilisateur;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;
+use Symfony\Component\Yaml\Yaml;
 
 class AppFixtures extends Fixture
 {
     public function load(ObjectManager $manager)
     {
+        //Rôles
+        $droits = Yaml::parseFile(getcwd().'/config/droits.yaml');
+
+        $droitsAdmin = [];
+        $droitsUtilisateur = [];
+        foreach($droits as $categorie){
+            foreach($categorie as $droit => $label){
+                $droitsAdmin[$droit] = true;
+                $droitsUtilisateur[$droit] = false;
+            }
+        }
+
+        $roleAdmin = new Role();
+        $roleAdmin->setNom('ROLE_ADMIN')
+            ->setDroits($droitsAdmin);
+        $manager->persist($roleAdmin);
+
+        $roleUtilisateur = new Role();
+        $roleUtilisateur->setNom('ROLE_UTILISATEUR')
+            ->setDroits($droitsUtilisateur);
+        $manager->persist($roleUtilisateur);
+
+        //Admin
         $utilisateur = new Utilisateur();
         $utilisateur->setUsername('admin')
             ->setEmail('maintenance@lacouleurduzebre.com')
             ->setPlainPassword('admin')
+            ->addRole('ROLE_ADMIN')
             ->setEnabled(true);
         $manager->persist($utilisateur);
 
