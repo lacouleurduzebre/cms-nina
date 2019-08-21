@@ -2585,6 +2585,13 @@ button {
   margin-top: -2rem;
 }
 
+.erreur {
+  border: 1px solid red;
+  padding: 1rem;
+  color: red;
+  margin-bottom: 1rem;
+}
+
 header {
   text-align: center;
   padding: 5.5rem 2rem 8rem;

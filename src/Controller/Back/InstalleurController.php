@@ -20,6 +20,7 @@ use App\Entity\SEO;
 use App\Entity\Utilisateur;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Dotenv\Dotenv;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
@@ -143,7 +144,8 @@ class InstalleurController extends Controller
                     ])
                     ->add('password', TextType::class, [
                         'label' => 'Mot de passe',
-                        'data' => getenv('PASSWORD')
+                        'data' => getenv('PASSWORD'),
+                        'required' => false
                     ])
                     ->add('prefixe', TextType::class, [
                         'label' => 'Préfixe',
@@ -179,6 +181,8 @@ class InstalleurController extends Controller
 
                         return $this->redirectToRoute('installeur', ['etape' => 2]);
                     }
+
+                    $this->addFlash('error', "La connexion à la base de données a échoué, vérifiez les informations de connexion");
                 }
 
                 return $this->render('installeur/1_configBDD.html.twig', ['etapes' => $etapes, 'form' => $form->createView()]);
@@ -445,7 +449,7 @@ class InstalleurController extends Controller
                     preg_match_all("/\\[(.*?)\\]/", $donnee['name'], $matches);
                     $cle = $matches[1][0];
 
-                    if ($cle != '_token' && $donnee['value'] != '') {
+                    if ($cle != '_token'/* && $donnee['value'] != ''*/) {
                         file_put_contents($path, str_replace(
                             strtoupper($cle) . '=' . $_ENV[strtoupper($cle)], strtoupper($cle) . '=' . $donnee['value'], file_get_contents($path)
                         ));
@@ -453,14 +457,14 @@ class InstalleurController extends Controller
                 }
             }else{
                 foreach ($data as $cle => $donnee) {
-                    if($donnee != ''){
-                        file_put_contents($path, str_replace(
-                            strtoupper($cle) . '=' . $_ENV[strtoupper($cle)], strtoupper($cle) . '=' . $donnee, file_get_contents($path)
-                        ));
-                    }
+                    file_put_contents($path, str_replace(
+                        strtoupper($cle) . '=' . $_ENV[strtoupper($cle)], strtoupper($cle) . '=' . $donnee, file_get_contents($path)
+                    ));
                 }
             }
 
+            /*$dotenv = new Dotenv();
+            $dotenv->overload('../.env');*/
 
             try {
                 $this->getDoctrine()->getConnection()->connect();
