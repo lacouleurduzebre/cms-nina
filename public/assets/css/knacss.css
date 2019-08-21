@@ -4152,6 +4152,14 @@ body.list #flash-messages > * {
   }
 }
 
+.tableauDroits .categorie {
+  font-weight: 700;
+  color: #0791B3;
+}
+.tableauDroits tr > td:first-of-type:not(.categorie) {
+  padding-left: 2rem;
+}
+
 .fonce, .tresFonce {
   padding: 1rem;
   margin: 1rem 2rem;

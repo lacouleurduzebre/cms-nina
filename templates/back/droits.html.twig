@@ -1,0 +1,36 @@
+{% extends 'back/base.html.twig' %}
+
+{% block main %}
+    {#{{ dump(roles) }}#}
+    {#{{ dump(droits) }}#}
+    <h1>{{ "Gestion des droits"|trans }}</h1>
+    {% if roles is empty %}
+        {{ "Aucun rôle n'a été créé pour le moment"|trans }}
+        <p><a href="{{ path('admin', { entity: 'role', action: 'new' }) }}" class="btn">{{ "Créer un rôle"|trans }}</a></p>
+    {% else %}
+        <form action="{{ path('droits') }}">
+            <table class="tableauDroits">
+                <thead>
+                    <th></th>
+                    {% for role in roles %}
+                        <th>{{ role.nom }}</th>
+                    {% endfor %}
+                </thead>
+                <tbody>
+                    {% for categorie, droits in droits %}
+                        <tr><td class="categorie">{{ categorie }}</td></tr>
+                        {% for identifiant, label in droits %}
+                            <tr>
+                                <td>{{ label }}</td>
+                                {% for role in roles %}
+                                    <td><input type="checkbox" class="switch" data-role="{{ role.id }}" data-droit="{{ identifiant }}"></td>
+                                {% endfor %}
+                            </tr>
+                        {% endfor %}
+                    {% endfor %}
+                </tbody>
+            </table>
+        <input class="btn" type="submit" value="{{ "Enregistrer"|trans }}">
+        </form>
+    {% endif %}
+{% endblock %}
