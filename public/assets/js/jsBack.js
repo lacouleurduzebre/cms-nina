@@ -137,7 +137,9 @@ $(document).ready(function(){
 
     /* Activer le bouton d'enregistrement lors de la première modif d'un formulaire */
     $('form').on('change keyup', function(){
-        saveCloseFormulaire();
+        if(!$(this).hasClass('popupDesactive')){
+            saveCloseFormulaire();
+        }
     });
 
     /* Fermeture des messages flash */

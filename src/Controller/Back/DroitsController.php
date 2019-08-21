@@ -27,13 +27,37 @@ class DroitsController extends Controller
      * @param Request $request
      * @return bool|Response
      */
-    public function listeDroits(){
+    public function listeDroits(Request $request){
         //Rôles
         $repoRoles = $this->getDoctrine()->getRepository(Role::class);
         $roles = $repoRoles->findAll();
 
         //Droits
         $droits = Yaml::parsefile('../config/droits.yaml');
+
+        //Enregistrement
+        if($request->isMethod('POST')){
+            $em = $this->getDoctrine()->getManager();
+
+            foreach($roles as $role){
+                foreach($droits as $categorie){
+                    foreach($categorie as $droit => $label){
+                        $droitsRole = $role->getDroits();
+                        if(key_exists($droit, $_POST)){
+                            $droitsRole[$droit] = in_array($role->getNom(), $_POST[$droit]);
+                        }else{//Droit accordé à aucun rôle
+                            $droitsRole[$droit] = false;
+                        }
+                        $role->setDroits($droitsRole);
+                    }
+                }
+                $em->persist($role);
+            }
+
+            $em->flush();
+
+            $this->addFlash('enregistrement', 'Les droits ont été enregistrés');
+        }
 
         return $this->render('back/droits.html.twig', ['roles' => $roles, 'droits' => $droits]);
     }
