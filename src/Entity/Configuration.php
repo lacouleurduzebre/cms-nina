@@ -97,7 +97,12 @@ class Configuration
     /**
      * @ORM\Column(type="boolean")
      */
-    private $bandeauCookies;
+    private $bandeauCookies = false;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Page")
+     */
+    private $pageCookies;
 
     public function __construct()
     {
@@ -348,6 +353,18 @@ class Configuration
     public function setBandeauCookies(bool $bandeauCookies): self
     {
         $this->bandeauCookies = $bandeauCookies;
+
+        return $this;
+    }
+
+    public function getPageCookies(): ?Page
+    {
+        return $this->pageCookies;
+    }
+
+    public function setPageCookies(?Page $pageCookies): self
+    {
+        $this->pageCookies = $pageCookies;
 
         return $this;
     }

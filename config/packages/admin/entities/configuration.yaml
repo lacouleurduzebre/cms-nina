@@ -30,6 +30,7 @@ easy_admin:
                     - { property: 'affichageAuteur', label: "Afficher l'auteur sur les nouvelles pages" }
                     - { type: 'group', label: 'Cookies', icon: 'cookie-bite' }
                     - { property: 'bandeauCookies', label: "Afficher le bandeau informant l'utilisateur de l'enregistrement de cookies" }
+                    - { property: 'pageCookies', label: "Page contenant les informations sur les cookies", help: "(ex : mentions légales)" }
                     - { type: 'group', label: 'Développement', icon: 'cog' }
                     - { property: 'analytics', label: 'Script Google Analytics', type_options: { attr: { class: 'notTinymce' } } }
                     - { property: 'nbArticlesFluxRSS', label: "Nombre de pages à afficher dans le flux rss" }
