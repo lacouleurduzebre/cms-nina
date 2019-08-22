@@ -36,7 +36,7 @@
                     <span id="loader-arbo" class="menu-{{ menu.id }}"></span>
                     <div id="menu-{{ menu.id }}">
                         <ul>
-                            <li data-jstree='{"type":"root"}'>{{ menu.nom }}<i class="fas fa-ellipsis-v"></i>
+                            <li data-jstree='{"type":"root"}'>{{ menu.nom }}
                                 <ul>
                                     {% include 'back/menu/menu.html.twig' with {'menuPages' : menu.menuPage, 'langueArbo' : langueArbo} only %}
                                 </ul>
@@ -50,7 +50,7 @@
             <span id="loader-arbo" class="menu-0"></span>
             <div id="menu-0">
                 <ul>
-                    <li data-jstree='{"type":"orphan"}'>Pages hors menus<i class="fas fa-ellipsis-v"></i>
+                    <li data-jstree='{"type":"orphan"}'>Pages hors menus
                         <ul>
                             {{ pagesOrphelines()|raw }}
                         </ul>
