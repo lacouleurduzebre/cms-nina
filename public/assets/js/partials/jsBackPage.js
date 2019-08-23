@@ -1,6 +1,8 @@
 $(document).ready(function() {
     /* Changement du h1 lors de l'édition d'une page */
-    $('h1').html('Page : '+$('#page_active_titre').val());
+    if($('#page_active_titre').length > 0){
+        $('h1').html('Page : '+$('#page_active_titre').val());
+    }
 
     $('#page_active_titre').on('keyup', function(){
         $('h1').html('Page : '+$(this).val());
@@ -27,9 +29,11 @@ $(document).ready(function() {
         $('label[for="page_active_traductions_'+langue+'"]').hide().next('select').hide();
     });
 
-    scoreSEOChargement($('#page_active_SEO_url'), 75);
-    scoreSEOChargement($('#page_active_SEO_metaTitre'), 65);
-    scoreSEOChargement($('#page_active_SEO_metaDescription'), 150);
+    if($('body').hasClass('new') || $('body').hasClass('edit')){
+        scoreSEOChargement($('#page_active_SEO_url'), 75);
+        scoreSEOChargement($('#page_active_SEO_metaTitre'), 65);
+        scoreSEOChargement($('#page_active_SEO_metaDescription'), 150);
+    }
 
     $('#page_active_SEO_url').on('keyup', {
         champ: $('#page_active_SEO_url'),
