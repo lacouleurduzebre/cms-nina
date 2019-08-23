@@ -220,4 +220,21 @@ $(document).ready(function(){
             alert('Le cache a été vidé');
         });
     });
+
+    //Modal
+    $('[data-modal]').click(function(){
+        idModal = $(this).attr('data-modal');
+        $('#'+idModal).fadeIn('slow', function(){
+            $('#'+idModal).css({
+                'display' : 'flex',
+                'opacity' : 1
+            });
+        });
+    });
+
+    $('.modal-close').click(function(){
+        $(this).closest('.modal-box').fadeOut('slow', function(){
+            $('#'+idModal).css('opacity', 0);
+        });
+    });
 });
