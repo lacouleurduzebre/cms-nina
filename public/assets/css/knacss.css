@@ -3246,7 +3246,7 @@ body {
 #loginPage > * input[type=submit]:hover {
   background-color: #056982;
 }
-#loginPage .errors {
+#loginPage .flash-error {
   background-color: rgba(255, 0, 0, 0.8);
   color: #FFF;
   font-weight: bold;
@@ -3254,7 +3254,7 @@ body {
   display: flex;
   align-items: center;
 }
-#loginPage .errors svg {
+#loginPage .flash-error svg {
   font-size: 2rem;
   margin-right: 1rem;
 }

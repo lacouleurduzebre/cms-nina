@@ -22,6 +22,9 @@
                 {% for type, messages in app.session.flashbag.all() %}
                     {% for message in messages %}
                         <div class="flash-{{ type }}">
+                            {% if type == 'error' %}
+                                <i class="fas fa-exclamation-circle"></i>
+                            {% endif %}
                             {{ message }}
                         </div>
                     {% endfor %}
