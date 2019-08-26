@@ -26,6 +26,7 @@ easy_admin:
             favicon: 'assets/img/favicon.ico'
             css:
                 - 'assets/js/featherlight.min.css'
+                - 'assets/css/select2-bootstrap.min.css'
                 - 'assets/css/knacss.css'
                 - 'assets/css/back.css'
                 - 'assets/js/jstree/themes/style.css'
