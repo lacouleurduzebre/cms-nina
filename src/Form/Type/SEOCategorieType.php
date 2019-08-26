@@ -16,19 +16,12 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class SEOType extends AbstractType
+class SEOCategorieType extends SEOType
 {
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function configureOptions(OptionsResolver $resolver)
     {
-        $builder
-            ->add('metaTitre', TextType::class)
-            ->add('url', TextType::class)
-            ->add('metaDescription', TextareaType::class, array(
-                'attr' => array('class' => 'notTinymce'),
-            ));
-    }
-
-    public function getParent(){
-        return FormType::class;
+        $resolver->setDefaults(array(
+            'data_class' => 'App\Entity\SEOCategorie'
+        ));
     }
 }

@@ -410,13 +410,13 @@ class AdminController extends BaseAdminController
         $id = $this->request->query->get('id');
         if($entity == 'Categorie'){
             $categorie = $this->em->getRepository(Categorie::class)->find($id);
-            $urlCategorie = $categorie->getUrl();
-            $urlTypeCategorie = $categorie->getTypeCategorie()->getUrl();
+            $urlCategorie = $categorie->getSEO()->getUrl();
+            $urlTypeCategorie = $categorie->getSEO()->getTypeCategorie()->getUrl();
             return $this->redirectToRoute('voirCategorie', array('urlTypeCategorie' => $urlTypeCategorie, 'urlCategorie' => $urlCategorie));
         }
         else if($entity == 'TypeCategorie'){
             $typeCategorie = $this->em->getRepository(TypeCategorie::class)->find($id);
-            $urlTypeCategorie = $typeCategorie->getUrl();
+            $urlTypeCategorie = $typeCategorie->getSEO()->getUrl();
             return $this->redirectToRoute('voirTypeCategorie', array('urlTypeCategorie' => $urlTypeCategorie));
         }else{
             $page = $this->em->getRepository(Page::class)->find($id);

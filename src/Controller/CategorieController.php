@@ -11,6 +11,8 @@ namespace App\Controller;
 
 use App\Entity\Categorie;
 use App\Entity\Langue;
+use App\Entity\SEOCategorie;
+use App\Entity\SEOTypeCategorie;
 use App\Entity\TypeCategorie;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -38,12 +40,15 @@ class CategorieController extends AbstractController
 
         $em = $this->getDoctrine()->getManager();
 
-        $typeCategorie = $em->getRepository(TypeCategorie::class)->findOneBy(array('url'=>$urlTypeCategorie));
-        $categorie = $em->getRepository(Categorie::class)->findOneBy(array('url'=>$urlCategorie));
+        $SEOTypeCategorie = $em->getRepository(SEOTypeCategorie::class)->findOneBy(array('url'=>$urlTypeCategorie));
+        $SEOCategorie = $em->getRepository(SEOCategorie::class)->findOneBy(array('url'=>$urlCategorie));
 
-        if(!$categorie or !$typeCategorie){
+        if(!$SEOTypeCategorie or !$SEOCategorie){
             throw new NotFoundHttpException('Cette page n\'existe pas ou a été supprimée');
         }
+
+        $typeCategorie = $SEOTypeCategorie->getTypeCategorie();
+        $categorie = $SEOCategorie->getCategorie();
 
         if($categorie->getTypeCategorie() == $typeCategorie){
             $repoLangue = $this->getDoctrine()->getRepository(Langue::class);
@@ -79,7 +84,13 @@ class CategorieController extends AbstractController
 
         $em = $this->getDoctrine()->getManager();
 
-        $typeCategorie = $em->getRepository(TypeCategorie::class)->findOneBy(array('url'=>$urlTypeCategorie));
+        $SEOTypeCategorie = $em->getRepository(SEOTypeCategorie::class)->findOneBy(array('url'=>$urlTypeCategorie));
+
+        if(!$SEOTypeCategorie){
+            throw new NotFoundHttpException('Cette page n\'existe pas ou a été supprimée');
+        }
+
+        $typeCategorie = $SEOTypeCategorie->getTypeCategorie();
 
         if($typeCategorie){
             $repoLangue = $this->getDoctrine()->getRepository(Langue::class);
@@ -94,11 +105,7 @@ class CategorieController extends AbstractController
 
             return $this->render('front/typeCategorie.html.twig', compact('typeCategorie', 'categories'));
         }else{
-            $reponse = $this->forward('App\Controller\PageController::voirAction', array(
-                'url'  => $urlTypeCategorie
-            ));
-
-            return $reponse;
+            throw new NotFoundHttpException('Cette page n\'existe pas ou a été supprimée');
         }
     }
 }
