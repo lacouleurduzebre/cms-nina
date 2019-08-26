@@ -32,78 +32,25 @@ use Symfony\Component\Yaml\Yaml;
  */
 class AdminController extends BaseAdminController
 {
-    protected function updateEntity($entity)//edit
+    protected function editAction($listeBlocs = false)
     {
-        parent::updateEntity($entity);
-
-        $this->addFlash('enregistrement', "<span>\"".$entity."\" : enregistrement terminé</span>");
-    }
-
-    protected function persistEntity($entity)//new
-    {
-        parent::persistEntity($entity);
-
-        $this->addFlash('enregistrement', "<span>\"".$entity."\" : enregistrement terminé</span>");
-    }
-
-    //Ajout de la liste des blocs dans $parameters
-    public function newAvecListeBlocs(){
-        $this->dispatch(EasyAdminEvents::PRE_NEW);
-
-        $entity = $this->executeDynamicMethod('createNew<EntityName>Entity');
-
-        $blocs = $this->listeBlocs('contenu');
-        $blocsAnnexes = $this->listeBlocs('annexe');
-
-        $easyadmin = $this->request->attributes->get('easyadmin');
-        $easyadmin['item'] = $entity;
-        $this->request->attributes->set('easyadmin', $easyadmin);
-
-        $fields = $this->entity['new']['fields'];
-
-        $newForm = $this->executeDynamicMethod('create<EntityName>NewForm', array($entity, $fields));
-
-        $newForm->handleRequest($this->request);
-        if ($newForm->isSubmitted() && $newForm->isValid()) {
-            $this->dispatch(EasyAdminEvents::PRE_PERSIST, array('entity' => $entity));
-
-            $this->executeDynamicMethod('persist<EntityName>Entity', array($entity));
-
-            $this->dispatch(EasyAdminEvents::POST_PERSIST, array('entity' => $entity));
-
-            return $this->redirectToReferrer();
-        }
-
-        $this->dispatch(EasyAdminEvents::POST_NEW, array(
-            'entity_fields' => $fields,
-            'form' => $newForm,
-            'entity' => $entity,
-        ));
-
-        $parameters = array(
-            'form' => $newForm->createView(),
-            'entity_fields' => $fields,
-            'entity' => $entity,
-            'blocs' => $blocs,
-            'blocsAnnexes' => $blocsAnnexes
-        );
-
-        return $this->executeDynamicMethod('render<EntityName>Template', array('new', $this->entity['templates']['new'], $parameters));
-    }
-
-    public function editAvecListeBlocs(){
         $this->dispatch(EasyAdminEvents::PRE_EDIT);
 
         $id = $this->request->query->get('id');
         $easyadmin = $this->request->attributes->get('easyadmin');
         $entity = $easyadmin['item'];
 
+        if($listeBlocs){
+            $blocs = $this->listeBlocs('contenu');
+            $blocsAnnexes = $this->listeBlocs('annexe', $entity);
+        }
+
         if ($this->request->isXmlHttpRequest() && $property = $this->request->query->get('property')) {
-            $newValue = 'true' === mb_strtolower($this->request->query->get('newValue'));
+            $newValue = 'true' === \mb_strtolower($this->request->query->get('newValue'));
             $fieldsMetadata = $this->entity['list']['fields'];
 
             if (!isset($fieldsMetadata[$property]) || 'toggle' !== $fieldsMetadata[$property]['dataType']) {
-                throw new \RuntimeException(sprintf('The type of the "%s" property is not "toggle".', $property));
+                throw new \RuntimeException(\sprintf('The type of the "%s" property is not "toggle".', $property));
             }
 
             $this->updateEntityProperty($entity, $property, $newValue);
@@ -112,37 +59,79 @@ class AdminController extends BaseAdminController
             return new Response((int) $newValue);
         }
 
-        $blocs = $this->listeBlocs('contenu');
-        $blocsAnnexes = $this->listeBlocs('annexe', $entity);
-
         $fields = $this->entity['edit']['fields'];
 
-        $editForm = $this->executeDynamicMethod('create<EntityName>EditForm', array($entity, $fields));
+        $editForm = $this->executeDynamicMethod('create<EntityName>EditForm', [$entity, $fields]);
         $deleteForm = $this->createDeleteForm($this->entity['name'], $id);
 
         $editForm->handleRequest($this->request);
         if ($editForm->isSubmitted() && $editForm->isValid()) {
-            $this->dispatch(EasyAdminEvents::PRE_UPDATE, array('entity' => $entity));
+            $this->dispatch(EasyAdminEvents::PRE_UPDATE, ['entity' => $entity]);
+            $this->executeDynamicMethod('update<EntityName>Entity', [$entity, $editForm]);
+            $this->dispatch(EasyAdminEvents::POST_UPDATE, ['entity' => $entity]);
 
-            $this->executeDynamicMethod('update<EntityName>Entity', array($entity));
-
-            $this->dispatch(EasyAdminEvents::POST_UPDATE, array('entity' => $entity));
-
-            return $this->redirectToReferrer();
+            $tpl = $this->render('back/messageEnregistrement.html.twig', ['entite' => $entity])->getContent();
+            return new Response($tpl);
         }
 
         $this->dispatch(EasyAdminEvents::POST_EDIT);
 
-        $parameters = array(
+        $parameters = [
             'form' => $editForm->createView(),
             'entity_fields' => $fields,
             'entity' => $entity,
             'delete_form' => $deleteForm->createView(),
-            'blocs' => $blocs,
-            'blocsAnnexes' => $blocsAnnexes
-        );
+            'blocs' => isset($blocs) ? $blocs : null,
+            'blocsAnnexes' => isset($blocsAnnexes) ? $blocsAnnexes : null
+        ];
 
-        return $this->executeDynamicMethod('render<EntityName>Template', array('edit', $this->entity['templates']['edit'], $parameters));
+        return $this->executeDynamicMethod('render<EntityName>Template', ['edit', $this->entity['templates']['edit'], $parameters]);
+    }
+
+    protected function newAction($listeBlocs = false)
+    {
+        $this->dispatch(EasyAdminEvents::PRE_NEW);
+
+        $entity = $this->executeDynamicMethod('createNew<EntityName>Entity');
+
+        $easyadmin = $this->request->attributes->get('easyadmin');
+        $easyadmin['item'] = $entity;
+        $this->request->attributes->set('easyadmin', $easyadmin);
+
+        if($listeBlocs){
+            $blocs = $this->listeBlocs('contenu');
+            $blocsAnnexes = $this->listeBlocs('annexe');
+        }
+
+        $fields = $this->entity['new']['fields'];
+
+        $newForm = $this->executeDynamicMethod('create<EntityName>NewForm', [$entity, $fields]);
+
+        $newForm->handleRequest($this->request);
+        if ($newForm->isSubmitted() && $newForm->isValid()) {
+            $this->dispatch(EasyAdminEvents::PRE_PERSIST, ['entity' => $entity]);
+            $this->executeDynamicMethod('persist<EntityName>Entity', [$entity, $newForm]);
+            $this->dispatch(EasyAdminEvents::POST_PERSIST, ['entity' => $entity]);
+
+            $tpl = $this->render('back/messageEnregistrement.html.twig', ['entite' => $entity])->getContent();
+            return new Response($tpl);
+        }
+
+        $this->dispatch(EasyAdminEvents::POST_NEW, [
+            'entity_fields' => $fields,
+            'form' => $newForm,
+            'entity' => $entity,
+        ]);
+
+        $parameters = [
+            'form' => $newForm->createView(),
+            'entity_fields' => $fields,
+            'entity' => $entity,
+            'blocs' => isset($blocs) ? $blocs : null,
+            'blocsAnnexes' => isset($blocsAnnexes) ? $blocsAnnexes : null
+        ];
+
+        return $this->executeDynamicMethod('render<EntityName>Template', ['new', $this->entity['templates']['new'], $parameters]);
     }
 
     protected function listeBlocs($typeBloc, $entity = null){

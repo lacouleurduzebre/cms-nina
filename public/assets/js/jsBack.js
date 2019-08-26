@@ -237,4 +237,25 @@ $(document).ready(function(){
             $('#'+idModal).css('opacity', 0);
         });
     });
+
+    //Enregistrement des entités via ajax
+    $(".edit-form, .new-form").submit(function(e) {
+
+        e.preventDefault(); // avoid to execute the actual submit of the form.
+
+        var form = $(this);
+
+        $.ajax({
+            type: "POST",
+            url: window.location.href,
+            data: form.serialize(),
+            success: function(data)
+            {
+                $('#flash-messages').append(data);
+                setTimeout(function(){
+                    $('.alert-enregistrement').fadeOut();
+                }, 3000);
+            }
+        });
+    });
 });
