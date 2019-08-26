@@ -208,7 +208,7 @@ class AdminController extends BaseAdminController
         return parent::redirectToReferrer();
     }
     /**
-     * @Route("", name="tableauDeBord")
+     * @Route("/accueil", name="tableauDeBord")
      */
     public function tableauDeBordAction(Request $request){
         $em = $this->getDoctrine()->getManager();

@@ -15,7 +15,7 @@ use App\Entity\Menu;
 use App\Entity\MenuPage;
 use App\Entity\Page;
 use App\Entity\SEO;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -26,7 +26,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
  * @package App\Controller\Back
  * @Route("/admin")
  */
-class MenuController extends Controller
+class MenuController extends AbstractController
 {
     /**
      * @Route("/menu/enregistrer", name="enregistrerMenu")

@@ -3,11 +3,9 @@
 namespace App\Controller;
 
 use App\Entity\Commentaire;
-use App\Entity\Langue;
 use App\Entity\MenuPage;
-use App\Entity\SEO;
 use App\Service\Page;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -18,7 +16,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 
-class PageController extends Controller
+class PageController extends AbstractController
 {
     /**
      * @Route("/{url}", name="voirPage")

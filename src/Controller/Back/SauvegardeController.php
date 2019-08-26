@@ -9,11 +9,9 @@
 namespace App\Controller\Back;
 
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Dotenv\Dotenv;
-use Symfony\Component\Finder\Iterator\RecursiveDirectoryIterator;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
-use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\ResponseHeaderBag;
@@ -24,7 +22,7 @@ use Symfony\Component\Routing\Annotation\Route;
  * @package App\Controller\Back
  * @Route("/admin")
  */
-class SauvegardeController extends Controller
+class SauvegardeController extends AbstractController
 {
     /**
      * @Route("/sauvegarde", name="sauvegarde")
