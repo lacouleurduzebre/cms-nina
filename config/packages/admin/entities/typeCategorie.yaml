@@ -23,7 +23,6 @@ easy_admin:
                     - url
             form:
                 actions:
-                    - { name: 'voir', label: '', title: 'Voir', icon: 'eye' }
                     - { name: 'delete', label: 'Supprimer', title: 'Supprimer', icon: 'trash', css_class: '' }
                     - { name: 'list', label: 'Retour', title: 'Retour', icon: 'arrow-left', css_class: '' }
                 fields:
@@ -32,4 +31,6 @@ easy_admin:
                     - description
                     - url
             edit:
+                actions:
+                    - { name: 'voir', label: 'Voir', title: 'Voir', icon: 'eye' }
                 title: nom

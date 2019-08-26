@@ -241,7 +241,13 @@ $(document).ready(function(){
     //Enregistrement des entités via ajax
     $(".edit-form, .new-form").submit(function(e) {
 
-        e.preventDefault(); // avoid to execute the actual submit of the form.
+        e.preventDefault();
+
+        bouton = $('.formulaire-actions-enregistrer');
+        texte = bouton.html();
+        largeur = bouton.width();
+
+        bouton.attr('disabled', true).width(largeur).html('<i class="fas fa-sync fa-spin"></i>');
 
         var form = $(this);
 
@@ -252,6 +258,9 @@ $(document).ready(function(){
             success: function(data)
             {
                 $('#flash-messages').append(data);
+
+                bouton.attr('disabled', false).width('auto').html(texte);
+
                 setTimeout(function(){
                     $('.alert-enregistrement').fadeOut();
                 }, 3000);
