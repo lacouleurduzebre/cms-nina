@@ -2,7 +2,7 @@
     <ul>
         {% for page in pages %}
             <li>
-                <a href="{{ path('admin', { 'action': 'edit', 'entity': 'Page_Active', 'id': page.id }) }}">{{ page.titre }}</a>
+                <a href="{{ path('easyadmin', { 'action': 'edit', 'entity': 'Page_Active', 'id': page.id }) }}">{{ page.titre }}</a>
             </li>
         {% endfor %}
     </ul>

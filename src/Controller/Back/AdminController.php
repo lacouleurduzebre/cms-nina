@@ -16,7 +16,7 @@ use App\Entity\MenuPage;
 use App\Entity\Page;
 use App\Entity\TypeCategorie;
 use App\Entity\Utilisateur;
-use EasyCorp\Bundle\EasyAdminBundle\Controller\AdminController as BaseAdminController;
+use EasyCorp\Bundle\EasyAdminBundle\Controller\EasyAdminController as BaseAdminController;
 use EasyCorp\Bundle\EasyAdminBundle\Event\EasyAdminEvents;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -67,7 +67,6 @@ class AdminController extends BaseAdminController
         if ($newForm->isSubmitted() && $newForm->isValid()) {
             $this->dispatch(EasyAdminEvents::PRE_PERSIST, array('entity' => $entity));
 
-            $this->executeDynamicMethod('prePersist<EntityName>Entity', array($entity));
             $this->executeDynamicMethod('persist<EntityName>Entity', array($entity));
 
             $this->dispatch(EasyAdminEvents::POST_PERSIST, array('entity' => $entity));
@@ -125,7 +124,6 @@ class AdminController extends BaseAdminController
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $this->dispatch(EasyAdminEvents::PRE_UPDATE, array('entity' => $entity));
 
-            $this->executeDynamicMethod('preUpdate<EntityName>Entity', array($entity));
             $this->executeDynamicMethod('update<EntityName>Entity', array($entity));
 
             $this->dispatch(EasyAdminEvents::POST_UPDATE, array('entity' => $entity));
@@ -353,7 +351,7 @@ class AdminController extends BaseAdminController
         $this->em->persist($menuPage);
         $this->em->flush();
 
-        return $this->redirectToRoute('admin', array(
+        return $this->redirectToRoute('easyadmin', array(
             'action' => 'edit',
             'entity' => 'Page_Active',
             'id' => $nouvellePage->getId()
@@ -401,7 +399,7 @@ class AdminController extends BaseAdminController
             }
 
             //Message flash
-            $url = $this->generateUrl('admin',['action'=>'corbeille', 'entity'=>$this->request->query->get('entity'), 'id'=>$entity->getId()]);
+            $url = $this->generateUrl('easyadmin',['action'=>'corbeille', 'entity'=>$this->request->query->get('entity'), 'id'=>$entity->getId()]);
             $this->addFlash( 'success',
                 sprintf('L\'élément a été mis à la corbeille. <a href="%s">Annuler</a>', $url)
             );
@@ -409,7 +407,7 @@ class AdminController extends BaseAdminController
         $this->em->flush();
 
         if(!$this->request->isXmlHttpRequest()){
-            return $this->redirectToRoute('admin', array(
+            return $this->redirectToRoute('easyadmin', array(
                 'action' => 'list',
                 'entity' => $this->request->query->get('entity'),
             ));
@@ -457,7 +455,7 @@ class AdminController extends BaseAdminController
         $this->em->persist($page);
         $this->em->flush();
 
-        return $this->redirectToRoute('admin', array(
+        return $this->redirectToRoute('easyadmin', array(
                 'action' => 'edit',
                 'entity' => 'Page_Active',
                 'id' => $idPage
@@ -468,7 +466,7 @@ class AdminController extends BaseAdminController
     public function voirPagesAction(){
         $idCategorie = $this->request->query->get('id');
 
-        return $this->redirectToRoute('admin', array(
+        return $this->redirectToRoute('easyadmin', array(
                 'action' => 'list',
                 'entity' => 'Page_Active',
                 'categorie' => $idCategorie

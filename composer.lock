@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "362f303eaeda34393a6f0fa05d6b4132",
+    "content-hash": "626d3c24fc1a543dcaea164ba6872342",
     "packages": [
         {
             "name": "behat/transliterator",
@@ -1259,67 +1259,68 @@
         },
         {
             "name": "easycorp/easyadmin-bundle",
-            "version": "v1.17.12",
+            "version": "v2.1.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/EasyCorp/EasyAdminBundle.git",
-                "reference": "f9114922faf5be8a4d5e70a774e672a67250baec"
+                "reference": "06d38c1ca93892e5015c92631436556826c85d6e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/EasyCorp/EasyAdminBundle/zipball/f9114922faf5be8a4d5e70a774e672a67250baec",
-                "reference": "f9114922faf5be8a4d5e70a774e672a67250baec",
+                "url": "https://api.github.com/repos/EasyCorp/EasyAdminBundle/zipball/06d38c1ca93892e5015c92631436556826c85d6e",
+                "reference": "06d38c1ca93892e5015c92631436556826c85d6e",
                 "shasum": ""
             },
             "require": {
-                "doctrine/cache": "~1.5",
-                "doctrine/common": "^2.4.0",
-                "doctrine/doctrine-bundle": "~1.2",
-                "doctrine/orm": "~2.3",
-                "pagerfanta/pagerfanta": "~1.0,>=1.0.1",
-                "php": ">=5.3.0",
-                "sensio/framework-extra-bundle": "~2.3|~3.0,>=3.0.2|4.0.x|~5.0",
-                "symfony/asset": "~2.3|~3.0|^4.0",
-                "symfony/config": "~2.3|~3.0|^4.0",
-                "symfony/dependency-injection": "~2.3|~3.0|^4.0",
-                "symfony/doctrine-bridge": "~2.3|~3.0|^4.0",
-                "symfony/event-dispatcher": "~2.3|~3.0|^4.0",
-                "symfony/form": "~2.3|~3.0|^4.0",
-                "symfony/framework-bundle": "~2.3|~3.0|^4.0",
-                "symfony/http-foundation": "~2.3|~3.0|^4.0",
-                "symfony/http-kernel": "~2.3|~3.0|^4.0",
-                "symfony/polyfill-mbstring": "^1.0",
-                "symfony/property-access": "~2.3|~3.0|^4.0",
-                "symfony/security-bundle": "~2.3|~3.0|^4.0",
-                "symfony/translation": "~2.3|~3.0|^4.0",
-                "symfony/twig-bridge": "^2.3.4|~3.0|^4.0",
-                "symfony/twig-bundle": "~2.3|~3.0|^4.0",
-                "symfony/validator": "~2.3|~3.0|^4.0",
-                "twig/extensions": "~1.0",
-                "twig/twig": "~1.26|~2.0"
+                "doctrine/common": "^2.8",
+                "doctrine/doctrine-bundle": "^1.8",
+                "doctrine/orm": "^2.6",
+                "doctrine/persistence": "^1.0",
+                "pagerfanta/pagerfanta": "~1.0,>=1.0.1|~2.0",
+                "php": "^7.1.3",
+                "symfony/asset": "^4.1",
+                "symfony/cache": "^4.1",
+                "symfony/config": "^4.1",
+                "symfony/dependency-injection": "^4.1",
+                "symfony/doctrine-bridge": "^4.1",
+                "symfony/event-dispatcher": "^4.1",
+                "symfony/expression-language": "^4.1",
+                "symfony/finder": "^4.1",
+                "symfony/form": "^4.1",
+                "symfony/framework-bundle": "^4.1",
+                "symfony/http-foundation": "^4.1",
+                "symfony/http-kernel": "^4.1",
+                "symfony/polyfill-mbstring": "^1.7",
+                "symfony/property-access": "^4.1",
+                "symfony/security-bundle": "^4.1",
+                "symfony/translation": "^4.1",
+                "symfony/twig-bridge": "^4.1",
+                "symfony/twig-bundle": "^4.1",
+                "symfony/validator": "^4.1",
+                "twig/extensions": "^1.5",
+                "twig/twig": "^2.4"
             },
             "require-dev": {
-                "doctrine/doctrine-fixtures-bundle": "~2.2",
+                "doctrine/data-fixtures": "^1.3",
+                "doctrine/doctrine-fixtures-bundle": "^3.0",
                 "psr/log": "~1.0",
-                "symfony/browser-kit": "~2.3|~3.0|^4.0",
-                "symfony/console": "~2.3|~3.0|^4.0",
-                "symfony/css-selector": "~2.3|~3.0|^4.0",
-                "symfony/dom-crawler": "~2.3|~3.0|^4.0",
-                "symfony/finder": "~2.3|~3.0|^4.0",
-                "symfony/phpunit-bridge": "^3.2|^4.0",
-                "symfony/var-dumper": "~2.3|~3.0|^4.0",
-                "symfony/yaml": "~2.3|~3.0|^4.0"
+                "symfony/browser-kit": "^4.1",
+                "symfony/console": "^4.1",
+                "symfony/css-selector": "^4.1",
+                "symfony/dom-crawler": "^4.1",
+                "symfony/phpunit-bridge": "^4.1",
+                "symfony/var-dumper": "^4.1",
+                "symfony/yaml": "^4.1"
             },
             "type": "symfony-bundle",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.17.x-dev"
+                    "dev-master": "2.0.x-dev"
                 }
             },
             "autoload": {
                 "psr-4": {
-                    "EasyCorp\\Bundle\\EasyAdminBundle\\": "src/",
-                    "JavierEguiluz\\Bundle\\EasyAdminBundle\\": "legacy/"
+                    "EasyCorp\\Bundle\\EasyAdminBundle\\": "src/"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -1328,22 +1329,18 @@
             ],
             "authors": [
                 {
-                    "name": "Javier Eguiluz",
-                    "email": "javiereguiluz@gmail.com"
-                },
-                {
                     "name": "Project Contributors",
-                    "homepage": "http://github.com/javiereguiluz/easyadmin/blob/master/CONTRIBUTORS.md"
+                    "homepage": "https://github.com/EasyCorp/EasyAdminBundle/blob/master/CONTRIBUTORS.md"
                 }
             ],
             "description": "Admin generator for Symfony applications",
-            "homepage": "https://github.com/javiereguiluz/EasyAdminBundle",
+            "homepage": "https://github.com/EasyCorp/EasyAdminBundle",
             "keywords": [
                 "admin",
                 "backend",
                 "generator"
             ],
-            "time": "2018-02-24T09:24:55+00:00"
+            "time": "2019-05-06T18:37:49+00:00"
         },
         {
             "name": "egulias/email-validator",
@@ -1521,21 +1518,22 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/FriendsOfSymfony/FOSUserBundle.git",
-                "reference": "decb22bf9ef2b355f4936ce69de959b3f0a9e5b7"
+                "reference": "5d2145777fa1d61ba27ba4c1e7016f3c3e7ee7ba"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/FriendsOfSymfony/FOSUserBundle/zipball/decb22bf9ef2b355f4936ce69de959b3f0a9e5b7",
-                "reference": "decb22bf9ef2b355f4936ce69de959b3f0a9e5b7",
+                "url": "https://api.github.com/repos/FriendsOfSymfony/FOSUserBundle/zipball/5d2145777fa1d61ba27ba4c1e7016f3c3e7ee7ba",
+                "reference": "5d2145777fa1d61ba27ba4c1e7016f3c3e7ee7ba",
                 "shasum": ""
             },
             "require": {
-                "paragonie/random_compat": "^1 || ^2",
+                "paragonie/random_compat": "^1 || ^2 || ^9",
                 "php": "^5.5.9 || ^7.0",
                 "symfony/form": "^2.8 || ^3.0 || ^4.0",
                 "symfony/framework-bundle": "^2.8 || ^3.0 || ^4.0",
                 "symfony/security-bundle": "^2.8 || ^3.0 || ^4.0",
                 "symfony/templating": "^2.8 || ^3.0 || ^4.0",
+                "symfony/translation": "^2.8 || ^3.0 || ^4.0",
                 "symfony/twig-bundle": "^2.8 || ^3.0 || ^4.0",
                 "symfony/validator": "^2.8 || ^3.0 || ^4.0",
                 "twig/twig": "^1.28 || ^2.0"
@@ -1547,7 +1545,7 @@
             "require-dev": {
                 "doctrine/doctrine-bundle": "^1.3",
                 "friendsofphp/php-cs-fixer": "^2.2",
-                "phpunit/phpunit": "^4.8.35|^5.7.11|^6.5",
+                "phpunit/phpunit": "^4.8.35 || ^5.7.11 || ^6.5",
                 "swiftmailer/swiftmailer": "^4.3 || ^5.0 || ^6.0",
                 "symfony/console": "^2.8 || ^3.0 || ^4.0",
                 "symfony/phpunit-bridge": "^2.8 || ^3.0 || ^4.0",
@@ -1556,7 +1554,7 @@
             "type": "symfony-bundle",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "2.1.x-dev"
+                    "dev-master": "2.2.x-dev"
                 }
             },
             "autoload": {
@@ -1589,7 +1587,7 @@
             "keywords": [
                 "User management"
             ],
-            "time": "2018-02-21T15:06:40+00:00"
+            "time": "2019-03-01T13:05:23+00:00"
         },
         {
             "name": "jdorn/sql-formatter",

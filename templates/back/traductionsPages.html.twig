@@ -26,7 +26,7 @@
                                                     {% set traduction = getTraduction(page.traductions[langue.id]) %}
                                                     <a href="{{ path('easyadmin', {'action':'edit', 'entity':'Page_Active', 'id':traduction.id}) }}">{{ traduction.titre }}</a>
                                                 {% else %}
-                                                    <a class="vert" href="{{ path('admin', { action: 'new', entity: 'Page_Active', pageOriginale: page.id, langue: langue.id, 'confirmation': 'oui' }) }}"><i class="fas fa-plus"></i> {{ "Créer une traduction"|trans }}</a>
+                                                    <a class="vert" href="{{ path('easyadmin', { action: 'new', entity: 'Page_Active', pageOriginale: page.id, langue: langue.id, 'confirmation': 'oui' }) }}"><i class="fas fa-plus"></i> {{ "Créer une traduction"|trans }}</a>
                                                 {% endif %}
                                             </td>
                                         {% endif %}
