@@ -18,6 +18,7 @@ use App\Entity\TypeCategorie;
 use App\Entity\Utilisateur;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\EasyAdminController as BaseAdminController;
 use EasyCorp\Bundle\EasyAdminBundle\Event\EasyAdminEvents;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -65,13 +66,21 @@ class AdminController extends BaseAdminController
         $deleteForm = $this->createDeleteForm($this->entity['name'], $id);
 
         $editForm->handleRequest($this->request);
-        if ($editForm->isSubmitted() && $editForm->isValid()) {
-            $this->dispatch(EasyAdminEvents::PRE_UPDATE, ['entity' => $entity]);
-            $this->executeDynamicMethod('update<EntityName>Entity', [$entity, $editForm]);
-            $this->dispatch(EasyAdminEvents::POST_UPDATE, ['entity' => $entity]);
+        if ($editForm->isSubmitted()) {
+            if($editForm->isValid()){
+                $erreurs = false;
 
-            $tpl = $this->render('back/messageEnregistrement.html.twig', ['entite' => $entity])->getContent();
-            return new Response($tpl);
+                $this->dispatch(EasyAdminEvents::PRE_UPDATE, ['entity' => $entity]);
+                $this->executeDynamicMethod('update<EntityName>Entity', [$entity, $editForm]);
+                $this->dispatch(EasyAdminEvents::POST_UPDATE, ['entity' => $entity]);
+
+                $tpl = $this->render('back/messageEnregistrement.html.twig', ['entite' => $entity])->getContent();
+            }else{
+                $tpl = $this->render('back/messageErreur.html.twig')->getContent();
+
+                $erreurs = $this->getErreurs($editForm);
+            }
+            return new JsonResponse(['erreurs' => $erreurs, 'tpl' => $tpl]);
         }
 
         $this->dispatch(EasyAdminEvents::POST_EDIT);
@@ -132,6 +141,22 @@ class AdminController extends BaseAdminController
         ];
 
         return $this->executeDynamicMethod('render<EntityName>Template', ['new', $this->entity['templates']['new'], $parameters]);
+    }
+
+    protected function getErreurs($form){
+        $erreurs = [];
+
+        foreach ($form->getErrors() as $champ => $erreur) {
+            $erreurs[] = $erreur->getMessage();
+        }
+
+        foreach ($form->all() as $child) {
+            if (!$child->isValid()) {
+                $erreurs[$child->getName()] = $this->getErreurs($child);
+            }
+        }
+
+        return $erreurs;
     }
 
     protected function listeBlocs($typeBloc, $entity = null){

@@ -251,19 +251,33 @@ $(document).ready(function(){
 
         var form = $(this);
 
+        $('.error-block, .nav-tabs .label-danger').remove();
+
         $.ajax({
             type: "POST",
             url: window.location.href,
             data: form.serialize(),
             success: function(data)
             {
-                $('#flash-messages').append(data);
-
                 bouton.attr('disabled', false).width('auto').html(texte);
 
+                $('#flash-messages').append(data.tpl);
+
                 setTimeout(function(){
-                    $('.alert-enregistrement').fadeOut();
+                    $('.alert').fadeOut();
                 }, 3000);
+
+                if(data.erreurs){
+                    console.log(data.erreurs);
+                    for (champ in data.erreurs) {
+                        form.find('[name$="['+champ+']"]').closest('.form-group').append('<div class="error-block">'+data.erreurs[champ]+'</div>');
+
+                        onglet = form.find('[name$="['+champ+']"]').closest('.tab-pane').attr('id');
+                        if(onglet){
+                            $('#'+onglet+'-tab').append('<span class="label-danger">1</span>');
+                        }
+                    }
+                }
             }
         });
     });

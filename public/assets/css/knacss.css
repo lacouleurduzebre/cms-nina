@@ -3730,8 +3730,7 @@ body.list #flash-messages > * {
   margin: 1rem 0;
 }
 
-#flash-messages .alert-enregistrement {
-  background: #A1BA1D;
+#flash-messages .alert, #flash-messages .alert--primary, #flash-messages .alert--success, #flash-messages .alert--info, #flash-messages .alert--warning, #flash-messages .alert--danger, #flash-messages .alert--inverse, #flash-messages .alert--ghost {
   color: #FFF;
   position: fixed;
   z-index: 1100;
@@ -3739,6 +3738,12 @@ body.list #flash-messages > * {
   bottom: 1rem;
   right: 1rem;
   box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+}
+#flash-messages .alert-enregistrement {
+  background: #A1BA1D;
+}
+#flash-messages .alert-erreur {
+  background: #D9534F;
 }
 
 #page_active_datePublication, #page_active_dateDepublication {
