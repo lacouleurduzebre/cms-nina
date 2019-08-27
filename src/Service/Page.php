@@ -11,6 +11,7 @@ namespace App\Service;
 
 use App\Entity\Langue;
 use App\Entity\SEO;
+use App\Entity\SEOPage;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\RequestStack;
@@ -46,7 +47,7 @@ class Page
                     return new RedirectResponse($this->router->generate('accueilLocale', array('_locale' => $langue->getAbreviation())));
                 }
 
-                $repository = $this->doctrine->getRepository(SEO::class);
+                $repository = $this->doctrine->getRepository(SEOPage::class);
                 $seos = $repository->findByUrl($url);
 
                 if(!$seos){
