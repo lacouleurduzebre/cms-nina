@@ -1,0 +1,25 @@
+<div class="titre">
+    {% if seo.page is defined %}
+        {{ seo.page.titre }}
+    {% elseif seo.categorie is defined %}
+        {{ seo.categorie.nom }}
+    {% else %}
+        {{ seo.typeCategorie.nom }}
+    {% endif %}
+</div>
+
+<div class="metaTitre">
+    {{ seo.metaTitre|truncate(65) }}
+</div>
+
+<div class="url">
+    {{ seo.url|truncate(75) }}
+</div>
+
+<div class="metaDescription">
+    {{ seo.metaDescription|truncate(150)|raw }}
+</div>
+
+<div class="listeSEO-scores flex-container">
+    {% include 'back/SEO/_SEO-score.html.twig' %}
+</div>

@@ -3391,7 +3391,27 @@ body.new #main, body.edit #main {
   padding-bottom: 2rem;
   flex: 1;
 }
-body.new h1, body.edit h1 {
+body.new .tab-content, body.new .form-actions, body.edit .tab-content, body.edit .form-actions {
+  padding: 0 2rem;
+  margin: 0 -2rem;
+}
+body.new ul.nav-tabs, body.edit ul.nav-tabs {
+  margin: 0 -2rem;
+}
+body.new.gris ul.nav-tabs, body.edit.gris ul.nav-tabs {
+  background-color: #75726B;
+}
+
+body.new .content-header, body.edit .content-header, .listeSEO-conteneur .content-header {
+  position: fixed;
+  background-color: #0791B3;
+  width: 100%;
+  margin-left: -1rem;
+  top: 3.8rem;
+  padding: 1.2rem 0;
+  z-index: 100;
+}
+body.new h1, body.edit h1, .listeSEO-conteneur h1 {
   color: #FFF;
   margin-left: 1rem;
   width: calc(100% - 28rem);
@@ -3399,7 +3419,7 @@ body.new h1, body.edit h1 {
   overflow: hidden;
 }
 @media (max-width: 767px) {
-  body.new h1, body.edit h1 {
+  body.new h1, body.edit h1, .listeSEO-conteneur h1 {
     width: calc(100% - 16rem);
     font-size: 2rem;
     line-height: 1.2;
@@ -3407,26 +3427,18 @@ body.new h1, body.edit h1 {
     align-items: center;
   }
 }
-body.new .tab-content, body.new .form-actions, body.edit .tab-content, body.edit .form-actions {
-  padding: 0 2rem;
-  margin: 0 -2rem;
-}
-body.new ul.nav-tabs, body.edit ul.nav-tabs {
-  margin: 0 -2rem;
+body.new ul.nav-tabs, body.edit ul.nav-tabs, .listeSEO-conteneur ul.nav-tabs {
   position: fixed;
   background: #0791B3;
   top: 10.5rem;
   width: 100%;
   z-index: 100;
 }
-body.new ul.nav-tabs .label-danger, body.edit ul.nav-tabs .label-danger {
+body.new ul.nav-tabs .label-danger, body.edit ul.nav-tabs .label-danger, .listeSEO-conteneur ul.nav-tabs .label-danger {
   padding: 0 0.7rem;
   border-radius: 50%;
   background-color: red;
   margin-left: 0.5rem;
-}
-body.new.gris ul.nav-tabs, body.edit.gris ul.nav-tabs {
-  background-color: #75726B;
 }
 
 /* Onglets */
@@ -3485,15 +3497,6 @@ ul.nav-tabs li a {
 
 body.edit input[type=text], body.edit input[type=email], body.edit input[type=tel], body.edit input[type=url], body.edit input[type=password], body.edit textarea, body.new input[type=text], body.new input[type=email], body.new input[type=tel], body.new input[type=url], body.new input[type=password], body.new textarea {
   width: 100% !important;
-}
-body.edit .content-header, body.new .content-header {
-  position: fixed;
-  background-color: #0791B3;
-  width: 100%;
-  margin-left: -1rem;
-  top: 3.8rem;
-  padding: 1.2rem 0;
-  z-index: 100;
 }
 body.edit.gris .content-header, body.new.gris .content-header {
   background-color: #75726B;
@@ -4737,28 +4740,32 @@ form.autreUtilisateur .mdp {
   display: none;
 }
 
-#page_active_SEO .metaTitre, #page_active_SEO #seo_metaTitre, .listeSEO-conteneur .metaTitre, .listeSEO-conteneur #seo_metaTitre {
+#onglet_SEO .metaTitre, #onglet_SEO #seo_metaTitre, .listeSEO-conteneur .metaTitre, .listeSEO-conteneur #seo_metaTitre {
   color: #1a0dab;
   font-size: 1.8rem;
 }
-#page_active_SEO .url, #page_active_SEO #seo_url, .listeSEO-conteneur .url, .listeSEO-conteneur #seo_url {
+#onglet_SEO .url, #onglet_SEO #seo_url, .listeSEO-conteneur .url, .listeSEO-conteneur #seo_url {
   color: #006621;
   font-size: 1.4rem;
 }
-#page_active_SEO .metaDescription, #page_active_SEO #seo_metaDescription, .listeSEO-conteneur .metaDescription, .listeSEO-conteneur #seo_metaDescription {
+#onglet_SEO .metaDescription, #onglet_SEO #seo_metaDescription, .listeSEO-conteneur .metaDescription, .listeSEO-conteneur #seo_metaDescription {
   color: #545454;
   font-size: 1.3rem;
 }
 
 .listeSEO-conteneur {
   max-width: 59rem;
+  margin-top: 10rem;
 }
-.listeSEO-conteneur > div {
+.listeSEO-conteneur .nav-tabs {
+  margin: 0 -1rem;
+}
+.listeSEO-conteneur .tab-pane > div {
   box-shadow: 0 0 4px rgba(0, 0, 0, 0.25);
   margin: 1rem 0;
   padding: 1rem 0;
 }
-.listeSEO-conteneur > div > div {
+.listeSEO-conteneur .tab-pane > div > div {
   padding: 0 1rem;
 }
 .listeSEO-conteneur .titre {

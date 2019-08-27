@@ -1,0 +1,29 @@
+{% extends 'back/base.html.twig' %}
+
+{% block main %}
+    <div class="listeSEO-conteneur">
+        <section class="content-header">
+            <h1>{{ "Référencement"|trans }}</h1>
+        </section>
+        <div id="tabs">
+            <ul class="nav-tabs">
+                {% for type, listeSEO in SEO %}
+                    <li {% if loop.first %}class="active"{% endif %}><a href="#{{ type|lower|supprimerAccents|replace({' ': '_'}) }}-tab" data-toggle="tab">{{ type }}</a></li>
+                {% endfor %}
+            </ul>
+            {% for type, listeSEO in SEO %}
+                <div id="{{ type|lower|supprimerAccents|replace({' ': '_'}) }}-tab" class="tab-pane {% if loop.first %}active{% endif %}">
+                    {% for seo in listeSEO %}
+                        <div class="listeSEO-SEO" data-id="{{ seo.id }}" data-entite="{{ type|lower|supprimerAccents|replace({' ': '_'}) }}">
+                            {% include 'back/SEO/_SEO.html.twig' %}
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock main %}
+
+{% block body_javascript %}
+    <script src="{{ asset('assets/js/partials/jsBackSEO.js') }}"></script>
+{% endblock body_javascript %}
