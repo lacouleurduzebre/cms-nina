@@ -15,6 +15,7 @@ $(document).ready(function() {
             $('#page_active_titreMenu').val(titre);
             if($('body').hasClass('new')){
                 $('#page_active_SEO_metaTitre').val(titre);
+                $('#page_active_SEO_metaDescription').val(titre);
             }
         }
     });
