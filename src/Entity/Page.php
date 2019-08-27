@@ -97,6 +97,7 @@ class Page
 
     /**
      * @ORM\OneToOne(targetEntity="App\Entity\SEOPage", inversedBy="page", cascade={"remove", "persist"})
+     * @ORM\JoinColumn(name="seo_page", referencedColumnName="id")
      * @Assert\Valid
      */
     private $seo;
