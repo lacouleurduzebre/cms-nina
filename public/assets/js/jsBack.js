@@ -251,19 +251,25 @@ $(document).ready(function(){
 
         var form = $(this);
 
+        $('.error-block, .nav-tabs .label-danger').remove();
+
         $.ajax({
             type: "POST",
             url: window.location.href,
             data: form.serialize(),
             success: function(data)
             {
-                $('#flash-messages').append(data);
+                if(data.erreurs){
+                    form.unbind('submit').submit();
+                }else{
+                    bouton.attr('disabled', false).width('auto').html(texte);
 
-                bouton.attr('disabled', false).width('auto').html(texte);
+                    $('#flash-messages').append(data.tpl);
 
-                setTimeout(function(){
-                    $('.alert-enregistrement').fadeOut();
-                }, 3000);
+                    setTimeout(function(){
+                        $('.alert').fadeOut();
+                    }, 3000);
+                }
             }
         });
     });

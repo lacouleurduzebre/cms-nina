@@ -18,6 +18,8 @@ use App\Entity\TypeCategorie;
 use App\Entity\Utilisateur;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\EasyAdminController as BaseAdminController;
 use EasyCorp\Bundle\EasyAdminBundle\Event\EasyAdminEvents;
+use Symfony\Component\Form\Form;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -65,13 +67,25 @@ class AdminController extends BaseAdminController
         $deleteForm = $this->createDeleteForm($this->entity['name'], $id);
 
         $editForm->handleRequest($this->request);
-        if ($editForm->isSubmitted() && $editForm->isValid()) {
-            $this->dispatch(EasyAdminEvents::PRE_UPDATE, ['entity' => $entity]);
-            $this->executeDynamicMethod('update<EntityName>Entity', [$entity, $editForm]);
-            $this->dispatch(EasyAdminEvents::POST_UPDATE, ['entity' => $entity]);
+        if ($editForm->isSubmitted()) {
+            if($editForm->isValid()){
+                $erreurs = false;
 
-            $tpl = $this->render('back/messageEnregistrement.html.twig', ['entite' => $entity])->getContent();
-            return new Response($tpl);
+                $this->dispatch(EasyAdminEvents::PRE_UPDATE, ['entity' => $entity]);
+                $this->executeDynamicMethod('update<EntityName>Entity', [$entity, $editForm]);
+                $this->dispatch(EasyAdminEvents::POST_UPDATE, ['entity' => $entity]);
+
+                $tpl = $this->render('back/messageEnregistrement.html.twig', ['entite' => $entity])->getContent();
+
+                return new JsonResponse(['erreurs' => $erreurs, 'tpl' => $tpl]);
+            }else{
+                if($this->request->isXmlHttpRequest()){
+                    $erreurs = true;
+                    $tpl = false;
+
+                    return new JsonResponse(['erreurs' => $erreurs, 'tpl' => $tpl]);
+                }
+            }
         }
 
         $this->dispatch(EasyAdminEvents::POST_EDIT);
@@ -108,13 +122,25 @@ class AdminController extends BaseAdminController
         $newForm = $this->executeDynamicMethod('create<EntityName>NewForm', [$entity, $fields]);
 
         $newForm->handleRequest($this->request);
-        if ($newForm->isSubmitted() && $newForm->isValid()) {
-            $this->dispatch(EasyAdminEvents::PRE_PERSIST, ['entity' => $entity]);
-            $this->executeDynamicMethod('persist<EntityName>Entity', [$entity, $newForm]);
-            $this->dispatch(EasyAdminEvents::POST_PERSIST, ['entity' => $entity]);
+        if ($newForm->isSubmitted()) {
+            if($newForm->isValid()){
+                $erreurs = false;
 
-            $tpl = $this->render('back/messageEnregistrement.html.twig', ['entite' => $entity])->getContent();
-            return new Response($tpl);
+                $this->dispatch(EasyAdminEvents::PRE_PERSIST, ['entity' => $entity]);
+                $this->executeDynamicMethod('persist<EntityName>Entity', [$entity, $newForm]);
+                $this->dispatch(EasyAdminEvents::POST_PERSIST, ['entity' => $entity]);
+
+                $tpl = $this->render('back/messageEnregistrement.html.twig', ['entite' => $entity])->getContent();
+
+                return new JsonResponse(['erreurs' => $erreurs, 'tpl' => $tpl]);
+            }else{
+                if($this->request->isXmlHttpRequest()){
+                    $erreurs = true;
+                    $tpl = false;
+
+                    return new JsonResponse(['erreurs' => $erreurs, 'tpl' => $tpl]);
+                }
+            }
         }
 
         $this->dispatch(EasyAdminEvents::POST_NEW, [
