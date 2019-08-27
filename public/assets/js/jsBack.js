@@ -205,7 +205,7 @@ $(document).ready(function(){
         //Aperçu Google
     apercuGoogle = function(elem){
         identifiant = elem.attr('id').split('_').pop();
-        $('.listeSEO-apercu .'+identifiant).html(elem.val());
+        $('.listeSEO-SEO .'+identifiant).html(elem.val());
     };
 
     razApercuGoogle = function(){
