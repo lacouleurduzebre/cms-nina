@@ -82,12 +82,12 @@ $(document).ready(function(){
 
         /* Pour les catégories */
         $('#categorie_nom').on('keyup', {
-            cible: '#categorie_url'
+            cible: '#categorie_SEO_url'
         }, creationURL );
 
         /* Pour les types de catégorie */
         $('#typecategorie_nom').on('keyup', {
-            cible: '#typecategorie_url'
+            cible: '#typecategorie_SEO_url'
         }, creationURL );
 
         /* Modification de l'url */
@@ -97,7 +97,7 @@ $(document).ready(function(){
             $(this).val(url);
         };
 
-        $('#page_active_SEO_url, #categorie_url, #typecategorie_url').on('keyup', urlPropre);
+        $('input[id$="SEO_url"]').on('keyup', urlPropre);
 
             /* Ajout de page enfant dans l'arbo */
         $('body').on('keyup', '#ajoutPage-url', urlPropre);
@@ -147,7 +147,8 @@ $(document).ready(function(){
 
     //Score SEO
     scoreSEO = function(champ, nbCaracteres, score){
-        $('#page_active_SEO > .raz').removeClass('ok');
+        console.log(champ);
+        $('#onglet_SEO > .raz').removeClass('ok');
         if(nbCaracteres < (score / 3)){
             champ.siblings('.progression').attr('class', 'progression rouge');
             champ.prev('.nbCaracteres').find('.seo-attention').remove();
@@ -171,12 +172,114 @@ $(document).ready(function(){
         scoreSEO(champ, nbCaracteres, score);
     };
 
-    scoreSEOLive = function(event){
-        champ = event.data.champ;
-        nbCaracteres = event.data.champ.val().length;
-        score = event.data.score;
-        scoreSEO(champ, nbCaracteres, score);
+    //Onglet référencement des pages, catégories et types de catégorie
+        //Score
+    if($('body').hasClass('new') || $('body').hasClass('edit')){
+        $('input[id$="SEO_url"]').each(function(){
+            scoreSEOChargement($(this), 75);
+        });
+        $('input[id$="SEO_metaTitre"]').each(function(){
+            scoreSEOChargement($(this), 65);
+        });
+        $('textarea[id$="SEO_metaDescription"]').each(function(){
+            scoreSEOChargement($(this), 150);
+        });
+    }
+
+    $('input[id$="SEO_url"]').on('keyup', function(){
+        $('input[id$="SEO_url"]').each(function(){
+            scoreSEOChargement($(this), 75);
+        });
+    });
+    $('input[id$="SEO_metaTitre"]').on('keyup', function(){
+        $('input[id$="SEO_metaTitre"]').each(function(){
+            scoreSEOChargement($(this), 65);
+        });
+    });
+    $('textarea[id$="SEO_metaDescription"]').on('keyup', function(){
+        $('textarea[id$="SEO_metaDescription"]').each(function(){
+            scoreSEOChargement($(this), 150);
+        });
+    });
+
+        //Aperçu Google
+    apercuGoogle = function(elem){
+        identifiant = elem.attr('id').split('_').pop();
+        $('.listeSEO-apercu .'+identifiant).html(elem.val());
     };
+
+    razApercuGoogle = function(){
+        $('input[id$="SEO_url"], input[id$="SEO_metaTitre"], textarea[id$="SEO_metaDescription"]').each(function(){
+            apercuGoogle($(this));
+        });
+    };
+
+    razApercuGoogle();
+
+    $('input[id$="SEO_url"], input[id$="SEO_metaTitre"], textarea[id$="SEO_metaDescription"]').on('keyup', function(){
+        apercuGoogle($(this));
+    });
+
+        //Raz
+    getChampTitre = function(elem){
+        entite = elem.closest('form').data('entity').toLowerCase();
+        if(entite === 'page_active'){
+            titre = $('#'+entite+'_titre').val();
+        }else{
+            titre = $('#'+entite+'_nom').val();
+        }
+        return titre;
+    };
+
+    $('#onglet_SEO > .raz').click(function(){
+        if(!$(this).hasClass('ok')){
+            titre = getChampTitre($(this));
+
+            $('input[id$="SEO_url"]').each(function(){
+                $(this).val(str2url(titre.substr(0, 75)));
+                scoreSEOChargement($(this), 75);
+            });
+            $('input[id$="SEO_metaTitre"]').each(function(){
+                $(this).val(titre.substr(0, 65));
+                scoreSEOChargement($(this), 65);
+            });
+            $('textarea[id$="SEO_metaDescription"]').each(function(){
+                $(this).val(titre.substr(0, 150));
+                scoreSEOChargement($(this), 150);
+            });
+
+            saveCloseFormulaire();
+
+            $(this).addClass('ok');
+
+            razApercuGoogle();
+        }
+    });
+
+        //Si méta-titre, url ou méta-description vide en perdant le focus, on reprend le titre
+    $('input[id$="SEO_url"]').focusout(function(){
+        titre = getChampTitre($(this));
+        if($(this).val() === ''){
+            $(this).val(str2url(titre));
+            scoreSEOChargement($(this), 75);
+        }
+    });
+
+    $('input[id$="SEO_metaTitre"]').focusout(function(){
+        titre = getChampTitre($(this));
+        if($(this).val() === ''){
+            $(this).val(titre);
+            scoreSEOChargement($(this), 65);
+        }
+    });
+
+    $('textarea[id$="SEO_metaDescription"]').focusout(function(){
+        titre = getChampTitre($(this));
+        if($(this).val() === ''){
+            $(this).val(titre);
+            scoreSEOChargement($(this), 150);
+        }
+    });
 
     //Cacher le message "enregistrement terminé"
     setTimeout(function(){

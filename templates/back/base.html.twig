@@ -109,7 +109,7 @@
                 <script src="{{ asset('assets/js/partials/jsBackPage.js') }}"></script>
             {% endif %}
 
-            {% set partials = ['Utilisateur', 'SEO', 'Langue', 'ConfigBloc', 'Theme', 'Sauvegarde', 'Traduction'] %}
+            {% set partials = ['Utilisateur', 'SEO', 'Langue', 'ConfigBloc', 'Theme', 'Sauvegarde', 'Traduction', 'Categorie', 'TypeCategorie'] %}
             {% if _entity_config.name == 'Page_Active' or _entity_config.name == 'GroupeBlocs' %}
                 <script src="{{ asset('assets/js/partials/jsBackBloc.js') }}"></script>
             {% elseif _entity_config.name in partials %}

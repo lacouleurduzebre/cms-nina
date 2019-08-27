@@ -29,54 +29,6 @@ $(document).ready(function() {
         $('label[for="page_active_traductions_'+langue+'"]').hide().next('select').hide();
     });
 
-    if($('body').hasClass('new') || $('body').hasClass('edit')){
-        scoreSEOChargement($('#page_active_SEO_url'), 75);
-        scoreSEOChargement($('#page_active_SEO_metaTitre'), 65);
-        scoreSEOChargement($('#page_active_SEO_metaDescription'), 150);
-    }
-
-    $('#page_active_SEO_url').on('keyup', {
-        champ: $('#page_active_SEO_url'),
-        score: 75
-    }, scoreSEOLive);
-    $('#page_active_SEO_metaTitre').on('keyup', {
-        champ: $('#page_active_SEO_metaTitre'),
-        score: 65
-    }, scoreSEOLive);
-    $('#page_active_SEO_metaDescription').on('keyup', {
-        champ: $('#page_active_SEO_metaDescription'),
-        score: 150
-    }, scoreSEOLive);
-
-    //Aperçu Google
-    $('#page_active_SEO_url, #page_active_SEO_metaTitre, #page_active_SEO_metaDescription').on('keyup', function(){
-        identifiant = $(this).attr('id').split('_').pop();
-        $('.listeSEO-apercu .'+identifiant).html($(this).val());
-    });
-
-    //Réinitialisation onglet SEO d'une page
-    $('#page_active_SEO > .raz').click(function(){
-        if(!$(this).hasClass('ok')){
-            $('#page_active_SEO_url').val(str2url($('#page_active_titre').val()).substr(0, 75));
-            scoreSEOChargement($('#page_active_SEO_url'), 75);
-
-            $('#page_active_SEO_metaTitre').val($('#page_active_titre').val().substr(0, 65));
-            scoreSEOChargement($('#page_active_SEO_metaTitre'), 65);
-
-            $('#page_active_SEO_metaDescription').val($('#page_active_titre').val().substr(0, 150));
-            scoreSEOChargement($('#page_active_SEO_metaDescription'), 150);
-
-            saveCloseFormulaire();
-
-            $(this).addClass('ok');
-
-            $('#page_active_SEO_url, #page_active_SEO_metaTitre, #page_active_SEO_metaDescription').each(function(){
-                identifiant = $(this).attr('id').split('_').pop();
-                $('.listeSEO-apercu .'+identifiant).html($(this).val());
-            });
-        }
-    });
-
     //Apercu mobile et tablette
         //Fermeture
     $('#conteneurApercu').on('click', '.conteneurApercu-fermeture', function(){
@@ -103,31 +55,10 @@ $(document).ready(function() {
         insertionIframe('tablette', 770, 1030);
     });
 
-    //Si titre dans le menu, méta-titre, url ou méta-description vide en perdant le focus, on reprend le titre
+    //Si titre dans le menu vide en perdant le focus, on reprend le titre
     $('#page_active_titreMenu').focusout(function(){
         if($(this).val() === ''){
             $(this).val($('#page_active_titre').val());
-        }
-    });
-
-    $('#page_active_SEO_url').focusout(function(){
-        if($(this).val() === ''){
-            $(this).val(str2url($('#page_active_titre').val()));
-            scoreSEOChargement($(this), 75);
-        }
-    });
-
-    $('#page_active_SEO_metaTitre').focusout(function(){
-        if($(this).val() === ''){
-            $(this).val($('#page_active_titre').val());
-            scoreSEOChargement($(this), 65);
-        }
-    });
-
-    $('#page_active_SEO_metaDescription').focusout(function(){
-        if($(this).val() === ''){
-            $(this).val($('#page_active_titre').val());
-            scoreSEOChargement($(this), 150);
         }
     });
 

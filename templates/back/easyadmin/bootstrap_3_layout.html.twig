@@ -670,8 +670,8 @@
     </div>
 {% endblock %}
 
-{% block _page_active_SEO_widget %}
-    <div id="page_active_SEO">
+{% block SEO %}
+    <div id="onglet_SEO">
         <a class="btn--warning raz">{{ "Réinitialiser"|trans }}</a>
         <div class="flex-container">
             <div class="w50">
@@ -730,6 +730,18 @@
             </div>
         </div>
     </div>
+{% endblock %}
+
+{% block _page_active_SEO_widget %}
+    {{ block('SEO') }}
+{% endblock %}
+
+{% block _categorie_SEO_widget %}
+    {{ block('SEO') }}
+{% endblock %}
+
+{% block _typecategorie_SEO_widget %}
+    {{ block('SEO') }}
 {% endblock %}
 
 {% block _page_active_blocs_row %}
