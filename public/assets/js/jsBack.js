@@ -259,24 +259,16 @@ $(document).ready(function(){
             data: form.serialize(),
             success: function(data)
             {
-                bouton.attr('disabled', false).width('auto').html(texte);
-
-                $('#flash-messages').append(data.tpl);
-
-                setTimeout(function(){
-                    $('.alert').fadeOut();
-                }, 3000);
-
                 if(data.erreurs){
-                    console.log(data.erreurs);
-                    for (champ in data.erreurs) {
-                        form.find('[name$="['+champ+']"]').closest('.form-group').append('<div class="error-block">'+data.erreurs[champ]+'</div>');
+                    form.unbind('submit').submit();
+                }else{
+                    bouton.attr('disabled', false).width('auto').html(texte);
 
-                        onglet = form.find('[name$="['+champ+']"]').closest('.tab-pane').attr('id');
-                        if(onglet){
-                            $('#'+onglet+'-tab').append('<span class="label-danger">1</span>');
-                        }
-                    }
+                    $('#flash-messages').append(data.tpl);
+
+                    setTimeout(function(){
+                        $('.alert').fadeOut();
+                    }, 3000);
                 }
             }
         });
