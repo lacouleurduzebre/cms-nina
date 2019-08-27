@@ -20,14 +20,6 @@
   .nav-tabs{
     margin: 0 -1rem;
   }
-  .tab-pane > div{
-    box-shadow: 0 0 4px rgba(0, 0, 0, 0.25);
-    margin: 1rem 0;
-    padding: 1rem 0;
-    > div{
-      padding: 0 1rem;
-    }
-  }
   .titre{
     font-style: italic;
     font-size: 1.4rem;
@@ -44,6 +36,12 @@
 .listeSEO-SEO{
   position: relative;
   overflow: hidden;
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.25);
+  margin: 1rem 0;
+  padding: 1rem 0;
+  > div{
+    padding: 0 1rem;
+  }
   .filtreChargement{
     display: none;
     width: 100%;

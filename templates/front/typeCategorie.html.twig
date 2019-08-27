@@ -26,7 +26,7 @@
     <div class="extrait">
         <h2><a href="
             {% if langues|length > 1 %}
-                {{ path('voirCategorieLocale', {'_locale': typeCategorie.langue.abreviation, 'urlTypeCategorie':typeCategorieseo.seo.url, 'urlCategorie':categorie.seo.url}) }}
+                {{ path('voirCategorieLocale', {'_locale': typeCategorie.langue.abreviation, 'urlTypeCategorie':typeCategorie.seo.url, 'urlCategorie':categorie.seo.url}) }}
             {% else %}
                 {{ path('voirCategorie', {'urlTypeCategorie':typeCategorie.seo.url, 'urlCategorie':categorie.seo.url}) }}
             {% endif %}

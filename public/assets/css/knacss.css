@@ -4760,14 +4760,6 @@ form.autreUtilisateur .mdp {
 .listeSEO-conteneur .nav-tabs {
   margin: 0 -1rem;
 }
-.listeSEO-conteneur .tab-pane > div {
-  box-shadow: 0 0 4px rgba(0, 0, 0, 0.25);
-  margin: 1rem 0;
-  padding: 1rem 0;
-}
-.listeSEO-conteneur .tab-pane > div > div {
-  padding: 0 1rem;
-}
 .listeSEO-conteneur .titre {
   font-style: italic;
   font-size: 1.4rem;
@@ -4783,6 +4775,12 @@ form.autreUtilisateur .mdp {
 .listeSEO-SEO {
   position: relative;
   overflow: hidden;
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.25);
+  margin: 1rem 0;
+  padding: 1rem 0;
+}
+.listeSEO-SEO > div {
+  padding: 0 1rem;
 }
 .listeSEO-SEO .filtreChargement {
   display: none;
