@@ -297,7 +297,7 @@ class MenuController extends AbstractController
     }
 
     /**
-     * @Route("/filtreArbo", name="filtreArbo")
+     * @Route("/menu/filtreArbo", name="filtreArbo")
      * @param Request $request
      * @return bool|Response
      */

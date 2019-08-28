@@ -2146,7 +2146,7 @@ li[data-jstree='{"type":"root"}'] > a.jstree-context, li[data-jstree='{"type":"o
 #loader-arbo {
   position: absolute;
   top: 1rem;
-  right: 1rem;
+  right: 2.5rem;
   color: #666666;
 }
 
