@@ -15,6 +15,7 @@ use App\Entity\Menu;
 use App\Entity\MenuPage;
 use App\Entity\Page;
 use App\Entity\SEO;
+use App\Entity\SEOPage;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -91,7 +92,7 @@ class MenuController extends AbstractController
             //Infos pop-up
 
             $em = $this->getDoctrine()->getManager();
-            $repoSEO = $em->getRepository(SEO::class);
+            $repoSEO = $em->getRepository(SEOPage::class);
             $repoMenu = $em->getRepository(Menu::class);
             $repoMenuPage = $em->getRepository(MenuPage::class);
             $repoLangue = $em->getRepository(Langue::class);
@@ -111,7 +112,7 @@ class MenuController extends AbstractController
             $page->setAffichageCommentaires($config->getAffichageCommentaires());
             $page->setAffichageDatePublication($config->getAffichageDatePublication());
             $page->setAffichageAuteur($config->getAffichageAuteur());
-            $SEO = new SEO();
+            $SEO = new SEOPage();
             $SEO->setMetaTitre($metaTitre)->setUrl($url)->setMetaDescription($metaDescription);
             $page->setSeo($SEO);
 

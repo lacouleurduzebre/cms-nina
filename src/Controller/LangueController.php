@@ -12,6 +12,7 @@ namespace App\Controller;
 use App\Entity\Langue;
 use App\Entity\Page;
 use App\Entity\SEO;
+use App\Entity\SEOPage;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -43,7 +44,7 @@ class LangueController extends AbstractController
         $url = $request->get('url');
 
         if($url != null){
-            $repoSEO = $this->getDoctrine()->getRepository(SEO::class);
+            $repoSEO = $this->getDoctrine()->getRepository(SEOPage::class);
             $SEOS = $repoSEO->findBy(array('url' => $url));
 
             if($SEOS){
