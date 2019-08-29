@@ -387,6 +387,19 @@ class ThemeController extends AbstractController
     }
 
     /**
+     * @Route("/theme/exemple/{theme}/{element}", name="exempleTheme")
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     */
+    public function exempleThemeAction($theme, $element){
+        if(file_exists('../themes/'.$theme.'/templates/exemples/'.$element.'.html.twig')){
+            return $this->render('exemples/'.$element.'.html.twig');
+        }else{
+            return $this->render('back/themes/exemple.html.twig');
+        }
+    }
+
+    /**
      * @Route("/theme/maj", name="majTheme")
      */
     public function majThemeAction(Request $request){

@@ -12,12 +12,15 @@
     </div>
     {% if elements is not empty %}
         {{ form_start(form, { attr: { 'class': 'elementsTheme' } }) }}
-        {% for element in elements %}
+        {% for idElement, element in elements %}
             <h2>{{ element.label }}</h2>
-            {% for id, champ in element.champs %}
+
+            <iframe src="{{ absolute_url(path('exempleTheme', { theme: nom, element: idElement })) }}" frameborder="0"></iframe>
+
+            {% for idChamp, champ in element.champs %}
                 <div>
-                    {{ form_label(form[id]) }}
-                    {{ form_widget(form[id]) }}
+                    {{ form_label(form[idChamp]) }}
+                    {{ form_widget(form[idChamp]) }}
                     {#<button class="reinitialisationParametres" {% if champ.vars.data|upper == champs[champ.vars.name]['defaut'] %}disabled{% endif %} data-parametre-defaut="{{ champs[champ.vars.name]['defaut'] }}">Réinitialiser</button>#}
                 </div>
             {% endfor %}
