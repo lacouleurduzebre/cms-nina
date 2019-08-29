@@ -15,7 +15,7 @@
         {% for idElement, element in elements %}
             <h2>{{ element.label }}</h2>
 
-            <iframe src="{{ absolute_url(path('exempleTheme', { theme: nom, element: idElement })) }}" frameborder="0"></iframe>
+            <iframe class="exempleElementTheme" src="{{ absolute_url(path('exempleTheme', { theme: nom, element: idElement })) }}" frameborder="0"></iframe>
 
             {% for idChamp, champ in element.champs %}
                 <div>

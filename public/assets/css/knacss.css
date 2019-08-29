@@ -4000,6 +4000,9 @@ body.list #flash-messages > * {
   border: 1px solid;
   padding: 1rem;
   max-width: 25rem;
+  position: fixed;
+  right: 1rem;
+  bottom: 1rem;
 }
 .couleursTheme p {
   display: flex;
@@ -4011,6 +4014,10 @@ body.list #flash-messages > * {
   display: inline-block;
   width: 3rem;
   height: 1.5rem;
+}
+
+.exempleElementTheme {
+  width: 100%;
 }
 
 .sauvegarde h2 {
