@@ -12,7 +12,7 @@
                 {% if champs[champ.vars.name] is defined %}
                     {{ form_label(champ) }}
                     {{ form_widget(champ) }}
-                    <button class="reinitialisationParametres" {% if champ.vars.data == champs[champ.vars.name]['defaut'] %}disabled{% endif %} data-parametre-defaut="{{ champs[champ.vars.name]['defaut'] }}">Réinitialiser</button>
+                    <button class="reinitialisationParametres" {% if champ.vars.data|upper == champs[champ.vars.name]['defaut'] %}disabled{% endif %} data-parametre-defaut="{{ champs[champ.vars.name]['defaut'] }}">Réinitialiser</button>
                 {% endif %}
             </div>
         {% endfor %}

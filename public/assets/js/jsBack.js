@@ -140,6 +140,10 @@ $(document).ready(function(){
         saveCloseFormulaire();
     });
 
+    $('form').submit(function(){
+        clicEnregistrement = true;
+    });
+
     /* Fermeture des messages flash */
     $('#flash-messages').on('click', 'svg', function(){
        $(this).closest('div').fadeOut();
@@ -272,5 +276,15 @@ $(document).ready(function(){
                 }
             }
         });
+    });
+
+    //Champ couleur
+    $('input[type=color]').on('input', function(){
+        $(this).next('input[type=text]').val($(this).val().toUpperCase());
+    });
+
+    $('input[type=color] + input[type=text]').on('keyup', function(){
+        $(this).val($(this).val().toUpperCase());
+        $(this).prev('input[type=color]').val($(this).val());
     });
 });

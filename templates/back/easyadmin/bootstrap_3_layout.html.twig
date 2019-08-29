@@ -139,6 +139,12 @@
     {{- parent() -}}
 {%- endblock %}
 
+{%- block color_widget -%}
+    {%- set type = type|default('color') -%}
+    {{ block('form_widget_simple') }}
+    <input type="text" value="{{ value|upper }}">
+{%- endblock color_widget -%}
+
 {% block money_widget -%}
     <div class="input-group">
         {% set prepend = '{{' == money_pattern[0:2] %}

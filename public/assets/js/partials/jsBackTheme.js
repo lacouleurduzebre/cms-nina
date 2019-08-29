@@ -85,11 +85,12 @@ $(document).ready(function() {
     $('.reinitialisationParametres').click(function(e){
         e.preventDefault();
         valeur = $(this).data('parametre-defaut');
-        $(this).prev('input').val(valeur);
+        $(this).closest('div').find('input').val(valeur);
         $(this).attr('disabled', true);
     });
 
-    $('.parametrageTheme input').change(function(){
-        $(this).next('.reinitialisationParametres').attr('disabled', false);
+    $('.parametrageTheme input').on('input keyup', function(){
+        console.log('coucou');
+        $(this).siblings('.reinitialisationParametres').attr('disabled', false);
     });
 });
