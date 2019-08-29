@@ -3246,7 +3246,7 @@ body {
 #loginPage > * input[type=submit]:hover {
   background-color: #056982;
 }
-#loginPage .errors {
+#loginPage .flash-error {
   background-color: rgba(255, 0, 0, 0.8);
   color: #FFF;
   font-weight: bold;
@@ -3254,7 +3254,7 @@ body {
   display: flex;
   align-items: center;
 }
-#loginPage .errors svg {
+#loginPage .flash-error svg {
   font-size: 2rem;
   margin-right: 1rem;
 }
@@ -3730,8 +3730,7 @@ body.list #flash-messages > * {
   margin: 1rem 0;
 }
 
-#flash-messages .alert-enregistrement {
-  background: #A1BA1D;
+#flash-messages .alert, #flash-messages .alert--primary, #flash-messages .alert--success, #flash-messages .alert--info, #flash-messages .alert--warning, #flash-messages .alert--danger, #flash-messages .alert--inverse, #flash-messages .alert--ghost {
   color: #FFF;
   position: fixed;
   z-index: 1100;
@@ -3739,6 +3738,12 @@ body.list #flash-messages > * {
   bottom: 1rem;
   right: 1rem;
   box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+}
+#flash-messages .alert-enregistrement {
+  background: #A1BA1D;
+}
+#flash-messages .alert-erreur {
+  background: #D9534F;
 }
 
 #page_active_datePublication, #page_active_dateDepublication {
@@ -3852,6 +3857,41 @@ body.list #flash-messages > * {
   border-radius: 1rem;
   padding: 2rem;
   box-shadow: 2px 2px 6px #75726B;
+}
+
+.modal-box {
+  background: #FFF;
+  border-radius: 1rem;
+  padding: 2rem;
+  box-shadow: 2px 2px 6px #75726B;
+  display: none;
+  opacity: 0;
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100vw;
+  background: rgba(255, 255, 255, 0.6);
+  z-index: 1000;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-close {
+  position: fixed;
+  top: 2rem;
+  right: 2rem;
+  background-color: #fff;
+  border-radius: 50%;
+  width: 4rem;
+  height: 4rem;
+  color: #000;
+  cursor: pointer;
+  font-size: 3rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: 0.3s;
 }
 
 #modal-delete {
@@ -4591,6 +4631,17 @@ body.edit .bloc-reseauxsociaux input[type=text], body.new .bloc-reseauxsociaux i
 }
 .bloc-grille .field-case.page > div > .field-text, .bloc-grille .field-case.page > div > .field-textarea, .bloc-grille .field-case.page > div > .field-image_defaut, .bloc-grille .field-case.page > div > .field-bouton {
   display: none;
+}
+
+.field-galerie_image, .field-slide {
+  display: flex;
+  flex-direction: column;
+}
+.field-galerie_image .lien-page, .field-slide .lien-page {
+  order: 1;
+}
+.field-galerie_image .field-collection-item-action, .field-slide .field-collection-item-action {
+  order: 2;
 }
 
 .traductionTemplateChoix div {

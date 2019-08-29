@@ -11,7 +11,7 @@ namespace App\Controller\Back;
 
 use App\Entity\Configuration;
 use App\Form\Type\ImageSimpleType;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -25,7 +25,7 @@ use Symfony\Component\Yaml\Yaml;
  * @package App\Controller\Back
  * @Route("/admin")
  */
-class ThemeController extends Controller
+class ThemeController extends AbstractController
 {
     /**
      * @Route("/theme", name="theme")

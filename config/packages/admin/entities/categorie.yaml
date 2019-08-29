@@ -8,7 +8,7 @@ easy_admin:
             list:
                 actions:
                     - { name: 'voir', label: '', title: 'Voir', icon: 'eye' }
-                    - { name: 'voirPages', label: '', title: 'Voir les pages de cette catégories', icon: 'file-alt' }
+                    - { name: 'voirPages', label: '', title: 'Voir les pages de cette catégorie', icon: 'file-alt' }
                 sort: 'nom'
                 fields:
                     - nom
@@ -30,7 +30,6 @@ easy_admin:
                     - { property : 'typeCategorie.nom', label: 'Type'}
             form:
                 actions:
-                    - { name: 'voir', label: '', title: 'Voir', icon: 'eye' }
                     - { name: 'delete', label: 'Supprimer', title: 'Supprimer', icon: 'trash', css_class: '' }
                     - { name: 'list', label: 'Retour', title: 'Retour', icon: 'arrow-left', css_class: '' }
                 fields:
@@ -41,4 +40,6 @@ easy_admin:
                     - { property : 'categorieParent', label: 'Catégorie parent', type: 'entity', type_options: { class: 'App\Entity\Categorie' } }
                     - { property : 'typeCategorie', label: 'Type' }
             edit:
+                actions:
+                    - { name: 'voir', label: 'Voir', title: 'Voir', icon: 'eye' }
                 title: nom

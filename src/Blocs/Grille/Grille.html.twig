@@ -3,7 +3,7 @@
     <div class="grid-{{ bloc.contenu.nbColonnes }}-small-2-tiny-1 has-gutter-xl">
         {% for case in cases|sortBy('position') %}
             <div>
-                {% if case.page is not empty %}
+                {% if case.page is defined and case.page is not empty %}
                     {% set page = page(case.page) %}
                     <div class="blocGrille-case-image">
                         {{ blocAnnexe(page, "Vignette") }}
@@ -12,13 +12,19 @@
                     {{ blocAnnexe(page, "Resume") }}
                     <a href="{{ lienPage(page) }}" class="bouton">{{ "Voir la page"|trans }}</a>
                 {% else %}
-                    <div class="blocGrille-case-image">
-                        <img src="{{ case.image.image }}" alt="{{ case.image.description }}" title="{{ case.image.titre }}">
-                    </div>
-                    <h3>{{ case.titre }}</h3>
-                    <div>
-                        {{ case.texte|raw }}
-                    </div>
+                    {% if case.image.image is defined and case.image.image is not empty %}
+                        <div class="blocGrille-case-image">
+                            <img src="{{ case.image.image }}" alt="{{ case.image.description }}" {% if case.image.titre is defined %}title="{{ case.image.titre }}"{% endif %}>
+                        </div>
+                    {% endif %}
+                    {% if case.titre is defined and case.titre is not empty %}
+                        <h3>{{ case.titre }}</h3>
+                    {% endif %}
+                    {% if case.texte is defined and case.texte is not empty %}
+                        <div>
+                            {{ case.texte|raw }}
+                        </div>
+                    {% endif %}
                     {% if (case.lien.lien is defined and case.lien.lien is not empty) or (case.lien.page is defined and case.lien.page is not empty) %}
                         <a class="bouton" href="
                             {% if case.lien.page is defined and case.lien.page is not empty %}

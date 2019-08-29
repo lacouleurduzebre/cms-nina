@@ -378,13 +378,29 @@ $(document).ready(function() {
         }
     });
 
-    //Replier tous les blocs
+    //Déplier / replier tous les blocs
+    toggleBlocs = function(elem, action){
+        actionInverse = (action === 'r') ? 'd' : 'r';
+        elem.closest('.form-group').find('.contenu').each(function(){
+            if(action === 'r'){
+                $(this).children('div').addClass('hide');
+            }else{
+                $(this).children('div').removeClass('hide');
+            }
+        });
+        elem.closest('.form-group').find('.toggleBloc').toggleClass('rotate');
+        elem.hide();
+        $('#'+actionInverse+'eplierBlocs').show();
+    };
+
     $('#replierBlocs').click(function(e){
         e.preventDefault();
-        $(this).closest('.form-group').find('.contenu').each(function(){
-            $(this).children('div').addClass('hide');
-        });
-        $(this).closest('.form-group').find('.toggleBloc').addClass('rotate');
+        toggleBlocs($(this), 'r');
+    });
+
+    $('#deplierBlocs').click(function(e){
+        e.preventDefault();
+        toggleBlocs($(this), 'd');
     });
 
     //Activation / désactivation des blocs

@@ -9,8 +9,7 @@
 namespace App\Controller\Back;
 
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\Form\Extension\Core\Type\FormType;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -21,7 +20,7 @@ use Symfony\Component\Yaml\Yaml;
  * @package App\Controller\Back
  * @Route("/admin")
  */
-class BlocController extends Controller
+class BlocController extends AbstractController
 {
     /**
      * @Route("/bloc/ajouterBloc", name="ajouterBloc")
@@ -102,14 +101,16 @@ class BlocController extends Controller
         $blocsAnnexes = [];
         $config = Yaml::parseFile('../src/Blocs/configBlocs.yaml');
         foreach($types as $type){
-            $infos = Yaml::parseFile('../src/Blocs/'.$type.'/infos.yaml');
-            $infos['identifiant'] = $type;
-            $infos['priorite'] = $config[$type]['priorite'];
-            $infos['actif'] = $config[$type]['actif'];
-            if($infos['type'] == 'contenu'){
-                $blocsContenu[$type] = $infos;
-            }else{
-                $blocsAnnexes[$type] = $infos;
+            if(file_exists('../src/Blocs/'.$type.'/infos.yaml')){
+                $infos = Yaml::parseFile('../src/Blocs/'.$type.'/infos.yaml');
+                $infos['identifiant'] = $type;
+                $infos['priorite'] = $config[$type]['priorite'];
+                $infos['actif'] = $config[$type]['actif'];
+                if($infos['type'] == 'contenu'){
+                    $blocsContenu[$type] = $infos;
+                }else{
+                    $blocsAnnexes[$type] = $infos;
+                }
             }
         }
 

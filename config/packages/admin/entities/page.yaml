@@ -46,7 +46,6 @@ easy_admin:
                     - active
             form:
                 actions:
-                    - { name: 'voir', label: 'Voir', title: 'Voir', icon: 'eye' }
                     - { name: 'dupliquer', label: 'Dupliquer', title: 'Dupliquer', icon: 'copy' }
                     - { name: 'corbeille', label: 'Mettre à la corbeille', title: 'Mettre à la corbeille', icon: 'trash' }
                     - { name: 'list', label: 'Retour à la liste des pages', title: 'Retour à la liste des pages', icon: 'arrow-left', css_class: '' }
@@ -79,6 +78,8 @@ easy_admin:
                     - { property: 'langue', label: 'Page en :', type_options: { required: true } }
                     - { property: 'traductions', label: 'Traductions :', type: 'App\Form\Type\TraductionsType' }
             edit:
+                actions:
+                    - { name: 'voir', label: 'Voir', title: 'Voir', icon: 'eye' }
                 title: titre
 
         Page_Corbeille:

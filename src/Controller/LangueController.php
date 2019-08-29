@@ -12,12 +12,12 @@ namespace App\Controller;
 use App\Entity\Langue;
 use App\Entity\Page;
 use App\Entity\SEO;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-class LangueController extends Controller
+class LangueController extends AbstractController
 {
     /**
      * @Route("/langue/{id}", name="changerLangue")

@@ -41,15 +41,21 @@ class Front extends \Twig_Extension
     public function getRegions($position){
         $repoRegion = $this->doctrine->getRepository(Region::class);
 
-        $positionContenu = $repoRegion->findOneBy(array('identifiant' => 'contenu'))->getPosition();
+        $regionContenu = $repoRegion->findOneBy(array('identifiant' => 'contenu'));
+        $positionContenu = $regionContenu->getPosition();
+
+        $rendu = '';
 
         if($position == 'avant'){
             $regions = $repoRegion->getRegionsAvant($positionContenu);
-        }else{
+        }elseif($position == 'apres'){
             $regions = $repoRegion->getRegionsApres($positionContenu);
+        }elseif($position == 'centre'){
+            $regions = [$regionContenu];
+        }else{
+            return false;
         }
 
-        $rendu = '';
         foreach($regions as $region){
             $tpl = 'front/regions/region-'.$region->getIdentifiant().'.html.twig';
             if($this->twig->getLoader()->exists($tpl)){
@@ -139,10 +145,20 @@ class Front extends \Twig_Extension
 
         $url = $page->getSeo()->getUrl();
 
-        if(count($langues) > 1){
-            return $this->router->generate("voirPageLocale", ['_locale' => $page->getLangue()->getAbreviation(), 'url' => $url]);
+        $langue = $page->getLangue();
+
+        if($langue->getPageAccueil() === $page){//Page d'accueil
+            if(count($langues) > 1){
+                return $this->router->generate("accueilLocale", ['_locale' => $page->getLangue()->getAbreviation()], 0);
+            }else{
+                return $this->router->generate("accueil", [], 0);
+            }
         }else{
-            return $this->router->generate("voirPage", ['url' => $url]);
+            if(count($langues) > 1){
+                return $this->router->generate("voirPageLocale", ['_locale' => $page->getLangue()->getAbreviation(), 'url' => $url], 0);
+            }else{
+                return $this->router->generate("voirPage", ['url' => $url], 0);
+            }
         }
     }
 }

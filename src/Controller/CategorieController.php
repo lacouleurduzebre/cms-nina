@@ -12,12 +12,12 @@ namespace App\Controller;
 use App\Entity\Categorie;
 use App\Entity\Langue;
 use App\Entity\TypeCategorie;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 
-class CategorieController extends Controller
+class CategorieController extends AbstractController
 {
     /**
      * @Route("/categorie/{urlTypeCategorie}/{urlCategorie}", name="voirCategorie")

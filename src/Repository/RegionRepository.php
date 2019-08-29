@@ -39,7 +39,7 @@ class RegionRepository extends ServiceEntityRepository
     public function getRegionsApres($position)
     {
         return $this->createQueryBuilder('r')
-            ->andWhere('r.position >= :val')
+            ->andWhere('r.position > :val')
             ->setParameter('val', $position)
             ->orderBy('r.position', 'ASC')
             ->getQuery()

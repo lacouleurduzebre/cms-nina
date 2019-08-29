@@ -71,44 +71,48 @@
 
 {# Widgets #}
 
-{% block form_widget %}
-    {{- parent() -}}
+{% block suppression_item %}
+    {% set remove_item_javascript %}
+        $(function() {
+        if (event.preventDefault) event.preventDefault(); else event.returnValue = false;
 
-    {% if form.parent.vars.allow_delete|default(false) %}
-        {% set remove_item_javascript %}
-            $(function() {
-            if (event.preventDefault) event.preventDefault(); else event.returnValue = false;
+        var containerDiv = $('#{{ id }}').parents('.form-group:first');
+        var parentDiv = containerDiv.parents('[data-prototype]:first');
+        containerDiv.remove();
+        parentDiv.trigger('easyadmin.collection.item-deleted');
 
-            var containerDiv = $('#{{ id }}').parents('.form-group:first');
-            var parentDiv = containerDiv.parents('[data-prototype]:first');
-            containerDiv.remove();
-            parentDiv.trigger('easyadmin.collection.item-deleted');
+        if (0 == parentDiv.children().length && 'undefined' !== parentDiv.attr('data-empty-collection')) {
+        $(parentDiv.attr('data-empty-collection')).insertBefore(parentDiv);
+        }
 
-            if (0 == parentDiv.children().length && 'undefined' !== parentDiv.attr('data-empty-collection')) {
-                $(parentDiv.attr('data-empty-collection')).insertBefore(parentDiv);
-            }
+        $('.formulaire-actions-enregistrer').attr('disabled', false);
+        $(window).bind('beforeunload', function(){
+        if(!clicEnregistrement){
+        return 'Êtes-vous sûr de vouloir quitter cette page ? Des données pourraient ne pas avoir été enregistrées';
+        }
+        });
+        });
+    {% endset %}
 
-            $('.formulaire-actions-enregistrer').attr('disabled', false);
-            $(window).bind('beforeunload', function(){
-                if(!clicEnregistrement){
-                    return 'Êtes-vous sûr de vouloir quitter cette page ? Des données pourraient ne pas avoir été enregistrées';
-                }
-            });
-            });
-        {% endset %}
-
-        <div class="text-right field-collection-item-action">
-            <a href="#" onclick="{{ remove_item_javascript|raw }}" class="text-danger">
-                <i class="fas fa-trash"></i>
-                <span>
+    <div class="text-right field-collection-item-action">
+        <a href="#" onclick="{{ remove_item_javascript|raw }}" class="text-danger">
+            <i class="fas fa-trash"></i>
+            <span>
                     {% if label_format is not empty %}
                         Supprimer {{ label_format }}
                     {% else %}
                         {{ 'action.remove_item'|trans({}, 'EasyAdminBundle') }}
                     {% endif %}
                 </span>
-            </a>
-        </div>
+        </a>
+    </div>
+{% endblock %}
+
+{% block form_widget %}
+    {{- parent() -}}
+
+    {% if form.parent.vars.allow_delete|default(false) %}
+        {{ block('suppression_item') }}
     {% endif %}
 {% endblock form_widget %}
 
@@ -732,7 +736,18 @@
     <div class="form-group field-collection">
         {{- form_label(form) -}}
 
-        <a id="replierBlocs" href="#">Replier tous les blocs</a>
+        <a id="replierBlocs" href="#">
+            <span class="btn">
+                {{ "Replier tous les blocs"|trans }}
+                <i class="fas fa-chevron-circle-up"></i>
+            </span>
+        </a>
+        <a id="deplierBlocs" class="hidden" href="#">
+            <span class="btn">
+                {{ "Déplier tous les blocs"|trans }}
+                <i class="fas fa-chevron-circle-down"></i>
+            </span>
+        </a>
 
         <div class="text-right field-collection-action mbs">
             <a href="#" onclick="$(function (){if (event.preventDefault) event.preventDefault(); else event.returnValue = false; $('.listeBlocs').attr('id', 'avant').addClass('actif')})" class="ajout-bloc">
@@ -1084,11 +1099,9 @@
     <div class="dragSlide">
         <i class="fas fa-arrows-alt"></i>
     </div>
-    {{- form_row(form.children.image) -}}
-    {{- form_row(form.children.position) -}}
-    {{- form_row(form.children.texte) -}}
     {% set nv = 2 %}
     {{ block('lien_page') }}
+    {{- form_widget(form) -}}
 {% endblock %}
 
 {% block case_widget %}
@@ -1102,10 +1115,9 @@
     <div class="dragGalerie">
         <i class="fas fa-arrows-alt"></i>
     </div>
-    {{ form_widget(form.children.position) }}
-    {{ form_widget(form.children.image) }}
     {% set nv = 2 %}
     {{ block('lien_page') }}
+    {{- form_widget(form) -}}
 {% endblock %}
 
 {% block champ_widget %}
@@ -1149,31 +1161,33 @@
 {%- endblock %}
 
 {% block lien_page %}
-    <div class="grid-2 has-gutter-l">
-        <div class="{% if nv == 2 %}tresFonce{% else %}fonce{% endif %}">
-            {{- form_label(form.children.page) -}}
-            {{- form_widget(form.children.page) -}}
-        </div>
-        <div class="{% if nv == 2 %}tresFonce{% else %}fonce{% endif %}">
-            <div>
-                {{- form_label(form.children.lien) -}}
-                {{- form_widget(form.children.lien) -}}
+    <div class="lien-page">
+        <div class="grid-2 has-gutter-l">
+            <div class="{% if nv == 2 %}tresFonce{% else %}fonce{% endif %}">
+                {{- form_label(form.children.page) -}}
+                {{- form_widget(form.children.page) -}}
             </div>
-            <div class="mbm">
-                <a class="iframe ouvrirMediatheque" href='/filemanager/dialog.php?type=2&field_id={{ form.children.lien.vars.id }}' type="button">{{ 'Choisir un fichier dans la médiathèque'|trans }}</a>
+            <div class="{% if nv == 2 %}tresFonce{% else %}fonce{% endif %}">
+                <div>
+                    {{- form_label(form.children.lien) -}}
+                    {{- form_widget(form.children.lien) -}}
+                </div>
+                <div class="mbm">
+                    <a class="iframe ouvrirMediatheque" href='/filemanager/dialog.php?type=2&field_id={{ form.children.lien.vars.id }}' type="button">{{ 'Choisir un fichier dans la médiathèque'|trans }}</a>
+                </div>
             </div>
         </div>
+        <div>
+            {{- form_label(form.children.blank) -}}
+            {{- form_widget(form.children.blank) -}}
+        </div>
+        <script>
+            $('.ouvrirMediatheque').fancybox({
+                type: 'iframe',
+                minHeight: '600'
+            });
+        </script>
     </div>
-    <div>
-        {{- form_label(form.children.blank) -}}
-        {{- form_widget(form.children.blank) -}}
-    </div>
-    <script>
-        $('.ouvrirMediatheque').fancybox({
-            type: 'iframe',
-            minHeight: '600'
-        });
-    </script>
 {% endblock %}
 
 {# Images des blocs galerie #}
@@ -1221,7 +1235,7 @@
     <div class="flex-container bloc-groupeblocs-edition">
         {{- form_widget(form) -}}
         {% if data is not empty %}
-            <a class="mls unstyled" href="{{ path('admin', { entity: 'GroupeBlocs', action: 'edit', id: data }) }}"><i class="fas fa-pen"></i> Éditer le groupe de blocs</a>
+            <a class="mls unstyled" href="{{ path('easyadmin', { entity: 'GroupeBlocs', action: 'edit', id: data }) }}"><i class="fas fa-pen"></i> Éditer le groupe de blocs</a>
         {% endif %}
     </div>
 {% endblock %}

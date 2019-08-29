@@ -68,34 +68,6 @@ class AppFixtures extends Fixture
         $langue->setPageAccueil($page);
         $manager->persist($langue);
 
-        //Page cookies
-        $seoCookies = new SEO();
-        $seoCookies->setUrl('cookies')
-            ->setMetaTitre('À propos des cookies')
-            ->setMetaDescription('À propos des cookies');
-        $manager->persist($seoCookies);
-
-        $pageCookies = new Page();
-        $pageCookies->setTitre('À propos des cookies')
-            ->setTitreMenu('À propos des cookies')
-            ->setAuteur($utilisateur)
-            ->setAuteurDerniereModification($utilisateur)
-            ->setDateCreation($date)
-            ->setDatePublication($date)
-            ->setLangue($langue)
-            ->setSEO($seoCookies);
-        $manager->persist($pageCookies);
-
-        $contenuCookies = [];
-        $contenuCookies['texte'] = file_get_contents(getcwd().'/src/DataFixtures/cookies.txt');
-
-        $texteCookies = new Bloc();
-        $texteCookies->setType('Texte')
-            ->setPage($pageCookies)
-            ->setPosition(0)
-            ->setContenu($contenuCookies);
-        $manager->persist($texteCookies);
-
         //Menu principal
         $menu = new Menu();
         $menu->setNom('Menu principal')
@@ -115,13 +87,6 @@ class AppFixtures extends Fixture
             ->setLangue($langue)
             ->setDefaut(false);
         $manager->persist($menuFooter);
-
-        $menuPageFooter = new MenuPage();
-        $menuPageFooter->setPosition(0)
-            ->setMenu($menuFooter)
-            ->setPage($pageCookies);
-        $manager->persist($menuPageFooter);
-
 
         //Premier flush pour obtenir les id des menus
         $manager->flush();

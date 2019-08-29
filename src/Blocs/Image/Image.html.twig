@@ -6,7 +6,7 @@
         {% set lien = false %}
     {% endif %}
 
-    {% if bloc.contenu.titre is not empty %}
+    {% if bloc.contenu.titre is defined and bloc.contenu.titre is not empty %}
         <figure>
             {% if bloc.contenu.image is not empty %}
                 {% if lien %}

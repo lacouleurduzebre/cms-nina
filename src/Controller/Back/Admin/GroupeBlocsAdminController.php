@@ -19,11 +19,12 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class GroupeBlocsAdminController extends AdminController
 {
+    //Ajout de la liste des blocs dans $parameters
     protected function newGroupeBlocsAction(){
-        return $this->newAvecListeBlocs();
+        return $this->newAction(true);
     }
 
     protected function editGroupeBlocsAction(){
-        return $this->editAvecListeBlocs();
+        return $this->editAction(true);
     }
 }

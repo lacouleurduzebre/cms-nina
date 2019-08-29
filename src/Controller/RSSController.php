@@ -13,11 +13,11 @@ use App\Entity\BlocAnnexe;
 use App\Entity\Configuration;
 use App\Entity\Langue;
 use App\Entity\Page;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
-class RSSController extends Controller
+class RSSController extends AbstractController
 {
     /**
      * @Route("/rss.xml", defaults={"_format"="xml"}, name="rss")

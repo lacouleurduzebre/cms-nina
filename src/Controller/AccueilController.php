@@ -9,15 +9,12 @@
 namespace App\Controller;
 
 
-use App\Entity\Langue;
 use App\Service\Page;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 
-class AccueilController extends Controller
+class AccueilController extends AbstractController
 {
     /**
      * @Route("/", name="accueil")

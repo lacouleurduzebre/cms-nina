@@ -28,9 +28,6 @@ GroupeBlocs:
 Image:
     priorite: 2
     actif: oui
-Inscription:
-    priorite: 21
-    actif: oui
 LEI:
     priorite: 17
     actif: oui
@@ -45,6 +42,9 @@ MenuLangues:
     actif: oui
 Page:
     priorite: 16
+    actif: oui
+Partage:
+    priorite: 21
     actif: oui
 PlanDuSite:
     priorite: 18
