@@ -65,3 +65,21 @@
 .theme:not(.actif) .theme-actif{
   display: none;
 }
+
+//Paramétrage des éléments du thème
+.couleursTheme{
+  border: 1px solid;
+  padding: 1rem;
+  max-width: 25rem;
+  p{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: .2rem;
+  }
+  .couleur{
+    display: inline-block;
+    width: 3rem;
+    height: 1.5rem;
+  }
+}

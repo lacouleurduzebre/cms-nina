@@ -21,4 +21,5 @@
         <p>{{ "Ce thème n'est pas paramétrable"|trans }}</p>
     {% endif %}
     <p class="mts"><a class="btn" href="{{ path("theme") }}">{{ "Retour"|trans }}</a></p>
+    <p class="mts"><a class="btn" href="{{ path("elementsTheme", { nom: nom }) }}">{{ "Paramétrer les éléments du thème"|trans }}</a></p>
 {% endblock %}

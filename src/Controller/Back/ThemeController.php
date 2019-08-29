@@ -13,6 +13,7 @@ use App\Entity\Configuration;
 use App\Form\Type\ImageSimpleType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Filesystem\Filesystem;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Request;
@@ -278,6 +279,111 @@ class ThemeController extends AbstractController
         $entityConfig = ['name' => 'Theme'];
 
         return $this->render('back/themes/parametres.html.twig', array('nom' => $nom, 'champs' => $champs, 'form' => isset($form) ? $form->createView() : null, '_entity_config' => $entityConfig ));
+    }
+
+    /**
+     * @Route("/theme/elements/{nom}", name="elementsTheme")
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     */
+    public function elementsThemeAction(Request $request, $nom){
+        //Champs
+        $fichierDefaut = Yaml::parseFile('../themes/'.$nom.'/config.yaml');
+
+        if(key_exists('champs', $fichierDefaut)){
+            //Valeurs
+            $nomFichierParametres = '../themes/'.$nom.'/parametres.yaml';
+            if(!file_exists($nomFichierParametres)){
+                $fichiersParametres = fopen($nomFichierParametres, "w");
+                fclose($fichiersParametres);
+            }
+            $parametres = Yaml::parseFile($nomFichierParametres);
+
+            $champs = [];
+            $choix = [];
+
+            foreach($fichierDefaut['champs'] as $champ => $infos){
+                if($parametres && key_exists($champ, $parametres)){//Paramètre modifié par l'utilisateur
+                    $anciennesValeurs[$champ] = $data = $parametres[$champ];
+                }else{//Paramètre par défaut
+                    $anciennesValeurs[$champ] = $data = $infos['defaut'];
+                }
+
+                $champs[$infos['label']] = $data;
+                $choix[$infos['label']] = '$'.$champ;
+            }
+
+            $choix["Blanc"] = "#FFFFFF";
+            $choix["Noir"] = "#000000";
+        }
+
+        if(key_exists('elements', $fichierDefaut)){//Paramètres ?
+            $elements = $fichierDefaut['elements'];
+
+            //Formulaire
+            $form = $this->createForm(FormType::class);
+
+            $anciennesValeurs = [];
+            foreach($elements as $element){
+                foreach($element['champs'] as $champ => $infos){
+                    if($parametres && key_exists($champ, $parametres)){//Paramètre modifié par l'utilisateur
+                        $anciennesValeurs[$champ] = $data = $parametres[$champ];
+                    }else{//Paramètre par défaut
+                        $anciennesValeurs[$champ] = $data = $infos['defaut'];
+                    }
+
+                    $form->add($champ, ChoiceType::class, array(
+                        'label' => $infos['label'],
+                        'choices' => $choix
+                    ));
+
+                    $form->get($champ)->setData($data);
+                }
+            }
+
+            $form->add('Envoyer', SubmitType::class);
+        }else{//Pas de paramètres
+            $elements = null;
+        }
+
+        //Enregistrement des paramètres
+        $form->handleRequest($request);
+        if($form->isSubmitted() && $form->isValid()){
+            $data = $form->getData();
+
+            $nomFichierVariablesScss = '../themes/'.$nom.'/assets/css/_config/_parametres.scss';
+            foreach($data as $champ=>$valeur){
+                //Modif variables css
+                file_put_contents($nomFichierVariablesScss, str_replace(
+                    '$'.$champ . ': ' . $anciennesValeurs[$champ], '$'.$champ . ': ' . $valeur, file_get_contents($nomFichierVariablesScss)
+                ));
+
+                //Modif config.yaml
+                $parametres[$champ] = $valeur;
+            }
+
+            //Compilation SCSS
+            $nomFichierCss = '../themes/'.$nom.'/assets/css/knacss.css';
+            exec('pwd', $pwd);
+            exec($pwd[0].'/../vendor/scssphp/scssphp/bin/pscss '.$pwd[0].'/../themes/'.$nom.'/assets/css/knacss.scss', $css);
+
+            //Enregistrement fichier css
+            file_put_contents($nomFichierCss, $css);
+
+            //Enregistrement config.yaml
+            $nvFichier = Yaml::dump($parametres);
+            file_put_contents($nomFichierParametres, $nvFichier);
+
+            $this->addFlash(
+                'enregistrement',
+                'Les paramètres ont été enregistrés'
+            );
+        }
+
+        //Template
+        $entityConfig = ['name' => 'Theme'];
+
+        return $this->render('back/themes/elements.html.twig', array('nom' => $nom, 'champs' => $champs, 'elements' => $elements, 'form' => isset($form) ? $form->createView() : null, '_entity_config' => $entityConfig ));
     }
 
     /**

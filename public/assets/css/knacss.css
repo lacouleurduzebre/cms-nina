@@ -3996,6 +3996,23 @@ body.list #flash-messages > * {
   display: none;
 }
 
+.couleursTheme {
+  border: 1px solid;
+  padding: 1rem;
+  max-width: 25rem;
+}
+.couleursTheme p {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.2rem;
+}
+.couleursTheme .couleur {
+  display: inline-block;
+  width: 3rem;
+  height: 1.5rem;
+}
+
 .sauvegarde h2 {
   color: #0791B3;
 }

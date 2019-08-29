@@ -1,0 +1,30 @@
+{% extends 'back/base.html.twig' %}
+{% if form is not empty %}
+    {% form_theme form with easyadmin_config('design.form_theme') %}
+{% endif %}
+
+{% block main %}
+    <h1>{{ "Paramétrage des éléments du thème"|trans }} "{{ nom }}"</h1>
+    <div class="couleursTheme">
+        {% for champ, valeur in champs %}
+            <p>{{ champ }} : <span class="couleur" style="background-color: {{ valeur }}"></span></p>
+        {% endfor %}
+    </div>
+    {% if elements is not empty %}
+        {{ form_start(form, { attr: { 'class': 'elementsTheme' } }) }}
+        {% for element in elements %}
+            <h2>{{ element.label }}</h2>
+            {% for id, champ in element.champs %}
+                <div>
+                    {{ form_label(form[id]) }}
+                    {{ form_widget(form[id]) }}
+                    {#<button class="reinitialisationParametres" {% if champ.vars.data|upper == champs[champ.vars.name]['defaut'] %}disabled{% endif %} data-parametre-defaut="{{ champs[champ.vars.name]['defaut'] }}">Réinitialiser</button>#}
+                </div>
+            {% endfor %}
+        {% endfor %}
+        {{ form_end(form) }}
+    {% else %}
+        <p>{{ "Ce thème ne comporte pas d'éléments paramétrables"|trans }}</p>
+    {% endif %}
+    <p class="mts"><a class="btn" href="{{ path("theme") }}">{{ "Retour"|trans }}</a></p>
+{% endblock %}
