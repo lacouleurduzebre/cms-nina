@@ -222,4 +222,57 @@ $(document).ready(function(){
             alert('Le cache a été vidé');
         });
     });
+
+    //Modal
+    $('[data-modal]').click(function(){
+        idModal = $(this).attr('data-modal');
+        $('#'+idModal).fadeIn('slow', function(){
+            $('#'+idModal).css({
+                'display' : 'flex',
+                'opacity' : 1
+            });
+        });
+    });
+
+    $('.modal-close').click(function(){
+        $(this).closest('.modal-box').fadeOut('slow', function(){
+            $('#'+idModal).css('opacity', 0);
+        });
+    });
+
+    //Enregistrement des entités via ajax
+    $(".edit-form, .new-form").submit(function(e) {
+
+        e.preventDefault();
+
+        bouton = $('.formulaire-actions-enregistrer');
+        texte = bouton.html();
+        largeur = bouton.width();
+
+        bouton.attr('disabled', true).width(largeur).html('<i class="fas fa-sync fa-spin"></i>');
+
+        var form = $(this);
+
+        $('.error-block, .nav-tabs .label-danger').remove();
+
+        $.ajax({
+            type: "POST",
+            url: window.location.href,
+            data: form.serialize(),
+            success: function(data)
+            {
+                if(data.erreurs){
+                    form.unbind('submit').submit();
+                }else{
+                    bouton.attr('disabled', false).width('auto').html(texte);
+
+                    $('#flash-messages').append(data.tpl);
+
+                    setTimeout(function(){
+                        $('.alert').fadeOut();
+                    }, 3000);
+                }
+            }
+        });
+    });
 });

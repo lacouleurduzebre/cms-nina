@@ -160,6 +160,15 @@ body.notFull .main-sidebar{
   }
 }
 
+li[data-jstree='{"type":"root"}'] > a, li[data-jstree='{"type":"orphan"}'] > a{
+  background-image: url('/assets/img/menu.png');
+  background-repeat: no-repeat;
+  background-position: calc(100% - 1rem) 50%;
+  &.jstree-context{
+    background-image: url('/assets/img/menuHover.png');
+  }
+}
+
 /* Recherche */
 .sidebar.global-actions{
   margin-bottom: 1rem;
@@ -206,8 +215,8 @@ body.notFull .main-sidebar{
 
 #loader-arbo{
   position: absolute;
-  top:1rem;
-  right:1rem;
+  top: 1rem;
+  right: 2.5rem;
   color: #666666;
 }
 

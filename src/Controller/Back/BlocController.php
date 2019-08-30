@@ -9,8 +9,7 @@
 namespace App\Controller\Back;
 
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\Form\Extension\Core\Type\FormType;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -21,7 +20,7 @@ use Symfony\Component\Yaml\Yaml;
  * @package App\Controller\Back
  * @Route("/admin")
  */
-class BlocController extends Controller
+class BlocController extends AbstractController
 {
     /**
      * @Route("/bloc/ajouterBloc", name="ajouterBloc")

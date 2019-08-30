@@ -60,7 +60,7 @@ $(document).ready(function(){
         langue = $('.arbo-langues .current a').attr('class');
         recherche = $('#recherche-arbo').val();
         $.ajax({
-            url: '/filtreArbo',
+            url: '/admin/menu/filtreArbo',
             method: "post",
             data: {langue: langue, recherche: recherche}
         })

@@ -11,11 +11,10 @@ namespace App\Controller;
 
 use App\Entity\Langue;
 use App\Entity\Page;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpFoundation\Request;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 
-class SitemapController extends Controller
+class SitemapController extends AbstractController
 {
     /**
      * @Route("/sitemap.xml", defaults={"_format"="xml"}, name="sitemap")

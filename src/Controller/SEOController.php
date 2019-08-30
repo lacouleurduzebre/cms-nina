@@ -12,13 +12,13 @@ namespace App\Controller;
 use App\Entity\Bloc;
 use App\Entity\SEO;
 use App\Form\Type\SEOType;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-class SEOController extends Controller
+class SEOController extends AbstractController
 {
     /**
      * @Route("/admin/seo/edition", name="editerSEO")

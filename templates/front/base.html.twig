@@ -59,14 +59,11 @@
 
         {{ regions('apres') }}
 
-        <div class="cookies" style="display: none">
-            <p>En poursuivant votre navigation sur ce site : <a id="cookies-ok" href="#">vous acceptez l'utilisation de cookies</a> ou vous souhaitez <a href="
-                {% if langues|length > 1 %}
-                    {{ path("voirPageLocale", { '_locale': langueActive.abreviation, 'url': 'cookies'}) }}
-                {% else %}
-                    {{ path("voirPage", { 'url': 'cookies'}) }}
-                {% endif %}">en savoir plus</a>
-        </div>
+        {% if config.bandeauCookies %}
+            <div class="cookies" style="display: none">
+                <p>{{ "En poursuivant votre navigation sur ce site : "|trans }}<a id="cookies-ok" href="#">{{ "vous acceptez l'utilisation de cookies"|trans }}</a>{% if config.pageCookies is not empty %} {{ "ou vous souhaitez"|trans }} <a href="{{ lienPage(config.pageCookies) }}">{{ "en savoir plus"|trans }}</a>{% endif %}
+            </div>
+        {% endif %}
 
         {% block javascripts %}
             {% if config.analytics is not empty %}

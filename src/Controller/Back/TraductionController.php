@@ -14,7 +14,7 @@ use App\Entity\Langue;
 use App\Entity\Page;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Bundle\FrameworkBundle\Console\Application;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Console\Input\ArrayInput;
 use Symfony\Component\Console\Output\NullOutput;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -29,7 +29,7 @@ use Symfony\Component\Routing\Annotation\Route;
  * @package App\Controller\Back
  * @Route("/admin")
  */
-class TraductionController extends Controller
+class TraductionController extends AbstractController
 {
     /**
      * @Route("/traductions/pages", name="traductionsPages")

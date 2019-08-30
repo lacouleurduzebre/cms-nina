@@ -83,11 +83,11 @@ class PageAdminController extends AdminController
 
     //Ajout de la liste des blocs dans $parameters
     protected function newPage_ActiveAction(){
-        return $this->newAvecListeBlocs();
+        return $this->newAction(true);
     }
 
     protected function editPage_ActiveAction(){
-        return $this->editAvecListeBlocs();
+        return $this->editAction(true);
     }
 
     //Traductions de page : ajout de la langue et de la page originale dans les données du formulaire

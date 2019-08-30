@@ -1,8 +1,8 @@
 {% trans_default_domain 'FOSUserBundle' %}
 
-{% if error %}
+{#{% if error %}
     <div class="errors"><i class="fas fa-exclamation-circle"></i>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-{% endif %}
+{% endif %}#}
 
 <form class="mw960p center" action="{{ path("fos_user_security_check") }}" method="post">
     <img src="{{ asset('../assets/img/ninaV3Vertical.png') }}" alt="CMS Nina 3.0">

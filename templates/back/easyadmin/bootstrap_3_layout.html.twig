@@ -1235,7 +1235,7 @@
     <div class="flex-container bloc-groupeblocs-edition">
         {{- form_widget(form) -}}
         {% if data is not empty %}
-            <a class="mls unstyled" href="{{ path('admin', { entity: 'GroupeBlocs', action: 'edit', id: data }) }}"><i class="fas fa-pen"></i> Éditer le groupe de blocs</a>
+            <a class="mls unstyled" href="{{ path('easyadmin', { entity: 'GroupeBlocs', action: 'edit', id: data }) }}"><i class="fas fa-pen"></i> Éditer le groupe de blocs</a>
         {% endif %}
     </div>
 {% endblock %}

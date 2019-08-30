@@ -94,6 +94,16 @@ class Configuration
      */
     private $nbArticlesFluxRSS;
 
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $bandeauCookies = false;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Page")
+     */
+    private $pageCookies;
+
     public function __construct()
     {
         $this->maintenance = false;
@@ -101,6 +111,7 @@ class Configuration
         $this->affichageDatePublication = true;
         $this->affichageAuteur = true;
         $this->nbArticlesFluxRSS = 20;
+        $this->bandeauCookies = false;
     }
 
     public function __toString()
@@ -330,6 +341,30 @@ class Configuration
     public function setNbArticlesFluxRSS(?int $nbArticlesFluxRSS): self
     {
         $this->nbArticlesFluxRSS = $nbArticlesFluxRSS;
+
+        return $this;
+    }
+
+    public function getBandeauCookies(): ?bool
+    {
+        return $this->bandeauCookies;
+    }
+
+    public function setBandeauCookies(bool $bandeauCookies): self
+    {
+        $this->bandeauCookies = $bandeauCookies;
+
+        return $this;
+    }
+
+    public function getPageCookies(): ?Page
+    {
+        return $this->pageCookies;
+    }
+
+    public function setPageCookies(?Page $pageCookies): self
+    {
+        $this->pageCookies = $pageCookies;
 
         return $this;
     }
