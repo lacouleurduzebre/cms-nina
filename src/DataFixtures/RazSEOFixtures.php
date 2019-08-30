@@ -24,7 +24,7 @@ class RazSEOFixtures extends Fixture
 {
     public function load(ObjectManager $manager)
     {
-        //Pages
+        /*//Pages
         $repoPage = $manager->getRepository(Page::class);
         $repoBloc = $manager->getRepository(Bloc::class);
         $pages = $repoPage->findAll();
@@ -52,7 +52,7 @@ class RazSEOFixtures extends Fixture
             $manager->persist($page);
 
             $manager->flush();
-        }
+        }*/
 
         //Catégories
         $repoCategorie = $manager->getRepository(Categorie::class);
