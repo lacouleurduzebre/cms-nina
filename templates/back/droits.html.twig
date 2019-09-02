@@ -23,7 +23,7 @@
                                 <td>{{ label }}</td>
                                 {% for role in roles %}
                                     <td>
-                                        <input type="checkbox" name="{{ identifiant }}[]" id="{{ role.nom }}" value="{{ role.nom }}" {% if role.droits[identifiant] is defined and role.droits[identifiant] %}checked{% endif %} {% if role.nom == 'ROLE_ADMIN' %}disabled{% endif %}>
+                                        <input type="checkbox" name="{{ identifiant }}[]" id="{{ role.nom }}" value="{{ role.nom }}" {% if (role.droits[identifiant] is defined and role.droits[identifiant]) or role.nom == 'ROLE_ADMIN' %}checked{% endif %} {% if role.nom == 'ROLE_ADMIN' %}disabled{% endif %}>
                                     </td>
                                 {% endfor %}
                             </tr>
