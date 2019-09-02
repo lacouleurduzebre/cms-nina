@@ -10,12 +10,14 @@ namespace App\Controller\Back;
 
 use App\Entity\Role;
 use App\Entity\Utilisateur;
+use App\Service\Droits;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\CallbackTransformer;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Yaml\Yaml;
 
@@ -31,7 +33,11 @@ class DroitsController extends Controller
      * @param Request $request
      * @return bool|Response
      */
-    public function listeDroits(Request $request){
+    public function listeDroits(Request $request, Droits $droits){
+        if(!$droits->checkDroit('droits')){
+            throw new AccessDeniedHttpException("Vous n'êtes pas autorisé à accéder à cette page");
+        }
+
         //Rôles
         $repoRoles = $this->getDoctrine()->getRepository(Role::class);
         $roles = $repoRoles->findAll();

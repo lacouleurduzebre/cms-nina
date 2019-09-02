@@ -2,7 +2,7 @@ Général:
   admin: "Accéder à l'interface d'administration"
   config: "Accéder à la configuration générale du site"
   themes: "Gérer les thèmes"
-  configBlogs: "Accéder au paramétrage des blocs"
+  configBlocs: "Accéder au paramétrage des blocs"
   sauvegardes: "Gérer les sauvegardes"
 Utilisateurs:
   droits: "Gérer les droits des utilisateurs"

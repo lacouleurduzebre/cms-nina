@@ -95,6 +95,6 @@ easy_admin:
               children:
                 - { entity: 'Configuration', label: 'Configuration générale', icon: '', params: { action: 'edit', id: 1 }, droit: 'config' }
                 - { label: 'Thèmes', icon: '', route: 'theme', droit: 'themes' }
-                - { label: 'Blocs', icon: '', route: 'configurationBlocs' }
-                - { label: 'Sauvegardes', icon: '', route: 'sauvegarde' }
-                - { label: 'Droits', icon: '', route: 'droits' }
+                - { label: 'Blocs', icon: '', route: 'configurationBlocs', droit: 'configBlocs' }
+                - { label: 'Sauvegardes', icon: '', route: 'sauvegarde', droit: 'sauvegardes' }
+                - { label: 'Droits', icon: '', route: 'droits', droit: 'droits' }

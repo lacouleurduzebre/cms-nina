@@ -9,9 +9,11 @@
 namespace App\Controller\Back;
 
 
+use App\Service\Droits;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Yaml\Yaml;
 
@@ -44,7 +46,11 @@ class BlocController extends AbstractController
      * @param Request $request
      * @return bool|Response
      */
-    public function ConfigurationBlocsAction(Request $request){
+    public function ConfigurationBlocsAction(Request $request, Droits $droits){
+        if(!$droits->checkDroit('configBlocs')){
+            throw new AccessDeniedHttpException("Vous n'êtes pas autorisé à accéder à cette page");
+        }
+
         if($request->isXmlHttpRequest()){
             $action = $request->get('action');
             if($action == 'actif'){

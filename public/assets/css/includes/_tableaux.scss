@@ -40,14 +40,3 @@ tr.ouvert{
     }
   }
 }
-
-//Droits
-.tableauDroits{
-  .categorie{
-    font-weight: $weight-bold;
-    color: $color-brand2;
-  }
-  tr > td:first-of-type:not(.categorie){
-    padding-left: 2rem;
-  }
-}

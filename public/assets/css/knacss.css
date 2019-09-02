@@ -4213,14 +4213,6 @@ body.list #flash-messages > * {
   }
 }
 
-.tableauDroits .categorie {
-  font-weight: 700;
-  color: #0791B3;
-}
-.tableauDroits tr > td:first-of-type:not(.categorie) {
-  padding-left: 2rem;
-}
-
 .fonce, .tresFonce {
   padding: 1rem;
   margin: 1rem 2rem;
@@ -4961,6 +4953,20 @@ form.autreUtilisateur .mdp {
 
 .suppressionRole {
   cursor: pointer;
+}
+
+.tableauDroits .categorie {
+  font-weight: 700;
+  color: #0791B3;
+}
+.tableauDroits tr > td:first-of-type:not(.categorie) {
+  padding-left: 2rem;
+}
+.tableauDroits tr:nth-of-type(2n) > td:not(.categorie) {
+  background-color: #F7F7F7;
+}
+.tableauDroits tr:hover > td:not(.categorie) {
+  background-color: #EEEEEE;
 }
 
 /*# sourceMappingURL=knacss.css.map */
