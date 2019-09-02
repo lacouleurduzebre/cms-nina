@@ -4959,4 +4959,8 @@ form.autreUtilisateur .mdp {
   color: #D9534F;
 }
 
+.suppressionRole {
+  cursor: pointer;
+}
+
 /*# sourceMappingURL=knacss.css.map */

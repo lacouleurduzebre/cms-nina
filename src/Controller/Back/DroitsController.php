@@ -109,4 +109,31 @@ class DroitsController extends Controller
 
         return $this->render('back/droits.html.twig', ['roles' => $roles, 'droits' => $droits, 'formCreationRole' => $formCreationRole->createView(), '_entity_config' => $entityConfig]);
     }
+
+    /**
+     * @Route("/droits/suppressionRole", name="suppressionRole")
+     * @param Request $request
+     * @return bool|Response
+     */
+    public function suppressionRole(Request $request){
+        if($request->isXmlHttpRequest()){
+            $idRole = $request->get('idRole');
+
+            //Suppression du rôle
+            $em = $this->getDoctrine()->getManager();
+            $repoRole = $this->getDoctrine()->getRepository(Role::class);
+            $role = $repoRole->find($idRole);
+
+            $em->remove($role);
+            $em->flush();
+
+            $this->addFlash('enregistrement', 'Le rôle "'.$role->getNom().'" a été supprimé');
+
+            //Suppression du rôle chez les utilisateurs
+
+            return new Response('ok');
+        }
+
+        return false;
+    }
 }

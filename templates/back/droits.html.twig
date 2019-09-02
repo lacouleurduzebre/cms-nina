@@ -12,7 +12,7 @@
                 <thead>
                     <th></th>
                     {% for role in roles %}
-                        <th>{{ role.nom }}</th>
+                        <th><span>{{ role.nom }}</span> {% if role.nom != 'ROLE_ADMIN' %}<span class="suppressionRole rouge" data-role="{{ role.id }}"><i class="fas fa-trash"></i></span>{% endif %}</th>
                     {% endfor %}
                 </thead>
                 <tbody>
