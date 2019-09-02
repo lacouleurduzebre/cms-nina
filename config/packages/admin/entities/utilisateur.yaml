@@ -2,7 +2,7 @@ easy_admin:
     entities:
         Utilisateur:
             class: App\Entity\Utilisateur
-            controller: App\Controller\Back\UtilisateurController
+            controller: App\Controller\Back\Admin\UtilisateurController
             label: 'Utilisateur'
             labels: 'Utilisateurs'
             list:

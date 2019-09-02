@@ -11,7 +11,7 @@ namespace App\Controller\Back;
 use App\Entity\Role;
 use App\Entity\Utilisateur;
 use App\Service\Droits;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\CallbackTransformer;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -26,7 +26,7 @@ use Symfony\Component\Yaml\Yaml;
  * @package App\Controller\Back
  * @Route("/admin")
  */
-class DroitsController extends Controller
+class DroitsController extends AbstractController
 {
     /**
      * @Route("/droits", name="droits")
