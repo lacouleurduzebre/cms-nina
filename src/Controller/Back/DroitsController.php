@@ -10,6 +10,9 @@ namespace App\Controller\Back;
 
 use App\Entity\Role;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Form\CallbackTransformer;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -35,7 +38,50 @@ class DroitsController extends Controller
         //Droits
         $droits = Yaml::parsefile('../config/droits.yaml');
 
-        //Enregistrement
+        //Création de rôle
+        $role = new Role;
+        $formCreationRole = $this->createFormBuilder($role)
+            ->add('nom', TextType::class, ['label' => false])
+            ->add('Enregistrer', SubmitType::class);
+
+        $formCreationRole->get('nom')
+            ->addModelTransformer(new CallbackTransformer(
+                function ($role) {
+                    return substr($role, 5, strlen($role));
+                },
+                function ($role) {
+                    return 'ROLE_'.$role;
+                }
+            ))
+        ;
+
+        $formCreationRole = $formCreationRole->getForm();
+
+        $formCreationRole->handleRequest($request);
+
+        //Enregistrement nouveau rôle
+        if ($formCreationRole->isSubmitted()) {
+            if($formCreationRole->isValid()){
+                $em = $this->getDoctrine()->getManager();
+
+                $role = $formCreationRole->getData();
+
+                $em->persist($role);
+                $em->flush();
+
+                $this->addFlash('enregistrement', 'Le rôle "'.$role->getNom().'" a été créé');
+            }else{
+                $erreurs = $formCreationRole->getErrors();
+
+                foreach($erreurs as $erreur){
+                    $this->addFlash('erreur', $erreur->getMessage());
+                }
+            }
+
+            return $this->redirectToRoute('droits');
+        }
+
+        //Enregistrement droits
         if($request->isMethod('POST')){
             $em = $this->getDoctrine()->getManager();
 
@@ -59,6 +105,8 @@ class DroitsController extends Controller
             $this->addFlash('enregistrement', 'Les droits ont été enregistrés');
         }
 
-        return $this->render('back/droits.html.twig', ['roles' => $roles, 'droits' => $droits]);
+        $entityConfig = ['name' => 'Droit'];
+
+        return $this->render('back/droits.html.twig', ['roles' => $roles, 'droits' => $droits, 'formCreationRole' => $formCreationRole->createView(), '_entity_config' => $entityConfig]);
     }
 }

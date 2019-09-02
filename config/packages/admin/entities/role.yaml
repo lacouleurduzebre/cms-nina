@@ -5,10 +5,4 @@ easy_admin:
             controller: App\Controller\Back\AdminController
             label: 'Rôle'
             labels: 'Rôles'
-            disabled_actions: ['edit', 'search', 'show', 'list']
-            form:
-                actions:
-                    - { name: 'delete', label: 'Supprimer', title: 'Supprimer', icon: 'trash', css_class: '' }
-                    - { name: 'list', label: 'Retour', title: 'Retour', icon: 'arrow-left', css_class: '' }
-                fields:
-                    - nom
+            disabled_actions: ['edit', 'search', 'show', 'list', 'new']

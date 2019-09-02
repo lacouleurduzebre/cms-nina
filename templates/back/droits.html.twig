@@ -4,8 +4,9 @@
     <h1>{{ "Gestion des droits"|trans }}</h1>
     {% if roles is empty %}
         {{ "Aucun rôle n'a été créé pour le moment"|trans }}
-        <p><a href="{{ path('admin', { entity: 'role', action: 'new' }) }}" class="btn">{{ "Créer un rôle"|trans }}</a></p>
-    {% else %}
+    {% endif %}
+    <p><button data-modal="creationRole">{{ "Créer un rôle"|trans }}</button></p>
+    {% if roles is not empty %}
         <form action="{{ path('droits') }}" method="post" class="popupDesactive">
             <table class="tableauDroits">
                 <thead>
@@ -22,7 +23,7 @@
                                 <td>{{ label }}</td>
                                 {% for role in roles %}
                                     <td>
-                                        <input type="checkbox" name="{{ identifiant }}[]" id="{{ role.nom }}" value="{{ role.nom }}" {% if role.droits[identifiant] %}checked{% endif %} {% if role.nom == 'ROLE_ADMIN' %}disabled{% endif %}>
+                                        <input type="checkbox" name="{{ identifiant }}[]" id="{{ role.nom }}" value="{{ role.nom }}" {% if role.droits[identifiant] is defined and role.droits[identifiant] %}checked{% endif %} {% if role.nom == 'ROLE_ADMIN' %}disabled{% endif %}>
                                     </td>
                                 {% endfor %}
                             </tr>
@@ -33,4 +34,16 @@
         <input class="btn" type="submit" value="{{ "Enregistrer"|trans }}">
         </form>
     {% endif %}
+
+    <div id="creationRole" class="modal-box">
+        <div class="modal-close">
+            <i class="fas fa-times"></i>
+        </div>
+        <div class="modal-content fond">
+            <h2>Ajouter un rôle</h2>
+            {{ form_start(formCreationRole) }}
+            ROLE_{{ form_widget(formCreationRole.nom) }}
+            {{ form_end(formCreationRole) }}
+        </div>
+    </div>
 {% endblock %}

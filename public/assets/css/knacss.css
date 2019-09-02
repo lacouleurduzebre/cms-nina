@@ -3894,6 +3894,11 @@ body.list #flash-messages > * {
   transition: 0.3s;
 }
 
+.modal-content.fond {
+  background-color: #fff;
+  padding: 2rem;
+}
+
 #modal-delete {
   display: none;
   position: fixed;
@@ -3928,6 +3933,22 @@ body.list #flash-messages > * {
 }
 #mediatheque iframe {
   width: calc(100% - 10rem);
+}
+
+#creationRole h2 {
+  text-align: center;
+}
+#creationRole form {
+  display: flex;
+  flex-wrap: wrap;
+}
+#creationRole form input[type=text] {
+  flex: 1;
+}
+#creationRole form > div {
+  width: 100%;
+  margin-top: 2rem;
+  text-align: center;
 }
 
 .messages {
