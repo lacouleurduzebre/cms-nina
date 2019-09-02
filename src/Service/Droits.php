@@ -29,6 +29,11 @@ class Droits
         $user = $this->token->getToken()->getUser();
 
         if($this->authorizationChecker->isGranted('IS_AUTHENTICATED_REMEMBERED')){
+
+            if($this->authorizationChecker->isGranted('ROLE_ADMIN')){
+                return true;
+            }
+
             $repoRole = $this->doctrine->getRepository(Role::class);
             $roles = $user->getRoles();
 
@@ -36,7 +41,7 @@ class Droits
                 $role = $repoRole->findOneBy(array('nom' => $role));
                 if($role){
                     $droits = $role->getDroits();
-                    if($droits[$droit])
+                    if((isset($droits[$droit]) and $droits[$droit]))
                         return true;
                 }
             }

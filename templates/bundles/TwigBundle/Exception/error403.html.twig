@@ -1,0 +1,19 @@
+{% extends 'front/base.html.twig' %}
+
+{% block head %}
+    <title>{% if langueActive.metaTitre is not empty %}{{ config.nom }} - {{ "Erreur 404"|trans }}{% endif %}</title>
+{% endblock %}
+
+{% block main %}
+    <div class="erreur403">
+        <h1>{{ "Erreur 403 - Accès refusé"|trans }}</h1>
+        <p>{{ "Vous n'êtes pas autorisé à accéder à cette page"|trans }}</p>
+        <p>{{ "Souhaitez-vous"|trans }} <a href="
+            {% if langues|length > 1 %}
+                {{ path('accueilLocale', { '_locale': langueActive.abreviation }) }}
+            {% else %}
+                {{ path('accueil') }}
+            {% endif %}
+        ">{{ "retourner à l'accueil"|trans }}</a> ?</p>
+    </div>
+{% endblock %}

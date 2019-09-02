@@ -11,6 +11,8 @@ namespace App\Twig\Front;
 
 class Droits extends \Twig_Extension
 {
+    private $droits;
+
     public function __construct(\App\Service\Droits $droits){
         $this->droits = $droits;
     }

@@ -94,7 +94,7 @@ easy_admin:
               icon: 'wrench'
               children:
                 - { entity: 'Configuration', label: 'Configuration générale', icon: '', params: { action: 'edit', id: 1 } }
-                - { label: 'Thèmes', icon: '', route: 'theme' }
+                - { label: 'Thèmes', icon: '', route: 'theme', droit: 'themes' }
                 - { label: 'Blocs', icon: '', route: 'configurationBlocs' }
                 - { label: 'Sauvegardes', icon: '', route: 'sauvegarde' }
                 - { label: 'Droits', icon: '', route: 'droits' }
