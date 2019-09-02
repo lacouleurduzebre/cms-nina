@@ -9,6 +9,7 @@
 namespace App\Controller\Back;
 
 use App\Entity\Role;
+use App\Entity\Utilisateur;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\CallbackTransformer;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -123,13 +124,22 @@ class DroitsController extends Controller
             $em = $this->getDoctrine()->getManager();
             $repoRole = $this->getDoctrine()->getRepository(Role::class);
             $role = $repoRole->find($idRole);
+            $nomRole = $role->getNom();
 
             $em->remove($role);
-            $em->flush();
 
-            $this->addFlash('enregistrement', 'Le rôle "'.$role->getNom().'" a été supprimé');
+            $this->addFlash('enregistrement', 'Le rôle "'.$nomRole.'" a été supprimé');
 
             //Suppression du rôle chez les utilisateurs
+            $repoUtilisateur = $this->getDoctrine()->getRepository(Utilisateur::class);
+            $utilisateurs = $repoUtilisateur->getUtilisateursAvecRole($nomRole);
+
+            foreach($utilisateurs as $utilisateur){
+                $utilisateur->removeRole($nomRole);
+                $em->persist($utilisateur);
+            }
+
+            $em->flush();
 
             return new Response('ok');
         }
