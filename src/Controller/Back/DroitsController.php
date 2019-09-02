@@ -67,22 +67,20 @@ class DroitsController extends AbstractController
         $formCreationRole->handleRequest($request);
 
         //Enregistrement nouveau rôle
-        if ($formCreationRole->isSubmitted()) {
-            if($formCreationRole->isValid()){
-                $em = $this->getDoctrine()->getManager();
+        if ($formCreationRole->isSubmitted() && $formCreationRole->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $repoRole = $this->getDoctrine()->getRepository(Role::class);
 
-                $role = $formCreationRole->getData();
+            $role = $formCreationRole->getData();
 
+            $replica = $repoRole->findOneBy(array('nom' => $role->getNom()));
+            if($replica){//Nom unique ?
+                $this->addFlash('erreur', 'Le rôle "'.$role->getNom().'" existe déjà');
+            }else{
                 $em->persist($role);
                 $em->flush();
 
                 $this->addFlash('enregistrement', 'Le rôle "'.$role->getNom().'" a été créé');
-            }else{
-                $erreurs = $formCreationRole->getErrors();
-
-                foreach($erreurs as $erreur){
-                    $this->addFlash('erreur', $erreur->getMessage());
-                }
             }
 
             return $this->redirectToRoute('droits');

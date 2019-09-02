@@ -38,7 +38,7 @@ easy_admin:
                     - { property: 'imageProfil', type: 'text', label: 'Image de profil' }
                     - { type: 'group', label: 'Statut', icon: 'user-cog' }
                     - { property: 'enabled', label: 'Activé' }
-                    - { property: 'roles', label: 'Rôles' }
+                    - { property: 'roles', label: 'Rôles', type: 'App\Form\Type\RoleType' }
             edit:
                 title: username
                 actions:

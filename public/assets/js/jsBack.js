@@ -142,6 +142,10 @@ $(document).ready(function(){
         }
     });
 
+    $('form').submit(function(){
+        clicEnregistrement = true;
+    });
+
     /* Fermeture des messages flash */
     $('#flash-messages').on('click', 'svg', function(){
        $(this).closest('div').fadeOut();
@@ -182,7 +186,7 @@ $(document).ready(function(){
 
     //Cacher le message "enregistrement terminé"
     setTimeout(function(){
-        $('.alert-enregistrement').fadeOut();
+        $('.alert').fadeOut();
     }, 3000);
 
     //Onglet actif en fonction de l'url
