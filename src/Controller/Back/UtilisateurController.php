@@ -16,7 +16,7 @@ use Symfony\Component\Routing\Annotation\Route;
  * @package App\Controller\Back
  * @Route("/admin")
  */
-class UtilisateurController extends BaseAdminController
+class UtilisateurController extends AdminController
 {
     protected function updateEntity($entity)
     {
