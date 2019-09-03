@@ -238,10 +238,6 @@ $(document).ready(function(){
         });
     });
 
-    $('.modal-content').click(function(e){
-        e.stopPropagation();
-    });
-
     //Enregistrement des entités via ajax
     $(".edit-form, .new-form").submit(function(e) {
 
