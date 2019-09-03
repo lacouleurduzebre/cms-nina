@@ -18,10 +18,4 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class UtilisateurController extends AdminController
 {
-    protected function updateEntity($entity)
-    {
-        parent::updateEntity($entity);
-
-        $this->addFlash('enregistrement', "Le profil de ".$entity." a été enregistré");
-    }
 }
