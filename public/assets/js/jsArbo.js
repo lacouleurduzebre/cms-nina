@@ -163,6 +163,8 @@ $(document).ready(function(){
 
                             nodeParent = $('#'+idMenuComplet).jstree("get_node", $('#'+idMenuComplet+' > ul > li'));
 
+                            node.children = [];
+
                             nouveauNode = $('#'+idMenuComplet).jstree("copy_node", node, nodeParent, 'first', function(node, parent, position){
                                 $('#'+node.id).find('.menuPage').attr('id', data);
                             });
