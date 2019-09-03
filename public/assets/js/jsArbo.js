@@ -319,8 +319,12 @@ $(document).ready(function(){
 
     //Pop-up ajout de page
         //Fermeture
-    $('body').on('click', '#popup-ajoutPage-close', function(){
+    $('body').on('click', '#popup-ajoutPage, #popup-ajoutPage-close', function(){
         $('#popup-ajoutPage').remove();
+    });
+
+    $('body').on('click', '#popup-ajoutPage > div', function(e){
+        e.stopPropagation();
     });
 
         //Informations supplémentaires : édition manuelle

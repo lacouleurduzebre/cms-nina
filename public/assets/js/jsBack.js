@@ -232,10 +232,14 @@ $(document).ready(function(){
         });
     });
 
-    $('.modal-close').click(function(){
+    $('.modal-box').click(function(){
         $(this).closest('.modal-box').fadeOut('slow', function(){
             $('#'+idModal).css('opacity', 0);
         });
+    });
+
+    $('.modal-content').click(function(e){
+        e.stopPropagation();
     });
 
     //Enregistrement des entités via ajax

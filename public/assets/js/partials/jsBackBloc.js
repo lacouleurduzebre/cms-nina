@@ -436,4 +436,13 @@ $(document).ready(function() {
             scrollTop: offset - 100
         }, 600, 'swing');
     }
+
+    //Clic sur fond de la liste des blocs = fermeture
+    $('.listeBlocs li, .listeBlocsAnnexes li').click(function(e){
+        e.stopPropagation();
+    });
+
+    $('.listeBlocs, .listeBlocsAnnexes').click(function(){
+        $(this).removeClass('actif');
+    });
 });
