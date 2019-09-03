@@ -26,6 +26,11 @@
     {% endif %}
 {% endmacro %}
 
+{% set accesOutils = true %}
+{% if not checkDroit('config') and not checkDroit('themes') and not checkDroit('configBlocs') and not checkDroit('sauvegardes') and not checkDroit('droits') %}
+    {% set accesOutils = false %}
+{% endif %}
+
 {% import _self as helper %}
 
 {% block main_menu_before %}{% endblock %}
@@ -35,53 +40,55 @@
 
     {% block main_menu %}
         {% for item in _menu_items %}
-            {% set acces = true %}
-            {% if item.droit is defined %}
-                {% set acces = checkDroit(item.droit) %}
-            {% endif %}
-            {% if acces %}
-                {% block menu_item %}
-                    <li class="{{ item.type == 'divider' ? 'header' }} {{ item.children is not empty ? 'treeview' }} {{ app.request.query.get('menuIndex')|default(-1) == loop.index0 ? 'active' }} {{ app.request.query.get('submenuIndex')|default(-1) != -1 ? 'submenu-active' }}">
-                        {{ helper.render_menu_item(item, _entity_config.translation_domain|default('messages')) }}
+            {% if item.menu_index != 4 or accesOutils %}
+                {% set acces = true %}
+                {% if item.droit is defined %}
+                    {% set acces = checkDroit(item.droit) %}
+                {% endif %}
+                {% if acces %}
+                    {% block menu_item %}
+                        <li class="{{ item.type == 'divider' ? 'header' }} {{ item.children is not empty ? 'treeview' }} {{ app.request.query.get('menuIndex')|default(-1) == loop.index0 ? 'active' }} {{ app.request.query.get('submenuIndex')|default(-1) != -1 ? 'submenu-active' }}">
+                            {{ helper.render_menu_item(item, _entity_config.translation_domain|default('messages')) }}
 
-                        {% if item.children|default([]) is not empty %}
-                            <ul class="treeview-menu">
-                                {% for subitem in item.children %}
-                                    {% block menu_subitem %}
-                                        {% set acces = true %}
-                                        {% if subitem.droit is defined %}
-                                            {% set acces = checkDroit(subitem.droit) %}
-                                        {% endif %}
-                                        {% if acces %}
-                                            <li class="{{ subitem.type == 'divider' ? 'header' }} {{ app.request.query.get('menuIndex')|default(-1) == loop.parent.loop.index0 and app.request.query.get('submenuIndex')|default(-1) == loop.index0 ? 'active' }}">
-                                                {{ helper.render_menu_item(subitem, _entity_config.translation_domain|default('messages')) }}
-                                                {# Sub-sub item #}
-                                                {% if subitem.children|default([]) is not empty %}
-                                                    <ul class="treeview-menu">
-                                                        {% for subitem in subitem.children %}
-                                                            {% set acces = true %}
-                                                            {% if subitem.droit is defined %}
-                                                                {% set acces = checkDroit(subitem.droit) %}
-                                                            {% endif %}
-                                                            {% if acces %}
-                                                                {% block menu_subsubitem %}
-                                                                    <li class="{{ subitem.type == 'divider' ? 'header' }} {{ app.request.query.get('menuIndex')|default(-1) == loop.parent.loop.index0 and app.request.query.get('submenuIndex')|default(-1) == loop.index0 ? 'active' }}">
-                                                                        {{ helper.render_menu_item(subitem, _entity_config.translation_domain|default('messages')) }}
-                                                                    </li>
-                                                                {% endblock menu_subsubitem %}
-                                                            {% endif %}
-                                                        {% endfor %}
-                                                    </ul>
-                                                {% endif %}
-                                                {# /Sub-sub item #}
-                                            </li>
-                                        {% endif %}
-                                    {% endblock menu_subitem %}
-                                {% endfor %}
-                            </ul>
-                        {% endif %}
-                    </li>
-                {% endblock menu_item %}
+                            {% if item.children|default([]) is not empty %}
+                                <ul class="treeview-menu">
+                                    {% for subitem in item.children %}
+                                        {% block menu_subitem %}
+                                            {% set acces = true %}
+                                            {% if subitem.droit is defined %}
+                                                {% set acces = checkDroit(subitem.droit) %}
+                                            {% endif %}
+                                            {% if acces %}
+                                                <li class="{{ subitem.type == 'divider' ? 'header' }} {{ app.request.query.get('menuIndex')|default(-1) == loop.parent.loop.index0 and app.request.query.get('submenuIndex')|default(-1) == loop.index0 ? 'active' }}">
+                                                    {{ helper.render_menu_item(subitem, _entity_config.translation_domain|default('messages')) }}
+                                                    {# Sub-sub item #}
+                                                    {% if subitem.children|default([]) is not empty %}
+                                                        <ul class="treeview-menu">
+                                                            {% for subitem in subitem.children %}
+                                                                {% set acces = true %}
+                                                                {% if subitem.droit is defined %}
+                                                                    {% set acces = checkDroit(subitem.droit) %}
+                                                                {% endif %}
+                                                                {% if acces %}
+                                                                    {% block menu_subsubitem %}
+                                                                        <li class="{{ subitem.type == 'divider' ? 'header' }} {{ app.request.query.get('menuIndex')|default(-1) == loop.parent.loop.index0 and app.request.query.get('submenuIndex')|default(-1) == loop.index0 ? 'active' }}">
+                                                                            {{ helper.render_menu_item(subitem, _entity_config.translation_domain|default('messages')) }}
+                                                                        </li>
+                                                                    {% endblock menu_subsubitem %}
+                                                                {% endif %}
+                                                            {% endfor %}
+                                                        </ul>
+                                                    {% endif %}
+                                                    {# /Sub-sub item #}
+                                                </li>
+                                            {% endif %}
+                                        {% endblock menu_subitem %}
+                                    {% endfor %}
+                                </ul>
+                            {% endif %}
+                        </li>
+                    {% endblock menu_item %}
+                {% endif %}
             {% endif %}
         {% endfor %}
     {% endblock main_menu %}
