@@ -115,7 +115,7 @@ class TraductionController extends AbstractController
      * @return Response
      */
     public function modifierAction(Request $request, KernelInterface $kernel, $domaine, $abreviation){
-        $app = $this->get('kernel')->getProjectDir();
+        $app = getcwd().'/../';
 
         $abreviation = strtolower($abreviation);
 
