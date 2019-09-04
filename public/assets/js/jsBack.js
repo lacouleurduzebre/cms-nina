@@ -259,7 +259,7 @@ $(document).ready(function(){
             data: form.serialize(),
             success: function(data)
             {
-                if(data.erreurs){
+                if(data.erreurs === true){
                     form.unbind('submit').submit();
                 }else{
                     bouton.attr('disabled', false).width('auto').html(texte);
