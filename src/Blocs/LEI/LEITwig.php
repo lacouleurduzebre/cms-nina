@@ -33,13 +33,13 @@ class LEITwig extends \Twig_Extension
     public function listeLEI($parametres)
     {
         $flux = $parametres['flux'];
-        $cle = $parametres['clef_moda'];
+        $cle = in_array('clef_moda', $parametres) ? $parametres['clef_moda'] : false;
 
         $xml = simplexml_load_file($flux);
         $fiches = $xml->xpath("//Resultat/sit_liste");
 
         //Limitation à la clé de modalité
-        if(isset($cle)){
+        if($cle){
             $fichesTriees = [];
 
             foreach($fiches as $fiche){

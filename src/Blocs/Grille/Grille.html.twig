@@ -21,7 +21,7 @@
                         <h3>{{ case.titre }}</h3>
                     {% endif %}
                     {% if case.texte is defined and case.texte is not empty %}
-                        <div>
+                        <div class="blocGrille-case-texte">
                             {{ case.texte|raw }}
                         </div>
                     {% endif %}
@@ -42,7 +42,7 @@
                             {% endif %}
                         >
                             {% if case.lien.texte is defined and case.lien.texte is not empty %}
-                                {{ case.lien.texte }}
+                                {{ case.lien.texte|raw }}
                             {% elseif case.lien.page is defined and case.lien.page is not empty %}
                                 {{ page.titre }}
                             {% else %}
