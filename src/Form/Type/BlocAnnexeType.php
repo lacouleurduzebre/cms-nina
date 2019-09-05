@@ -40,11 +40,11 @@ class BlocAnnexeType extends AbstractType
                 'label' => $nom
             ));
         }else{//Chargement du formulaire
-            $builder->add('type', HiddenType::class)
-                ->add('contenu', CollectionType::class, array(
+            $builder->add('type', HiddenType::class);
+                /*->add('contenu', CollectionType::class, array(
                     'allow_add' => true,
                     'label' => false
-                ));
+                ));*/
         }
 
         $builder->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event) {
