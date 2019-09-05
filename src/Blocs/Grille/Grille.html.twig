@@ -2,7 +2,7 @@
     {% set cases = bloc.contenu.cases %}
     <div class="grid-{{ bloc.contenu.nbColonnes }}-small-2-tiny-1 has-gutter-xl">
         {% for case in cases|sortBy('position') %}
-            <div>
+            <div class="blocGrille-case">
                 {% if case.page is defined and case.page is not empty %}
                     {% set page = page(case.page) %}
                     <div class="blocGrille-case-image">

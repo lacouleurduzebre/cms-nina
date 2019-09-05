@@ -14,7 +14,7 @@
    {% endif %}
 >
     {% if bloc.contenu.texte is defined and bloc.contenu.texte is not empty %}
-        {{ bloc.contenu.texte }}
+        {{ bloc.contenu.texte|raw }}
     {% elseif bloc.contenu.page is defined and bloc.contenu.page is not empty %}
         {{ page.titre }}
     {% else %}
