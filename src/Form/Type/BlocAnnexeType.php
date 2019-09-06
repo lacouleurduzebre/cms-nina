@@ -40,32 +40,19 @@ class BlocAnnexeType extends AbstractType
                 'label' => $nom
             ));
         }else{//Chargement du formulaire
-            $builder->add('type', HiddenType::class);
-                /*->add('contenu', CollectionType::class, array(
+            $builder->add('type', HiddenType::class)
+                ->add('contenu', CollectionType::class, array(
                     'allow_add' => true,
                     'label' => false
-                ));*/
+                ));
         }
 
         $builder->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event) {
-            $bloc = $event->getData();
-            $form = $event->getForm();
+            $this->ajoutChamps($event);
+        });
 
-            if ($bloc){//Bloc déjà existant
-                $type = $bloc->getType();
-                $infos = Yaml::parseFile('../src/Blocs/'.$type.'/infos.yaml');
-                $form->add('contenu', 'App\Blocs\\'.$type.'\\'.$type.'Type', array(
-                    'label' => false,
-                    'help' => $infos['description'],
-                    'allow_extra_fields' => true,
-                    /*'attr' => array(
-                        'class' => 'hide'
-                    )*/
-                ))
-                    ->add('type', HiddenType::class, array(
-                        'label' => $infos['nom']
-                    ));
-            }
+        $builder->addEventListener(FormEvents::PRE_SUBMIT, function (FormEvent $event) {
+            $this->ajoutChamps($event);
         });
     }
 
@@ -83,5 +70,23 @@ class BlocAnnexeType extends AbstractType
 
     public function getParent(){
         return FormType::class;
+    }
+
+    public function ajoutChamps(FormEvent $event){
+        $bloc = $event->getData();
+        $form = $event->getForm();
+
+        if ($bloc){//Bloc déjà existant
+            $type = is_array($bloc) ? $bloc['type'] : $bloc->getType();
+            $infos = Yaml::parseFile('../src/Blocs/'.$type.'/infos.yaml');
+            $form->add('contenu', 'App\Blocs\\'.$type.'\\'.$type.'Type', array(
+                'label' => false,
+                'help' => $infos['description'],
+                'allow_extra_fields' => true,
+            ))
+                ->add('type', HiddenType::class, array(
+                    'label' => $infos['nom']
+                ));
+        }
     }
 }
