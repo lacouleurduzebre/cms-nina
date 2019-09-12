@@ -4,7 +4,7 @@
     {{ resultats.pagination|raw }}
 </div>
 
-<div class="fichesLEI grid-3 has-gutter-l">
+<div class="fichesLEI grid-3-small-2 has-gutter-l">
     {% for fiche in resultats['donnees'] %}
         <div class="ficheLEI fiche-{{ fiche.PRODUIT }}">
             <p class="ficheLEI-commune">{{ fiche.ADRPROD_LIBELLE_COMMUNE }}</p>

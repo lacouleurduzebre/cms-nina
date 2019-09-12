@@ -14,7 +14,7 @@
                 {% else %}
                     {% if case.image.image is defined and case.image.image is not empty %}
                         <div class="blocGrille-case-image">
-                            <img src="{{ case.image.image }}" alt="{{ case.image.description }}" {% if case.image.titre is defined %}title="{{ case.image.titre }}"{% endif %}>
+                            <img src="{{ getTaille(case.image.image, 'medium') }}" alt="{{ case.image.description }}" {% if case.image.titre is defined %}title="{{ case.image.titre }}"{% endif %}>
                         </div>
                     {% endif %}
                     {% if case.titre is defined and case.titre is not empty %}

@@ -255,7 +255,7 @@ $config = array(
     //active or deactive the transliteration (mean convert all strange characters in A..Za..z0..9 characters)
     'transliteration'						=> false,
     //convert all spaces on files name and folders name with $replace_with variable
-    'convert_spaces'						=> false,
+    'convert_spaces'						=> true,
     //convert all spaces on files name and folders name this value
     'replace_with'							=> "_",
     //convert to lowercase the files and folders name
@@ -346,11 +346,11 @@ $config = array(
     'extract_files'                           => true,
     'copy_cut_files'                          => true, // for copy/cut files
     'copy_cut_dirs'                           => true, // for copy/cut directories
-    'chmod_files'                             => true, // change file permissions
-    'chmod_dirs'                              => true, // change folder permissions
+    'chmod_files'                             => false, // change file permissions
+    'chmod_dirs'                              => false, // change folder permissions
     'preview_text_files'                      => true, // eg.: txt, log etc.
     'edit_text_files'                         => true, // eg.: txt, log etc.
-    'create_text_files'                       => true, // only create files with exts. defined in $config['editable_text_file_exts']
+    'create_text_files'                       => false, // only create files with exts. defined in $config['editable_text_file_exts']
     'download_files'			  => true, // allow download files or just preview
 
     // you can preview these type of files if $preview_text_files is true
@@ -513,12 +513,12 @@ $config = array(
     // path_from_filemanager/test/test1/
     // PS if there isn't write permission in your destination folder you must set it
     //
-    'fixed_image_creation'                    => false, //activate or not the creation of one or more image resized with fixed path from filemanager folder
-    'fixed_path_from_filemanager'             => array( '../test/', '../test1/' ), //fixed path of the image folder from the current position on upload folder
-    'fixed_image_creation_name_to_prepend'    => array( '', 'test_' ), //name to prepend on filename
-    'fixed_image_creation_to_append'          => array( '_test', '' ), //name to appendon filename
-    'fixed_image_creation_width'              => array( 300, 400 ), //width of image
-    'fixed_image_creation_height'             => array( 200, 300 ), //height of image
+    'fixed_image_creation'                    => true, //activate or not the creation of one or more image resized with fixed path from filemanager folder
+    'fixed_path_from_filemanager'             => array( '../images/small/', '../images/medium/', '../images/large/', '../images/extra-large/' ), //fixed path of the image folder from the current position on upload folder
+    'fixed_image_creation_name_to_prepend'    => array( '', '', '', '' ), //name to prepend on filename
+    'fixed_image_creation_to_append'          => array( '', '', '', '' ), //name to appendon filename
+    'fixed_image_creation_width'              => array( 200, 500, 1000, 2000 ), //width of image
+    'fixed_image_creation_height'             => array( 200, 300, 500, 1000 ), //height of image
     /*
     #             $option:     0 / exact = defined size;
     #                          1 / portrait = keep aspect set height;
@@ -526,7 +526,7 @@ $config = array(
     #                          3 / auto = auto;
     #                          4 / crop= resize and crop;
     */
-    'fixed_image_creation_option'             => array( 'crop', 'auto' ), //set the type of the crop
+    'fixed_image_creation_option'             => array( 'landscape', 'landscape', 'landscape', 'landscape' ), //set the type of the crop
 
 
     // New image resized creation with relative path inside to upload folder after uploading (thumbnails in relative mode)
@@ -535,11 +535,11 @@ $config = array(
     // The image creation path is always relative so if i'm inside source/test/test1 and I upload an image, the path start from here
     //
     'relative_image_creation'                 => false, //activate or not the creation of one or more image resized with relative path from upload folder
-    'relative_path_from_current_pos'          => array( './', './' ), //relative path of the image folder from the current position on upload folder
-    'relative_image_creation_name_to_prepend' => array( '', '' ), //name to prepend on filename
-    'relative_image_creation_name_to_append'  => array( '_thumb', '_thumb1' ), //name to append on filename
-    'relative_image_creation_width'           => array( 300, 400 ), //width of image
-    'relative_image_creation_height'          => array( 200, 300 ), //height of image
+    'relative_path_from_current_pos'          => array( './', './', './' ), //relative path of the image folder from the current position on upload folder
+    'relative_image_creation_name_to_prepend' => array( '', '', '' ), //name to prepend on filename
+    'relative_image_creation_name_to_append'  => array( '_small', '_medium', '_large' ), //name to append on filename
+    'relative_image_creation_width'           => array( 200, 500, 2000 ), //width of image
+    'relative_image_creation_height'          => array( 200, 300, 1000 ), //height of image
     /*
      * $option:     0 / exact = defined size;
      *              1 / portrait = keep aspect set height;
@@ -547,7 +547,7 @@ $config = array(
      *              3 / auto = auto;
      *              4 / crop= resize and crop;
      */
-    'relative_image_creation_option'          => array( 'crop', 'crop' ), //set the type of the crop
+    'relative_image_creation_option'          => array( 'auto', 'auto', 'auto' ), //set the type of the crop
 
 
     // Remember text filter after close filemanager for future session

@@ -21,7 +21,7 @@
                     {% if bloc.contenu.blank is defined and bloc.contenu.blank is not empty and bloc.contenu.blank %}target="_blank"{% endif %}
                     >
                 {% endif %}
-                <img src="{{ bloc.contenu.image }}" {% if bloc.contenu.description is defined and bloc.contenu.description is not empty %}alt="{{ bloc.contenu.description }}"{% endif %}>
+                <img src="{{ getTaille(bloc.contenu.image, 'large') }}" {% if bloc.contenu.description is defined and bloc.contenu.description is not empty %}alt="{{ bloc.contenu.description }}"{% endif %}>
                 {% if lien %}
                     </a>
                 {% endif %}
@@ -42,7 +42,7 @@
                 {% if bloc.contenu.blank is defined and bloc.contenu.blank is not empty and bloc.contenu.blank %}target="_blank"{% endif %}
                 >
             {% endif %}
-            <img src="{{ bloc.contenu.image }}" {% if bloc.contenu.description is defined and bloc.contenu.description is not empty %}alt="{{ bloc.contenu.description }}"{% endif %}>
+            <img src="{{ getTaille(bloc.contenu.image, 'large') }}" {% if bloc.contenu.description is defined and bloc.contenu.description is not empty %}alt="{{ bloc.contenu.description }}"{% endif %}>
             {% if lien %}
                 </a>
             {% endif %}
