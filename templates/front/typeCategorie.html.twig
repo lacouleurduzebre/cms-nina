@@ -23,7 +23,7 @@
 <h1>{{ "Liste des termes"|trans }} "{{ typeCategorie.nom }}"</h1>
     <div class="description">{{ typeCategorie.description|raw }}</div>
     {% for categorie in categories %}
-    <div class="extrait">
+    <div class="extrait typeCategorie-categorie">
         <h2><a href="
             {% if langues|length > 1 %}
                 {{ path('voirCategorieLocale', {'_locale': typeCategorie.langue.abreviation, 'urlTypeCategorie':typeCategorie.url, 'urlCategorie':categorie.url}) }}
