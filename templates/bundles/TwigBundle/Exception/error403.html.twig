@@ -1,0 +1,12 @@
+{% extends 'front/base.html.twig' %}
+
+{% block head %}
+    <title>{% if langueActive.metaTitre is not empty %}{{ config.nom }} - {{ "Erreur 403"|trans }}{% endif %}</title>
+{% endblock %}
+
+{% block main %}
+    <div class="erreur403">
+        <h1>{{ "Erreur 403 - Accès refusé"|trans }}</h1>
+        <p>{{ "Vous devez "|trans }}<a href="{{ path('fos_user_security_login') }}">{{ "vous identifier"|trans }}</a>{{ " pour accéder à cette page." }}</p>
+    </div>
+{% endblock %}
