@@ -262,7 +262,7 @@ $(document).ready(function(){
                 if(data.erreurs === true){
                     form.unbind('submit').submit();
                 }else{
-                    bouton.attr('disabled', false).width('auto').html(texte);
+                    bouton.width('auto').html(texte);
 
                     $('#flash-messages').append(data.tpl);
 

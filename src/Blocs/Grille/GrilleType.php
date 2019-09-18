@@ -23,7 +23,7 @@ class GrilleType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder->add('nbColonnes', ChoiceType::class, array(
-            'label' => 'Nombre de colonnes',
+            'label' => "Nombre de cellules par ligne",
             'multiple' => false,
             'expanded' => true,
             'choices' => array(
@@ -40,7 +40,7 @@ class GrilleType extends AbstractType
             'allow_add' => true,
             'allow_delete' => true,
             'label' => false,
-            'label_format' => 'case',
+            'label_format' => 'cellule',
             'required' => false
         ));
     }

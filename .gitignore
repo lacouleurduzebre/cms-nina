@@ -29,6 +29,7 @@ src/Blocs/configBlocs.yaml
 /public/bundles/
 /public/uploads/
 /public/thumbs/
+/public/images/
 /public/sauvegardes/bdd/*
 /public/sauvegardes/mediatheque/*
 /sauvegardes/bdd/*
