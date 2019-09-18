@@ -1,0 +1,9 @@
+{% extends 'back/base.html.twig' %}
+
+{% block content %}
+    <h1>{{ "Liste des liens morts"|trans }}</h1>
+    <h2>Images</h2>
+    {% if images is not empty %}
+        {% include 'back/liensMorts/_tableauLiensMorts.html.twig' with { 'liensMorts' : images } only %}
+    {% endif %}
+{% endblock %}
