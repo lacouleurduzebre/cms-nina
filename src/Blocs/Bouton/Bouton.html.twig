@@ -1,11 +1,14 @@
-<a class="bouton" href="
-        {% if bloc.contenu.page is defined and bloc.contenu.page is not empty %}
-            {% set page = page(bloc.contenu.page) %}
-            {{ lienPage(page) }}
-        {% else %}
-            {{ bloc.contenu.lien }}
-        {% endif %}
-    "
+<a class="bouton"
+   {% if (bloc.contenu.lien is defined and bloc.contenu.lien is not empty) or (bloc.contenu.page is defined and bloc.contenu.page is not empty) %}
+       href="
+            {% if bloc.contenu.page is defined and bloc.contenu.page is not empty %}
+                {% set page = page(bloc.contenu.page) %}
+                {{ lienPage(page) }}
+            {% elseif bloc.contenu.lien is defined and bloc.contenu.lien is not empty %}
+                {{ bloc.contenu.lien }}
+            {% endif %}
+        "
+   {% endif %}
    {% if bloc.contenu.blank.0 is defined and bloc.contenu.blank.0 %}
        target="_blank"
    {% endif %}

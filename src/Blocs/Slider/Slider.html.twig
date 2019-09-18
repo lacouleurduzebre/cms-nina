@@ -3,7 +3,7 @@
         {% for slide in bloc.contenu.Slide|sortBy('position') %}
             <div>
                 <img src="{{ getTaille(slide.image.image, 'large') }}" {% if slide.image.titre is defined %}title="{{ slide.image.titre }}"{% endif %} {% if slide.image.description is defined %}alt="{{ slide.image.description }}"{% endif %}>
-                {% if (slide.texte is defined and slide.texte is not empty) or (slide.lien is defined and slide.lien is not empty) %}
+                {% if (slide.texte is defined and slide.texte is not empty) or (slide.lien is defined and slide.lien is not empty) or (slide.page is defined and slide.page is not empty)%}
                     <div class="blocSlider-slide--texte">
                         {% if slide.texte is defined and slide.texte is not empty %}
                             <div class="slide--texte">{{ slide.texte|raw }}</div>

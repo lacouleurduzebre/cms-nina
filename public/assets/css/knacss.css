@@ -4196,6 +4196,9 @@ body.list #flash-messages > * {
   padding: 1rem;
   margin: 1rem 2rem;
 }
+.fonce.lien-page, .tresFonce.lien-page {
+  margin: 1rem 0;
+}
 
 .fonce {
   background-color: #EDEDED;

@@ -2,6 +2,9 @@
 .fonce, .tresFonce{
   padding: 1rem;
   margin: 1rem 2rem;
+  &.lien-page{
+    margin: 1rem 0;
+  }
 }
 
 .fonce{

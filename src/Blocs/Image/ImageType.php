@@ -55,14 +55,24 @@ class ImageType extends AbstractType
                     "À droite" => "droite"
                 ]
             ])
-            ->add('lien', TextType::class, array(
-                "help" => "Pour les liens externes, ne pas oublier d'ajouter le préfixe http:// ou https://",
-                "label" => "Lien"
+            ->add('typeLien', ChoiceType::class, array(
+                "label" => false,
+                "choices" => [
+                    'Ne pas ajouter de lien' => 'sans',
+                    'Ajouter un lien vers une page du site' => 'page',
+                    'Ajouter un lien vers un autre contenu' => 'autre',
+                ],
+                'expanded' => true,
+                "required" => true
             ))
             ->add('page', ChoiceType::class, array(
                 "label" => "Page",
                 "choices" => $pages,
                 "required" => false
+            ))
+            ->add('lien', TextType::class, array(
+                "help" => "Pour les liens externes, ne pas oublier d'ajouter le préfixe http:// ou https://",
+                "label" => "Lien"
             ))
             ->add('blank', ChoiceType::class, array(
                 "choices" => array(

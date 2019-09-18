@@ -327,21 +327,21 @@ $(document).ready(function() {
     });
 
     //Bloc grille : affichage ou non des champs titre, image et texte
-    $('.bloc-grille select[id$="page"]').each(function(){
-        if($(this).val() === ''){
-            $(this).closest('div.field-case').removeClass('page');
-        }else{
-            $(this).closest('div.field-case').addClass('page');
-        }
-    });
-
-    $('#page_active_blocs').on('change', '.bloc-grille select[id$="page"]', function(){
-        if($(this).val() === ''){
-            $(this).closest('div.field-case').removeClass('page');
-        }else{
-            $(this).closest('div.field-case').addClass('page');
-        }
-    });
+    // $('.bloc-grille select[id$="page"]').each(function(){
+    //     if($(this).val() === ''){
+    //         $(this).closest('div.field-case').removeClass('page');
+    //     }else{
+    //         $(this).closest('div.field-case').addClass('page');
+    //     }
+    // });
+    //
+    // $('#page_active_blocs').on('change', '.bloc-grille select[id$="page"]', function(){
+    //     if($(this).val() === ''){
+    //         $(this).closest('div.field-case').removeClass('page');
+    //     }else{
+    //         $(this).closest('div.field-case').addClass('page');
+    //     }
+    // });
 
     //Bloc groupe de blocs : modif du lien si valeur qui change
     $('.bloc-groupeblocs-edition select').on('change', function(){
@@ -444,5 +444,39 @@ $(document).ready(function() {
 
     $('.listeBlocs, .listeBlocsAnnexes').click(function(){
         $(this).removeClass('actif');
+    });
+
+    //Liens
+    $('body').on('change', 'input[name$="[typeLien]"]', function(){
+        conteneur = $(this).closest('.lien-page');
+
+        if($(this).val() === 'page' || $(this).val() === 'autre') {
+            conteneur.find('.lien-page--blank').removeClass('hidden');
+            if($(this).val() === 'page'){
+                conteneur.find('.page').removeClass('hidden');
+                conteneur.find('.autre').addClass('hidden').find('input').val('');
+            }else{
+                conteneur.find('.page').addClass('hidden').find('select').val('');
+                conteneur.find('.autre').removeClass('hidden');
+            }
+        }else{
+            conteneur.find('.page').addClass('hidden').find('select').val('');
+            conteneur.find('.autre').addClass('hidden').find('input').val('');
+            conteneur.find('.lien-page--blank').addClass('hidden');
+        }
+
+        conteneur.find('.lien-page--blank').find('input').prop('checked', false);
+    });
+
+    $('input[name$="[typeLien]"]').each(function(){
+        conteneur = $(this).closest('.lien-page');
+
+        if($(this).prop('checked') && $(this).val() === 'page'){
+            conteneur.find('.page').removeClass('hidden');
+            conteneur.find('.lien-page--blank').removeClass('hidden');
+        }else if($(this).prop('checked') && $(this).val() === 'autre'){
+            conteneur.find('.autre').removeClass('hidden');
+            conteneur.find('.lien-page--blank').removeClass('hidden');
+        }
     });
 });
