@@ -11,6 +11,8 @@ namespace App\Controller\Back;
 
 use App\Entity\Bloc;
 use App\Entity\BlocAnnexe;
+use App\Entity\Configuration;
+use App\Entity\Utilisateur;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -26,8 +28,8 @@ class LiensMortsController extends AbstractController
      * @Route("/liensMorts", name="liensMorts")
      */
     public function liensMortsAction(){
-        //Images
-        $images = [];
+        //Images dans des blocs
+        $imagesBlocs = [];
         $repoBlocs = $this->getDoctrine()->getRepository(Bloc::class);
         $repoBlocsAnnexes = $this->getDoctrine()->getRepository(BlocAnnexe::class);
 
@@ -35,7 +37,7 @@ class LiensMortsController extends AbstractController
         $blocsBandeaux = $repoBlocsAnnexes->findBy(['type' => 'Bandeau']);
         foreach($blocsBandeaux as $bloc){
             $urlImage = $bloc->getContenu()['image']['image'];
-            $images = $this->testUrlImage($urlImage, $bloc, $images);
+            $imagesBlocs = $this->testUrlImage($urlImage, $bloc, $imagesBlocs);
         }
 
             //Galeries
@@ -43,7 +45,7 @@ class LiensMortsController extends AbstractController
         foreach($blocsGalerie as $bloc){
             foreach($bloc->getContenu()['images'] as $image){
                 $urlImage = $image['image']['image'];
-                $images = $this->testUrlImage($urlImage, $bloc, $images);
+                $imagesBlocs = $this->testUrlImage($urlImage, $bloc, $imagesBlocs);
             }
         }
 
@@ -52,7 +54,7 @@ class LiensMortsController extends AbstractController
         foreach($blocsGrille as $bloc){
             foreach($bloc->getContenu()['cases'] as $case){
                 $urlImage = $case['image']['image'];
-                $images = $this->testUrlImage($urlImage, $bloc, $images);
+                $imagesBlocs = $this->testUrlImage($urlImage, $bloc, $imagesBlocs);
             }
         }
 
@@ -60,7 +62,7 @@ class LiensMortsController extends AbstractController
         $blocsImages = $repoBlocs->findBy(['type' => 'Image']);
         foreach($blocsImages as $bloc){
             $urlImage = $bloc->getContenu()['image'];
-            $images = $this->testUrlImage($urlImage, $bloc, $images);
+            $imagesBlocs = $this->testUrlImage($urlImage, $bloc, $imagesBlocs);
         }
 
             //Sliders
@@ -68,7 +70,7 @@ class LiensMortsController extends AbstractController
         foreach($blocsSliders as $bloc){
             foreach($bloc->getContenu()['Slide'] as $slide){
                 $urlImage = $slide['image']['image'];
-                $images = $this->testUrlImage($urlImage, $bloc, $images);
+                $imagesBlocs = $this->testUrlImage($urlImage, $bloc, $imagesBlocs);
             }
         }
 
@@ -76,10 +78,39 @@ class LiensMortsController extends AbstractController
         $blocsVignettes = $repoBlocsAnnexes->findBy(['type' => 'Vignette']);
         foreach($blocsVignettes as $bloc){
             $urlImage = $bloc->getContenu()['image']['image'];
-            $images = $this->testUrlImage($urlImage, $bloc, $images);
+            $imagesBlocs = $this->testUrlImage($urlImage, $bloc, $imagesBlocs);
         }
 
-        return $this->render('back/liensMorts/liensMorts.html.twig', ['images' => $images]);
+        //Autres images
+        $imagesAutres = [];
+
+            //Images de profil
+        $utilisateurs = $this->getDoctrine()->getRepository(Utilisateur::class)->findAll();
+        foreach($utilisateurs as $utilisateur){
+            $urlImage = $this->formattageLien($utilisateur->getImageProfil());
+            if($this->testUrl($urlImage) == '404'){
+                $imagesAutres[] = [
+                    'typeEntite' => 'Utilisateur',
+                    'idEntite' => $utilisateur->getId(),
+                    'origine' => 'Image de profil de "'.$utilisateur->getUsername().'"',
+                    'lien' => $urlImage
+                ];
+            }
+        }
+
+            //Logo du site
+        $config = $this->getDoctrine()->getRepository(Configuration::class)->find(1);
+        $urlImage = $this->formattageLien($config->getLogo());
+        if($this->testUrl($urlImage) == '404'){
+            $imagesAutres[] = [
+                'typeEntite' => 'Configuration',
+                'idEntite' => 1,
+                'origine' => 'Logo du site',
+                'lien' => $urlImage
+            ];
+        }
+
+        return $this->render('back/liensMorts/liensMorts.html.twig', ['imagesBlocs' => $imagesBlocs, 'imagesAutres' => $imagesAutres]);
     }
 
     public function testUrl($url){
@@ -94,13 +125,18 @@ class LiensMortsController extends AbstractController
         return $headers['http_code'];
     }
 
-    private function testUrlImage($urlImage, $bloc, $tableau){
+    private function formattageLien($url){
         $site = $_SERVER['SERVER_NAME'];
 
-        if(substr($urlImage, 0, 8) == '/uploads'){
-            $urlImage = $site.$urlImage;
+        if(substr($url, 0, 8) == '/uploads'){
+            $url = $site.$url;
         }
 
+        return $url;
+    }
+
+    private function testUrlImage($urlImage, $bloc, $tableau){
+        $urlImage = $this->formattageLien($urlImage);
 
         if($this->testUrl($urlImage) == '404'){
             $tableau = $this->addLienMort($urlImage, $bloc, $tableau);

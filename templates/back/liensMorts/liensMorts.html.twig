@@ -2,8 +2,60 @@
 
 {% block content %}
     <h1>{{ "Liste des liens morts"|trans }}</h1>
-    <h2>Images</h2>
-    {% if images is not empty %}
-        {% include 'back/liensMorts/_tableauLiensMorts.html.twig' with { 'liensMorts' : images } only %}
+    {% if imagesBlocs is not empty %}
+        <h2>Images dans des blocs</h2>
+        <table class="table">
+            <thead>
+            <tr>
+                <th>Page</th>
+                <th>Groupe de Blocs</th>
+                <th>Type de Bloc</th>
+                <th>Lien mort</th>
+            </tr>
+            </thead>
+            {% for image in imagesBlocs %}
+                <tr>
+                    <td>
+                        {% if image.page is not empty %}
+                            {% set entite = image.page.active ? 'Page_Active' : 'Page_Corbeille' %}
+                            <a href="{{ path('easyadmin', { entity: entite, action: "edit", id: image.page.id}) }}">
+                                {{ image.page }}
+                            </a>
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% if image.groupeBlocs is not empty %}
+                            <a href="{{ path('easyadmin', { entity: "GroupeBlocs", action: "edit", id: image.groupeBlocs.id}) }}">
+                                {{ image.page }}
+                            </a>
+                        {% endif %}
+                    </td>
+                    <td>{{ image.typeBloc }}</td>
+                    <td>{{ image.lien }}</td>
+                </tr>
+            {% endfor %}
+        </table>
+    {% endif %}
+
+    {% if imagesAutres is not empty %}
+        <h2>Autres images</h2>
+        <table class="table">
+            <thead>
+            <tr>
+                <th>Origine</th>
+                <th>Lien mort</th>
+            </tr>
+            </thead>
+            {% for image in imagesAutres %}
+                <tr>
+                    <td>
+                        <a href="{{ path('easyadmin', { entity: image.typeEntite, action: 'edit', id: image.idEntite }) }}">
+                            {{ image.origine }}
+                        </a>
+                    </td>
+                    <td>{{ image.lien }}</td>
+                </tr>
+            {% endfor %}
+        </table>
     {% endif %}
 {% endblock %}

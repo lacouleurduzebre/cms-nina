@@ -97,3 +97,4 @@ easy_admin:
                 - { label: 'Thèmes', icon: '', route: 'theme' }
                 - { label: 'Blocs', icon: '', route: 'configurationBlocs' }
                 - { label: 'Sauvegardes', icon: '', route: 'sauvegarde' }
+                - { label: 'Liens morts', icon: '', route: 'liensMorts' }
