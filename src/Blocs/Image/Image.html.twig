@@ -1,13 +1,58 @@
-{% if bloc.contenu is not empty %}
-
-    {% if (bloc.contenu.lien is defined and bloc.contenu.lien is not empty) or (bloc.contenu.page is defined and bloc.contenu.page is not empty) %}
-        {% set lien = true %}
+{# Alignement #}
+{% if bloc.contenu.alignement is defined and bloc.contenu.alignement is not empty %}
+    {% if bloc.contenu.alignement == 'gauche' %}
+        {% set alignement = 'txtleft' %}
+    {% elseif bloc.contenu.alignement == 'droite' %}
+        {% set alignement = 'txtright' %}
     {% else %}
-        {% set lien = false %}
+        {% set alignement = 'txtcenter' %}
     {% endif %}
+{% else %}
+    {% set alignement = 'txtleft' %}
+{% endif %}
 
-    {% if bloc.contenu.titre is defined and bloc.contenu.titre is not empty %}
-        <figure>
+{# Hauteur / largeur max #}
+{% set style = '' %}
+{% if bloc.contenu.hauteurMax is defined and bloc.contenu.hauteurMax is not empty %}
+    {% set style = style~'max-height: '~bloc.contenu.hauteurMax~'px;' %}
+{% endif %}
+{% if bloc.contenu.largeurMax is defined and bloc.contenu.largeurMax is not empty %}
+    {% set style = style~'max-width: '~bloc.contenu.largeurMax~'px;' %}
+{% endif %}"
+
+
+<div class="{{ alignement }}">
+    {% if bloc.contenu is not empty %}
+
+        {% if (bloc.contenu.lien is defined and bloc.contenu.lien is not empty) or (bloc.contenu.page is defined and bloc.contenu.page is not empty) %}
+            {% set lien = true %}
+        {% else %}
+            {% set lien = false %}
+        {% endif %}
+
+        {% if bloc.contenu.titre is defined and bloc.contenu.titre is not empty %}
+            <figure>
+                {% if bloc.contenu.image is not empty %}
+                    {% if lien %}
+                        <a href="
+                            {% if bloc.contenu.page is defined and bloc.contenu.page is not empty %}
+                                {% set page = page(bloc.contenu.page) %}
+                                {{ lienPage(page) }}
+                            {% else %}
+                                {{ bloc.contenu.lien }}
+                            {% endif %}
+                        "
+                        {% if bloc.contenu.blank is defined and bloc.contenu.blank is not empty and bloc.contenu.blank %}target="_blank"{% endif %}
+                        >
+                    {% endif %}
+                    <img src="{{ getTaille(bloc.contenu.image, 'large') }}" {% if bloc.contenu.description is defined and bloc.contenu.description is not empty %}alt="{{ bloc.contenu.description }}"{% endif %} style="{{ style }}">
+                    {% if lien %}
+                        </a>
+                    {% endif %}
+                {% endif %}
+                <figcaption>{{ bloc.contenu.titre }}</figcaption>
+            </figure>
+        {% else %}
             {% if bloc.contenu.image is not empty %}
                 {% if lien %}
                     <a href="
@@ -21,31 +66,11 @@
                     {% if bloc.contenu.blank is defined and bloc.contenu.blank is not empty and bloc.contenu.blank %}target="_blank"{% endif %}
                     >
                 {% endif %}
-                <img src="{{ getTaille(bloc.contenu.image, 'large') }}" {% if bloc.contenu.description is defined and bloc.contenu.description is not empty %}alt="{{ bloc.contenu.description }}"{% endif %}>
+                <img src="{{ getTaille(bloc.contenu.image, 'large') }}" {% if bloc.contenu.description is defined and bloc.contenu.description is not empty %}alt="{{ bloc.contenu.description }}"{% endif %} style="{{ style }}">
                 {% if lien %}
                     </a>
                 {% endif %}
             {% endif %}
-            <figcaption>{{ bloc.contenu.titre }}</figcaption>
-        </figure>
-    {% else %}
-        {% if bloc.contenu.image is not empty %}
-            {% if lien %}
-                <a href="
-                    {% if bloc.contenu.page is defined and bloc.contenu.page is not empty %}
-                        {% set page = page(bloc.contenu.page) %}
-                        {{ lienPage(page) }}
-                    {% else %}
-                        {{ bloc.contenu.lien }}
-                    {% endif %}
-                "
-                {% if bloc.contenu.blank is defined and bloc.contenu.blank is not empty and bloc.contenu.blank %}target="_blank"{% endif %}
-                >
-            {% endif %}
-            <img src="{{ getTaille(bloc.contenu.image, 'large') }}" {% if bloc.contenu.description is defined and bloc.contenu.description is not empty %}alt="{{ bloc.contenu.description }}"{% endif %}>
-            {% if lien %}
-                </a>
-            {% endif %}
         {% endif %}
     {% endif %}
-{% endif %}
+</div>

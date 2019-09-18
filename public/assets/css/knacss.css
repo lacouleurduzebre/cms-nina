@@ -3484,7 +3484,7 @@ ul.nav-tabs li a {
 }
 
 body.edit input[type=text], body.edit input[type=email], body.edit input[type=tel], body.edit input[type=url], body.edit input[type=password], body.edit textarea, body.new input[type=text], body.new input[type=email], body.new input[type=tel], body.new input[type=url], body.new input[type=password], body.new textarea {
-  width: 100% !important;
+  width: 100%;
 }
 body.edit .content-header, body.new .content-header {
   position: fixed;
@@ -3739,7 +3739,7 @@ body.list #flash-messages > * {
   right: 1rem;
   box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
 }
-#flash-messages .alert-enregistrement, #flash-messages .alert-success {
+#flash-messages .alert-enregistrement {
   background: #A1BA1D;
 }
 #flash-messages .alert-erreur {
@@ -4735,6 +4735,10 @@ body.edit .bloc-reseauxsociaux input[type=text], body.new .bloc-reseauxsociaux i
 
 form.autreUtilisateur .mdp {
   display: none;
+}
+
+body.edit input[id$=_largeurMax], body.edit input[id$=_hauteurMax], body.new input[id$=_largeurMax], body.new input[id$=_hauteurMax] {
+  width: 7rem;
 }
 
 #page_active_SEO .metaTitre, #page_active_SEO #seo_metaTitre, .listeSEO-conteneur .metaTitre, .listeSEO-conteneur #seo_metaTitre {

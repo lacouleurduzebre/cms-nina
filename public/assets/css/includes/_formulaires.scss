@@ -45,3 +45,10 @@
 form.autreUtilisateur .mdp{
   display: none;
 }
+
+//Image
+body.edit, body.new{
+  input[id$=_largeurMax], input[id$=_hauteurMax]{
+    width: 7rem;
+  }
+}

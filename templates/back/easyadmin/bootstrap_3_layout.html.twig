@@ -1040,6 +1040,18 @@
         {{- form_label(form.children.description) -}}
         {{- form_widget(form.children.description) -}}
     </div>
+    <div>
+        {{- form_label(form.children.hauteurMax) -}}
+        {{- form_widget(form.children.hauteurMax) -}} px
+    </div>
+    <div>
+        {{- form_label(form.children.largeurMax) -}}
+        {{- form_widget(form.children.largeurMax) -}} px
+    </div>
+    <div>
+        {{- form_label(form.children.alignement) -}}
+        {{- form_widget(form.children.alignement) -}}
+    </div>
     {% set nv = 1 %}
     {{ block('lien_page') }}
     <script>

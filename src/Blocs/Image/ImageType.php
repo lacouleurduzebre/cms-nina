@@ -14,6 +14,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -45,6 +46,15 @@ class ImageType extends AbstractType
             ->add('description', TextType::class, array(
                 'required' => false,
             ))
+            ->add('hauteurMax', TextType::class)
+            ->add('largeurMax', TextType::class)
+            ->add('alignement', ChoiceType::class, [
+                'choices' => [
+                    "À gauche" => "gauche",
+                    "Centré" => "centre",
+                    "À droite" => "droite"
+                ]
+            ])
             ->add('lien', TextType::class, array(
                 "help" => "Pour les liens externes, ne pas oublier d'ajouter le préfixe http:// ou https://",
                 "label" => "Lien"
