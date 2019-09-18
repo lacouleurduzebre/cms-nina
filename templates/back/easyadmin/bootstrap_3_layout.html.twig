@@ -1120,7 +1120,33 @@
     <div class="dragCase">
         <i class="fas fa-arrows-alt"></i>
     </div>
-    {{- form_widget(form) -}}
+    {#{{- form_widget(form) -}}#}
+    <div class="case-choix">
+        {{- form_label(form.children.type) -}}
+        {{- form_widget(form.children.type) -}}
+    </div>
+    <div class="hidden case-page mts">
+        {{- form_label(form.children.page) -}}
+        {{- form_widget(form.children.page) -}}
+    </div>
+    <div class="hidden case-autre mts">
+        <div>
+            {{- form_label(form.children.titre) -}}
+            {{- form_widget(form.children.titre) -}}
+        </div>
+        <div>
+            {{- form_label(form.children.texte) -}}
+            {{- form_widget(form.children.texte) -}}
+        </div>
+        <div class="tresFonce">
+            {{- form_label(form.children.lien) -}}
+            {{- form_widget(form.children.lien) -}}
+        </div>
+        <div class="tresFonce">
+            {{- form_label(form.children.image) -}}
+            {{- form_widget(form.children.image) -}}
+        </div>
+    </div>
 {% endblock %}
 
 {% block galerie_image_widget %}

@@ -43,6 +43,15 @@ class CaseType extends AbstractType
         $builder
             ->add('position', HiddenType::class, array(
             ))
+            ->add('type', ChoiceType::class, array(
+                "label" => false,
+                "choices" => [
+                    'Aperçu d\'une page' => 'page',
+                    'Édition manuelle' => 'autre',
+                ],
+                'expanded' => true,
+                "required" => true
+            ))
             ->add('page', ChoiceType::class, array(
                 'choices' => $pages,
                 'required' => false,

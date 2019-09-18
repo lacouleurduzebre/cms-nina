@@ -326,23 +326,6 @@ $(document).ready(function() {
         $('.listeBlocsAnnexes').removeClass('actif');
     });
 
-    //Bloc grille : affichage ou non des champs titre, image et texte
-    // $('.bloc-grille select[id$="page"]').each(function(){
-    //     if($(this).val() === ''){
-    //         $(this).closest('div.field-case').removeClass('page');
-    //     }else{
-    //         $(this).closest('div.field-case').addClass('page');
-    //     }
-    // });
-    //
-    // $('#page_active_blocs').on('change', '.bloc-grille select[id$="page"]', function(){
-    //     if($(this).val() === ''){
-    //         $(this).closest('div.field-case').removeClass('page');
-    //     }else{
-    //         $(this).closest('div.field-case').addClass('page');
-    //     }
-    // });
-
     //Bloc groupe de blocs : modif du lien si valeur qui change
     $('.bloc-groupeblocs-edition select').on('change', function(){
         $(this).next('a').attr('href', Routing.generate('admin', { action: 'edit', entity: 'GroupeBlocs', id: $(this).val() }));
@@ -477,6 +460,29 @@ $(document).ready(function() {
         }else if($(this).prop('checked') && $(this).val() === 'autre'){
             conteneur.find('.autre').removeClass('hidden');
             conteneur.find('.lien-page--blank').removeClass('hidden');
+        }
+    });
+
+    //Bloc grille : type d'infos
+    $('body').on('change', '.case-choix input', function(){
+        conteneur = $(this).closest('.field-case');
+
+        if($(this).val() === 'page'){
+            conteneur.find('.case-page').removeClass('hidden');
+            conteneur.find('.case-autre').addClass('hidden');
+        }else{
+            conteneur.find('.case-page').addClass('hidden');
+            conteneur.find('.case-autre').removeClass('hidden');
+        }
+    });
+
+    $('.case-choix input').each(function(){
+        conteneur = $(this).closest('.field-case');
+
+        if($(this).prop('checked') && $(this).val() === 'page'){
+            conteneur.find('.case-page').removeClass('hidden');
+        }else if($(this).prop('checked') && $(this).val() === 'autre'){
+            conteneur.find('.case-autre').removeClass('hidden');
         }
     });
 });

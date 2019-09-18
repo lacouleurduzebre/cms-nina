@@ -3,7 +3,7 @@
     <div class="grid-{{ bloc.contenu.nbColonnes }}-small-2-tiny-1 has-gutter-xl">
         {% for case in cases|sortBy('position') %}
             <div class="blocGrille-case">
-                {% if case.page is defined and case.page is not empty %}
+                {% if (case.type is not defined or (case.type is defined and case.type == 'page')) and case.page is defined and case.page is not empty %}
                     {% set page = page(case.page) %}
                     <div class="blocGrille-case-image">
                         {{ blocAnnexe(page, "Vignette") }}
