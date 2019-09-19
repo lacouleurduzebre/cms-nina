@@ -43,8 +43,12 @@ class VerificationLogin implements EventSubscriberInterface
 
     public function echecConnexion(AuthenticationFailureEvent $event)
     {
-        $username = $event->getAuthenticationToken()->getUsername();
-        $user = $this->em->getRepository(Utilisateur::class)->findOneByUsername($username);
+        $identifiant = $event->getAuthenticationToken()->getUsername();
+        $user = $this->em->getRepository(Utilisateur::class)->findOneByUsername($identifiant);
+
+        if(!$user){
+            $user = $this->em->getRepository(Utilisateur::class)->findOneByEmail($identifiant);
+        }
 
         if($user){
             $now = time();
@@ -77,8 +81,12 @@ class VerificationLogin implements EventSubscriberInterface
 
     public function connexion(InteractiveLoginEvent $event)
     {
-        $username = $event->getAuthenticationToken()->getUsername();
-        $user = $this->em->getRepository(Utilisateur::class)->findOneByUsername($username);
+        $identifiant = $event->getAuthenticationToken()->getUsername();
+        $user = $this->em->getRepository(Utilisateur::class)->findOneByUsername($identifiant);
+
+        if(!$user){
+            $user = $this->em->getRepository(Utilisateur::class)->findOneByEmail($identifiant);
+        }
 
         if($user){
             $user->setTentativesConnexion(0);
