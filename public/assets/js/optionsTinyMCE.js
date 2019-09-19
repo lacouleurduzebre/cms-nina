@@ -3,6 +3,7 @@ $(document).ready(function(){
         selector: "textarea:not('.notTinymce')",
         language: "fr_FR",
         theme: "modern",
+        branding: false,
         height: 300,
         plugins: [
             "advlist autolink link image lists charmap print preview hr anchor pagebreak",
@@ -30,6 +31,19 @@ $(document).ready(function(){
                         return 'Êtes-vous sûr de vouloir quitter cette page ? Des données pourraient ne pas avoir été enregistrées';
                     }
                 });
+            });
+        },
+
+        //Affichage de la barre au clic
+        setup: function (editor) {
+            editor.on('focus', function () {
+                $(this.contentAreaContainer.parentElement).find("div.mce-flow-layout").show();
+            });
+            editor.on('blur', function () {
+                $(this.contentAreaContainer.parentElement).find("div.mce-flow-layout").hide();
+            });
+            editor.on('init', function() {
+                $(this.contentAreaContainer.parentElement).find("div.mce-flow-layout").hide();
             });
         }
     };
