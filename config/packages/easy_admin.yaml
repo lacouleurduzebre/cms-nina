@@ -80,7 +80,7 @@ easy_admin:
                 icon: ''
                 children:
                   - { entity: 'Langue', label: 'Toutes les langues', type: 'entity', menu_index: 0, submenu_index: 0, icon: '', default: true, params: { } }
-                  - { route: 'traductionsPages', label: 'Traduction des pages', type: 'route', menu_index: 0, submenu_index: 0, icon: '', default: true, params: { } }
+                  - { route: 'traductionsPages', label: 'Traduction des pages', type: 'route', menu_index: 0, submenu_index: 0, icon: '', default: true, css_class: 'traductions', params: { } }
                   - { route: 'traductionsTemplates', label: 'Traduction des templates', type: 'route', menu_index: 0, submenu_index: 0, icon: '', default: true, params: { } }
               - label: 'Interface'
                 icon: ''

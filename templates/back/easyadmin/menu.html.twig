@@ -18,11 +18,13 @@
             {% set path = path(item.route, menu_params|merge(item.params)) %}
         {% endif %}
 
-        <a href="{{ path }}" {% if item.target|default(false) %}target="{{ item.target }}"{% endif %}>
-            {% if item.icon is not empty %}<i class="fa {{ item.icon }}"></i>{% endif %}
-            <span>{{ item.label|trans(domain = translation_domain) }}</span>
-            {% if item.children|default([]) is not empty %}<i class="fas fa-angle-down mls"></i>{% endif %}
-        </a>
+        {% if item['css_class'] is not defined or item['css_class'] != 'traductions' or langues|length > 1 %}
+            <a href="{{ path }}" {% if item.target|default(false) %}target="{{ item.target }}"{% endif %}>
+                {% if item.icon is not empty %}<i class="fa {{ item.icon }}"></i>{% endif %}
+                <span>{{ item.label|trans(domain = translation_domain) }}</span>
+                {% if item.children|default([]) is not empty %}<i class="fas fa-angle-down mls"></i>{% endif %}
+            </a>
+        {% endif %}
     {% endif %}
 {% endmacro %}
 
