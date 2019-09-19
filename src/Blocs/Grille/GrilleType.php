@@ -29,7 +29,8 @@ class GrilleType extends AbstractType
             'choices' => array(
                 '2' => 2,
                 '3' => 3,
-                '4' => 4
+                '4' => 4,
+                'flexible (tous les éléments sur une ligne, passage à la ligne automatique si nécessaire)' => 'flex'
             ),
         ))
             ->add('cases', CollectionType::class, array(
