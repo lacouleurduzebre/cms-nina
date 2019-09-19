@@ -51,7 +51,24 @@ $(document).ready(function() {
     //Aperçu Google
     $('#page_active_SEO_url, #page_active_SEO_metaTitre, #page_active_SEO_metaDescription').on('keyup', function(){
         identifiant = $(this).attr('id').split('_').pop();
-        $('.listeSEO-apercu .'+identifiant).html($(this).val());
+
+        seo = $(this).val();
+
+        if(identifiant === 'metaTitre'){
+            if(seo.length > 65){
+                seo = seo.substr(0, 65)+'...';
+            }
+        }else if(identifiant === 'url'){
+            if(seo.length > 75){
+                seo = seo.substr(0, 75)+'...';
+            }
+        }else{
+            if(seo.length > 150){
+                seo = seo.substr(0, 150)+'...';
+            }
+        }
+
+        $('.listeSEO-apercu .'+identifiant).html(seo);
     });
 
     //Réinitialisation onglet SEO d'une page
