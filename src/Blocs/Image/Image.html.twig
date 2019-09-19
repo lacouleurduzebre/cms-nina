@@ -20,6 +20,13 @@
     {% set style = style~'max-width: '~bloc.contenu.largeurMax~'px;' %}
 {% endif %}"
 
+{# Choix du fichier #}
+{% set image = getTaille(bloc.contenu.image, 'large') %}
+{% if bloc.contenu.largeurMax is defined and bloc.contenu.largeurMax is not empty and bloc.contenu.largeurMax <= 200 %}
+    {% set image = getTaille(bloc.contenu.image, 'small') %}
+{% elseif bloc.contenu.largeurMax is defined and bloc.contenu.largeurMax is not empty and bloc.contenu.largeurMax <= 500 %}
+    {% set image = getTaille(bloc.contenu.image, 'medium') %}
+{% endif %}
 
 <div class="{{ alignement }}">
     {% if bloc.contenu is not empty %}
@@ -45,7 +52,7 @@
                         {% if bloc.contenu.blank is defined and bloc.contenu.blank is not empty and bloc.contenu.blank %}target="_blank"{% endif %}
                         >
                     {% endif %}
-                    <img src="{{ getTaille(bloc.contenu.image, 'large') }}" {% if bloc.contenu.description is defined and bloc.contenu.description is not empty %}alt="{{ bloc.contenu.description }}"{% endif %} style="{{ style }}">
+                    <img src="{{ image }}" {% if bloc.contenu.description is defined and bloc.contenu.description is not empty %}alt="{{ bloc.contenu.description }}"{% endif %} style="{{ style }}">
                     {% if lien %}
                         </a>
                     {% endif %}
@@ -66,7 +73,7 @@
                     {% if bloc.contenu.blank is defined and bloc.contenu.blank is not empty and bloc.contenu.blank %}target="_blank"{% endif %}
                     >
                 {% endif %}
-                <img src="{{ getTaille(bloc.contenu.image, 'large') }}" {% if bloc.contenu.description is defined and bloc.contenu.description is not empty %}alt="{{ bloc.contenu.description }}"{% endif %} style="{{ style }}">
+                <img src="{{ image }}" {% if bloc.contenu.description is defined and bloc.contenu.description is not empty %}alt="{{ bloc.contenu.description }}"{% endif %} style="{{ style }}">
                 {% if lien %}
                     </a>
                 {% endif %}
