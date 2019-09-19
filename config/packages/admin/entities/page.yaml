@@ -74,7 +74,7 @@ easy_admin:
                     - { type: 'tab', label: 'Commentaires' }
                     - { property: 'affichageCommentaires', label: 'Autoriser les commentaires' }
                     - { property: 'commentaires', type: 'collection', type_options: { entry_type: 'App\Form\Type\CommentaireType', by_reference: false } }
-                    - { type: 'tab', label: 'Traduction' }
+                    - { type: 'tab', label: 'Traductions', css_class: 'traductions' }
                     - { property: 'langue', label: 'Page en :', type_options: { required: true } }
                     - { property: 'traductions', label: 'Traductions :', type: 'App\Form\Type\TraductionsType' }
             edit:
