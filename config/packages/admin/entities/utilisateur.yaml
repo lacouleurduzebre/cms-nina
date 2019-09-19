@@ -8,7 +8,7 @@ easy_admin:
             list:
                 fields:
                     - { property: 'imageProfil', type: 'image' }
-                    - { property: 'username', label: 'Pseudonyme' }
+                    - { property: 'username', label: 'Identifiant' }
                     - { property: 'email', label: 'E-mail' }
                     - { property: 'enabled', label: 'Activé' }
                     - { property: 'lastLogin', label: 'Dernière connexion' }
@@ -19,7 +19,7 @@ easy_admin:
                     - email
             show:
                 fields:
-                    - { property: 'username', label: 'Pseudonyme' }
+                    - { property: 'username', label: 'Identifiant' }
                     - { property: 'email', label: 'E-mail' }
                     - { property: 'enabled', label: 'Activé' }
                     - { property: 'lastLogin', label: 'Dernière connexion' }
@@ -30,7 +30,7 @@ easy_admin:
             new:
                 fields:
                     - { type: 'tab', label: 'Paramètres du compte' }
-                    - { property: 'username', label: 'Pseudonyme' }
+                    - { property: 'username', label: 'Identifiant' }
                     - { property: 'email', label: 'E-mail' }
                     - { type: 'group', label: 'Mot de passe', icon: 'key' }
                     - { property: 'plainPassword', type: 'repeated', type_options: { type: 'Symfony\Component\Form\Extension\Core\Type\PasswordType', first_options: { label: 'Mot de passe' }, second_options: { label: 'Répéter le mot de passe' } } }
@@ -46,7 +46,7 @@ easy_admin:
                     - { name: 'list', label: 'Retour', title: 'Retour', icon: 'arrow-left', css_class: '' }
                 fields:
                     - { type: 'tab', label: 'Paramètres du compte' }
-                    - { property: 'username', label: 'Pseudonyme' }
+                    - { property: 'username', label: 'Identifiant' }
                     - { property: 'email', label: 'E-mail' }
                     - { type: 'group', label: 'Mot de passe', icon: 'key', css_class: 'mdp', help: "Pour changer de mot de passer, utilisez <a id=\"modifMDP\" href=\"/profile/change-password\">ce formulaire</a>" }
                     - { type: 'group', label: 'Image de profil', icon: 'camera' }
