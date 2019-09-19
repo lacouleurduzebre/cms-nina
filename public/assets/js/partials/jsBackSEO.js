@@ -13,8 +13,9 @@ $(document).ready(function() {
             champs = $('.listeSEO-edition[data-id="'+id+'"]');
             formulaire = champs.find('.listeSEO-formulaire');
             formulaire.html(data);
-            champs.show();
-            champs.closest('.listeSEO-SEO').height($('.listeSEO-edition[data-id="'+id+'"]').height());
+            hauteurTitre = $('.listeSEO-SEO[data-id="'+id+'"]').find('.titre').height()+16
+            champs.show().css('top', hauteurTitre);
+            champs.closest('.listeSEO-SEO').height($('.listeSEO-edition[data-id="'+id+'"]').height()+hauteurTitre);
         });
     });
 

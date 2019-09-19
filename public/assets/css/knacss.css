@@ -4817,7 +4817,6 @@ body.edit input[id$=_largeurMax], body.edit input[id$=_hauteurMax], body.new inp
 .listeSEO-edition {
   display: none;
   position: absolute;
-  top: 0;
   left: 0;
   width: 100%;
   background-color: #FFF;
