@@ -3,7 +3,7 @@
 {% block content %}
     <h1>{{ "Liste des liens morts"|trans }}</h1>
     {% if imagesBlocs is not empty %}
-        <h2>Images dans des blocs</h2>
+        <h2>{{ "Images dans des blocs"|trans }}</h2>
         <table class="table">
             <thead>
             <tr>
@@ -38,7 +38,7 @@
     {% endif %}
 
     {% if imagesAutres is not empty %}
-        <h2>Autres images</h2>
+        <h2>{{ "Autres images"|trans }}</h2>
         <table class="table">
             <thead>
             <tr>
@@ -54,6 +54,41 @@
                         </a>
                     </td>
                     <td>{{ image.lien }}</td>
+                </tr>
+            {% endfor %}
+        </table>
+    {% endif %}
+
+    {% if liensBlocs is not empty %}
+        <h2>{{ "Liens dans des blocs"|trans }}</h2>
+        <table class="table">
+            <thead>
+            <tr>
+                <th>Page</th>
+                <th>Groupe de Blocs</th>
+                <th>Type de Bloc</th>
+                <th>Lien mort</th>
+            </tr>
+            </thead>
+            {% for lien in liensBlocs %}
+                <tr>
+                    <td>
+                        {% if lien.page is not empty %}
+                            {% set entite = lien.page.active ? 'Page_Active' : 'Page_Corbeille' %}
+                            <a href="{{ path('easyadmin', { entity: entite, action: "edit", id: lien.page.id}) }}">
+                                {{ lien.page }}
+                            </a>
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% if lien.groupeBlocs is not empty %}
+                            <a href="{{ path('easyadmin', { entity: "GroupeBlocs", action: "edit", id: lien.groupeBlocs.id}) }}">
+                                {{ lien.page }}
+                            </a>
+                        {% endif %}
+                    </td>
+                    <td>{{ lien.typeBloc }}</td>
+                    <td>{{ lien.lien }}</td>
                 </tr>
             {% endfor %}
         </table>

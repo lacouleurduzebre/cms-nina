@@ -37,7 +37,7 @@ class LiensMortsController extends AbstractController
         $blocsBandeaux = $repoBlocsAnnexes->findBy(['type' => 'Bandeau']);
         foreach($blocsBandeaux as $bloc){
             $urlImage = $bloc->getContenu()['image']['image'];
-            $imagesBlocs = $this->testUrlImage($urlImage, $bloc, $imagesBlocs);
+            $imagesBlocs = $this->testUrlBloc($urlImage, $bloc, $imagesBlocs);
         }
 
             //Galeries
@@ -45,7 +45,7 @@ class LiensMortsController extends AbstractController
         foreach($blocsGalerie as $bloc){
             foreach($bloc->getContenu()['images'] as $image){
                 $urlImage = $image['image']['image'];
-                $imagesBlocs = $this->testUrlImage($urlImage, $bloc, $imagesBlocs);
+                $imagesBlocs = $this->testUrlBloc($urlImage, $bloc, $imagesBlocs);
             }
         }
 
@@ -54,7 +54,7 @@ class LiensMortsController extends AbstractController
         foreach($blocsGrille as $bloc){
             foreach($bloc->getContenu()['cases'] as $case){
                 $urlImage = $case['image']['image'];
-                $imagesBlocs = $this->testUrlImage($urlImage, $bloc, $imagesBlocs);
+                $imagesBlocs = $this->testUrlBloc($urlImage, $bloc, $imagesBlocs);
             }
         }
 
@@ -62,7 +62,7 @@ class LiensMortsController extends AbstractController
         $blocsImages = $repoBlocs->findBy(['type' => 'Image']);
         foreach($blocsImages as $bloc){
             $urlImage = $bloc->getContenu()['image'];
-            $imagesBlocs = $this->testUrlImage($urlImage, $bloc, $imagesBlocs);
+            $imagesBlocs = $this->testUrlBloc($urlImage, $bloc, $imagesBlocs);
         }
 
             //Sliders
@@ -70,7 +70,7 @@ class LiensMortsController extends AbstractController
         foreach($blocsSliders as $bloc){
             foreach($bloc->getContenu()['Slide'] as $slide){
                 $urlImage = $slide['image']['image'];
-                $imagesBlocs = $this->testUrlImage($urlImage, $bloc, $imagesBlocs);
+                $imagesBlocs = $this->testUrlBloc($urlImage, $bloc, $imagesBlocs);
             }
         }
 
@@ -78,7 +78,7 @@ class LiensMortsController extends AbstractController
         $blocsVignettes = $repoBlocsAnnexes->findBy(['type' => 'Vignette']);
         foreach($blocsVignettes as $bloc){
             $urlImage = $bloc->getContenu()['image']['image'];
-            $imagesBlocs = $this->testUrlImage($urlImage, $bloc, $imagesBlocs);
+            $imagesBlocs = $this->testUrlBloc($urlImage, $bloc, $imagesBlocs);
         }
 
         //Autres images
@@ -108,7 +108,68 @@ class LiensMortsController extends AbstractController
             ];
         }
 
-        return $this->render('back/liensMorts/liensMorts.html.twig', ['imagesBlocs' => $imagesBlocs, 'imagesAutres' => $imagesAutres]);
+        //Liens dans des blocs
+        $liensBlocs = [];
+
+            //Boutons
+        $blocsBoutons = $repoBlocs->findBy(['type' => 'Bouton']);
+        foreach($blocsBoutons as $bloc){
+            $url = $bloc->getContenu()['lien'];
+            $liensBlocs = $this->testUrlBloc($url, $bloc, $liensBlocs);
+        }
+
+            //Galeries
+        $blocsGalerie = $repoBlocs->findBy(['type' => 'Galerie']);
+        foreach($blocsGalerie as $bloc){
+            foreach($bloc->getContenu()['images'] as $image){
+                $url = $image['lien'];
+                $liensBlocs = $this->testUrlBloc($url, $bloc, $liensBlocs);
+            }
+        }
+
+            //Grilles
+        $blocsGrille = $repoBlocs->findBy(['type' => 'Grille']);
+        foreach($blocsGrille as $bloc){
+            foreach($bloc->getContenu()['cases'] as $case){
+                $url = $case['lien']['lien'];
+                $liensBlocs = $this->testUrlBloc($url, $bloc, $liensBlocs);
+            }
+        }
+
+            //Images
+        $blocsImage = $repoBlocs->findBy(['type' => 'Image']);
+        foreach($blocsImage as $bloc){
+            $url = $bloc->getContenu()['lien'];
+            $liensBlocs = $this->testUrlBloc($url, $bloc, $liensBlocs);
+        }
+
+            //Réseaux sociaux
+        $blocsReseauxSociaux = $repoBlocs->findBy(['type' => 'ReseauxSociaux']);
+        foreach($blocsReseauxSociaux as $bloc){
+            foreach($bloc->getContenu() as $champ => $valeur){
+                if(substr($champ, strlen($champ) - 3, 3) == 'Url'){
+                    $liensBlocs = $this->testUrlBloc($valeur, $bloc, $liensBlocs);
+                }
+            }
+        }
+
+            //Sliders
+        $blocsSliders = $repoBlocs->findBy(['type' => 'Slider']);
+        foreach($blocsSliders as $bloc){
+            foreach($bloc->getContenu()['Slide'] as $slide){
+                $url = $slide['lien'];
+                $liensBlocs = $this->testUrlBloc($url, $bloc, $liensBlocs);
+            }
+        }
+
+            //Vidéos
+        $blocsVideos = $repoBlocs->findBy(['type' => 'Video']);
+        foreach($blocsVideos as $bloc){
+            $url = $bloc->getContenu()['video'];
+            $liensBlocs = $this->testUrlBloc($url, $bloc, $liensBlocs);
+        }
+
+        return $this->render('back/liensMorts/liensMorts.html.twig', ['imagesBlocs' => $imagesBlocs, 'imagesAutres' => $imagesAutres, 'liensBlocs' => $liensBlocs]);
     }
 
     public function testUrl($url){
@@ -127,13 +188,13 @@ class LiensMortsController extends AbstractController
         }
     }
 
-    private function testUrlImage($urlImage, $bloc, $tableau){
-        if(!$this->testUrl($urlImage)){
+    private function testUrlBloc($url, $bloc, $tableau){
+        if($url != '' && !$this->testUrl($url)){
             $tableau[] = [
                 'page' => $bloc->getPage(),
                 'groupeBlocs' => method_exists($bloc, 'getGroupeBlocs') ? $bloc->getGroupeBlocs() : null,
                 'typeBloc' => $bloc->getType(),
-                'lien' => $urlImage,
+                'lien' => $url,
                 'idBloc' => $bloc->getId()
             ];
         };
