@@ -74,13 +74,23 @@ $(document).ready(function() {
     //Réinitialisation onglet SEO d'une page
     $('#page_active_SEO > .raz').click(function(){
         if(!$(this).hasClass('ok')){
+            tinyMCE.triggerSave();
+
             $('#page_active_SEO_url').val(str2url($('#page_active_titre').val()).substr(0, 75));
             scoreSEOChargement($('#page_active_SEO_url'), 75);
 
             $('#page_active_SEO_metaTitre').val($('#page_active_titre').val().substr(0, 65));
             scoreSEOChargement($('#page_active_SEO_metaTitre'), 65);
 
-            $('#page_active_SEO_metaDescription').val($('#page_active_titre').val().substr(0, 150));
+            //Méta description
+            blocTexte = $('#page_active_blocs .bloc-texte').find('textarea');
+
+            metaDescription = $('#page_active_titre').val().substr(0, 150);
+            if(blocTexte.length > -1){
+                metaDescription = blocTexte.val().substr(0, 150).replace(/<\/?[^>]+>/gi, '');
+            }
+
+            $('#page_active_SEO_metaDescription').val(metaDescription);
             scoreSEOChargement($('#page_active_SEO_metaDescription'), 150);
 
             saveCloseFormulaire();
