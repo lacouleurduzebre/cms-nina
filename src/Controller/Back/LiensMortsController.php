@@ -87,8 +87,7 @@ class LiensMortsController extends AbstractController
             //Images de profil
         $utilisateurs = $this->getDoctrine()->getRepository(Utilisateur::class)->findAll();
         foreach($utilisateurs as $utilisateur){
-            $urlImage = $this->formattageLien($utilisateur->getImageProfil());
-            if($this->testUrl($urlImage) == '404'){
+            if(!$this->testUrl($utilisateur->getImageProfil())){
                 $imagesAutres[] = [
                     'typeEntite' => 'Utilisateur',
                     'idEntite' => $utilisateur->getId(),
@@ -100,8 +99,7 @@ class LiensMortsController extends AbstractController
 
             //Logo du site
         $config = $this->getDoctrine()->getRepository(Configuration::class)->find(1);
-        $urlImage = $this->formattageLien($config->getLogo());
-        if($this->testUrl($urlImage) == '404'){
+        if(!$this->testUrl($config->getLogo())){
             $imagesAutres[] = [
                 'typeEntite' => 'Configuration',
                 'idEntite' => 1,
@@ -114,45 +112,31 @@ class LiensMortsController extends AbstractController
     }
 
     public function testUrl($url){
-        $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, $url);
-        curl_setopt($ch, CURLOPT_HEADER, 1);
-        curl_setopt($ch , CURLOPT_RETURNTRANSFER, 1);
-        $data = curl_exec($ch);
-        $headers = curl_getinfo($ch);
-        curl_close($ch);
+        if(substr($url, 0, 1) == '/'){
+            return file_exists(getcwd().$url);
+        }else{
+            $ch = curl_init();
+            curl_setopt($ch, CURLOPT_URL, $url);
+            curl_setopt($ch, CURLOPT_HEADER, 1);
+            curl_setopt($ch , CURLOPT_RETURNTRANSFER, 1);
+            $data = curl_exec($ch);
+            $headers = curl_getinfo($ch);
+            curl_close($ch);
 
-        return $headers['http_code'];
-    }
-
-    private function formattageLien($url){
-        $site = $_SERVER['SERVER_NAME'];
-
-        if(substr($url, 0, 8) == '/uploads'){
-            $url = $site.$url;
+            return ($headers['http_code'] === '404');
         }
-
-        return $url;
     }
 
     private function testUrlImage($urlImage, $bloc, $tableau){
-        $urlImage = $this->formattageLien($urlImage);
-
-        if($this->testUrl($urlImage) == '404'){
-            $tableau = $this->addLienMort($urlImage, $bloc, $tableau);
+        if(!$this->testUrl($urlImage)){
+            $tableau[] = [
+                'page' => $bloc->getPage(),
+                'groupeBlocs' => method_exists($bloc, 'getGroupeBlocs') ? $bloc->getGroupeBlocs() : null,
+                'typeBloc' => $bloc->getType(),
+                'lien' => $urlImage,
+                'idBloc' => $bloc->getId()
+            ];
         };
-
-        return $tableau;
-    }
-
-    private function addLienMort($lien, $bloc, $tableau){
-        $tableau[] = [
-            'page' => $bloc->getPage(),
-            'groupeBlocs' => method_exists($bloc, 'getGroupeBlocs') ? $bloc->getGroupeBlocs() : null,
-            'typeBloc' => $bloc->getType(),
-            'lien' => $lien,
-            'idBloc' => $bloc->getId()
-        ];
 
         return $tableau;
     }
