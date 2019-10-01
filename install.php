@@ -24,6 +24,9 @@ if(!file_exists('translations')){
 if(!file_exists('themes/nina/translations')){
     mkdir('themes/nina/translations');
 }
+if(!file_exists('themes/nina/templates')){
+    mkdir('themes/nina/templates');
+}
 
 //Symlink des assets du back-office et du thème Nina
 $filesystem = new \Symfony\Component\Filesystem\Filesystem();
