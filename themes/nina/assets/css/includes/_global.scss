@@ -26,10 +26,19 @@ body.connected .header_front{
 
 main{
   background-color: rgba($white, .9);
+  padding-top: 3rem;
+  padding-bottom: 3rem;
   @include respond-to("small"){
     flex-direction: row !important;
   }
-  div[class^="bloc"], h1, > p, > div > .description, > div > .extrait{
+  > div[class^="bloc"]{
+    @include centre;
+    padding: 1rem;
+    &:not(.blocTitre){
+      margin-bottom: 3rem;
+    }
+  }
+  h1, > p, > div > .description, > div > .extrait{
     padding: 1rem;
   }
   div.blocSlider, div[class^="blocAnnexe"]{
@@ -41,12 +50,14 @@ h1, h2, h3{
   color: $color-brand2;
 }
 
-.infos-page{
+.titre-page, .infos-page{
   padding: 1rem;
+  @include centre;
 }
 
 #ariane{
   padding: 1rem;
+  @include centre;
   a{
     color: $color-brand2;
   }

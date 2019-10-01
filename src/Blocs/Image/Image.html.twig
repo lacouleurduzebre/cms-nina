@@ -18,7 +18,7 @@
 {% endif %}
 {% if bloc.contenu.largeurMax is defined and bloc.contenu.largeurMax is not empty %}
     {% set style = style~'max-width: '~bloc.contenu.largeurMax~'px;' %}
-{% endif %}"
+{% endif %}
 
 {# Choix du fichier #}
 {% set image = getTaille(bloc.contenu.image, 'large') %}

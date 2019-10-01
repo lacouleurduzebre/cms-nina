@@ -2752,11 +2752,11 @@ button:focus {
   height: 2rem;
   background-size: 0% 0%;
   transition: background-size 0.15s;
-  box-shadow: inset 0 0 0 1px #333;
+  box-shadow: inset 0 0 0 1px #5CBFEE;
   background-color: #fff;
 }
 .radio:checked {
-  background-image: url("data:image/svg+xml,%3C%3Fxml%20version%3D%221.0%22%20standalone%3D%22no%22%3F%3E%3Csvg%20version%3D%221.1%22%20width%3D%22100%22%20height%3D%22100%22%0AviewBox%3D%220%200%2080%2080%22%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%3E%3Ccircle%20cx%3D%2240%22%20cy%3D%2240%22%20r%3D%2224%22%20style%3D%22fill%3A%23333333%22/%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3C%3Fxml%20version%3D%221.0%22%20standalone%3D%22no%22%3F%3E%3Csvg%20version%3D%221.1%22%20width%3D%22100%22%20height%3D%22100%22%0AviewBox%3D%220%200%2080%2080%22%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%3E%3Ccircle%20cx%3D%2240%22%20cy%3D%2240%22%20r%3D%2224%22%20style%3D%22fill%3A%235CBFEE%22/%3E%3C/svg%3E");
   background-size: 90% 90%;
   background-position: center;
   background-repeat: no-repeat;
@@ -3073,13 +3073,24 @@ body {
 
 main {
   background-color: rgba(255, 255, 255, 0.9);
+  padding-top: 3rem;
+  padding-bottom: 3rem;
 }
 @media (max-width: 575px) {
   main {
     flex-direction: row !important;
   }
 }
-main div[class^=bloc], main h1, main > p, main > div > .description, main > div > .extrait {
+main > div[class^=bloc] {
+  max-width: 992px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 1rem;
+}
+main > div[class^=bloc]:not(.blocTitre) {
+  margin-bottom: 3rem;
+}
+main h1, main > p, main > div > .description, main > div > .extrait {
   padding: 1rem;
 }
 main div.blocSlider, main div[class^=blocAnnexe] {
@@ -3090,12 +3101,18 @@ h1, h2, h3 {
   color: #007492;
 }
 
-.infos-page {
+.titre-page, .infos-page {
   padding: 1rem;
+  max-width: 992px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 #ariane {
   padding: 1rem;
+  max-width: 992px;
+  margin-left: auto;
+  margin-right: auto;
 }
 #ariane a {
   color: #007492;
@@ -3373,126 +3390,64 @@ body.notFull .cookies {
   line-height: 1.1;
 }
 
-.blocActualites h2 {
-  color: #5CBFEE;
-}
-.blocActualites .bouton {
-  margin-top: 1rem;
-}
-
-main div.blocActualites-page--texte, main div.blocActualites-page--image {
-  padding: 0;
-}
-
-.blocActualites-page--infos {
-  font-style: italic;
-  line-height: 1.2;
-}
-
-.blocSlider {
-  color: #fff;
-}
-.blocSlider a {
-  color: #fff;
-}
-.blocSlider .slick-prev, .blocSlider .slick-next {
-  width: 40px;
-  height: 40px;
-  z-index: 10;
-  text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-}
-.blocSlider .slick-prev {
-  left: 1rem;
-}
-.blocSlider .slick-next {
-  right: 1rem;
-}
-.blocSlider .slick-prev::before, .blocSlider .slick-next::before {
-  font-size: 40px;
-  opacity: 1;
-  color: #FFF;
-}
-.blocSlider .slick-dots li button::before {
-  font-size: 1.2rem;
-  color: #5CBFEE;
-}
-.blocSlider .slick-dots li.slick-active button::before {
-  color: #5CBFEE;
-}
-
-.slick-slide img {
-  max-height: 30rem;
-  width: 100%;
-  object-fit: cover;
-}
-
-.blocSlider-slide--texte {
-  padding: 1rem;
-  background-color: #5CBFEE;
-}
-
-.blocSlider-slide--titre {
-  font-size: 3rem;
-}
-
-.blocReseauxSociaux {
-  display: flex;
-}
-.blocReseauxSociaux a {
+.blocAccordeon-titre {
   background-color: #5CBFEE;
   color: #fff;
-  width: 4rem;
-  height: 4rem;
-  border-radius: 10px;
+  padding: 1rem 2rem;
+  margin-bottom: 2px;
+  cursor: pointer;
   display: flex;
   align-items: center;
-  justify-content: center;
-  margin: 0 0.5rem;
+  justify-content: space-between;
+  font-size: 1.8rem;
 }
-.blocReseauxSociaux a:hover {
-  background-color: #2eade9;
+
+.blocAccordeon-texte {
+  display: none;
+  padding: 2rem;
 }
-.blocReseauxSociaux svg {
+
+.blocAnnuaire-utilisateur {
+  text-align: center;
+  word-break: break-all;
+  padding: 0 1rem;
+}
+.blocAnnuaire-utilisateur svg {
   font-size: 3rem;
 }
-
-.blocVideo iframe {
-  width: 100%;
-  height: 100%;
-  min-height: 30rem;
-  max-width: 50rem;
-}
-
-.blocFormulaire label:not(.labelCheck), .blocInscription label:not(.labelCheck), .blocCommentaires label:not(.labelCheck) {
-  font-weight: bold;
-}
-.blocFormulaire label:not(.labelCheck) + span, .blocInscription label:not(.labelCheck) + span, .blocCommentaires label:not(.labelCheck) + span {
-  color: red;
-}
-.blocFormulaire input[type=text], .blocFormulaire textarea, .blocFormulaire select, .blocFormulaire input[type=checkbox], .blocFormulaire input[type=password], .blocFormulaire input[type=email], .blocInscription input[type=text], .blocInscription textarea, .blocInscription select, .blocInscription input[type=checkbox], .blocInscription input[type=password], .blocInscription input[type=email], .blocCommentaires input[type=text], .blocCommentaires textarea, .blocCommentaires select, .blocCommentaires input[type=checkbox], .blocCommentaires input[type=password], .blocCommentaires input[type=email] {
-  box-shadow: 0 0 0 1px #5CBFEE inset;
-}
-.blocFormulaire input[type=text], .blocFormulaire textarea, .blocFormulaire input[type=password], .blocFormulaire input[type=email], .blocInscription input[type=text], .blocInscription textarea, .blocInscription input[type=password], .blocInscription input[type=email], .blocCommentaires input[type=text], .blocCommentaires textarea, .blocCommentaires input[type=password], .blocCommentaires input[type=email] {
-  width: 100%;
-  max-width: 50rem;
-}
-.blocFormulaire p[class^=erreur-bloc], .blocFormulaire .erreur, .blocInscription p[class^=erreur-bloc], .blocInscription .erreur, .blocCommentaires p[class^=erreur-bloc], .blocCommentaires .erreur {
-  color: red;
-}
-.blocFormulaire .bouton, .blocInscription .bouton, .blocCommentaires .bouton {
-  margin-top: 1rem;
+.blocAnnuaire-utilisateur p {
   margin-bottom: 1rem;
 }
-
-.blocInscription input[type=submit] {
-  margin-top: 2rem;
+.blocAnnuaire-utilisateur p:first-of-type {
+  font-weight: 700;
 }
 
-.menuLangues {
-  list-style: none;
+.blocAnnuaire-utilisateur-image {
+  margin-bottom: 2rem;
 }
-.menuLangues li {
-  margin: 0 1rem;
+
+.blocFormulaire form > div, .blocFormulaire #form > div, .blocCommentaires form > div, .blocCommentaires #form > div {
+  margin-bottom: 2rem;
+}
+.blocFormulaire label:not(.labelCheck), .blocCommentaires label:not(.labelCheck) {
+  font-weight: bold;
+}
+.blocFormulaire label:not(.labelCheck) + span, .blocCommentaires label:not(.labelCheck) + span {
+  color: red;
+}
+.blocFormulaire input[type=text], .blocFormulaire textarea, .blocFormulaire select, .blocFormulaire input[type=checkbox], .blocFormulaire input[type=password], .blocFormulaire input[type=email], .blocCommentaires input[type=text], .blocCommentaires textarea, .blocCommentaires select, .blocCommentaires input[type=checkbox], .blocCommentaires input[type=password], .blocCommentaires input[type=email] {
+  box-shadow: 0 0 0 1px #5CBFEE inset;
+}
+.blocFormulaire input[type=text], .blocFormulaire textarea, .blocFormulaire input[type=password], .blocFormulaire input[type=email], .blocCommentaires input[type=text], .blocCommentaires textarea, .blocCommentaires input[type=password], .blocCommentaires input[type=email] {
+  width: 100%;
+  max-width: 50rem;
+}
+.blocFormulaire p[class^=erreur-bloc], .blocFormulaire .erreur, .blocCommentaires p[class^=erreur-bloc], .blocCommentaires .erreur {
+  color: red;
+}
+.blocFormulaire .bouton, .blocCommentaires .bouton {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
 }
 
 @media (max-width: 575px) {
@@ -3501,20 +3456,26 @@ main div.blocActualites-page--texte, main div.blocActualites-page--image {
   }
 }
 
-.blocTypeCategorie-categorie .bouton {
-  padding: 0.5rem 1rem;
+.blocGrille {
+  text-align: center;
+}
+.blocGrille > div > div {
+  margin-bottom: 4rem;
+}
+.blocGrille img {
+  margin-bottom: 2rem;
 }
 
-.blocRecherche form {
+.blocGrille-case-image {
+  height: 20rem;
+  overflow: hidden;
   display: flex;
+  align-items: center;
+  justify-content: center;
 }
-.blocRecherche form button[type=submit] {
-  border-radius: 0;
-  box-shadow: none;
-  margin-left: -1px;
-  border-top: 1px solid #000;
-  border-right: 1px solid #000;
-  border-bottom: 1px solid #000;
+.blocGrille-case-image img {
+  object-fit: cover;
+  width: 100%;
 }
 
 .ficheLEI {
@@ -3577,17 +3538,102 @@ main div.blocActualites-page--texte, main div.blocActualites-page--image {
   object-fit: cover;
 }
 
-.blocGrille {
-  text-align: center;
+.menuLangues {
+  list-style: none;
+  padding: 0;
 }
-.blocGrille > div > div {
-  margin-bottom: 4rem;
+.menuLangues li {
+  margin: 0 1rem;
 }
-.blocGrille img {
-  width: 20rem;
-  height: 20rem;
-  border-radius: 50%;
-  margin-bottom: 2rem;
+
+.blocRecherche form {
+  display: flex;
+}
+.blocRecherche form button[type=submit] {
+  border-radius: 0;
+  box-shadow: none;
+  margin-left: -1px;
+  border-top: 1px solid #000;
+  border-right: 1px solid #000;
+  border-bottom: 1px solid #000;
+}
+
+.blocReseauxSociaux {
+  display: flex;
+}
+.blocReseauxSociaux a {
+  background-color: #5CBFEE;
+  color: #fff;
+  width: 4rem;
+  height: 4rem;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 0.5rem;
+}
+.blocReseauxSociaux a:hover {
+  background-color: #2eade9;
+}
+.blocReseauxSociaux svg {
+  font-size: 3rem;
+}
+
+.blocSlider {
+  color: #fff;
+}
+.blocSlider a {
+  color: #fff;
+}
+.blocSlider .slick-prev, .blocSlider .slick-next {
+  width: 40px;
+  height: 40px;
+  z-index: 10;
+  text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+.blocSlider .slick-prev {
+  left: 1rem;
+}
+.blocSlider .slick-next {
+  right: 1rem;
+}
+.blocSlider .slick-prev::before, .blocSlider .slick-next::before {
+  font-size: 40px;
+  opacity: 1;
+  color: #FFF;
+}
+.blocSlider .slick-dots li button::before {
+  font-size: 1.2rem;
+  color: #5CBFEE;
+}
+.blocSlider .slick-dots li.slick-active button::before {
+  color: #5CBFEE;
+}
+
+.slick-slide img {
+  max-height: 30rem;
+  width: 100%;
+  object-fit: cover;
+}
+
+.blocSlider-slide--texte {
+  padding: 1rem;
+  background-color: #5CBFEE;
+}
+
+.blocSlider-slide--titre {
+  font-size: 3rem;
+}
+
+.blocTypeCategorie-categorie .bouton {
+  padding: 0.5rem 1rem;
+}
+
+.blocVideo iframe {
+  width: 100%;
+  height: 100%;
+  min-height: 30rem;
+  max-width: 50rem;
 }
 
 .blocCommentaires label {

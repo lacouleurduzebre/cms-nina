@@ -4,105 +4,49 @@
   }
 }
 
-//Bloc actualité
-.blocActualites{
-  h2{
-    color: $color-brand;
-  }
-  .bouton{
-    margin-top: 1rem;
-  }
-}
-
-main div.blocActualites-page--texte, main div.blocActualites-page--image{
-  padding: 0;
-}
-
-.blocActualites-page--infos{
-  font-style: italic;
-  line-height: 1.2;
-}
-
-//Bloc slider
-.blocSlider{
-  color: $white;
-  a{
-    color: $white;
-  }
-  .slick-prev, .slick-next{
-    width: 40px;
-    height: 40px;
-    z-index: 10;
-    text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-  }
-  .slick-prev{
-    left: 1rem;
-  }
-  .slick-next{
-    right: 1rem;
-  }
-  .slick-prev::before, .slick-next::before{
-    font-size: 40px;
-    opacity: 1;
-    color: #FFF;
-  }
-  .slick-dots li button::before{
-    font-size: 1.2rem;
-    color: $color-brand;
-  }
-  .slick-dots li.slick-active button::before{
-    color: $color-brand;
-  }
-}
-
-.slick-slide img{
-  max-height: 30rem;
-  width: 100%;
-  object-fit: cover;
-}
-
-.blocSlider-slide--texte{
-  padding: 1rem;
+//Accordéon
+.blocAccordeon-titre{
   background-color: $color-brand;
-}
-
-.blocSlider-slide--titre{
-  font-size: 3rem;
-}
-
-//Bloc réseaux sociaux
-.blocReseauxSociaux{
+  color: $white;
+  padding: 1rem 2rem;
+  margin-bottom: 2px;
+  cursor: pointer;
   display: flex;
-  a{
-    background-color: $color-brand;
-    color: $white;
-    width: 4rem;
-    height: 4rem;
-    border-radius: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 0 .5rem;
-    &:hover{
-      background-color: darken($color-brand, 10);
-    }
-  }
-  svg {
+  align-items: center;
+  justify-content: space-between;
+  font-size: 1.8rem;
+}
+
+.blocAccordeon-texte{
+  display: none;
+  padding: 2rem;
+}
+
+//Annuaire
+.blocAnnuaire-utilisateur{
+  text-align: center;
+  word-break: break-all;
+  padding: 0 1rem;
+  svg{
     font-size: 3rem;
   }
+  p{
+    margin-bottom: 1rem;
+    &:first-of-type{
+      font-weight: $weight-bold;
+    }
+  }
 }
 
-
-//Bloc vidéo
-.blocVideo iframe{
-  width: 100%;
-  height: 100%;
-  min-height: 30rem;
-  max-width: 50rem;
+.blocAnnuaire-utilisateur-image{
+  margin-bottom: 2rem;
 }
 
-//Blocs formulaire et inscription
-.blocFormulaire, .blocInscription, .blocCommentaires{
+//Formulaire
+.blocFormulaire, .blocCommentaires{
+  form > div, #form > div{
+    margin-bottom: 2rem;
+  }
   label:not(.labelCheck){
     font-weight: bold;
     + span{
@@ -125,46 +69,37 @@ main div.blocActualites-page--texte, main div.blocActualites-page--image{
   }
 }
 
-.blocInscription{
-  input[type="submit"]{
-    margin-top: 2rem;
-  }
-}
-
-//Bloc menu de langue
-.menuLangues{
-  list-style: none;
-  li{
-    margin: 0 1rem;
-  }
-}
-
-//Bloc galerie
+//Galerie
 .blocGalerie > div > div{
   @include respond-to("small"){
     margin-bottom: 2rem;
   }
 }
 
-//Bloc type de catégorie
-.blocTypeCategorie-categorie .bouton{
-  padding: .5rem 1rem;
-}
-
-//Bloc recherche
-.blocRecherche form{
-  display: flex;
-  button[type="submit"]{
-    border-radius: 0;
-    box-shadow: none;
-    margin-left: -1px;
-    border-top: 1px solid #000;
-    border-right: 1px solid #000;
-    border-bottom: 1px solid #000;
+//Grille
+.blocGrille{
+  text-align: center;
+  > div > div{
+    margin-bottom: 4rem;
+  }
+  img{
+    margin-bottom: 2rem;
   }
 }
 
-//Bloc LEI
+.blocGrille-case-image{
+  height: 20rem;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  img{
+    object-fit: cover;
+    width: 100%;
+  }
+}
+
+//LEI
 .ficheLEI{
   display: flex;
   flex-direction: column;
@@ -227,16 +162,106 @@ main div.blocActualites-page--texte, main div.blocActualites-page--image{
   }
 }
 
-//Bloc grille
-.blocGrille{
-  text-align: center;
-  > div > div{
-    margin-bottom: 4rem;
+//Menu de langue
+.menuLangues{
+  list-style: none;
+  padding: 0;
+  li{
+    margin: 0 1rem;
   }
-  img{
-    width: 20rem;
-    height: 20rem;
-    border-radius: 50%;
-    margin-bottom: 2rem;
+}
+
+//Recherche
+.blocRecherche form{
+  display: flex;
+  button[type="submit"]{
+    border-radius: 0;
+    box-shadow: none;
+    margin-left: -1px;
+    border-top: 1px solid #000;
+    border-right: 1px solid #000;
+    border-bottom: 1px solid #000;
   }
+}
+
+//Réseaux sociaux
+.blocReseauxSociaux{
+  display: flex;
+  a{
+    background-color: $color-brand;
+    color: $white;
+    width: 4rem;
+    height: 4rem;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 .5rem;
+    &:hover{
+      background-color: darken($color-brand, 10);
+    }
+  }
+  svg {
+    font-size: 3rem;
+  }
+}
+
+//Slider
+.blocSlider{
+  color: $white;
+  a{
+    color: $white;
+  }
+  .slick-prev, .slick-next{
+    width: 40px;
+    height: 40px;
+    z-index: 10;
+    text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  }
+  .slick-prev{
+    left: 1rem;
+  }
+  .slick-next{
+    right: 1rem;
+  }
+  .slick-prev::before, .slick-next::before{
+    font-size: 40px;
+    opacity: 1;
+    color: #FFF;
+  }
+  .slick-dots li button::before{
+    font-size: 1.2rem;
+    color: $color-brand;
+  }
+  .slick-dots li.slick-active button::before{
+    color: $color-brand;
+  }
+}
+
+.slick-slide img{
+  max-height: 30rem;
+  width: 100%;
+  object-fit: cover;
+}
+
+.blocSlider-slide--texte{
+  padding: 1rem;
+  background-color: $color-brand;
+}
+
+.blocSlider-slide--titre{
+  font-size: 3rem;
+}
+
+//Type de catégorie
+.blocTypeCategorie-categorie .bouton{
+  padding: .5rem 1rem;
+}
+
+//Vidéo
+.blocVideo iframe{
+  width: 100%;
+  height: 100%;
+  min-height: 30rem;
+  max-width: 50rem;
 }
