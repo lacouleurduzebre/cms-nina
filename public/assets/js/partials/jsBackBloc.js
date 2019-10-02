@@ -190,46 +190,60 @@ $(document).ready(function() {
 
                 $('.listeBlocs').removeClass('actif chargement');
 
-                if(count === 0){
-                    count = $('#'+entite+'_blocs').find('.field-bloc').length;
-                }else{
-                    count++;
-                }
+                if($('.listeBlocs').attr('id') === 'avant' || $('.listeBlocs').attr('id') === 'apres'){
+                    if(count === 0){
+                        count = $('#'+entite+'_blocs').find('.field-bloc').length;
+                    }else{
+                        count++;
+                    }
 
-                var form = data.replace(/bloc_/g, entite+'_blocs_'+count+'_')
-                    .replace(/bloc\[/g, entite+'[blocs]['+count+'][');
+                    var form = data.replace(/bloc_/g, entite+'_blocs_'+count+'_')
+                        .replace(/bloc\[/g, entite+'[blocs]['+count+'][');
 
-                bloc = '<div id="nvBloc'+count+'" class="form-group field-bloc nvBloc">'+form+'</div>';
-                if($('.listeBlocs').attr('id') === 'apres'){
-                    $('#'+entite+'_blocs').append(bloc);
+                    bloc = '<div id="nvBloc'+count+'" class="form-group field-bloc nvBloc">'+form+'</div>';
+                    if($('.listeBlocs').attr('id') === 'apres'){
+                        $('#'+entite+'_blocs').append(bloc);
+                    }else{
+                        $('#'+entite+'_blocs').prepend(bloc);
+                    }
                 }else{
-                    $('#'+entite+'_blocs').prepend(bloc);
+                    countBloc = $('#'+$('.listeBlocs').data('section')).find('.field-bloc').length;
+
+                    console.log('#'+$('.listeBlocs').data('section'));
+
+                    var form = data.replace(/bloc_/g, entite+'_blocs_'+countBloc+'_')
+                        .replace(/bloc\[/g, entite+'[blocs]['+countBloc+'][');
+
+                    bloc = '<div id="nvBloc'+countBloc+'" class="form-group field-bloc">'+form+'</div>';
+                    $('#'+$('.listeBlocs').data('section')).append(bloc);
                 }
 
                 //Anim ajout de bloc
                 $('.field-bloc').removeClass('focus');
-                nvBloc = $('#nvBloc'+count);
-                nvBloc.addClass('focus');
 
-                var elOffset = nvBloc.offset().top;
-                var elHeight = nvBloc.height();
-                var windowHeight = $(window).height();
+                if($('.listeBlocs').attr('id') === 'avant' || $('.listeBlocs').attr('id') === 'apres'){
+                    nvBloc = $('#nvBloc'+count);
+                    nvBloc.addClass('focus');
 
-                if (elHeight < windowHeight) {
-                    offset = elOffset - ((windowHeight / 2) - (elHeight / 2));
+                    var elOffset = nvBloc.offset().top;
+                    var elHeight = nvBloc.height();
+                    var windowHeight = $(window).height();
+
+                    if (elHeight < windowHeight) {
+                        offset = elOffset - ((windowHeight / 2) - (elHeight / 2));
+                    }
+                    else {
+                        offset = elOffset;
+                    }
+
+                    $('body, html').animate({
+                        scrollTop: offset
+                    }, 600, 'swing', function(){
+                        nvBloc.fadeTo(600, 1);
+                    });
+
+                    $('#'+entite+'_blocs').prev('.empty').remove();
                 }
-                else {
-                    offset = elOffset;
-                }
-
-                $('body, html').animate({
-                    scrollTop: offset
-                }, 600, 'swing', function(){
-                    nvBloc.fadeTo(600, 1);
-                });
-                //
-
-                $('#'+entite+'_blocs').prev('.empty').remove();
 
                 $('.field-bloc').each(function(){
                     $(this).find("input[id$='position']").val($(this).index());

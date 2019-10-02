@@ -118,6 +118,16 @@ class BlocType extends AbstractType
                 ->add('active', null, array(
                     'label' => 'Activé'
                 ));
+
+            //SECTION
+            if($type == 'Section'){
+                $form->add('blocsEnfants', CollectionType::class, [
+                    'entry_type' => BlocType::class,
+                    'allow_add' => true,
+                    'allow_extra_fields' => true,
+                    'label' => 'Blocs'
+                ]);
+            }
         }else{
             $form->add('active', null, array(
                 'label' => 'Activé',
