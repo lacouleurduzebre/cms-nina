@@ -200,19 +200,20 @@ $(document).ready(function() {
                     var form = data.replace(/bloc_/g, entite+'_blocs_'+count+'_')
                         .replace(/bloc\[/g, entite+'[blocs]['+count+'][');
 
-                    bloc = '<div id="nvBloc'+count+'" class="form-group field-bloc nvBloc">'+form+'</div>';
+                    bloc = '<div id="nvBloc'+count+'" class="form-group field-bloc nvBloc" data-name="'+count+'">'+form+'</div>';
                     if($('.listeBlocs').attr('id') === 'apres'){
                         $('#'+entite+'_blocs').append(bloc);
                     }else{
                         $('#'+entite+'_blocs').prepend(bloc);
                     }
                 }else{
+                    count = $('#'+$('.listeBlocs').data('section')).closest('.field-bloc').data('name');
                     countBloc = $('#'+$('.listeBlocs').data('section')).find('.field-bloc').length;
 
                     console.log('#'+$('.listeBlocs').data('section'));
 
-                    var form = data.replace(/bloc_/g, entite+'_blocs_'+countBloc+'_')
-                        .replace(/bloc\[/g, entite+'[blocs]['+countBloc+'][');
+                    var form = data.replace(/bloc_/g, $('.listeBlocs').data('section')+'_'+countBloc+'_')
+                        .replace(/bloc\[/g, entite+'[blocs]['+count+'][blocsEnfants]['+countBloc+'][');
 
                     bloc = '<div id="nvBloc'+countBloc+'" class="form-group field-bloc">'+form+'</div>';
                     $('#'+$('.listeBlocs').data('section')).append(bloc);

@@ -71,7 +71,7 @@ class Bloc
     private $blocParent;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Bloc", mappedBy="blocParent")
+     * @ORM\OneToMany(targetEntity="App\Entity\Bloc", mappedBy="blocParent", cascade={"persist"})
      */
     private $blocsEnfants;
 

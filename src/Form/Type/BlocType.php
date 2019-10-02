@@ -47,7 +47,8 @@ class BlocType extends AbstractType
                     'entry_type' => BlocType::class,
                     'allow_add' => true,
                     'allow_extra_fields' => true,
-                    'label' => 'Blocs'
+                    'label' => 'Blocs',
+                    'by_reference' => true
                 ]);
             }
         }else{//Chargement du formulaire
@@ -125,7 +126,8 @@ class BlocType extends AbstractType
                     'entry_type' => BlocType::class,
                     'allow_add' => true,
                     'allow_extra_fields' => true,
-                    'label' => 'Blocs'
+                    'label' => 'Blocs',
+                    'by_reference' => true
                 ]);
             }
         }else{
