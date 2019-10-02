@@ -515,4 +515,15 @@ $(document).ready(function() {
             conteneur.find('.case-autre').removeClass('hidden');
         }
     });
+
+    //Section : changement du nombre de colonnes
+    $('body').on('change', 'input[name$="[colonnes]"]', function(){
+        $(this).closest('.contenu').find('.blocsEnfants').attr('data-col', 'col'+$(this).val());
+    });
+
+    $('input[name$="[colonnes]"]').each(function(){
+        if($(this).prop('checked')){
+            $(this).closest('.contenu').find('.blocsEnfants').attr('data-col', 'col'+$(this).val());
+        }
+    });
 });
