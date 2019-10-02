@@ -555,13 +555,11 @@
                     </ul>
                     <div class="tab-content">
                         {% for tab_name, tab_config in easyadmin_form_tabs %}
-                            {% if tab_config['css_class'] != 'traductions' or langues|length > 1 %}
-                                <div id="{{ tab_config['id'] }}" class="tab-pane {% if tab_config.active %}active{% endif %}">
-                                    <div class="row">
-                                        {{ block('easyadmin_widget_groups') }}
-                                    </div>
+                            <div id="{{ tab_config['id'] }}" class="tab-pane {% if tab_config.active %}active{% endif %}">
+                                <div class="row">
+                                    {{ block('easyadmin_widget_groups') }}
                                 </div>
-                            {% endif %}
+                            </div>
                         {% endfor %}
                     </div>
                 </div>
