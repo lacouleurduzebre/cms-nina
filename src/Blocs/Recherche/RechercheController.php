@@ -19,8 +19,8 @@ use Symfony\Component\Routing\Annotation\Route;
 class RechercheController extends Controller
 {
     /**
-     * @Route("/recherche", name="recherche")
-     * @Route("/{_locale}/recherche", name="rechercheLocale", requirements={
+     * @Route("/recherche/resultats", name="recherche")
+     * @Route("/{_locale}/recherche/resultats", name="rechercheLocale", requirements={
      *     "_locale"="^[A-Za-z]{1,2}$"
      * })
      */
