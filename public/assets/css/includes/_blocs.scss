@@ -72,6 +72,13 @@
   margin-left: .5rem;
 }
 
+//Section
+.blocsEnfants .field-bloc{
+  background-color: #EDEDED;
+  .fonce{
+    background-color: #E1E0E0;
+  }
+}
 
 div[id^="page_active_blocs"]{
   .field-collection-action, .field-collection-item-action{

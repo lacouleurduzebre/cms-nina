@@ -4261,6 +4261,13 @@ body.list #flash-messages > * {
   margin-left: 0.5rem;
 }
 
+.blocsEnfants .field-bloc {
+  background-color: #EDEDED;
+}
+.blocsEnfants .field-bloc .fonce {
+  background-color: #E1E0E0;
+}
+
 div[id^=page_active_blocs] svg {
   transition: 0.3s;
 }

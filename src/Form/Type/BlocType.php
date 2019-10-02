@@ -47,7 +47,7 @@ class BlocType extends AbstractType
                     'entry_type' => BlocType::class,
                     'allow_add' => true,
                     'allow_extra_fields' => true,
-                    'label' => 'Blocs',
+                    'label' => false,
                     'by_reference' => true
                 ]);
             }
@@ -126,7 +126,7 @@ class BlocType extends AbstractType
                     'entry_type' => BlocType::class,
                     'allow_add' => true,
                     'allow_extra_fields' => true,
-                    'label' => 'Blocs',
+                    'label' => false,
                     'by_reference' => true
                 ]);
             }

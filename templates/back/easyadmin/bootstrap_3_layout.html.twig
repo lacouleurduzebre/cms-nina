@@ -1296,9 +1296,8 @@
 {# Champ du bloc groupe de blocs #}
 
 {# SECTION #}
-{% block _Section_blocsEnfants_row %}
-    <div class="form-group field-collection">
-        {{- form_label(form) -}}
+{% block blocsEnfants %}
+    <div class="form-group field-collection blocsEnfants">
         {{- form_widget(form) -}}
 
         <div class="text-right field-collection-action">
@@ -1311,18 +1310,11 @@
     </div>
 {% endblock %}
 
+{% block _Section_blocsEnfants_row %}
+    {{ block('blocsEnfants') }}
+{% endblock %}
+
 {% block _page_active_blocs_entry_blocsEnfants_row %}
-    <div class="form-group field-collection">
-        {{- form_label(form) -}}
-        {{- form_widget(form) -}}
-
-        <div class="text-right field-collection-action">
-            <a href="#" onclick="$(function (){if (event.preventDefault) event.preventDefault(); else event.returnValue = false; $('.listeBlocs').attr('id', 'section').attr('data-section', '{{ form.vars.id }}').addClass('actif')})" class="ajout-bloc">
-                <i class="fas fa-plus-circle"></i>
-                {{ 'ajouter un bloc'|trans({}, 'EasyAdminBundle') }}
-            </a>
-        </div>
-
-    </div>
+    {{ block('blocsEnfants') }}
 {% endblock %}
 {# SECTION #}
