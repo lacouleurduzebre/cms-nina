@@ -61,6 +61,9 @@ Resume:
 Rubrique:
     priorite: 3
     actif: oui
+Section:
+    priorite: 27
+    actif: oui
 Slider:
     priorite: 8
     actif: oui

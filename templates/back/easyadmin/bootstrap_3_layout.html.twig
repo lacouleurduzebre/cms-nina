@@ -915,6 +915,9 @@
                 {{- form_label(form.children.contenu) -}}
                 {{- form_widget(form.children.contenu) -}}
             {% endif %}
+            {% if form.children.blocsEnfants is defined %}
+                {{- form_row(form.children.blocsEnfants) -}}
+            {% endif %}
         </div>
     </div>
 

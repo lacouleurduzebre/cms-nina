@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -62,6 +64,21 @@ class Bloc
      * @ORM\Column(type="boolean", nullable=true, options={"default" : 1})
      */
     private $active = true;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Bloc", inversedBy="blocsEnfants", cascade={"persist"})
+     */
+    private $blocParent;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Bloc", mappedBy="blocParent")
+     */
+    private $blocsEnfants;
+
+    public function __construct()
+    {
+        $this->blocsEnfants = new ArrayCollection();
+    }
 
     public function getId()
     {
@@ -172,6 +189,49 @@ class Bloc
     public function setActive(?bool $active): self
     {
         $this->active = $active;
+
+        return $this;
+    }
+
+    public function getBlocParent(): ?self
+    {
+        return $this->blocParent;
+    }
+
+    public function setBlocParent(?self $blocParent): self
+    {
+        $this->blocParent = $blocParent;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|self[]
+     */
+    public function getBlocsEnfants(): Collection
+    {
+        return $this->blocsEnfants;
+    }
+
+    public function addBlocsEnfant(self $blocsEnfant): self
+    {
+        if (!$this->blocsEnfants->contains($blocsEnfant)) {
+            $this->blocsEnfants[] = $blocsEnfant;
+            $blocsEnfant->setBlocParent($this);
+        }
+
+        return $this;
+    }
+
+    public function removeBlocsEnfant(self $blocsEnfant): self
+    {
+        if ($this->blocsEnfants->contains($blocsEnfant)) {
+            $this->blocsEnfants->removeElement($blocsEnfant);
+            // set the owning side to null (unless already changed)
+            if ($blocsEnfant->getBlocParent() === $this) {
+                $blocsEnfant->setBlocParent(null);
+            }
+        }
 
         return $this;
     }
