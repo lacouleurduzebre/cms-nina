@@ -84,9 +84,13 @@
 .blocsEnfants{
   > div{
     display: flex;
+    flex-wrap: wrap;
   }
   &[data-col="col3"] > div > .field-bloc {
     width: calc(33% - 2rem);
+  }
+  &[data-col="col1"] > div > .field-bloc {
+    width: calc(100% - 2rem);
   }
   &[data-col="col4"] > div > .field-bloc {
     width: calc(25% - 2rem);

@@ -4271,9 +4271,13 @@ body.list #flash-messages > * {
 
 .blocsEnfants > div {
   display: flex;
+  flex-wrap: wrap;
 }
 .blocsEnfants[data-col=col3] > div > .field-bloc {
   width: calc(33% - 2rem);
+}
+.blocsEnfants[data-col=col1] > div > .field-bloc {
+  width: calc(100% - 2rem);
 }
 .blocsEnfants[data-col=col4] > div > .field-bloc {
   width: calc(25% - 2rem);
