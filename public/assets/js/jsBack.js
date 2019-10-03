@@ -12,7 +12,9 @@ $(document).ready(function(){
             }
         });
     };
+
     /* Initialisation TinyMCE */
+    tinymce.init(optionsTinyMCEParagraphe);
     tinymce.init(optionsTinyMCE);
 
     /* Pop-up pour confirmer une suppression */

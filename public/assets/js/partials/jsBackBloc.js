@@ -8,6 +8,7 @@ $(document).ready(function() {
                 saveCloseFormulaire();
             });
             tinymce.remove();
+            tinymce.init(optionsTinyMCEParagraphe);
             tinymce.init(optionsTinyMCE);
         }
     };
@@ -88,6 +89,7 @@ $(document).ready(function() {
         bloc.insertBefore(blocPrecedent);
 
         tinymce.remove();
+        tinymce.init(optionsTinyMCEParagraphe);
         tinymce.init(optionsTinyMCE);
 
         $('.field-bloc').each(function(){
@@ -105,6 +107,7 @@ $(document).ready(function() {
         bloc.insertAfter(blocSuivant);
 
         tinymce.remove();
+        tinymce.init(optionsTinyMCEParagraphe);
         tinymce.init(optionsTinyMCE);
 
         $('.field-bloc').each(function(){
@@ -236,6 +239,7 @@ $(document).ready(function() {
                 });
 
                 tinymce.remove();
+                tinymce.init(optionsTinyMCEParagraphe);
                 tinymce.init(optionsTinyMCE);
             })
             .fail(function(){
@@ -307,6 +311,7 @@ $(document).ready(function() {
                     });
 
                     tinymce.remove();
+                    tinymce.init(optionsTinyMCEParagraphe);
                     tinymce.init(optionsTinyMCE);
 
                     $('#'+type).addClass('disabled');

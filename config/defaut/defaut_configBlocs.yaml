@@ -43,6 +43,9 @@ MenuLangues:
 Page:
     priorite: 16
     actif: oui
+Paragraphe:
+    priorite: 29
+    actif: oui
 Partage:
     priorite: 21
     actif: oui
