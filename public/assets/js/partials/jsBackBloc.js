@@ -155,6 +155,12 @@ $(document).ready(function() {
             });
             saveCloseFormulaire();
         });
+
+        //Bloc enfant
+        if($(this).closest('.blocsEnfants').length > 0){
+            input = $(this).closest('.contenu').find('input[name$="[colonnes]"]:checked');
+            verifNombreBlocs(input, 'suppression');
+        }
     });
 
     $('form').on('click', '.suppressionBlocAnnexe-supprimer', function(e){
@@ -406,7 +412,6 @@ $(document).ready(function() {
                 rotate = $(this).children('div').hasClass('hide');
                 $(this).children('div').removeClass('hide');
             }
-            console.log(rotate);
             if(rotate){
                 $(this).closest('.field-bloc').find('.toggleBloc').toggleClass('rotate');
             }
@@ -526,7 +531,7 @@ $(document).ready(function() {
     });
 
     //Section : changement du nombre de colonnes
-    verifNombreBlocs = function(input){
+    verifNombreBlocs = function(input, contexte = null){
         val = input.val();
 
         max = 2;
@@ -540,6 +545,10 @@ $(document).ready(function() {
         conteneurBlocsEnfants = input.closest('.contenu').find('.blocsEnfants');
         blocsEnfants = conteneurBlocsEnfants.children('div').children('.field-bloc');
         nbBlocsEnfants = blocsEnfants.length;
+
+        if(contexte === 'suppression'){
+            nbBlocsEnfants -= 1;
+        }
 
         if(max !== 0 && nbBlocsEnfants >= max){
             //Désactivation bouton d'ajout de bloc
@@ -558,7 +567,6 @@ $(document).ready(function() {
                     input.closest('.form-group').attr('data-val', input.val());
                 }else{
                     valPrecedente = input.closest('.form-group').attr('data-val');
-                    console.log(valPrecedente);
                     input.closest('.form-group').find('input[value='+valPrecedente+']').click();
                 }
             }else{
