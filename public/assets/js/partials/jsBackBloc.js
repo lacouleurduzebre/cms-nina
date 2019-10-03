@@ -553,24 +553,32 @@ $(document).ready(function() {
                             $(this).remove();
                         }
                     });
+
+                    input.closest('.contenu').find('.blocsEnfants').attr('data-col', 'col'+input.val());
+                    input.closest('.form-group').attr('data-val', input.val());
+                }else{
+                    valPrecedente = input.closest('.form-group').attr('data-val');
+                    console.log(valPrecedente);
+                    input.closest('.form-group').find('input[value='+valPrecedente+']').click();
                 }
+            }else{
+                input.closest('.contenu').find('.blocsEnfants').attr('data-col', 'col'+input.val());
+                input.closest('.form-group').attr('data-val', input.val());
             }
         }else{
             //Activation bouton d'ajout de bloc
             conteneurBlocsEnfants.children('.field-collection-action').children('.ajout-bloc').attr('disabled', false);
+            input.closest('.contenu').find('.blocsEnfants').attr('data-col', 'col'+input.val());
+            input.closest('.form-group').attr('data-val', input.val());
         }
     };
 
     $('body').on('change', 'input[name$="[colonnes]"]', function(){
-        $(this).closest('.contenu').find('.blocsEnfants').attr('data-col', 'col'+$(this).val());
-
-        //Vérif nombre max de blocs
         verifNombreBlocs($(this));
     });
 
     $('input[name$="[colonnes]"]').each(function(){
         if($(this).prop('checked')){
-            $(this).closest('.contenu').find('.blocsEnfants').attr('data-col', 'col'+$(this).val());
             verifNombreBlocs($(this));
         }
     });
