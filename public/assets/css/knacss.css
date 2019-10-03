@@ -4265,7 +4265,7 @@ body.list #flash-messages > * {
   background-color: #EDEDED;
   margin: 1rem;
 }
-.blocsEnfants .field-bloc .fonce {
+.blocsEnfants .field-bloc .fonce, .blocsEnfants .field-bloc .field-bloc {
   background-color: #E1E0E0;
 }
 

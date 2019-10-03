@@ -542,9 +542,11 @@ $(document).ready(function() {
             max = parseInt(val);
         }
 
-        conteneurBlocsEnfants = input.closest('.contenu').find('.blocsEnfants');
+        conteneurBlocsEnfants = input.closest('.contenu').children('.blocsEnfants');
         blocsEnfants = conteneurBlocsEnfants.children('div').children('.field-bloc');
         nbBlocsEnfants = blocsEnfants.length;
+
+        console.log(nbBlocsEnfants);
 
         if(contexte === 'suppression'){
             nbBlocsEnfants -= 1;
@@ -567,7 +569,7 @@ $(document).ready(function() {
                     input.closest('.form-group').attr('data-val', input.val());
                 }else{
                     valPrecedente = input.closest('.form-group').attr('data-val');
-                    input.closest('.form-group').find('input[value='+valPrecedente+']').click();
+                    input.closest('.form-group').find('input[value="'+valPrecedente+'"]').click();
                 }
             }else{
                 input.closest('.contenu').find('.blocsEnfants').attr('data-col', 'col'+input.val());
