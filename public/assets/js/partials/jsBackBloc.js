@@ -14,6 +14,7 @@ $(document).ready(function() {
 
     $("#page_active_blocs").sortable(options);
     $("#groupeblocs_blocs").sortable(options);
+    $("div[id$='blocsEnfants']").sortable(options);
 
     $(".bloc-slider div[id$='contenu_Slide']").sortable({
         handle: '.dragSlide',

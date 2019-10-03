@@ -26,7 +26,7 @@ class SectionType extends AbstractType
             'multiple' => false,
             'expanded' => true,
             'choices' => array(
-                '1 colonne' => '1',
+                'Pleine largeur' => '1',
                 '2 colonnes : ½ ½' => '1/2',
                 '2 colonnes : ⅓ ⅔' => '1/3',
                 '2 colonnes : ⅔ ⅓' => '2/3',

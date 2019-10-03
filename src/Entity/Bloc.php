@@ -72,6 +72,7 @@ class Bloc
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Bloc", mappedBy="blocParent", orphanRemoval=true, cascade={"persist"})
+     * @ORM\OrderBy({"position" = "ASC"})
      */
     private $blocsEnfants;
 
