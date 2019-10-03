@@ -129,7 +129,7 @@ class BlocType extends AbstractType
                     'allow_delete' => true,
                     'allow_extra_fields' => true,
                     'label' => false,
-                    'by_reference' => true
+                    'by_reference' => false
                 ]);
             }
         }else{
