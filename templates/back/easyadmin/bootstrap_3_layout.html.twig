@@ -1297,7 +1297,7 @@
 
 {# SECTION #}
 {% block blocsEnfants %}
-    <div class="form-group field-collection blocsEnfants" data-col="col{{ form.parent.vars.value.contenu.colonnes }}">
+    <div class="form-group field-collection blocsEnfants" {% if form.parent.vars.value.contenu.colonnes is defined %}data-col="col{{ form.parent.vars.value.contenu.colonnes }}"{% endif %}>
         {{- form_widget(form) -}}
 
         <div class="text-right field-collection-action">

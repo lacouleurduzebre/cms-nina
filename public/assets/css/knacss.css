@@ -4272,25 +4272,25 @@ body.list #flash-messages > * {
 .blocsEnfants > div {
   display: flex;
 }
-.blocsEnfants[data-col=col3] .field-bloc {
+.blocsEnfants[data-col=col3] > div > .field-bloc {
   width: calc(33% - 2rem);
 }
-.blocsEnfants[data-col=col4] .field-bloc {
+.blocsEnfants[data-col=col4] > div > .field-bloc {
   width: calc(25% - 2rem);
 }
-.blocsEnfants[data-col="col1/2"] .field-bloc {
+.blocsEnfants[data-col="col1/2"] > div > .field-bloc {
   width: calc(50% - 2rem);
 }
-.blocsEnfants[data-col="col1/3"] .field-bloc:first-of-type {
+.blocsEnfants[data-col="col1/3"] > div > .field-bloc:first-of-type {
   width: calc(30% - 2rem);
 }
-.blocsEnfants[data-col="col1/3"] .field-bloc:last-of-type {
+.blocsEnfants[data-col="col1/3"] > div > .field-bloc:last-of-type {
   width: calc(70% - 2rem);
 }
-.blocsEnfants[data-col="col2/3"] .field-bloc:first-of-type {
+.blocsEnfants[data-col="col2/3"] > div > .field-bloc:first-of-type {
   width: calc(70% - 2rem);
 }
-.blocsEnfants[data-col="col2/3"] .field-bloc:last-of-type {
+.blocsEnfants[data-col="col2/3"] > div > .field-bloc:last-of-type {
   width: calc(30% - 2rem);
 }
 

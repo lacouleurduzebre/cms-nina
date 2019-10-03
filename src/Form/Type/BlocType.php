@@ -46,6 +46,7 @@ class BlocType extends AbstractType
                 $builder->add('blocsEnfants', CollectionType::class, [
                     'entry_type' => BlocType::class,
                     'allow_add' => true,
+                    'allow_delete' => true,
                     'allow_extra_fields' => true,
                     'label' => false,
                     'by_reference' => true
@@ -125,6 +126,7 @@ class BlocType extends AbstractType
                 $form->add('blocsEnfants', CollectionType::class, [
                     'entry_type' => BlocType::class,
                     'allow_add' => true,
+                    'allow_delete' => true,
                     'allow_extra_fields' => true,
                     'label' => false,
                     'by_reference' => true

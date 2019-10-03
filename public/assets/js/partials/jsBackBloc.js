@@ -207,16 +207,16 @@ $(document).ready(function() {
                         $('#'+entite+'_blocs').prepend(bloc);
                     }
                 }else{
-                    count = $('#'+$('.listeBlocs').data('section')).closest('.field-bloc').data('name');
-                    countBloc = $('#'+$('.listeBlocs').data('section')).find('.field-bloc').length;
+                    section = $('#'+$('.listeBlocs').attr('data-section'));
 
-                    console.log('#'+$('.listeBlocs').data('section'));
+                    count = section.closest('.field-bloc').data('name');
+                    countBloc = section.find('.field-bloc').length;
 
                     var form = data.replace(/bloc_/g, $('.listeBlocs').data('section')+'_'+countBloc+'_')
                         .replace(/bloc\[/g, entite+'[blocs]['+count+'][blocsEnfants]['+countBloc+'][');
 
-                    bloc = '<div id="nvBloc'+countBloc+'" class="form-group field-bloc">'+form+'</div>';
-                    $('#'+$('.listeBlocs').data('section')).append(bloc);
+                    bloc = '<div id="nvBloc'+countBloc+'" class="form-group field-bloc" data-name="'+countBloc+'">'+form+'</div>';
+                    section.append(bloc);
                 }
 
                 //Anim ajout de bloc
