@@ -10,11 +10,16 @@
     </div>
 {% else %}
     <div class="flex-container">
-        <div class="blocColonnes-bloc {% if colonnes == '1/2' %}w50{% elseif colonnes == '1/3' %}w30{% else %}w70{% endif %}">
-            {% include('front/bloc.html.twig') with {'bloc': bloc.blocsEnfants.0} only %}
-        </div>
-        <div class="blocColonnes-bloc {% if colonnes == '1/2' %}w50{% elseif colonnes == '1/3' %}w70{% else %}w30{% endif %}">
-            {% include('front/bloc.html.twig') with {'bloc': bloc.blocsEnfants.1} only %}
-        </div>
+        {% for blocEnfant in bloc.blocsEnfants %}
+            {% if loop.first %}
+                <div class="blocColonnes-bloc {% if colonnes == '1/2' %}w50{% elseif colonnes == '1/3' %}w30{% else %}w70{% endif %}">
+                    {% include('front/bloc.html.twig') with {'bloc': blocEnfant} only %}
+                </div>
+            {% elseif loop.index == 2 %}
+                <div class="blocColonnes-bloc {% if colonnes == '1/2' %}w50{% elseif colonnes == '1/3' %}w70{% else %}w30{% endif %}">
+                    {% include('front/bloc.html.twig') with {'bloc': blocEnfant} only %}
+                </div>
+            {% endif %}
+        {% endfor %}
     </div>
 {% endif %}

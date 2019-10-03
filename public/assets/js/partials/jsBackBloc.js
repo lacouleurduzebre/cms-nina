@@ -212,8 +212,11 @@ $(document).ready(function() {
                     count = section.closest('.field-bloc').data('name');
                     countBloc = section.find('.field-bloc').length;
 
-                    var form = data.replace(/bloc_/g, $('.listeBlocs').data('section')+'_'+countBloc+'_')
-                        .replace(/bloc\[/g, entite+'[blocs]['+count+'][blocsEnfants]['+countBloc+'][');
+                    exp = entite+'['+$('.listeBlocs').attr('data-section').replace(entite+'_', '').replace(/_/g, '][')+']';
+
+                    var form = data.replace(/bloc_/g, $('.listeBlocs').attr('data-section')+'_'+countBloc+'_')
+                        // .replace(/bloc\[/g, entite+'[blocs]['+count+'][blocsEnfants]['+countBloc+'][');
+                        .replace(/bloc\[/g, exp+'['+countBloc+'][');
 
                     bloc = '<div id="nvBloc'+countBloc+'" class="form-group field-bloc" data-name="'+countBloc+'">'+form+'</div>';
                     section.append(bloc);

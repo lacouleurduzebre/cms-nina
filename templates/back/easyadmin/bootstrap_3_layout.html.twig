@@ -351,22 +351,36 @@
 {%- endblock form_row %}
 
 {% block collection_row %}
-    <div class="form-group field-{{ name }} {% if value is empty %}vide{% endif %}">
-        {{ block('form_row') }}
+    {% if 'blocsEnfants' in form.vars.unique_block_prefix %}
+        <div class="form-group field-collection blocsEnfants" {% if form.parent.vars.value.contenu.colonnes is defined %}data-col="col{{ form.parent.vars.value.contenu.colonnes }}"{% endif %}>
+            {{- form_widget(form) -}}
 
-        {% if allow_add|default(false) %}
             <div class="text-right field-collection-action">
-                <a href="#" onclick="if (event.preventDefault) event.preventDefault(); else event.returnValue = false; ajoutItem('{{ id }}', '{{ name }}', 'apres', true)" class="text-primary">
-                    <i class="fa fa-plus-square"></i>
-                    {% if label_format is not empty %}
-                        Ajouter {{ label_format }}
-                    {% else %}
-                        {{ (form|length == 0 ? 'action.add_new_item' : 'action.add_another_item')|trans({}, 'EasyAdminBundle') }}
-                    {% endif %}
+                <a href="#" onclick="$(function (){if (event.preventDefault) event.preventDefault(); else event.returnValue = false; $('.listeBlocs').attr('id', 'section').attr('data-section', '{{ form.vars.id }}').addClass('actif')})" class="ajout-bloc">
+                    <i class="fas fa-plus-circle"></i>
+                    {{ 'ajouter un bloc'|trans({}, 'EasyAdminBundle') }}
                 </a>
             </div>
-        {% endif %}
-    </div>
+
+        </div>
+    {% else %}
+        <div class="form-group field-{{ name }} {% if value is empty %}vide{% endif %}">
+            {{ block('form_row') }}
+
+            {% if allow_add|default(false) %}
+                <div class="text-right field-collection-action">
+                    <a href="#" onclick="if (event.preventDefault) event.preventDefault(); else event.returnValue = false; ajoutItem('{{ id }}', '{{ name }}', 'apres', true)" class="text-primary">
+                        <i class="fa fa-plus-square"></i>
+                        {% if label_format is not empty %}
+                            Ajouter {{ label_format }}
+                        {% else %}
+                            {{ (form|length == 0 ? 'action.add_new_item' : 'action.add_another_item')|trans({}, 'EasyAdminBundle') }}
+                        {% endif %}
+                    </a>
+                </div>
+            {% endif %}
+        </div>
+    {% endif %}
 {% endblock collection_row %}
 
 {% block collection_row_double %}
@@ -1294,27 +1308,3 @@
     {{ block('groupeBlocs') }}
 {% endblock %}
 {# Champ du bloc groupe de blocs #}
-
-{# SECTION #}
-{% block blocsEnfants %}
-    <div class="form-group field-collection blocsEnfants" {% if form.parent.vars.value.contenu.colonnes is defined %}data-col="col{{ form.parent.vars.value.contenu.colonnes }}"{% endif %}>
-        {{- form_widget(form) -}}
-
-        <div class="text-right field-collection-action">
-            <a href="#" onclick="$(function (){if (event.preventDefault) event.preventDefault(); else event.returnValue = false; $('.listeBlocs').attr('id', 'section').attr('data-section', '{{ form.vars.id }}').addClass('actif')})" class="ajout-bloc">
-                <i class="fas fa-plus-circle"></i>
-                {{ 'ajouter un bloc'|trans({}, 'EasyAdminBundle') }}
-            </a>
-        </div>
-
-    </div>
-{% endblock %}
-
-{% block _Section_blocsEnfants_row %}
-    {{ block('blocsEnfants') }}
-{% endblock %}
-
-{% block _page_active_blocs_entry_blocsEnfants_row %}
-    {{ block('blocsEnfants') }}
-{% endblock %}
-{# SECTION #}
