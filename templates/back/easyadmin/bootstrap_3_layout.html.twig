@@ -356,10 +356,10 @@
             {{- form_widget(form) -}}
 
             <div class="text-right field-collection-action">
-                <a href="#" onclick="$(function (){if (event.preventDefault) event.preventDefault(); else event.returnValue = false; $('.listeBlocs').attr('id', 'section').attr('data-section', '{{ form.vars.id }}').addClass('actif')})" class="ajout-bloc">
+                <button href="#" onclick="$(function (){if (event.preventDefault) event.preventDefault(); else event.returnValue = false; $('.listeBlocs').attr('id', 'section').attr('data-section', '{{ form.vars.id }}').addClass('actif')})" class="ajout-bloc">
                     <i class="fas fa-plus-circle"></i>
                     {{ 'ajouter un bloc'|trans({}, 'EasyAdminBundle') }}
-                </a>
+                </button>
             </div>
 
         </div>
