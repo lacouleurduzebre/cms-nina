@@ -1109,6 +1109,34 @@
     </script>
 {% endblock %}
 
+{% block video_widget %}
+    <div>
+        {{- form_label(form.children.video) -}}
+        {{- form_widget(form.children.video) -}}
+    </div>
+    <div>
+        <a class="iframe bloc_image_bouton_mediatheque" href='/filemanager/dialog.php?type=3&field_id={{ form.children.video.vars.id }}' type="button">{{ 'Choisir une vidéo dans la médiathèque'|trans }}</a>
+        <div class="bloc_video_apercu_mediatheque">
+            {% set urlVideo = form.children.video.vars.value %}
+            {% if 'youtube' in urlVideo or 'youtu.be' in urlVideo %}
+                {% if '?v=' in urlVideo %}
+                    {% set urlVideo = urlVideo|split('?v=')|last %}
+                {% else %}
+                    {% set urlVideo = urlVideo|split('/')|last %}
+                {% endif %}
+                {% set urlVideo = "https://www.youtube.com/embed/"~urlVideo~"?rel=0" %}
+            {% endif %}
+            <iframe src="{{ urlVideo }}" frameborder="0" {% if urlVideo is empty %}class="hidden"{% endif %}></iframe>
+        </div>
+    </div>
+    <script>
+        $('.bloc_image_bouton_mediatheque').fancybox({
+            type: 'iframe',
+            minHeight: '600'
+        });
+    </script>
+{% endblock %}
+
 {% block slide_widget %}
     <div class="dragSlide">
         <i class="fas fa-arrows-alt"></i>

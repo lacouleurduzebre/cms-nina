@@ -505,4 +505,18 @@ $(document).ready(function() {
             conteneur.find('.case-autre').removeClass('hidden');
         }
     });
+
+    //Aperçu du bloc vidéo
+    $('body').on('keyup', '.bloc-video input[name$="[video]"]', function(){
+        urlVideo = $(this).val();
+        if(urlVideo.includes('youtube') || urlVideo.includes('youtu.be')){
+            if(urlVideo.includes('?v=')){
+                urlVideo = urlVideo.split('?v=').pop();
+            }else{
+                urlVideo = urlVideo.split('/').pop();
+            }
+            urlVideo = "https://www.youtube.com/embed/" + urlVideo + "?rel=0";
+        }
+        $(this).closest('.contenu').find('iframe').show().attr('src', urlVideo);
+    });
 });

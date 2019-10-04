@@ -125,8 +125,8 @@ $(document).ready(function(){
             $('#'+id).siblings('.apercuImageProfil').find('img').attr('src', urlImg);
         }else if(id === 'configuration_logo'){//Logo du site
             $('#'+id).siblings('.apercuLogo').find('img').attr('src', urlImg);
-        }else{//Bloc Image
-            $('#'+id).parent('div').next('div').find('img').attr('src', urlImg);
+        }else{//Bloc Image ou Vidéo
+            $('#'+id).parent('div').next('div').find('img, iframe').attr('src', urlImg).show();
         }
 
         saveCloseFormulaire();
