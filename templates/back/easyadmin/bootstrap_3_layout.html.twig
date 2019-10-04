@@ -678,16 +678,6 @@
         <div class="flex-container">
             <div class="w50">
                 <div class="form-group field-text">
-                    {{- form_label(form.children.url) -}}
-                    <div class="progression">
-                        <div></div>
-                    </div>
-                    <div class="nbCaracteres">
-                        <span></span>/ 75
-                    </div>
-                    {{- form_widget(form.children.url) -}}
-                </div>
-                <div class="form-group field-text">
                     {{- form_label(form.children.metaTitre) -}}
                     <div class="progression">
                         <div></div>
@@ -696,6 +686,16 @@
                         <span></span>/ 65
                     </div>
                     {{- form_widget(form.children.metaTitre) -}}
+                </div>
+                <div class="form-group field-text">
+                    {{- form_label(form.children.url) -}}
+                    <div class="progression">
+                        <div></div>
+                    </div>
+                    <div class="nbCaracteres">
+                        <span></span>/ 75
+                    </div>
+                    {{- form_widget(form.children.url) -}}
                 </div>
                 <div class="form-group field-textarea">
                     {{- form_label(form.children.metaDescription) -}}
