@@ -15,7 +15,7 @@
 }
 
 .listeSEO-conteneur{
-  max-width: 59rem;
+  max-width: 65rem;
   > div{
     box-shadow: 0 0 4px rgba(0, 0, 0, 0.25);
     margin: 1rem 0;
@@ -73,6 +73,13 @@
   padding: 1rem;
 }
 
+.listeSEO-apercu{
+  > div{
+    display: flex;
+    align-items: center;
+  }
+}
+
 .listeSEO-edition{
   display: none;
   position: absolute;
@@ -88,11 +95,25 @@
     width: 100%;
     background-color: transparent;
   }
-  form > div > div{
-    margin-bottom: .5rem;
-  }
   button[type='submit']{
     display: none;
+  }
+}
+
+.listeSEO-formulaire{
+  form > div{
+    display: flex;
+  }
+  .score-SEO{
+    width: 12rem;
+    display: flex;
+    align-items: center;
+    border-right: 1px solid rgba($color-base, .5);
+    text-align: left;
+    margin-right: 2rem;
+  }
+  input{
+    margin-bottom: .5rem;
   }
 }
 
@@ -111,24 +132,27 @@
   margin-left: auto;
 }
 
-.listeSEO-scores{
-  margin-top: 1rem;
-  align-items: center;
-  > div{
+.score-SEO{
+  .bulle{
+    display: inline-block;
     border: 1px solid $color-base;
     border-radius: 50%;
     width: 1.6rem;
     height: 1.6rem;
     margin-right: 1rem;
-    &.danger{
-      background-color: $color-danger;
-    }
-    &.warning{
-      background-color: $color-warning;
-    }
-    &.success{
-      background-color: $color-brand;
-    }
+  }
+  &.danger .bulle{
+    background-color: $color-danger;
+  }
+  &.warning .bulle{
+    background-color: $color-warning;
+  }
+  &.success .bulle{
+    background-color: $color-brand;
+  }
+  .score{
+    font-size: 1.5rem;
+    color: $color-base;
   }
 }
 

@@ -1,3 +1,29 @@
+{% set scoreMetaTitre = form.children.metaTitre.vars.data|length %}
+{% set scoreUrl = form.children.url.vars.data|length %}
+{% set scoreMetaDescription = form.children.metaDescription.vars.data|length %}
+
 {{ form_start(form) }}
-{{ form_widget(form) }}
+<div class="metaTitre">
+    <div class="score-SEO progression-metaTitre {% if scoreMetaTitre > 65 or scoreMetaTitre < 65/3 %}danger{% elseif scoreMetaTitre > (65/3)*2 %}success{% else %}warning{% endif %}" title="{{ scoreMetaTitre }} / 65">
+        <span class="bulle"></span>
+        <span class="score">{{ scoreMetaTitre }} / 65</span>
+    </div>
+    {{ form_widget(form.children.metaTitre) }}
+</div>
+
+<div class="url">
+    <div class="score-SEO progression-url {% if scoreUrl > 75 or scoreUrl < 75/3 %}danger{% elseif scoreUrl > (75/3)*2 %}success{% else %}warning{% endif %}" title="{{ scoreUrl }} / 75">
+        <span class="bulle"></span>
+        <span class="score">{{ scoreUrl }} / 75</span>
+    </div>
+    {{ form_widget(form.children.url) }}
+</div>
+
+<div class="metaDescription">
+    <div class="score-SEO progression-metaDescription {% if scoreMetaDescription > 150 or scoreMetaDescription < 150/3 %}danger{% elseif scoreMetaDescription > (150/3)*2 %}success{% else %}warning{% endif %}" title="{{ scoreMetaDescription }} / 150">
+        <span class="bulle"></span>
+        <span class="score">{{ scoreMetaDescription }} / 150</span>
+    </div>
+    {{ form_widget(form.children.metaDescription) }}
+</div>
 {{ form_end(form) }}

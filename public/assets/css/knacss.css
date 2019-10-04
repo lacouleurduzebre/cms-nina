@@ -4758,7 +4758,7 @@ body.edit input[id$=_largeurMax], body.edit input[id$=_hauteurMax], body.new inp
 }
 
 .listeSEO-conteneur {
-  max-width: 59rem;
+  max-width: 65rem;
 }
 .listeSEO-conteneur > div {
   box-shadow: 0 0 4px rgba(0, 0, 0, 0.25);
@@ -4814,6 +4814,11 @@ body.edit input[id$=_largeurMax], body.edit input[id$=_hauteurMax], body.new inp
   padding: 1rem;
 }
 
+.listeSEO-apercu > div {
+  display: flex;
+  align-items: center;
+}
+
 .listeSEO-edition {
   display: none;
   position: absolute;
@@ -4830,11 +4835,23 @@ body.edit input[id$=_largeurMax], body.edit input[id$=_hauteurMax], body.new inp
   width: 100%;
   background-color: transparent;
 }
-.listeSEO-edition form > div > div {
-  margin-bottom: 0.5rem;
-}
 .listeSEO-edition button[type=submit] {
   display: none;
+}
+
+.listeSEO-formulaire form > div {
+  display: flex;
+}
+.listeSEO-formulaire .score-SEO {
+  width: 12rem;
+  display: flex;
+  align-items: center;
+  border-right: 1px solid rgba(102, 102, 102, 0.5);
+  text-align: left;
+  margin-right: 2rem;
+}
+.listeSEO-formulaire input {
+  margin-bottom: 0.5rem;
 }
 
 .listeSEO-action-enregistrer, .listeSEO-action-annuler {
@@ -4852,25 +4869,26 @@ body.edit input[id$=_largeurMax], body.edit input[id$=_hauteurMax], body.new inp
   margin-left: auto;
 }
 
-.listeSEO-scores {
-  margin-top: 1rem;
-  align-items: center;
-}
-.listeSEO-scores > div {
+.score-SEO .bulle {
+  display: inline-block;
   border: 1px solid #666666;
   border-radius: 50%;
   width: 1.6rem;
   height: 1.6rem;
   margin-right: 1rem;
 }
-.listeSEO-scores > div.danger {
+.score-SEO.danger .bulle {
   background-color: #D9534F;
 }
-.listeSEO-scores > div.warning {
+.score-SEO.warning .bulle {
   background-color: #F0AD4E;
 }
-.listeSEO-scores > div.success {
+.score-SEO.success .bulle {
   background-color: #A1BA1D;
+}
+.score-SEO .score {
+  font-size: 1.5rem;
+  color: #666666;
 }
 
 #page_active_SEO .raz {

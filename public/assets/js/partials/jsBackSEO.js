@@ -65,6 +65,7 @@ $(document).ready(function() {
         }
 
         progression = element.closest('.listeSEO-edition').find(classProgression);
+        progression.find('.score').html(longueur+' / '+limite);
         progression.attr('title', longueur+' / '+limite);
         progression.removeClass('warning danger success').addClass(nvClass);
     };
