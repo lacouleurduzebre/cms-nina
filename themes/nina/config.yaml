@@ -12,3 +12,7 @@ champs:
         label: "Image de fond"
         type: image
         defaut: "theme/img/background.jpg"
+#blocs:
+#    Titre:
+#        classes:
+#            - Test: test

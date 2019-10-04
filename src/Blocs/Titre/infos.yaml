@@ -2,3 +2,7 @@ nom: Titre
 description: Affiche du texte en tant que titre h2,h3,...
 type: contenu
 icone: 'fas fa-heading'
+classes:
+    - Aligné à gauche: txtleft
+    - Aligné à droite: txtright
+    - Centré: txtcenter

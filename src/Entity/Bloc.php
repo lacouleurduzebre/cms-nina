@@ -38,9 +38,9 @@ class Bloc
     private $position;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="array", length=255, nullable=true)
      */
-    private $class;
+    private $classes;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
@@ -116,14 +116,14 @@ class Bloc
         return $this;
     }
 
-    public function getClass(): ?string
+    public function getClasses(): ?array
     {
-        return $this->class;
+        return $this->classes;
     }
 
-    public function setClass(?string $class): self
+    public function setClasses(?array $classes): self
     {
-        $this->class = $class;
+        $this->classes = $classes;
 
         return $this;
     }

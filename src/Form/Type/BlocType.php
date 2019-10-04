@@ -10,6 +10,7 @@ namespace App\Form\Type;
 
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
@@ -30,6 +31,10 @@ class BlocType extends AbstractType
             $icone = $infos['icone'];
             $nom = $infos['nom'];
             $label = '<i class="'.$icone.' mrs"></i>'.$nom;
+
+            //Classes
+            $classes = $this->getClasses($options['type']);
+
             $builder->add('contenu', 'App\Blocs\\'.$options['type'].'\\'.$options['type'].'Type', array(
                 'label' => false,
                 'help' => $description,
@@ -39,9 +44,15 @@ class BlocType extends AbstractType
             ->add('type', HiddenType::class, array(
                 'data' => $options['type'],
                 'label' => $label
+            ))
+            ->add('classes', ChoiceType::class, array(
+                'choices' => $classes,
+                'expanded' => true,
+                'multiple' => true
             ));
         }else{//Chargement du formulaire
             $builder->add('type', HiddenType::class)
+                ->add('classes', HiddenType::class)
                 ->add('contenu', CollectionType::class, array(
                     'allow_add' => true,
                     'label' => false
@@ -50,9 +61,6 @@ class BlocType extends AbstractType
 
         $builder
             ->add('position', HiddenType::class, array(
-            ))
-            ->add('class', TextType::class, array(
-                'label' => 'Classe'
             ))
             ->add('htmlAvant', TextType::class, array(
                 'label' => 'Code HTML à insérer avant le bloc'
@@ -97,6 +105,10 @@ class BlocType extends AbstractType
             $icone = $infos['icone'];
             $nom = $infos['nom'];
             $label = '<i class="'.$icone.' mrs"></i>'.$nom;
+
+            //Classes
+            $classes = $this->getClasses($type);
+
             $form->add('contenu', 'App\Blocs\\'.$type.'\\'.$type.'Type', array(
                 'label' => false,
                 'help' => $infos['description'],
@@ -107,6 +119,11 @@ class BlocType extends AbstractType
                 ))
                 ->add('active', null, array(
                     'label' => 'Activé'
+                ))
+                ->add('classes', ChoiceType::class, array(
+                    'choices' => $classes,
+                    'expanded' => true,
+                    'multiple' => true
                 ));
         }else{
             $form->add('active', null, array(
@@ -114,5 +131,28 @@ class BlocType extends AbstractType
                 'data' => true
             ));
         }
+    }
+
+    public function getClasses($type){
+        $classes = [];
+
+        //Générales
+        $infosBloc = Yaml::parseFile('../src/Blocs/'.$type.'/infos.yaml');
+        if(isset($infosBloc['classes'])){
+            $classes = array_merge($classes, $infosBloc['classes']);
+        }
+
+        //Spécifiques au thème
+        $config = Yaml::parseFile('../config/services.yaml');
+        $theme = $config['parameters']['theme'];
+
+        if(file_exists('../themes/'.$theme.'/config.yaml')){
+            $infosBlocTheme = Yaml::parseFile('../themes/'.$theme.'/config.yaml');
+            if(isset($infosBlocTheme['blocs'][$type]['classes'])){
+                $classes = array_merge($classes, $infosBlocTheme['blocs'][$type]['classes']);
+            }
+        }
+
+        return $classes;
     }
 }

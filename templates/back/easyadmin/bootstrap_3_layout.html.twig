@@ -892,10 +892,12 @@
                 {{- form_label(form.children.active) -}}
                 {{- form_widget(form.children.active) -}}
             </div>
-            <div class="form-group">
-                {{- form_label(form.children.class) -}}
-                {{- form_widget(form.children.class) -}}
-            </div>
+            {% if form.children.classes.vars.choices is defined and form.children.classes.vars.choices is not empty %}
+                <div class="form-group">
+                    {{- form_label(form.children.classes) -}}
+                    {{- form_widget(form.children.classes) -}}
+                </div>
+            {% endif %}
             <div class="form-group">
                 {{- form_label(form.children.htmlAvant) -}}
                 {{- form_widget(form.children.htmlAvant) -}}
