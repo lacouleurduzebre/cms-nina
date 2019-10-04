@@ -149,7 +149,6 @@ $(document).ready(function(){
 
     //Score SEO
     scoreSEO = function(champ, nbCaracteres, score){
-        $('#page_active_SEO > .raz').removeClass('ok');
         if(nbCaracteres < (score / 3)){
             champ.siblings('.progression').attr('class', 'progression rouge');
             champ.prev('.nbCaracteres').find('.seo-attention').remove();

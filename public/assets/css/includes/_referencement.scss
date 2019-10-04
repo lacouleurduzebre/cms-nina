@@ -157,16 +157,6 @@
 }
 
 //Onglet SEO
-#page_active_SEO .raz{
-  background: linear-gradient(to left, $color-warning 50%, $color-success 50%);
-  background-size: 200% 100%;
-  background-position:right bottom;
-  transition: background-position .3s;
-  &.ok{
-    background-position: left bottom;
-  }
-}
-
 .progression, .nbCaracteres{
   display: inline-block;
 }

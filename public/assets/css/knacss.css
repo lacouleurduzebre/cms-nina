@@ -4891,16 +4891,6 @@ body.edit input[id$=_largeurMax], body.edit input[id$=_hauteurMax], body.new inp
   color: #666666;
 }
 
-#page_active_SEO .raz {
-  background: linear-gradient(to left, #F0AD4E 50%, #5CB85C 50%);
-  background-size: 200% 100%;
-  background-position: right bottom;
-  transition: background-position 0.3s;
-}
-#page_active_SEO .raz.ok {
-  background-position: left bottom;
-}
-
 .progression, .nbCaracteres {
   display: inline-block;
 }
