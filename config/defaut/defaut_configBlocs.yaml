@@ -25,6 +25,9 @@ Grille:
 GroupeBlocs:
     priorite: 11
     actif: oui
+HTML:
+    priorite: 30
+    actif: oui
 Image:
     priorite: 2
     actif: oui
