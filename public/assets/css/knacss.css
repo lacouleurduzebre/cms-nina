@@ -3105,7 +3105,7 @@ button:focus {
   display: none;
 }
 
-.listeBlocs-fermeture, .listeBlocsAnnexes-fermeture, #popup-ajoutPage-close, .conteneurApercu-fermeture {
+.listeBlocs-fermeture, .listeBlocsAnnexes-fermeture, .conteneurApercu-fermeture {
   color: #000;
   cursor: pointer;
   font-size: 3rem;
@@ -3123,12 +3123,6 @@ button:focus {
   border-radius: 50%;
   width: 4rem;
   height: 4rem;
-}
-
-#popup-ajoutPage-close {
-  top: 1rem;
-  right: 1.5rem;
-  position: absolute;
 }
 
 .listeBlocs, .listeBlocsAnnexes, .conteneurChargement, #conteneurApercu {
@@ -3473,6 +3467,7 @@ ul.nav-tabs li a {
 /* Éléments de formulaire */
 .help-text {
   font-size: 1.3rem;
+  color: #666666;
 }
 
 .field-collection-action {

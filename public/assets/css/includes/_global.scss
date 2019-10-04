@@ -1,4 +1,4 @@
-.listeBlocs-fermeture, .listeBlocsAnnexes-fermeture, #popup-ajoutPage-close, .conteneurApercu-fermeture{
+.listeBlocs-fermeture, .listeBlocsAnnexes-fermeture, .conteneurApercu-fermeture{
   color: $black;
   cursor: pointer;
   font-size: 3rem;
@@ -16,12 +16,6 @@
   border-radius: 50%;
   width: 4rem;
   height: 4rem;
-}
-
-#popup-ajoutPage-close{
-  top: 1rem;
-  right: 1.5rem;
-  position: absolute;
 }
 
 .listeBlocs, .listeBlocsAnnexes, .conteneurChargement, #conteneurApercu {

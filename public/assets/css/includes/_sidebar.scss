@@ -360,6 +360,10 @@ li[data-jstree='{"type":"root"}'] > a, li[data-jstree='{"type":"orphan"}'] > a{
     margin-bottom: 1rem;
     font-family: 'Cabin';
     font-size: 2.8rem;
+    line-height: 1;
+  }
+  form{
+    padding: 0;
   }
   label{
     display: block;
@@ -367,33 +371,11 @@ li[data-jstree='{"type":"root"}'] > a, li[data-jstree='{"type":"orphan"}'] > a{
     color: #0791B3;
     margin-bottom: 0;
   }
-  p{
-    color: $color-brand2;
-  }
   input[type="text"]{
     box-shadow: none;
     border-bottom: 1px solid $color-brand2;
-    background-color: transparent;
-  }
-  input[type="submit"]{
-    display: inline-block;
-    padding: 1rem 1.5rem;
-    cursor: pointer;
-    user-select: none;
-    transition: 0.25s;
-    text-align: center;
-    vertical-align: middle;
-    white-space: nowrap;
-    text-decoration: none;
-    color: #fff;
-    border: none;
-    border-radius: 0;
-    background-color: #A1BA1D;
-    font-family: inherit;
-    font-size: inherit;
-    line-height: 1;
-    box-shadow: none;
-    font-family: 'Cabin';
+    margin-bottom: 0;
+    background: rgba(238, 238, 238, 0.34);
   }
 }
 
@@ -403,14 +385,20 @@ li[data-jstree='{"type":"root"}'] > a, li[data-jstree='{"type":"orphan"}'] > a{
   background-color: transparent;
 }
 
-#popup-ajoutPage-close{
+div.popup-ajoutPage-close{
+  top: 1rem;
+  right: 2rem;
   position: absolute;
+  color: $color-brand2;
+  font-size: 2rem;
+  cursor: pointer;
 }
 
 .popup-ajoutPage-formulaire{
   position: relative;
   background-color: $white;
   padding: 2rem;
+  box-shadow: 0 19px 38px rgba(0, 0, 0, 0.3), 0 15px 12px rgba(0, 0, 0, 0.22);
   input[type="text"]{
     margin-bottom: 1rem;
     @include respond-to("small-up"){
@@ -419,8 +407,28 @@ li[data-jstree='{"type":"root"}'] > a, li[data-jstree='{"type":"orphan"}'] > a{
   }
 }
 
-#ajoutPage-infos{
-  display: none;
+.ajoutPage-actions{
+  margin-top: 2.5rem;
+  font-size: 1.8rem;
+  button{
+    border-radius: 2rem;
+    background-color: $color-base;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.25);
+    margin-left: .5rem;
+    font-family: 'Cabin';
+    &:hover{
+      background-color: darken($color-base, 10);
+    }
+    &[type="submit"]{
+      background-color: $color-brand;
+      &:hover{
+        background-color: darken($color-brand, 10);
+      }
+    }
+  }
+  svg{
+    margin-right: .5rem;
+  }
 }
 
 //Boutons d'édition de la page et des groupes de blocs

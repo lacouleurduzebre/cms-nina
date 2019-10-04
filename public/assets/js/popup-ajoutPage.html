@@ -1,6 +1,6 @@
 <div id="popup-ajoutPage">
     <div class="mw1140p center popup-ajoutPage-formulaire">
-        <div id="popup-ajoutPage-close">
+        <div class="popup-ajoutPage-close">
             <i class="fas fa-times"></i>
         </div>
         <h2>Ajouter une page</h2>
@@ -15,33 +15,15 @@
             <div>
                 <label for="ajoutPage-titre">Titre de la page</label>
                 <input required name="ajoutPage-titre" id="ajoutPage-titre" type="text">
+                <p class="help-text">Utilisé en tant que balise H1</p>
             </div>
             <div>
-                <label for="ajoutPage-infosManu">
-                    <input id="ajoutPage-infosManu" type="checkbox" name="ajoutPage-infosManu">
-                    Éditer manuellement les autres informations de la page
-                </label>
+                <label for="ajoutPage-titreMenu">Titre dans le menu</label>
+                <input name="ajoutPage-titreMenu" id="ajoutPage-titreMenu" type="text">
             </div>
-            <div id="ajoutPage-infos">
-                <div>
-                    <label for="ajoutPage-titreMenu">Titre dans les menus</label>
-                    <input name="ajoutPage-titreMenu" id="ajoutPage-titreMenu" class="reutilisationTitre" type="text">
-                </div>
-                <div>
-                    <label for="ajoutPage-metaTitre">Méta-titre</label>
-                    <input name="ajoutPage-metaTitre" id="ajoutPage-metaTitre" class="reutilisationTitre" type="text">
-                </div>
-                <div>
-                    <label for="ajoutPage-url">Url de la page</label>
-                    <input name="ajoutPage-url" id="ajoutPage-url" type="text">
-                </div>
-                <div>
-                    <label for="ajoutPage-metaDescription">Méta-description</label>
-                    <input name="ajoutPage-metaDescription" id="ajoutPage-metaDescription" class="reutilisationTitre" type="text">
-                </div>
-            </div>
-            <div class="txtright">
-                <input class="button" type="submit" value="Créer la page">
+            <div class="ajoutPage-actions txtright">
+                <button class="popup-ajoutPage-close"><i class="fas fa-times"></i> Annuler</button>
+                <button type="submit"><i class="fas fa-check-circle"></i> Enregistrer</button>
             </div>
         </form>
     </div>
