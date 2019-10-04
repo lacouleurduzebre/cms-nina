@@ -4746,15 +4746,15 @@ body.edit input[id$=_largeurMax], body.edit input[id$=_hauteurMax], body.new inp
 
 #page_active_SEO .metaTitre, #page_active_SEO #seo_metaTitre, .listeSEO-conteneur .metaTitre, .listeSEO-conteneur #seo_metaTitre {
   color: #1a0dab;
-  font-size: 1.8rem;
+  font-size: 2rem;
 }
 #page_active_SEO .url, #page_active_SEO #seo_url, .listeSEO-conteneur .url, .listeSEO-conteneur #seo_url {
   color: #006621;
-  font-size: 1.4rem;
+  font-size: 1.6rem;
 }
 #page_active_SEO .metaDescription, #page_active_SEO #seo_metaDescription, .listeSEO-conteneur .metaDescription, .listeSEO-conteneur #seo_metaDescription {
   color: #545454;
-  font-size: 1.3rem;
+  font-size: 1.4rem;
 }
 
 .listeSEO-conteneur {

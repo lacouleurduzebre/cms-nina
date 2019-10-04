@@ -62,6 +62,7 @@ $(document).ready(function() {
             if(seo.length > 75){
                 seo = seo.substr(0, 75)+'...';
             }
+            seo = $('.listeSEO-apercu .'+identifiant).find('span')[0].outerHTML + seo;
         }else{
             if(seo.length > 150){
                 seo = seo.substr(0, 150)+'...';
@@ -76,21 +77,21 @@ $(document).ready(function() {
         if(!$(this).hasClass('ok')){
             tinyMCE.triggerSave();
 
-            $('#page_active_SEO_url').val(str2url($('#page_active_titre').val()).substr(0, 75));
+            $('#page_active_SEO_url').val(str2url($('#page_active_titre').val()).substr(0, 75)).keyup();
             scoreSEOChargement($('#page_active_SEO_url'), 75);
 
-            $('#page_active_SEO_metaTitre').val($('#page_active_titre').val().substr(0, 65));
+            $('#page_active_SEO_metaTitre').val($('#page_active_titre').val().substr(0, 65)).keyup();
             scoreSEOChargement($('#page_active_SEO_metaTitre'), 65);
 
             //Méta description
             blocTexte = $('#page_active_blocs .bloc-texte').find('textarea');
 
             metaDescription = $('#page_active_titre').val().substr(0, 150);
-            if(blocTexte.length > -1){
+            if(blocTexte.length > 0)/**/{
                 metaDescription = blocTexte.val().substr(0, 150).replace(/<\/?[^>]+>/gi, '');
             }
 
-            $('#page_active_SEO_metaDescription').val(metaDescription);
+            $('#page_active_SEO_metaDescription').val(metaDescription).keyup();
             scoreSEOChargement($('#page_active_SEO_metaDescription'), 150);
 
             saveCloseFormulaire();
@@ -99,7 +100,11 @@ $(document).ready(function() {
 
             $('#page_active_SEO_url, #page_active_SEO_metaTitre, #page_active_SEO_metaDescription').each(function(){
                 identifiant = $(this).attr('id').split('_').pop();
-                $('.listeSEO-apercu .'+identifiant).html($(this).val());
+                val = $(this).val();
+                if(identifiant === 'url'){
+                    val = $('.listeSEO-apercu .' + identifiant).find('span')[0].outerHTML + val;
+                }
+                $('.listeSEO-apercu .' + identifiant).html(val);
             });
         }
     });

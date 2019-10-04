@@ -719,7 +719,7 @@
 
                     <div class="url">
                         {% if data.url is defined %}
-                            {{ data.url|truncate(75) }}
+                            <span>{{ app.request.headers.get('host') }} > </span>{{ data.url|truncate(75) }}
                         {% endif %}
                     </div>
 

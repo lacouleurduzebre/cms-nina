@@ -3,7 +3,7 @@
 </div>
 
 <div class="url">
-    {{ item.url|truncate(75) }}
+    {{ app.request.headers.get('host') }} > {{ item.url|truncate(75) }}
 </div>
 
 <div class="metaDescription">
