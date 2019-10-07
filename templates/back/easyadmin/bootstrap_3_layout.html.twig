@@ -330,7 +330,7 @@
 
 {% block form_row -%}
     {% set _field_type = easyadmin.field.fieldType|default('default') %}
-    <div class="form-group {% if (not compound or force_error|default(false)) and not valid %}has-error{% endif %} field-{{ block_prefixes|slice(-2)|first }}">
+    <div class="form-group {% if (not compound or force_error|default(false)) and not valid %}has-error{% endif %} field-{{ block_prefixes|slice(-2)|first }}" {% if form.vars.name == 'colonnes' %}data-val="{{ form.vars.value }}"{% endif %}>
         {{- form_label(form) -}}
         {#{% if help|default('') != '' %}
             <div class="infobulle"><i class="fa fa-info-circle"></i><span>{{ help|trans(domain = easyadmin.entity.translation_domain)|raw }}</span></div>
@@ -351,22 +351,36 @@
 {%- endblock form_row %}
 
 {% block collection_row %}
-    <div class="form-group field-{{ name }} {% if value is empty %}vide{% endif %}">
-        {{ block('form_row') }}
+    {% if 'blocsEnfants' in form.vars.unique_block_prefix %}
+        <div class="form-group field-collection blocsEnfants" {% if form.parent.vars.value.contenu.colonnes is defined %}data-col="col{{ form.parent.vars.value.contenu.colonnes }}"{% endif %}>
+            {{- form_widget(form) -}}
 
-        {% if allow_add|default(false) %}
             <div class="text-right field-collection-action">
-                <a href="#" onclick="if (event.preventDefault) event.preventDefault(); else event.returnValue = false; ajoutItem('{{ id }}', '{{ name }}', 'apres', true)" class="text-primary">
-                    <i class="fa fa-plus-square"></i>
-                    {% if label_format is not empty %}
-                        Ajouter {{ label_format }}
-                    {% else %}
-                        {{ (form|length == 0 ? 'action.add_new_item' : 'action.add_another_item')|trans({}, 'EasyAdminBundle') }}
-                    {% endif %}
-                </a>
+                <button href="#" onclick="$(function (){if (event.preventDefault) event.preventDefault(); else event.returnValue = false; $('.listeBlocs').attr('id', 'section').attr('data-section', '{{ form.vars.id }}').addClass('actif')})" class="ajout-bloc">
+                    <i class="fas fa-plus-circle"></i>
+                    {{ 'ajouter un bloc'|trans({}, 'EasyAdminBundle') }}
+                </button>
             </div>
-        {% endif %}
-    </div>
+
+        </div>
+    {% else %}
+        <div class="form-group field-{{ name }} {% if value is empty %}vide{% endif %}">
+            {{ block('form_row') }}
+
+            {% if allow_add|default(false) %}
+                <div class="text-right field-collection-action">
+                    <a href="#" onclick="if (event.preventDefault) event.preventDefault(); else event.returnValue = false; ajoutItem('{{ id }}', '{{ name }}', 'apres', true)" class="text-primary">
+                        <i class="fa fa-plus-square"></i>
+                        {% if label_format is not empty %}
+                            Ajouter {{ label_format }}
+                        {% else %}
+                            {{ (form|length == 0 ? 'action.add_new_item' : 'action.add_another_item')|trans({}, 'EasyAdminBundle') }}
+                        {% endif %}
+                    </a>
+                </div>
+            {% endif %}
+        </div>
+    {% endif %}
 {% endblock collection_row %}
 
 {% block collection_row_double %}
@@ -774,7 +788,18 @@
     <div class="form-group field-collection">
         {{- form_label(form) -}}
 
-        <a id="replierBlocs" href="#">Replier tous les blocs</a>
+        <a id="replierBlocs" href="#">
+            <span class="btn">
+                {{ "Replier tous les blocs"|trans }}
+                <i class="fas fa-chevron-circle-up"></i>
+            </span>
+        </a>
+        <a id="deplierBlocs" class="hidden" href="#">
+            <span class="btn">
+                {{ "Déplier tous les blocs"|trans }}
+                <i class="fas fa-chevron-circle-down"></i>
+            </span>
+        </a>
 
         <div class="text-right field-collection-action mbs">
             <a href="#" onclick="$(function (){if (event.preventDefault) event.preventDefault(); else event.returnValue = false; $('.listeBlocs').attr('id', 'avant').addClass('actif')})" class="ajout-bloc">
@@ -823,7 +848,7 @@
 {# BLOC #}
 {% block bloc_row -%}
     {% set _field_type = easyadmin.field.fieldType|default('default') %}
-    <div class="form-group {% if (not compound or force_error|default(false)) and not valid %}has-error{% endif %} field-{{ block_prefixes|slice(-2)|first }} {% if not form.children.active.vars.data %} desactive{% endif %}">
+    <div class="form-group {% if (not compound or force_error|default(false)) and not valid %}has-error{% endif %} field-{{ block_prefixes|slice(-2)|first }} {% if not form.children.active.vars.data %} desactive{% endif %}" data-name="{{ name }}">
         {{- form_label(form) -}}
         {{- form_widget(form) -}}
 
@@ -914,6 +939,9 @@
                 {% endif %}
                 {{- form_label(form.children.contenu) -}}
                 {{- form_widget(form.children.contenu) -}}
+            {% endif %}
+            {% if form.children.blocsEnfants is defined %}
+                {{- form_row(form.children.blocsEnfants) -}}
             {% endif %}
         </div>
     </div>

@@ -40,6 +40,18 @@ class BlocType extends AbstractType
                 'data' => $options['type'],
                 'label' => $label
             ));
+
+            //SECTION
+            if($options['type'] == 'Section'){
+                $builder->add('blocsEnfants', CollectionType::class, [
+                    'entry_type' => BlocType::class,
+                    'allow_add' => true,
+                    'allow_delete' => true,
+                    'allow_extra_fields' => true,
+                    'label' => false,
+                    'by_reference' => true
+                ]);
+            }
         }else{//Chargement du formulaire
             $builder->add('type', HiddenType::class)
                 ->add('contenu', CollectionType::class, array(
@@ -108,6 +120,18 @@ class BlocType extends AbstractType
                 ->add('active', null, array(
                     'label' => 'Activé'
                 ));
+
+            //SECTION
+            if($type == 'Section'){
+                $form->add('blocsEnfants', CollectionType::class, [
+                    'entry_type' => BlocType::class,
+                    'allow_add' => true,
+                    'allow_delete' => true,
+                    'allow_extra_fields' => true,
+                    'label' => false,
+                    'by_reference' => false
+                ]);
+            }
         }else{
             $form->add('active', null, array(
                 'label' => 'Activé',

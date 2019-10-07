@@ -15,6 +15,7 @@ $(document).ready(function() {
 
     $("#page_active_blocs").sortable(options);
     $("#groupeblocs_blocs").sortable(options);
+    $("div[id$='blocsEnfants']").sortable(options);
 
     $(".bloc-slider div[id$='contenu_Slide']").sortable({
         handle: '.dragSlide',
@@ -157,6 +158,12 @@ $(document).ready(function() {
             });
             saveCloseFormulaire();
         });
+
+        //Bloc enfant
+        if($(this).closest('.blocsEnfants').length > 0){
+            input = $(this).closest('.contenu').find('input[name$="[colonnes]"]:checked');
+            verifNombreBlocs(input, 'suppression');
+        }
     });
 
     $('form').on('click', '.suppressionBlocAnnexe-supprimer', function(e){
@@ -193,46 +200,69 @@ $(document).ready(function() {
 
                 $('.listeBlocs').removeClass('actif chargement');
 
-                if(count === 0){
-                    count = $('#'+entite+'_blocs').find('.field-bloc').length;
-                }else{
-                    count++;
-                }
+                if($('.listeBlocs').attr('id') === 'avant' || $('.listeBlocs').attr('id') === 'apres'){
+                    if(count === 0){
+                        count = $('#'+entite+'_blocs').find('.field-bloc').length;
+                    }else{
+                        count++;
+                    }
 
-                var form = data.replace(/bloc_/g, entite+'_blocs_'+count+'_')
-                    .replace(/bloc\[/g, entite+'[blocs]['+count+'][');
+                    var form = data.replace(/bloc_/g, entite+'_blocs_'+count+'_')
+                        .replace(/bloc\[/g, entite+'[blocs]['+count+'][');
 
-                bloc = '<div id="nvBloc'+count+'" class="form-group field-bloc nvBloc">'+form+'</div>';
-                if($('.listeBlocs').attr('id') === 'apres'){
-                    $('#'+entite+'_blocs').append(bloc);
-                }else{
-                    $('#'+entite+'_blocs').prepend(bloc);
+                    bloc = '<div id="nvBloc'+count+'" class="form-group field-bloc nvBloc" data-name="'+count+'">'+form+'</div>';
+                    if($('.listeBlocs').attr('id') === 'apres'){
+                        $('#'+entite+'_blocs').append(bloc);
+                    }else{
+                        $('#'+entite+'_blocs').prepend(bloc);
+                    }
+                }else{//Bloc enfant
+                    section = $('#'+$('.listeBlocs').attr('data-section'));
+
+                    count = section.closest('.field-bloc').data('name');
+                    countBloc = section.find('.field-bloc').length;
+
+                    exp = entite+'['+$('.listeBlocs').attr('data-section').replace(entite+'_', '').replace(/_/g, '][')+']';
+
+                    var form = data.replace(/bloc_/g, $('.listeBlocs').attr('data-section')+'_'+countBloc+'_')
+                        .replace(/bloc\[/g, exp+'['+countBloc+'][');
+
+                    bloc = '<div id="nvBloc'+countBloc+'" class="form-group field-bloc" data-name="'+countBloc+'">'+form+'</div>';
+                    section.append(bloc);
+
+                    section.closest('.contenu').find('input[name$="[colonnes]"]').each(function(){
+                        if($(this).prop('checked')){
+                            verifNombreBlocs($(this));
+                        }
+                    });
                 }
 
                 //Anim ajout de bloc
                 $('.field-bloc').removeClass('focus');
-                nvBloc = $('#nvBloc'+count);
-                nvBloc.addClass('focus');
 
-                var elOffset = nvBloc.offset().top;
-                var elHeight = nvBloc.height();
-                var windowHeight = $(window).height();
+                if($('.listeBlocs').attr('id') === 'avant' || $('.listeBlocs').attr('id') === 'apres'){
+                    nvBloc = $('#nvBloc'+count);
+                    nvBloc.addClass('focus');
 
-                if (elHeight < windowHeight) {
-                    offset = elOffset - ((windowHeight / 2) - (elHeight / 2));
+                    var elOffset = nvBloc.offset().top;
+                    var elHeight = nvBloc.height();
+                    var windowHeight = $(window).height();
+
+                    if (elHeight < windowHeight) {
+                        offset = elOffset - ((windowHeight / 2) - (elHeight / 2));
+                    }
+                    else {
+                        offset = elOffset;
+                    }
+
+                    $('body, html').animate({
+                        scrollTop: offset
+                    }, 600, 'swing', function(){
+                        nvBloc.fadeTo(600, 1);
+                    });
+
+                    $('#'+entite+'_blocs').prev('.empty').remove();
                 }
-                else {
-                    offset = elOffset;
-                }
-
-                $('body, html').animate({
-                    scrollTop: offset
-                }, 600, 'swing', function(){
-                    nvBloc.fadeTo(600, 1);
-                });
-                //
-
-                $('#'+entite+'_blocs').prev('.empty').remove();
 
                 $('.field-bloc').each(function(){
                     $(this).find("input[id$='position']").val($(this).index());
@@ -336,8 +366,8 @@ $(document).ready(function() {
         $(this).next('a').attr('href', Routing.generate('admin', { action: 'edit', entity: 'GroupeBlocs', id: $(this).val() }));
     });
 
-    //Toggle blocs et blocs annexes
-    $('#page_active_blocs, #groupeblocs_blocs, #page_active_blocsAnnexes').on('click', '.toggleBloc', function(){
+    //Toggle blocs - pages
+    $('#page_active_blocs').on('click', '.toggleBloc', function(){
         $(this).closest('.form-group').find('.contenu').children('div').toggleClass('hide');
         $(this).toggleClass('rotate');
 
@@ -348,8 +378,20 @@ $(document).ready(function() {
             $('#replierBlocs').show();
             $('#deplierBlocs').hide();
         }
+    });
 
+    //Toggle blocs - groupes de blocs
+    $('#groupeblocs_blocs').on('click', '.toggleBloc', function(){
+        $(this).closest('.form-group').find('.contenu').children('div').toggleClass('hide');
+        $(this).toggleClass('rotate');
 
+        if($('#groupeblocs_blocs').find('.toggleBloc:not(.rotate)').length === 0){//Si tous les blocs sont fermés, "déplier les blocs"
+            $('#deplierBlocs').show();
+            $('#replierBlocs').hide();
+        }else if($('#groupeblocs_blocs').find('.toggleBloc.rotate').length === 0){//Si tous les blocs sont ouverts, "replier les blocs"
+            $('#replierBlocs').show();
+            $('#deplierBlocs').hide();
+        }
     });
 
     //Mise en avant du bloc en cours d'édition
@@ -387,7 +429,6 @@ $(document).ready(function() {
                 rotate = $(this).children('div').hasClass('hide');
                 $(this).children('div').removeClass('hide');
             }
-            console.log(rotate);
             if(rotate){
                 $(this).closest('.field-bloc').find('.toggleBloc').toggleClass('rotate');
             }
@@ -507,16 +548,79 @@ $(document).ready(function() {
     });
 
     //Aperçu du bloc vidéo
-    $('body').on('keyup', '.bloc-video input[name$="[video]"]', function(){
+    $('body').on('keyup', '.bloc-video input[name$="[video]"]', function() {
         urlVideo = $(this).val();
-        if(urlVideo.includes('youtube') || urlVideo.includes('youtu.be')){
-            if(urlVideo.includes('?v=')){
+        if (urlVideo.includes('youtube') || urlVideo.includes('youtu.be')) {
+            if (urlVideo.includes('?v=')) {
                 urlVideo = urlVideo.split('?v=').pop();
-            }else{
+            } else {
                 urlVideo = urlVideo.split('/').pop();
             }
             urlVideo = "https://www.youtube.com/embed/" + urlVideo + "?rel=0";
         }
         $(this).closest('.contenu').find('iframe').show().attr('src', urlVideo);
+    });
+
+    //Section : changement du nombre de colonnes
+    verifNombreBlocs = function(input, contexte = null){
+        val = input.val();
+
+        max = 2;
+
+        if(val === '1'){
+            max = 0;
+        }else if (val === '3' || val === '4'){
+            max = parseInt(val);
+        }
+
+        conteneurBlocsEnfants = input.closest('.contenu').children('.blocsEnfants');
+        blocsEnfants = conteneurBlocsEnfants.children('div').children('.field-bloc');
+        nbBlocsEnfants = blocsEnfants.length;
+
+        console.log(nbBlocsEnfants);
+
+        if(contexte === 'suppression'){
+            nbBlocsEnfants -= 1;
+        }
+
+        if(max !== 0 && nbBlocsEnfants >= max){
+            //Désactivation bouton d'ajout de bloc
+            conteneurBlocsEnfants.children('.field-collection-action').children('.ajout-bloc').attr('disabled', true);
+
+            if(max !== 0 && nbBlocsEnfants > max){
+                if(confirm('Il y a plus de blocs que de colonnes. Les blocs supplémentaires vont être supprimés. Continuer ?')){
+                    //Suppression des blocs en trop
+                    blocsEnfants.each(function(){
+                        if($(this).index() >= max){
+                            $(this).remove();
+                        }
+                    });
+
+                    input.closest('.contenu').find('.blocsEnfants').attr('data-col', 'col'+input.val());
+                    input.closest('.form-group').attr('data-val', input.val());
+                }else{
+                    valPrecedente = input.closest('.form-group').attr('data-val');
+                    input.closest('.form-group').find('input[value="'+valPrecedente+'"]').click();
+                }
+            }else{
+                input.closest('.contenu').find('.blocsEnfants').attr('data-col', 'col'+input.val());
+                input.closest('.form-group').attr('data-val', input.val());
+            }
+        }else{
+            //Activation bouton d'ajout de bloc
+            conteneurBlocsEnfants.children('.field-collection-action').children('.ajout-bloc').attr('disabled', false);
+            input.closest('.contenu').find('.blocsEnfants').attr('data-col', 'col'+input.val());
+            input.closest('.form-group').attr('data-val', input.val());
+        }
+    };
+
+    $('body').on('change', 'input[name$="[colonnes]"]', function(){
+        verifNombreBlocs($(this));
+    });
+
+    $('input[name$="[colonnes]"]').each(function(){
+        if($(this).prop('checked')){
+            verifNombreBlocs($(this));
+        }
     });
 });
