@@ -2168,31 +2168,31 @@ li[data-jstree='{"type":"root"}'] > a.jstree-context, li[data-jstree='{"type":"o
   color: #A1BA1D;
 }
 
-.menu {
+.main-sidebar .menu {
   margin: 1rem 0;
   position: relative;
   font-weight: 500;
 }
-.menu > div > ul > li {
+.main-sidebar .menu > div > ul > li {
   background-color: #E1E1E1 !important;
 }
-.menu > div > ul > li > i {
+.main-sidebar .menu > div > ul > li > i {
   margin-top: 1rem !important;
 }
-.menu > div > ul > li > a {
+.main-sidebar .menu > div > ul > li > a {
   font-size: 1.6rem !important;
   padding: 1rem 2rem 1rem 1rem;
   width: 100%;
 }
-.menu > div > ul > li > a svg {
+.main-sidebar .menu > div > ul > li > a svg {
   width: 20px;
 }
-.menu > div > ul > li > a svg.fa-ellipsis-v {
+.main-sidebar .menu > div > ul > li > a svg.fa-ellipsis-v {
   position: absolute;
   right: 1rem;
   top: 1.2rem;
 }
-.menu > div > ul > li > ul {
+.main-sidebar .menu > div > ul > li > ul {
   background-color: #F7F7F7;
   box-shadow: inset 0 4px 4px -2px rgba(0, 0, 0, 0.25);
   padding-top: 1rem;
