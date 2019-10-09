@@ -271,6 +271,7 @@ $(document).ready(function() {
                 tinymce.remove();
                 tinymce.init(optionsTinyMCEParagraphe);
                 tinymce.init(optionsTinyMCE);
+                $('.select-multiple').select2();
             })
             .fail(function(){
                 $('.listeBlocs').removeClass('actif chargement');

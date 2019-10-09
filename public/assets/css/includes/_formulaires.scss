@@ -52,3 +52,18 @@ body.edit, body.new{
     width: 7rem;
   }
 }
+
+//Select multiples
+.select-multiple{
+  + .select2-container{
+    width: 100% !important;
+  }
+}
+
+.select2-container--default .select2-results__group{
+  display: none;
+}
+
+.select2-container--default .select2-results__option--highlighted[aria-selected]{
+  background-color: $color-brand;
+}

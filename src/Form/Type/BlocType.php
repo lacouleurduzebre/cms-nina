@@ -47,8 +47,11 @@ class BlocType extends AbstractType
             ))
             ->add('classes', ChoiceType::class, array(
                 'choices' => $classes,
-                'expanded' => true,
-                'multiple' => true
+                'expanded' => false,
+                'multiple' => true,
+                'attr' => [
+                    'class' => 'select-multiple'
+                ]
             ));
 
             //SECTION
@@ -134,8 +137,11 @@ class BlocType extends AbstractType
                 ))
                 ->add('classes', ChoiceType::class, array(
                     'choices' => $classes,
-                    'expanded' => true,
-                    'multiple' => true
+                    'expanded' => false,
+                    'multiple' => true,
+                    'attr' => [
+                        'class' => 'select-multiple'
+                    ]
                 ));
 
             //SECTION

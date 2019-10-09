@@ -4812,6 +4812,18 @@ body.edit input[id$=_largeurMax], body.edit input[id$=_hauteurMax], body.new inp
   width: 7rem;
 }
 
+.select-multiple + .select2-container {
+  width: 100% !important;
+}
+
+.select2-container--default .select2-results__group {
+  display: none;
+}
+
+.select2-container--default .select2-results__option--highlighted[aria-selected] {
+  background-color: #A1BA1D;
+}
+
 #onglet_SEO .metaTitre, #onglet_SEO #seo_metaTitre, .listeSEO-conteneur .metaTitre, .listeSEO-conteneur #seo_metaTitre {
   color: #1a0dab;
   font-size: 2rem;
