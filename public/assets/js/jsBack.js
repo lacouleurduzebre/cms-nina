@@ -74,6 +74,7 @@ $(document).ready(function(){
             titre = $(this).val();
             url = str2url(titre, 'UTF-8', true);
             $(event.data.cible).val(url);
+            apercuGoogle($(event.data.cible));
         }
     };
 
@@ -84,12 +85,12 @@ $(document).ready(function(){
 
         /* Pour les catégories */
         $('#categorie_nom').on('keyup', {
-            cible: '#categorie_url'
+            cible: '#categorie_SEO_url'
         }, creationURL );
 
         /* Pour les types de catégorie */
         $('#typecategorie_nom').on('keyup', {
-            cible: '#typecategorie_url'
+            cible: '#typecategorie_SEO_url'
         }, creationURL );
 
         /* Modification de l'url */
@@ -99,7 +100,7 @@ $(document).ready(function(){
             $(this).val(url);
         };
 
-        $('#page_active_SEO_url, #categorie_url, #typecategorie_url').on('keyup', urlPropre);
+        $('input[id$="SEO_url"]').on('keyup', urlPropre);
 
             /* Ajout de page enfant dans l'arbo */
         $('body').on('keyup', '#ajoutPage-url', urlPropre);
@@ -172,12 +173,160 @@ $(document).ready(function(){
         scoreSEO(champ, nbCaracteres, score);
     };
 
-    scoreSEOLive = function(event){
-        champ = event.data.champ;
-        nbCaracteres = event.data.champ.val().length;
-        score = event.data.score;
-        scoreSEO(champ, nbCaracteres, score);
+    //Onglet référencement des pages, catégories et types de catégorie
+        //Score
+    if($('body').hasClass('new') || $('body').hasClass('edit')){
+        $('input[id$="SEO_url"]').each(function(){
+            scoreSEOChargement($(this), 75);
+        });
+        $('input[id$="SEO_metaTitre"]').each(function(){
+            scoreSEOChargement($(this), 65);
+        });
+        $('textarea[id$="SEO_metaDescription"]').each(function(){
+            scoreSEOChargement($(this), 150);
+        });
+    }
+
+    $('input[id$="SEO_url"]').on('keyup', function(){
+        scoreSEOChargement($(this), 75);
+    });
+    $('input[id$="SEO_metaTitre"]').on('keyup', function(){
+        scoreSEOChargement($(this), 65);
+    });
+    $('textarea[id$="SEO_metaDescription"]').on('keyup', function(){
+        scoreSEOChargement($(this), 150);
+    });
+
+    $('input[id$="SEO_url"], input[id$="SEO_metaTitre"], textarea[id$="SEO_metaDescription"]').on('keyup', function(){
+        $('.raz').prop('disabled', false);
+        apercuGoogle($(this));
+    });
+
+        //Aperçu Google
+    apercuGoogle = function(elem){
+        identifiant = elem.attr('id').split('_').pop();
+        seo = elem.val();
+
+        if(identifiant === 'metaTitre'){
+            if(seo.length > 65){
+                seo = seo.substr(0, 65)+'...';
+            }
+        }else if(identifiant === 'url'){
+            if(seo.length > 75){
+                seo = seo.substr(0, 75)+'...';
+            }
+            seo = $('.listeSEO-SEO .'+identifiant).find('span')[0].outerHTML + seo;
+        }else{
+            if(seo.length > 150){
+                seo = seo.substr(0, 150)+'...';
+            }
+        }
+
+        $('.listeSEO-SEO .' + identifiant).html(seo);
     };
+
+    razApercuGoogle = function(){
+        $('input[id$="SEO_url"], input[id$="SEO_metaTitre"], textarea[id$="SEO_metaDescription"]').each(function(){
+            apercuGoogle($(this));
+        });
+    };
+
+        //Raz
+    getChampTitre = function(elem){
+        entite = elem.closest('form').data('entity').toLowerCase();
+        if(entite === 'page_active'){
+            titre = $('#'+entite+'_titre').val();
+        }else{
+            titre = $('#'+entite+'_nom').val();
+        }
+        return titre;
+    };
+
+    // $('#onglet_SEO > .raz').click(function(){
+    //     if(!$(this).hasClass('ok')){
+    //         titre = getChampTitre($(this));
+    //
+    //         $('input[id$="SEO_url"]').each(function(){
+    //             $(this).val(str2url(titre.substr(0, 75)));
+    //             scoreSEOChargement($(this), 75);
+    //         });
+    //         $('input[id$="SEO_metaTitre"]').each(function(){
+    //             $(this).val(titre.substr(0, 65));
+    //             scoreSEOChargement($(this), 65);
+    //         });
+    //         $('textarea[id$="SEO_metaDescription"]').each(function(){
+    //             $(this).val(titre.substr(0, 150));
+    //             scoreSEOChargement($(this), 150);
+    //         });
+    //
+    //         saveCloseFormulaire();
+    //
+    //         $(this).addClass('ok');
+    //
+    //         razApercuGoogle();
+    //     }
+    // });
+
+    $('#onglet_SEO > .raz').click(function(e){
+            e.preventDefault();
+
+            tinyMCE.triggerSave();
+
+            titre = getChampTitre($(this));
+
+            $('input[id$="SEO_url"]').each(function(){
+                $(this).val(str2url(titre.substr(0, 75)));
+                scoreSEOChargement($(this), 75);
+            });
+            $('input[id$="SEO_metaTitre"]').each(function(){
+                $(this).val(titre.substr(0, 65));
+                scoreSEOChargement($(this), 65);
+            });
+            $('textarea[id$="SEO_metaDescription"]').each(function(){
+                $(this).val(titre.substr(0, 150));
+                scoreSEOChargement($(this), 150);
+            });
+
+            saveCloseFormulaire();
+
+            razApercuGoogle();
+
+            $(this).prop('disabled', true);
+
+            $('#flash-messages').append('<div class="alert alert-enregistrement"><span>Champs SEO réinitialisés</span><i class="fas fa-times"></i></div>');
+
+            setTimeout(function(){
+                $('#flash-messages .alert-enregistrement').remove();
+            }, 3000);
+    });
+
+        //Si méta-titre, url ou méta-description vide en perdant le focus, on reprend le titre
+    $('input[id$="SEO_url"]').focusout(function(){
+        titre = getChampTitre($(this));
+        if($(this).val() === ''){
+            $(this).val(str2url(titre));
+            scoreSEOChargement($(this), 75);
+            apercuGoogle($(this));
+        }
+    });
+
+    $('input[id$="SEO_metaTitre"]').focusout(function(){
+        titre = getChampTitre($(this));
+        if($(this).val() === ''){
+            $(this).val(titre);
+            scoreSEOChargement($(this), 65);
+            apercuGoogle($(this));
+        }
+    });
+
+    $('textarea[id$="SEO_metaDescription"]').focusout(function(){
+        titre = getChampTitre($(this));
+        if($(this).val() === ''){
+            $(this).val(titre);
+            scoreSEOChargement($(this), 150);
+            apercuGoogle($(this));
+        }
+    });
 
     //Cacher le message "enregistrement terminé"
     setTimeout(function(){

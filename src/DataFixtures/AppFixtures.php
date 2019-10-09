@@ -10,7 +10,7 @@ use App\Entity\Menu;
 use App\Entity\MenuPage;
 use App\Entity\Page;
 use App\Entity\Region;
-use App\Entity\SEO;
+use App\Entity\SEOPage;
 use App\Entity\Utilisateur;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;
@@ -48,7 +48,7 @@ class AppFixtures extends Fixture
         $manager->persist($langue);
 
         //Page sans titre
-        $seo = new SEO();
+        $seo = new SEOPage();
         $seo->setUrl('page-sans-titre')
             ->setMetaTitre('Page sans titre')
             ->setMetaDescription('Page sans titre');

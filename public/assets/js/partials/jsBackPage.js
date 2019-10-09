@@ -15,6 +15,9 @@ $(document).ready(function() {
             $('#page_active_titreMenu').val(titre);
             if($('body').hasClass('new')){
                 $('#page_active_SEO_metaTitre').val(titre);
+                apercuGoogle($('#page_active_SEO_metaTitre'));
+                $('#page_active_SEO_metaDescription').val(titre);
+                apercuGoogle($('#page_active_SEO_metaDescription'));
             }
         }
     });
@@ -29,53 +32,53 @@ $(document).ready(function() {
         $('label[for="page_active_traductions_'+langue+'"]').hide().next('select').hide();
     });
 
-    if($('body').hasClass('new') || $('body').hasClass('edit')){
-        scoreSEOChargement($('#page_active_SEO_url'), 75);
-        scoreSEOChargement($('#page_active_SEO_metaTitre'), 65);
-        scoreSEOChargement($('#page_active_SEO_metaDescription'), 150);
-    }
+    // if($('body').hasClass('new') || $('body').hasClass('edit')){
+    //     scoreSEOChargement($('#page_active_SEO_url'), 75);
+    //     scoreSEOChargement($('#page_active_SEO_metaTitre'), 65);
+    //     scoreSEOChargement($('#page_active_SEO_metaDescription'), 150);
+    // }
 
-    $('#page_active_SEO_url').on('keyup', {
-        champ: $('#page_active_SEO_url'),
-        score: 75
-    }, scoreSEOLive);
-    $('#page_active_SEO_metaTitre').on('keyup', {
-        champ: $('#page_active_SEO_metaTitre'),
-        score: 65
-    }, scoreSEOLive);
-    $('#page_active_SEO_metaDescription').on('keyup', {
-        champ: $('#page_active_SEO_metaDescription'),
-        score: 150
-    }, scoreSEOLive);
+    // $('#page_active_SEO_url').on('keyup', {
+    //     champ: $('#page_active_SEO_url'),
+    //     score: 75
+    // }, scoreSEOLive);
+    // $('#page_active_SEO_metaTitre').on('keyup', {
+    //     champ: $('#page_active_SEO_metaTitre'),
+    //     score: 65
+    // }, scoreSEOLive);
+    // $('#page_active_SEO_metaDescription').on('keyup', {
+    //     champ: $('#page_active_SEO_metaDescription'),
+    //     score: 150
+    // }, scoreSEOLive);
 
     //Aperçu Google
-    $('#page_active_SEO_url, #page_active_SEO_metaTitre, #page_active_SEO_metaDescription').on('keyup', function(){
-        $('.raz').prop('disabled', false);
-
-        identifiant = $(this).attr('id').split('_').pop();
-
-        seo = $(this).val();
-
-        if(identifiant === 'metaTitre'){
-            if(seo.length > 65){
-                seo = seo.substr(0, 65)+'...';
-            }
-        }else if(identifiant === 'url'){
-            if(seo.length > 75){
-                seo = seo.substr(0, 75)+'...';
-            }
-            seo = $('.listeSEO-apercu .'+identifiant).find('span')[0].outerHTML + seo;
-        }else{
-            if(seo.length > 150){
-                seo = seo.substr(0, 150)+'...';
-            }
-        }
-
-        $('.listeSEO-apercu .'+identifiant).html(seo);
-    });
+    // $('#page_active_SEO_url, #page_active_SEO_metaTitre, #page_active_SEO_metaDescription').on('keyup', function(){
+    //     $('.raz').prop('disabled', false);
+    //
+    //     identifiant = $(this).attr('id').split('_').pop();
+    //
+    //     seo = $(this).val();
+    //
+    //     if(identifiant === 'metaTitre'){
+    //         if(seo.length > 65){
+    //             seo = seo.substr(0, 65)+'...';
+    //         }
+    //     }else if(identifiant === 'url'){
+    //         if(seo.length > 75){
+    //             seo = seo.substr(0, 75)+'...';
+    //         }
+    //         seo = $('.listeSEO-apercu .'+identifiant).find('span')[0].outerHTML + seo;
+    //     }else{
+    //         if(seo.length > 150){
+    //             seo = seo.substr(0, 150)+'...';
+    //         }
+    //     }
+    //
+    //     $('.listeSEO-apercu .'+identifiant).html(seo);
+    // });
 
     //Réinitialisation onglet SEO d'une page
-    $('#page_active_SEO > .raz').click(function(e){
+    /*$('#page_active_SEO > .raz').click(function(e){
         e.preventDefault();
 
         tinyMCE.triggerSave();
@@ -90,7 +93,7 @@ $(document).ready(function() {
         blocTexte = $('#page_active_blocs .bloc-texte').find('textarea');
 
         metaDescription = $('#page_active_titre').val().substr(0, 150);
-        if(blocTexte.length > 0)/**/{
+        if(blocTexte.length > 0)/!**!/{
             metaDescription = blocTexte.val().substr(0, 150).replace(/<\/?[^>]+>/gi, '');
         }
 
@@ -115,7 +118,7 @@ $(document).ready(function() {
         setTimeout(function(){
             $('#flash-messages .alert-enregistrement').remove();
         }, 3000);
-    });
+    });*/
 
     //Apercu mobile et tablette
         //Fermeture
@@ -143,31 +146,10 @@ $(document).ready(function() {
         insertionIframe('tablette', 770, 1030);
     });
 
-    //Si titre dans le menu, méta-titre, url ou méta-description vide en perdant le focus, on reprend le titre
+    //Si titre dans le menu vide en perdant le focus, on reprend le titre
     $('#page_active_titreMenu').focusout(function(){
         if($(this).val() === ''){
             $(this).val($('#page_active_titre').val());
-        }
-    });
-
-    $('#page_active_SEO_url').focusout(function(){
-        if($(this).val() === ''){
-            $(this).val(str2url($('#page_active_titre').val()));
-            scoreSEOChargement($(this), 75);
-        }
-    });
-
-    $('#page_active_SEO_metaTitre').focusout(function(){
-        if($(this).val() === ''){
-            $(this).val($('#page_active_titre').val());
-            scoreSEOChargement($(this), 65);
-        }
-    });
-
-    $('#page_active_SEO_metaDescription').focusout(function(){
-        if($(this).val() === ''){
-            $(this).val($('#page_active_titre').val());
-            scoreSEOChargement($(this), 150);
         }
     });
 

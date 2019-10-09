@@ -11,7 +11,7 @@ easy_admin:
                 fields:
                     - nom
                     - { property: 'description', type: 'raw' }
-                    - url
+                    - { property: 'seo.url', label: 'Url', type: 'text'}
             search:
                 fields:
                     - nom
@@ -20,16 +20,18 @@ easy_admin:
                 fields:
                     - nom
                     - description
-                    - url
+                    - seo.url
             form:
                 actions:
                     - { name: 'delete', label: 'Supprimer', title: 'Supprimer', icon: 'trash', css_class: '' }
                     - { name: 'list', label: 'Retour', title: 'Retour', icon: 'arrow-left', css_class: '' }
                 fields:
+                    - { type: 'tab', label: 'Type de catégorie' }
                     - nom
                     - langue
                     - description
-                    - url
+                    - { type: 'tab', label: 'Référencement' }
+                    - { property: 'SEO', type: 'App\Form\Type\SEOTypeCategorieType', type_options: { by_reference: true, label: false } }
             edit:
                 actions:
                     - { name: 'voir', label: 'Voir', title: 'Voir', icon: 'eye' }

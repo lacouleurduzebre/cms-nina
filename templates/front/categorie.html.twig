@@ -1,18 +1,18 @@
 {% extends 'front/base.html.twig' %}
 
 {% block head %}
-    <title>{{ categorie.nom }}</title>
+    <title>{{ categorie.seo.metaTitre }}</title>
     <meta name="description" content="
-        {% if categorie.description is not empty %}
-            {{ categorie.description|striptags }}
+        {% if categorie.seo.metaDescription is not empty %}
+            {{ categorie.seo.metaDescription|striptags }}
         {% else %}
             {{ categorie.langue.metaDescription|striptags }}
         {% endif %}
     " />
-    <meta property="og:title" content="{{ categorie.nom }}">
+    <meta property="og:title" content="{{ categorie.seo.metaTitre }}">
     <meta property="og:description" content="
-        {% if categorie.description is not empty %}
-            {{ categorie.description|striptags }}
+        {% if categorie.seo.metaDescription is not empty %}
+            {{ categorie.seo.metaDescription|striptags }}
         {% else %}
             {{ categorie.langue.metaDescription|striptags }}
         {% endif %}

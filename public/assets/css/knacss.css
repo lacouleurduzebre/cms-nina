@@ -3423,6 +3423,45 @@ body.new.gris ul.nav-tabs, body.edit.gris ul.nav-tabs {
   background-color: #75726B;
 }
 
+body.new .content-header, body.edit .content-header, .listeSEO-conteneur .content-header {
+  position: fixed;
+  background-color: #0791B3;
+  width: 100%;
+  margin-left: -1rem;
+  top: 3.8rem;
+  padding: 1.2rem 0;
+  z-index: 100;
+}
+body.new h1, body.edit h1, .listeSEO-conteneur h1 {
+  color: #FFF;
+  margin-left: 1rem;
+  width: calc(100% - 28rem);
+  height: 5rem;
+  overflow: hidden;
+}
+@media (max-width: 767px) {
+  body.new h1, body.edit h1, .listeSEO-conteneur h1 {
+    width: calc(100% - 16rem);
+    font-size: 2rem;
+    line-height: 1.2;
+    display: flex;
+    align-items: center;
+  }
+}
+body.new ul.nav-tabs, body.edit ul.nav-tabs, .listeSEO-conteneur ul.nav-tabs {
+  position: fixed;
+  background: #0791B3;
+  top: 10.5rem;
+  width: 100%;
+  z-index: 100;
+}
+body.new ul.nav-tabs .label-danger, body.edit ul.nav-tabs .label-danger, .listeSEO-conteneur ul.nav-tabs .label-danger {
+  padding: 0 0.7rem;
+  border-radius: 50%;
+  background-color: red;
+  margin-left: 0.5rem;
+}
+
 /* Onglets */
 ul.nav-tabs {
   list-style: none;
@@ -4776,29 +4815,31 @@ body.edit input[id$=_largeurMax], body.edit input[id$=_hauteurMax], body.new inp
   width: 7rem;
 }
 
-#page_active_SEO .metaTitre, #page_active_SEO #seo_metaTitre, .listeSEO-conteneur .metaTitre, .listeSEO-conteneur #seo_metaTitre {
+#onglet_SEO .metaTitre, #onglet_SEO #seo_metaTitre, .listeSEO-conteneur .metaTitre, .listeSEO-conteneur #seo_metaTitre {
   color: #1a0dab;
   font-size: 2rem;
 }
-#page_active_SEO .url, #page_active_SEO #seo_url, .listeSEO-conteneur .url, .listeSEO-conteneur #seo_url {
+#onglet_SEO .url, #onglet_SEO #seo_url, .listeSEO-conteneur .url, .listeSEO-conteneur #seo_url {
   color: #006621;
   font-size: 1.6rem;
 }
-#page_active_SEO .metaDescription, #page_active_SEO #seo_metaDescription, .listeSEO-conteneur .metaDescription, .listeSEO-conteneur #seo_metaDescription {
+#onglet_SEO .metaDescription, #onglet_SEO #seo_metaDescription, .listeSEO-conteneur .metaDescription, .listeSEO-conteneur #seo_metaDescription {
   color: #545454;
   font-size: 1.4rem;
 }
 
 .listeSEO-conteneur {
   max-width: 65rem;
+  margin-top: 10rem;
 }
 .listeSEO-conteneur > div {
-  box-shadow: 0 0 4px rgba(0, 0, 0, 0.25);
-  margin: 1rem 0;
   padding: 1rem 0;
 }
 .listeSEO-conteneur > div > div {
   padding: 0 1rem;
+}
+.listeSEO-conteneur .nav-tabs {
+  margin: 0 -1rem;
 }
 .listeSEO-conteneur .titre {
   font-style: italic;
@@ -4815,6 +4856,12 @@ body.edit input[id$=_largeurMax], body.edit input[id$=_hauteurMax], body.new inp
 .listeSEO-SEO {
   position: relative;
   overflow: hidden;
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.25);
+  margin: 1rem 0;
+  padding: 1rem 0;
+}
+.listeSEO-SEO > div {
+  padding: 0 1rem;
 }
 .listeSEO-SEO .filtreChargement {
   display: none;

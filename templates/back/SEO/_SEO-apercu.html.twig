@@ -1,28 +1,24 @@
-{% set scoreMetaTitre = item.metaTitre|length %}
-{% set scoreUrl = item.url|length %}
-{% set scoreMetaDescription = item.metaDescription|length %}
+{% set scoreMetaTitre = seo.metaTitre|length %}
+{% set scoreUrl = seo.url|length %}
+{% set scoreMetaDescription = seo.metaDescription|length %}
 
 <div class="metaTitre">
     <div class="score-SEO progression-metaTitre {% if scoreMetaTitre > 65 or scoreMetaTitre < 65/3 %}danger{% elseif scoreMetaTitre > (65/3)*2 %}success{% else %}warning{% endif %}" title="{{ scoreMetaTitre }} / 65">
         <span class="bulle"></span>
     </div>
-    {{ item.metaTitre|truncate(65) }}
+    {{ seo.metaTitre|truncate(65) }}
 </div>
 
 <div class="url">
     <div class="score-SEO progression-url {% if scoreUrl > 75 or scoreUrl < 75/3 %}danger{% elseif scoreUrl > (75/3)*2 %}success{% else %}warning{% endif %}" title="{{ scoreUrl }} / 75">
         <span class="bulle"></span>
     </div>
-    {{ app.request.headers.get('host') }} > {{ item.url|truncate(75) }}
+    {{ app.request.headers.get('host') }} > {{ seo.url|truncate(75) }}
 </div>
 
 <div class="metaDescription">
     <div class="score-SEO progression-metaDescription {% if scoreMetaDescription > 150 or scoreMetaDescription < 150/3 %}danger{% elseif scoreMetaDescription > (150/3)*2 %}success{% else %}warning{% endif %}" title="{{ scoreMetaDescription }} / 150">
         <span class="bulle"></span>
     </div>
-    {{ item.metaDescription|truncate(150)|raw }}
+    {{ seo.metaDescription|truncate(150)|raw }}
 </div>
-
-{#<div class="listeSEO-scores flex-container">#}
-    {#{% include 'back/easyadmin/SEO/_SEO-score.html.twig' %}#}
-{#</div>#}

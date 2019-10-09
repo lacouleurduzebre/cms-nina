@@ -1,18 +1,18 @@
 {% extends 'front/base.html.twig' %}
 
 {% block head %}
-    <title>{{ typeCategorie.nom }}</title>
+    <title>{{ typeCategorie.seo.metaTitre }}</title>
     <meta name="description" content="
-        {% if typeCategorie.description is not empty %}
-            {{ typeCategorie.description|striptags }}
+        {% if typeCategorie.seo.metaDescription is not empty %}
+            {{ typeCategorie.seo.metaDescription|striptags }}
         {% else %}
             {{ typeCategorie.langue.metaDescription|striptags }}
         {% endif %}
     " />
-    <meta property="og:title" content="{{ typeCategorie.nom }}">
+    <meta property="og:title" content="{{ typeCategorie.seo.metaTitre }}">
     <meta property="og:description" content="
-        {% if typeCategorie.description is not empty %}
-            {{ typeCategorie.description|striptags }}
+        {% if typeCategorie.seo.metaDescription is not empty %}
+            {{ typeCategorie.seo.metaDescription|striptags }}
         {% else %}
             {{ typeCategorie.langue.metaDescription|striptags }}
         {% endif %}
@@ -26,9 +26,9 @@
     <div class="extrait typeCategorie-categorie">
         <h2><a href="
             {% if langues|length > 1 %}
-                {{ path('voirCategorieLocale', {'_locale': typeCategorie.langue.abreviation, 'urlTypeCategorie':typeCategorie.url, 'urlCategorie':categorie.url}) }}
+                {{ path('voirCategorieLocale', {'_locale': typeCategorie.langue.abreviation, 'urlTypeCategorie':typeCategorie.seo.url, 'urlCategorie':categorie.seo.url}) }}
             {% else %}
-                {{ path('voirCategorie', {'urlTypeCategorie':typeCategorie.url, 'urlCategorie':categorie.url}) }}
+                {{ path('voirCategorie', {'urlTypeCategorie':typeCategorie.seo.url, 'urlCategorie':categorie.seo.url}) }}
             {% endif %}
         ">{{ categorie.nom }}</a></h2>
         <div class="description">{{ categorie.description|raw }}</div>

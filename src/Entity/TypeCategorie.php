@@ -37,13 +37,6 @@ class TypeCategorie
     private $description;
 
     /**
-     * @var string
-     * @Assert\NotBlank
-     * @ORM\Column(name="url", type="string", length=255)
-     */
-    private $url;
-
-    /**
      * @ORM\OneToMany(targetEntity="App\Entity\Categorie", mappedBy="typeCategorie", cascade="remove")
      */
     private $categories;
@@ -53,6 +46,12 @@ class TypeCategorie
      * @ORM\JoinColumn(nullable=false)
      */
     private $langue;
+
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\SEOTypeCategorie", inversedBy="typeCategorie", cascade={"remove", "persist"})
+     * @Assert\Valid
+     */
+    private $seo;
 
     public function __construct()
     {
@@ -160,30 +159,6 @@ class TypeCategorie
         return $this->categories;
     }
 
-    /**
-     * Set url
-     *
-     * @param string $url
-     *
-     * @return TypeCategorie
-     */
-    public function setUrl($url)
-    {
-        $this->url = $url;
-
-        return $this;
-    }
-
-    /**
-     * Get url
-     *
-     * @return string
-     */
-    public function getUrl()
-    {
-        return $this->url;
-    }
-
     public function getLangue(): ?Langue
     {
         return $this->langue;
@@ -194,5 +169,29 @@ class TypeCategorie
         $this->langue = $langue;
 
         return $this;
+    }
+
+    /**
+     * Set seo
+     *
+     * @param \App\Entity\SEOTypeCategorie $seo
+     *
+     * @return TypeCategorie
+     */
+    public function setSeo(\App\Entity\SEOTypeCategorie $seo = null)
+    {
+        $this->seo = $seo;
+
+        return $this;
+    }
+
+    /**
+     * Get seo
+     *
+     * @return \App\Entity\SEOTypeCategorie
+     */
+    public function getSeo()
+    {
+        return $this->seo;
     }
 }
