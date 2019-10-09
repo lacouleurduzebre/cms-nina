@@ -3,9 +3,9 @@
         <i class="fas fa-times"></i>
     </div>
     <i class="fas fa-spin fa-sync liste{{ typeBlocs }}-chargement"></i>
-    <ul class="grid-6-small-2 has-gutter-l">
+    <ul class="grid-5-small-2 has-gutter-l">
         {% for type,bloc in blocs %}
-            <li id="{{ type }}" {% if bloc.disabled is defined %}class="disabled"{% endif %}>
+            <li id="{{ type }}" class="{% if bloc.disabled is defined %}disabled {% endif %}{% if loop.index > 5 %}blocCache hidden{% endif %}">
                 <div class="bloc-help">
                     <i class="fas fa-info-circle"></i>
                 </div>
@@ -17,4 +17,7 @@
             </li>
         {% endfor %}
     </ul>
+    {% if typeBlocs == 'Blocs' %}
+        <button class="voirBlocs">Voir tous les blocs</button>
+    {% endif %}
 </div>

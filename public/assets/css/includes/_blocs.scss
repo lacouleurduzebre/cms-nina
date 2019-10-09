@@ -287,6 +287,8 @@ div[id^="page_active_blocs"]{
 
 //Liste blocs
 .listeBlocs, .listeBlocsAnnexes{
+  flex-direction: column;
+  justify-content: center;
   &.actif{
     display: flex;
     overflow-y: scroll;
@@ -295,7 +297,7 @@ div[id^="page_active_blocs"]{
     .listeBlocs-chargement, .listeBlocsAnnexes-chargement{
       display: block;
     }
-    ul, .listeBlocs-fermeture, .listeBlocsAnnexes-fermeture{
+    ul, .listeBlocs-fermeture, .listeBlocsAnnexes-fermeture, .voirBlocs{
       display: none;
     }
   }
@@ -306,22 +308,28 @@ div[id^="page_active_blocs"]{
       position: relative;
       cursor: pointer;
       background-color: $white;
-      padding: 2rem;
+      padding: 1.5rem;
       box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.25);
       margin-bottom: 2rem;
       text-align: center;
       border: 3px solid $white;
+      display: flex;
+      align-items: center;
       @include respond-to("small"){
         padding: 1rem;
         margin-bottom: 1rem;
+      }
+      &.hidden{
+        display: none;
       }
       &:hover{
         border-color: $color-brand2;
       }
       > svg{
-        font-size: 4rem;
+        font-size: 3.5rem;
         margin-bottom: .5rem;
         color: $color-brand2;
+        margin-right: 2rem;
         @include respond-to("small"){
           font-size: 3rem;
         }
@@ -336,6 +344,13 @@ div[id^="page_active_blocs"]{
     svg{
       color: $color-primary;
     }
+  }
+}
+
+.voirBlocs{
+  background-color: $color-base;
+  &:hover{
+    background-color: $color-brand2;
   }
 }
 

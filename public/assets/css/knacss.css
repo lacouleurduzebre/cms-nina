@@ -4471,6 +4471,10 @@ div[id^=page_active_blocs] > div > .collection-empty {
   cursor: pointer;
 }
 
+.listeBlocs, .listeBlocsAnnexes {
+  flex-direction: column;
+  justify-content: center;
+}
 .listeBlocs.actif, .listeBlocsAnnexes.actif {
   display: flex;
   overflow-y: scroll;
@@ -4478,7 +4482,7 @@ div[id^=page_active_blocs] > div > .collection-empty {
 .listeBlocs.chargement .listeBlocs-chargement, .listeBlocs.chargement .listeBlocsAnnexes-chargement, .listeBlocsAnnexes.chargement .listeBlocs-chargement, .listeBlocsAnnexes.chargement .listeBlocsAnnexes-chargement {
   display: block;
 }
-.listeBlocs.chargement ul, .listeBlocs.chargement .listeBlocs-fermeture, .listeBlocs.chargement .listeBlocsAnnexes-fermeture, .listeBlocsAnnexes.chargement ul, .listeBlocsAnnexes.chargement .listeBlocs-fermeture, .listeBlocsAnnexes.chargement .listeBlocsAnnexes-fermeture {
+.listeBlocs.chargement ul, .listeBlocs.chargement .listeBlocs-fermeture, .listeBlocs.chargement .listeBlocsAnnexes-fermeture, .listeBlocs.chargement .voirBlocs, .listeBlocsAnnexes.chargement ul, .listeBlocsAnnexes.chargement .listeBlocs-fermeture, .listeBlocsAnnexes.chargement .listeBlocsAnnexes-fermeture, .listeBlocsAnnexes.chargement .voirBlocs {
   display: none;
 }
 .listeBlocs ul, .listeBlocsAnnexes ul {
@@ -4489,11 +4493,13 @@ div[id^=page_active_blocs] > div > .collection-empty {
   position: relative;
   cursor: pointer;
   background-color: #fff;
-  padding: 2rem;
+  padding: 1.5rem;
   box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.25);
   margin-bottom: 2rem;
   text-align: center;
   border: 3px solid #fff;
+  display: flex;
+  align-items: center;
 }
 @media (max-width: 575px) {
   .listeBlocs ul li, .listeBlocsAnnexes ul li {
@@ -4501,13 +4507,17 @@ div[id^=page_active_blocs] > div > .collection-empty {
     margin-bottom: 1rem;
   }
 }
+.listeBlocs ul li.hidden, .listeBlocsAnnexes ul li.hidden {
+  display: none;
+}
 .listeBlocs ul li:hover, .listeBlocsAnnexes ul li:hover {
   border-color: #0791B3;
 }
 .listeBlocs ul li > svg, .listeBlocsAnnexes ul li > svg {
-  font-size: 4rem;
+  font-size: 3.5rem;
   margin-bottom: 0.5rem;
   color: #0791B3;
+  margin-right: 2rem;
 }
 @media (max-width: 575px) {
   .listeBlocs ul li > svg, .listeBlocsAnnexes ul li > svg {
@@ -4522,6 +4532,13 @@ div[id^=page_active_blocs] > div > .collection-empty {
 }
 .listeBlocs .bloc-help svg, .listeBlocsAnnexes .bloc-help svg {
   color: #75726B;
+}
+
+.voirBlocs {
+  background-color: #666666;
+}
+.voirBlocs:hover {
+  background-color: #0791B3;
 }
 
 .bloc-nom {

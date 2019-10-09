@@ -355,10 +355,12 @@ $(document).ready(function() {
     //Fermeture
     $('.listeBlocs-fermeture').click(function(){
         $('.listeBlocs').removeClass('actif');
+        $('.voirBlocs').removeClass('hidden');
     });
 
     $('.listeBlocsAnnexes-fermeture').click(function(){
         $('.listeBlocsAnnexes').removeClass('actif');
+        $('.voirBlocs').removeClass('hidden');
     });
 
     //Bloc groupe de blocs : modif du lien si valeur qui change
@@ -484,10 +486,14 @@ $(document).ready(function() {
     //Clic sur fond de la liste des blocs = fermeture
     $('.listeBlocs li, .listeBlocsAnnexes li').click(function(e){
         e.stopPropagation();
+        $(this).siblings('li.blocCache').addClass('hidden');
+        $('.voirBlocs').removeClass('hidden');
     });
 
     $('.listeBlocs, .listeBlocsAnnexes').click(function(){
         $(this).removeClass('actif');
+        $(this).find('li.blocCache').addClass('hidden');
+        $('.voirBlocs').removeClass('hidden');
     });
 
     //Liens
@@ -623,4 +629,11 @@ $(document).ready(function() {
             verifNombreBlocs($(this));
         }
     });
+
+    //Voir tous les blocs
+    $('.voirBlocs').click(function(e){
+        e.stopPropagation();
+        $(this).addClass('hidden');
+        $(this).prev('ul').find('.blocCache').removeClass('hidden');
+    })
 });

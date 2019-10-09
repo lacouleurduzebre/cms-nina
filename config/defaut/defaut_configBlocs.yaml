@@ -1,95 +1,95 @@
 Accordeon:
-    priorite: 26
-    actif: oui
-Annuaire:
-    priorite: 20
-    actif: non
-Bandeau:
-    priorite: 5
-    actif: oui
-Bouton:
     priorite: 6
     actif: oui
-Categorie:
-    priorite: 5
-    actif: oui
-Formulaire:
-    priorite: 14
-    actif: oui
-Galerie:
-    priorite: 7
-    actif: oui
-Grille:
-    priorite: 28
-    actif: oui
-GroupeBlocs:
-    priorite: 11
-    actif: oui
-HTML:
-    priorite: 30
-    actif: oui
-Image:
+Annuaire:
+    priorite: 27
+    actif: non
+Bandeau:
     priorite: 2
     actif: oui
-LEI:
-    priorite: 17
-    actif: non
-LogoSite:
-    priorite: 24
+Bouton:
+    priorite: 4
     actif: oui
-Menu:
+Categorie:
     priorite: 13
     actif: oui
-MenuLangues:
-    priorite: 25
+Formulaire:
+    priorite: 9
     actif: oui
-Page:
+Galerie:
+    priorite: 10
+    actif: oui
+Grille:
+    priorite: 17
+    actif: oui
+GroupeBlocs:
     priorite: 16
-    actif: non
-Paragraphe:
-    priorite: 29
     actif: oui
-Partage:
+HTML:
+    priorite: 22
+    actif: oui
+Image:
+    priorite: 3
+    actif: oui
+LEI:
+    priorite: 25
+    actif: non
+LogoSite:
     priorite: 21
     actif: oui
-PlanDuSite:
-    priorite: 18
-    actif: oui
-Recherche:
+Menu:
     priorite: 19
     actif: oui
+MenuLangues:
+    priorite: 20
+    actif: oui
+Page:
+    priorite: 29
+    actif: non
+Paragraphe:
+    priorite: 1
+    actif: oui
+Partage:
+    priorite: 15
+    actif: oui
+PlanDuSite:
+    priorite: 24
+    actif: oui
+Recherche:
+    priorite: 23
+    actif: oui
 ReseauxSociaux:
-    priorite: 22
+    priorite: 14
     actif: oui
 Resume:
     priorite: 1
     actif: oui
 Rubrique:
-    priorite: 3
-    actif: oui
-Section:
-    priorite: 27
-    actif: oui
-Slider:
     priorite: 8
     actif: oui
+Section:
+    priorite: 5
+    actif: oui
+Slider:
+    priorite: 7
+    actif: oui
 Template:
-    priorite: 15
+    priorite: 26
     actif: non
 Texte:
-    priorite: 1
+    priorite: 11
     actif: oui
 Titre:
-    priorite: 4
+    priorite: 2
     actif: oui
 TypeCategorie:
-    priorite: 12
+    priorite: 18
     actif: oui
 Video:
-    priorite: 9
+    priorite: 12
     actif: oui
 Videos:
-    priorite: 10
+    priorite: 28
     actif: non
 Vignette:
     priorite: 3
