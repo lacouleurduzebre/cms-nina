@@ -3386,19 +3386,12 @@ body.new #main, body.edit #main {
   flex: 1;
 }
 body.new h1, body.edit h1 {
-  color: #FFF;
-  margin-left: 1rem;
   width: calc(100% - 28rem);
-  height: 5rem;
-  overflow: hidden;
+  padding-right: 30rem;
 }
 @media (max-width: 767px) {
   body.new h1, body.edit h1 {
     width: calc(100% - 16rem);
-    font-size: 2rem;
-    line-height: 1.2;
-    display: flex;
-    align-items: center;
   }
 }
 body.new .tab-content, body.new .form-actions, body.edit .tab-content, body.edit .form-actions {
@@ -3407,17 +3400,6 @@ body.new .tab-content, body.new .form-actions, body.edit .tab-content, body.edit
 }
 body.new ul.nav-tabs, body.edit ul.nav-tabs {
   margin: 0 -2rem;
-  position: fixed;
-  background: #0791B3;
-  top: 10.5rem;
-  width: 100%;
-  z-index: 100;
-}
-body.new ul.nav-tabs .label-danger, body.edit ul.nav-tabs .label-danger {
-  padding: 0 0.7rem;
-  border-radius: 50%;
-  background-color: red;
-  margin-left: 0.5rem;
 }
 body.new.gris ul.nav-tabs, body.edit.gris ul.nav-tabs {
   background-color: #75726B;
@@ -3435,13 +3417,11 @@ body.new .content-header, body.edit .content-header, .listeSEO-conteneur .conten
 body.new h1, body.edit h1, .listeSEO-conteneur h1 {
   color: #FFF;
   margin-left: 1rem;
-  width: calc(100% - 28rem);
   height: 5rem;
   overflow: hidden;
 }
 @media (max-width: 767px) {
   body.new h1, body.edit h1, .listeSEO-conteneur h1 {
-    width: calc(100% - 16rem);
     font-size: 2rem;
     line-height: 1.2;
     display: flex;

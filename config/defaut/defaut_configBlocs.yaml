@@ -3,7 +3,7 @@ Accordeon:
     actif: oui
 Annuaire:
     priorite: 20
-    actif: oui
+    actif: non
 Bandeau:
     priorite: 5
     actif: oui
@@ -33,7 +33,7 @@ Image:
     actif: oui
 LEI:
     priorite: 17
-    actif: oui
+    actif: non
 LogoSite:
     priorite: 24
     actif: oui
@@ -45,7 +45,7 @@ MenuLangues:
     actif: oui
 Page:
     priorite: 16
-    actif: oui
+    actif: non
 Paragraphe:
     priorite: 29
     actif: oui
@@ -75,7 +75,7 @@ Slider:
     actif: oui
 Template:
     priorite: 15
-    actif: oui
+    actif: non
 Texte:
     priorite: 1
     actif: oui
@@ -90,7 +90,7 @@ Video:
     actif: oui
 Videos:
     priorite: 10
-    actif: oui
+    actif: non
 Vignette:
     priorite: 3
     actif: oui
