@@ -37,13 +37,6 @@ class Categorie
 
     /**
      * @var string
-     * @Assert\NotBlank
-     * @ORM\Column(name="url", type="string", length=255)
-     */
-    private $url;
-
-    /**
-     * @var string
      *
      * @ORM\Column(name="categorieParent", type="string", length=255, nullable=true)
      */
@@ -66,6 +59,12 @@ class Categorie
      * @ORM\JoinColumn(nullable=false)
      */
     private $langue;
+
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\SEOCategorie", inversedBy="categorie", cascade={"remove", "persist"})
+     * @Assert\Valid
+     */
+    private $seo;
 
     public function __toString()
     {
@@ -132,30 +131,6 @@ class Categorie
     public function getDescription()
     {
         return $this->description;
-    }
-
-    /**
-     * Set url
-     *
-     * @param string $url
-     *
-     * @return Categorie
-     */
-    public function setUrl($url)
-    {
-        $this->url = $url;
-
-        return $this;
-    }
-
-    /**
-     * Get url
-     *
-     * @return string
-     */
-    public function getUrl()
-    {
-        return $this->url;
     }
 
     /**
@@ -258,5 +233,29 @@ class Categorie
         $this->langue = $langue;
 
         return $this;
+    }
+
+    /**
+     * Set seo
+     *
+     * @param \App\Entity\SEOCategorie $seo
+     *
+     * @return Categorie
+     */
+    public function setSeo(\App\Entity\SEOCategorie $seo = null)
+    {
+        $this->seo = $seo;
+
+        return $this;
+    }
+
+    /**
+     * Get seo
+     *
+     * @return \App\Entity\SEOCategorie
+     */
+    public function getSeo()
+    {
+        return $this->seo;
     }
 }

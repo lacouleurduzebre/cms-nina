@@ -87,6 +87,10 @@ $(document).ready(function(){
         $(this).find('svg').toggleClass('fa-bars fa-times');
     });
 
+    $(window).on('resize orientationchange', function(){
+        $('#burger').removeClass('actif').find('svg').addClass('fa-bars').removeClass('fa-times');
+    });
+
     //Toggle formulaire ajout de commentaire
     $('.blocCommentaires-ajout').click(function(){
         $(this).find('svg').toggleClass('fa-angle-down fa-angle-up');

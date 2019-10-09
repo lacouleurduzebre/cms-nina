@@ -1,0 +1,4 @@
+nom: Section
+description: Regrouper plusieurs blocs et choisir leur mise en page
+type: contenu
+icone: 'fas fa-columns'

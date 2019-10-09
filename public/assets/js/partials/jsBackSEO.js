@@ -2,27 +2,31 @@ $(document).ready(function() {
     //Édition
     $('.listeSEO-action-edition').click(function(){
         id = $(this).closest('.listeSEO-SEO').data('id');
+        type = $(this).closest('.listeSEO-SEO').data('entite');
 
         $.ajax({
             url: '/admin/seo/edition',
             method: 'POST',
             data:{
-                id: id
+                id: id,
+                type: type
             }
         }).done(function(data){
-            champs = $('.listeSEO-edition[data-id="'+id+'"]');
-            formulaire = champs.find('.listeSEO-formulaire');
+            champ = $('.listeSEO-SEO[data-id="'+id+'"][data-entite="'+type+'"] .listeSEO-edition');
+            formulaire = champ.find('.listeSEO-formulaire');
             formulaire.html(data);
-            hauteurTitre = $('.listeSEO-SEO[data-id="'+id+'"]').find('.titre').height()+16
-            champs.show().css('top', hauteurTitre);
-            champs.closest('.listeSEO-SEO').height($('.listeSEO-edition[data-id="'+id+'"]').height()+hauteurTitre);
+            hauteurTitre = champ.closest('.listeSEO-SEO').find('.titre').height()+16;
+            champ.show().css('top', hauteurTitre);
+            champ.closest('.listeSEO-SEO').height(champ.height()+hauteurTitre);
         });
     });
 
     //Enregistrer
     $('.listeSEO-edition').on('click', '.listeSEO-action-enregistrer', function(){
         $(this).closest('.listeSEO-SEO').addClass('chargement');
+
         id = $(this).closest('.listeSEO-SEO').data('id');
+        type = $(this).closest('.listeSEO-SEO').data('entite');
         formulaire = $(this).closest('div').siblings('.listeSEO-formulaire').find('form');
 
         $.ajax({
@@ -30,10 +34,11 @@ $(document).ready(function() {
             method: 'POST',
             data:{
                 id: id,
+                type: type,
                 donnees: formulaire.serializeArray()
             }
         }).done(function(data){
-            conteneur = $('.listeSEO-SEO[data-id="'+id+'"]');
+            conteneur = $('.listeSEO-SEO[data-id="'+id+'"][data-entite="'+type+'"]');
             conteneur.removeClass('chargement').find('.listeSEO-apercu').html(data);
             conteneur.find('.listeSEO-edition').hide();
             conteneur.height('auto');
@@ -65,6 +70,7 @@ $(document).ready(function() {
         }
 
         progression = element.closest('.listeSEO-edition').find(classProgression);
+        progression.find('.score').html(longueur+' / '+limite);
         progression.attr('title', longueur+' / '+limite);
         progression.removeClass('warning danger success').addClass(nvClass);
     };
@@ -83,22 +89,30 @@ $(document).ready(function() {
 
     //Voir la page
     $('.listeSEO-action-voirPage').click(function(){
-        Cookies.set('ongletActif', '_easyadmin_form_design_element_4-tab', { expires: 7 });
+        type = $(this).closest('.listeSEO-SEO').data('entite');
+        if(type === 'categories'){
+            onglet = 6;
+        }else{
+            onglet = 4;
+        }
+        Cookies.set('ongletActif', '_easyadmin_form_design_element_'+onglet+'-tab', { expires: 7 });
     });
 
     //Réinitialisation
     $('.listeSEO-action-raz').click(function(){
         $(this).closest('.listeSEO-SEO').addClass('chargement');
         id = $(this).closest('.listeSEO-SEO').data('id');
+        type = $(this).closest('.listeSEO-SEO').data('entite');
 
         $.ajax({
             url: '/admin/seo/raz',
             method: 'POST',
             data:{
-                id: id
+                id: id,
+                type: type
             }
         }).done(function(data){
-            $('.listeSEO-SEO[data-id="'+id+'"]')
+            $('.listeSEO-SEO[data-id="'+id+'"][data-entite="'+type+'"]')
                 .removeClass('chargement')
                 .find('.listeSEO-apercu').html(data);
         });

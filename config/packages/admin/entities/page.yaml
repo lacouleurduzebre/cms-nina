@@ -51,11 +51,11 @@ easy_admin:
                     - { name: 'list', label: 'Retour à la liste des pages', title: 'Retour à la liste des pages', icon: 'arrow-left', css_class: '' }
                 fields:
                     - { type: 'tab', label: 'Contenus' }
-                    - { property: 'titre', type: 'text', type_options: { help: 'Utilisé en tant que balise H1 dans la page' } }
+                    - { property: 'titre', type: 'text', type_options: { help: 'Utilisé en tant que balise H1' } }
                     - { property: 'titreMenu', label: 'Titre dans les menus' }
                     - { property: 'blocs', type: 'collection', type_options: { entry_type: 'App\Form\Type\BlocType', by_reference: false } }
                     - { type: 'tab', label: 'Référencement' }
-                    - { property: 'SEO', type: 'App\Form\Type\SEOType', type_options: { by_reference: true, label: false } }
+                    - { property: 'SEO', type: 'App\Form\Type\SEOPageType', type_options: { by_reference: true, label: false } }
                     - { type: 'tab', label: 'Affichage' }
                     - { type: 'group', label: 'Affichage des pages enfants', icon: 'file-alt' }
                     - { property: 'affichageSousNiveaux', label: 'Afficher les pages enfants dans les menus' }

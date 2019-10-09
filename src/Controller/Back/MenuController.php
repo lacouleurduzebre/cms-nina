@@ -9,12 +9,14 @@
 namespace App\Controller\Back;
 
 
+use App\Controller\SEOController;
 use App\Entity\Configuration;
 use App\Entity\Langue;
 use App\Entity\Menu;
 use App\Entity\MenuPage;
 use App\Entity\Page;
 use App\Entity\SEO;
+use App\Entity\SEOPage;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -85,13 +87,11 @@ class MenuController extends AbstractController
             $data = $request->get('donneesFormulaire');
             $titre = $data[array_search('ajoutPage-titre', array_column($data, 'name'))]['value'];
             $titreMenu = $data[array_search('ajoutPage-titreMenu', array_column($data, 'name'))]['value'];
-            $metaTitre = $data[array_search('ajoutPage-metaTitre', array_column($data, 'name'))]['value'];
-            $url = $data[array_search('ajoutPage-url', array_column($data, 'name'))]['value'];
-            $metaDescription = $data[array_search('ajoutPage-metaDescription', array_column($data, 'name'))]['value'];
+            $url = SEOController::slugify($titre);
             //Infos pop-up
 
             $em = $this->getDoctrine()->getManager();
-            $repoSEO = $em->getRepository(SEO::class);
+            $repoSEO = $em->getRepository(SEOPage::class);
             $repoMenu = $em->getRepository(Menu::class);
             $repoMenuPage = $em->getRepository(MenuPage::class);
             $repoLangue = $em->getRepository(Langue::class);
@@ -111,8 +111,8 @@ class MenuController extends AbstractController
             $page->setAffichageCommentaires($config->getAffichageCommentaires());
             $page->setAffichageDatePublication($config->getAffichageDatePublication());
             $page->setAffichageAuteur($config->getAffichageAuteur());
-            $SEO = new SEO();
-            $SEO->setMetaTitre($metaTitre)->setUrl($url)->setMetaDescription($metaDescription);
+            $SEO = new SEOPage();
+            $SEO->setMetaTitre($titre)->setUrl($url)->setMetaDescription($titre);
             $page->setSeo($SEO);
 
             $idLangue = $data[array_search('ajoutPage-idLangue', array_column($data, 'name'))]['value'];

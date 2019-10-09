@@ -11,6 +11,9 @@ namespace App\Controller;
 
 use App\Entity\Bloc;
 use App\Entity\SEO;
+use App\Entity\SEOCategorie;
+use App\Entity\SEOPage;
+use App\Entity\SEOTypeCategorie;
 use App\Form\Type\SEOType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -21,6 +24,26 @@ use Symfony\Component\Routing\Annotation\Route;
 class SEOController extends AbstractController
 {
     /**
+     * @Route("/admin/seo", name="referencement")
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     */
+    public function liste(){
+        $repoSEOPage = $this->getDoctrine()->getRepository(SEOPage::class);
+        $SEOPage = $repoSEOPage->findAll();
+
+        $repoSEOCategorie = $this->getDoctrine()->getRepository(SEOCategorie::class);
+        $SEOCategorie = $repoSEOCategorie->findAll();
+
+        $repoSEOTypeCategorie = $this->getDoctrine()->getRepository(SEOTypeCategorie::class);
+        $SEOTypeCategorie = $repoSEOTypeCategorie->findAll();
+
+        $SEO = ['Pages' => $SEOPage, 'Catégories' => $SEOCategorie, 'Types de catégories' => $SEOTypeCategorie];
+
+        return $this->render('back/SEO/listeSEO.html.twig', ['SEO' => $SEO]);
+    }
+
+    /**
      * @Route("/admin/seo/edition", name="editerSEO")
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
@@ -28,15 +51,18 @@ class SEOController extends AbstractController
     public function edition(Request $request){
         if($request->isXmlHttpRequest()){
             $em = $this->getDoctrine()->getManager();
+
             $id = $request->get('id');
+            $type = $request->get('type');
             $donnees = $request->get('donnees');
-            $SEO = $this->getSEO($id);
+
+            $SEO = $this->getSEO($type, $id);
 
             $form = $this->createForm(SEOType::class, $SEO)
                 ->add('Enregistrer', SubmitType::class);
 
             if(!$donnees){
-                $tpl = $this->render('back/easyadmin/SEO/_SEO-edition.html.twig', array('form' => $form->createView()))->getContent();
+                $tpl = $this->render('back/SEO/_SEO-edition.html.twig', array('form' => $form->createView()))->getContent();
             }else{
                 $SEO->setMetaTitre($donnees[0]['value']);
                 $SEO->setUrl($donnees[1]['value']);
@@ -45,7 +71,7 @@ class SEOController extends AbstractController
                 $em->persist($SEO);
                 $em->flush();
 
-                $tpl = $this->render('back/easyadmin/SEO/_SEO-apercu.html.twig', array('item' => $SEO))->getContent();
+                $tpl = $this->render('back/SEO/_SEO-apercu.html.twig', array('seo' => $SEO))->getContent();
             }
 
             return new Response($tpl);
@@ -62,25 +88,46 @@ class SEOController extends AbstractController
     public function raz(Request $request){
         if($request->isXmlHttpRequest()){
             $em = $this->getDoctrine()->getManager();
+
             $id = $request->get('id');
-            $SEO = $this->getSEO($id);
+            $type = $request->get('type');
 
-            $page = $SEO->getPage();
+            $SEO = $this->getSEO($type, $id);
 
-            //Méta-titre
-            $titre = $page->getTitre();
-            $SEO->setMetaTitre(substr($titre, 0, 65));
+            if($type == 'pages'){
+                $page = $SEO->getPage();
 
-            //Méta-description
-            $repoBloc = $this->getDoctrine()->getRepository(Bloc::class);
-            $blocTexte = $repoBloc->premierBlocTexte($page);
-            if($blocTexte){
-                $SEO->setMetaDescription(substr(strip_tags($blocTexte[0]->getContenu()['texte']), 0, 150));
+                $description = $titre = $page->getTitre();
+
+                $repoBloc = $this->getDoctrine()->getRepository(Bloc::class);
+
+                $blocParagraphe = $repoBloc->premierBloc($page, 'Paragraphe');
+                if($blocParagraphe){
+                    $description = strip_tags($blocParagraphe[0]->getContenu()['texte']);
+                }else{
+                    $blocTexte = $repoBloc->premierBloc($page, 'Texte');
+                    if($blocTexte){
+                        $description = strip_tags($blocTexte[0]->getContenu()['texte']);
+                    }
+                }
+            }elseif($type == 'categories'){
+                $categorie = $SEO->getCategorie();
+                $description = $titre = $categorie->getNom();
+                if($categorie->getDescription()){
+                    $description = strip_tags($categorie->getDescription());
+                }
             }else{
-                $SEO->setMetaDescription(substr($titre, 0, 150));
+                $typeCategorie = $SEO->getTypeCategorie();
+                $description = $titre = $typeCategorie->getNom();
+                if($typeCategorie->getDescription()){
+                    $description = strip_tags($typeCategorie->getDescription());
+                }
             }
 
-            //Url
+            $SEO->setMetaTitre(substr($titre, 0, 65));
+
+            $SEO->setMetaDescription(substr($description, 0, 150));
+
             $url = $this->slugify($titre);
             $SEO->setUrl(substr($url, 0, 75));
 
@@ -88,7 +135,7 @@ class SEOController extends AbstractController
             $em->persist($SEO);
             $em->flush();
 
-            $tpl = $this->render('back/easyadmin/SEO/_SEO-apercu.html.twig', array('item' => $SEO))->getContent();
+            $tpl = $this->render('back/SEO/_SEO-apercu.html.twig', array('seo' => $SEO))->getContent();
 
             return new Response($tpl);
         }
@@ -96,10 +143,17 @@ class SEOController extends AbstractController
         return new Response(false);
     }
 
-    private function getSEO($id){
+    private function getSEO($type, $id){
         $doctrine = $this->getDoctrine();
 
-        $repoSEO = $doctrine->getRepository(SEO::class);
+        if($type == 'pages'){
+            $repoSEO = $doctrine->getRepository(SEOPage::class);
+        }elseif($type == 'categories'){
+            $repoSEO = $doctrine->getRepository(SEOCategorie::class);
+        }else{
+            $repoSEO = $doctrine->getRepository(SEOTypeCategorie::class);
+        }
+
         $SEO = $repoSEO->find($id);
 
         return $SEO;

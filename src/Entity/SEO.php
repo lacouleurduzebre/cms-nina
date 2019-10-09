@@ -5,15 +5,11 @@ namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Doctrine\ORM\Mapping\MappedSuperclass;
 
 
-/**
- * SEO
- *
- * @ORM\Entity(repositoryClass="App\Repository\SEORepository")
- * @UniqueEntity(fields={"url"}, message="L'url {{ value }} est déjà utilisée pour une autre page")
- */
-class SEO
+/** @MappedSuperclass */
+abstract class SEO
 {
     /**
      * @var int
@@ -44,11 +40,6 @@ class SEO
      * @ORM\Column(name="metaDescription", type="text", nullable=true)
      */
     private $metaDescription;
-
-    /**
-     * @ORM\OneToOne(targetEntity="App\Entity\Page", mappedBy="seo")
-     */
-    private $page;
 
     public function __toString()
     {
@@ -135,29 +126,5 @@ class SEO
     public function getMetaDescription()
     {
         return $this->metaDescription;
-    }
-
-    /**
-     * Set page
-     *
-     * @param \App\Entity\Page $page
-     *
-     * @return SEO
-     */
-    public function setPage(\App\Entity\Page $page = null)
-    {
-        $this->page = $page;
-
-        return $this;
-    }
-
-    /**
-     * Get page
-     *
-     * @return \App\Entity\Page
-     */
-    public function getPage()
-    {
-        return $this->page;
     }
 }

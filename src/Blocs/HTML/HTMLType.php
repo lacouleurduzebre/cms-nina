@@ -25,7 +25,8 @@ class HTMLType extends AbstractType
                 'label' => false,
                 'attr' => [
                     'class' => 'notTinymce',
-                    'rows' => '5'
+                    'rows' => '5',
+                    'placeholder' => 'Collez du code HTML'
                 ]
             ));
     }

@@ -96,7 +96,8 @@ class Page
     private $corbeille = false;
 
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\SEO", inversedBy="page", cascade={"remove", "persist"})
+     * @ORM\OneToOne(targetEntity="App\Entity\SEOPage", inversedBy="page", cascade={"remove", "persist"})
+     * @ORM\JoinColumn(name="seo_page", referencedColumnName="id")
      * @Assert\Valid
      */
     private $seo;
@@ -306,11 +307,11 @@ class Page
     /**
      * Set seo
      *
-     * @param \App\Entity\SEO $seo
+     * @param \App\Entity\SEOPage $seo
      *
      * @return Page
      */
-    public function setSeo(\App\Entity\SEO $seo = null)
+    public function setSeo(\App\Entity\SEOPage $seo = null)
     {
         $this->seo = $seo;
 
@@ -320,7 +321,7 @@ class Page
     /**
      * Get seo
      *
-     * @return \App\Entity\SEO
+     * @return \App\Entity\SEOPage
      */
     public function getSeo()
     {

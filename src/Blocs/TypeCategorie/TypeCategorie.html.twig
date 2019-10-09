@@ -15,9 +15,9 @@
             <div class="blocTypeCategorie-categorie flex-container-v mrs mbs">
                 <a class="bouton lire" href="
                     {% if langues|length > 1 %}
-                        {{ path('voirCategorieLocale', { '_locale': categorie.langue.abreviation, 'urlTypeCategorie': categorie.typeCategorie.url, 'urlCategorie': categorie.url }) }}
+                        {{ path('voirCategorieLocale', { '_locale': categorie.langue.abreviation, 'urlTypeCategorie': categorie.typeCategorie.seo.url, 'urlCategorie': categorie.seo.url }) }}
                     {% else %}
-                        {{ path('voirCategorie', { 'urlTypeCategorie': categorie.typeCategorie.url, 'urlCategorie': categorie.url }) }}
+                        {{ path('voirCategorie', { 'urlTypeCategorie': categorie.typeCategorie.seo.url, 'urlCategorie': categorie.seo.url }) }}
                     {% endif %}
                 "><i class="fas fa-tag mrs"></i>{{ categorie.nom }}</a>
             </div>

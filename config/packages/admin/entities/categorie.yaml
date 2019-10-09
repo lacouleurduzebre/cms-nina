@@ -13,7 +13,7 @@ easy_admin:
                 fields:
                     - nom
                     - { property: 'description', type: 'raw' }
-                    - { property: 'url', type: 'text'}
+                    - { property: 'seo.url', label: 'Url', type: 'text'}
                     - { property : 'categorieParent', label: 'Catégorie parent', sortable: true}
                     - { property : 'typeCategorie.nom', label: 'Type', sortable: true}
             search:
@@ -25,7 +25,7 @@ easy_admin:
                 fields:
                     - nom
                     - description
-                    - url
+                    - seo.url
                     - { property : 'categorieParent', label: 'Catégorie parent' }
                     - { property : 'typeCategorie.nom', label: 'Type'}
             form:
@@ -33,12 +33,14 @@ easy_admin:
                     - { name: 'delete', label: 'Supprimer', title: 'Supprimer', icon: 'trash', css_class: '' }
                     - { name: 'list', label: 'Retour', title: 'Retour', icon: 'arrow-left', css_class: '' }
                 fields:
+                    - { type: 'tab', label: 'Catégorie' }
                     - nom
                     - langue
                     - description
-                    - { property: 'url', label: 'Url' }
                     - { property : 'categorieParent', label: 'Catégorie parent', type: 'entity', type_options: { class: 'App\Entity\Categorie' } }
                     - { property : 'typeCategorie', label: 'Type' }
+                    - { type: 'tab', label: 'Référencement' }
+                    - { property: 'SEO', type: 'App\Form\Type\SEOCategorieType', type_options: { by_reference: true, label: false } }
             edit:
                 actions:
                     - { name: 'voir', label: 'Voir', title: 'Voir', icon: 'eye' }
