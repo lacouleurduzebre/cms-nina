@@ -274,6 +274,8 @@ $(document).ready(function(){
 
             titre = getChampTitre($(this));
 
+            entite = $(this).closest('form').attr('name');
+
             $('input[id$="SEO_url"]').each(function(){
                 $(this).val(str2url(titre.substr(0, 75)));
                 scoreSEOChargement($(this), 75);
@@ -283,7 +285,24 @@ $(document).ready(function(){
                 scoreSEOChargement($(this), 65);
             });
             $('textarea[id$="SEO_metaDescription"]').each(function(){
-                $(this).val(titre.substr(0, 150));
+                description = titre;
+
+                if(entite === 'page_active'){
+                    bloc = $('#page_active_blocs .bloc-paragraphe').find('textarea');
+                    if(bloc.length <= 0){
+                        bloc = $('#page_active_blocs .bloc-texte').find('textarea');
+                    }
+
+                    if(bloc.length > 0){
+                        description = $('<textarea />').html(bloc.val().replace(/<\/?[^>]+>/gi, '')).text();
+                    }
+                }else{
+                    if($('textarea[id$="description"]').val().length > 0){
+                        description = $('<textarea />').html($('textarea[id$="description"]').val().replace(/<\/?[^>]+>/gi, '')).text();
+                    }
+                }
+
+                $(this).val(description.substr(0, 150));
                 scoreSEOChargement($(this), 150);
             });
 

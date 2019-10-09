@@ -59,13 +59,13 @@ class BlocRepository extends ServiceEntityRepository
         return $qb->getQuery()->getResult();
     }
 
-    public function premierBlocTexte($page){
+    public function premierBloc($page, $typeBloc){
         $qb = $this
             ->createQueryBuilder('b')
             ->join('b.page', 'p')
             ->andWhere('p = :page')
             ->andWhere('b.type = :type')
-            ->setParameters(array('page' => $page, 'type' => 'Texte'))
+            ->setParameters(array('page' => $page, 'type' => $typeBloc))
             ->orderBy('b.position', 'ASC')
             ->setMaxResults(1);
 

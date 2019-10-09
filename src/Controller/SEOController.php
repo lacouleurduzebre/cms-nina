@@ -100,16 +100,28 @@ class SEOController extends AbstractController
                 $description = $titre = $page->getTitre();
 
                 $repoBloc = $this->getDoctrine()->getRepository(Bloc::class);
-                $blocTexte = $repoBloc->premierBlocTexte($page);
-                if($blocTexte){
-                    $description = strip_tags($blocTexte[0]->getContenu()['texte']);
+
+                $blocParagraphe = $repoBloc->premierBloc($page, 'Paragraphe');
+                if($blocParagraphe){
+                    $description = strip_tags($blocParagraphe[0]->getContenu()['texte']);
+                }else{
+                    $blocTexte = $repoBloc->premierBloc($page, 'Texte');
+                    if($blocTexte){
+                        $description = strip_tags($blocTexte[0]->getContenu()['texte']);
+                    }
                 }
             }elseif($type == 'categories'){
                 $categorie = $SEO->getCategorie();
                 $description = $titre = $categorie->getNom();
+                if($categorie->getDescription()){
+                    $description = strip_tags($categorie->getDescription());
+                }
             }else{
                 $typeCategorie = $SEO->getTypeCategorie();
                 $description = $titre = $typeCategorie->getNom();
+                if($typeCategorie->getDescription()){
+                    $description = strip_tags($typeCategorie->getDescription());
+                }
             }
 
             $SEO->setMetaTitre(substr($titre, 0, 65));
