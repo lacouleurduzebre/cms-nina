@@ -37,9 +37,9 @@
                 {% for categorie in page.categories %}
                     <a class="bouton-categorie" href="
                         {% if langues|length > 1 %}
-                            {{ path('voirCategorieLocale', { '_locale': categorie.typeCategorie.langue.abreviation, 'urlTypeCategorie': categorie.typeCategorie.url, 'urlCategorie': categorie.url }) }}
+                            {{ path('voirCategorieLocale', { '_locale': categorie.typeCategorie.langue.abreviation, 'urlTypeCategorie': categorie.typeCategorie.seo.url, 'urlCategorie': categorie.url }) }}
                         {% else %}
-                            {{ path('voirCategorie', { 'urlTypeCategorie': categorie.typeCategorie.url, 'urlCategorie': categorie.url }) }}
+                            {{ path('voirCategorie', { 'urlTypeCategorie': categorie.typeCategorie.seo.url, 'urlCategorie': categorie.seo.url }) }}
                         {% endif %}
                     "><i class="fas fa-tag"></i>{{ categorie.nom }}</a>
                 {% endfor %}

@@ -45,16 +45,6 @@ class Bloc
     private $classes;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $htmlAvant;
-
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $htmlApres;
-
-    /**
      * @ORM\ManyToOne(targetEntity="App\Entity\GroupeBlocs", inversedBy="blocs")
      * @ORM\JoinColumn(nullable=true, onDelete="CASCADE")
      */
@@ -142,30 +132,6 @@ class Bloc
     public function setClasses(?array $classes): self
     {
         $this->classes = $classes;
-
-        return $this;
-    }
-
-    public function getHtmlAvant(): ?string
-    {
-        return $this->htmlAvant;
-    }
-
-    public function setHtmlAvant(?string $htmlAvant): self
-    {
-        $this->htmlAvant = $htmlAvant;
-
-        return $this;
-    }
-
-    public function getHtmlApres(): ?string
-    {
-        return $this->htmlApres;
-    }
-
-    public function setHtmlApres(?string $htmlApres): self
-    {
-        $this->htmlApres = $htmlApres;
 
         return $this;
     }

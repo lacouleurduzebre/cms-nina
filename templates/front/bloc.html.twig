@@ -5,12 +5,6 @@
     {% endfor %}
 {% endif %}
 
-{% if bloc.htmlAvant is not empty %}
-    {{ bloc.htmlAvant|raw }}
-{% endif %}
-    <div class="bloc{{ bloc.type }} bloc-{{ bloc.id }}{% if classBloc is defined and classBloc is not empty %}{{ classBloc }}{% endif %}" data-bloc="{{ bloc.id }}">
-        {% include ['/Blocs/'~bloc.type~'/bloc-'~bloc.id~'.html.twig', '/Blocs/'~bloc.type~'/'~bloc.type~'.html.twig'] with{'bloc': bloc} only %}
-    </div>
-{% if bloc.htmlApres is not empty %}
-    {{ bloc.htmlApres|raw }}
-{% endif %}
+<div class="bloc{{ bloc.type }} bloc-{{ bloc.id }}{% if classBloc is defined and classBloc is not empty %}{{ classBloc }}{% endif %}" data-bloc="{{ bloc.id }}">
+    {% include ['/Blocs/'~bloc.type~'/bloc-'~bloc.id~'.html.twig', '/Blocs/'~bloc.type~'/'~bloc.type~'.html.twig'] with{'bloc': bloc} only %}
+</div>

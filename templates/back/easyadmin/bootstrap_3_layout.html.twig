@@ -936,14 +936,6 @@
                     {{- form_widget(form.children.classes) -}}
                 </div>
             {% endif %}
-            <div class="form-group">
-                {{- form_label(form.children.htmlAvant) -}}
-                {{- form_widget(form.children.htmlAvant) -}}
-            </div>
-            <div class="form-group">
-                {{- form_label(form.children.htmlApres) -}}
-                {{- form_widget(form.children.htmlApres) -}}
-            </div>
         </div>
         <div class="form-group contenu" {% if form.vars.value is not empty %}data-bloc="{{ form.vars.value.id }}"{% endif %}>
             {% if form.children.contenu is defined %}

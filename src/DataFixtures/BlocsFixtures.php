@@ -8,7 +8,9 @@ use App\Entity\Langue;
 use App\Entity\Menu;
 use App\Entity\MenuPage;
 use App\Entity\Page;
-use App\Entity\SEO;
+use App\Entity\SEOCategorie;
+use App\Entity\SEOPage;
+use App\Entity\SEOTypeCategorie;
 use App\Entity\TypeCategorie;
 use App\Entity\Utilisateur;
 use Doctrine\Bundle\FixturesBundle\Fixture;
@@ -30,7 +32,7 @@ class BlocsFixtures extends Fixture
         $menu = $repoMenu->findOneBy(array('langue' => $langue));
 
         //Page
-        $seo = new SEO();
+        $seo = new SEOPage();
         $seo->setUrl('tous-les-blocs')
             ->setMetaTitre('Blocs')
             ->setMetaDescription('Blocs');
@@ -104,15 +106,21 @@ class BlocsFixtures extends Fixture
         $manager->persist($blocBouton);
 
             //Catégorie
+        $SEOTypeCategorie = new SEOTypeCategorie();
+        $SEOTypeCategorie->setUrl('type-de-categorie');
+
         $typeCategorie = new TypeCategorie();
         $typeCategorie->setLangue($langue)
-            ->setUrl('type-de-categorie')
-            ->setNom('Type de catégorie');
+            ->setNom('Type de catégorie')
+            ->setSeo($SEOTypeCategorie);
         $manager->persist($typeCategorie);
+
+        $SEOCategorie = new SEOCategorie();
+        $SEOCategorie->setUrl('categorie-de-test');
 
         $categorie = new Categorie();
         $categorie->setNom('Catégorie de test')
-            ->setUrl('categorie-de-test')
+            ->setSeo($SEOCategorie)
             ->setLangue($langue)
             ->setTypeCategorie($typeCategorie);
         $manager->persist($categorie);

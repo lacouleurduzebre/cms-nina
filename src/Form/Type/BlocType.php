@@ -77,12 +77,6 @@ class BlocType extends AbstractType
         $builder
             ->add('position', HiddenType::class, array(
             ))
-            ->add('htmlAvant', TextType::class, array(
-                'label' => 'Code HTML à insérer avant le bloc'
-            ))
-            ->add('htmlApres', TextType::class, array(
-                'label' => 'Code HTML à insérer après le bloc'
-            ))
         ;
 
         $builder->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event) {
