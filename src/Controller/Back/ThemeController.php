@@ -102,22 +102,21 @@ class ThemeController extends AbstractController
 
             //Symlink
                 //Suppression lien précédent
-            $linkfile = $this->getParameter('kernel.project_dir').'/public/theme';
-            if(file_exists($linkfile)) {
-                if(is_link($linkfile)) {
+            if(file_exists('theme')) {
+                if(is_link('theme')) {
                     if(strpos(php_uname('s'), 'Win') !== false){
-                        rmdir($linkfile);
+                        rmdir('theme');
                     }else{
-                        unlink($linkfile);
+                        unlink('theme');
                     }
                 }
             }
 
                 //Création nouveau lien
             if(strpos(php_uname('s'), 'Win') !== false){
-                $filesystem->symlink($this->getParameter('kernel.project_dir').'/themes/'.$theme.'/assets', $linkfile);
+                $filesystem->symlink($this->getParameter('kernel.project_dir').'/themes/'.$theme.'/assets', 'theme');
             }else{
-                exec('ln -s ../themes/'.$theme.'/assets '.$linkfile);
+                exec('ln -s ./../themes/'.$theme.'/assets theme');
             }
             //Fin Symlink
 
