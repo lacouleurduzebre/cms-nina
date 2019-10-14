@@ -34,6 +34,16 @@ class BlocType extends AbstractType
         ],
     ];
 
+    private $optionsPadding = [
+        'label' => 'Marge intérieure',
+        'choices' => [
+            'Aucune' => 'pan',
+            'Fine' => 'pas',
+            'Moyenne' => 'pam',
+            'Large' => 'pal',
+        ],
+    ];
+
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         if($options['type'] != ''){//Ajax
@@ -88,6 +98,7 @@ class BlocType extends AbstractType
         $builder
             ->add('position', HiddenType::class)
             ->add('largeur', ChoiceType::class, $this->optionsLargeur)
+            ->add('padding', ChoiceType::class, $this->optionsPadding)
         ;
 
         $builder->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event) {
@@ -137,7 +148,7 @@ class BlocType extends AbstractType
                 ->add('type', HiddenType::class, array(
                     'label' => $label
                 ))
-                ->add('active', null, array(
+                ->add('active', HiddenType::class, array(
                     'label' => 'Activé'
                 ))
                 ->add('classes', ChoiceType::class, array(
@@ -148,7 +159,8 @@ class BlocType extends AbstractType
                         'class' => 'select-multiple'
                     ]
                 ))
-                ->add('largeur', ChoiceType::class, $this->optionsLargeur);
+                ->add('largeur', ChoiceType::class, $this->optionsLargeur)
+                ->add('padding', ChoiceType::class, $this->optionsPadding);
 
             //SECTION
             if($type == 'Section'){
@@ -162,7 +174,7 @@ class BlocType extends AbstractType
                 ]);
             }
         }else{
-            $form->add('active', null, array(
+            $form->add('active', HiddenType::class, array(
                 'label' => 'Activé',
                 'data' => true
             ));

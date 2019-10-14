@@ -3085,10 +3085,12 @@ main > div[class^=bloc] {
   max-width: 992px;
   margin-left: auto;
   margin-right: auto;
-  padding: 1rem;
 }
 main > div[class^=bloc]:not(.blocTitre) {
   margin-bottom: 3rem;
+}
+main .blocCommentaires {
+  width: 100%;
 }
 main h1, main > p, main > div > .description, main > div > .extrait {
   padding: 1rem;

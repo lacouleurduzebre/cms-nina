@@ -71,6 +71,11 @@ class Bloc
      */
     private $largeur = 100;
 
+    /**
+     * @ORM\Column(type="string", length=5, nullable=true)
+     */
+    private $padding;
+
     public function __construct()
     {
         $this->blocsEnfants = new ArrayCollection();
@@ -216,6 +221,18 @@ class Bloc
     public function setLargeur(?int $largeur): self
     {
         $this->largeur = $largeur;
+
+        return $this;
+    }
+
+    public function getPadding(): ?string
+    {
+        return $this->padding;
+    }
+
+    public function setPadding(?string $padding): self
+    {
+        $this->padding = $padding;
 
         return $this;
     }
