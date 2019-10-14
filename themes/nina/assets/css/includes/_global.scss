@@ -51,13 +51,15 @@ h1, h2, h3{
 }
 
 .titre-page, .infos-page{
-  padding: 1rem;
   @include centre;
+  padding: 1rem;
+  width: 100%;
 }
 
 #ariane{
-  padding: 1rem;
   @include centre;
+  padding: 1rem;
+  width: 100%;
   a{
     color: $color-brand2;
   }

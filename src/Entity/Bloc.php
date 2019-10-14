@@ -66,6 +66,11 @@ class Bloc
      */
     private $blocsEnfants;
 
+    /**
+     * @ORM\Column(type="smallint", nullable=true)
+     */
+    private $largeur = 100;
+
     public function __construct()
     {
         $this->blocsEnfants = new ArrayCollection();
@@ -199,6 +204,18 @@ class Bloc
                 $blocsEnfant->setBlocParent(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getLargeur(): ?int
+    {
+        return $this->largeur;
+    }
+
+    public function setLargeur(?int $largeur): self
+    {
+        $this->largeur = $largeur;
 
         return $this;
     }

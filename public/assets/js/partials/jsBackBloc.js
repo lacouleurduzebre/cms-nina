@@ -210,7 +210,7 @@ $(document).ready(function() {
                     var form = data.replace(/bloc_/g, entite+'_blocs_'+count+'_')
                         .replace(/bloc\[/g, entite+'[blocs]['+count+'][');
 
-                    bloc = '<div id="nvBloc'+count+'" class="form-group field-bloc nvBloc" data-name="'+count+'">'+form+'</div>';
+                    bloc = '<div id="nvBloc'+count+'" class="form-group field-bloc nvBloc w100" data-name="'+count+'">'+form+'</div>';
                     if($('.listeBlocs').attr('id') === 'apres'){
                         $('#'+entite+'_blocs').append(bloc);
                     }else{
@@ -227,7 +227,7 @@ $(document).ready(function() {
                     var form = data.replace(/bloc_/g, $('.listeBlocs').attr('data-section')+'_'+countBloc+'_')
                         .replace(/bloc\[/g, exp+'['+countBloc+'][');
 
-                    bloc = '<div id="nvBloc'+countBloc+'" class="form-group field-bloc" data-name="'+countBloc+'">'+form+'</div>';
+                    bloc = '<div id="nvBloc'+countBloc+'" class="form-group field-bloc w100" data-name="'+countBloc+'">'+form+'</div>';
                     section.append(bloc);
 
                     section.closest('.contenu').find('input[name$="[colonnes]"]').each(function(){
@@ -568,73 +568,15 @@ $(document).ready(function() {
         $(this).closest('.contenu').find('iframe').show().attr('src', urlVideo);
     });
 
-    //Section : changement du nombre de colonnes
-    verifNombreBlocs = function(input, contexte = null){
-        val = input.val();
-
-        max = 2;
-
-        if(val === '1'){
-            max = 0;
-        }else if (val === '3' || val === '4'){
-            max = parseInt(val);
-        }
-
-        conteneurBlocsEnfants = input.closest('.contenu').children('.blocsEnfants');
-        blocsEnfants = conteneurBlocsEnfants.children('div').children('.field-bloc');
-        nbBlocsEnfants = blocsEnfants.length;
-
-        console.log(nbBlocsEnfants);
-
-        if(contexte === 'suppression'){
-            nbBlocsEnfants -= 1;
-        }
-
-        if(max !== 0 && nbBlocsEnfants >= max){
-            //Désactivation bouton d'ajout de bloc
-            conteneurBlocsEnfants.children('.field-collection-action').children('.ajout-bloc').attr('disabled', true);
-
-            if(max !== 0 && nbBlocsEnfants > max){
-                if(confirm('Il y a plus de blocs que de colonnes. Les blocs supplémentaires vont être supprimés. Continuer ?')){
-                    //Suppression des blocs en trop
-                    blocsEnfants.each(function(){
-                        if($(this).index() >= max){
-                            $(this).remove();
-                        }
-                    });
-
-                    input.closest('.contenu').find('.blocsEnfants').attr('data-col', 'col'+input.val());
-                    input.closest('.form-group').attr('data-val', input.val());
-                }else{
-                    valPrecedente = input.closest('.form-group').attr('data-val');
-                    input.closest('.form-group').find('input[value="'+valPrecedente+'"]').click();
-                }
-            }else{
-                input.closest('.contenu').find('.blocsEnfants').attr('data-col', 'col'+input.val());
-                input.closest('.form-group').attr('data-val', input.val());
-            }
-        }else{
-            //Activation bouton d'ajout de bloc
-            conteneurBlocsEnfants.children('.field-collection-action').children('.ajout-bloc').attr('disabled', false);
-            input.closest('.contenu').find('.blocsEnfants').attr('data-col', 'col'+input.val());
-            input.closest('.form-group').attr('data-val', input.val());
-        }
-    };
-
-    $('body').on('change', 'input[name$="[colonnes]"]', function(){
-        verifNombreBlocs($(this));
-    });
-
-    $('input[name$="[colonnes]"]').each(function(){
-        if($(this).prop('checked')){
-            verifNombreBlocs($(this));
-        }
-    });
-
     //Voir tous les blocs
     $('.voirBlocs').click(function(e){
         e.stopPropagation();
         $(this).addClass('hidden');
         $(this).prev('ul').find('.blocCache').removeClass('hidden');
     })
+
+    //Changement de largeur d'un bloc
+    $('body').on('change', 'select[name$="[largeur]"]', function() {
+        $(this).closest('.field-bloc').removeClass('w100 w80 w60 w40 w20').addClass('w'+$(this).val());
+    });
 });

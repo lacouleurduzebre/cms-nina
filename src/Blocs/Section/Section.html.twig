@@ -1,30 +1,7 @@
-{% set colonnes = bloc.contenu.colonnes %}
 {% set blocsEnfants = bloc.blocsEnfants|sortBy('position') %}
 
-{% if colonnes in ['1', '3', '4'] %}
-    {% if colonnes == 1 %}
-        <div>
-    {% else %}
-        <div class="grid-{{ colonnes }}-small-2-tiny-1 has-gutter-xl">
-    {% endif %}
-            {% for bloc in blocsEnfants %}
-                <div class="blocSection-bloc">
-                    {% include('front/bloc.html.twig') with {'bloc': bloc} only %}
-                </div>
-            {% endfor %}
-        </div>
-{% else %}
-    <div class="flex-container">
-        {% for blocEnfant in blocsEnfants %}
-            {% if loop.first %}
-                <div class="blocSection-bloc {% if colonnes == '1/2' %}w50{% elseif colonnes == '1/3' %}w30{% else %}w70{% endif %}">
-                    {% include('front/bloc.html.twig') with {'bloc': blocEnfant} only %}
-                </div>
-            {% elseif loop.index == 2 %}
-                <div class="blocSection-bloc {% if colonnes == '1/2' %}w50{% elseif colonnes == '1/3' %}w70{% else %}w30{% endif %}">
-                    {% include('front/bloc.html.twig') with {'bloc': blocEnfant} only %}
-                </div>
-            {% endif %}
-        {% endfor %}
-    </div>
-{% endif %}
+<div class="flex-container">
+    {% for blocEnfant in blocsEnfants %}
+        {% include('front/bloc.html.twig') with {'bloc': blocEnfant} only %}
+    {% endfor %}
+</div>

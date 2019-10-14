@@ -3102,17 +3102,19 @@ h1, h2, h3 {
 }
 
 .titre-page, .infos-page {
-  padding: 1rem;
   max-width: 992px;
   margin-left: auto;
   margin-right: auto;
+  padding: 1rem;
+  width: 100%;
 }
 
 #ariane {
-  padding: 1rem;
   max-width: 992px;
   margin-left: auto;
   margin-right: auto;
+  padding: 1rem;
+  width: 100%;
 }
 #ariane a {
   color: #007492;

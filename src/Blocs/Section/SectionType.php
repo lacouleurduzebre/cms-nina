@@ -19,23 +19,6 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class SectionType extends AbstractType
 {
-    public function buildForm(FormBuilderInterface $builder, array $options)
-    {
-        $builder->add('colonnes', ChoiceType::class, array(
-            'label' => false,
-            'multiple' => false,
-            'expanded' => true,
-            'choices' => array(
-                'Pleine largeur' => '1',
-                '2 colonnes : ½ ½' => '1/2',
-                '2 colonnes : ⅓ ⅔' => '1/3',
-                '2 colonnes : ⅔ ⅓' => '2/3',
-                '3 colonnes' => '3',
-                '4 colonnes' => '4'
-            ),
-        ));
-    }
-
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(

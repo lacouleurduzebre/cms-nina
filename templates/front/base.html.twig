@@ -51,7 +51,7 @@
         {# Si besoin d'un bloc sur toute la largeur de l'écran #}
         {% block before_main %}{% endblock %}
 
-        <main {% if page is defined and page is not empty %}id="page{{ page.id }}"{% endif %} class="center {% if page is defined %} page{% endif %}{% if menusDeLaPage is defined %}{% for menu in menusDeLaPage %} menu-{{ menu }}{% endfor %}{% endif %}">
+        <main {% if page is defined and page is not empty %}id="page{{ page.id }}"{% endif %} class="flex-container center {% if page is defined %} page{% endif %}{% if menusDeLaPage is defined %}{% for menu in menusDeLaPage %} menu-{{ menu }}{% endfor %}{% endif %}">
             {% block fos_user_content %}{% endblock %}
             {% block main %}{% endblock %}
             {{ regions('centre') }}

@@ -23,6 +23,17 @@ use Symfony\Component\Yaml\Yaml;
 
 class BlocType extends AbstractType
 {
+    private $optionsLargeur = [
+        'label' => 'Largeur par rapport au conteneur',
+        'choices' => [
+            '100%' => '100',
+            '80%' => '80',
+            '60%' => '60',
+            '40%' => '40',
+            '20%' => '20',
+        ],
+    ];
+
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         if($options['type'] != ''){//Ajax
@@ -75,8 +86,8 @@ class BlocType extends AbstractType
         }
 
         $builder
-            ->add('position', HiddenType::class, array(
-            ))
+            ->add('position', HiddenType::class)
+            ->add('largeur', ChoiceType::class, $this->optionsLargeur)
         ;
 
         $builder->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event) {
@@ -136,7 +147,8 @@ class BlocType extends AbstractType
                     'attr' => [
                         'class' => 'select-multiple'
                     ]
-                ));
+                ))
+                ->add('largeur', ChoiceType::class, $this->optionsLargeur);
 
             //SECTION
             if($type == 'Section'){

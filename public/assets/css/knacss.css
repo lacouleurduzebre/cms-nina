@@ -4275,41 +4275,20 @@ body.list #flash-messages > * {
   margin-left: 0.5rem;
 }
 
+.bloc-section .pasDeParametre {
+  display: none;
+}
+
 .blocsEnfants .field-bloc {
   background-color: #EDEDED;
-  margin: 1rem;
 }
 .blocsEnfants .field-bloc .fonce, .blocsEnfants .field-bloc .field-bloc {
   background-color: #E1E0E0;
 }
 
-.blocsEnfants > div {
+.blocsEnfants > div, #page_active_blocs, #groupeblocs_blocs {
   display: flex;
   flex-wrap: wrap;
-}
-.blocsEnfants[data-col=col3] > div > .field-bloc {
-  width: calc(33% - 2rem);
-}
-.blocsEnfants[data-col=col1] > div > .field-bloc {
-  width: calc(100% - 2rem);
-}
-.blocsEnfants[data-col=col4] > div > .field-bloc {
-  width: calc(25% - 2rem);
-}
-.blocsEnfants[data-col="col1/2"] > div > .field-bloc {
-  width: calc(50% - 2rem);
-}
-.blocsEnfants[data-col="col1/3"] > div > .field-bloc:first-of-type {
-  width: calc(30% - 2rem);
-}
-.blocsEnfants[data-col="col1/3"] > div > .field-bloc:last-of-type {
-  width: calc(70% - 2rem);
-}
-.blocsEnfants[data-col="col2/3"] > div > .field-bloc:first-of-type {
-  width: calc(70% - 2rem);
-}
-.blocsEnfants[data-col="col2/3"] > div > .field-bloc:last-of-type {
-  width: calc(30% - 2rem);
 }
 
 div[id^=page_active_blocs] svg {
