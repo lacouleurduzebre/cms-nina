@@ -369,7 +369,7 @@ $(document).ready(function() {
         $(this).next('a').attr('href', Routing.generate('admin', { action: 'edit', entity: 'GroupeBlocs', id: $(this).val() }));
     });
 
-    //Toggle blocs - pages
+    /*//Toggle blocs - pages
     $('#page_active_blocs').on('click', '.toggleBloc', function(){
         $(this).closest('.form-group').find('.contenu').children('div').toggleClass('hide');
         $(this).toggleClass('rotate');
@@ -395,7 +395,7 @@ $(document).ready(function() {
             $('#replierBlocs').show();
             $('#deplierBlocs').hide();
         }
-    });
+    });*/
 
     //Mise en avant du bloc en cours d'édition
     $('#page_active_blocs, #groupeblocs_blocs, #page_active_blocsAnnexes').on('click', '.field-bloc', function(){

@@ -4361,15 +4361,24 @@ div[id^=page_active_blocs] > div > .collection-empty {
 /* Barre d'actions */
 .bloc-barreActions {
   position: absolute;
-  top: 1rem;
-  right: 2rem;
+  top: 1.5rem;
+  right: 1.5rem;
   z-index: 10;
+  flex-direction: column;
+  display: none;
 }
 .bloc-barreActions > * {
-  display: inline-block;
-}
-.bloc-barreActions > * > svg, .bloc-barreActions > * > span > svg {
-  color: #0791B3;
+  background-color: #0791B3;
+  border-radius: 50%;
+  color: #fff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
+  border: 2px solid;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 3rem;
+  width: 3rem;
+  margin-bottom: 0.3rem;
 }
 .bloc-barreActions + ul {
   display: none;
@@ -4404,6 +4413,10 @@ div[id^=page_active_blocs] > div > .collection-empty {
 .bloc-barreActions.actif + ul {
   display: block;
   z-index: 100;
+}
+
+.field-bloc:hover > .bloc-barreActions {
+  display: flex;
 }
 
 .drag {

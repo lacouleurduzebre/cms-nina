@@ -881,14 +881,16 @@
 {% block bloc_widget %}
     {% set _field_type = easyadmin.field.fieldType|default('default') %}
     <div class="bloc-barreActions">
-        <div class="toggleBloc">
+        {#<div class="toggleBloc">
             {% if form.children.contenu.vars.attr['class'] is defined %}
                 <i class="fas fa-chevron-circle-down"></i>
             {% else %}
                 <i class="fas fa-chevron-circle-up"></i>
             {% endif %}
-        </div>
+        </div>#}
+        <div class="bloc-edit"><i class="fas fa-pen"></i></div>
         <div class="drag"><i class="fas fa-arrows-alt "></i></div>
+        <div class="bloc-affichage"><i class="fas fa-columns"></i></div>
         <div class="bloc-menu">
             <span><i class="fas fa-ellipsis-v"></i></span>
         </div>
