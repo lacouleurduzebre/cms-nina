@@ -3075,19 +3075,17 @@ main {
   background-color: rgba(255, 255, 255, 0.9);
   padding-top: 3rem;
   padding-bottom: 3rem;
+  /* > div[class^="bloc"]{
+     @include centre;
+     &:not(.blocTitre){
+       margin-bottom: 3rem;
+     }
+   }*/
 }
 @media (max-width: 575px) {
   main {
     flex-direction: row !important;
   }
-}
-main > div[class^=bloc] {
-  max-width: 992px;
-  margin-left: auto;
-  margin-right: auto;
-}
-main > div[class^=bloc]:not(.blocTitre) {
-  margin-bottom: 3rem;
 }
 main .blocCommentaires {
   width: 100%;

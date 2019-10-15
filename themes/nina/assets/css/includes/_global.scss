@@ -31,12 +31,12 @@ main{
   @include respond-to("small"){
     flex-direction: row !important;
   }
-  > div[class^="bloc"]{
+ /* > div[class^="bloc"]{
     @include centre;
     &:not(.blocTitre){
       margin-bottom: 3rem;
     }
-  }
+  }*/
   .blocCommentaires{
     width: 100%;
   }

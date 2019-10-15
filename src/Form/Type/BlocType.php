@@ -23,13 +23,45 @@ use Symfony\Component\Yaml\Yaml;
 
 class BlocType extends AbstractType
 {
+    private $optionsAlignementVertical = [
+        'label' => 'Alignement vertical dans le conteneur',
+        'choices' => [
+            'Sur toute la hauteur' => 'mtn mbn',
+            'En haut' => 'mbauto',
+            'En bas' => 'mtauto',
+            'Centré' => 'mtauto mbauto',
+        ],
+    ];
+
+    private $optionsAlignementHorizontal = [
+        'label' => 'Alignement horizontal dans le conteneur',
+        'choices' => [
+            'Sur toute la largeur' => 'mln mrn',
+            'À gauche' => 'mrauto',
+            'À droite' => 'mlauto',
+            'Centré' => 'mlauto mrauto',
+        ],
+    ];
+
+    private $optionsAlignementContenus = [
+        'label' => 'Alignement horizontal des contenus',
+        'choices' => [
+            'À gauche' => 'txtleft',
+            'À droite' => 'txtright',
+            'Centré' => 'txtcenter',
+        ],
+    ];
+
     private $optionsLargeur = [
         'label' => 'Largeur par rapport au conteneur',
         'choices' => [
             '100%' => '100',
             '80%' => '80',
+            '75%' => '75',
             '60%' => '60',
+            '50%' => '50',
             '40%' => '40',
+            '25%' => '25',
             '20%' => '20',
         ],
     ];
@@ -99,6 +131,9 @@ class BlocType extends AbstractType
             ->add('position', HiddenType::class)
             ->add('largeur', ChoiceType::class, $this->optionsLargeur)
             ->add('padding', ChoiceType::class, $this->optionsPadding)
+            ->add('alignementVertical', ChoiceType::class, $this->optionsAlignementVertical)
+            ->add('alignementHorizontal', ChoiceType::class, $this->optionsAlignementHorizontal)
+            ->add('alignementContenus', ChoiceType::class, $this->optionsAlignementContenus)
         ;
 
         $builder->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event) {
@@ -160,7 +195,10 @@ class BlocType extends AbstractType
                     ]
                 ))
                 ->add('largeur', ChoiceType::class, $this->optionsLargeur)
-                ->add('padding', ChoiceType::class, $this->optionsPadding);
+                ->add('padding', ChoiceType::class, $this->optionsPadding)
+                ->add('alignementVertical', ChoiceType::class, $this->optionsAlignementVertical)
+                ->add('alignementHorizontal', ChoiceType::class, $this->optionsAlignementHorizontal)
+                ->add('alignementContenus', ChoiceType::class, $this->optionsAlignementContenus);
 
             //SECTION
             if($type == 'Section'){

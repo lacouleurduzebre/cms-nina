@@ -39,16 +39,12 @@
   position: relative;
   padding: 1rem 2rem;
   margin: 1rem 0;
-  background-color: #F7F7F7;
   &.desactive{
     background-color: #DFDFDF;
     opacity: .7 !important;
   }
   &.nvBloc{
     opacity: 0;
-  }
-  &.focus{
-    box-shadow: 0 0 1rem $color-brand2-dark;
   }
   > label{
     display: none;
@@ -65,6 +61,22 @@
   }
 }
 
+.form-group.field-bloc{
+  &:not(.bloc-section){
+    border: 2px dashed #DADCE0;
+  }
+  &.bloc-section{
+    box-shadow: 0 0 5px #B1B1B1;
+  }
+}
+
+.form-group.field-bloc_annexe{
+  background-color: #F7F7F7;
+  &.focus{
+    box-shadow: 0 0 1rem $color-brand2-dark;
+  }
+}
+
 .type-bloc{
   color: $color-brand2;
   margin-bottom: 0;
@@ -76,13 +88,6 @@
 .bloc-section{
   .pasDeParametre{
     display: none;
-  }
-}
-
-.blocsEnfants .field-bloc{
-  background-color: #EDEDED;
-  .fonce, .field-bloc{
-    background-color: #E1E0E0;
   }
 }
 
@@ -186,6 +191,7 @@ div[id^="page_active_blocs"]{
     height: 3rem;
     width: 3rem;
     margin-bottom: .3rem;
+    cursor: pointer;
   }
   + ul{
     display: none;
@@ -246,7 +252,6 @@ div[id^="page_active_blocs"]{
 .bloc-menu{
   position: relative;
   span{
-    cursor: pointer;
     font-size: 2rem;
     padding: 0 1rem;
   }
@@ -262,12 +267,13 @@ div[id^="page_active_blocs"]{
   }
   p{
     align-items: center;
-    color: $color-brand2;
     font-size: 1.8rem;
     svg:first-child{
-      color: $color-primary;
       margin-right: .5rem;
     }
+  }
+  .bloc-panel--body > div{
+    margin-bottom: 1rem;
   }
 }
 
@@ -546,4 +552,33 @@ body.edit, body.new{
   .field-collection-item-action{
     order: 2;
   }
+}
+
+//Panels
+.bloc-panel{
+  position: absolute;
+  top: 0;
+  z-index: 100;
+  left: 0;
+  width: 100%;
+  select{
+    border: 1px solid #DADCE0;
+    box-shadow: none;
+  }
+}
+
+.bloc-panel--header{
+  padding: .5rem 1rem;
+  background-color: $color-brand2;
+  color: $white;
+  display: flex;
+  align-items: center;
+  span{
+    margin-left: .5rem;
+  }
+}
+
+.bloc-panel--body{
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
+  padding: 1rem 1.5rem 1.5rem;
 }

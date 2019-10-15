@@ -76,6 +76,21 @@ class Bloc
      */
     private $padding;
 
+    /**
+     * @ORM\Column(type="string", length=15, nullable=true)
+     */
+    private $alignementVertical;
+
+    /**
+     * @ORM\Column(type="string", length=15, nullable=true)
+     */
+    private $alignementHorizontal;
+
+    /**
+     * @ORM\Column(type="string", length=15, nullable=true)
+     */
+    private $alignementContenus;
+
     public function __construct()
     {
         $this->blocsEnfants = new ArrayCollection();
@@ -233,6 +248,42 @@ class Bloc
     public function setPadding(?string $padding): self
     {
         $this->padding = $padding;
+
+        return $this;
+    }
+
+    public function getAlignementVertical(): ?string
+    {
+        return $this->alignementVertical;
+    }
+
+    public function setAlignementVertical(?string $alignementVertical): self
+    {
+        $this->alignementVertical = $alignementVertical;
+
+        return $this;
+    }
+
+    public function getAlignementHorizontal(): ?string
+    {
+        return $this->alignementHorizontal;
+    }
+
+    public function setAlignementHorizontal(?string $alignementHorizontal): self
+    {
+        $this->alignementHorizontal = $alignementHorizontal;
+
+        return $this;
+    }
+
+    public function getAlignementContenus(): ?string
+    {
+        return $this->alignementContenus;
+    }
+
+    public function setAlignementContenus(string $alignementContenus): self
+    {
+        $this->alignementContenus = $alignementContenus;
 
         return $this;
     }

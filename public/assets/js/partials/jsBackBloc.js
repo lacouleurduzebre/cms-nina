@@ -119,16 +119,15 @@ $(document).ready(function() {
     /* Options d'affichage */
     $('form').on('click', '.optionsAffichage', function(e){
         e.preventDefault();
-        $(this).closest('div').removeClass('actif');
 
         bloc = $(this).closest('.field-bloc');
 
-        bloc.find('.bloc-optionsAffichage').toggleClass('actif');
+        bloc.children('div').children('.bloc-optionsAffichage').toggleClass('actif');
     });
 
     /* Fermeture */
     $('form').on('click', '.bloc-optionsAffichage-fermeture', function(){
-        $(this).closest('div').removeClass('actif');
+        $(this).closest('.bloc-panel').removeClass('actif');
     });
 
     /* Supprimer */
@@ -573,11 +572,22 @@ $(document).ready(function() {
         e.stopPropagation();
         $(this).addClass('hidden');
         $(this).prev('ul').find('.blocCache').removeClass('hidden');
-    })
+    });
 
-    //Changement de largeur d'un bloc
+    //Changement des options d'affichage
+        //Largeur
     $('body').on('change', 'select[name$="[largeur]"]', function() {
-        $(this).closest('.field-bloc').removeClass('w100 w80 w60 w40 w20').addClass('w'+$(this).val());
+        $(this).closest('.field-bloc').removeClass('w100 w80 w75 w60 w50 w40 w25 w20').addClass('w'+$(this).val());
+    });
+
+        //Alignement horizontal
+    $('body').on('change', 'select[name$="[alignementHorizontal]"]', function() {
+        $(this).closest('.field-bloc').removeClass('mln mrn mrauto mlauto').addClass($(this).val());
+    });
+
+        //Alignement vertical
+    $('body').on('change', 'select[name$="[alignementVertical]"]', function() {
+        $(this).closest('.field-bloc').removeClass('mtn mbn mtauto mbauto').addClass($(this).val());
     });
 
     //Bloc réseaux sociaux : type d'utilisation (liens / partage)

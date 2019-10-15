@@ -4268,7 +4268,6 @@ body.list #flash-messages > * {
   position: relative;
   padding: 1rem 2rem;
   margin: 1rem 0;
-  background-color: #F7F7F7;
 }
 .form-group.field-bloc.desactive, .form-group.field-bloc_annexe.desactive {
   background-color: #DFDFDF;
@@ -4276,9 +4275,6 @@ body.list #flash-messages > * {
 }
 .form-group.field-bloc.nvBloc, .form-group.field-bloc_annexe.nvBloc {
   opacity: 0;
-}
-.form-group.field-bloc.focus, .form-group.field-bloc_annexe.focus {
-  box-shadow: 0 0 1rem #056982;
 }
 .form-group.field-bloc > label, .form-group.field-bloc_annexe > label {
   display: none;
@@ -4290,6 +4286,20 @@ body.list #flash-messages > * {
   display: none;
 }
 
+.form-group.field-bloc:not(.bloc-section) {
+  border: 2px dashed #DADCE0;
+}
+.form-group.field-bloc.bloc-section {
+  box-shadow: 0 0 5px #B1B1B1;
+}
+
+.form-group.field-bloc_annexe {
+  background-color: #F7F7F7;
+}
+.form-group.field-bloc_annexe.focus {
+  box-shadow: 0 0 1rem #056982;
+}
+
 .type-bloc {
   color: #0791B3;
   margin-bottom: 0;
@@ -4299,13 +4309,6 @@ body.list #flash-messages > * {
 
 .bloc-section .pasDeParametre {
   display: none;
-}
-
-.blocsEnfants .field-bloc {
-  background-color: #EDEDED;
-}
-.blocsEnfants .field-bloc .fonce, .blocsEnfants .field-bloc .field-bloc {
-  background-color: #E1E0E0;
 }
 
 .blocsEnfants > div, #page_active_blocs, #groupeblocs_blocs {
@@ -4401,6 +4404,7 @@ div[id^=page_active_blocs] > div > .collection-empty {
   height: 3rem;
   width: 3rem;
   margin-bottom: 0.3rem;
+  cursor: pointer;
 }
 .bloc-barreActions + ul {
   display: none;
@@ -4457,7 +4461,6 @@ div[id^=page_active_blocs] > div > .collection-empty {
   position: relative;
 }
 .bloc-menu span {
-  cursor: pointer;
   font-size: 2rem;
   padding: 0 1rem;
 }
@@ -4473,12 +4476,13 @@ div[id^=page_active_blocs] > div > .collection-empty {
 }
 .bloc-optionsAffichage p {
   align-items: center;
-  color: #0791B3;
   font-size: 1.8rem;
 }
 .bloc-optionsAffichage p svg:first-child {
-  color: #75726B;
   margin-right: 0.5rem;
+}
+.bloc-optionsAffichage .bloc-panel--body > div {
+  margin-bottom: 1rem;
 }
 
 .bloc-optionsAffichage-fermeture {
@@ -4727,6 +4731,34 @@ body.edit .bloc-reseauxsociaux input[type=text], body.new .bloc-reseauxsociaux i
 }
 .field-galerie_image .field-collection-item-action, .field-slide .field-collection-item-action {
   order: 2;
+}
+
+.bloc-panel {
+  position: absolute;
+  top: 0;
+  z-index: 100;
+  left: 0;
+  width: 100%;
+}
+.bloc-panel select {
+  border: 1px solid #DADCE0;
+  box-shadow: none;
+}
+
+.bloc-panel--header {
+  padding: 0.5rem 1rem;
+  background-color: #0791B3;
+  color: #fff;
+  display: flex;
+  align-items: center;
+}
+.bloc-panel--header span {
+  margin-left: 0.5rem;
+}
+
+.bloc-panel--body {
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
+  padding: 1rem 1.5rem 1.5rem;
 }
 
 .traductionTemplateChoix div {
