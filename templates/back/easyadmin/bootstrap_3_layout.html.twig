@@ -727,6 +727,7 @@
                     </div>
                     {{- form_widget(form.children.metaDescription) -}}
                 </div>
+                <a class="inbl mts" href="/admin/seo">{{ "Vérifier le référencement de toutes les pages du site"|trans }}</a>
             </div>
             <div class="w50 plm">
                 <p>La page apparaîtra de cette façon dans les résultats de Google : </p>
@@ -738,7 +739,7 @@
                     </div>
 
                     <div class="url">
-                        <span>{{ app.request.headers.get('host') }} >&nbsp;</span>
+                        <span>{{ app.request.server.get('REQUEST_SCHEME')~'://'~app.request.headers.get('host') }} > </span>
                         {% if data.url is defined %}
                             {{ data.url|truncate(75) }}
                         {% endif %}
