@@ -1,0 +1,9 @@
+Général:
+  admin: "Accéder à l'interface d'administration"
+  config: "Accéder à la configuration générale du site"
+  themes: "Gérer les thèmes"
+  configBlocs: "Accéder au paramétrage des blocs"
+  sauvegardes: "Gérer les sauvegardes de la base de données et de la médiathèque"
+Utilisateurs:
+  droits: "Gérer les droits des utilisateurs"
+  comptes: "Gérer les utilisateurs"

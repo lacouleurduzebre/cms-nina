@@ -1,0 +1,49 @@
+{% extends 'back/base.html.twig' %}
+
+{% block main %}
+    <h1>{{ "Gestion des droits"|trans }}</h1>
+    {% if roles is empty %}
+        {{ "Aucun rôle n'a été créé pour le moment"|trans }}
+    {% endif %}
+    <p><button data-modal="creationRole">{{ "Créer un rôle"|trans }}</button></p>
+    {% if roles is not empty %}
+        <form action="{{ path('droits') }}" method="post" class="popupDesactive">
+            <table class="tableauDroits">
+                <thead>
+                    <th></th>
+                    {% for role in roles %}
+                        <th><span>{{ role.nom }}</span> {% if role.nom != 'ROLE_ADMIN' %}<span class="suppressionRole rouge" data-role="{{ role.id }}"><i class="fas fa-trash"></i></span>{% endif %}</th>
+                    {% endfor %}
+                </thead>
+                <tbody>
+                    {% for categorie, droits in droits %}
+                        <tr><td class="categorie">{{ categorie }}</td></tr>
+                        {% for identifiant, label in droits %}
+                            <tr>
+                                <td>{{ label }}</td>
+                                {% for role in roles %}
+                                    <td>
+                                        <input type="checkbox" name="{{ identifiant }}[]" id="{{ role.nom }}" value="{{ role.nom }}" {% if (role.droits[identifiant] is defined and role.droits[identifiant]) or role.nom == 'ROLE_ADMIN' %}checked{% endif %} {% if role.nom == 'ROLE_ADMIN' %}disabled{% endif %}>
+                                    </td>
+                                {% endfor %}
+                            </tr>
+                        {% endfor %}
+                    {% endfor %}
+                </tbody>
+            </table>
+        <input class="btn" type="submit" value="{{ "Enregistrer"|trans }}">
+        </form>
+    {% endif %}
+
+    <div id="creationRole" class="modal-box">
+        <div class="modal-close">
+            <i class="fas fa-times"></i>
+        </div>
+        <div class="modal-content fond">
+            <h2>Ajouter un rôle</h2>
+            {{ form_start(formCreationRole) }}
+            ROLE_{{ form_widget(formCreationRole.nom) }}
+            {{ form_end(formCreationRole) }}
+        </div>
+    </div>
+{% endblock %}

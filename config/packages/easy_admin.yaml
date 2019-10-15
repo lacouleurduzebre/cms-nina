@@ -89,11 +89,12 @@ easy_admin:
                   - { entity: 'Region', label: 'Régions', type: 'entity', menu_index: 0, submenu_index: 0, icon: '', default: true, params: { } }
                   - { entity: 'Menu', label: 'Menus', type: 'entity', menu_index: 0, submenu_index: 0, icon: '', default: true, params: { } }
             - { label: 'Médiathèque', icon: 'images', route: 'mediatheque' }
-            - { entity: 'Utilisateur', label: 'Comptes', icon: 'users' }
+            - { entity: 'Utilisateur', label: 'Comptes', icon: 'users', droit: 'comptes' }
             - label: 'Outils'
               icon: 'wrench'
               children:
-                - { entity: 'Configuration', label: 'Configuration générale', icon: '', params: { action: 'edit', id: 1 } }
-                - { label: 'Thèmes', icon: '', route: 'theme' }
-                - { label: 'Blocs', icon: '', route: 'configurationBlocs' }
-                - { label: 'Sauvegardes', icon: '', route: 'sauvegarde' }
+                - { entity: 'Configuration', label: 'Configuration générale', icon: '', params: { action: 'edit', id: 1 }, droit: 'config' }
+                - { label: 'Thèmes', icon: '', route: 'theme', droit: 'themes' }
+                - { label: 'Blocs', icon: '', route: 'configurationBlocs', droit: 'configBlocs' }
+                - { label: 'Sauvegardes', icon: '', route: 'sauvegarde', droit: 'sauvegardes' }
+                - { label: 'Droits', icon: '', route: 'droits', droit: 'droits' }

@@ -7,6 +7,13 @@
 {% block main %}
     <div class="erreur403">
         <h1>{{ "Erreur 403 - Accès refusé"|trans }}</h1>
-        <p>{{ "Vous devez "|trans }}<a href="{{ path('fos_user_security_login') }}">{{ "vous identifier"|trans }}</a>{{ " pour accéder à cette page." }}</p>
+        <p>{{ "Vous n'êtes pas autorisé à accéder à cette page"|trans }}</p>
+        <p>{{ "Souhaitez-vous"|trans }} <a href="
+            {% if langues|length > 1 %}
+                {{ path('accueilLocale', { '_locale': langueActive.abreviation }) }}
+            {% else %}
+                {{ path('accueil') }}
+            {% endif %}
+        ">{{ "retourner à l'accueil"|trans }}</a> ?</p>
     </div>
 {% endblock %}

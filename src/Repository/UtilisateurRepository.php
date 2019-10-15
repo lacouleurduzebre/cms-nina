@@ -10,4 +10,12 @@ namespace App\Repository;
  */
 class UtilisateurRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function getUtilisateursAvecRole($role){
+        $qb = $this
+            ->createQueryBuilder('u')
+            ->where('u.roles LIKE :role')
+            ->setParameter('role', '%"' . $role . '"%');
+
+        return $qb->getQuery()->getResult();
+    }
 }

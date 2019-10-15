@@ -929,6 +929,7 @@ body.connected {
   padding: 0;
   list-style: none;
   display: flex;
+  justify-content: space-around;
   flex: 1;
   color: #FFF;
   margin: 0;
@@ -939,7 +940,6 @@ body.connected {
   height: 100%;
 }
 .sidebar-menu > li {
-  margin: auto;
   height: 100%;
   display: flex;
   align-items: center;

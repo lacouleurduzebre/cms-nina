@@ -18,7 +18,7 @@
             <link rel="stylesheet" href="{{ asset('assets/js/slickslider/slick-theme.css') }}" type="text/css">
             <link rel="stylesheet" href="{{ asset('assets/js/fancybox/jquery.fancybox.min.css') }}" type="text/css">
             {{ include('front/extraCss.html.twig') }}
-            {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+            {% if checkDroit('admin') %}
                 <link href="https://fonts.googleapis.com/css?family=Cabin:400,700" rel="stylesheet">
                 <link rel="stylesheet" href="{{ asset('assets/js/jstree/themes/style.css') }}">
                 <link rel="stylesheet" href="{{ asset('assets/css/back.css') }}">
@@ -27,7 +27,7 @@
         <script src="{{ asset('assets/js/jquery-3.2.1.min.js') }}"></script>
         <script src="{{ asset('assets/js/fontawesome-all.min.js') }}"></script>
         <script src="{{ asset('assets/js/slickslider/slick.min.js') }}"></script>
-        {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+        {% if checkDroit('admin') %}
             <script src="{{ asset('assets/js/fosjsrouting/js/router.js') }}"></script>
             <script src="{{ asset('assets/js/fosjsrouting/js/fos_js_routes.js') }}"></script>
         {% endif %}
@@ -35,14 +35,14 @@
     {% endif %}
 </head>
 {% if not config.maintenance or is_granted('IS_AUTHENTICATED_REMEMBERED') %}
-    <body class="front {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}connected {% endif %}{% if accueil is defined %}accueil {% endif %}">
+    <body class="front {% if checkDroit('admin') %}connected {% endif %}{% if accueil is defined %}accueil {% endif %}">
 
         {# Menu horizontal du back office #}
-        {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+        {% if checkDroit('admin') %}
             {{ include('back/header.html.twig') }}
         {% endif %}
         {# Colonne de gauche du b/o #}
-        {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+        {% if checkDroit('admin') %}
             {{ include('back/aside.html.twig') }}
         {% endif %}
 
@@ -73,7 +73,7 @@
             <script src="{{ asset('assets/js/fancybox/jquery.fancybox.min.js') }}"></script>
             <script src="{{ asset('assets/js/jsFront.js') }}"></script>
             {{ include('front/extraJs.html.twig') }}
-            {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+            {% if checkDroit('admin') %}
                 <script src="{{ asset('assets/js/jsHeaderSidebar.js') }}"></script>
                 <script src="{{ asset('assets/js/jstree/jstree.min.js') }}"></script>
                 <script src='{{ asset('assets/js/fosjsrouting/js/router.js') }}'></script>

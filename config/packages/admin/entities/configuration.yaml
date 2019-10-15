@@ -2,7 +2,7 @@ easy_admin:
     entities:
         Configuration:
             class: App\Entity\Configuration
-            controller: App\Controller\Back\AdminController
+            controller: App\Controller\Back\Admin\ConfigurationAdminController
             label: 'Configuration'
             labels: 'Configurations'
             disabled_actions: ['new', 'search', 'delete']

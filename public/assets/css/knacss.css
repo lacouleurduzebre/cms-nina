@@ -3908,6 +3908,11 @@ body.list #flash-messages > * {
   transition: 0.3s;
 }
 
+.modal-content.fond {
+  background-color: #fff;
+  padding: 2rem;
+}
+
 #modal-delete {
   display: none;
   position: fixed;
@@ -3942,6 +3947,22 @@ body.list #flash-messages > * {
 }
 #mediatheque iframe {
   width: calc(100% - 10rem);
+}
+
+#creationRole h2 {
+  text-align: center;
+}
+#creationRole form {
+  display: flex;
+  flex-wrap: wrap;
+}
+#creationRole form input[type=text] {
+  flex: 1;
+}
+#creationRole form > div {
+  width: 100%;
+  margin-top: 2rem;
+  text-align: center;
 }
 
 .messages {
@@ -5030,6 +5051,24 @@ body.edit input[id$=_largeurMax], body.edit input[id$=_hauteurMax], body.new inp
 }
 .seo-attention svg {
   color: #D9534F;
+}
+
+.suppressionRole {
+  cursor: pointer;
+}
+
+.tableauDroits .categorie {
+  font-weight: 700;
+  color: #0791B3;
+}
+.tableauDroits tr > td:first-of-type:not(.categorie) {
+  padding-left: 2rem;
+}
+.tableauDroits tr:nth-of-type(2n) > td:not(.categorie) {
+  background-color: #F7F7F7;
+}
+.tableauDroits tr:hover > td:not(.categorie) {
+  background-color: #EEEEEE;
 }
 
 /*# sourceMappingURL=knacss.css.map */
