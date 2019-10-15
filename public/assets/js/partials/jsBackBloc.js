@@ -636,5 +636,18 @@ $(document).ready(function() {
         e.stopPropagation();
         $(this).addClass('hidden');
         $(this).prev('ul').find('.blocCache').removeClass('hidden');
-    })
+    });
+
+    //Bloc réseaux sociaux : type d'utilisation (liens / partage)
+    $('body').on('change', 'input[name$="[typeRS]"]', function(){
+        conteneur = $(this).closest('.contenu');
+
+        if($(this).val() === 'partage') {
+            conteneur.find('.rs-input-partage').removeClass('hidden');
+            conteneur.find('.rs-input-liens').addClass('hidden');
+        }else{
+            conteneur.find('.rs-input-partage').removeClass('hidden');
+            conteneur.find('.rs-input-liens').removeClass('hidden');
+        }
+    });
 });

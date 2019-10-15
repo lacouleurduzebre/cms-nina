@@ -1,4 +1,4 @@
 nom: 'Réseaux sociaux'
-description: 'Icônes renvoyant vers vos réseaux sociaux'
+description: "Afficher des liens vers vos réseaux sociaux et permettre le partage d'une page"
 type: contenu
 icone: 'fas fa-share-alt'

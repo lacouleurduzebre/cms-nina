@@ -3558,10 +3558,10 @@ body.notFull .cookies {
   border-bottom: 1px solid #000;
 }
 
-.blocReseauxSociaux {
+.blocReseauxSociaux-liens {
   display: flex;
 }
-.blocReseauxSociaux a {
+.blocReseauxSociaux-liens a {
   background-color: #5CBFEE;
   color: #fff;
   width: 4rem;
@@ -3572,10 +3572,10 @@ body.notFull .cookies {
   justify-content: center;
   margin: 0 0.5rem;
 }
-.blocReseauxSociaux a:hover {
+.blocReseauxSociaux-liens a:hover {
   background-color: #2eade9;
 }
-.blocReseauxSociaux svg {
+.blocReseauxSociaux-liens svg {
   font-size: 3rem;
 }
 

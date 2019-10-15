@@ -2,7 +2,7 @@ Accordeon:
     priorite: 6
     actif: oui
 Annuaire:
-    priorite: 27
+    priorite: 26
     actif: non
 Bandeau:
     priorite: 2
@@ -20,40 +20,37 @@ Galerie:
     priorite: 10
     actif: oui
 Grille:
-    priorite: 17
-    actif: oui
-GroupeBlocs:
     priorite: 16
     actif: oui
+GroupeBlocs:
+    priorite: 15
+    actif: oui
 HTML:
-    priorite: 22
+    priorite: 21
     actif: oui
 Image:
     priorite: 3
     actif: oui
 LEI:
-    priorite: 25
+    priorite: 24
     actif: non
 LogoSite:
-    priorite: 21
+    priorite: 20
     actif: oui
 Menu:
-    priorite: 19
+    priorite: 18
     actif: oui
 MenuLangues:
-    priorite: 20
+    priorite: 19
     actif: oui
 Paragraphe:
     priorite: 1
     actif: oui
-Partage:
-    priorite: 15
-    actif: oui
 PlanDuSite:
-    priorite: 24
+    priorite: 23
     actif: oui
 Recherche:
-    priorite: 23
+    priorite: 22
     actif: oui
 ReseauxSociaux:
     priorite: 14
@@ -71,7 +68,7 @@ Slider:
     priorite: 7
     actif: oui
 Template:
-    priorite: 26
+    priorite: 25
     actif: non
 Texte:
     priorite: 11
@@ -80,13 +77,13 @@ Titre:
     priorite: 2
     actif: oui
 TypeCategorie:
-    priorite: 18
+    priorite: 17
     actif: oui
 Video:
     priorite: 12
     actif: oui
 Videos:
-    priorite: 28
+    priorite: 27
     actif: non
 Vignette:
     priorite: 3

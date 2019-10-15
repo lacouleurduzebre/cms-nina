@@ -1,5 +1,31 @@
-{% if bloc.contenu.facebook.0 is defined %}<a href="{{ bloc.contenu.facebookUrl }}"><i class="fab fa-facebook-f"></i></a>{% endif %}
-{% if bloc.contenu.twitter.0 is defined %}<a href="{{ bloc.contenu.twitterUrl }}"><i class="fab fa-twitter"></i></a>{% endif %}
-{% if bloc.contenu.instagram.0 is defined %}<a href="{{ bloc.contenu.instagramUrl }}"><i class="fab fa-instagram"></i></a>{% endif %}
-{% if bloc.contenu.youtube.0 is defined %}<a href="{{ bloc.contenu.youtubeUrl }}"><i class="fab fa-youtube"></i></a>{% endif %}
-{% if bloc.contenu.linkedIn.0 is defined %}<a href="{{ bloc.contenu.linkedInUrl }}"><i class="fab fa-linkedin-in"></i></a>{% endif %}
+{% if bloc.contenu.typeRS == 'liens' %}
+    <div class="blocReseauxSociaux-liens">
+        {% if bloc.contenu.facebook.0 is defined %}<a href="{{ bloc.contenu.facebookUrl }}"><i class="fab fa-facebook-f"></i></a>{% endif %}
+        {% if bloc.contenu.twitter.0 is defined %}<a href="{{ bloc.contenu.twitterUrl }}"><i class="fab fa-twitter"></i></a>{% endif %}
+        {% if bloc.contenu.instagram.0 is defined %}<a href="{{ bloc.contenu.instagramUrl }}"><i class="fab fa-instagram"></i></a>{% endif %}
+        {% if bloc.contenu.youtube.0 is defined %}<a href="{{ bloc.contenu.youtubeUrl }}"><i class="fab fa-youtube"></i></a>{% endif %}
+        {% if bloc.contenu.linkedIn.0 is defined %}<a href="{{ bloc.contenu.linkedInUrl }}"><i class="fab fa-linkedin-in"></i></a>{% endif %}
+    </div>
+{% elseif bloc.contenu.typeRS == 'partage' %}
+    <div class="blocReseauxSociaux-partage">
+        {% if page is defined and page is not empty %}
+            {% set lienPage = lienPage(page) %}
+
+            {% if bloc.contenu.facebook.0 is defined %}
+                <a class="bouton" href="https://www.facebook.com/sharer.php?u={{ lienPage }}" target="_blank" alt="{{ "Partager sur Facebook"|trans }}">
+                    <i class="fab fa-facebook-f"></i> {{ "Partager sur Facebook"|trans }}
+                </a>
+            {% endif %}
+            {% if bloc.contenu.twitter.0 is defined %}
+                <a class="bouton" href="https://twitter.com/intent/tweet?url={{ lienPage }}&text={{ page.titre }}&hashtags={{ config.nom|replace({' ': '', '&': ''}) }}" target="_blank" alt="{{ "Partager sur Twitter"|trans }}">
+                    <i class="fab fa-twitter"></i> {{ "Partager sur Twitter"|trans }}
+                </a>
+            {% endif %}
+            {% if bloc.contenu.linkedIn.0 is defined %}
+                <a class="bouton" href="https://www.linkedin.com/shareArticle?mini=true&url={{ lienPage }}&title={{ page.titre|truncate(200) }}{% if blocAnnexe(page, 'Resume') %}&summary={{ blocAnnexe(page, 'Resume', false)|striptags|truncate(256) }}{% endif %}" target="_blank" alt="{{ "Partager sur LinkedIn"|trans }}">
+                    <i class="fab fa-linkedin-in"></i> {{ "Partager sur LinkedIn"|trans }}
+                </a>
+            {% endif %}
+        {% endif %}
+    </div>
+{% endif %}

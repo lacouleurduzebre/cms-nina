@@ -1361,3 +1361,44 @@
     {{ block('groupeBlocs') }}
 {% endblock %}
 {# Champ du bloc groupe de blocs #}
+
+{# Bloc réseaux sociaux #}
+{% block reseaux_sociaux_widget %}
+    {% set partage = (form.children.typeRS.vars.data is empty or form.children.typeRS.vars.data == 'partage') %}
+    {{ form_widget(form.children.typeRS) }}
+    {# FB #}
+    <div class="rs-input-partage{% if form.children.typeRS.vars.data is empty %} hidden{% endif %}">
+        {{ form_row(form.children.facebook) }}
+    </div>
+    <div class="rs-input-liens{% if partage %} hidden{% endif %}">
+        {{ form_row(form.children.facebookUrl) }}
+    </div>
+    {# Twitter #}
+    <div class="rs-input-partage{% if form.children.typeRS.vars.data is empty %} hidden{% endif %}">
+        {{ form_row(form.children.twitter) }}
+    </div>
+    <div class="rs-input-liens{% if partage %} hidden{% endif %}">
+        {{ form_row(form.children.twitterUrl) }}
+    </div>
+    {# LinkedIn #}
+    <div class="rs-input-partage{% if form.children.typeRS.vars.data is empty %} hidden{% endif %}">
+        {{ form_row(form.children.linkedIn) }}
+    </div>
+    <div class="rs-input-liens{% if partage %} hidden{% endif %}">
+        {{ form_row(form.children.linkedInUrl) }}
+    </div>
+    {# Youtube #}
+    <div class="rs-input-liens{% if partage %} hidden{% endif %}">
+        {{ form_row(form.children.youtube) }}
+    </div>
+    <div class="rs-input-liens{% if partage %} hidden{% endif %}">
+        {{ form_row(form.children.youtubeUrl) }}
+    </div>
+    {# Instagram #}
+    <div class="rs-input-liens{% if partage %} hidden{% endif %}">
+        {{ form_row(form.children.instagram) }}
+    </div>
+    <div class="rs-input-liens{% if partage %} hidden{% endif %}">
+        {{ form_row(form.children.instagramUrl) }}
+    </div>
+{% endblock %}
