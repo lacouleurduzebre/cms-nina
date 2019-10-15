@@ -670,9 +670,15 @@
     {{- block('form_widget_simple') -}}
     <a class="ouvrirMediatheque" href="/filemanager/dialog.php?type=1&field_id=configuration_logo">{{ 'Choisir une image dans la médiathèque'|trans }}</a>
     <div class="apercuLogo">
-        {% if value is not empty %}
-            <img src="{{ value }}" alt="">
-        {% endif %}
+        <img src="{% if value is not empty %}{{ value }}{% endif %}" alt="">
+    </div>
+{% endblock %}
+
+{% block _configuration_favicon_widget %}
+    {{- block('form_widget_simple') -}}
+    <a class="ouvrirMediatheque" href="/filemanager/dialog.php?type=1&field_id=configuration_favicon">{{ 'Choisir une image dans la médiathèque'|trans }}</a>
+    <div class="apercuLogo">
+        <img src="{% if value is not empty %}{{ value }}{% endif %}" alt="">
     </div>
 {% endblock %}
 

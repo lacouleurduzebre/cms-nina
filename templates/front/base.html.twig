@@ -31,7 +31,13 @@
             <script src="{{ asset('assets/js/fosjsrouting/js/router.js') }}"></script>
             <script src="{{ asset('assets/js/fosjsrouting/js/fos_js_routes.js') }}"></script>
         {% endif %}
-        <link rel="icon" type="image/x-icon" href="{{ asset('assets/img/favicon.ico') }}" />
+        <link rel="icon" type="image/x-icon" href="
+            {% if config.favicon is defined and config.favicon is not empty %}
+                {{ config.favicon }}
+            {% else %}
+                {{ asset('assets/img/favicon.ico') }}
+            {% endif %}
+        " />
     {% endif %}
 </head>
 {% if not config.maintenance or is_granted('IS_AUTHENTICATED_REMEMBERED') %}

@@ -3487,6 +3487,7 @@ ul.nav-tabs li a {
 .help-text {
   font-size: 1.3rem;
   color: #666666;
+  margin-bottom: 0;
 }
 
 .field-collection-action {
