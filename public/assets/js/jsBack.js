@@ -124,7 +124,7 @@ $(document).ready(function(){
 
         if(id === 'utilisateur_imageProfil'){//Image de profil
             $('#'+id).siblings('.apercuImageProfil').find('img').attr('src', urlImg);
-        }else if(id === 'configuration_logo'){//Logo du site
+        }else if(id === 'configuration_logo' || id === 'configuration_favicon'){//Logo et favicon du site
             $('#'+id).siblings('.apercuLogo').find('img').attr('src', urlImg);
         }else{//Bloc Image ou Vidéo
             $('#'+id).parent('div').next('div').find('img, iframe').attr('src', urlImg).show();
@@ -140,7 +140,13 @@ $(document).ready(function(){
 
     /* Activer le bouton d'enregistrement lors de la première modif d'un formulaire */
     $('form').on('change keyup', function(){
-        saveCloseFormulaire();
+        if(!$(this).hasClass('popupDesactive')){
+            saveCloseFormulaire();
+        }
+    });
+
+    $('form').submit(function(){
+        clicEnregistrement = true;
     });
 
     /* Fermeture des messages flash */
@@ -349,7 +355,7 @@ $(document).ready(function(){
 
     //Cacher le message "enregistrement terminé"
     setTimeout(function(){
-        $('.alert-enregistrement').fadeOut();
+        $('.alert').fadeOut();
     }, 3000);
 
     //Onglet actif en fonction de l'url

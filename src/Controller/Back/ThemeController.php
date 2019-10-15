@@ -11,13 +11,16 @@ namespace App\Controller\Back;
 
 use App\Entity\Configuration;
 use App\Form\Type\ImageSimpleType;
+use App\Service\Droits;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Exception\AuthenticationException;
 use Symfony\Component\Yaml\Yaml;
 
 /**
@@ -30,7 +33,11 @@ class ThemeController extends AbstractController
     /**
      * @Route("/theme", name="theme")
      */
-    public function themeAction(){
+    public function themeAction(Droits $droits){
+        if(!$droits->checkDroit('themes')){
+            throw new AccessDeniedHttpException("Vous n'êtes pas autorisé à accéder à cette page");
+        }
+
         $nomThemes = scandir('../themes');
         unset($nomThemes[0]);
         unset($nomThemes[1]);
@@ -195,7 +202,11 @@ class ThemeController extends AbstractController
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
-    public function parametrerThemeAction(Request $request, $nom){
+    public function parametrerThemeAction(Droits $droits, Request $request, $nom){
+        if(!$droits->checkDroit('themes')){
+            throw new AccessDeniedHttpException("Vous n'êtes pas autorisé à accéder à cette page");
+        }
+
         //Champs
         $fichierDefaut = Yaml::parseFile('../themes/'.$nom.'/config.yaml');
 

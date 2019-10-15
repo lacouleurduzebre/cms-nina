@@ -79,7 +79,7 @@
 
                 <section id="main" class="content">
                     {% block flash_messages %}
-                        {{ include(_entity_config is defined ? _entity_config.templates.flash_messages : '@EasyAdmin/default/flash_messages.html.twig') }}
+                        {{ include(_entity_config is defined and _entity_config.templates is defined ? _entity_config.templates.flash_messages : '@EasyAdmin/default/flash_messages.html.twig') }}
                     {% endblock flash_messages %}
                     {% block main %}{% endblock %}
                 </section>
@@ -110,9 +110,10 @@
             {% endif %}
 
             {% set partials = ['Utilisateur', 'Langue', 'ConfigBloc', 'Theme', 'Sauvegarde', 'Traduction', 'Categorie', 'TypeCategorie'] %}
+
             {% if _entity_config.name == 'Page_Active' or _entity_config.name == 'GroupeBlocs' %}
                 <script src="{{ asset('assets/js/partials/jsBackBloc.js') }}"></script>
-            {% elseif _entity_config.name in partials %}
+            {% else %}
                 <script src="{{ asset('assets/js/partials/jsBack'~_entity_config.name~'.js') }}"></script>
             {% endif %}
         {% endif %}

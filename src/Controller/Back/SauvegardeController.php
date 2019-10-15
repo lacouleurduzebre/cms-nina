@@ -9,12 +9,14 @@
 namespace App\Controller\Back;
 
 
+use App\Service\Droits;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Dotenv\Dotenv;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\ResponseHeaderBag;
+use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
@@ -29,7 +31,11 @@ class SauvegardeController extends AbstractController
      * @param Request $request
      * @return bool|Response
      */
-    public function sauvegardeAction(){
+    public function sauvegardeAction(Droits $droits){
+        if(!$droits->checkDroit('sauvegardes')){
+            throw new AccessDeniedHttpException("Vous n'êtes pas autorisé à accéder à cette page");
+        }
+
         //Liste de tous les dumps bdd
         $exportsBdd = scandir('../sauvegardes/bdd');
         $exportsBdd = array_combine(array_values($exportsBdd), array_values($exportsBdd));
@@ -141,7 +147,11 @@ class SauvegardeController extends AbstractController
      * @param Request $request
      * @return bool|Response
      */
-    public function telechargerMediathequeAction(Request $request){
+    public function telechargerMediathequeAction(Request $request, Droits $droits){
+        if(!$droits->checkDroit('sauvegardes')){
+            throw new AccessDeniedHttpException("Vous n'êtes pas autorisé à accéder à cette page");
+        }
+
         $type = $request->get('type');
         $fichier = $request->get('fichier');
 

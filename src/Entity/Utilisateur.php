@@ -15,6 +15,9 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
  */
 class Utilisateur extends BaseUser
 {
+    const ROLE_DEFAULT = 'ROLE_UTILISATEUR';
+    const ROLE_SUPER_ADMIN = 'ROLE_ADMIN';
+
     /**
      * @var int
      *

@@ -1,0 +1,19 @@
+.suppressionRole{
+  cursor: pointer;
+}
+
+.tableauDroits{
+  .categorie{
+    font-weight: $weight-bold;
+    color: $color-brand2;
+  }
+  tr > td:first-of-type:not(.categorie){
+    padding-left: 2rem;
+  }
+  tr:nth-of-type(2n) > td:not(.categorie){
+    background-color: #F7F7F7;
+  }
+  tr:hover > td:not(.categorie){
+    background-color: #EEEEEE;
+  }
+}

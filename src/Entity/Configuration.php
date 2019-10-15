@@ -104,6 +104,11 @@ class Configuration
      */
     private $pageCookies;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $favicon;
+
     public function __construct()
     {
         $this->maintenance = false;
@@ -365,6 +370,18 @@ class Configuration
     public function setPageCookies(?Page $pageCookies): self
     {
         $this->pageCookies = $pageCookies;
+
+        return $this;
+    }
+
+    public function getFavicon(): ?string
+    {
+        return $this->favicon;
+    }
+
+    public function setFavicon(?string $favicon): self
+    {
+        $this->favicon = $favicon;
 
         return $this;
     }

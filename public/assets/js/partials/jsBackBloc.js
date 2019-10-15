@@ -579,4 +579,17 @@ $(document).ready(function() {
     $('body').on('change', 'select[name$="[largeur]"]', function() {
         $(this).closest('.field-bloc').removeClass('w100 w80 w60 w40 w20').addClass('w'+$(this).val());
     });
+
+    //Bloc réseaux sociaux : type d'utilisation (liens / partage)
+    $('body').on('change', 'input[name$="[typeRS]"]', function(){
+        conteneur = $(this).closest('.contenu');
+
+        if($(this).val() === 'partage') {
+            conteneur.find('.rs-input-partage').removeClass('hidden');
+            conteneur.find('.rs-input-liens').addClass('hidden');
+        }else{
+            conteneur.find('.rs-input-partage').removeClass('hidden');
+            conteneur.find('.rs-input-liens').removeClass('hidden');
+        }
+    });
 });

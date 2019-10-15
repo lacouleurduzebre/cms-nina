@@ -22,14 +22,24 @@ class ReseauxSociauxType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('facebook', ChoiceType::class, array(
-            'label' => false,
-            'multiple' => true,
-            'expanded' => true,
-            'choices' => array(
-                'Facebook' => 1
-            )
-        ))
+        $builder
+            ->add('typeRS', ChoiceType::class, [
+                'label' => false,
+                'multiple' => false,
+                'expanded' => true,
+                'choices' => [
+                    'Afficher des liens vers les réseaux sociaux' => 'liens',
+                    'Permettre le partage de la page sur les réseaux sociaux' => 'partage'
+                ]
+            ])
+            ->add('facebook', ChoiceType::class, array(
+                'label' => false,
+                'multiple' => true,
+                'expanded' => true,
+                'choices' => array(
+                    'Facebook' => 1
+                )
+            ))
             ->add('facebookUrl', TextType::class, array(
                 'label' => 'Lien :'
             ))

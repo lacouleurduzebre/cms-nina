@@ -2,7 +2,7 @@ easy_admin:
     entities:
         Utilisateur:
             class: App\Entity\Utilisateur
-            controller: App\Controller\Back\UtilisateurController
+            controller: App\Controller\Back\Admin\UtilisateurController
             label: 'Utilisateur'
             labels: 'Utilisateurs'
             list:
@@ -38,7 +38,7 @@ easy_admin:
                     - { property: 'imageProfil', type: 'text', label: 'Image de profil' }
                     - { type: 'group', label: 'Statut', icon: 'user-cog' }
                     - { property: 'enabled', label: 'Activé' }
-                    - { property: 'roles', label: 'Rôles' }
+                    - { property: 'roles', label: 'Rôles', type: 'App\Form\Type\RoleType' }
             edit:
                 title: username
                 actions:
@@ -53,7 +53,7 @@ easy_admin:
                     - { property: 'imageProfil', type: 'text', label: 'Image de profil' }
                     - { type: 'group', label: 'Statut', icon: 'user-cog' }
                     - { property: 'enabled', label: 'Activé' }
-                    - { property: 'roles', label: 'Rôles' }
+                    - { property: 'roles', label: 'Rôles', type: 'App\Form\Type\RoleType' }
                     - { type: 'tab', label: "Personnalisation de l'interface" }
                     - { property: 'langue', label: "Langue de l'interface" }
                     - { property: 'couleurBO', type: 'choice', label: "Thème de l'interface d'administration", type_options: { choices: { gris: 'gris', bleu: 'bleu' } } }

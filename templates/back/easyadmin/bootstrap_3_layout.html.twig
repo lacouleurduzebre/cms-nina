@@ -670,9 +670,15 @@
     {{- block('form_widget_simple') -}}
     <a class="ouvrirMediatheque" href="/filemanager/dialog.php?type=1&field_id=configuration_logo">{{ 'Choisir une image dans la médiathèque'|trans }}</a>
     <div class="apercuLogo">
-        {% if value is not empty %}
-            <img src="{{ value }}" alt="">
-        {% endif %}
+        <img src="{% if value is not empty %}{{ value }}{% endif %}" alt="">
+    </div>
+{% endblock %}
+
+{% block _configuration_favicon_widget %}
+    {{- block('form_widget_simple') -}}
+    <a class="ouvrirMediatheque" href="/filemanager/dialog.php?type=1&field_id=configuration_favicon">{{ 'Choisir une image dans la médiathèque'|trans }}</a>
+    <div class="apercuLogo">
+        <img src="{% if value is not empty %}{{ value }}{% endif %}" alt="">
     </div>
 {% endblock %}
 
@@ -721,6 +727,7 @@
                     </div>
                     {{- form_widget(form.children.metaDescription) -}}
                 </div>
+                <a class="inbl mts" href="/admin/seo">{{ "Vérifier le référencement de toutes les pages du site"|trans }}</a>
             </div>
             <div class="w50 plm">
                 <p>La page apparaîtra de cette façon dans les résultats de Google : </p>
@@ -732,7 +739,7 @@
                     </div>
 
                     <div class="url">
-                        <span>{{ app.request.headers.get('host') }} >&nbsp;</span>
+                        <span>{{ app.request.server.get('REQUEST_SCHEME')~'://'~app.request.headers.get('host') }} > </span>
                         {% if data.url is defined %}
                             {{ data.url|truncate(75) }}
                         {% endif %}
@@ -1361,3 +1368,44 @@
     {{ block('groupeBlocs') }}
 {% endblock %}
 {# Champ du bloc groupe de blocs #}
+
+{# Bloc réseaux sociaux #}
+{% block reseaux_sociaux_widget %}
+    {% set partage = (form.children.typeRS.vars.data is empty or form.children.typeRS.vars.data == 'partage') %}
+    {{ form_widget(form.children.typeRS) }}
+    {# FB #}
+    <div class="rs-input-partage{% if form.children.typeRS.vars.data is empty %} hidden{% endif %}">
+        {{ form_row(form.children.facebook) }}
+    </div>
+    <div class="rs-input-liens{% if partage %} hidden{% endif %}">
+        {{ form_row(form.children.facebookUrl) }}
+    </div>
+    {# Twitter #}
+    <div class="rs-input-partage{% if form.children.typeRS.vars.data is empty %} hidden{% endif %}">
+        {{ form_row(form.children.twitter) }}
+    </div>
+    <div class="rs-input-liens{% if partage %} hidden{% endif %}">
+        {{ form_row(form.children.twitterUrl) }}
+    </div>
+    {# LinkedIn #}
+    <div class="rs-input-partage{% if form.children.typeRS.vars.data is empty %} hidden{% endif %}">
+        {{ form_row(form.children.linkedIn) }}
+    </div>
+    <div class="rs-input-liens{% if partage %} hidden{% endif %}">
+        {{ form_row(form.children.linkedInUrl) }}
+    </div>
+    {# Youtube #}
+    <div class="rs-input-liens{% if partage %} hidden{% endif %}">
+        {{ form_row(form.children.youtube) }}
+    </div>
+    <div class="rs-input-liens{% if partage %} hidden{% endif %}">
+        {{ form_row(form.children.youtubeUrl) }}
+    </div>
+    {# Instagram #}
+    <div class="rs-input-liens{% if partage %} hidden{% endif %}">
+        {{ form_row(form.children.instagram) }}
+    </div>
+    <div class="rs-input-liens{% if partage %} hidden{% endif %}">
+        {{ form_row(form.children.instagramUrl) }}
+    </div>
+{% endblock %}

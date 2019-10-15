@@ -40,7 +40,7 @@
         {% else %}
             {% set class= 'autreUtilisateur' %}
         {% endif %}
-        {{ form(form, {attr: {novalidate: "novalidate", class: class|default('')}}) }}
+        {{ form(form, {attr: {novalidate: "novalidate", autocomplete: "off", class: class|default('')}}) }}
     {% endblock entity_form %}
 
     {% block delete_form %}
