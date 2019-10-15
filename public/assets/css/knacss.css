@@ -4370,9 +4370,6 @@ div[id^=page_active_blocs] > div > .collection-empty {
   justify-content: center;
 }
 
-#page_active_blocs_ > .type, #page_active_blocsAnnexes > .type {
-  border-bottom: 2px solid #0791B3;
-}
 #page_active_blocs_ > .type select, #page_active_blocs_ > .type label, #page_active_blocsAnnexes > .type select, #page_active_blocsAnnexes > .type label {
   display: inline-block;
 }
@@ -4381,6 +4378,27 @@ div[id^=page_active_blocs] > div > .collection-empty {
 }
 #page_active_blocs_ > .type label, #page_active_blocsAnnexes > .type label {
   margin-right: 1rem;
+}
+
+#page_active_blocs_ > .type {
+  display: none;
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  margin-top: 0;
+  background-color: #0791B3;
+  padding: 0 1rem;
+  border-bottom-right-radius: 2rem;
+}
+#page_active_blocs_ > .type label {
+  color: #fff;
+}
+#page_active_blocs_ > .type .bloc-help svg {
+  color: #fff;
+}
+
+#page_active_blocsAnnexes > .type {
+  border-bottom: 2px solid #0791B3;
 }
 
 /* Barre d'actions */
@@ -4441,7 +4459,7 @@ div[id^=page_active_blocs] > div > .collection-empty {
   z-index: 100;
 }
 
-.field-bloc:hover > .bloc-barreActions {
+.field-bloc:hover > .bloc-barreActions, .field-bloc:hover > #page_active_blocs_ > .type {
   display: flex;
 }
 
@@ -4466,13 +4484,9 @@ div[id^=page_active_blocs] > div > .collection-empty {
 }
 
 .bloc-optionsAffichage {
-  display: none;
   background: #FFF;
   padding: 0.5rem 1rem 1rem;
   margin-top: 1rem;
-}
-.bloc-optionsAffichage.actif {
-  display: block;
 }
 .bloc-optionsAffichage p {
   align-items: center;
@@ -4759,6 +4773,7 @@ body.edit .bloc-reseauxsociaux input[type=text], body.new .bloc-reseauxsociaux i
 .bloc-panel--body {
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
   padding: 1rem 1.5rem 1.5rem;
+  background-color: #fff;
 }
 
 .traductionTemplateChoix div {

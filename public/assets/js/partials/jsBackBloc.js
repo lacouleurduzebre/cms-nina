@@ -80,6 +80,11 @@ $(document).ready(function() {
         $('.suppressionBloc').hide();
     });
 
+    //Fermeture
+    $('form').on('click', '.bloc-panel--fermeture', function(){
+        $(this).closest('.bloc-panel').addClass('hidden');
+    });
+
     /* Monter */
     $('form').on('click', '.monterBloc', function(e){
         e.preventDefault();
@@ -116,18 +121,22 @@ $(document).ready(function() {
         });
     });
 
+    /* Formulaire */
+    $('form').on('click', '.bloc-edit', function(e){
+        e.preventDefault();
+
+        bloc = $(this).closest('.field-bloc');
+
+        bloc.children('div').children('.bloc-formulaire').toggleClass('hidden');
+    });
+
     /* Options d'affichage */
     $('form').on('click', '.optionsAffichage', function(e){
         e.preventDefault();
 
         bloc = $(this).closest('.field-bloc');
 
-        bloc.children('div').children('.bloc-optionsAffichage').toggleClass('actif');
-    });
-
-    /* Fermeture */
-    $('form').on('click', '.bloc-optionsAffichage-fermeture', function(){
-        $(this).closest('.bloc-panel').removeClass('actif');
+        bloc.children('div').children('.bloc-optionsAffichage').toggleClass('hidden');
     });
 
     /* Supprimer */

@@ -158,7 +158,6 @@ div[id^="page_active_blocs"]{
 
 #page_active_blocs_, #page_active_blocsAnnexes{
   > .type{
-    border-bottom: 2px solid $color-brand2;
     select, label{
       display: inline-block;
     }
@@ -169,6 +168,27 @@ div[id^="page_active_blocs"]{
       margin-right: 1rem;
     }
   }
+}
+
+#page_active_blocs_ > .type{
+  display: none;
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  margin-top: 0;
+  background-color: $color-brand2;
+  padding: 0 1rem;
+  border-bottom-right-radius: 2rem;
+  label{
+    color: $white;
+  }
+  .bloc-help svg {
+    color: $white;
+  }
+}
+
+#page_active_blocsAnnexes > .type{
+  border-bottom: 2px solid $color-brand2;
 }
 
 /* Barre d'actions */
@@ -232,7 +252,7 @@ div[id^="page_active_blocs"]{
 }
 
 .field-bloc:hover{
-  > .bloc-barreActions{
+  > .bloc-barreActions, > #page_active_blocs_ > .type{
     display: flex;
   }
 }
@@ -258,13 +278,9 @@ div[id^="page_active_blocs"]{
 }
 
 .bloc-optionsAffichage{
-  display: none;
   background: #FFF;
   padding: .5rem 1rem 1rem;
   margin-top: 1rem;
-  &.actif{
-    display: block;
-  }
   p{
     align-items: center;
     font-size: 1.8rem;
@@ -581,4 +597,5 @@ body.edit, body.new{
 .bloc-panel--body{
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
   padding: 1rem 1.5rem 1.5rem;
+  background-color: #fff;
 }

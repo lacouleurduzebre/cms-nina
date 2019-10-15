@@ -81,9 +81,7 @@ class BlocType extends AbstractType
         if($options['type'] != ''){//Ajax
             $infos = Yaml::parseFile('../src/Blocs/'.$options['type'].'/infos.yaml');
             $description = $infos['description'];
-            $icone = $infos['icone'];
             $nom = $infos['nom'];
-            $label = '<i class="'.$icone.' mrs"></i>'.$nom;
 
             //Classes
             $classes = $this->getClasses($options['type']);
@@ -96,7 +94,7 @@ class BlocType extends AbstractType
             ))
             ->add('type', HiddenType::class, array(
                 'data' => $options['type'],
-                'label' => $label
+                'label' => $nom
             ))
             ->add('classes', ChoiceType::class, array(
                 'choices' => $classes,
@@ -168,9 +166,7 @@ class BlocType extends AbstractType
         if ($bloc){//Bloc déjà existant
             $type = is_array($bloc) ? $bloc['type'] : $bloc->getType();
             $infos = Yaml::parseFile('../src/Blocs/'.$type.'/infos.yaml');
-            $icone = $infos['icone'];
             $nom = $infos['nom'];
-            $label = '<i class="'.$icone.' mrs"></i>'.$nom;
 
             //Classes
             $classes = $this->getClasses($type);
@@ -181,7 +177,7 @@ class BlocType extends AbstractType
                 'allow_extra_fields' => true,
             ))
                 ->add('type', HiddenType::class, array(
-                    'label' => $label
+                    'label' => $nom
                 ))
                 ->add('active', HiddenType::class, array(
                     'label' => 'Activé'
