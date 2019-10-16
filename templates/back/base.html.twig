@@ -49,6 +49,10 @@
             <link rel="stylesheet" href="{{ asset('bundles/easyadmin/stylesheet/bootstrap-rtl.min.css') }}">
             <link rel="stylesheet" href="{{ asset('bundles/easyadmin/stylesheet/adminlte-rtl.min.css') }}">
         {% endif %}
+
+        {% if _entity_config.name == 'Page_Active' %}
+            {% include 'front/extraCss.html.twig' %}
+        {% endif %}
     </head>
 
     {% block body %}

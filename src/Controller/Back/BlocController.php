@@ -9,6 +9,7 @@
 namespace App\Controller\Back;
 
 
+use App\Entity\Bloc;
 use App\Service\Droits;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -16,6 +17,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Yaml\Yaml;
+use Twig\Environment;
 
 /**
  * Class BlocController
@@ -36,6 +38,36 @@ class BlocController extends AbstractController
 
             $form = $this->get('form.factory')->createBuilder("App\Form\Type\\".$typeBloc."Type", null, array('type' => $type, 'block_name' => $type))->getForm();
             return $this->render('back/blocs/formulaire.html.twig', array('form'=>$form->createView()));
+        };
+
+        return false;
+    }
+
+    /**
+     * @Route("/bloc/apercuBloc", name="apercuBloc")
+     * @param Request $request
+     * @return bool|Response
+     */
+    public function apercuBlocAction(Request $request, Environment $twig){
+        if($request->isXmlHttpRequest()){
+            $idBloc = $request->get('idBloc');
+            $champs = $request->get('contenu');
+
+            $contenu = [];
+            foreach($champs as $champ){
+                $contenu[$champ['name']] = $champ['value'];
+            }
+
+            $bloc = $this->getDoctrine()->getRepository(Bloc::class)->find($idBloc);
+            $bloc->setContenu($contenu);
+
+            if($twig->getLoader()->exists('/Blocs/'.$bloc->getType().'/bloc-'.$bloc->getId().'.html.twig')){
+                $tpl = $this->render('/Blocs/'.$bloc->getType().'/bloc-'.$bloc->getId().'.html.twig', ['bloc' => $bloc]);
+            }else{
+                $tpl = $this->render('/Blocs/'.$bloc->getType().'/'.$bloc->getType().'.html.twig', ['bloc' => $bloc]);
+            }
+
+            return $tpl;
         };
 
         return false;

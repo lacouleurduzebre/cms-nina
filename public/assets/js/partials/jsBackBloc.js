@@ -85,6 +85,36 @@ $(document).ready(function() {
         $(this).closest('.bloc-panel').addClass('hidden');
     });
 
+    $('form').on('click', '.bloc-formulaire--fermeture', function(){
+        conteneurApercu = $(this).closest('.bloc-formulaire').prev('.bloc-apercu');
+        idBloc = $(this).closest('.contenu').data('bloc');
+        contenu = [];
+        tinyMCE.triggerSave();
+        $(this).closest('.bloc-panel').find('input').each(function(){
+            nom = $(this).attr('id').substr($(this).attr('id').indexOf('contenu_') + 8, $(this).attr('id').length - ($(this).attr('id').indexOf('contenu_')));
+            contenu.push({'name': nom, 'value': $(this).val()});
+        });
+        $(this).closest('.bloc-panel').find('textarea').each(function(){
+            nom = $(this).attr('id').substr($(this).attr('id').indexOf('contenu_') + 8, $(this).attr('id').length - ($(this).attr('id').indexOf('contenu_')));
+            contenu.push({'name': nom, 'value': $(this).html()});
+        });
+        $(this).closest('.bloc-panel').find('select').each(function(){
+            nom = $(this).attr('id').substr($(this).attr('id').indexOf('contenu_') + 8, $(this).attr('id').length - ($(this).attr('id').indexOf('contenu_')));
+            contenu.push({'name': nom, 'value': $(this).val()});
+        });
+        // console.log(contenu);
+        $.ajax({
+            url: '/admin/bloc/apercuBloc',
+            method: "post",
+            data: {contenu: contenu, idBloc: idBloc}
+        })
+            .done(function(data){
+                conteneurApercu.html(data);
+            })
+            .fail(function(){
+            });
+    });
+
     /* Monter */
     $('form').on('click', '.monterBloc', function(e){
         e.preventDefault();
