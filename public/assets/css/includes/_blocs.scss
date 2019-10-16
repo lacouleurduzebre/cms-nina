@@ -38,7 +38,6 @@
 .form-group.field-bloc, .form-group.field-bloc_annexe{
   position: relative;
   padding: 1rem 2rem;
-  margin: 1rem 0;
   &.desactive{
     background-color: #DFDFDF;
     opacity: .7 !important;
@@ -72,6 +71,7 @@
 
 .form-group.field-bloc_annexe{
   background-color: #F7F7F7;
+  margin: 1rem 0;
   &.focus{
     box-shadow: 0 0 1rem $color-brand2-dark;
   }

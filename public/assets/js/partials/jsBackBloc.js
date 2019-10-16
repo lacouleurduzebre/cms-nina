@@ -591,12 +591,22 @@ $(document).ready(function() {
 
         //Alignement horizontal
     $('body').on('change', 'select[name$="[alignementHorizontal]"]', function() {
-        $(this).closest('.field-bloc').removeClass('mln mrn mrauto mlauto').addClass($(this).val());
+        $(this).closest('.field-bloc').removeClass('mrauto mlauto').addClass($(this).val());
     });
 
         //Alignement vertical
     $('body').on('change', 'select[name$="[alignementVertical]"]', function() {
-        $(this).closest('.field-bloc').removeClass('mtn mbn mtauto mbauto').addClass($(this).val());
+        $(this).closest('.field-bloc').removeClass('mtauto mbauto').addClass($(this).val());
+    });
+
+        //Alignement horizontal des enfants
+    $('body').on('change', 'select[name$="[alignementHorizontalEnfants]"]', function() {
+        $(this).closest('.field-bloc').children('div').children('.contenu').children('.blocsEnfants').children('div').css('justify-content', $(this).val());
+    });
+
+        //Alignement vertical des enfants
+    $('body').on('change', 'select[name$="[alignementVerticalEnfants]"]', function() {
+        $(this).closest('.field-bloc').children('div').children('.contenu').children('.blocsEnfants').children('div').css('align-items', $(this).val());
     });
 
     //Bloc réseaux sociaux : type d'utilisation (liens / partage)

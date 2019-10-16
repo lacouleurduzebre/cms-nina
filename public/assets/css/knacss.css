@@ -3585,7 +3585,7 @@ body.notFull .select2-dropdown {
   padding: 0;
 }
 
-.form-group {
+.form-group:not(.field-bloc) {
   margin-top: 1rem;
 }
 
@@ -4267,7 +4267,6 @@ body.list #flash-messages > * {
 .form-group.field-bloc, .form-group.field-bloc_annexe {
   position: relative;
   padding: 1rem 2rem;
-  margin: 1rem 0;
 }
 .form-group.field-bloc.desactive, .form-group.field-bloc_annexe.desactive {
   background-color: #DFDFDF;
@@ -4295,6 +4294,7 @@ body.list #flash-messages > * {
 
 .form-group.field-bloc_annexe {
   background-color: #F7F7F7;
+  margin: 1rem 0;
 }
 .form-group.field-bloc_annexe.focus {
   box-shadow: 0 0 1rem #056982;

@@ -868,7 +868,7 @@
 {# BLOC #}
 {% block bloc_row -%}
     {% set _field_type = easyadmin.field.fieldType|default('default') %}
-    <div class="form-group {% if (not compound or force_error|default(false)) and not valid %}has-error{% endif %} field-{{ block_prefixes|slice(-2)|first }} {% if not form.children.active.vars.data %} desactive{% endif %} w{{ form.children.largeur.vars.data|default('100') }}{% if form.children.type.vars.value is defined %} bloc-{{ form.children.type.vars.value|lower }}{% endif %}" data-name="{{ name }}">
+    <div class="form-group {% if (not compound or force_error|default(false)) and not valid %}has-error{% endif %} field-{{ block_prefixes|slice(-2)|first }} {% if not form.children.active.vars.data %} desactive{% endif %} w{{ form.children.largeur.vars.data|default('100') }}{% if form.children.type.vars.value is defined %} bloc-{{ form.children.type.vars.value|lower }}{% endif %} {{ form.children.alignementHorizontal.vars.value|default('') }} {{ form.children.alignementVertical.vars.value|default('') }}" data-name="{{ name }}">
         {{- form_label(form) -}}
         {{- form_widget(form) -}}
 
@@ -946,14 +946,17 @@
                 {% endif %}
                 {{ form_row(form.children.alignementVertical) }}
                 {{ form_row(form.children.alignementHorizontal) }}
-                {{ form_row(form.children.alignementContenus) }}
+                {% if form.vars.value is not empty and form.vars.value.type == 'Section' %}
+                    {{ form_row(form.children.alignementVerticalEnfants) }}
+                    {{ form_row(form.children.alignementHorizontalEnfants) }}
+                {% endif %}
                 {{ form_row(form.children.largeur) }}
                 {{ form_row(form.children.padding) }}
             </div>
         </div>
         {% if form.vars.value is not empty and form.vars.value.type != 'Section' %}
             <div class="bloc-apercu">
-                {% include 'front/bloc.html.twig' with { 'bloc' : form.vars.value } only %}
+                {% include ['/Blocs/'~form.vars.value.type~'/bloc-'~form.vars.value.id~'.html.twig', '/Blocs/'~form.vars.value.type~'/'~form.vars.value.type~'.html.twig'] with{'bloc': form.vars.value} only %}
             </div>
         {% endif %}
         {% if form.vars.value is not empty and form.vars.value.type != 'Section' %}
@@ -978,7 +981,7 @@
         {% else %}
             <div class="form-group contenu"  {% if form.vars.value is not empty %}data-bloc="{{ form.vars.value.id }}"{% endif %}>
                 {% if form.children.blocsEnfants is defined %}
-                    {{- form_row(form.children.blocsEnfants) -}}
+                    {{- form_row(form.children.blocsEnfants, { 'attr': { 'style': "align-items: "~form.vars.value.alignementVerticalEnfants|default('stretch')~"; justify-content: "~form.vars.value.alignementHorizontalEnfants|default('flex-start')~";" } }) -}}
                 {% endif %}
             </div>
         {% endif %}

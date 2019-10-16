@@ -89,7 +89,12 @@ class Bloc
     /**
      * @ORM\Column(type="string", length=15, nullable=true)
      */
-    private $alignementContenus;
+    private $alignementHorizontalEnfants;
+
+    /**
+     * @ORM\Column(type="string", length=15, nullable=true)
+     */
+    private $alignementVerticalEnfants;
 
     public function __construct()
     {
@@ -276,14 +281,26 @@ class Bloc
         return $this;
     }
 
-    public function getAlignementContenus(): ?string
+    public function getAlignementHorizontalEnfants(): ?string
     {
-        return $this->alignementContenus;
+        return $this->alignementHorizontalEnfants;
     }
 
-    public function setAlignementContenus(string $alignementContenus): self
+    public function setAlignementHorizontalEnfants(?string $alignementHorizontalEnfants): self
     {
-        $this->alignementContenus = $alignementContenus;
+        $this->alignementHorizontalEnfants = $alignementHorizontalEnfants;
+
+        return $this;
+    }
+
+    public function getAlignementVerticalEnfants(): ?string
+    {
+        return $this->alignementVerticalEnfants;
+    }
+
+    public function setAlignementVerticalEnfants(?string $alignementVerticalEnfants): self
+    {
+        $this->alignementVerticalEnfants = $alignementVerticalEnfants;
 
         return $this;
     }

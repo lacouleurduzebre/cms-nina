@@ -24,31 +24,44 @@ use Symfony\Component\Yaml\Yaml;
 class BlocType extends AbstractType
 {
     private $optionsAlignementVertical = [
-        'label' => 'Alignement vertical dans le conteneur',
+        'label' => 'Alignement vertical du bloc',
         'choices' => [
-            'Sur toute la hauteur' => 'mtn mbn',
+            'Automatique' => '',
             'En haut' => 'mbauto',
-            'En bas' => 'mtauto',
             'Centré' => 'mtauto mbauto',
+            'En bas' => 'mtauto',
         ],
+        'required' => false
     ];
 
     private $optionsAlignementHorizontal = [
-        'label' => 'Alignement horizontal dans le conteneur',
+        'label' => 'Alignement horizontal du bloc',
         'choices' => [
-            'Sur toute la largeur' => 'mln mrn',
+            'Automatique' => '',
             'À gauche' => 'mrauto',
-            'À droite' => 'mlauto',
             'Centré' => 'mlauto mrauto',
+            'À droite' => 'mlauto',
         ],
     ];
 
-    private $optionsAlignementContenus = [
-        'label' => 'Alignement horizontal des contenus',
+    private $optionsAlignementVerticalEnfants = [
+        'label' => 'Alignement vertical des blocs enfants',
         'choices' => [
-            'À gauche' => 'txtleft',
-            'À droite' => 'txtright',
-            'Centré' => 'txtcenter',
+            'Sur toute la hauteur' => 'stretch',
+            'En haut' => 'flex-start',
+            'Centré' => 'center',
+            'En bas' => 'flex-end',
+        ],
+    ];
+
+    private $optionsAlignementHorizontalEnfants = [
+        'label' => 'Alignement horizontal des blocs enfants',
+        'choices' => [
+            'À gauche' => 'flex-start',
+            'Centré' => 'center',
+            'À droite' => 'flex-end',
+            "Répartis avec de l'espace entre les blocs" => 'space-between',
+            "Répartis avec de l'espace autour des blocs" => 'space-around',
         ],
     ];
 
@@ -131,7 +144,8 @@ class BlocType extends AbstractType
             ->add('padding', ChoiceType::class, $this->optionsPadding)
             ->add('alignementVertical', ChoiceType::class, $this->optionsAlignementVertical)
             ->add('alignementHorizontal', ChoiceType::class, $this->optionsAlignementHorizontal)
-            ->add('alignementContenus', ChoiceType::class, $this->optionsAlignementContenus)
+            ->add('alignementVerticalEnfants', ChoiceType::class, $this->optionsAlignementVerticalEnfants)
+            ->add('alignementHorizontalEnfants', ChoiceType::class, $this->optionsAlignementHorizontalEnfants)
         ;
 
         $builder->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event) {
@@ -194,7 +208,9 @@ class BlocType extends AbstractType
                 ->add('padding', ChoiceType::class, $this->optionsPadding)
                 ->add('alignementVertical', ChoiceType::class, $this->optionsAlignementVertical)
                 ->add('alignementHorizontal', ChoiceType::class, $this->optionsAlignementHorizontal)
-                ->add('alignementContenus', ChoiceType::class, $this->optionsAlignementContenus);
+                ->add('alignementVerticalEnfants', ChoiceType::class, $this->optionsAlignementVerticalEnfants)
+                ->add('alignementHorizontalEnfants', ChoiceType::class, $this->optionsAlignementHorizontalEnfants)
+            ;
 
             //SECTION
             if($type == 'Section'){

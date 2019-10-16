@@ -1,6 +1,6 @@
 {% set blocsEnfants = bloc.blocsEnfants|sortBy('position') %}
 
-<div class="flex-container">
+<div class="flex-container" style="align-items: {{ bloc.alignementVerticalEnfants|default('stretch') }}; justify-content: {{ bloc.alignementHorizontalEnfants|default('flex-start') }}">
     {% for blocEnfant in blocsEnfants %}
         {% include('front/bloc.html.twig') with {'bloc': blocEnfant} only %}
     {% endfor %}
