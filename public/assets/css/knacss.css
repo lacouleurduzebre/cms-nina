@@ -3585,7 +3585,7 @@ body.notFull .select2-dropdown {
   padding: 0;
 }
 
-.form-group:not(.field-bloc) {
+.form-group:not(.field-bloc):not(.bloc-panel) {
   margin-top: 1rem;
 }
 
@@ -4761,10 +4761,10 @@ body.edit .bloc-reseauxsociaux input[type=text], body.new .bloc-reseauxsociaux i
 
 .bloc-panel {
   position: absolute;
-  top: 0;
+  top: -2px;
   z-index: 100;
-  left: 0;
-  width: 100%;
+  left: -2px;
+  width: calc(100% + 4px);
 }
 .bloc-panel select {
   border: 1px solid #DADCE0;

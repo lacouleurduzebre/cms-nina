@@ -254,6 +254,8 @@ $(document).ready(function() {
                     }else{
                         $('#'+entite+'_blocs').prepend(bloc);
                     }
+
+                    nvBloc = $('#nvBloc' + count);
                 }else{//Bloc enfant
                     section = $('#'+$('.listeBlocs').attr('data-section'));
 
@@ -268,40 +270,32 @@ $(document).ready(function() {
                     bloc = '<div id="nvBloc'+countBloc+'" class="form-group field-bloc w100" data-name="'+countBloc+'">'+form+'</div>';
                     section.append(bloc);
 
-                    section.closest('.contenu').find('input[name$="[colonnes]"]').each(function(){
-                        if($(this).prop('checked')){
-                            verifNombreBlocs($(this));
-                        }
-                    });
+                    nvBloc = $('#nvBloc' + countBloc);
                 }
 
                 //Anim ajout de bloc
-                $('.field-bloc').removeClass('focus');
+                var elOffset = nvBloc.offset().top;
+                var elHeight = nvBloc.height();
+                var windowHeight = $(window).height();
 
-                if($('.listeBlocs').attr('id') === 'avant' || $('.listeBlocs').attr('id') === 'apres'){
-                    nvBloc = $('#nvBloc'+count);
-                    nvBloc.addClass('focus');
-
-                    var elOffset = nvBloc.offset().top;
-                    var elHeight = nvBloc.height();
-                    var windowHeight = $(window).height();
-
-                    if (elHeight < windowHeight) {
-                        offset = elOffset - ((windowHeight / 2) - (elHeight / 2));
-                    }
-                    else {
-                        offset = elOffset;
-                    }
-
-                    $('body, html').animate({
-                        scrollTop: offset
-                    }, 600, 'swing', function(){
-                        nvBloc.fadeTo(600, 1);
-                    });
-
-                    $('#'+entite+'_blocs').prev('.empty').remove();
+                if (elHeight < windowHeight) {
+                    offset = elOffset - ((windowHeight / 2) - (elHeight / 2));
+                }
+                else {
+                    offset = elOffset;
                 }
 
+                nvBloc.find('.bloc-panel.bloc-formulaire').removeClass('hidden');
+
+                $('body, html').animate({
+                    scrollTop: offset
+                }, 600, 'swing', function(){
+                    nvBloc.fadeTo(600, 1);
+                });
+
+                $('#'+entite+'_blocs').prev('.empty').remove();
+
+                //Màj de la position
                 $('.field-bloc').each(function(){
                     $(this).find("input[id$='position']").val($(this).index());
                 });

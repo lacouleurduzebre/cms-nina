@@ -587,10 +587,10 @@ body.edit, body.new{
 //Panels
 .bloc-panel{
   position: absolute;
-  top: 0;
+  top: -2px;
   z-index: 100;
-  left: 0;
-  width: 100%;
+  left: -2px;
+  width: calc(100% + 4px);
   select{
     border: 1px solid #DADCE0;
     box-shadow: none;
