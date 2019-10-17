@@ -891,6 +891,8 @@
 {% block bloc_widget %}
     {% set blocSection = (form.children.type.vars.value == 'Section') %}
     {% set _field_type = easyadmin.field.fieldType|default('default') %}
+
+    {# BARRE D'ACTIONS #}
     <div class="bloc-barreActions">
         {% if not blocSection %}
             <div class="bloc-edit"><i class="fas fa-pen"></i></div>
@@ -919,8 +921,10 @@
             </div>
         </li>
     </ul>
+    {# BARRE D'ACTIONS #}
 
     <div id="page_active_blocs_">
+        {# TYPE DE BLOC #}
         {% if not blocSection %}
             <div class="form-group type">
                 <label>{{ form.children.type.vars.label|raw }}</label>
@@ -935,6 +939,9 @@
         {% endif %}
         {{- form_widget(form.children.position) -}}
         {{- form_widget(form.children.active) -}}
+        {# TYPE DE BLOC #}
+
+        {# OPTIONS D'AFFICHAGE #}
         <div class="bloc-optionsAffichage bloc-panel hidden">
             <div class="bloc-panel--header">
                 <i class="fas fa-columns"></i>
@@ -954,8 +961,22 @@
                 {{ form_row(form.children.pleineLargeur) }}
                 {{ form_row(form.children.largeur) }}
                 {{ form_row(form.children.padding) }}
+                {{ form_label(form.children.paddingTout) }}
+                <div class="flex-container">
+                    {{ form_widget(form.children.paddingTout) }}
+                    <a class="togglePadding item-center"><i class="fas fa-link"></i></a>
+                </div>
+                <div class="bloc-padding hidden">
+                    {{ form_row(form.children.paddingGauche) }}
+                    {{ form_row(form.children.paddingDroit) }}
+                    {{ form_row(form.children.paddingHaut) }}
+                    {{ form_row(form.children.paddingBas) }}
+                </div>
             </div>
         </div>
+        {# OPTIONS D'AFFICHAGE #}
+
+        {# APERCU #}
         {% if not blocSection %}
             <div class="bloc-apercu">
                 {% if form.vars.value is not empty %}
@@ -963,6 +984,9 @@
                 {% endif %}
             </div>
         {% endif %}
+        {# APERCU #}
+
+        {# FORMULAIRE #}
         {% if not blocSection %}
             <div class="form-group contenu bloc-formulaire bloc-panel hidden" {% if form.vars.value is not empty %}data-bloc="{{ form.vars.value.id }}"{% endif %} data-type="{{ form.children.type.vars.value|default('') }}">
                 <div class="bloc-panel--header">
@@ -989,6 +1013,7 @@
                 {% endif %}
             </div>
         {% endif %}
+        {# FORMULAIRE #}
     </div>
 
     {% if _field_type in ['datetime', 'datetime_immutable', 'date', 'date_immutable', 'time', 'time_immutable', 'birthday'] and easyadmin.field.nullable|default(false) %}

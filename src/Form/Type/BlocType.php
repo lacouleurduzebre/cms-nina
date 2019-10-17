@@ -83,14 +83,39 @@ class BlocType extends AbstractType
         ],
     ];
 
-    private $optionsPadding = [
-        'label' => 'Marge intérieure',
-        'choices' => [
-            'Aucune' => 'pan',
-            'Fine' => 'pas',
-            'Moyenne' => 'pam',
-            'Large' => 'pal',
-        ],
+    private $choixPaddingTout = [
+        'Aucune' => 'pan',
+        'Fine' => 'pas',
+        'Moyenne' => 'pam',
+        'Large' => 'pal',
+    ];
+
+    private $choixPaddingGauche = [
+        'Aucune' => 'pln',
+        'Fine' => 'pls',
+        'Moyenne' => 'plm',
+        'Large' => 'pll',
+    ];
+
+    private $choixPaddingDroite = [
+        'Aucune' => 'prn',
+        'Fine' => 'prs',
+        'Moyenne' => 'prm',
+        'Large' => 'prl',
+    ];
+
+    private $choixPaddingHaut = [
+        'Aucune' => 'ptn',
+        'Fine' => 'pts',
+        'Moyenne' => 'ptm',
+        'Large' => 'ptl',
+    ];
+
+    private $choixPaddingBas = [
+        'Aucune' => 'pbn',
+        'Fine' => 'pbs',
+        'Moyenne' => 'pbm',
+        'Large' => 'pbl',
     ];
 
     public function buildForm(FormBuilderInterface $builder, array $options)
@@ -146,7 +171,32 @@ class BlocType extends AbstractType
             ->add('position', HiddenType::class)
             ->add('pleineLargeur', null, $this->optionsPleineLargeur)
             ->add('largeur', ChoiceType::class, $this->optionsLargeur)
-            ->add('padding', ChoiceType::class, $this->optionsPadding)
+            ->add('padding', HiddenType::class)
+            ->add('paddingTout', ChoiceType::class, [
+                'label' => 'Marges intérieures',
+                'choices' => $this->choixPaddingTout,
+                'mapped' => false
+            ])
+            ->add('paddingGauche', ChoiceType::class, [
+                'label' => 'Marge gauche',
+                'choices' => $this->choixPaddingGauche,
+                'mapped' => false
+            ])
+            ->add('paddingDroit', ChoiceType::class, [
+                'label' => 'Marge droite',
+                'choices' => $this->choixPaddingDroite,
+                'mapped' => false
+            ])
+            ->add('paddingHaut', ChoiceType::class, [
+                'label' => 'Marge haute',
+                'choices' => $this->choixPaddingHaut,
+                'mapped' => false
+            ])
+            ->add('paddingBas', ChoiceType::class, [
+                'label' => 'Marge basse',
+                'choices' => $this->choixPaddingBas,
+                'mapped' => false
+            ])
             ->add('alignementVertical', ChoiceType::class, $this->optionsAlignementVertical)
             ->add('alignementHorizontal', ChoiceType::class, $this->optionsAlignementHorizontal)
             ->add('alignementVerticalEnfants', ChoiceType::class, $this->optionsAlignementVerticalEnfants)
@@ -211,7 +261,32 @@ class BlocType extends AbstractType
                 ))
                 ->add('pleineLargeur', null, $this->optionsPleineLargeur)
                 ->add('largeur', ChoiceType::class, $this->optionsLargeur)
-                ->add('padding', ChoiceType::class, $this->optionsPadding)
+                ->add('padding', HiddenType::class)
+                ->add('paddingTout', ChoiceType::class, [
+                    'label' => 'Marges intérieures',
+                    'choices' => $this->choixPaddingTout,
+                    'mapped' => false
+                ])
+                ->add('paddingGauche', ChoiceType::class, [
+                    'label' => 'Marge gauche',
+                    'choices' => $this->choixPaddingGauche,
+                    'mapped' => false
+                ])
+                ->add('paddingDroit', ChoiceType::class, [
+                    'label' => 'Marge droite',
+                    'choices' => $this->choixPaddingDroite,
+                    'mapped' => false
+                ])
+                ->add('paddingHaut', ChoiceType::class, [
+                    'label' => 'Marge haute',
+                    'choices' => $this->choixPaddingHaut,
+                    'mapped' => false
+                ])
+                ->add('paddingBas', ChoiceType::class, [
+                    'label' => 'Marge basse',
+                    'choices' => $this->choixPaddingBas,
+                    'mapped' => false
+                ])
                 ->add('alignementVertical', ChoiceType::class, $this->optionsAlignementVertical)
                 ->add('alignementHorizontal', ChoiceType::class, $this->optionsAlignementHorizontal)
                 ->add('alignementVerticalEnfants', ChoiceType::class, $this->optionsAlignementVerticalEnfants)

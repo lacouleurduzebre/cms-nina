@@ -72,7 +72,7 @@ class Bloc
     private $largeur = 100;
 
     /**
-     * @ORM\Column(type="string", length=5, nullable=true)
+     * @ORM\Column(type="string", length=20, nullable=true)
      */
     private $padding;
 

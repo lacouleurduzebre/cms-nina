@@ -4563,6 +4563,12 @@ div[id^=page_active_blocs] > div > .collection-empty {
   cursor: pointer;
 }
 
+.togglePadding {
+  display: flex;
+  align-items: center;
+  margin-left: 1rem;
+}
+
 .listeBlocs, .listeBlocsAnnexes {
   flex-direction: column;
   justify-content: center;

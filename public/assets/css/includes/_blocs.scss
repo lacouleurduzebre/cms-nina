@@ -361,6 +361,13 @@ div[id^="page_active_blocs"]{
   cursor: pointer;
 }
 
+  //Padding
+.togglePadding{
+  display: flex;
+  align-items: center;
+  margin-left: 1rem;
+}
+
 //Liste blocs
 .listeBlocs, .listeBlocsAnnexes{
   flex-direction: column;

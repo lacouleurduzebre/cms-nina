@@ -642,6 +642,45 @@ $(document).ready(function() {
         }
     });
 
+        //Padding
+            //Marges identiques <-> Marges différentes
+    $('body').on('click', '.togglePadding', function() {
+        blocPadding = $(this).closest('div').next('.bloc-padding');
+        input = $(this).closest('div').siblings('input');
+        selectTout = $(this).prev('select');
+
+        if(blocPadding.hasClass('hidden')){//Marges identiques -> Marges différentes
+            nouvelleVal = '';
+            blocPadding.find('select').each(function(){
+                nouvelleVal += $(this).val()+' ';
+            });
+            input.val(nouvelleVal);
+            selectTout.attr('disabled', true);
+        }else{//Marges différentes -> Marges identiques
+            input.val(selectTout.val());
+            selectTout.attr('disabled', false);
+        }
+
+        $(this).find('svg').toggleClass('fa-link fa-unlink');
+        blocPadding.toggleClass('hidden');
+    });
+
+            //Changement marges identiques
+    $('body').on('change', 'select[name$="[paddingTout]"]', function() {
+        input = $(this).closest('div').siblings('input');
+        input.val($(this).val());
+    });
+
+            //Changement marges différentes
+    $('body').on('change', 'select[name$="[paddingGauche]"], select[name$="[paddingDroit]"], select[name$="[paddingHaut]"], select[name$="[paddingBas]"]', function() {
+        input = $(this).closest('.bloc-padding').siblings('input');
+        nouvelleVal = '';
+        $(this).closest('.bloc-padding').find('select').each(function(){
+            nouvelleVal += $(this).val()+' ';
+        });
+        input.val(nouvelleVal);
+    });
+
     //Bloc réseaux sociaux : type d'utilisation (liens / partage)
     $('body').on('change', 'input[name$="[typeRS]"]', function(){
         conteneur = $(this).closest('.contenu');
