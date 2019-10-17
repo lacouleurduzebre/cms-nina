@@ -140,6 +140,7 @@ class BlocType extends AbstractType
 
         $builder
             ->add('position', HiddenType::class)
+            ->add('pleineLargeur')
             ->add('largeur', ChoiceType::class, $this->optionsLargeur)
             ->add('padding', ChoiceType::class, $this->optionsPadding)
             ->add('alignementVertical', ChoiceType::class, $this->optionsAlignementVertical)
@@ -204,6 +205,7 @@ class BlocType extends AbstractType
                         'class' => 'select-multiple'
                     ]
                 ))
+                ->add('pleineLargeur')
                 ->add('largeur', ChoiceType::class, $this->optionsLargeur)
                 ->add('padding', ChoiceType::class, $this->optionsPadding)
                 ->add('alignementVertical', ChoiceType::class, $this->optionsAlignementVertical)

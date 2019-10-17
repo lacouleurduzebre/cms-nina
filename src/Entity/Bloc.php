@@ -96,6 +96,11 @@ class Bloc
      */
     private $alignementVerticalEnfants;
 
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $pleineLargeur;
+
     public function __construct()
     {
         $this->blocsEnfants = new ArrayCollection();
@@ -301,6 +306,18 @@ class Bloc
     public function setAlignementVerticalEnfants(?string $alignementVerticalEnfants): self
     {
         $this->alignementVerticalEnfants = $alignementVerticalEnfants;
+
+        return $this;
+    }
+
+    public function getPleineLargeur(): ?bool
+    {
+        return $this->pleineLargeur;
+    }
+
+    public function setPleineLargeur(?bool $pleineLargeur): self
+    {
+        $this->pleineLargeur = $pleineLargeur;
 
         return $this;
     }
