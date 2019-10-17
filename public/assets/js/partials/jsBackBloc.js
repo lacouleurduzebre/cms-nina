@@ -88,21 +88,19 @@ $(document).ready(function() {
     $('form').on('click', '.bloc-formulaire--fermeture', function(){
         conteneurApercu = $(this).closest('.bloc-formulaire').prev('.bloc-apercu');
         idBloc = $(this).closest('.contenu').data('bloc');
-        contenu = [];
+        contenu = '';
         tinyMCE.triggerSave();
         $(this).closest('.bloc-panel').find('input').each(function(){
-            nom = $(this).attr('id').substr($(this).attr('id').indexOf('contenu_') + 8, $(this).attr('id').length - ($(this).attr('id').indexOf('contenu_')));
-            contenu.push({'name': nom, 'value': $(this).val()});
+            if(($(this).attr('type') !== 'checkbox' || $(this).attr('type') !== 'radio') || $(this).attr('checked')){
+                contenu = (contenu === '') ? contenu+$(this).serialize() : contenu+'&'+$(this).serialize();
+            }
         });
         $(this).closest('.bloc-panel').find('textarea').each(function(){
-            nom = $(this).attr('id').substr($(this).attr('id').indexOf('contenu_') + 8, $(this).attr('id').length - ($(this).attr('id').indexOf('contenu_')));
-            contenu.push({'name': nom, 'value': $(this).html()});
+            contenu = (contenu === '') ? contenu+$(this).serialize() : contenu+'&'+$(this).serialize();
         });
         $(this).closest('.bloc-panel').find('select').each(function(){
-            nom = $(this).attr('id').substr($(this).attr('id').indexOf('contenu_') + 8, $(this).attr('id').length - ($(this).attr('id').indexOf('contenu_')));
-            contenu.push({'name': nom, 'value': $(this).val()});
+            contenu = (contenu === '') ? contenu+$(this).serialize() : contenu+'&'+$(this).serialize();
         });
-        // console.log(contenu);
         $.ajax({
             url: '/admin/bloc/apercuBloc',
             method: "post",

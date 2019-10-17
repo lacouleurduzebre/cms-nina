@@ -54,9 +54,8 @@ class BlocController extends AbstractController
             $champs = $request->get('contenu');
 
             $contenu = [];
-            foreach($champs as $champ){
-                $contenu[$champ['name']] = $champ['value'];
-            }
+            parse_str($champs, $contenu);
+            $contenu = $this->getArray($contenu, 'contenu');
 
             $bloc = $this->getDoctrine()->getRepository(Bloc::class)->find($idBloc);
             $bloc->setContenu($contenu);
@@ -156,5 +155,15 @@ class BlocController extends AbstractController
         $blocs['annexe'] = $blocsAnnexes;
 
         return $blocs;
+    }
+
+    public function getArray($array, $index) {
+        $queue = array($array);
+        while (($item = array_shift($queue)) !== null) {
+            if (!is_array($item)) continue;
+            if (isset($item[$index])) return $item[$index];
+            $queue = array_merge($queue, $item);
+        }
+        return null;
     }
 }
