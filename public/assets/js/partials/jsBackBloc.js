@@ -649,4 +649,13 @@ $(document).ready(function() {
             conteneur.find('.rs-input-liens').removeClass('hidden');
         }
     });
+
+    //Toggle mise en page et conteneurs
+    $('#toggleConteneurs').click(function(){
+        $(this).closest('div').toggleClass('conteneurs');
+    });
+
+    $('#toggleMiseEnPage').click(function(){
+        $(this).closest('div').toggleClass('miseEnPage');
+    });
 });

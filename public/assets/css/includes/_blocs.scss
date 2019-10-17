@@ -60,11 +60,25 @@
   }
 }
 
-.form-group.field-bloc{
-  &:not(.bloc-section){
+#toggleConteneurs, #toggleMiseEnPage{
+  border-radius: 2rem;
+  background-color: #B1B1B1;
+}
+
+.miseEnPage{
+  #toggleMiseEnPage{
+    background-color: $color-brand2;
+  }
+  .form-group.field-bloc:not(.bloc-section){
     border: 2px dashed #DADCE0;
   }
-  &.bloc-section{
+}
+
+.conteneurs{
+  #toggleConteneurs{
+    background-color: $color-brand2;
+  }
+  .form-group.field-bloc.bloc-section{
     box-shadow: 0 0 5px #B1B1B1;
   }
 }
