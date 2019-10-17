@@ -65,6 +65,10 @@ class BlocType extends AbstractType
         ],
     ];
 
+    private $optionsPleineLargeur = [
+        'label' => "Afficher ce bloc sur toute la largeur de l'écran s'il n'est pas dans un conteneur"
+    ];
+
     private $optionsLargeur = [
         'label' => 'Largeur par rapport au conteneur',
         'choices' => [
@@ -140,7 +144,7 @@ class BlocType extends AbstractType
 
         $builder
             ->add('position', HiddenType::class)
-            ->add('pleineLargeur')
+            ->add('pleineLargeur', null, $this->optionsPleineLargeur)
             ->add('largeur', ChoiceType::class, $this->optionsLargeur)
             ->add('padding', ChoiceType::class, $this->optionsPadding)
             ->add('alignementVertical', ChoiceType::class, $this->optionsAlignementVertical)
@@ -205,7 +209,7 @@ class BlocType extends AbstractType
                         'class' => 'select-multiple'
                     ]
                 ))
-                ->add('pleineLargeur')
+                ->add('pleineLargeur', null, $this->optionsPleineLargeur)
                 ->add('largeur', ChoiceType::class, $this->optionsLargeur)
                 ->add('padding', ChoiceType::class, $this->optionsPadding)
                 ->add('alignementVertical', ChoiceType::class, $this->optionsAlignementVertical)

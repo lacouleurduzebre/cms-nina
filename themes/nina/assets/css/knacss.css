@@ -3388,6 +3388,18 @@ body.notFull .cookies {
   margin-top: 0.3rem;
 }
 
+main {
+  max-width: 992px;
+}
+main .pleineLargeur {
+  width: 100vw;
+  position: relative;
+  left: 50%;
+  right: 50%;
+  margin-left: -50vw;
+  margin-right: -50vw;
+}
+
 .blocActualites h2, .blocTypeCategorie h2, .blocCategorie h2, .blocRubrique h2 {
   line-height: 1.1;
 }

@@ -37,7 +37,6 @@
 
 .form-group.field-bloc, .form-group.field-bloc_annexe{
   position: relative;
-  padding: 1rem 2rem;
   &.desactive{
     background-color: #DFDFDF;
     opacity: .7 !important;
@@ -71,6 +70,7 @@
   }
   .form-group.field-bloc:not(.bloc-section){
     border: 2px dashed #DADCE0;
+    padding: 1rem 2rem;
   }
 }
 
@@ -80,12 +80,14 @@
   }
   .form-group.field-bloc.bloc-section{
     box-shadow: 0 0 5px #B1B1B1;
+    padding: 1rem 2rem;
   }
 }
 
 .form-group.field-bloc_annexe{
   background-color: #F7F7F7;
   margin: 1rem 0;
+  padding: 1rem 2rem;
   &.focus{
     box-shadow: 0 0 1rem $color-brand2-dark;
   }
@@ -180,6 +182,24 @@ div[id^="page_active_blocs"]{
     }
     label{
       margin-right: 1rem;
+    }
+  }
+}
+
+#page_active_blocs{
+  > .pleineLargeur{
+    width: 100vw;
+    &:before{
+      content: '<-';
+      position: absolute;
+      left: -1.5rem;
+      top: calc(50% - 1.2rem);
+    }
+    &:after{
+      content: '->';
+      position: absolute;
+      right: -1.5rem;
+      top: calc(50% - 1.2rem);
     }
   }
 }
@@ -294,7 +314,6 @@ div[id^="page_active_blocs"]{
 .bloc-optionsAffichage{
   background: #FFF;
   padding: .5rem 1rem 1rem;
-  margin-top: 1rem;
   p{
     align-items: center;
     font-size: 1.8rem;

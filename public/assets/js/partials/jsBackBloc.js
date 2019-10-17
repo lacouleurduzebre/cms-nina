@@ -633,6 +633,15 @@ $(document).ready(function() {
         $(this).closest('.field-bloc').children('div').children('.contenu').children('.blocsEnfants').children('div').css('align-items', $(this).val());
     });
 
+        //Pleine largeur
+    $('body').on('change', 'input[name$="[pleineLargeur]"]', function() {
+        if($(this).prop('checked')){
+            $(this).closest('.field-bloc').addClass('pleineLargeur');
+        }else{
+            $(this).closest('.field-bloc').removeClass('pleineLargeur');
+        }
+    });
+
     //Bloc réseaux sociaux : type d'utilisation (liens / partage)
     $('body').on('change', 'input[name$="[typeRS]"]', function(){
         conteneur = $(this).closest('.contenu');

@@ -4266,7 +4266,6 @@ body.list #flash-messages > * {
 
 .form-group.field-bloc, .form-group.field-bloc_annexe {
   position: relative;
-  padding: 1rem 2rem;
 }
 .form-group.field-bloc.desactive, .form-group.field-bloc_annexe.desactive {
   background-color: #DFDFDF;
@@ -4295,6 +4294,7 @@ body.list #flash-messages > * {
 }
 .miseEnPage .form-group.field-bloc:not(.bloc-section) {
   border: 2px dashed #DADCE0;
+  padding: 1rem 2rem;
 }
 
 .conteneurs #toggleConteneurs {
@@ -4302,11 +4302,13 @@ body.list #flash-messages > * {
 }
 .conteneurs .form-group.field-bloc.bloc-section {
   box-shadow: 0 0 5px #B1B1B1;
+  padding: 1rem 2rem;
 }
 
 .form-group.field-bloc_annexe {
   background-color: #F7F7F7;
   margin: 1rem 0;
+  padding: 1rem 2rem;
 }
 .form-group.field-bloc_annexe.focus {
   box-shadow: 0 0 1rem #056982;
@@ -4390,6 +4392,22 @@ div[id^=page_active_blocs] > div > .collection-empty {
 }
 #page_active_blocs_ > .type label, #page_active_blocsAnnexes > .type label {
   margin-right: 1rem;
+}
+
+#page_active_blocs > .pleineLargeur {
+  width: 100vw;
+}
+#page_active_blocs > .pleineLargeur:before {
+  content: "<-";
+  position: absolute;
+  left: -1.5rem;
+  top: calc(50% - 1.2rem);
+}
+#page_active_blocs > .pleineLargeur:after {
+  content: "->";
+  position: absolute;
+  right: -1.5rem;
+  top: calc(50% - 1.2rem);
 }
 
 #page_active_blocs_ > .type {
@@ -4498,7 +4516,6 @@ div[id^=page_active_blocs] > div > .collection-empty {
 .bloc-optionsAffichage {
   background: #FFF;
   padding: 0.5rem 1rem 1rem;
-  margin-top: 1rem;
 }
 .bloc-optionsAffichage p {
   align-items: center;
