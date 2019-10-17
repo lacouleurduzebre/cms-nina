@@ -194,21 +194,19 @@ div[id^="page_active_blocs"]{
   }
 }
 
-#page_active_blocs{
-  > .pleineLargeur{
-    width: 100vw;
-    &:before{
-      content: '<-';
-      position: absolute;
-      left: -1.5rem;
-      top: calc(50% - 1.2rem);
-    }
-    &:after{
-      content: '->';
-      position: absolute;
-      right: -1.5rem;
-      top: calc(50% - 1.2rem);
-    }
+.miseEnPage #page_active_blocs > .field-bloc.pleineLargeur:not(.bloc-section), .conteneurs #page_active_blocs > .field-bloc.pleineLargeur.bloc-section{
+  width: 100vw;
+  &:before{
+    content: '<-';
+    position: absolute;
+    left: -1.5rem;
+    top: calc(50% - 1.2rem);
+  }
+  &:after{
+    content: '->';
+    position: absolute;
+    right: -1.5rem;
+    top: calc(50% - 1.2rem);
   }
 }
 
@@ -319,7 +317,7 @@ div[id^="page_active_blocs"]{
   }
 }
 
-.field-bloc:hover{
+.miseEnPage .field-bloc:hover{
   > .bloc-barreActions, > #page_active_blocs_ > .type{
     display: flex;
   }

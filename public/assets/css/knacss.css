@@ -4400,16 +4400,16 @@ div[id^=page_active_blocs] > div > .collection-empty {
   margin-right: 1rem;
 }
 
-#page_active_blocs > .pleineLargeur {
+.miseEnPage #page_active_blocs > .field-bloc.pleineLargeur:not(.bloc-section), .conteneurs #page_active_blocs > .field-bloc.pleineLargeur.bloc-section {
   width: 100vw;
 }
-#page_active_blocs > .pleineLargeur:before {
+.miseEnPage #page_active_blocs > .field-bloc.pleineLargeur:not(.bloc-section):before, .conteneurs #page_active_blocs > .field-bloc.pleineLargeur.bloc-section:before {
   content: "<-";
   position: absolute;
   left: -1.5rem;
   top: calc(50% - 1.2rem);
 }
-#page_active_blocs > .pleineLargeur:after {
+.miseEnPage #page_active_blocs > .field-bloc.pleineLargeur:not(.bloc-section):after, .conteneurs #page_active_blocs > .field-bloc.pleineLargeur.bloc-section:after {
   content: "->";
   position: absolute;
   right: -1.5rem;
@@ -4521,7 +4521,7 @@ div[id^=page_active_blocs] > div > .collection-empty {
   top: 3rem;
 }
 
-.field-bloc:hover > .bloc-barreActions, .field-bloc:hover > #page_active_blocs_ > .type {
+.miseEnPage .field-bloc:hover > .bloc-barreActions, .miseEnPage .field-bloc:hover > #page_active_blocs_ > .type {
   display: flex;
 }
 

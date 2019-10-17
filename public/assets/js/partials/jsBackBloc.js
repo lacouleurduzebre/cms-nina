@@ -248,7 +248,7 @@ $(document).ready(function() {
                     var form = data.replace(/bloc_/g, entite+'_blocs_'+count+'_')
                         .replace(/bloc\[/g, entite+'[blocs]['+count+'][');
 
-                    bloc = '<div id="nvBloc'+count+'" class="form-group field-bloc nvBloc w100" data-name="'+count+'">'+form+'</div>';
+                    bloc = '<div id="nvBloc'+count+'" class="form-group field-bloc nvBloc w100 bloc-'+type.toLowerCase()+'" data-name="'+count+'">'+form+'</div>';
                     if($('.listeBlocs').attr('id') === 'apres'){
                         $('#'+entite+'_blocs').append(bloc);
                     }else{
@@ -267,7 +267,7 @@ $(document).ready(function() {
                     var form = data.replace(/bloc_/g, $('.listeBlocs').attr('data-section')+'_'+countBloc+'_')
                         .replace(/bloc\[/g, exp+'['+countBloc+'][');
 
-                    bloc = '<div id="nvBloc'+countBloc+'" class="form-group field-bloc w100" data-name="'+countBloc+'">'+form+'</div>';
+                    bloc = '<div id="nvBloc'+countBloc+'" class="form-group field-bloc w100 bloc-'+type.toLowerCase()+'" data-name="'+countBloc+'">'+form+'</div>';
                     section.append(bloc);
 
                     nvBloc = $('#nvBloc' + countBloc);
