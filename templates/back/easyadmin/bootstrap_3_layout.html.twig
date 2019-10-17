@@ -921,16 +921,18 @@
     </ul>
 
     <div id="page_active_blocs_">
-        <div class="form-group type">
-            <label>{{ form.children.type.vars.label|raw }}</label>
-            {{- form_widget(form.children.type) -}}
-            {% if form.children.contenu is defined %}
-                <div class="bloc-help {% if form_help(form.children.contenu) is empty %}hide{% endif %}">
-                    <i class="fas fa-info-circle"></i>
-                    {{- form_help(form.children.contenu) -}}
-                </div>
-            {% endif %}
-        </div>
+        {% if not blocSection %}
+            <div class="form-group type">
+                <label>{{ form.children.type.vars.label|raw }}</label>
+                {{- form_widget(form.children.type) -}}
+                {% if form.children.contenu is defined %}
+                    <div class="bloc-help {% if form_help(form.children.contenu) is empty %}hide{% endif %}">
+                        <i class="fas fa-info-circle"></i>
+                        {{- form_help(form.children.contenu) -}}
+                    </div>
+                {% endif %}
+            </div>
+        {% endif %}
         {{- form_widget(form.children.position) -}}
         {{- form_widget(form.children.active) -}}
         <div class="bloc-optionsAffichage bloc-panel hidden">
@@ -972,7 +974,7 @@
                     {% if form.children.contenu is defined %}
                         {% if form.children.contenu is empty %}
                             <div>
-                                <p class="pasDeParametre">{{ "Bloc non paramétrable"|trans }}</p>
+                                <p class="pasDeParametre mbn">{{ "Bloc non paramétrable"|trans }}</p>
                             </div>
                         {% endif %}
                         {{- form_label(form.children.contenu) -}}

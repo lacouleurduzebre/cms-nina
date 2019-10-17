@@ -4296,13 +4296,19 @@ body.list #flash-messages > * {
   border: 2px dashed #DADCE0;
   padding: 1rem 2rem;
 }
+.miseEnPage .form-group.field-bloc:not(.bloc-section):hover {
+  border: 2px dashed #a3a5a9;
+}
 
 .conteneurs #toggleConteneurs {
   background-color: #0791B3;
 }
 .conteneurs .form-group.field-bloc.bloc-section {
-  box-shadow: 0 0 5px #B1B1B1;
-  padding: 1rem 2rem;
+  box-shadow: 0 0 5px #939393;
+  padding: 2rem;
+}
+.conteneurs .bloc-section .ajout-bloc {
+  display: block;
 }
 
 .form-group.field-bloc_annexe {
@@ -4321,7 +4327,7 @@ body.list #flash-messages > * {
   margin-left: 0.5rem;
 }
 
-.bloc-section .pasDeParametre {
+.bloc-section .ajout-bloc {
   display: none;
 }
 
@@ -4434,31 +4440,21 @@ div[id^=page_active_blocs] > div > .collection-empty {
 /* Barre d'actions */
 .bloc-barreActions {
   position: absolute;
-  top: 1.5rem;
-  right: 1.5rem;
   z-index: 10;
-  flex-direction: column;
   display: none;
 }
 .bloc-barreActions > * {
-  background-color: #0791B3;
-  border-radius: 50%;
   color: #fff;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
-  border: 2px solid;
+  height: 3rem;
+  width: 3rem;
+  cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 3rem;
-  width: 3rem;
-  margin-bottom: 0.3rem;
-  cursor: pointer;
 }
 .bloc-barreActions + ul {
   display: none;
   position: absolute;
-  right: 2rem;
-  top: 4rem;
   list-style: none;
   margin: 0;
   padding: 2px;
@@ -4489,6 +4485,42 @@ div[id^=page_active_blocs] > div > .collection-empty {
   z-index: 100;
 }
 
+.field-bloc:not(.bloc-section) > .bloc-barreActions {
+  top: 0.5rem;
+  right: 0.5rem;
+  flex-direction: column;
+}
+.field-bloc:not(.bloc-section) > .bloc-barreActions > * {
+  background-color: #0791B3;
+  border-radius: 50%;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
+  border: 2px solid;
+  margin-bottom: 0.3rem;
+}
+.field-bloc:not(.bloc-section) > .bloc-barreActions + ul {
+  right: 4.5rem;
+  top: 8rem;
+}
+
+.field-bloc.bloc-section > .bloc-barreActions {
+  top: 0;
+  left: 0;
+  background-color: #0791B3;
+  border-radius: 0 0 2rem 0;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
+}
+.conteneurs .field-bloc.bloc-section > .bloc-barreActions {
+  display: flex;
+}
+.field-bloc.bloc-section > .bloc-barreActions .optionsAffichage {
+  border-left: 1px solid;
+  border-right: 1px solid;
+}
+.field-bloc.bloc-section > .bloc-barreActions + ul {
+  left: 1rem;
+  top: 3rem;
+}
+
 .field-bloc:hover > .bloc-barreActions, .field-bloc:hover > #page_active_blocs_ > .type {
   display: flex;
 }
@@ -4515,7 +4547,6 @@ div[id^=page_active_blocs] > div > .collection-empty {
 
 .bloc-optionsAffichage {
   background: #FFF;
-  padding: 0.5rem 1rem 1rem;
 }
 .bloc-optionsAffichage p {
   align-items: center;
