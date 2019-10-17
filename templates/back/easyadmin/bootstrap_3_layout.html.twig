@@ -889,16 +889,12 @@
 {%- endblock bloc_row %}
 
 {% block bloc_widget %}
+    {% set blocSection = (form.children.type.vars.value == 'Section') %}
     {% set _field_type = easyadmin.field.fieldType|default('default') %}
     <div class="bloc-barreActions">
-        {#<div class="toggleBloc">
-            {% if form.children.contenu.vars.attr['class'] is defined %}
-                <i class="fas fa-chevron-circle-down"></i>
-            {% else %}
-                <i class="fas fa-chevron-circle-up"></i>
-            {% endif %}
-        </div>#}
-        <div class="bloc-edit"><i class="fas fa-pen"></i></div>
+        {% if not blocSection %}
+            <div class="bloc-edit"><i class="fas fa-pen"></i></div>
+        {% endif %}
         <div class="drag"><i class="fas fa-arrows-alt "></i></div>
         <div class="optionsAffichage"><i class="fas fa-columns"></i></div>
         <div class="bloc-menu">
@@ -957,13 +953,15 @@
                 {{ form_row(form.children.padding) }}
             </div>
         </div>
-        {% if form.vars.value is not empty and form.vars.value.type != 'Section' %}
+        {% if not blocSection %}
             <div class="bloc-apercu">
-                {% include ['/Blocs/'~form.vars.value.type~'/bloc-'~form.vars.value.id~'.html.twig', '/Blocs/'~form.vars.value.type~'/'~form.vars.value.type~'.html.twig'] with{'bloc': form.vars.value} only %}
+                {% if form.vars.value is not empty %}
+                    {% include ['/Blocs/'~form.children.type.vars.value~'/bloc-'~form.vars.value.id~'.html.twig', '/Blocs/'~form.children.type.vars.value~'/'~form.children.type.vars.value~'.html.twig'] with{'bloc': form.vars.value} only %}
+                {% endif %}
             </div>
         {% endif %}
-        {% if form.vars.value is not empty and form.vars.value.type != 'Section' %}
-            <div class="form-group contenu bloc-formulaire bloc-panel hidden" {% if form.vars.value is not empty %}data-bloc="{{ form.vars.value.id }}"{% endif %}>
+        {% if not blocSection %}
+            <div class="form-group contenu bloc-formulaire bloc-panel hidden" {% if form.vars.value is not empty %}data-bloc="{{ form.vars.value.id }}"{% endif %} data-type="{{ form.children.type.vars.value|default('') }}">
                 <div class="bloc-panel--header">
                     <i class="fas fa-pen"></i>
                     <span>{{ "Modification du bloc"|trans }}</span>
@@ -982,7 +980,7 @@
                 </div>
             </div>
         {% else %}
-            <div class="form-group contenu"  {% if form.vars.value is not empty %}data-bloc="{{ form.vars.value.id }}"{% endif %}>
+            <div class="form-group contenu" {% if form.vars.value is not empty %}data-bloc="{{ form.vars.value.id }}"{% endif %} >
                 {% if form.children.blocsEnfants is defined %}
                     {{- form_row(form.children.blocsEnfants, { 'attr': { 'style': "align-items: "~form.vars.value.alignementVerticalEnfants|default('stretch')~"; justify-content: "~form.vars.value.alignementHorizontalEnfants|default('flex-start')~";" } }) -}}
                 {% endif %}

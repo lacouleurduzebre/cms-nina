@@ -85,9 +85,11 @@ $(document).ready(function() {
         $(this).closest('.bloc-panel').addClass('hidden');
     });
 
+    //Mise à jour de l'aperçu du bloc
     $('form').on('click', '.bloc-formulaire--fermeture', function(){
         conteneurApercu = $(this).closest('.bloc-formulaire').prev('.bloc-apercu');
         idBloc = $(this).closest('.contenu').data('bloc');
+        typeBloc = $(this).closest('.bloc-formulaire').data('type');
         contenu = '';
         tinyMCE.triggerSave();
         $(this).closest('.bloc-panel').find('input').each(function(){
@@ -104,7 +106,7 @@ $(document).ready(function() {
         $.ajax({
             url: '/admin/bloc/apercuBloc',
             method: "post",
-            data: {contenu: contenu, idBloc: idBloc}
+            data: {contenu: contenu, idBloc: idBloc, typeBloc: typeBloc}
         })
             .done(function(data){
                 conteneurApercu.html(data);

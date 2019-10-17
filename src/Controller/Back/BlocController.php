@@ -51,13 +51,20 @@ class BlocController extends AbstractController
     public function apercuBlocAction(Request $request, Environment $twig){
         if($request->isXmlHttpRequest()){
             $idBloc = $request->get('idBloc');
+            $typeBloc = $request->get('typeBloc');
             $champs = $request->get('contenu');
 
             $contenu = [];
             parse_str($champs, $contenu);
             $contenu = $this->getArray($contenu, 'contenu');
 
-            $bloc = $this->getDoctrine()->getRepository(Bloc::class)->find($idBloc);
+            if(isset($idBloc)){
+                $bloc = $this->getDoctrine()->getRepository(Bloc::class)->find($idBloc);
+            }else{
+                $bloc = new Bloc();
+                $bloc->setType($typeBloc);
+            }
+
             $bloc->setContenu($contenu);
 
             if($twig->getLoader()->exists('/Blocs/'.$bloc->getType().'/bloc-'.$bloc->getId().'.html.twig')){
