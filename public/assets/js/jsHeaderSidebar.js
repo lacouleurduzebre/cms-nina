@@ -19,7 +19,7 @@ $(document).ready(function(){
             return false;
         }
         if($('body').hasClass('front')){
-            idPage = $('main.page').attr('id');
+            idPage = $('main.page').attr('id').substr(4, $('main').attr('id').length);
             if($('body').hasClass('accueil')){
                 $('.pageAccueil-page').addClass('page-active');
                 return;
@@ -123,7 +123,8 @@ $(document).ready(function(){
             if($(this).find('.surbrillance').length > 0){
                 $(this).toggleClass('surbrillanceOff');
             }else{
-                $(this).append('<div class="surbrillance"><a href="/admin/?action=edit&entity=Page_Active&id='+$('main').attr('id')+'&blocActif='+$(this).data('bloc')+'"><i class="fas fa-pencil-alt"></i></a></div>');
+                idPage = $('main').attr('id').substr(4, $('main').attr('id').length);
+                $(this).append('<div class="surbrillance"><a href="/admin/?action=edit&entity=Page_Active&id='+idPage+'&blocActif='+$(this).data('bloc')+'"><i class="fas fa-pencil-alt"></i></a></div>');
             }
         });
 
