@@ -16,7 +16,7 @@
 }
 
 /* Bouton pour ajouter un bloc */
-.ajout-bloc, .ajout-blocAnnexe{
+.ajout-blocAnnexe{
   background-color: $color-brand2;
   color: $white;
   text-decoration: none;
@@ -32,6 +32,33 @@
     background-color: $color-brand2;
     color: $white;
     text-decoration: none;
+  }
+}
+
+.ajout-bloc{
+  background-color: $white;
+  color: $white;
+  text-decoration: none;
+  border-radius: 50%;
+  width: 3rem;
+  height: 3rem;
+  margin: auto;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid;
+  padding: 0;
+  &:hover{
+    color: $white;
+    background-color: $white;
+    svg{
+      color: lighten($color-brand2, 5);
+    }
+  }
+  svg{
+    color: $color-brand2;
+    font-size: 3rem;
   }
 }
 
@@ -87,7 +114,7 @@
   }
   .bloc-section{
     .ajout-bloc{
-      display: block;
+      display: flex;
     }
   }
 }

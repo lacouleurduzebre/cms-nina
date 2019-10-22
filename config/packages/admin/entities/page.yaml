@@ -53,7 +53,7 @@ easy_admin:
                     - { type: 'tab', label: 'Contenus' }
                     - { property: 'titre', type: 'text', type_options: { help: 'Utilisé en tant que balise H1' } }
                     - { property: 'titreMenu', label: 'Titre dans les menus' }
-                    - { property: 'blocs', type: 'collection', type_options: { entry_type: 'App\Form\Type\BlocType', by_reference: false } }
+                    - { property: 'blocs', type: 'collection', type_options: { entry_type: 'App\Form\Type\BlocType', by_reference: false, label: false } }
                     - { type: 'tab', label: 'Référencement' }
                     - { property: 'SEO', type: 'App\Form\Type\SEOPageType', type_options: { by_reference: true, label: false } }
                     - { type: 'tab', label: 'Affichage' }

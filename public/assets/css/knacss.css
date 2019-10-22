@@ -3491,7 +3491,7 @@ ul.nav-tabs li a {
 }
 
 .field-collection-action {
-  margin-top: 1rem;
+  margin: 1rem 0;
   font-size: 1.9rem;
 }
 .field-collection-action .text-primary {
@@ -4245,7 +4245,7 @@ body.list #flash-messages > * {
 }
 
 /* Bouton pour ajouter un bloc */
-.ajout-bloc, .ajout-blocAnnexe {
+.ajout-blocAnnexe {
   background-color: #0791B3;
   color: #fff;
   text-decoration: none;
@@ -4253,15 +4253,42 @@ body.list #flash-messages > * {
   padding: 0.7rem 1.5rem;
   border-radius: 0.5rem;
 }
-.ajout-bloc:hover, .ajout-blocAnnexe:hover {
+.ajout-blocAnnexe:hover {
   color: #fff;
   background-color: #056982;
   text-decoration: none;
 }
-.ajout-bloc:active, .ajout-bloc:focus, .ajout-blocAnnexe:active, .ajout-blocAnnexe:focus {
+.ajout-blocAnnexe:active, .ajout-blocAnnexe:focus {
   background-color: #0791B3;
   color: #fff;
   text-decoration: none;
+}
+
+.ajout-bloc {
+  background-color: #fff;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 50%;
+  width: 3rem;
+  height: 3rem;
+  margin: auto;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid;
+  padding: 0;
+}
+.ajout-bloc:hover {
+  color: #fff;
+  background-color: #fff;
+}
+.ajout-bloc:hover svg {
+  color: #08a5cc;
+}
+.ajout-bloc svg {
+  color: #0791B3;
+  font-size: 3rem;
 }
 
 .form-group.field-bloc, .form-group.field-bloc_annexe {
@@ -4308,7 +4335,7 @@ body.list #flash-messages > * {
   padding: 2rem;
 }
 .conteneurs .bloc-section .ajout-bloc {
-  display: block;
+  display: flex;
 }
 
 .form-group.field-bloc_annexe {

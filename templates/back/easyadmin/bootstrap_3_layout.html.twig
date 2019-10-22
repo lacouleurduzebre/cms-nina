@@ -353,12 +353,17 @@
 {% block collection_row %}
     {% if 'blocsEnfants' in form.vars.unique_block_prefix %}
         <div class="form-group field-collection blocsEnfants">
+            <div class="text-right field-collection-action">
+                <button href="#" onclick="$(function (){if (event.preventDefault) event.preventDefault(); else event.returnValue = false; $('.listeBlocs').attr('id', 'section').attr('data-section', '{{ form.vars.id }}').attr('data-position', 'avant').addClass('actif')})" class="ajout-bloc">
+                    <i class="fas fa-plus-circle"></i>
+                </button>
+            </div>
+
             {{- form_widget(form) -}}
 
             <div class="text-right field-collection-action">
-                <button href="#" onclick="$(function (){if (event.preventDefault) event.preventDefault(); else event.returnValue = false; $('.listeBlocs').attr('id', 'section').attr('data-section', '{{ form.vars.id }}').addClass('actif')})" class="ajout-bloc">
+                <button href="#" onclick="$(function (){if (event.preventDefault) event.preventDefault(); else event.returnValue = false; $('.listeBlocs').attr('id', 'section').attr('data-section', '{{ form.vars.id }}').attr('data-position', 'apres').addClass('actif')})" class="ajout-bloc">
                     <i class="fas fa-plus-circle"></i>
-                    {{ 'ajouter un bloc'|trans({}, 'EasyAdminBundle') }}
                 </button>
             </div>
 
@@ -788,19 +793,17 @@
         <a id="toggleMiseEnPage" class="btn"><i class="fas fa-eye mrs"></i>{{ "Mise en page"|trans }}</a>
         <a id="toggleConteneurs" class="btn"><i class="fas fa-eye mrs"></i>{{ "Conteneurs"|trans }}</a>
 
-        <div class="text-right field-collection-action mbs">
+        <div class="txtcenter field-collection-action mbs">
             <a href="#" onclick="$(function (){if (event.preventDefault) event.preventDefault(); else event.returnValue = false; $('.listeBlocs').attr('id', 'avant').addClass('actif')})" class="ajout-bloc">
                 <i class="fas fa-plus-circle"></i>
-                {{ 'ajouter un bloc'|trans({}, 'EasyAdminBundle') }}
             </a>
         </div>
 
         {{- form_widget(form) -}}
 
-        <div class="text-right field-collection-action">
+        <div class="txtcenter field-collection-action">
             <a href="#" onclick="$(function (){if (event.preventDefault) event.preventDefault(); else event.returnValue = false; $('.listeBlocs').attr('id', 'apres').addClass('actif')})" class="ajout-bloc">
                 <i class="fas fa-plus-circle"></i>
-                {{ 'ajouter un bloc'|trans({}, 'EasyAdminBundle') }}
             </a>
         </div>
 

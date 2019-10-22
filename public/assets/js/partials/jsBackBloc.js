@@ -268,7 +268,12 @@ $(document).ready(function() {
                         .replace(/bloc\[/g, exp+'['+countBloc+'][');
 
                     bloc = '<div id="nvBloc'+countBloc+'" class="form-group field-bloc w100 bloc-'+type.toLowerCase()+'" data-name="'+countBloc+'">'+form+'</div>';
-                    section.append(bloc);
+
+                    if($('.listeBlocs').attr('data-position') === 'avant'){
+                        section.prepend(bloc);
+                    }else{
+                        section.append(bloc);
+                    }
 
                     nvBloc = $('#nvBloc' + countBloc);
                 }
