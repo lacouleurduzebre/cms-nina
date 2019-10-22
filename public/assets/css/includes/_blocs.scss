@@ -151,9 +151,6 @@ div[id^="page_active_blocs"]{
   .field-collection-action, .field-collection-item-action{
     //display: none;
   }
-  svg{
-    transition: .3s;
-  }
   label svg{
     margin-left: 1rem;
   }
@@ -268,6 +265,10 @@ div[id^="page_active_blocs"]{
     display: flex;
     align-items: center;
     justify-content: center;
+    > span{
+      display: none;
+      font-size: 1.6rem;
+    }
   }
   + ul{
     display: none;
@@ -311,14 +312,25 @@ div[id^="page_active_blocs"]{
   flex-direction: column;
   > *{
     background-color: $color-brand2;
-    border-radius: 50%;
+    border-radius: 2rem;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
     border: 2px solid;
     margin-bottom: .3rem;
+    margin-left: auto;
+    &:hover{
+      width: auto;
+      padding: 0 1rem;
+      > svg{
+        margin-right: .5rem;
+      }
+      > span{
+        display: inline;
+      }
+    }
   }
   + ul{
     right: 4.5rem;
-    top: 8rem;
+    top: 9.7rem;
   }
 }
 
@@ -361,10 +373,6 @@ div[id^="page_active_blocs"]{
 
 .bloc-menu{
   position: relative;
-  span{
-    font-size: 2rem;
-    padding: 0 1rem;
-  }
 }
 
 .bloc-optionsAffichage{

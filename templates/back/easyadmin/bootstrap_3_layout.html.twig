@@ -898,17 +898,15 @@
     {# BARRE D'ACTIONS #}
     <div class="bloc-barreActions">
         {% if not blocSection %}
-            <div class="bloc-edit"><i class="fas fa-pen"></i></div>
+            <div class="bloc-edit"><i class="fas fa-pen"></i><span>{{ "Modifier"|trans~' '~form.children.type.vars.value }}</span></div>
         {% endif %}
-        <div class="drag"><i class="fas fa-arrows-alt "></i></div>
-        <div class="optionsAffichage"><i class="fas fa-columns"></i></div>
-        <div class="bloc-menu">
-            <span><i class="fas fa-ellipsis-v"></i></span>
-        </div>
+        <div class="drag"><i class="fas fa-arrows-alt "></i><span>{{ "Déplacer"|trans }}</span></div>
+        <div class="optionsAffichage"><i class="fas fa-columns"></i><span>{{ "Mise en page"|trans }}</span></div>
+        <div class="bloc-menu"><i class="fas fa-ellipsis-v"></i><span>{{ "Options du bloc"|trans }}</span></div>
     </div>
     <ul>
-        <li><a href="#" class="monterBloc"><i  class="fas fa-arrow-alt-circle-up "></i>{{ "Monter le bloc"|trans }}</a></li>
-        <li><a href="#" class="descendreBloc"><i class="fas fa-arrow-alt-circle-down "></i>{{ "Descendre le bloc"|trans }}</a></li>
+        {#<li><a href="#" class="monterBloc"><i  class="fas fa-arrow-alt-circle-up "></i>{{ "Monter le bloc"|trans }}</a></li>#}
+        {#<li><a href="#" class="descendreBloc"><i class="fas fa-arrow-alt-circle-down "></i>{{ "Descendre le bloc"|trans }}</a></li>#}
         <li>
             <a href="#" class="supprimerBloc"><i class="fas fa-trash"></i>{{ "Supprimer le bloc"|trans }}</a>
             <div class="suppressionBloc">
@@ -948,7 +946,7 @@
             <div class="bloc-panel--header">
                 <i class="fas fa-columns"></i>
                 <span>{{ "Mise en page du bloc"|trans }}</span>
-                <i class="bloc-panel--fermeture right fas fa-times"></i>
+                <i class="bloc-panel--fermeture right fas fa-check"></i>
             </div>
             <div class="bloc-panel--body">
                 {% if form.children.classes.vars.choices is defined and form.children.classes.vars.choices is not empty %}
@@ -994,7 +992,7 @@
                 <div class="bloc-panel--header">
                     <i class="fas fa-pen"></i>
                     <span>{{ "Modification du bloc"|trans }}</span>
-                    <i class="bloc-formulaire--fermeture bloc-panel--fermeture right fas fa-times"></i>
+                    <i class="bloc-formulaire--fermeture bloc-panel--fermeture right fas fa-check"></i>
                 </div>
                 <div class="bloc-panel--body">
                     {% if form.children.contenu is defined %}

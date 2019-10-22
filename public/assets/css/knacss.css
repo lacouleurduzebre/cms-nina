@@ -4363,9 +4363,6 @@ body.list #flash-messages > * {
   flex-wrap: wrap;
 }
 
-div[id^=page_active_blocs] svg {
-  transition: 0.3s;
-}
 div[id^=page_active_blocs] label svg {
   margin-left: 1rem;
 }
@@ -4476,6 +4473,10 @@ div[id^=page_active_blocs] > div > .collection-empty {
   align-items: center;
   justify-content: center;
 }
+.bloc-barreActions > * > span {
+  display: none;
+  font-size: 1.6rem;
+}
 .bloc-barreActions + ul {
   display: none;
   position: absolute;
@@ -4516,14 +4517,25 @@ div[id^=page_active_blocs] > div > .collection-empty {
 }
 .field-bloc:not(.bloc-section) > .bloc-barreActions > * {
   background-color: #0791B3;
-  border-radius: 50%;
+  border-radius: 2rem;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
   border: 2px solid;
   margin-bottom: 0.3rem;
+  margin-left: auto;
+}
+.field-bloc:not(.bloc-section) > .bloc-barreActions > *:hover {
+  width: auto;
+  padding: 0 1rem;
+}
+.field-bloc:not(.bloc-section) > .bloc-barreActions > *:hover > svg {
+  margin-right: 0.5rem;
+}
+.field-bloc:not(.bloc-section) > .bloc-barreActions > *:hover > span {
+  display: inline;
 }
 .field-bloc:not(.bloc-section) > .bloc-barreActions + ul {
   right: 4.5rem;
-  top: 8rem;
+  top: 9.7rem;
 }
 
 .field-bloc.bloc-section > .bloc-barreActions {
@@ -4563,10 +4575,6 @@ div[id^=page_active_blocs] > div > .collection-empty {
 
 .bloc-menu {
   position: relative;
-}
-.bloc-menu span {
-  font-size: 2rem;
-  padding: 0 1rem;
 }
 
 .bloc-optionsAffichage {
