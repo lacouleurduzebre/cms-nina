@@ -906,7 +906,6 @@
     <ul>
         <li><a href="#" class="monterBloc"><i  class="fas fa-arrow-alt-circle-up "></i>{{ "Monter le bloc"|trans }}</a></li>
         <li><a href="#" class="descendreBloc"><i class="fas fa-arrow-alt-circle-down "></i>{{ "Descendre le bloc"|trans }}</a></li>
-        {#<li><a href="#" class="optionsAffichage"><i class="fas fa-palette "></i>{{ "Options d'affichage"|trans }}</a></li>#}
         <li>
             <a href="#" class="supprimerBloc"><i class="fas fa-trash"></i>{{ "Supprimer le bloc"|trans }}</a>
             <div class="suppressionBloc">
@@ -928,7 +927,6 @@
         {% if not blocSection %}
             <div class="form-group type">
                 <label>{{ form.children.type.vars.label|raw }}</label>
-                {{- form_widget(form.children.type) -}}
                 {% if form.children.contenu is defined %}
                     <div class="bloc-help {% if form_help(form.children.contenu) is empty %}hide{% endif %}">
                         <i class="fas fa-info-circle"></i>
@@ -937,6 +935,7 @@
                 {% endif %}
             </div>
         {% endif %}
+        {{- form_widget(form.children.type) -}}
         {{- form_widget(form.children.position) -}}
         {{- form_widget(form.children.active) -}}
         {# TYPE DE BLOC #}
@@ -954,7 +953,7 @@
                 {% endif %}
                 {{ form_row(form.children.alignementVertical) }}
                 {{ form_row(form.children.alignementHorizontal) }}
-                {% if form.vars.value is not empty and form.vars.value.type == 'Section' %}
+                {% if blocSection %}
                     {{ form_row(form.children.alignementVerticalEnfants) }}
                     {{ form_row(form.children.alignementHorizontalEnfants) }}
                 {% endif %}
@@ -1008,9 +1007,7 @@
             </div>
         {% else %}
             <div class="form-group contenu" {% if form.vars.value is not empty %}data-bloc="{{ form.vars.value.id }}"{% endif %} >
-                {% if form.children.blocsEnfants is defined %}
-                    {{- form_row(form.children.blocsEnfants, { 'attr': { 'style': "align-items: "~form.vars.value.alignementVerticalEnfants|default('stretch')~"; justify-content: "~form.vars.value.alignementHorizontalEnfants|default('flex-start')~";" } }) -}}
-                {% endif %}
+                {{- form_row(form.children.blocsEnfants, { 'attr': { 'style': "align-items: "~form.vars.value.alignementVerticalEnfants|default('stretch')~"; justify-content: "~form.vars.value.alignementHorizontalEnfants|default('flex-start')~";" } }) -}}
             </div>
         {% endif %}
         {# FORMULAIRE #}
