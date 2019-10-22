@@ -80,13 +80,13 @@ $(document).ready(function() {
         $('.suppressionBloc').hide();
     });
 
-    //Fermeture
-    $('form').on('click', '.bloc-panel--fermeture', function(){
+    //Sauvegarde - Fermeture
+    $('form').on('click', '.bloc-panel--sauvegarde', function(){
         $(this).closest('.bloc-panel').addClass('hidden');
     });
 
     //Mise à jour de l'aperçu du bloc
-    $('form').on('click', '.bloc-formulaire--fermeture', function(){
+    $('form').on('click', '.bloc-formulaire--sauvegarde', function(){
         conteneurApercu = $(this).closest('.bloc-formulaire').prev('.bloc-apercu');
         idBloc = $(this).closest('.contenu').data('bloc');
         typeBloc = $(this).closest('.bloc-formulaire').data('type');

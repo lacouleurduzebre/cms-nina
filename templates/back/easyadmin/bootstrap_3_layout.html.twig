@@ -946,7 +946,8 @@
             <div class="bloc-panel--header">
                 <i class="fas fa-columns"></i>
                 <span>{{ "Mise en page du bloc"|trans }}</span>
-                <i class="bloc-panel--fermeture right fas fa-check"></i>
+                <i class="bloc-panel--sauvegarde right fas fa-check"></i>
+                <i class="bloc-panel--annumation mls fas fa-times"></i>
             </div>
             <div class="bloc-panel--body">
                 {% if form.children.classes.vars.choices is defined and form.children.classes.vars.choices is not empty %}
@@ -992,7 +993,8 @@
                 <div class="bloc-panel--header">
                     <i class="fas fa-pen"></i>
                     <span>{{ "Modification du bloc"|trans }}</span>
-                    <i class="bloc-formulaire--fermeture bloc-panel--fermeture right fas fa-check"></i>
+                    <i class="bloc-formulaire--sauvegarde bloc-panel--sauvegarde right fas fa-check"></i>
+                    <i class="bloc-formulaire--annulation bloc-panel--annulation mls fas fa-times"></i>
                 </div>
                 <div class="bloc-panel--body">
                     {% if form.children.contenu is defined %}
