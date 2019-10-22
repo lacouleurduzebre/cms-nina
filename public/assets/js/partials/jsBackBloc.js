@@ -82,7 +82,31 @@ $(document).ready(function() {
 
     //Sauvegarde - Fermeture
     $('form').on('click', '.bloc-panel--sauvegarde', function(){
-        $(this).closest('.bloc-panel').addClass('hidden');
+        formulaire = $(this).closest('.bloc-panel');
+        //Fermeture du formulaire
+        formulaire.addClass('hidden');
+
+        //Enregistrement des valeurs du formulaire
+        formulaire.find('input').each(function(){
+            if($(this).attr('type') !== 'checkbox' && $(this).attr('type') !== 'radio'){//Text, color, mail,...
+                $(this).attr('value', $(this).val());
+            }else{//Radio ou checkbox
+                console.log($(this).prop('checked'));
+                $(this).attr('checked', $(this).prop('checked'));
+            }
+        });
+
+        tinyMCE.triggerSave();
+        formulaire.find('textarea').each(function(){
+            $(this).html($(this).val());
+        });
+
+        formulaire.find('select option').each(function(){
+            $(this).attr('selected', $(this).prop('selected'));
+        });
+
+        //Suppression du prototype
+        $(this).closest('.field-bloc').children('.bloc-barreActions').children('.prototype').remove();
     });
 
     //Mise à jour de l'aperçu du bloc
@@ -113,6 +137,19 @@ $(document).ready(function() {
             })
             .fail(function(){
             });
+    });
+
+    //Annulation -> restauration des valeurs
+    $('form').on('click', '.bloc-panel--annulation', function(){
+        formulairePrecedent = $(this).closest('.field-bloc').children('.bloc-barreActions').children('.prototype');
+
+        $(this).closest('.bloc-panel').addClass('hidden').html(formulairePrecedent.html());
+
+        formulairePrecedent.remove();
+
+        tinymce.remove();
+        tinymce.init(optionsTinyMCEParagraphe);
+        tinymce.init(optionsTinyMCE);
     });
 
     /* Monter */
@@ -151,22 +188,29 @@ $(document).ready(function() {
         });
     });
 
+    //Formulaire temporaire
+    formulaireTemporaire = function(bouton, classFormulaire){
+        bloc = bouton.closest('.field-bloc');
+
+        formulaire = bloc.children('div').children('.'+classFormulaire);
+
+        formulaire.removeClass('hidden');
+
+        bloc.children('.bloc-barreActions').append('<div class="prototype hidden">'+formulaire.html()+'</div>');
+    };
+
     /* Formulaire */
     $('form').on('click', '.bloc-edit', function(e){
         e.preventDefault();
 
-        bloc = $(this).closest('.field-bloc');
-
-        bloc.children('div').children('.bloc-formulaire').toggleClass('hidden');
+        formulaireTemporaire($(this), 'bloc-formulaire');
     });
 
     /* Options d'affichage */
     $('form').on('click', '.optionsAffichage', function(e){
         e.preventDefault();
 
-        bloc = $(this).closest('.field-bloc');
-
-        bloc.children('div').children('.bloc-optionsAffichage').toggleClass('hidden');
+        formulaireTemporaire($(this), 'bloc-optionsAffichage');
     });
 
     /* Supprimer */
