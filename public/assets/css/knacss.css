@@ -3385,15 +3385,6 @@ body.new #main, body.edit #main {
   padding-bottom: 2rem;
   flex: 1;
 }
-body.new h1, body.edit h1 {
-  width: calc(100% - 28rem);
-  padding-right: 30rem;
-}
-@media (max-width: 767px) {
-  body.new h1, body.edit h1 {
-    width: calc(100% - 16rem);
-  }
-}
 body.new .tab-content, body.new .form-actions, body.edit .tab-content, body.edit .form-actions {
   padding: 0 2rem;
   margin: 0 -2rem;
@@ -3509,6 +3500,13 @@ body.edit .content-header, body.new .content-header {
   top: 3.8rem;
   padding: 1.2rem 0;
   z-index: 100;
+  display: flex;
+  align-items: center;
+}
+body.edit .content-header .title + span, body.new .content-header .title + span {
+  color: #fff;
+  cursor: pointer;
+  font-size: 2rem;
 }
 body.edit.gris .content-header, body.new.gris .content-header {
   background-color: #75726B;
@@ -3886,7 +3884,7 @@ body.list #flash-messages > * {
   left: 0;
   height: 100vh;
   width: 100vw;
-  background: rgba(255, 255, 255, 0.6);
+  background-color: rgba(164, 161, 161, 0.8);
   z-index: 1000;
   align-items: center;
   justify-content: center;
@@ -3908,10 +3906,22 @@ body.list #flash-messages > * {
   align-items: center;
   transition: 0.3s;
 }
+.modal-content .modal-close {
+  position: absolute;
+  color: #0791B3;
+  font-size: 2rem;
+  width: auto;
+  height: auto;
+}
 
+.modal-content {
+  position: relative;
+}
 .modal-content.fond {
   background-color: #fff;
   padding: 2rem;
+  border: none;
+  box-shadow: 0 19px 38px rgba(0, 0, 0, 0.3), 0 15px 12px rgba(0, 0, 0, 0.22);
 }
 
 #modal-delete {
@@ -3964,6 +3974,11 @@ body.list #flash-messages > * {
   width: 100%;
   margin-top: 2rem;
   text-align: center;
+}
+
+#modifTitre input[type=text] {
+  background: rgba(238, 238, 238, 0.34);
+  min-width: 50rem;
 }
 
 .messages {
@@ -4950,9 +4965,11 @@ body.edit .bloc-reseauxsociaux input[type=text], body.new .bloc-reseauxsociaux i
 .groupeDeChamps .box-header {
   color: #0791B3;
 }
-.groupeDeChamps .box-header h3 {
+.groupeDeChamps .box-header h2 {
   display: flex;
   align-items: center;
+  font-size: 2.5rem;
+  line-height: 1;
 }
 .groupeDeChamps .box-header svg {
   font-size: 2rem;

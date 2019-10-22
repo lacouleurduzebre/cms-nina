@@ -51,8 +51,10 @@ easy_admin:
                     - { name: 'list', label: 'Retour à la liste des pages', title: 'Retour à la liste des pages', icon: 'arrow-left', css_class: '' }
                 fields:
                     - { type: 'tab', label: 'Contenus' }
-                    - { property: 'titre', type: 'text', type_options: { help: 'Utilisé en tant que balise H1' } }
-                    - { property: 'titreMenu', label: 'Titre dans les menus' }
+                    - { type: 'group', label: 'Titre', css_id: 'modifTitre', css_class: 'modal-box' }
+                    - { property: 'titre', type: 'text', label: 'Titre de la page', type_options: { help: 'Utilisé en tant que balise H1' } }
+                    - { property: 'titreMenu', label: 'Titre dans le menu' }
+                    - { type: 'group', label: '' }
                     - { property: 'blocs', type: 'collection', type_options: { entry_type: 'App\Form\Type\BlocType', by_reference: false, label: false } }
                     - { type: 'tab', label: 'Référencement' }
                     - { property: 'SEO', type: 'App\Form\Type\SEOPageType', type_options: { by_reference: true, label: false } }

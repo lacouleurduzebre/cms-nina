@@ -591,16 +591,24 @@
 
 {% block easyadmin_widget_groups %}
     {% for group_name, group_config in easyadmin_form_groups if not group_config.form_tab or group_config.form_tab == tab_name %}
-        <div class="field-group col-xs-12 {{ group_config.css_class|default('') }}">
-            <div class="box box-default {% if group_config.label|default(false) or group_config.icon|default(false) %}groupeDeChamps{% endif %}">
+        <div id="{{ group_config.css_id|default('') }}" class="field-group {{ group_config.css_class|default('') }}">
+
+            <div class="box box-default {% if group_config.label|default(false) or group_config.icon|default(false) %}groupeDeChamps{% endif %} {% if 'modal-box' in group_config.css_class %}modal-content fond{% endif %}">
+                {# Fermeture modal-dialog #}
+                {% if 'modal-box' in group_config.css_class %}
+                    <div class="modal-close">
+                        <i class="fas fa-times"></i>
+                    </div>
+                {% endif %}
+
                 {% if group_config.label|default(false) or group_config.icon|default(false) %}
                     <div class="box-header with-border">
-                        <h3 class="box-title">
+                        <h2 class="box-title">
                             {% if group_config.icon|default(false) %}
                                 <i class="fa fa-{{ group_config.icon }}"></i>
                             {% endif %}
                             {{ group_config.label|trans(domain = _translation_domain)|raw }}
-                        </h3>
+                        </h2>
                     </div>
                 {% endif %}
 
@@ -612,7 +620,7 @@
                     <div class="row">
                         {% for field in form if 'hidden' not in field.vars.block_prefixes and field.vars.easyadmin.form_group == group_name %}
                             {% if not field.vars.easyadmin.form_tab or field.vars.easyadmin.form_tab == tab_name %}
-                                <div class="col-xs-12 {{ field.vars.easyadmin.field.css_class|default('') }}">
+                                <div class="{{ field.vars.easyadmin.field.css_class|default('') }}">
                                     {{ form_row(field) }}
                                 </div>
                             {% endif %}
@@ -623,7 +631,7 @@
         </div>
     {% else %}
         {% for field in form if 'hidden' not in field.vars.block_prefixes and (not field.vars.easyadmin.form_tab or field.vars.easyadmin.form_tab == tab_name) %}
-            <div class="col-xs-12 {{ field.vars.easyadmin.field.css_class|default('') }}">
+            <div class="{{ field.vars.easyadmin.field.css_class|default('') }}">
                 {{ form_row(field) }}
             </div>
         {% endfor %}

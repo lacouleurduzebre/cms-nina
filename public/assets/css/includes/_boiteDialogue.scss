@@ -17,7 +17,7 @@
   left: 0;
   height: 100vh;
   width: 100vw;
-  background: rgba(255,255,255,.6);
+  background-color: rgba(164, 161, 161, 0.8);
   z-index: 1000;
   align-items: center;
   justify-content: center;
@@ -38,12 +38,22 @@
   justify-content: center;
   align-items: center;
   transition: .3s;
+  .modal-content &{
+    position: absolute;
+    color: $color-brand2;
+    font-size: 2rem;
+    width: auto;
+    height: auto;
+  }
 }
 
 .modal-content{
+  position: relative;
   &.fond{
     background-color: $white;
     padding: 2rem;
+    border: none;
+    box-shadow: 0 19px 38px rgba(0, 0, 0, 0.3), 0 15px 12px rgba(0, 0, 0, 0.22);
   }
 }
 
@@ -85,7 +95,7 @@
   }
 }
 
-//Créationd de rôle
+// Création de rôle
 #creationRole{
   h2{
     text-align: center;
@@ -101,5 +111,13 @@
       margin-top: 2rem;
       text-align: center;
     }
+  }
+}
+
+// Modification du titre d'une page
+#modifTitre{
+  input[type="text"]{
+    background: rgba(238, 238, 238, 0.34);
+    min-width: 50rem;
   }
 }

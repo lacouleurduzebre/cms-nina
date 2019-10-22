@@ -70,6 +70,11 @@
                 <section class="content-header">
                 {% block content_header %}
                     <h1 class="title">{% block content_title %}{% endblock %}</h1>
+                    {% if _entity_config.name == 'Page_Active' %}
+                        <span data-modal="modifTitre">
+                            <i class="fas fa-pen mls"></i>
+                        </span>
+                    {% endif %}
                 {% endblock content_header %}
                 {% block content_help %}
                     {% if _entity_config is defined and _entity_config[app.request.query.get('action')]['help']|default(false) %}
