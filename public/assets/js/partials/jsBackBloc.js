@@ -278,6 +278,8 @@ $(document).ready(function() {
             data: {type: type, typeBloc: 'Bloc'}
         })
             .done(function(data){
+                $('div[id^=nvBloc]').attr('id', '');
+
                 saveCloseFormulaire();
 
                 $('.listeBlocs').removeClass('actif chargement');
