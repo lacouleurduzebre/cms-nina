@@ -352,14 +352,14 @@
 
 {% block collection_row %}
     {% if 'blocsEnfants' in form.vars.unique_block_prefix %}
-        <div class="form-group field-collection blocsEnfants dndBlocs">
+        <div class="form-group field-collection blocsEnfants">
             <div class="text-right field-collection-action">
                 <button href="#" onclick="$(function (){if (event.preventDefault) event.preventDefault(); else event.returnValue = false; $('.listeBlocs').attr('id', 'section').attr('data-section', '{{ form.vars.id }}').attr('data-position', 'avant').addClass('actif')})" class="ajout-bloc">
                     <i class="fas fa-plus-circle"></i>
                 </button>
             </div>
 
-            {{- form_widget(form) -}}
+            {{- form_widget(form, { attr: { class: 'dndBlocs' } }) -}}
 
             <div class="text-right field-collection-action">
                 <button href="#" onclick="$(function (){if (event.preventDefault) event.preventDefault(); else event.returnValue = false; $('.listeBlocs').attr('id', 'section').attr('data-section', '{{ form.vars.id }}').attr('data-position', 'apres').addClass('actif')})" class="ajout-bloc">

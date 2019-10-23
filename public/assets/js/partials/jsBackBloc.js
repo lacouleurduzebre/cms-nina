@@ -3,6 +3,8 @@ $(document).ready(function() {
     options = {
         handle: '.drag',
         connectWith: '.dndBlocs',
+        placeholder: "dndPlaceholder",
+        cursorAt: { top: 5, left: 5 },
         update: function(event, ui){
             $('.field-bloc').each(function(){
                 $(this).find("input[id$='position']").val($(this).index());
@@ -38,6 +40,12 @@ $(document).ready(function() {
                 });
                 bloc.attr('data-name', nouveauCount);
             }
+        },
+        start: function(event, ui) {
+            $('.dndBlocs').addClass('dndEnCours');
+        },
+        stop: function(event, ui) {
+            $('.dndBlocs').removeClass('dndEnCours');
         }
     };
 

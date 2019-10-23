@@ -388,7 +388,13 @@ div[id^="page_active_blocs"]{
 }
 
 .miseEnPage .field-bloc:not(.bloc-section):hover{
-  > .bloc-barreActions, > #page_active_blocs_ > .type{
+  > #page_active_blocs_ > .type{
+    display: flex;
+  }
+}
+
+.miseEnPage .field-bloc:not(.bloc-section):not(.ui-sortable-helper):hover{
+  > .bloc-barreActions{
     display: flex;
   }
 }
@@ -735,4 +741,20 @@ body.edit, body.new{
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
   padding: 1rem 1.5rem 1.5rem;
   background-color: #fff;
+}
+
+//Drag'n'drop
+.dndEnCours{
+  min-height: 5rem;
+}
+
+.dndPlaceholder{
+  width: 100%;
+  border: 2px dashed red;
+  height: 5rem;
+}
+
+.field-bloc.ui-sortable-helper{
+  max-width: 30rem;
+  overflow: hidden;
 }
