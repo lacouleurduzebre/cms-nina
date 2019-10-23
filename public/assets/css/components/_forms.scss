@@ -99,6 +99,9 @@ select {
   display: block;
   min-width: 10rem;
   max-width: 100%;
+  body.new &, body.edit &{
+    box-shadow: 0 0 0 1px $color-brand2 inset;
+  }
 }
 
 /* hiding IE11 arrow */

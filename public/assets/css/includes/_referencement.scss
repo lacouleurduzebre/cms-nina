@@ -1,5 +1,9 @@
 //Page et onglet référencement
 #onglet_SEO, .listeSEO-conteneur{
+  font-family: $font-family-base;
+  a{
+    color: $link-color;
+  }
   .metaTitre, #seo_metaTitre{
     color: #1a0dab;
     font-size: 2rem;
@@ -11,6 +15,13 @@
   .metaDescription, #seo_metaDescription{
     color: #545454;
     font-size: 1.4rem;
+  }
+  .raz{
+    background-color: $color-brand;
+    color: $white;
+    &:hover{
+      background-color: $color-brand-dark;
+    }
   }
 }
 

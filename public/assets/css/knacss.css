@@ -2448,6 +2448,9 @@ select {
   min-width: 10rem;
   max-width: 100%;
 }
+body.new select, body.edit select {
+  box-shadow: 0 0 0 1px #0791B3 inset;
+}
 
 /* hiding IE11 arrow */
 select::-ms-expand {
@@ -2732,8 +2735,16 @@ button:focus {
 /* use .radio class on input type=radio */
 /* recommended HTML : <input type="radio" class="radio" name="radio" id="r1"><label for="r1">Click here</label> */
 /* use .switch class on input type=checkbox */
+.checkbox {
+  background: transparent;
+}
 .checkbox input {
   border-radius: 4px;
+}
+
+body.edit .checkbox, body.new .checkbox {
+  box-shadow: none;
+  border: none;
 }
 
 .toggle input {
@@ -3410,6 +3421,7 @@ body.new h1, body.edit h1, .listeSEO-conteneur h1 {
   margin-left: 1rem;
   height: 5rem;
   overflow: hidden;
+  font-family: "Cabin", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
 }
 @media (max-width: 767px) {
   body.new h1, body.edit h1, .listeSEO-conteneur h1 {
@@ -3468,6 +3480,7 @@ ul.nav-tabs li a {
   padding: 0 1rem;
   display: inline-block;
   color: #fff;
+  font-family: "Cabin", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
 }
 
 .tab-pane:not(.active) {
@@ -3489,8 +3502,20 @@ ul.nav-tabs li a {
   color: #A1BA1D;
 }
 
+body.edit .ajout-bloc, body.edit .ajout-blocAnnexe, body.new .ajout-bloc, body.new .ajout-blocAnnexe {
+  color: #fff;
+}
 body.edit input[type=text], body.edit input[type=email], body.edit input[type=tel], body.edit input[type=url], body.edit input[type=password], body.edit textarea, body.new input[type=text], body.new input[type=email], body.new input[type=tel], body.new input[type=url], body.new input[type=password], body.new textarea {
   width: 100%;
+  box-shadow: none;
+  border-bottom: 1px solid #0791B3;
+  color: #666666;
+}
+body.edit input[type=search], body.new input[type=search] {
+  box-shadow: none;
+}
+body.edit select, body.new select {
+  color: #666666;
 }
 body.edit .content-header, body.new .content-header {
   position: fixed;
@@ -3585,6 +3610,7 @@ body.notFull .select2-dropdown {
 
 .form-group:not(.field-bloc):not(.bloc-panel) {
   margin-top: 1rem;
+  font-family: "Cabin", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
 }
 
 #page_active_commentaires .field-commentaire {
@@ -3916,12 +3942,16 @@ body.list #flash-messages > * {
 
 .modal-content {
   position: relative;
+  font-family: "Cabin", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
 }
 .modal-content.fond {
   background-color: #fff;
   padding: 2rem;
   border: none;
   box-shadow: 0 19px 38px rgba(0, 0, 0, 0.3), 0 15px 12px rgba(0, 0, 0, 0.22);
+}
+.modal-content label {
+  font-family: "Cabin", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
 }
 
 #modal-delete {
@@ -3979,6 +4009,9 @@ body.list #flash-messages > * {
 #modifTitre input[type=text] {
   background: rgba(238, 238, 238, 0.34);
   min-width: 50rem;
+  box-shadow: none;
+  border-bottom: 1px solid #0791B3;
+  color: #666666;
 }
 
 .messages {
@@ -4084,6 +4117,7 @@ body.list #flash-messages > * {
   box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.25);
   margin: 0 0.5rem;
   transition: 0.25s;
+  font-family: "Cabin", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
 }
 .formulaire-actions .action-voir svg, .formulaire-actions .formulaire-actions-enregistrer svg {
   transition: 0.25s;
@@ -4199,6 +4233,7 @@ body.list #flash-messages > * {
   text-decoration: none;
   color: #000;
   cursor: pointer;
+  font-family: "Cabin", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
 }
 .formulaire-actions-liste a:hover, .formulaire-actions-liste span:hover {
   text-decoration: underline;
@@ -4352,6 +4387,8 @@ body.notFull .toggleAffichageBlocs {
 #toggleConteneurs, #toggleMiseEnPage {
   border-radius: 2rem;
   background-color: #B1B1B1;
+  color: #fff;
+  font-family: "Cabin", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
 }
 
 .miseEnPage #toggleMiseEnPage {
@@ -5015,6 +5052,7 @@ body.edit .bloc-reseauxsociaux input[type=text], body.new .bloc-reseauxsociaux i
   padding: 1rem;
   margin: 1rem 0;
   border: 1px solid #CACACA;
+  font-family: "Cabin", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
 }
 .groupeDeChamps .box-header {
   color: #0791B3;
@@ -5024,6 +5062,7 @@ body.edit .bloc-reseauxsociaux input[type=text], body.new .bloc-reseauxsociaux i
   align-items: center;
   font-size: 2.5rem;
   line-height: 1;
+  font-family: "Cabin", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
 }
 .groupeDeChamps .box-header svg {
   font-size: 2rem;
@@ -5054,6 +5093,12 @@ body.edit input[id$=_largeurMax], body.edit input[id$=_hauteurMax], body.new inp
   background-color: #A1BA1D;
 }
 
+#onglet_SEO, .listeSEO-conteneur {
+  font-family: "Cabin", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+}
+#onglet_SEO a, .listeSEO-conteneur a {
+  color: #75726B;
+}
 #onglet_SEO .metaTitre, #onglet_SEO #seo_metaTitre, .listeSEO-conteneur .metaTitre, .listeSEO-conteneur #seo_metaTitre {
   color: #1a0dab;
   font-size: 2rem;
@@ -5065,6 +5110,13 @@ body.edit input[id$=_largeurMax], body.edit input[id$=_hauteurMax], body.new inp
 #onglet_SEO .metaDescription, #onglet_SEO #seo_metaDescription, .listeSEO-conteneur .metaDescription, .listeSEO-conteneur #seo_metaDescription {
   color: #545454;
   font-size: 1.4rem;
+}
+#onglet_SEO .raz, .listeSEO-conteneur .raz {
+  background-color: #A1BA1D;
+  color: #fff;
+}
+#onglet_SEO .raz:hover, .listeSEO-conteneur .raz:hover {
+  background-color: #7b8e16;
 }
 
 .listeSEO-conteneur {

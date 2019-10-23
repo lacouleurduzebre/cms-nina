@@ -18,6 +18,12 @@
             <link rel="stylesheet" href="{{ asset(css_asset) }}">
         {% endfor %}
 
+        {# CSS DU FRONT POUR L'APERCU DES BLOCS #}
+        {% if (_entity_config.name is defined and _entity_config.name == 'Page_Active') and (app.request.get('action') is defined and (app.request.get('action') == 'new' or app.request.get('action') == 'edit')) %}
+            {% include 'front/extraCss.html.twig' %}
+        {% endif %}
+        {# CSS DU FRONT POUR L'APERCU DES BLOCS #}
+
         {% block head_favicon %}
             {% set favicon = easyadmin_config('design.assets.favicon') %}
             <link rel="icon" type="{{ favicon.mime_type }}" href="{{ asset(favicon.path) }}" />
@@ -49,11 +55,6 @@
             <link rel="stylesheet" href="{{ asset('bundles/easyadmin/stylesheet/bootstrap-rtl.min.css') }}">
             <link rel="stylesheet" href="{{ asset('bundles/easyadmin/stylesheet/adminlte-rtl.min.css') }}">
         {% endif %}
-
-        {#@Todo à supprimer ou à activer#}
-        {#{% if _entity_config.name is defined and _entity_config.name == 'Page_Active' %}#}
-            {#{% include 'front/extraCss.html.twig' %}#}
-        {#{% endif %}#}
     </head>
 
     {% block body %}

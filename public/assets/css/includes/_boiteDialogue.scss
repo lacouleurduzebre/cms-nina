@@ -49,11 +49,15 @@
 
 .modal-content{
   position: relative;
+  font-family: $font-family-base;
   &.fond{
     background-color: $white;
     padding: 2rem;
     border: none;
     box-shadow: 0 19px 38px rgba(0, 0, 0, 0.3), 0 15px 12px rgba(0, 0, 0, 0.22);
+  }
+  label{
+    font-family: $font-family-base;
   }
 }
 
@@ -119,5 +123,8 @@
   input[type="text"]{
     background: rgba(238, 238, 238, 0.34);
     min-width: 50rem;
+    box-shadow: none;
+    border-bottom: 1px solid $color-brand2;
+    color: $color-base;
   }
 }

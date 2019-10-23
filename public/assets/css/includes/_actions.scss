@@ -12,6 +12,7 @@
     box-shadow: 4px 4px 4px rgba(0,0,0,.25);
     margin: 0 .5rem;
     transition: 0.25s;
+    font-family: $font-family-base;
     svg{
       transition: 0.25s;
       @include respond-to("medium-up"){
@@ -126,6 +127,7 @@
     text-decoration: none;
     color: #000;
     cursor: pointer;
+    font-family: $font-family-base;
     &:hover{
       text-decoration: underline;
     }

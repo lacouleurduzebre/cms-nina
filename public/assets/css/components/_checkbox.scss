@@ -10,9 +10,20 @@
 
 
 // common styles
-.checkbox input{
-  border-radius: $checkbox-border-radius;
+.checkbox{
+  background: transparent;
+  input{
+    border-radius: $checkbox-border-radius;
+  }
 }
+
+body.edit, body.new{
+  .checkbox{
+    box-shadow: none;
+    border: none;
+  }
+}
+
 .toggle input{
   border-radius: $switch-border-radius;
 }

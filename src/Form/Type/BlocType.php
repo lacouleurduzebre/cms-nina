@@ -66,7 +66,7 @@ class BlocType extends AbstractType
     ];
 
     private $optionsPleineLargeur = [
-        'label' => "Afficher ce bloc sur toute la largeur de l'écran s'il n'est pas dans un conteneur"
+        'label' => "Pleine largeur"
     ];
 
     private $optionsLargeur = [

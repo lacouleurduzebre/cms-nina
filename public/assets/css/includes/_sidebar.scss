@@ -252,6 +252,9 @@ li[data-jstree='{"type":"root"}'] > a, li[data-jstree='{"type":"orphan"}'] > a{
       font-size: 1.6rem !important;
       padding: 1rem 2rem 1rem 1rem;
       width: 100%;
+      &:hover{
+        color: #666666;
+      }
       svg{
         width: 20px;
       }
@@ -410,12 +413,13 @@ div.popup-ajoutPage-close{
 .ajoutPage-actions{
   margin-top: 2.5rem;
   font-size: 1.8rem;
-  button{
+  button, button[type=submit]{
     border-radius: 2rem;
     background-color: $color-base;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.25);
     margin-left: .5rem;
     font-family: 'Cabin';
+    color: $white;
     &:hover{
       background-color: darken($color-base, 10);
     }
