@@ -352,7 +352,7 @@
 
 {% block collection_row %}
     {% if 'blocsEnfants' in form.vars.unique_block_prefix %}
-        <div class="form-group field-collection blocsEnfants">
+        <div class="form-group field-collection blocsEnfants dndBlocs">
             <div class="text-right field-collection-action">
                 <button href="#" onclick="$(function (){if (event.preventDefault) event.preventDefault(); else event.returnValue = false; $('.listeBlocs').attr('id', 'section').attr('data-section', '{{ form.vars.id }}').attr('data-position', 'avant').addClass('actif')})" class="ajout-bloc">
                     <i class="fas fa-plus-circle"></i>
@@ -785,19 +785,6 @@
     <div class="miseEnPage conteneurs conteneurBlocs">
         {{- form_label(form) -}}
 
-        {#<a id="replierBlocs" href="#">#}
-            {#<span class="btn">#}
-                {#{{ "Replier tous les blocs"|trans }}#}
-                {#<i class="fas fa-chevron-circle-up"></i>#}
-            {#</span>#}
-        {#</a>#}
-        {#<a id="deplierBlocs" class="hidden" href="#">#}
-            {#<span class="btn">#}
-                {#{{ "Déplier tous les blocs"|trans }}#}
-                {#<i class="fas fa-chevron-circle-down"></i>#}
-            {#</span>#}
-        {#</a>#}
-
         <div class="toggleAffichageBlocs">
             <a id="toggleMiseEnPage" class="btn"><i class="fas fa-eye mrs"></i>{{ "Mise en page"|trans }}</a>
             <a id="toggleConteneurs" class="btn"><i class="fas fa-eye mrs"></i>{{ "Conteneurs"|trans }}</a>
@@ -809,7 +796,7 @@
             </a>
         </div>
 
-        {{- form_widget(form) -}}
+        {{- form_widget(form, { attr: { class: 'dndBlocs' } }) -}}
 
         <div class="txtcenter field-collection-action">
             <a href="#" onclick="$(function (){if (event.preventDefault) event.preventDefault(); else event.returnValue = false; $('.listeBlocs').attr('id', 'apres').addClass('actif')})" class="ajout-bloc">

@@ -2,6 +2,7 @@ $(document).ready(function() {
     /* Gestion de la position des blocs */
     options = {
         handle: '.drag',
+        connectWith: '.dndBlocs',
         update: function(event, ui){
             $('.field-bloc').each(function(){
                 $(this).find("input[id$='position']").val($(this).index());
@@ -10,6 +11,33 @@ $(document).ready(function() {
             tinymce.remove();
             tinymce.init(optionsTinyMCEParagraphe);
             tinymce.init(optionsTinyMCE);
+
+            entite = $('.listeBlocs').siblings('form').attr('name');
+            ancienParent = ui.sender;
+            bloc = ui.item;
+
+            if(ancienParent){
+                //À remplacer
+                ancienId = ancienParent.attr('id')+'_'+bloc.data('name');
+                ancienName = entite+'['+ancienId.replace(entite+'_', '').replace(/_/g, '][')+']';
+
+                //Remplacer par
+                nouveauCount = 0;
+                while(bloc.siblings('[data-name="'+nouveauCount+'"]').length > 0){
+                    nouveauCount ++;
+                }
+                nouvelId = bloc.closest('[data-prototype]').attr('id')+'_'+nouveauCount;
+                nouveauName = entite+'['+nouvelId.replace(entite+'_', '').replace(/_/g, '][')+']';
+
+                //Remplacement
+                bloc.find('[id]').each(function(){
+                    $(this).attr('id', $(this).attr('id').replace(ancienId, nouvelId));
+                });
+                bloc.find('[name]').each(function(){
+                    $(this).attr('name', $(this).attr('name').replace(ancienName, nouveauName));
+                });
+                bloc.attr('data-name', nouveauCount);
+            }
         }
     };
 
