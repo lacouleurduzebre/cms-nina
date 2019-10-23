@@ -178,14 +178,37 @@ $(document).ready(function() {
     //Annulation -> restauration des valeurs
     $('form').on('click', '.bloc-panel--annulation', function(){
         formulairePrecedent = $(this).closest('.field-bloc').children('.bloc-barreActions').children('.prototype');
+        bloc = $(this).closest('.field-bloc');
+        formulaire = $(this).closest('.bloc-panel');
 
-        $(this).closest('.bloc-panel').addClass('hidden').html(formulairePrecedent.html());
+        formulaire.addClass('hidden').html(formulairePrecedent.html());
 
         formulairePrecedent.remove();
 
         tinymce.remove();
         tinymce.init(optionsTinyMCEParagraphe);
         tinymce.init(optionsTinyMCE);
+
+        //Annulation des options d'affichage : ràz des classes d'affichage du bloc
+        if($(this).hasClass('bloc-optionsAffichage--annulation')){
+            largeur = formulaire.find('select[name$="[largeur]"]').val();
+            bloc.removeClass('w100 w80 w75 w60 w50 w40 w25 w20').addClass('w'+largeur);
+
+            alignementHorizontal = formulaire.find('select[name$="[alignementHorizontal]"]').val();
+            bloc.removeClass('mrauto mlauto').addClass(alignementHorizontal);
+
+            alignementVertical = formulaire.find('select[name$="[alignementVertical]"]').val();
+            bloc.removeClass('mtauto mbauto').addClass(alignementVertical);
+
+            alignementHorizontalEnfants = formulaire.find('select[name$="[alignementHorizontalEnfants]"]').val();
+            bloc.children('div').children('.contenu').children('.blocsEnfants').children('div').css('justify-content', alignementHorizontalEnfants);
+
+            alignementVerticalEnfants = formulaire.find('select[name$="[alignementVerticalEnfants]"]').val();
+            bloc.children('div').children('.contenu').children('.blocsEnfants').children('div').css('align-items', alignementVerticalEnfants);
+
+            pleineLargeur = formulaire.find('input[name$="[pleineLargeur]"]').prop('checked');
+            pleineLargeur ? bloc.addClass('pleineLargeur') : bloc.removeClass('pleineLargeur');
+        }
     });
 
     /* Monter */
@@ -487,34 +510,6 @@ $(document).ready(function() {
     $('.bloc-groupeblocs-edition select').on('change', function(){
         $(this).next('a').attr('href', Routing.generate('admin', { action: 'edit', entity: 'GroupeBlocs', id: $(this).val() }));
     });
-
-    /*//Toggle blocs - pages
-    $('#page_active_blocs').on('click', '.toggleBloc', function(){
-        $(this).closest('.form-group').find('.contenu').children('div').toggleClass('hide');
-        $(this).toggleClass('rotate');
-
-        if($('#page_active_blocs').find('.toggleBloc:not(.rotate)').length === 0){//Si tous les blocs sont fermés, "déplier les blocs"
-            $('#deplierBlocs').show();
-            $('#replierBlocs').hide();
-        }else if($('#page_active_blocs').find('.toggleBloc.rotate').length === 0){//Si tous les blocs sont ouverts, "replier les blocs"
-            $('#replierBlocs').show();
-            $('#deplierBlocs').hide();
-        }
-    });
-
-    //Toggle blocs - groupes de blocs
-    $('#groupeblocs_blocs').on('click', '.toggleBloc', function(){
-        $(this).closest('.form-group').find('.contenu').children('div').toggleClass('hide');
-        $(this).toggleClass('rotate');
-
-        if($('#groupeblocs_blocs').find('.toggleBloc:not(.rotate)').length === 0){//Si tous les blocs sont fermés, "déplier les blocs"
-            $('#deplierBlocs').show();
-            $('#replierBlocs').hide();
-        }else if($('#groupeblocs_blocs').find('.toggleBloc.rotate').length === 0){//Si tous les blocs sont ouverts, "replier les blocs"
-            $('#replierBlocs').show();
-            $('#deplierBlocs').hide();
-        }
-    });*/
 
     //Mise en avant du bloc en cours d'édition
     $('#page_active_blocs, #groupeblocs_blocs, #page_active_blocsAnnexes').on('click', '.field-bloc', function(){

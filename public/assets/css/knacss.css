@@ -4361,6 +4361,7 @@ body.notFull .toggleAffichageBlocs {
   border: 2px dashed #DADCE0;
   padding: 1rem 2rem;
   margin-bottom: 3px;
+  background-color: #fff;
 }
 .miseEnPage .form-group.field-bloc:not(.bloc-section):hover {
   border: 2px dashed #a3a5a9;
@@ -4557,10 +4558,6 @@ div[id^=page_active_blocs] > div > .collection-empty {
 .bloc-barreActions.actif + ul {
   display: block;
   z-index: 100;
-}
-
-.field-bloc:not(.bloc-section) {
-  background-color: #fff;
 }
 
 .field-bloc:not(.bloc-section) > .bloc-barreActions {

@@ -122,6 +122,7 @@
     border: 2px dashed #DADCE0;
     padding: 1rem 2rem;
     margin-bottom: 3px;
+    background-color: $white;
     &:hover{
       border: 2px dashed #a3a5a9;
     }
@@ -334,10 +335,6 @@ div[id^="page_active_blocs"]{
       z-index: 100;
     }
   }
-}
-
-.field-bloc:not(.bloc-section){
-  background-color: $white;
 }
 
 .field-bloc:not(.bloc-section) > .bloc-barreActions{
