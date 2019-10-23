@@ -86,6 +86,29 @@
   }
 }
 
+.conteneurBlocs{
+  padding-top: 6rem;
+  background-color: #EEE;
+  margin-bottom: -3rem;
+  padding-bottom: 2rem;
+  margin-left: -2rem;
+  margin-right: -2rem;
+}
+
+.toggleAffichageBlocs{
+  position: fixed;
+  top: 13.5rem;
+  width: 100vw;
+  background: #EEEEEE;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+  left: 0;
+  padding: 1rem;
+  z-index: 20;
+  body.notFull &{
+    left: 30rem;
+  }
+}
+
 #toggleConteneurs, #toggleMiseEnPage{
   border-radius: 2rem;
   background-color: #B1B1B1;
@@ -98,6 +121,7 @@
   .form-group.field-bloc:not(.bloc-section){
     border: 2px dashed #DADCE0;
     padding: 1rem 2rem;
+    margin-bottom: 3px;
     &:hover{
       border: 2px dashed #a3a5a9;
     }
@@ -111,10 +135,12 @@
   .form-group.field-bloc.bloc-section{
     box-shadow: 0 0 5px #939393;
     padding: 2rem;
+    margin-bottom: 5px;
   }
   .bloc-section{
-    .ajout-bloc{
-      display: flex;
+    background-color: #FFF;
+    .blocsEnfants > .field-collection-action{
+      display: block;
     }
   }
 }
@@ -136,15 +162,17 @@
 }
 
 //Section
-.bloc-section{
-  .ajout-bloc{
+.blocsEnfants{
+  > div, #groupeblocs_blocs{
+    display: flex;
+    flex-wrap: wrap;
+  }
+  > .collection-empty{
     display: none;
   }
-}
-
-.blocsEnfants > div, #groupeblocs_blocs{
-  display: flex;
-  flex-wrap: wrap;
+  > .field-collection-action{
+    display: none;
+  }
 }
 
 div[id^="page_active_blocs"]{
@@ -205,6 +233,7 @@ div[id^="page_active_blocs"]{
 }
 
 #page_active_blocs_, #page_active_blocsAnnexes{
+  height: 100%;
   > .type{
     select, label{
       display: inline-block;
@@ -240,6 +269,7 @@ div[id^="page_active_blocs"]{
   background-color: $color-brand2;
   padding: 0 1rem;
   border-bottom-right-radius: 2rem;
+  z-index: 15;
   label{
     color: $white;
   }
@@ -255,7 +285,7 @@ div[id^="page_active_blocs"]{
 /* Barre d'actions */
 .bloc-barreActions{
   position: absolute;
-  z-index: 10;
+  z-index: 15;
   display: none;
   > *{
     color: $white;
@@ -306,6 +336,10 @@ div[id^="page_active_blocs"]{
   }
 }
 
+.field-bloc:not(.bloc-section){
+  background-color: $white;
+}
+
 .field-bloc:not(.bloc-section) > .bloc-barreActions{
   top: .5rem;
   right: .5rem;
@@ -353,7 +387,7 @@ div[id^="page_active_blocs"]{
   }
 }
 
-.miseEnPage .field-bloc:hover{
+.miseEnPage .field-bloc:not(.bloc-section):hover{
   > .bloc-barreActions, > #page_active_blocs_ > .type{
     display: flex;
   }

@@ -747,10 +747,10 @@ $(document).ready(function() {
 
     //Toggle mise en page et conteneurs
     $('#toggleConteneurs').click(function(){
-        $(this).closest('div').toggleClass('conteneurs');
+        $(this).closest('.conteneurBlocs').toggleClass('conteneurs');
     });
 
     $('#toggleMiseEnPage').click(function(){
-        $(this).closest('div').toggleClass('miseEnPage');
+        $(this).closest('.conteneurBlocs').toggleClass('miseEnPage');
     });
 });

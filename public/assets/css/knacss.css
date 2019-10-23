@@ -4326,6 +4326,29 @@ body.list #flash-messages > * {
   display: none;
 }
 
+.conteneurBlocs {
+  padding-top: 6rem;
+  background-color: #EEE;
+  margin-bottom: -3rem;
+  padding-bottom: 2rem;
+  margin-left: -2rem;
+  margin-right: -2rem;
+}
+
+.toggleAffichageBlocs {
+  position: fixed;
+  top: 13.5rem;
+  width: 100vw;
+  background: #EEEEEE;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+  left: 0;
+  padding: 1rem;
+  z-index: 20;
+}
+body.notFull .toggleAffichageBlocs {
+  left: 30rem;
+}
+
 #toggleConteneurs, #toggleMiseEnPage {
   border-radius: 2rem;
   background-color: #B1B1B1;
@@ -4337,6 +4360,7 @@ body.list #flash-messages > * {
 .miseEnPage .form-group.field-bloc:not(.bloc-section) {
   border: 2px dashed #DADCE0;
   padding: 1rem 2rem;
+  margin-bottom: 3px;
 }
 .miseEnPage .form-group.field-bloc:not(.bloc-section):hover {
   border: 2px dashed #a3a5a9;
@@ -4348,9 +4372,13 @@ body.list #flash-messages > * {
 .conteneurs .form-group.field-bloc.bloc-section {
   box-shadow: 0 0 5px #939393;
   padding: 2rem;
+  margin-bottom: 5px;
 }
-.conteneurs .bloc-section .ajout-bloc {
-  display: flex;
+.conteneurs .bloc-section {
+  background-color: #FFF;
+}
+.conteneurs .bloc-section .blocsEnfants > .field-collection-action {
+  display: block;
 }
 
 .form-group.field-bloc_annexe {
@@ -4369,13 +4397,15 @@ body.list #flash-messages > * {
   margin-left: 0.5rem;
 }
 
-.bloc-section .ajout-bloc {
-  display: none;
-}
-
-.blocsEnfants > div, #groupeblocs_blocs {
+.blocsEnfants > div, .blocsEnfants #groupeblocs_blocs {
   display: flex;
   flex-wrap: wrap;
+}
+.blocsEnfants > .collection-empty {
+  display: none;
+}
+.blocsEnfants > .field-collection-action {
+  display: none;
 }
 
 div[id^=page_active_blocs] label svg {
@@ -4429,6 +4459,9 @@ div[id^=page_active_blocs] > div > .collection-empty {
   justify-content: center;
 }
 
+#page_active_blocs_, #page_active_blocsAnnexes {
+  height: 100%;
+}
 #page_active_blocs_ > .type select, #page_active_blocs_ > .type label, #page_active_blocsAnnexes > .type select, #page_active_blocsAnnexes > .type label {
   display: inline-block;
 }
@@ -4461,6 +4494,7 @@ div[id^=page_active_blocs] > div > .collection-empty {
   background-color: #0791B3;
   padding: 0 1rem;
   border-bottom-right-radius: 2rem;
+  z-index: 15;
 }
 #page_active_blocs_ > .type label {
   color: #fff;
@@ -4476,7 +4510,7 @@ div[id^=page_active_blocs] > div > .collection-empty {
 /* Barre d'actions */
 .bloc-barreActions {
   position: absolute;
-  z-index: 10;
+  z-index: 15;
   display: none;
 }
 .bloc-barreActions > * {
@@ -4523,6 +4557,10 @@ div[id^=page_active_blocs] > div > .collection-empty {
 .bloc-barreActions.actif + ul {
   display: block;
   z-index: 100;
+}
+
+.field-bloc:not(.bloc-section) {
+  background-color: #fff;
 }
 
 .field-bloc:not(.bloc-section) > .bloc-barreActions {
@@ -4572,7 +4610,7 @@ div[id^=page_active_blocs] > div > .collection-empty {
   top: 3rem;
 }
 
-.miseEnPage .field-bloc:hover > .bloc-barreActions, .miseEnPage .field-bloc:hover > #page_active_blocs_ > .type {
+.miseEnPage .field-bloc:not(.bloc-section):hover > .bloc-barreActions, .miseEnPage .field-bloc:not(.bloc-section):hover > #page_active_blocs_ > .type {
   display: flex;
 }
 
