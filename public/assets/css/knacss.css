@@ -4359,7 +4359,6 @@ body.notFull .toggleAffichageBlocs {
 }
 .miseEnPage .form-group.field-bloc:not(.bloc-section) {
   border: 2px dashed #DADCE0;
-  padding: 1rem 2rem;
   margin-bottom: 3px;
   background-color: #fff;
 }
@@ -4941,6 +4940,7 @@ body.edit .bloc-reseauxsociaux input[type=text], body.new .bloc-reseauxsociaux i
 .field-bloc.ui-sortable-helper {
   max-width: 30rem;
   overflow: hidden;
+  height: 4rem;
 }
 
 .traductionTemplateChoix div {

@@ -208,6 +208,9 @@ $(document).ready(function() {
 
             pleineLargeur = formulaire.find('input[name$="[pleineLargeur]"]').prop('checked');
             pleineLargeur ? bloc.addClass('pleineLargeur') : bloc.removeClass('pleineLargeur');
+
+            padding = formulaire.find('input[name$="[padding]"]').val();
+            bloc.removeClass('pan pas pam pal ptn pts ptm ptl prn prs prm prl pbn pbs pbm pbl pln pls plm pll').addClass(padding);
         }
     });
 
@@ -750,7 +753,7 @@ $(document).ready(function() {
             //Changement marges identiques
     $('body').on('change', 'select[name$="[paddingTout]"]', function() {
         input = $(this).closest('div').siblings('input');
-        input.val($(this).val());
+        input.val($(this).val()).trigger('change');
     });
 
             //Changement marges différentes
@@ -760,7 +763,12 @@ $(document).ready(function() {
         $(this).closest('.bloc-padding').find('select').each(function(){
             nouvelleVal += $(this).val()+' ';
         });
-        input.val(nouvelleVal);
+        input.val(nouvelleVal).trigger('change');
+    });
+
+        //Modification marges
+    $('body').on('change', 'input[name$="[padding]"]', function() {
+        $(this).closest('.field-bloc').removeClass('pan pas pam pal ptn pts ptm ptl prn prs prm prl pbn pbs pbm pbl pln pls plm pll').addClass($(this).val());
     });
 
     //Bloc réseaux sociaux : type d'utilisation (liens / partage)
