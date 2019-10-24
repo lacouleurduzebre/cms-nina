@@ -956,7 +956,10 @@
                     {{ form_row(form.children.alignementVerticalEnfants) }}
                     {{ form_row(form.children.alignementHorizontalEnfants) }}
                 {% endif %}
-                {{ form_row(form.children.pleineLargeur) }}
+                <div class="form-group {% if form.vars.value is defined and form.vars.value is not empty and form.vars.value.page is empty %}hidden{% endif %}">
+                    {{ form_label(form.children.pleineLargeur) }}
+                    {{ form_widget(form.children.pleineLargeur) }}
+                </div>
                 {{ form_row(form.children.largeur, { attr: { disabled: form.children.pleineLargeur.vars.data } }) }}
                 {{ form_row(form.children.padding) }}
                 {{ form_label(form.children.paddingTout) }}

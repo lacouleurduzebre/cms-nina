@@ -46,6 +46,20 @@ $(document).ready(function() {
         },
         stop: function(event, ui) {
             $('.dndBlocs').removeClass('dndEnCours');
+
+            bloc = ui.item;
+            bloc.attr('style', '');
+            optionsAffichage = bloc.children('div').children('.bloc-optionsAffichage');
+            conteneurPleineLargeur = optionsAffichage.find('input[name$="[pleineLargeur]"]').closest('.form-group');
+
+            if(bloc.closest('.blocsEnfants').length > 0){
+                conteneurPleineLargeur.addClass('hidden');
+                optionsAffichage.find('select[name$="[largeur]"]').attr('disabled', false);
+                optionsAffichage.find('input[name$="[pleineLargeur]"]').prop('checked', false);
+                bloc.removeClass('pleineLargeur');
+            }else{
+                conteneurPleineLargeur.removeClass('hidden');
+            }
         }
     };
 
@@ -127,7 +141,6 @@ $(document).ready(function() {
             if($(this).attr('type') !== 'checkbox' && $(this).attr('type') !== 'radio'){//Text, color, mail,...
                 $(this).attr('value', $(this).val());
             }else{//Radio ou checkbox
-                console.log($(this).prop('checked'));
                 $(this).attr('checked', $(this).prop('checked'));
             }
         });
@@ -384,6 +397,10 @@ $(document).ready(function() {
                     }
 
                     nvBloc = $('#nvBloc' + countBloc);
+
+                    if(nvBloc.closest('.blocsEnfants').length > 0){
+                        nvBloc.children('div').children('.bloc-optionsAffichage').find('input[name$="[pleineLargeur]"]').closest('.form-group').addClass('hidden');
+                    }
                 }
 
                 //Anim ajout de bloc
@@ -727,7 +744,7 @@ $(document).ready(function() {
         }
 
         //Désactivation du champ "largeur par rapport au conteneur"
-        $(this).closest('.bloc-panel').find('select[name$="[largeur]"]').attr('disabled', $(this).prop('checked')).val('100');
+        $(this).closest('.bloc-panel').find('select[name$="[largeur]"]').attr('disabled', $(this).prop('checked')).val('100').trigger('change');
     });
 
         //Padding
