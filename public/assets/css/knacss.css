@@ -4396,6 +4396,7 @@ body.notFull .toggleAffichageBlocs {
 }
 .miseEnPage .form-group.field-bloc:not(.bloc-section) {
   border: 2px dashed #DADCE0;
+  min-height: 2rem;
   margin-bottom: 3px;
   background-color: #fff;
 }
@@ -4971,7 +4972,8 @@ body.edit .bloc-reseauxsociaux input[type=text], body.new .bloc-reseauxsociaux i
 }
 
 .dndEnCours {
-  min-height: 5rem;
+  padding-top: 2rem;
+  padding-bottom: 2rem;
 }
 
 .dndPlaceholder {
