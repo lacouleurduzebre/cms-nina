@@ -725,6 +725,9 @@ $(document).ready(function() {
         }else{
             $(this).closest('.field-bloc').removeClass('pleineLargeur');
         }
+
+        //Désactivation du champ "largeur par rapport au conteneur"
+        $(this).closest('.bloc-panel').find('select[name$="[largeur]"]').attr('disabled', $(this).prop('checked')).val('100');
     });
 
         //Padding

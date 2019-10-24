@@ -103,7 +103,7 @@
   box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
   left: 0;
   padding: 1rem;
-  z-index: 20;
+  z-index: 90;
   body.notFull &{
     left: 30rem;
   }
@@ -260,6 +260,11 @@ div[id^="page_active_blocs"]{
     right: calc(50% + 1rem);
     margin-left: -50vw;
     margin-right: -50vw;
+    body.notFull &{
+      width: calc(100vw - 32rem);
+      left: calc(50% + 16rem);
+      right: calc(50% + 16rem);
+    }
   }
 }
 
@@ -433,7 +438,7 @@ div[id^="page_active_blocs"]{
 }
 
   //Padding
-.togglePadding{
+.togglePadding.item-center{
   display: flex;
   align-items: center;
   margin-left: 1rem;
@@ -503,6 +508,7 @@ div[id^="page_active_blocs"]{
 
 .voirBlocs{
   background-color: $color-base;
+  color: $white;
   &:hover{
     background-color: $color-brand2;
   }
@@ -716,7 +722,7 @@ body.edit, body.new{
 .bloc-panel{
   position: absolute;
   top: -2px;
-  z-index: 100;
+  z-index: 50;
   left: -2px;
   width: calc(100% + 4px);
   select{
