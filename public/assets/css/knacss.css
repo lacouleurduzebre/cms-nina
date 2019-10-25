@@ -3473,6 +3473,7 @@ body.new .content-header, body.edit .content-header, .listeSEO-conteneur .conten
 body.new h1, body.edit h1, .listeSEO-conteneur h1 {
   color: #FFF;
   margin-left: 1rem;
+  padding-right: 0.5rem;
   height: 5rem;
   overflow: hidden;
   font-family: "Cabin", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
@@ -4475,6 +4476,7 @@ body.list #flash-messages > * {
 }
 body.notFull .toggleAffichageBlocs {
   left: 30rem;
+  width: calc(100vw - 30rem);
 }
 
 #toggleConteneurs, #toggleMiseEnPage {
@@ -4482,6 +4484,10 @@ body.notFull .toggleAffichageBlocs {
   background-color: #B1B1B1;
   color: #fff;
   font-family: "Cabin", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+}
+
+#toggleConteneurs {
+  margin-right: auto;
 }
 
 .miseEnPage #toggleMiseEnPage {
@@ -4501,7 +4507,6 @@ body.notFull .toggleAffichageBlocs {
 
 .conteneurs #toggleConteneurs {
   background-color: #0791B3;
-  margin-right: auto;
 }
 .conteneurs .form-group.field-bloc.bloc-section {
   box-shadow: 0 0 5px #939393;
@@ -5073,7 +5078,7 @@ body.edit .bloc-reseauxsociaux input[type=text], body.new .bloc-reseauxsociaux i
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
 }
 
-.miseEnPage .form-group.field-bloc:not(.bloc-section).bloc-optionsAffichagefocus, .conteneurs .form-group.field-bloc.blocSection.bloc-optionsAffichagefocus {
+.miseEnPage .form-group.field-bloc:not(.bloc-section).bloc-optionsAffichagefocus, .miseEnPage .form-group.field-bloc:not(.bloc-section).bloc-formulairefocus, .conteneurs .form-group.field-bloc.blocSection.bloc-optionsAffichagefocus, .conteneurs .form-group.field-bloc.blocSection.bloc-formulairefocus {
   border: 2px dashed #0791B3;
 }
 

@@ -119,7 +119,9 @@ $(document).ready(function() {
         connectToSortable: ".dndBlocs",
         helper: "clone",
         stop: function(event, ui){
-            $('.listeBlocs').addClass('actif');
+            if($('#page_active_blocs').find('.ajoutBloc').length > 0){
+                $('.listeBlocs').addClass('actif');
+            }
         }
     });
 
@@ -323,6 +325,12 @@ $(document).ready(function() {
 
     //Formulaire temporaire
     formulaireTemporaire = function(bouton, classFormulaire){
+        //Fermeture panels
+        $('.bloc-optionsAffichagefocus').removeClass('bloc-optionsAffichagefocus');
+        $('.bloc-formulairefocus').removeClass('bloc-formulairefocus');
+        $('.bloc-optionsAffichage').addClass('hidden');
+        $('.bloc-formulaire').addClass('hidden');
+
         bloc = bouton.closest('.field-bloc');
 
         bloc.addClass(classFormulaire+'focus');
@@ -344,9 +352,6 @@ $(document).ready(function() {
     /* Options d'affichage */
     $('form').on('click', '.optionsAffichage', function(e){
         e.preventDefault();
-
-        $('.bloc-optionsAffichagefocus').removeClass('bloc-optionsAffichagefocus');
-        $('.bloc-optionsAffichage').addClass('hidden');
 
         formulaireTemporaire($(this), 'bloc-optionsAffichage');
     });

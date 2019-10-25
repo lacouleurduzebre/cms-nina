@@ -145,6 +145,7 @@
   color: $white;
   body.notFull &{
     left: 30rem;
+    width: calc(100vw - 30rem);
   }
 }
 
@@ -153,6 +154,10 @@
   background-color: #B1B1B1;
   color: $white;
   font-family: $font-family-base;
+}
+
+#toggleConteneurs{
+  margin-right: auto;
 }
 
 .miseEnPage{
@@ -175,7 +180,6 @@
 .conteneurs{
   #toggleConteneurs{
     background-color: $color-brand2;
-    margin-right: auto;
   }
   .form-group.field-bloc.bloc-section{
     box-shadow: 0 0 5px #939393;
@@ -798,8 +802,10 @@ body.edit, body.new{
 }
 
   //Panel options d'affichage
-.miseEnPage .form-group.field-bloc:not(.bloc-section).bloc-optionsAffichagefocus, .conteneurs .form-group.field-bloc.blocSection.bloc-optionsAffichagefocus{
-  border: 2px dashed $color-brand2;
+.miseEnPage .form-group.field-bloc:not(.bloc-section), .conteneurs .form-group.field-bloc.blocSection{
+  &.bloc-optionsAffichagefocus, &.bloc-formulairefocus{
+    border: 2px dashed $color-brand2;
+  }
 }
 
 .bloc-panel.bloc-optionsAffichage{
