@@ -69,23 +69,23 @@ class BlocType extends AbstractType
         'label' => "Pleine largeur"
     ];
 
-    private $optionsLargeur = [
-        'label' => 'Largeur par rapport au conteneur',
-        'choices' => [
-            'col12' => 'col12',
-            'col11' => 'col11',
-            'col10' => 'col10',
-            'col9' => 'col9',
-            'col8' => 'col8',
-            'col7' => 'col7',
-            'col6' => 'col6',
-            'col5' => 'col5',
-            'col4' => 'col4',
-            'col3' => 'col3',
-            'col2' => 'col2',
-            'col1' => 'col1',
-        ],
-    ];
+//    private $optionsLargeur = [
+//        'label' => 'Largeur par rapport au conteneur',
+//        'choices' => [
+//            'col12' => 'col12',
+//            'col11' => 'col11',
+//            'col10' => 'col10',
+//            'col9' => 'col9',
+//            'col8' => 'col8',
+//            'col7' => 'col7',
+//            'col6' => 'col6',
+//            'col5' => 'col5',
+//            'col4' => 'col4',
+//            'col3' => 'col3',
+//            'col2' => 'col2',
+//            'col1' => 'col1',
+//        ],
+//    ];
 
     private $choixPaddingTout = [
         'Aucune' => 'pan',
@@ -174,7 +174,7 @@ class BlocType extends AbstractType
         $builder
             ->add('position', HiddenType::class)
             ->add('pleineLargeur', null, $this->optionsPleineLargeur)
-            ->add('largeur', ChoiceType::class, $this->optionsLargeur)
+            ->add('largeur', HiddenType::class)
             ->add('padding', HiddenType::class)
             ->add('paddingTout', ChoiceType::class, [
                 'label' => 'Marges intérieures',
@@ -264,7 +264,7 @@ class BlocType extends AbstractType
                     ]
                 ))
                 ->add('pleineLargeur', null, $this->optionsPleineLargeur)
-                ->add('largeur', ChoiceType::class, $this->optionsLargeur)
+                ->add('largeur', HiddenType::class)
                 ->add('padding', HiddenType::class)
                 ->add('paddingTout', ChoiceType::class, [
                     'label' => 'Marges intérieures',

@@ -54,7 +54,6 @@ $(document).ready(function() {
 
             if(bloc.closest('.blocsEnfants').length > 0){
                 conteneurPleineLargeur.addClass('hidden');
-                optionsAffichage.find('select[name$="[largeur]"]').attr('disabled', false);
                 optionsAffichage.find('input[name$="[pleineLargeur]"]').prop('checked', false);
                 bloc.removeClass('pleineLargeur');
             }else{
@@ -209,9 +208,6 @@ $(document).ready(function() {
 
         //Annulation des options d'affichage : ràz des classes d'affichage du bloc
         if($(this).hasClass('bloc-optionsAffichage--annulation')){
-            largeur = formulaire.find('select[name$="[largeur]"]').val();
-            bloc.removeClass('col12 col11 col10 col9 col8 col7 col6 col5 col4 col3 col2 col1').addClass(largeur);
-
             alignementHorizontal = formulaire.find('select[name$="[alignementHorizontal]"]').val();
             bloc.removeClass('mrauto mlauto').addClass(alignementHorizontal);
 
@@ -291,6 +287,9 @@ $(document).ready(function() {
     /* Options d'affichage */
     $('form').on('click', '.optionsAffichage', function(e){
         e.preventDefault();
+
+        $('.bloc-optionsAffichagefocus').removeClass('bloc-optionsAffichagefocus');
+        $('.bloc-optionsAffichage').addClass('hidden');
 
         formulaireTemporaire($(this), 'bloc-optionsAffichage');
     });
@@ -717,11 +716,6 @@ $(document).ready(function() {
     });
 
     //Changement des options d'affichage
-        //Largeur
-    $('body').on('change', 'select[name$="[largeur]"]', function() {
-        $(this).closest('.field-bloc').removeClass('col12 col11 col10 col9 col8 col7 col6 col5 col4 col3 col2 col1').addClass($(this).val());
-    });
-
         //Alignement horizontal
     $('body').on('change', 'select[name$="[alignementHorizontal]"]', function() {
         $(this).closest('.field-bloc').removeClass('mrauto mlauto').addClass($(this).val());
@@ -745,13 +739,13 @@ $(document).ready(function() {
         //Pleine largeur
     $('body').on('change', 'input[name$="[pleineLargeur]"]', function() {
         if($(this).prop('checked')){
-            $(this).closest('.field-bloc').addClass('pleineLargeur');
+            $(this).closest('.field-bloc').addClass('pleineLargeur').resizable( "option", "disabled", true );
         }else{
-            $(this).closest('.field-bloc').removeClass('pleineLargeur');
+            $(this).closest('.field-bloc').removeClass('pleineLargeur').resizable( "option", "disabled", false );
         }
 
-        //Désactivation du champ "largeur par rapport au conteneur"
-        $(this).closest('.bloc-panel').find('select[name$="[largeur]"]').attr('disabled', $(this).prop('checked')).val('col12').trigger('change');
+        $(this).closest('.field-bloc').removeClass('col12 col11 col10 col9 col8 col7 col6 col5 col4 col3 col2 col1').addClass('col12');
+        $(this).closest('.bloc-panel').find('input[name$="[largeur]"]').val('col12');
     });
 
         //Padding
@@ -821,22 +815,39 @@ $(document).ready(function() {
     });
 
     //Blocs étirables
-    // $('.field-bloc').resizable({
-    //     handles: "w, e",
-    //     maxWidth: 992,
-    //     alsoResize: "#mirror",
-    //     start: function(event, ui){
-    //         if(ui.element.closest('.blocsEnfants').length > 0){
-    //             largeurColonne = ui.element.closest('.blocsEnfants').width() / 12;
-    //         }else{
-    //             largeurColonne = $('#page_active_blocs').width() / 12;
-    //         }
-    //         ui.element.resizable( "option", "grid", [ largeurColonne, 10 ] );
-    //     },
-    //     resize: function(event, ui) {
-    //         $(this).css({
-    //             'left': parseInt(ui.position.left, 10) + ((ui.originalSize.width - ui.size.width)) / 2
-    //         });
-    //     }
-    // });
+    $('.field-bloc').resizable({
+        handles: "w, e",
+        maxWidth: 992,
+        alsoResize: "#mirror",
+        start: function(event, ui){
+            if(ui.element.closest('.blocsEnfants').length > 0){
+                largeurColonne = ui.element.closest('.blocsEnfants').width() / 12;
+            }else{
+                largeurColonne = $('#page_active_blocs').width() / 12;
+            }
+            ui.element.resizable( "option", "grid", [ largeurColonne, 10 ] );
+        },
+        stop: function(event, ui){
+            saveCloseFormulaire();
+
+            if(ui.element.closest('.blocsEnfants').length > 0){
+                largeurColonne = ui.element.closest('.blocsEnfants').width() / 12;
+            }else{
+                largeurColonne = $('#page_active_blocs').width() / 12;
+            }
+            largeur = ui.element.width();
+
+            largeurElement = Math.round(largeur / largeurColonne);
+
+            //Changement de classe
+            ui.element.attr('style', '');
+            ui.element.removeClass('col12 col11 col10 col9 col8 col7 col6 col5 col4 col3 col2 col1').addClass('col'+largeurElement);
+
+            //Changement de la valeur du champ largeur
+            ui.element.children('div').children('.bloc-optionsAffichage').find('input[name$="[largeur]"]').val('col'+largeurElement);
+        }
+    });
+
+        //Désactiver le changement de taille sur les blocs pleine largeur
+    $('.pleineLargeur').resizable( "option", "disabled", true );
 });
