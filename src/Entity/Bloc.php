@@ -67,9 +67,9 @@ class Bloc
     private $blocsEnfants;
 
     /**
-     * @ORM\Column(type="smallint", nullable=true)
+     * @ORM\Column(type="string", length=10, nullable=true)
      */
-    private $largeur = 100;
+    private $largeur = 'col12';
 
     /**
      * @ORM\Column(type="string", length=20, nullable=true)
@@ -238,12 +238,12 @@ class Bloc
         return $this;
     }
 
-    public function getLargeur(): ?int
+    public function getLargeur(): ?string
     {
         return $this->largeur;
     }
 
-    public function setLargeur(?int $largeur): self
+    public function setLargeur(?string $largeur): self
     {
         $this->largeur = $largeur;
 

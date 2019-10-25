@@ -871,7 +871,7 @@
 {# BLOC #}
 {% block bloc_row -%}
     {% set _field_type = easyadmin.field.fieldType|default('default') %}
-    <div class="form-group {% if (not compound or force_error|default(false)) and not valid %}has-error{% endif %} field-{{ block_prefixes|slice(-2)|first }} {% if not form.children.active.vars.data %} desactive{% endif %} w{{ form.children.largeur.vars.data|default('100') }}{% if form.children.type.vars.value is defined %} bloc-{{ form.children.type.vars.value|lower }}{% endif %} {{ form.children.alignementHorizontal.vars.value|default('') }} {{ form.children.alignementVertical.vars.value|default('') }} {{ form.children.padding.vars.value|default('') }} {% if form.children.pleineLargeur.vars.data %}pleineLargeur{% endif %}" data-name="{{ name }}">
+    <div class="form-group {% if (not compound or force_error|default(false)) and not valid %}has-error{% endif %} field-{{ block_prefixes|slice(-2)|first }} {% if not form.children.active.vars.data %} desactive{% endif %} {{ form.children.largeur.vars.data|default('col12') }}{% if form.children.type.vars.value is defined %} bloc-{{ form.children.type.vars.value|lower }}{% endif %} {{ form.children.alignementHorizontal.vars.value|default('') }} {{ form.children.alignementVertical.vars.value|default('') }} {{ form.children.padding.vars.value|default('') }} {% if form.children.pleineLargeur.vars.data %}pleineLargeur{% endif %}" data-name="{{ name }}">
         {{- form_label(form) -}}
         {{- form_widget(form) -}}
 

@@ -612,6 +612,54 @@
     width: calc(100% / 4 - 4rem - 0.01px);
   }
 }
+.col1 {
+  width: 8%;
+}
+
+.col2 {
+  width: 16%;
+}
+
+.col3 {
+  width: 25%;
+}
+
+.col4 {
+  width: 32%;
+}
+
+.col5 {
+  width: 41%;
+}
+
+.col6 {
+  width: 50%;
+}
+
+.col7 {
+  width: 58%;
+}
+
+.col8 {
+  width: 66%;
+}
+
+.col9 {
+  width: 75%;
+}
+
+.col10 {
+  width: 83%;
+}
+
+.col11 {
+  width: 91%;
+}
+
+.col12 {
+  width: 100%;
+}
+
 /* -------------------------- */
 /* ==Responsive helpers       */
 /* -------------------------- */
@@ -1667,6 +1715,54 @@ body.connected {
     width: calc(100% / 4 - 4rem - 0.01px);
   }
 }
+.col1 {
+  width: 8%;
+}
+
+.col2 {
+  width: 16%;
+}
+
+.col3 {
+  width: 25%;
+}
+
+.col4 {
+  width: 32%;
+}
+
+.col5 {
+  width: 41%;
+}
+
+.col6 {
+  width: 50%;
+}
+
+.col7 {
+  width: 58%;
+}
+
+.col8 {
+  width: 66%;
+}
+
+.col9 {
+  width: 75%;
+}
+
+.col10 {
+  width: 83%;
+}
+
+.col11 {
+  width: 91%;
+}
+
+.col12 {
+  width: 100%;
+}
+
 /* -------------------------- */
 /* ==Responsive helpers       */
 /* -------------------------- */

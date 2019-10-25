@@ -72,14 +72,18 @@ class BlocType extends AbstractType
     private $optionsLargeur = [
         'label' => 'Largeur par rapport au conteneur',
         'choices' => [
-            '100%' => '100',
-            '80%' => '80',
-            '75%' => '75',
-            '60%' => '60',
-            '50%' => '50',
-            '40%' => '40',
-            '25%' => '25',
-            '20%' => '20',
+            'col12' => 'col12',
+            'col11' => 'col11',
+            'col10' => 'col10',
+            'col9' => 'col9',
+            'col8' => 'col8',
+            'col7' => 'col7',
+            'col6' => 'col6',
+            'col5' => 'col5',
+            'col4' => 'col4',
+            'col3' => 'col3',
+            'col2' => 'col2',
+            'col1' => 'col1',
         ],
     ];
 

@@ -5,7 +5,7 @@
             {% set classBloc = classBloc~" "~class %}
         {% endfor %}
     {% endif %}
-    <div class="bloc{{ bloc.type }} bloc-{{ bloc.id }}{% if classBloc is defined and classBloc is not empty %}{{ classBloc }}{% endif %} w{{ bloc.largeur|default('100') }} {{ bloc.padding|default('pan') }} {{ bloc.alignementVertical|default('') }} {{ bloc.alignementHorizontal|default('') }} {% if not bloc.blocParent and bloc.pleineLargeur %}pleineLargeur{% endif %}" data-bloc="{{ bloc.id }}">
+    <div class="bloc{{ bloc.type }} bloc-{{ bloc.id }}{% if classBloc is defined and classBloc is not empty %}{{ classBloc }}{% endif %} {{ bloc.largeur|default('col12') }} {{ bloc.padding|default('pan') }} {{ bloc.alignementVertical|default('') }} {{ bloc.alignementHorizontal|default('') }} {% if not bloc.blocParent and bloc.pleineLargeur %}pleineLargeur{% endif %}" data-bloc="{{ bloc.id }}">
         {% include ['/Blocs/'~bloc.type~'/bloc-'~bloc.id~'.html.twig', '/Blocs/'~bloc.type~'/'~bloc.type~'.html.twig'] with{'bloc': bloc} only %}
     </div>
 {% endif %}

@@ -210,7 +210,7 @@ $(document).ready(function() {
         //Annulation des options d'affichage : ràz des classes d'affichage du bloc
         if($(this).hasClass('bloc-optionsAffichage--annulation')){
             largeur = formulaire.find('select[name$="[largeur]"]').val();
-            bloc.removeClass('w100 w80 w75 w60 w50 w40 w25 w20').addClass('w'+largeur);
+            bloc.removeClass('col12 col11 col10 col9 col8 col7 col6 col5 col4 col3 col2 col1').addClass(largeur);
 
             alignementHorizontal = formulaire.find('select[name$="[alignementHorizontal]"]').val();
             bloc.removeClass('mrauto mlauto').addClass(alignementHorizontal);
@@ -376,7 +376,7 @@ $(document).ready(function() {
                     var form = data.replace(/bloc_/g, entite+'_blocs_'+count+'_')
                         .replace(/bloc\[/g, entite+'[blocs]['+count+'][');
 
-                    bloc = '<div id="nvBloc'+count+'" class="form-group field-bloc nvBloc w100 bloc-'+type.toLowerCase()+'" data-name="'+count+'">'+form+'</div>';
+                    bloc = '<div id="nvBloc'+count+'" class="form-group field-bloc nvBloc col12 bloc-'+type.toLowerCase()+'" data-name="'+count+'">'+form+'</div>';
                     if($('.listeBlocs').attr('id') === 'apres'){
                         $('#'+entite+'_blocs').append(bloc);
                     }else{
@@ -395,7 +395,7 @@ $(document).ready(function() {
                     var form = data.replace(/bloc_/g, $('.listeBlocs').attr('data-section')+'_'+countBloc+'_')
                         .replace(/bloc\[/g, exp+'['+countBloc+'][');
 
-                    bloc = '<div id="nvBloc'+countBloc+'" class="form-group field-bloc w100 bloc-'+type.toLowerCase()+'" data-name="'+countBloc+'">'+form+'</div>';
+                    bloc = '<div id="nvBloc'+countBloc+'" class="form-group field-bloc col12 bloc-'+type.toLowerCase()+'" data-name="'+countBloc+'">'+form+'</div>';
 
                     if($('.listeBlocs').attr('data-position') === 'avant'){
                         section.prepend(bloc);
@@ -719,7 +719,7 @@ $(document).ready(function() {
     //Changement des options d'affichage
         //Largeur
     $('body').on('change', 'select[name$="[largeur]"]', function() {
-        $(this).closest('.field-bloc').removeClass('w100 w80 w75 w60 w50 w40 w25 w20').addClass('w'+$(this).val());
+        $(this).closest('.field-bloc').removeClass('col12 col11 col10 col9 col8 col7 col6 col5 col4 col3 col2 col1').addClass($(this).val());
     });
 
         //Alignement horizontal
@@ -751,7 +751,7 @@ $(document).ready(function() {
         }
 
         //Désactivation du champ "largeur par rapport au conteneur"
-        $(this).closest('.bloc-panel').find('select[name$="[largeur]"]').attr('disabled', $(this).prop('checked')).val('100').trigger('change');
+        $(this).closest('.bloc-panel').find('select[name$="[largeur]"]').attr('disabled', $(this).prop('checked')).val('col12').trigger('change');
     });
 
         //Padding
