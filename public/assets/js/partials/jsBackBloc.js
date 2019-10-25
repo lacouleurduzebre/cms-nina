@@ -43,6 +43,7 @@ $(document).ready(function() {
         },
         start: function(event, ui) {
             $('.dndBlocs').addClass('dndEnCours');
+            ui.placeholder.attr('class', 'dndPlaceholder '+ui.item.attr('class')).removeClass('field-bloc form-group');
         },
         stop: function(event, ui) {
             $('.dndBlocs').removeClass('dndEnCours');
