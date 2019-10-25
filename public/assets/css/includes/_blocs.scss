@@ -771,18 +771,9 @@ body.edit, body.new{
 
 //Drag'n'drop
 .dndEnCours{
-  padding-top: 2rem;
-  padding-bottom: 2rem;
+  min-height: 5rem;
 }
 
 .dndPlaceholder{
-  width: 100%;
   border: 2px dashed red;
-  height: 5rem;
-}
-
-.field-bloc.ui-sortable-helper{
-  max-width: 30rem;
-  overflow: hidden;
-  height: 4rem;
 }

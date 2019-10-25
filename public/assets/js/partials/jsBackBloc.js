@@ -4,7 +4,7 @@ $(document).ready(function() {
         handle: '.drag',
         connectWith: '.dndBlocs',
         placeholder: "dndPlaceholder",
-        cursorAt: { top: 5, left: 5 },
+        forcePlaceholderSize: true,
         update: function(event, ui){
             $('.field-bloc').each(function(){
                 $(this).find("input[id$='position']").val($(this).index());

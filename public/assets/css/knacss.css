@@ -5039,20 +5039,11 @@ body.edit .bloc-reseauxsociaux input[type=text], body.new .bloc-reseauxsociaux i
 }
 
 .dndEnCours {
-  padding-top: 2rem;
-  padding-bottom: 2rem;
+  min-height: 5rem;
 }
 
 .dndPlaceholder {
-  width: 100%;
   border: 2px dashed red;
-  height: 5rem;
-}
-
-.field-bloc.ui-sortable-helper {
-  max-width: 30rem;
-  overflow: hidden;
-  height: 4rem;
 }
 
 .traductionTemplateChoix div {
