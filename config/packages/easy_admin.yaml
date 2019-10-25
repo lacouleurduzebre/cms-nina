@@ -31,13 +31,14 @@ easy_admin:
                 - 'assets/css/back.css'
                 - 'assets/js/jstree/themes/style.css'
                 - 'assets/js/fancybox/jquery.fancybox.min.css'
+                - 'assets/js/jquery-ui.min.css'
             js:
                 # dans base.html.twig - '../assets/js/jquery-3.2.1.min.js'
 #                - 'assets/js/fancybox/jquery.fancybox.min.js'
                 - 'assets/js/fontawesome-all.min.js'
                 - 'assets/js/jscookie/cookie.js'
                 - 'assets/js/jstree/jstree.min.js'
-                - 'assets/js/sortable/jquery-ui.min.js'
+                - 'assets/js/jquery-ui.min.js'
                 - 'assets/js/jsBack.js'
                 - 'assets/js/jsHeaderSidebar.js'
         templates:

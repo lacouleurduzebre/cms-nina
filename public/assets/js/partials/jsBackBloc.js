@@ -819,4 +819,24 @@ $(document).ready(function() {
     $('#toggleMiseEnPage').click(function(){
         $(this).closest('.conteneurBlocs').toggleClass('miseEnPage');
     });
+
+    //Blocs étirables
+    // $('.field-bloc').resizable({
+    //     handles: "w, e",
+    //     maxWidth: 992,
+    //     alsoResize: "#mirror",
+    //     start: function(event, ui){
+    //         if(ui.element.closest('.blocsEnfants').length > 0){
+    //             largeurColonne = ui.element.closest('.blocsEnfants').width() / 12;
+    //         }else{
+    //             largeurColonne = $('#page_active_blocs').width() / 12;
+    //         }
+    //         ui.element.resizable( "option", "grid", [ largeurColonne, 10 ] );
+    //     },
+    //     resize: function(event, ui) {
+    //         $(this).css({
+    //             'left': parseInt(ui.position.left, 10) + ((ui.originalSize.width - ui.size.width)) / 2
+    //         });
+    //     }
+    // });
 });
