@@ -4368,7 +4368,7 @@ body.list #flash-messages > * {
   text-decoration: none;
 }
 
-.ajoutBloc, .ajout-bloc {
+.ajout-bloc {
   background-color: #fff;
   color: #fff;
   text-decoration: none;
@@ -4381,29 +4381,32 @@ body.list #flash-messages > * {
   justify-content: center;
   border: 1px solid;
   padding: 0;
+  margin: auto;
 }
-.ajoutBloc:hover, .ajout-bloc:hover {
+.ajout-bloc:hover {
   color: #fff;
   background-color: #fff;
 }
-.ajoutBloc:hover svg, .ajout-bloc:hover svg {
+.ajout-bloc:hover svg {
   color: #08a5cc;
 }
-.ajoutBloc svg, .ajout-bloc svg {
+.ajout-bloc svg {
   color: #0791B3;
   font-size: 3rem;
 }
 
-.ajoutBloc {
-  border: 1px solid #fff;
-  width: 3.5rem;
-  height: 3.5rem;
+.ajoutBloc.btn {
+  background-color: #0791B3;
+  border-radius: 2rem;
+  cursor: move;
+  transition: background-color 0s;
+  color: #fff !important;
 }
-.ajoutBloc svg {
-  font-size: 3.5rem;
+.ajoutBloc.btn:hover {
+  background-color: #0791B3;
 }
 
-.ajoutBloc.dndPlaceholder, #page_active_blocs .ajoutBloc:not(.ui-draggable-dragging) {
+.ajoutBloc.btn.dndPlaceholder, #page_active_blocs .ajoutBloc:not(.ui-draggable-dragging) {
   display: block;
   width: 100% !important;
   max-width: 992px;
@@ -4413,13 +4416,10 @@ body.list #flash-messages > * {
   border-radius: 0;
   box-shadow: none;
   z-index: 200;
+  font-size: 0;
 }
-.ajoutBloc.dndPlaceholder svg, #page_active_blocs .ajoutBloc:not(.ui-draggable-dragging) svg {
+.ajoutBloc.btn.dndPlaceholder svg, #page_active_blocs .ajoutBloc:not(.ui-draggable-dragging) svg {
   display: none;
-}
-
-.ajout-bloc {
-  margin: auto;
 }
 
 .form-group.field-bloc, .form-group.field-bloc_annexe {
@@ -4471,6 +4471,7 @@ body.list #flash-messages > * {
   display: flex;
   align-items: center;
   padding: 1rem 2rem 1rem 1rem;
+  color: #fff;
 }
 body.notFull .toggleAffichageBlocs {
   left: 30rem;

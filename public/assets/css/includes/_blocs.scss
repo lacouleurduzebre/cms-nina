@@ -35,7 +35,7 @@
   }
 }
 
-.ajoutBloc, .ajout-bloc{
+.ajout-bloc{
   background-color: $white;
   color: $white;
   text-decoration: none;
@@ -48,6 +48,7 @@
   justify-content: center;
   border: 1px solid;
   padding: 0;
+  margin: auto;
   &:hover{
     color: $white;
     background-color: $white;
@@ -61,16 +62,18 @@
   }
 }
 
-.ajoutBloc{
-  border: 1px solid $white;
-  width: 3.5rem;
-  height: 3.5rem;
-  svg{
-    font-size: 3.5rem;
+.ajoutBloc.btn{
+  background-color: $color-brand2;
+  border-radius: 2rem;
+  cursor: move;
+  transition: background-color 0s;
+  color: $white !important;
+  &:hover{
+    background-color: $color-brand2;
   }
 }
 
-.ajoutBloc.dndPlaceholder, #page_active_blocs .ajoutBloc:not(.ui-draggable-dragging){
+.ajoutBloc.btn.dndPlaceholder, #page_active_blocs .ajoutBloc:not(.ui-draggable-dragging){
   display: block;
   width: 100% !important;
   max-width: $large;
@@ -80,13 +83,10 @@
   border-radius: 0;
   box-shadow: none;
   z-index: 200;
+  font-size: 0;
   svg{
     display: none;
   }
-}
-
-.ajout-bloc{
-  margin: auto;
 }
 
 .form-group.field-bloc, .form-group.field-bloc_annexe{
@@ -142,6 +142,7 @@
   display: flex;
   align-items: center;
   padding: 1rem 2rem 1rem 1rem;
+  color: $white;
   body.notFull &{
     left: 30rem;
   }
