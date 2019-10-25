@@ -48,6 +48,7 @@ $(document).ready(function() {
             //Reprise des classes du bloc (mauto)
             ui.placeholder.attr('class', 'dndPlaceholder '+ui.item.attr('class')).removeClass('field-bloc form-group bloc-section');
 
+            //Annulation marges auto du helper
             var marginsToSet = ui.item.data().sortableItem.margins;
             ui.item.css('margin-left', marginsToSet.left);
             ui.item.css('margin-top', marginsToSet.top);
@@ -73,6 +74,54 @@ $(document).ready(function() {
     $("#page_active_blocs").sortable(options);
     $("#groupeblocs_blocs").sortable(options);
     $("div[id$='blocsEnfants']").sortable(options);
+
+    //Blocs étirables
+    optionsResizable = {
+        handles: "w, e",
+        maxWidth: 992,
+        alsoResize: "#mirror",
+        start: function(event, ui){
+            if(ui.element.closest('.blocsEnfants').length > 0){
+                largeurColonne = ui.element.closest('.blocsEnfants').width() / 12;
+            }else{
+                largeurColonne = $('#page_active_blocs').width() / 12;
+            }
+            ui.element.resizable( "option", "grid", [ largeurColonne, 10 ] );
+        },
+        stop: function(event, ui){
+            saveCloseFormulaire();
+
+            if(ui.element.closest('.blocsEnfants').length > 0){
+                largeurColonne = ui.element.closest('.blocsEnfants').width() / 12;
+            }else{
+                largeurColonne = $('#page_active_blocs').width() / 12;
+            }
+            largeur = ui.element.width();
+
+            largeurElement = Math.round(largeur / largeurColonne);
+
+            //Changement de classe
+            ui.element.attr('style', '');
+            ui.element.removeClass('col12 col11 col10 col9 col8 col7 col6 col5 col4 col3 col2 col1').addClass('col'+largeurElement);
+
+            //Changement de la valeur du champ largeur
+            ui.element.children('div').children('.bloc-optionsAffichage').find('input[name$="[largeur]"]').val('col'+largeurElement);
+        }
+    };
+
+    $('.field-bloc').resizable(optionsResizable);
+
+    //Désactiver le changement de taille sur les blocs pleine largeur
+    $('.pleineLargeur').resizable( "option", "disabled", true );
+
+    //Ajout de bloc via glisser-déposer
+    $('.ajoutBloc').draggable({
+        connectToSortable: ".dndBlocs",
+        helper: "clone",
+        stop: function(event, ui){
+            $('.listeBlocs').addClass('actif');
+        }
+    });
 
     $(".bloc-slider div[id$='contenu_Slide']").sortable({
         handle: '.dragSlide',
@@ -373,7 +422,10 @@ $(document).ready(function() {
 
                 $('.listeBlocs').removeClass('actif chargement');
 
-                if($('.listeBlocs').attr('id') === 'avant' || $('.listeBlocs').attr('id') === 'apres'){
+                cible = $('#page_active_blocs .ajoutBloc');
+                blocEnfant = cible.closest('.blocsEnfants').length > 0;
+
+                if(!blocEnfant){//Bloc à la racine
                     if(count === 0){
                         count = $('#'+entite+'_blocs').find('.field-bloc').length;
                     }else{
@@ -384,60 +436,32 @@ $(document).ready(function() {
                         .replace(/bloc\[/g, entite+'[blocs]['+count+'][');
 
                     bloc = '<div id="nvBloc'+count+'" class="form-group field-bloc nvBloc col12 bloc-'+type.toLowerCase()+'" data-name="'+count+'">'+form+'</div>';
-                    if($('.listeBlocs').attr('id') === 'apres'){
-                        $('#'+entite+'_blocs').append(bloc);
-                    }else{
-                        $('#'+entite+'_blocs').prepend(bloc);
-                    }
+
+                    cible.replaceWith(bloc);
 
                     nvBloc = $('#nvBloc' + count);
                 }else{//Bloc enfant
-                    section = $('#'+$('.listeBlocs').attr('data-section'));
+                    section = cible.closest('.dndBlocs');
+                    idSection = section.attr('id');
 
                     count = section.closest('.field-bloc').data('name');
-                    countBloc = section.find('.field-bloc').length;
+                    countBloc = section.children('.field-bloc').length;
 
-                    exp = entite+'['+$('.listeBlocs').attr('data-section').replace(entite+'_', '').replace(/_/g, '][')+']';
+                    exp = entite+'['+idSection.replace(entite+'_', '').replace(/_/g, '][')+']';
 
-                    var form = data.replace(/bloc_/g, $('.listeBlocs').attr('data-section')+'_'+countBloc+'_')
+                    var form = data.replace(/bloc_/g, idSection+'_'+countBloc+'_')
                         .replace(/bloc\[/g, exp+'['+countBloc+'][');
 
                     bloc = '<div id="nvBloc'+countBloc+'" class="form-group field-bloc col12 bloc-'+type.toLowerCase()+'" data-name="'+countBloc+'">'+form+'</div>';
 
-                    if($('.listeBlocs').attr('data-position') === 'avant'){
-                        section.prepend(bloc);
-                    }else{
-                        section.append(bloc);
-                    }
+                    cible.replaceWith(bloc);
 
                     nvBloc = $('#nvBloc' + countBloc);
 
-                    if(nvBloc.closest('.blocsEnfants').length > 0){
-                        nvBloc.children('div').children('.bloc-optionsAffichage').find('input[name$="[pleineLargeur]"]').closest('.form-group').addClass('hidden');
-                    }
-                }
-
-                //Anim ajout de bloc
-                var elOffset = nvBloc.offset().top;
-                var elHeight = nvBloc.height();
-                var windowHeight = $(window).height();
-
-                if (elHeight < windowHeight) {
-                    offset = elOffset - ((windowHeight / 2) - (elHeight / 2));
-                }
-                else {
-                    offset = elOffset;
+                    nvBloc.children('div').children('.bloc-optionsAffichage').find('input[name$="[pleineLargeur]"]').closest('.form-group').addClass('hidden');
                 }
 
                 nvBloc.find('.bloc-panel.bloc-formulaire').removeClass('hidden');
-
-                $('body, html').animate({
-                    scrollTop: offset
-                }, 600, 'swing', function(){
-                    nvBloc.fadeTo(600, 1);
-                });
-
-                $('#'+entite+'_blocs').prev('.empty').remove();
 
                 //Màj de la position
                 $('.field-bloc').each(function(){
@@ -448,6 +472,10 @@ $(document).ready(function() {
                 tinymce.init(optionsTinyMCEParagraphe);
                 tinymce.init(optionsTinyMCE);
                 $('.select-multiple').select2();
+                $("#page_active_blocs").sortable(options);
+                $("#groupeblocs_blocs").sortable(options);
+                $("div[id$='blocsEnfants']").sortable(options);
+                $('.field-bloc').resizable(optionsResizable);
             })
             .fail(function(){
                 $('.listeBlocs').removeClass('actif chargement');
@@ -533,6 +561,7 @@ $(document).ready(function() {
     $('.listeBlocs-fermeture').click(function(){
         $('.listeBlocs').removeClass('actif');
         $('.voirBlocs').removeClass('hidden');
+        $('#page_active_blocs .ajoutBloc').remove();
     });
 
     $('.listeBlocsAnnexes-fermeture').click(function(){
@@ -821,41 +850,4 @@ $(document).ready(function() {
     $('#toggleMiseEnPage').click(function(){
         $(this).closest('.conteneurBlocs').toggleClass('miseEnPage');
     });
-
-    //Blocs étirables
-    $('.field-bloc').resizable({
-        handles: "w, e",
-        maxWidth: 992,
-        alsoResize: "#mirror",
-        start: function(event, ui){
-            if(ui.element.closest('.blocsEnfants').length > 0){
-                largeurColonne = ui.element.closest('.blocsEnfants').width() / 12;
-            }else{
-                largeurColonne = $('#page_active_blocs').width() / 12;
-            }
-            ui.element.resizable( "option", "grid", [ largeurColonne, 10 ] );
-        },
-        stop: function(event, ui){
-            saveCloseFormulaire();
-
-            if(ui.element.closest('.blocsEnfants').length > 0){
-                largeurColonne = ui.element.closest('.blocsEnfants').width() / 12;
-            }else{
-                largeurColonne = $('#page_active_blocs').width() / 12;
-            }
-            largeur = ui.element.width();
-
-            largeurElement = Math.round(largeur / largeurColonne);
-
-            //Changement de classe
-            ui.element.attr('style', '');
-            ui.element.removeClass('col12 col11 col10 col9 col8 col7 col6 col5 col4 col3 col2 col1').addClass('col'+largeurElement);
-
-            //Changement de la valeur du champ largeur
-            ui.element.children('div').children('.bloc-optionsAffichage').find('input[name$="[largeur]"]').val('col'+largeurElement);
-        }
-    });
-
-        //Désactiver le changement de taille sur les blocs pleine largeur
-    $('.pleineLargeur').resizable( "option", "disabled", true );
 });

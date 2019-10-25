@@ -4368,14 +4368,13 @@ body.list #flash-messages > * {
   text-decoration: none;
 }
 
-.ajout-bloc {
+.ajoutBloc, .ajout-bloc {
   background-color: #fff;
   color: #fff;
   text-decoration: none;
   border-radius: 50%;
   width: 3rem;
   height: 3rem;
-  margin: auto;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
   display: flex;
   align-items: center;
@@ -4383,16 +4382,44 @@ body.list #flash-messages > * {
   border: 1px solid;
   padding: 0;
 }
-.ajout-bloc:hover {
+.ajoutBloc:hover, .ajout-bloc:hover {
   color: #fff;
   background-color: #fff;
 }
-.ajout-bloc:hover svg {
+.ajoutBloc:hover svg, .ajout-bloc:hover svg {
   color: #08a5cc;
 }
-.ajout-bloc svg {
+.ajoutBloc svg, .ajout-bloc svg {
   color: #0791B3;
   font-size: 3rem;
+}
+
+.ajoutBloc {
+  border: 1px solid #fff;
+  width: 3.5rem;
+  height: 3.5rem;
+}
+.ajoutBloc svg {
+  font-size: 3.5rem;
+}
+
+.ajoutBloc.dndPlaceholder, #page_active_blocs .ajoutBloc:not(.ui-draggable-dragging) {
+  display: block;
+  width: 100% !important;
+  max-width: 992px;
+  border: 2px dashed red;
+  height: 5rem;
+  background-color: transparent;
+  border-radius: 0;
+  box-shadow: none;
+  z-index: 200;
+}
+.ajoutBloc.dndPlaceholder svg, #page_active_blocs .ajoutBloc:not(.ui-draggable-dragging) svg {
+  display: none;
+}
+
+.ajout-bloc {
+  margin: auto;
 }
 
 .form-group.field-bloc, .form-group.field-bloc_annexe {
@@ -4402,9 +4429,6 @@ body.list #flash-messages > * {
   background-color: #DFDFDF;
   opacity: 0.7 !important;
 }
-.form-group.field-bloc.nvBloc, .form-group.field-bloc_annexe.nvBloc {
-  opacity: 0;
-}
 .form-group.field-bloc > label, .form-group.field-bloc_annexe > label {
   display: none;
 }
@@ -4413,6 +4437,14 @@ body.list #flash-messages > * {
 }
 .form-group.field-bloc:last-of-type .descendreBloc, .form-group.field-bloc_annexe:last-of-type .descendreBloc {
   display: none;
+}
+
+.form-group.field-bloc.nvBloc {
+  min-height: 5rem;
+}
+
+.form-group.field-bloc_annexe.nvBloc {
+  opacity: 0;
 }
 
 .conteneurBlocs {
@@ -4435,8 +4467,10 @@ body.list #flash-messages > * {
   background: #EEEEEE;
   box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
   left: 0;
-  padding: 1rem;
   z-index: 90;
+  display: flex;
+  align-items: center;
+  padding: 1rem 2rem 1rem 1rem;
 }
 body.notFull .toggleAffichageBlocs {
   left: 30rem;
@@ -4466,6 +4500,7 @@ body.notFull .toggleAffichageBlocs {
 
 .conteneurs #toggleConteneurs {
   background-color: #0791B3;
+  margin-right: auto;
 }
 .conteneurs .form-group.field-bloc.bloc-section {
   box-shadow: 0 0 5px #939393;

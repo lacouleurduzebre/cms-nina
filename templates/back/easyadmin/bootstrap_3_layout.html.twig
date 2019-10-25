@@ -353,20 +353,7 @@
 {% block collection_row %}
     {% if 'blocsEnfants' in form.vars.unique_block_prefix %}
         <div class="form-group field-collection blocsEnfants">
-            <div class="text-right field-collection-action">
-                <button href="#" onclick="$(function (){if (event.preventDefault) event.preventDefault(); else event.returnValue = false; $('.listeBlocs').attr('id', 'section').attr('data-section', '{{ form.vars.id }}').attr('data-position', 'avant').addClass('actif')})" class="ajout-bloc">
-                    <i class="fas fa-plus-circle"></i>
-                </button>
-            </div>
-
             {{- form_widget(form, { attr: { class: 'dndBlocs' } }) -}}
-
-            <div class="text-right field-collection-action">
-                <button href="#" onclick="$(function (){if (event.preventDefault) event.preventDefault(); else event.returnValue = false; $('.listeBlocs').attr('id', 'section').attr('data-section', '{{ form.vars.id }}').attr('data-position', 'apres').addClass('actif')})" class="ajout-bloc">
-                    <i class="fas fa-plus-circle"></i>
-                </button>
-            </div>
-
         </div>
     {% else %}
         <div class="form-group field-{{ name }} {% if value is empty %}vide{% endif %}">
@@ -786,23 +773,12 @@
         {{- form_label(form) -}}
 
         <div class="toggleAffichageBlocs">
-            <a id="toggleMiseEnPage" class="btn"><i class="fas fa-eye mrs"></i>{{ "Mise en page"|trans }}</a>
+            <a id="toggleMiseEnPage" class="btn mrs"><i class="fas fa-eye mrs"></i>{{ "Mise en page"|trans }}</a>
             <a id="toggleConteneurs" class="btn"><i class="fas fa-eye mrs"></i>{{ "Conteneurs"|trans }}</a>
-        </div>
-
-        <div class="txtcenter field-collection-action mbs">
-            <a href="#" onclick="$(function (){if (event.preventDefault) event.preventDefault(); else event.returnValue = false; $('.listeBlocs').attr('id', 'avant').addClass('actif')})" class="ajout-bloc">
-                <i class="fas fa-plus-circle"></i>
-            </a>
+            <a class="ajoutBloc"><i class="fas fa-plus-circle"></i></a>
         </div>
 
         {{- form_widget(form, { attr: { class: 'dndBlocs' } }) -}}
-
-        <div class="txtcenter field-collection-action">
-            <a href="#" onclick="$(function (){if (event.preventDefault) event.preventDefault(); else event.returnValue = false; $('.listeBlocs').attr('id', 'apres').addClass('actif')})" class="ajout-bloc">
-                <i class="fas fa-plus-circle"></i>
-            </a>
-        </div>
 
     </div>
 {% endblock %}
@@ -810,36 +786,7 @@
 {% block _groupeblocs_blocs_row %}
     <div class="form-group field-collection">
         {{- form_label(form) -}}
-
-        {#<a id="replierBlocs" href="#">#}
-            {#<span class="btn">#}
-                {#{{ "Replier tous les blocs"|trans }}#}
-                {#<i class="fas fa-chevron-circle-up"></i>#}
-            {#</span>#}
-        {#</a>#}
-        {#<a id="deplierBlocs" class="hidden" href="#">#}
-            {#<span class="btn">#}
-                {#{{ "Déplier tous les blocs"|trans }}#}
-                {#<i class="fas fa-chevron-circle-down"></i>#}
-            {#</span>#}
-        {#</a>#}
-
-        <div class="text-right field-collection-action mbs">
-            <a href="#" onclick="$(function (){if (event.preventDefault) event.preventDefault(); else event.returnValue = false; $('.listeBlocs').attr('id', 'avant').addClass('actif')})" class="ajout-bloc">
-                <i class="fas fa-plus-circle"></i>
-                {{ 'ajouter un bloc'|trans({}, 'EasyAdminBundle') }}
-            </a>
-        </div>
-
         {{- form_widget(form) -}}
-
-        <div class="text-right field-collection-action">
-            <a href="#" onclick="$(function (){if (event.preventDefault) event.preventDefault(); else event.returnValue = false; $('.listeBlocs').attr('id', 'apres').addClass('actif')})" class="ajout-bloc">
-                <i class="fas fa-plus-circle"></i>
-                {{ 'ajouter un bloc'|trans({}, 'EasyAdminBundle') }}
-            </a>
-        </div>
-
     </div>
 {% endblock %}
 
