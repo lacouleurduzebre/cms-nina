@@ -132,9 +132,12 @@ $(document).ready(function() {
 
     //Sauvegarde - Fermeture
     $('form').on('click', '.bloc-panel--sauvegarde', function(){
+        bloc = $(this).closest('.field-bloc');
         formulaire = $(this).closest('.bloc-panel');
+
         //Fermeture du formulaire
         formulaire.addClass('hidden');
+        bloc.removeClass('bloc-formulairefocus bloc-optionsAffichagefocus');
 
         //Enregistrement des valeurs du formulaire
         formulaire.find('input').each(function(){
@@ -193,6 +196,8 @@ $(document).ready(function() {
         formulairePrecedent = $(this).closest('.field-bloc').children('.bloc-barreActions').children('.prototype');
         bloc = $(this).closest('.field-bloc');
         formulaire = $(this).closest('.bloc-panel');
+
+        bloc.removeClass('bloc-formulairefocus bloc-optionsAffichagefocus');
 
         formulaire.addClass('hidden').html(formulairePrecedent.html());
 
@@ -266,6 +271,8 @@ $(document).ready(function() {
     //Formulaire temporaire
     formulaireTemporaire = function(bouton, classFormulaire){
         bloc = bouton.closest('.field-bloc');
+
+        bloc.addClass(classFormulaire+'focus');
 
         formulaire = bloc.children('div').children('.'+classFormulaire);
 

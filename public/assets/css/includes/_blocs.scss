@@ -720,11 +720,7 @@ body.edit, body.new{
 
 //Panels
 .bloc-panel{
-  position: absolute;
-  top: -2px;
   z-index: 50;
-  left: -2px;
-  width: calc(100% + 4px);
   select{
     border: 1px solid #DADCE0;
     box-shadow: none;
@@ -743,9 +739,32 @@ body.edit, body.new{
 }
 
 .bloc-panel--body{
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
   padding: 1rem 1.5rem 1.5rem;
   background-color: #fff;
+}
+
+  //Panel formulaire
+.bloc-panel.bloc-formulaire{
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  width: calc(100% + 4px);
+  .bloc-panel--body{
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
+  }
+}
+
+  //Panel options d'affichage
+.miseEnPage .form-group.field-bloc:not(.bloc-section).bloc-optionsAffichagefocus, .conteneurs .form-group.field-bloc.blocSection.bloc-optionsAffichagefocus{
+  border: 2px dashed $color-brand2;
+}
+
+.bloc-panel.bloc-optionsAffichage{
+  position: fixed;
+  top: 19rem;
+  right: 0;
+  width: 30rem;
+  height: calc(100vw - 19rem);
 }
 
 //Drag'n'drop
