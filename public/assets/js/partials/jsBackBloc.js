@@ -5,6 +5,7 @@ $(document).ready(function() {
         connectWith: '.dndBlocs',
         placeholder: "dndPlaceholder",
         forcePlaceholderSize: true,
+        cursorAt: { right: 10, top: 10 },
         update: function(event, ui){
             $('.field-bloc').each(function(){
                 $(this).find("input[id$='position']").val($(this).index());
@@ -43,7 +44,13 @@ $(document).ready(function() {
         },
         start: function(event, ui) {
             $('.dndBlocs').addClass('dndEnCours');
-            ui.placeholder.attr('class', 'dndPlaceholder '+ui.item.attr('class')).removeClass('field-bloc form-group');
+
+            //Reprise des classes du bloc (mauto)
+            ui.placeholder.attr('class', 'dndPlaceholder '+ui.item.attr('class')).removeClass('field-bloc form-group bloc-section');
+
+            var marginsToSet = ui.item.data().sortableItem.margins;
+            ui.item.css('margin-left', marginsToSet.left);
+            ui.item.css('margin-top', marginsToSet.top);
         },
         stop: function(event, ui) {
             $('.dndBlocs').removeClass('dndEnCours');

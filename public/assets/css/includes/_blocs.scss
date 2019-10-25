@@ -93,6 +93,10 @@
   padding-bottom: 2rem;
   margin-left: -2rem;
   margin-right: -2rem;
+  min-height: calc(100vh - 15rem);
+  > .collection-empty{
+    display: none;
+  }
 }
 
 .toggleAffichageBlocs{
