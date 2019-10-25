@@ -10,17 +10,23 @@
 
 
 // common styles
+body.edit, body.new{//Contrer le css du front
+  .checkbox{
+    box-shadow: none;
+    border: none;
+  }
+  .radio{
+    width: auto;
+    height: auto;
+    background-color: transparent;
+    box-shadow: none;
+  }
+}
+
 .checkbox{
   background: transparent;
   input{
     border-radius: $checkbox-border-radius;
-  }
-}
-
-body.edit, body.new{
-  .checkbox{
-    box-shadow: none;
-    border: none;
   }
 }
 

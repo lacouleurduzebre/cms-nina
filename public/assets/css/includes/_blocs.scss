@@ -723,6 +723,7 @@ body.edit, body.new{
 //Panels
 .bloc-panel{
   z-index: 50;
+  font-family: $font-family-base;
   select{
     border: 1px solid #DADCE0;
     box-shadow: none;
@@ -748,9 +749,9 @@ body.edit, body.new{
   //Panel formulaire
 .bloc-panel.bloc-formulaire{
   position: absolute;
+  right: -2px;
   top: -2px;
-  left: -2px;
-  width: calc(100% + 4px);
+  width: 60rem;
   .bloc-panel--body{
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
   }

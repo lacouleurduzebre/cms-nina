@@ -2783,16 +2783,22 @@ button:focus {
 /* use .radio class on input type=radio */
 /* recommended HTML : <input type="radio" class="radio" name="radio" id="r1"><label for="r1">Click here</label> */
 /* use .switch class on input type=checkbox */
+body.edit .checkbox, body.new .checkbox {
+  box-shadow: none;
+  border: none;
+}
+body.edit .radio, body.new .radio {
+  width: auto;
+  height: auto;
+  background-color: transparent;
+  box-shadow: none;
+}
+
 .checkbox {
   background: transparent;
 }
 .checkbox input {
   border-radius: 4px;
-}
-
-body.edit .checkbox, body.new .checkbox {
-  box-shadow: none;
-  border: none;
 }
 
 .toggle input {
@@ -3682,7 +3688,7 @@ a[class$=image_bouton_mediatheque] {
   margin: 1rem 0;
 }
 
-.ouvrirMediatheque, a[class$=image_bouton_mediatheque] {
+.ouvrirMediatheque[type=button], a[class$=image_bouton_mediatheque] {
   display: inline-block;
   background-color: #0791B3;
   padding: 0.5rem;
@@ -3691,7 +3697,7 @@ a[class$=image_bouton_mediatheque] {
   text-decoration: none;
   margin-top: 1rem;
 }
-.ouvrirMediatheque:hover, .ouvrirMediatheque:active, .ouvrirMediatheque:focus, a[class$=image_bouton_mediatheque]:hover, a[class$=image_bouton_mediatheque]:active, a[class$=image_bouton_mediatheque]:focus {
+.ouvrirMediatheque[type=button]:hover, .ouvrirMediatheque[type=button]:active, .ouvrirMediatheque[type=button]:focus, a[class$=image_bouton_mediatheque]:hover, a[class$=image_bouton_mediatheque]:active, a[class$=image_bouton_mediatheque]:focus {
   background-color: #056982;
   color: #fff;
   text-decoration: none;
@@ -4994,6 +5000,7 @@ body.edit .bloc-reseauxsociaux input[type=text], body.new .bloc-reseauxsociaux i
 
 .bloc-panel {
   z-index: 50;
+  font-family: "Cabin", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
 }
 .bloc-panel select {
   border: 1px solid #DADCE0;
@@ -5018,9 +5025,9 @@ body.edit .bloc-reseauxsociaux input[type=text], body.new .bloc-reseauxsociaux i
 
 .bloc-panel.bloc-formulaire {
   position: absolute;
+  right: -2px;
   top: -2px;
-  left: -2px;
-  width: calc(100% + 4px);
+  width: 60rem;
 }
 .bloc-panel.bloc-formulaire .bloc-panel--body {
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
