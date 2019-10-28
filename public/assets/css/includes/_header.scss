@@ -79,6 +79,8 @@ body.connected{
     white-space: nowrap;
     &:hover > a{
       background-color: darken($color-primary, 15);
+      color: $white;
+      text-decoration: none;
     }
     > ul{//Nv 2
       visibility: hidden;

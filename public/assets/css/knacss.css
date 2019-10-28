@@ -4407,7 +4407,7 @@ body.list #flash-messages > * {
   background-color: #0791B3;
 }
 
-.ajoutBloc.btn.dndPlaceholder, #page_active_blocs .ajoutBloc:not(.ui-draggable-dragging) {
+.ajoutBloc.btn.dndPlaceholder, .conteneurBlocs > .dndBlocs .ajoutBloc:not(.ui-draggable-dragging) {
   display: block;
   width: 100% !important;
   max-width: 992px;
@@ -4419,7 +4419,7 @@ body.list #flash-messages > * {
   z-index: 200;
   font-size: 0;
 }
-.ajoutBloc.btn.dndPlaceholder svg, #page_active_blocs .ajoutBloc:not(.ui-draggable-dragging) svg {
+.ajoutBloc.btn.dndPlaceholder svg, .conteneurBlocs > .dndBlocs .ajoutBloc:not(.ui-draggable-dragging) svg {
   display: none;
 }
 
@@ -4477,6 +4477,9 @@ body.list #flash-messages > * {
 body.notFull .toggleAffichageBlocs {
   left: 30rem;
   width: calc(100vw - 30rem);
+}
+body.edit-region .toggleAffichageBlocs, body.new-region .toggleAffichageBlocs {
+  top: 11.5rem;
 }
 
 #toggleConteneurs, #toggleMiseEnPage {
@@ -4547,14 +4550,14 @@ body.notFull .toggleAffichageBlocs {
   display: none;
 }
 
-div[id^=page_active_blocs] label svg {
+div[id^=page_active_blocs] label svg, div[id^=region_blocs] label svg {
   margin-left: 1rem;
 }
-div[id^=page_active_blocs] > .form-group.type {
+div[id^=page_active_blocs] > .form-group.type, div[id^=region_blocs] > .form-group.type {
   display: flex;
   align-items: center;
 }
-div[id^=page_active_blocs] > div > .collection-empty {
+div[id^=page_active_blocs] > div > .collection-empty, div[id^=region_blocs] > div > .collection-empty {
   display: none;
 }
 
@@ -4611,11 +4614,12 @@ div[id^=page_active_blocs] > div > .collection-empty {
   margin-right: 1rem;
 }
 
-#page_active_blocs {
+.conteneurBlocs > .dndBlocs {
   max-width: 992px;
   margin: auto;
+  min-height: 10rem;
 }
-#page_active_blocs > .pleineLargeur {
+.conteneurBlocs > .dndBlocs > .pleineLargeur {
   width: calc(100vw - 2rem);
   position: relative;
   left: calc(50% + 1rem);
@@ -4623,7 +4627,7 @@ div[id^=page_active_blocs] > div > .collection-empty {
   margin-left: -50vw;
   margin-right: -50vw;
 }
-body.notFull #page_active_blocs > .pleineLargeur {
+body.notFull .conteneurBlocs > .dndBlocs > .pleineLargeur {
   width: calc(100vw - 32rem);
   left: calc(50% + 16rem);
   right: calc(50% + 16rem);

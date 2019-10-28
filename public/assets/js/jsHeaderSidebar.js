@@ -95,7 +95,7 @@ $(document).ready(function(){
         });
 
     /* Visualisation des blocs */
-    $('#btn-toggle-blocs').click(function(e){
+    /*$('#btn-toggle-blocs').click(function(e){
         e.preventDefault();
         $(this).toggleClass('actif');
 
@@ -135,5 +135,5 @@ $(document).ready(function(){
         function(){
             $(this).closest('.surbrillance').removeClass('focus');
         });
-    });
+    });*/
 });

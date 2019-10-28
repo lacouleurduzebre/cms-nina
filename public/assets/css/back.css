@@ -1014,6 +1014,8 @@ body.connected {
 }
 .sidebar-menu li:hover > a {
   background-color: #4d4b46;
+  color: #fff;
+  text-decoration: none;
 }
 .sidebar-menu li > ul {
   visibility: hidden;

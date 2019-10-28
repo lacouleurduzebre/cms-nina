@@ -13,18 +13,18 @@ use App\Controller\Back\AdminController;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * Class GroupeBlocsAdminController
+ * Class RegionAdminController
  * @package App\Controller\Back\Admin
  * @Route("/admin")
  */
-class GroupeBlocsAdminController extends AdminController
+class RegionAdminController extends AdminController
 {
     //Ajout de la liste des blocs dans $parameters
-    protected function newGroupeBlocsAction(){
+    protected function newRegionAction(){
         return $this->newAction(true);
     }
 
-    protected function editGroupeBlocsAction(){
+    protected function editRegionAction(){
         return $this->editAction(true);
     }
 }

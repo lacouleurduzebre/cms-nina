@@ -72,7 +72,7 @@ $(document).ready(function() {
     };
 
     $("#page_active_blocs").sortable(options);
-    $("#groupeblocs_blocs").sortable(options);
+    $("#region_blocs").sortable(options);
     $("div[id$='blocsEnfants']").sortable(options);
 
     //Blocs étirables
@@ -84,7 +84,7 @@ $(document).ready(function() {
             if(ui.element.closest('.blocsEnfants').length > 0){
                 largeurColonne = ui.element.closest('.blocsEnfants').width() / 12;
             }else{
-                largeurColonne = $('#page_active_blocs').width() / 12;
+                largeurColonne = $('.conteneurBlocs > .dndBlocs').width() / 12;
             }
             ui.element.resizable( "option", "grid", [ largeurColonne, 10 ] );
         },
@@ -94,7 +94,7 @@ $(document).ready(function() {
             if(ui.element.closest('.blocsEnfants').length > 0){
                 largeurColonne = ui.element.closest('.blocsEnfants').width() / 12;
             }else{
-                largeurColonne = $('#page_active_blocs').width() / 12;
+                largeurColonne = $('.conteneurBlocs > .dndBlocs').width() / 12;
             }
             largeur = ui.element.width();
 
@@ -119,7 +119,7 @@ $(document).ready(function() {
         connectToSortable: ".dndBlocs",
         helper: "clone",
         stop: function(event, ui){
-            if($('#page_active_blocs').find('.ajoutBloc').length > 0){
+            if($('.conteneurBlocs > .dndBlocs').find('.ajoutBloc').length > 0){
                 $('.listeBlocs').addClass('actif');
             }
         }
@@ -427,7 +427,7 @@ $(document).ready(function() {
 
                 $('.listeBlocs').removeClass('actif chargement');
 
-                cible = $('#page_active_blocs .ajoutBloc');
+                cible = $('.conteneurBlocs > .dndBlocs .ajoutBloc');
                 blocEnfant = cible.closest('.blocsEnfants').length > 0;
 
                 if(!blocEnfant){//Bloc à la racine
@@ -478,7 +478,7 @@ $(document).ready(function() {
                 tinymce.init(optionsTinyMCE);
                 $('.select-multiple').select2();
                 $("#page_active_blocs").sortable(options);
-                $("#groupeblocs_blocs").sortable(options);
+                $("#region_blocs").sortable(options);
                 $("div[id$='blocsEnfants']").sortable(options);
                 $('.field-bloc').resizable(optionsResizable);
             })
@@ -566,7 +566,7 @@ $(document).ready(function() {
     $('.listeBlocs-fermeture').click(function(){
         $('.listeBlocs').removeClass('actif');
         $('.voirBlocs').removeClass('hidden');
-        $('#page_active_blocs .ajoutBloc').remove();
+        $('.conteneurBlocs > .dndBlocs .ajoutBloc').remove();
     });
 
     $('.listeBlocsAnnexes-fermeture').click(function(){
@@ -580,14 +580,14 @@ $(document).ready(function() {
     });
 
     //Mise en avant du bloc en cours d'édition
-    $('#page_active_blocs, #groupeblocs_blocs, #page_active_blocsAnnexes').on('click', '.field-bloc', function(){
+    $('#page_active_blocs, #region_blocs, #page_active_blocsAnnexes').on('click', '.field-bloc', function(){
         if(!$(this).hasClass('focus')){
             $('.field-bloc').removeClass('focus');
             $(this).addClass('focus');
         }
     });
 
-    $('#page_active_blocs, #groupeblocs_blocs, #page_active_blocsAnnexes').on('click', '.field-bloc_annexe', function(){
+    $('#page_active_blocs, #region_blocs, #page_active_blocsAnnexes').on('click', '.field-bloc_annexe', function(){
         if(!$(this).hasClass('focus')){
             $('.field-bloc_annexe').removeClass('focus');
             $(this).addClass('focus');
@@ -595,7 +595,7 @@ $(document).ready(function() {
     });
 
     //Bloc formulaire : affichage ou non des choix
-    $('#page_active_blocs').on('change', '.bloc-formulaire select[id$="type"]', function(){
+    $('.conteneurBlocs').on('change', '.bloc-formulaire select[id$="type"]', function(){
         if($(this).val() === 'select' || $(this).val() === 'radio' || $(this).val() === 'checkbox'){
             $(this).closest('div').siblings('.field-choix').slideDown();
         }else{
@@ -633,7 +633,7 @@ $(document).ready(function() {
     });
 
     //Activation / désactivation des blocs
-    $('#page_active_blocs, #groupeblocs_blocs').on('change', 'input[id$="_active"]', function(){
+    $('.conteneurBlocs').on('change', 'input[id$="_active"]', function(){
         if($(this).prop('checked')){
             $(this).closest('.field-bloc').removeClass('desactive');
         }else{
@@ -644,7 +644,7 @@ $(document).ready(function() {
     //Bloc actif
     get = parseURLParams(location.href);
     if(get.blocActif){
-        $('#page_active_blocs .contenu').not('[data-bloc="'+get.blocActif[0]+'"]').addClass('hide');
+        $('.conteneurBlocs .contenu').not('[data-bloc="'+get.blocActif[0]+'"]').addClass('hide');
 
         bloc = $('[data-bloc="'+get.blocActif[0]+'"]');
 
@@ -677,6 +677,7 @@ $(document).ready(function() {
         $(this).removeClass('actif');
         $(this).find('li.blocCache').addClass('hidden');
         $('.voirBlocs').removeClass('hidden');
+        $('.conteneurBlocs > .dndBlocs .ajoutBloc').remove();
     });
 
     //Liens

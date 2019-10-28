@@ -73,7 +73,7 @@
   }
 }
 
-.ajoutBloc.btn.dndPlaceholder, #page_active_blocs .ajoutBloc:not(.ui-draggable-dragging){
+.ajoutBloc.btn.dndPlaceholder, .conteneurBlocs > .dndBlocs .ajoutBloc:not(.ui-draggable-dragging){
   display: block;
   width: 100% !important;
   max-width: $large;
@@ -146,6 +146,9 @@
   body.notFull &{
     left: 30rem;
     width: calc(100vw - 30rem);
+  }
+  body.edit-region &, body.new-region &{
+    top: 11.5rem;
   }
 }
 
@@ -224,7 +227,7 @@
   }
 }
 
-div[id^="page_active_blocs"]{
+div[id^="page_active_blocs"], div[id^="region_blocs"]{
   .field-collection-action, .field-collection-item-action{
     //display: none;
   }
@@ -296,9 +299,10 @@ div[id^="page_active_blocs"]{
   }
 }
 
-#page_active_blocs{
+.conteneurBlocs > .dndBlocs{
   max-width: $large;
   margin: auto;
+  min-height: 10rem;
   > .pleineLargeur{
     width: calc(100vw - 2rem);
     position: relative;

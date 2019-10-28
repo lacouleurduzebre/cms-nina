@@ -2,7 +2,7 @@ easy_admin:
     entities:
         Region:
             class: App\Entity\Region
-            controller: App\Controller\Back\AdminController
+            controller: App\Controller\Back\Admin\RegionAdminController
             label: 'Région'
             labels: 'Régions'
             list:
@@ -19,9 +19,11 @@ easy_admin:
                     - { name: 'delete', label: 'Supprimer', title: 'Supprimer', icon: 'trash', css_class: '' }
                     - { name: 'list', label: 'Retour', title: 'Retour', icon: 'arrow-left', css_class: '' }
                 fields:
+                    - { type: 'group', label: 'Paramètres', css_id: 'modifTitre', css_class: 'modal-box' }
                     - nom
                     - identifiant
                     - position
+                    - { type: 'group', label: '' }
                     - { property: 'blocs', type: 'collection', type_options: { entry_type: 'App\Form\Type\BlocType', by_reference: false, label: false } }
             edit:
                 title: nom

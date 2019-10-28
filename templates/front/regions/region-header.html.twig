@@ -1,10 +1,8 @@
 <header class="header_front">
     <div class="mw1140p center">
         <div id="burger"><i class="fas fa-bars"></i></div>
-        <div>
-            {% if region.blocs is not empty %}
-                {% include('front/blocs.html.twig') with {'blocs': region.blocs} only %}
-            {% endif %}
-        </div>
+        {% if region.blocs is not empty %}
+            {% include('front/blocs.html.twig') with {'blocs': region.blocs} only %}
+        {% endif %}
     </div>
 </header>

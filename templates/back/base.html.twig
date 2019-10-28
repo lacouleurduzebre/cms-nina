@@ -122,7 +122,7 @@
 
             {% set partials = ['Utilisateur', 'Langue', 'ConfigBloc', 'Theme', 'Sauvegarde', 'Traduction', 'Categorie', 'TypeCategorie'] %}
 
-            {% if _entity_config.name == 'Page_Active' or _entity_config.name == 'GroupeBlocs' %}
+            {% if _entity_config.name == 'Page_Active' or _entity_config.name == 'Region' %}
                 <script src="{{ asset('assets/js/partials/jsBackBloc.js') }}"></script>
             {% else %}
                 <script src="{{ asset('assets/js/partials/jsBack'~_entity_config.name~'.js') }}"></script>
