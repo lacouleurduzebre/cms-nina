@@ -45,12 +45,6 @@ class Bloc
     private $classes;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\GroupeBlocs", inversedBy="blocs")
-     * @ORM\JoinColumn(nullable=true, onDelete="CASCADE")
-     */
-    private $groupeBlocs;
-
-    /**
      * @ORM\Column(type="boolean", nullable=true, options={"default" : 1})
      */
     private $active = true;
@@ -100,6 +94,12 @@ class Bloc
      * @ORM\Column(type="boolean", nullable=true)
      */
     private $pleineLargeur;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Region", inversedBy="blocs")
+     * @ORM\JoinColumn(nullable=true, onDelete="CASCADE")
+     */
+    private $region;
 
     public function __construct()
     {
@@ -167,18 +167,6 @@ class Bloc
     public function setClasses(?array $classes): self
     {
         $this->classes = $classes;
-
-        return $this;
-    }
-
-    public function getGroupeBlocs(): ?GroupeBlocs
-    {
-        return $this->groupeBlocs;
-    }
-
-    public function setGroupeBlocs(?GroupeBlocs $groupeBlocs): self
-    {
-        $this->groupeBlocs = $groupeBlocs;
 
         return $this;
     }
@@ -318,6 +306,18 @@ class Bloc
     public function setPleineLargeur(?bool $pleineLargeur): self
     {
         $this->pleineLargeur = $pleineLargeur;
+
+        return $this;
+    }
+
+    public function getRegion(): ?Region
+    {
+        return $this->region;
+    }
+
+    public function setRegion(?Region $region): self
+    {
+        $this->region = $region;
 
         return $this;
     }

@@ -1,3 +1,5 @@
 <div class="region-{{ region.identifiant }}">
-    {{ groupes(region.id) }}
+    {% if region.blocs is not empty %}
+        {% include('front/blocs.html.twig') with {'blocs': region.blocs} only %}
+    {% endif %}
 </div>

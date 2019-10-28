@@ -86,7 +86,6 @@ easy_admin:
               - label: 'Interface'
                 icon: ''
                 children:
-                  - { entity: 'GroupeBlocs', label: 'Groupes de blocs', type: 'entity', menu_index: 0, submenu_index: 0, icon: '', default: true, params: { } }
                   - { entity: 'Region', label: 'Régions', type: 'entity', menu_index: 0, submenu_index: 0, icon: '', default: true, params: { } }
                   - { entity: 'Menu', label: 'Menus', type: 'entity', menu_index: 0, submenu_index: 0, icon: '', default: true, params: { } }
             - { label: 'Médiathèque', icon: 'images', route: 'mediatheque' }

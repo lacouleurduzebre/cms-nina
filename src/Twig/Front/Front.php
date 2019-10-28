@@ -42,30 +42,34 @@ class Front extends \Twig_Extension
         $repoRegion = $this->doctrine->getRepository(Region::class);
 
         $regionContenu = $repoRegion->findOneBy(array('identifiant' => 'contenu'));
-        $positionContenu = $regionContenu->getPosition();
+        if($regionContenu){
+            $positionContenu = $regionContenu->getPosition();
 
-        $rendu = '';
+            $rendu = '';
 
-        if($position == 'avant'){
-            $regions = $repoRegion->getRegionsAvant($positionContenu);
-        }elseif($position == 'apres'){
-            $regions = $repoRegion->getRegionsApres($positionContenu);
-        }elseif($position == 'centre'){
-            $regions = [$regionContenu];
-        }else{
-            return false;
-        }
-
-        foreach($regions as $region){
-            $tpl = 'front/regions/region-'.$region->getIdentifiant().'.html.twig';
-            if($this->twig->getLoader()->exists($tpl)){
-                $rendu .= $this->twig->render($tpl, array('region' => $region));
+            if($position == 'avant'){
+                $regions = $repoRegion->getRegionsAvant($positionContenu);
+            }elseif($position == 'apres'){
+                $regions = $repoRegion->getRegionsApres($positionContenu);
+            }elseif($position == 'centre'){
+                $regions = [$regionContenu];
             }else{
-                $rendu .= $this->twig->render('front/regions/region.html.twig', array('region' => $region));
+                return false;
             }
+
+            foreach($regions as $region){
+                $tpl = 'front/regions/region-'.$region->getIdentifiant().'.html.twig';
+                if($this->twig->getLoader()->exists($tpl)){
+                    $rendu .= $this->twig->render($tpl, array('region' => $region));
+                }else{
+                    $rendu .= $this->twig->render('front/regions/region.html.twig', array('region' => $region));
+                }
+            }
+
+            return $rendu;
         }
 
-        return $rendu;
+        return false;
     }
 
     public function getGroupesBlocs($idRegion)

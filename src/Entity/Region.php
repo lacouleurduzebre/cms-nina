@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Controller\SEOController;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -31,20 +32,21 @@ class Region
     private $position;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\GroupeBlocs", mappedBy="region", orphanRemoval=true, cascade={"persist"})
-     * @ORM\OrderBy({"position" = "ASC"})
-     */
-    private $groupesBlocs;
-
-    /**
      * @Assert\NotBlank
      * @ORM\Column(type="string", length=255)
      */
     private $identifiant;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Bloc", mappedBy="region", orphanRemoval=true, cascade={"persist"})
+     * @ORM\OrderBy({"position" = "ASC"})
+     */
+    private $blocs;
+
     public function __construct()
     {
         $this->groupesBlocs = new ArrayCollection();
+        $this->blocs = new ArrayCollection();
     }
 
     public function __toString()
@@ -81,37 +83,6 @@ class Region
         return $this;
     }
 
-    /**
-     * @return Collection|GroupeBlocs[]
-     */
-    public function getGroupesBlocs(): Collection
-    {
-        return $this->groupesBlocs;
-    }
-
-    public function addGroupesBloc(GroupeBlocs $groupesBloc): self
-    {
-        if (!$this->groupesBlocs->contains($groupesBloc)) {
-            $this->groupesBlocs[] = $groupesBloc;
-            $groupesBloc->setRegion($this);
-        }
-
-        return $this;
-    }
-
-    public function removeGroupesBloc(GroupeBlocs $groupesBloc): self
-    {
-        if ($this->groupesBlocs->contains($groupesBloc)) {
-            $this->groupesBlocs->removeElement($groupesBloc);
-            // set the owning side to null (unless already changed)
-            if ($groupesBloc->getRegion() === $this) {
-                $groupesBloc->setRegion(null);
-            }
-        }
-
-        return $this;
-    }
-
     public function getIdentifiant(): ?string
     {
         return $this->identifiant;
@@ -120,6 +91,37 @@ class Region
     public function setIdentifiant($identifiant)
     {
         $this->identifiant = $identifiant;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Bloc[]
+     */
+    public function getBlocs(): Collection
+    {
+        return $this->blocs;
+    }
+
+    public function addBloc(Bloc $bloc): self
+    {
+        if (!$this->blocs->contains($bloc)) {
+            $this->blocs[] = $bloc;
+            $bloc->setRegion($this);
+        }
+
+        return $this;
+    }
+
+    public function removeBloc(Bloc $bloc): self
+    {
+        if ($this->blocs->contains($bloc)) {
+            $this->blocs->removeElement($bloc);
+            // set the owning side to null (unless already changed)
+            if ($bloc->getRegion() === $this) {
+                $bloc->setRegion(null);
+            }
+        }
 
         return $this;
     }

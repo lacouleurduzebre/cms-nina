@@ -22,5 +22,6 @@ easy_admin:
                     - nom
                     - identifiant
                     - position
+                    - { property: 'blocs', type: 'collection', type_options: { entry_type: 'App\Form\Type\BlocType', by_reference: false, label: false } }
             edit:
                 title: nom

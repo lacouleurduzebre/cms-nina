@@ -2,7 +2,9 @@
     <div class="mw1140p center">
         <div id="burger"><i class="fas fa-bars"></i></div>
         <div>
-            {{ groupes(region.id) }}
+            {% if region.blocs is not empty %}
+                {% include('front/blocs.html.twig') with {'blocs': region.blocs} only %}
+            {% endif %}
         </div>
     </div>
 </header>
