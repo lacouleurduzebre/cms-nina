@@ -5096,6 +5096,9 @@ body.edit .bloc-reseauxsociaux input[type=text], body.new .bloc-reseauxsociaux i
   width: 30rem;
   height: calc(100vw - 19rem);
 }
+body.new-region .bloc-panel.bloc-optionsAffichage, body.edit-region .bloc-panel.bloc-optionsAffichage {
+  top: 17rem;
+}
 
 .dndEnCours {
   min-height: 5rem;

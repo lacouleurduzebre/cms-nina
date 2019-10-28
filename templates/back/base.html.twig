@@ -19,7 +19,7 @@
         {% endfor %}
 
         {# CSS DU FRONT POUR L'APERCU DES BLOCS #}
-        {% if (_entity_config.name is defined and _entity_config.name == 'Page_Active') and (app.request.get('action') is defined and (app.request.get('action') == 'new' or app.request.get('action') == 'edit')) %}
+        {% if (_entity_config.name is defined and (_entity_config.name == 'Page_Active' or _entity_config.name == 'Region')) and (app.request.get('action') is defined and (app.request.get('action') == 'new' or app.request.get('action') == 'edit')) %}
             {% include 'front/extraCss.html.twig' %}
         {% endif %}
         {# CSS DU FRONT POUR L'APERCU DES BLOCS #}

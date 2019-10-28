@@ -817,6 +817,9 @@ body.edit, body.new{
   right: 0;
   width: 30rem;
   height: calc(100vw - 19rem);
+  body.new-region &, body.edit-region &{
+    top: 17rem;
+  }
 }
 
 //Drag'n'drop
