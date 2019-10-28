@@ -4433,11 +4433,8 @@ body.list #flash-messages > * {
 .form-group.field-bloc > label, .form-group.field-bloc_annexe > label {
   display: none;
 }
-.form-group.field-bloc:first-of-type .monterBloc, .form-group.field-bloc_annexe:first-of-type .monterBloc {
-  display: none;
-}
-.form-group.field-bloc:last-of-type .descendreBloc, .form-group.field-bloc_annexe:last-of-type .descendreBloc {
-  display: none;
+.form-group.field-bloc:hover > .bloc-barreActions, .form-group.field-bloc_annexe:hover > .bloc-barreActions {
+  display: block;
 }
 
 .form-group.field-bloc.nvBloc {
@@ -4524,7 +4521,7 @@ body.edit-region .toggleAffichageBlocs, body.new-region .toggleAffichageBlocs {
 }
 
 .form-group.field-bloc_annexe {
-  background-color: #F7F7F7;
+  background-color: #EDEDED;
   margin: 1rem 0;
   padding: 1rem 2rem;
 }
@@ -4707,12 +4704,12 @@ body.notFull .conteneurBlocs > .dndBlocs > .pleineLargeur {
   z-index: 100;
 }
 
-.field-bloc:not(.bloc-section) > .bloc-barreActions {
+.field-bloc:not(.bloc-section) > .bloc-barreActions, .field-bloc_annexe > .bloc-barreActions {
   top: 0.5rem;
   right: 0.5rem;
   flex-direction: column;
 }
-.field-bloc:not(.bloc-section) > .bloc-barreActions > * {
+.field-bloc:not(.bloc-section) > .bloc-barreActions > *, .field-bloc_annexe > .bloc-barreActions > * {
   background-color: #0791B3;
   border-radius: 2rem;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
@@ -4720,19 +4717,25 @@ body.notFull .conteneurBlocs > .dndBlocs > .pleineLargeur {
   margin-bottom: 0.3rem;
   margin-left: auto;
 }
-.field-bloc:not(.bloc-section) > .bloc-barreActions > *:hover {
+.field-bloc:not(.bloc-section) > .bloc-barreActions > *:hover, .field-bloc_annexe > .bloc-barreActions > *:hover {
   width: auto;
   padding: 0 1rem;
 }
-.field-bloc:not(.bloc-section) > .bloc-barreActions > *:hover > svg {
+.field-bloc:not(.bloc-section) > .bloc-barreActions > *:hover > svg, .field-bloc_annexe > .bloc-barreActions > *:hover > svg {
   margin-right: 0.5rem;
 }
-.field-bloc:not(.bloc-section) > .bloc-barreActions > *:hover > span {
+.field-bloc:not(.bloc-section) > .bloc-barreActions > *:hover > span, .field-bloc_annexe > .bloc-barreActions > *:hover > span {
   display: inline;
 }
+
 .field-bloc:not(.bloc-section) > .bloc-barreActions + ul {
   right: 4.5rem;
   top: 9.7rem;
+}
+
+.field-bloc_annexe > .bloc-barreActions + ul {
+  right: 4.5rem;
+  top: 0rem;
 }
 
 .field-bloc.bloc-section > .bloc-barreActions {

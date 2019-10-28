@@ -994,16 +994,7 @@
 {% block bloc_annexe_widget %}
     {% set _field_type = easyadmin.field.fieldType|default('default') %}
     <div class="bloc-barreActions">
-        <div class="toggleBloc">
-            {% if form.children.contenu.vars.attr['class'] is defined %}
-                <i class="fas fa-chevron-circle-down"></i>
-            {% else %}
-                <i class="fas fa-chevron-circle-up"></i>
-            {% endif %}
-        </div>
-        <div class="bloc-menu">
-            <span><i class="fas fa-ellipsis-v"></i></span>
-        </div>
+        <div class="bloc-menu"><i class="fas fa-ellipsis-v"></i><span>{{ "Options du bloc"|trans }}</span></div>
     </div>
     <ul>
         <li>

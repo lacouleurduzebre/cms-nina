@@ -98,15 +98,8 @@
   > label{
     display: none;
   }
-  &:first-of-type{
-    .monterBloc{
-      display: none;
-    }
-  }
-  &:last-of-type{
-    .descendreBloc{
-      display: none;
-    }
+  &:hover > .bloc-barreActions{
+    display: block;
   }
 }
 
@@ -198,7 +191,7 @@
 }
 
 .form-group.field-bloc_annexe{
-  background-color: #F7F7F7;
+  background-color: #EDEDED;
   margin: 1rem 0;
   padding: 1rem 2rem;
   &.focus{
@@ -394,7 +387,7 @@ div[id^="page_active_blocs"], div[id^="region_blocs"]{
   }
 }
 
-.field-bloc:not(.bloc-section) > .bloc-barreActions{
+.field-bloc:not(.bloc-section) > .bloc-barreActions, .field-bloc_annexe > .bloc-barreActions{
   top: .5rem;
   right: .5rem;
   flex-direction: column;
@@ -416,10 +409,16 @@ div[id^="page_active_blocs"], div[id^="region_blocs"]{
       }
     }
   }
-  + ul{
-    right: 4.5rem;
-    top: 9.7rem;
-  }
+}
+
+.field-bloc:not(.bloc-section) > .bloc-barreActions + ul{
+  right: 4.5rem;
+  top: 9.7rem;
+}
+
+.field-bloc_annexe > .bloc-barreActions + ul{
+  right: 4.5rem;
+  top: 0rem;
 }
 
 .field-bloc.bloc-section > .bloc-barreActions{
