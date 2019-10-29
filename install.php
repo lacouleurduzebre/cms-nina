@@ -45,3 +45,6 @@ if(!file_exists('config/services.yaml')){
 if(!file_exists('src/Blocs/configBlocs.yaml')){
     copy('config/defaut/defaut_configBlocs.yaml', 'src/Blocs/configBlocs.yaml');
 }
+if(!file_exists('src/Blocs/LEI/configLEI.yaml')){
+    copy('config/defaut/defaut_configLEI.yaml', 'src/Blocs/LEI/configLEI.yaml');
+}
