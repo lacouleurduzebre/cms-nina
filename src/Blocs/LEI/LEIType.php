@@ -17,6 +17,8 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\FormEvent;
+use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Yaml\Yaml;
 
@@ -58,6 +60,17 @@ class LEIType extends AbstractType
             ->add('limite', LimiteType::class)
             ->add('pagination', PaginationType::class)
             ->add('resultatsParPage', ResultatsParPageType::class);
+
+        //Enregistrement du flux générique dans le fichier de config LEI
+        $builder->addEventListener(FormEvents::PRE_SUBMIT, function (FormEvent $event) {
+            $blocLEI = $event->getData();
+            $fluxGenerique = $blocLEI['fluxGenerique'];
+
+            $configLEI = Yaml::parseFile('../src/Blocs/LEI/configLEI.yaml');
+            $configLEI['fluxGenerique'] = $fluxGenerique;
+            $nvFichier = Yaml::dump($configLEI);
+            file_put_contents('../src/Blocs/LEI/configLEI.yaml', $nvFichier);
+        });
     }
 
     public function configureOptions(OptionsResolver $resolver)
