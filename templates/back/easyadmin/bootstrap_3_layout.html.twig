@@ -1404,10 +1404,16 @@
 {% endblock %}
 
 {% block lei_widget %}
-    {% set urlFlux = form.vars.value.flux|default('') %}
+    {% if form.vars.value.utiliserFluxSpecifique.0 is defined and form.vars.value.utiliserFluxSpecifique.0 %}{# FLUX SPECIFIQUE #}
+        {% set urlFlux = form.vars.value.flux %}
+    {% else %}
+        {% set urlFlux = form.children.fluxGenerique.vars.data|default('') %}{# FLUX GENERIQUE #}
+    {% endif %}
+    {# CLAUSE #}
     {% if form.vars.value.clause is defined and form.vars.value.clause is not empty %}
         {% set urlFlux = urlFlux~'&clause='~form.vars.value.clause %}
     {% endif %}
+    {# AUTRES PARAMETRES #}
     {% if form.vars.value.autresParametres is defined and form.vars.value.autresParametres is not empty %}
         {% set urlFlux = urlFlux~form.vars.value.autresParametres %}
     {% endif %}

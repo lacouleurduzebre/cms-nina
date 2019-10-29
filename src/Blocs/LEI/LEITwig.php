@@ -40,8 +40,6 @@ class LEITwig extends \Twig_Extension
             $flux = $configLEI['fluxGenerique'];
         }
 
-        return $flux;
-
         //Ajout de la clause et des autres paramètres
         if(array_key_exists('clause', $parametres)){
             $flux .= '&clause='.$parametres['clause'];
