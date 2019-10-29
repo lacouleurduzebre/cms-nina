@@ -9,9 +9,9 @@
 namespace App\Blocs\LEI;
 
 
-use App\Entity\Bloc;
 use App\Service\Pagination;
 use Symfony\Bridge\Doctrine\RegistryInterface;
+use Symfony\Component\Yaml\Yaml;
 use Twig\Environment;
 
 class LEITwig extends \Twig_Extension
@@ -32,7 +32,16 @@ class LEITwig extends \Twig_Extension
 
     public function listeLEI($parametres)
     {
-        $flux = $parametres['flux'];
+        //Utilisation du flux générique ou du flux spécifique
+        if(array_key_exists('utiliserFluxSpecifique', $parametres) && isset($parametres['utiliserFluxSpecifique'][0])){
+            $flux = $parametres['flux'];
+        }else{
+            $configLEI = Yaml::parseFile('../src/Blocs/LEI/configLEI.yaml');
+            $flux = $configLEI['fluxGenerique'];
+        }
+
+        return $flux;
+
         //Ajout de la clause et des autres paramètres
         if(array_key_exists('clause', $parametres)){
             $flux .= '&clause='.$parametres['clause'];

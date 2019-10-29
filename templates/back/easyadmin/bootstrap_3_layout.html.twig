@@ -1412,7 +1412,16 @@
         {% set urlFlux = urlFlux~form.vars.value.autresParametres %}
     {% endif %}
 
+    {{ form_row(form.children.fluxGenerique) }}
+    {{ form_row(form.children.utiliserFluxSpecifique) }}
+    <div {% if form.vars.value.utiliserFluxSpecifique is defined and not form.vars.value.utiliserFluxSpecifique %}class="hidden"{% endif %}>
+       {{ form_row(form.children.flux) }}
+    </div>
+
     {{ block('form_widget') }}
 
-    <a class="voirFlux btn" href="{{ urlFlux }}">{{ "Voir le flux"|trans }}</a>
+    <div class="mts">
+        <a class="voirFlux btn" href="{{ urlFlux }}">{{ "Voir le flux"|trans }}</a>
+        {#<button class="viderCacheLEI btn">{{ "Vider le cache LEI"|trans }}</button>#}
+    </div>
 {% endblock %}

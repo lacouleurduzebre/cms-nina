@@ -650,4 +650,9 @@ $(document).ready(function() {
             conteneur.find('.rs-input-liens').removeClass('hidden');
         }
     });
+
+    //LEI : toggle champ flux spécifique
+    $('body').on('change', 'input[name*="[utiliserFluxSpecifique]"]', function(){
+       $(this).closest('.form-group').next('div').slideToggle();
+    });
 });

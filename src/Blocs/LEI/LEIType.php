@@ -18,16 +18,21 @@ use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Yaml\Yaml;
 
 class LEIType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        $configLEI = Yaml::parseFile('../src/Blocs/LEI/configLEI.yaml');
+        $fluxGenerique = $configLEI['fluxGenerique'];
+
         $builder
             ->add('fluxGenerique', TextType::class, array(
                 'mapped' => false,
                 'label' => 'Flux générique',
-                'help' => 'Commun à tous les blocs LEI'
+                'help' => 'Commun à tous les blocs LEI',
+                'data' => $fluxGenerique
             ))
             ->add('utiliserFluxSpecifique', ChoiceType::class, [
                 'choices' => [
