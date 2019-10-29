@@ -8,7 +8,9 @@
     {% for fiche in resultats['donnees'] %}
         <div class="ficheLEI fiche-{{ fiche.PRODUIT }}">
             <p class="ficheLEI-commune">{{ fiche.ADRPROD_LIBELLE_COMMUNE }}</p>
-            {% set photo = getPhotoPrincipale(fiche.CRITERES) %}
+            {% if fiche.CRITERES is defined %}
+                {% set photo = getPhotoPrincipale(fiche.CRITERES) %}
+            {% endif %}
             {% if photo.photo is defined %}
                 <div class="ficheLEI-image">
                     <a href="{% if langues|length > 1 %}/{{ langueActive.abreviation }}{% endif %}/fiche/{{ fiche.NOM|replace({' ':'-'}) }}/{{ fiche.PRODUIT }}/{{ bloc.id }}">

@@ -1402,3 +1402,17 @@
         {{ form_row(form.children.instagramUrl) }}
     </div>
 {% endblock %}
+
+{% block lei_widget %}
+    {% set urlFlux = form.vars.value.flux|default('') %}
+    {% if form.vars.value.clause is defined and form.vars.value.clause is not empty %}
+        {% set urlFlux = urlFlux~'&clause='~form.vars.value.clause %}
+    {% endif %}
+    {% if form.vars.value.autresParametres is defined and form.vars.value.autresParametres is not empty %}
+        {% set urlFlux = urlFlux~form.vars.value.autresParametres %}
+    {% endif %}
+
+    {{ block('form_widget') }}
+
+    <a class="voirFlux btn" href="{{ urlFlux }}">{{ "Voir le flux"|trans }}</a>
+{% endblock %}

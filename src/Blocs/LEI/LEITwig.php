@@ -33,7 +33,15 @@ class LEITwig extends \Twig_Extension
     public function listeLEI($parametres)
     {
         $flux = $parametres['flux'];
-        $cle = in_array('clef_moda', $parametres) ? $parametres['clef_moda'] : false;
+        //Ajout de la clause et des autres paramètres
+        if(array_key_exists('clause', $parametres)){
+            $flux .= '&clause='.$parametres['clause'];
+        }
+        if(array_key_exists('autresParametres', $parametres)){
+            $flux .= $parametres['autresParametres'];
+        }
+
+        $cle = array_key_exists('clef_moda', $parametres) ? $parametres['clef_moda'] : false;
 
         $xml = simplexml_load_file($flux);
         $fiches = $xml->xpath("//Resultat/sit_liste");
