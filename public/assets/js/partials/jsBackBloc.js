@@ -651,8 +651,26 @@ $(document).ready(function() {
         }
     });
 
-    //LEI : toggle champ flux spécifique
+    //Bloc LEI
+        //Toggle champ flux spécifique
     $('body').on('change', 'input[name*="[utiliserFluxSpecifique]"]', function(){
        $(this).closest('.form-group').next('div').slideToggle();
+    });
+
+        //Màj de l'url du bouton "voir le flux"
+    $('body').on('keyup change', 'input[name$="[fluxGenerique]"], input[name*="[utiliserFluxSpecifique]"], input[name$="[flux]"], input[name$="[clause]"], input[name$="[autresParametres]"]', function(){
+        blocLEI = $(this).closest('.bloc-lei');
+
+        //Flux générique ou spécifique
+        if(blocLEI.find('input[name*="[utiliserFluxSpecifique]"]').is(':checked')){
+            nvUrlFlux = blocLEI.find('input[name$="[flux]"]').val();
+        }else{
+            nvUrlFlux = blocLEI.find('input[name$="[fluxGenerique]"]').val();
+        }
+
+        //Ajout de la clause et des autres paramètres
+        nvUrlFlux += '&clause='+blocLEI.find('input[name$="[clause]"]').val()+blocLEI.find('input[name$="[autresParametres]"]').val();
+
+        blocLEI.find('.voirFlux').attr('href', nvUrlFlux);
     });
 });
