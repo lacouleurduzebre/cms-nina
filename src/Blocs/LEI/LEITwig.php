@@ -30,28 +30,44 @@ class LEITwig extends \Twig_Extension
         );
     }
 
-    public function listeLEI($parametres)
+    public function listeLEI($bloc)
     {
-        //Utilisation du flux générique ou du flux spécifique
-        if(array_key_exists('utiliserFluxSpecifique', $parametres) && isset($parametres['utiliserFluxSpecifique'][0])){
-            $flux = $parametres['flux'];
+        $parametres = $bloc->getContenu();
+
+        //Utilisation du cache si dispo
+        $cache = '../src/Blocs/LEI/cache/cache'.$bloc->getId().'.xml';
+
+        if(file_exists($cache)){
+            $xml = simplexml_load_file($cache);
         }else{
-            $configLEI = Yaml::parseFile('../src/Blocs/LEI/configLEI.yaml');
-            $flux = $configLEI['fluxGenerique'];
+            //Utilisation du flux générique ou du flux spécifique
+            if(array_key_exists('utiliserFluxSpecifique', $parametres) && isset($parametres['utiliserFluxSpecifique'][0])){
+                $flux = $parametres['flux'];
+            }else{
+                $configLEI = Yaml::parseFile('../src/Blocs/LEI/configLEI.yaml');
+                $flux = $configLEI['fluxGenerique'];
+            }
+
+            //Ajout de la clause et des autres paramètres
+            if(array_key_exists('clause', $parametres)){
+                $flux .= '&clause='.$parametres['clause'];
+            }
+            if(array_key_exists('autresParametres', $parametres)){
+                $flux .= $parametres['autresParametres'];
+            }
+
+            //Création du fichier de cache
+            $file_headers = @get_headers($flux);
+            if($file_headers && $file_headers[0] != 'HTTP/1.1 404 Not Found') {
+                copy($flux, $cache);
+            }
+
+            $xml = simplexml_load_file($cache);
         }
 
-        //Ajout de la clause et des autres paramètres
-        if(array_key_exists('clause', $parametres)){
-            $flux .= '&clause='.$parametres['clause'];
-        }
-        if(array_key_exists('autresParametres', $parametres)){
-            $flux .= $parametres['autresParametres'];
-        }
+        $fiches = $xml->xpath("//Resultat/sit_liste");
 
         $cle = array_key_exists('clef_moda', $parametres) ? $parametres['clef_moda'] : false;
-
-        $xml = simplexml_load_file($flux);
-        $fiches = $xml->xpath("//Resultat/sit_liste");
 
         //Limitation à la clé de modalité
         if($cle){

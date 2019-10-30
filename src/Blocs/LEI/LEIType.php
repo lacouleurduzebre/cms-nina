@@ -30,6 +30,7 @@ class LEIType extends AbstractType
         $fluxGenerique = $configLEI['fluxGenerique'];
 
         $builder
+            ->add('id', null, ['mapped' => false])
             ->add('fluxGenerique', TextType::class, array(
                 'mapped' => false,
                 'label' => 'Flux générique',
@@ -70,6 +71,40 @@ class LEIType extends AbstractType
             $configLEI['fluxGenerique'] = $fluxGenerique;
             $nvFichier = Yaml::dump($configLEI);
             file_put_contents('../src/Blocs/LEI/configLEI.yaml', $nvFichier);
+        });
+
+        //Enregistrement du fichier de cache
+        $builder->addEventListener(FormEvents::POST_SUBMIT, function (FormEvent $event) {
+            $bloc = $event->getForm()->getParent()->getData();
+            $contenuBloc = $event->getData();
+
+            //Utilisation du flux générique ou du flux spécifique
+            if($contenuBloc['utiliserFluxSpecifique'] && isset($contenuBloc['utiliserFluxSpecifique'][0])){
+                $flux = $contenuBloc['flux'];
+            }else{
+                $configLEI = Yaml::parseFile('../src/Blocs/LEI/configLEI.yaml');
+                $flux = $configLEI['fluxGenerique'];
+            }
+
+            //Ajout de la clause et des autres paramètres
+            if(isset($contenuBloc['clause'])){
+                $flux .= '&clause='.$contenuBloc['clause'];
+            }
+            if(isset($contenuBloc['autresParametres'])){
+                $flux .= $contenuBloc['autresParametres'];
+            }
+
+            //Enregistrement du fichier
+            $fichier = '../src/Blocs/LEI/cache/cache'.$bloc->getId().'.xml';
+
+            if(file_exists($fichier)){
+                unlink($fichier);
+            }
+
+            $file_headers = @get_headers($flux);
+            if($file_headers && $file_headers[0] != 'HTTP/1.1 404 Not Found') {
+                copy($flux, $fichier);
+            }
         });
     }
 
