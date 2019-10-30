@@ -44,9 +44,39 @@ class LEIController extends Controller
 
         $repoBloc = $this->getDoctrine()->getRepository(Bloc::class);
         $bloc = $repoBloc->find($idBloc);
-        $flux = $bloc->getContenu()['flux'];
 
-        $xml = simplexml_load_file($flux);
+        //Utilisation du cache si dispo
+        $cache = '../src/Blocs/LEI/cache/cache'.$idBloc.'.xml';
+
+        if(file_exists($cache)){
+            $xml = simplexml_load_file($cache);
+        }else{
+            //Utilisation du flux générique ou du flux spécifique
+            $parametres = $bloc->getContenu();
+
+            if(array_key_exists('utiliserFluxSpecifique', $parametres) && isset($parametres['utiliserFluxSpecifique'][0])){
+                $flux = $parametres['flux'];
+            }else{
+                $configLEI = Yaml::parseFile('../src/Blocs/LEI/configLEI.yaml');
+                $flux = $configLEI['fluxGenerique'];
+            }
+
+            //Ajout de la clause et des autres paramètres
+            if(array_key_exists('clause', $parametres)){
+                $flux .= '&clause='.$parametres['clause'];
+            }
+            if(array_key_exists('autresParametres', $parametres)){
+                $flux .= $parametres['autresParametres'];
+            }
+
+            //Création du fichier de cache
+            $file_headers = @get_headers($flux);
+            if($file_headers && $file_headers[0] != 'HTTP/1.1 404 Not Found') {
+                copy($flux, $cache);
+            }
+
+            $xml = simplexml_load_file($cache);
+        }
 
         $fiche = $xml->xpath("//Resultat/sit_liste[PRODUIT = $idFiche]");
 

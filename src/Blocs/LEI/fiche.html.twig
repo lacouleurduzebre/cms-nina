@@ -1,21 +1,27 @@
 {% extends 'front/base.html.twig' %}
 
-{% block title %}
-    {{ fiche.NOM }}
-{% endblock %}
+{% set photo = getPhotoPrincipale(fiche.CRITERES) %}
 
-{% if fiche.COMMENTAIRE is defined %}
-    {% block head %}
-        {{ fiche.COMMENTAIRE }}
-    {% endblock %}
-{% endif %}
+{% block head %}
+    <link rel="canonical" href="{{ app.request.server.get('HTTP_REFERER') }}" />
+    <title>{{ fiche.NOM }}</title>
+    {% if fiche.COMMENTAIRE is defined %}
+        <meta name="description" content="{{ fiche.COMMENTAIRE }}" />
+        <meta property="og:description" content="{{ fiche.COMMENTAIRE }}">
+    {% endif %}
+    <meta property="og:title" content="{{ fiche.NOM }}">
+    <meta property="og:url" content="{{ app.request.server.get('HTTP_REFERER') }}">
+    {% if photo %}
+        <meta property="og:image" content="{{ photo.photo }}">
+    {% endif %}
+    <meta property="og:type" content="article">
+{% endblock %}
 
 {% block main %}
     <h1 class="pageFiche-titre">{{ fiche.NOM }}</h1>
     {% if fiche.TYPE_NOM is defined %}<h2 class="pageFiche-sousTitre">{{ fiche.TYPE_NOM }}</h2>{% endif %}
     {% if fiche.CRITERES is defined and fiche.CRITERES.Crit is not empty %}
         <div id="galerieFiche" class="pageFiche-conteneurImages flex-container">
-            {% set photo = getPhotoPrincipale(fiche.CRITERES) %}
             {% if photo %}
                 <a data-fancybox="galerieFiche" href="{{ photo.photo }}">
                     <img class="pageFiche-image" src="{{ photo.photo }}" {% if photo.credits is defined %}title="{{ "Crédits : "|trans }}{{ photo.credits }}"{% endif %}>
