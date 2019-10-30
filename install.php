@@ -3,29 +3,22 @@
 include('vendor/symfony/filesystem/Filesystem.php');
 
 //Création des dossiers
-if(!file_exists('sauvegardes')){
-    mkdir('sauvegardes');
-}
-if(!file_exists('sauvegardes/mediatheque')){
-    mkdir('sauvegardes/mediatheque');
-}
-if(!file_exists('sauvegardes/bdd')){
-    mkdir('sauvegardes/bdd');
-}
-if(!file_exists('public/themes_thumbs')){
-    mkdir('public/themes_thumbs');
-}
-if(!file_exists('public/uploads')){
-    mkdir('public/uploads');
-}
-if(!file_exists('translations')){
-    mkdir('translations');
-}
-if(!file_exists('themes/nina/translations')){
-    mkdir('themes/nina/translations');
-}
-if(!file_exists('themes/nina/templates')){
-    mkdir('themes/nina/templates');
+$dossiers = [
+    'sauvegardes',
+    'sauvegardes/mediatheque',
+    'sauvegardes/bdd',
+    'public/themes_thumbs',
+    'public/uploads',
+    'translations',
+    'themes/nina/translations',
+    'themes/nina/templates',
+    'src/Blocs/LEI/cache'
+];
+
+foreach($dossiers as $dossier){
+    if(!file_exists($dossier)){
+        mkdir($dossier);
+    }
 }
 
 //Symlink des assets du back-office et du thème Nina
@@ -33,7 +26,6 @@ $filesystem = new \Symfony\Component\Filesystem\Filesystem();
 if(!file_exists('public/theme')){
     $filesystem->symlink(getcwd().'/themes/nina/assets', getcwd().'/public/theme');
 }
-
 
 //Copie des fichiers de conf par défaut
 if(!file_exists('config/packages/doctrine_migrations.yaml')){
