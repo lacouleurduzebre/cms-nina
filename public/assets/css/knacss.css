@@ -4846,6 +4846,23 @@ body.edit input[id$=_largeurMax], body.edit input[id$=_hauteurMax], body.new inp
   background-color: #A1BA1D;
 }
 
+.pictosLEI .field-picto {
+  display: flex;
+  align-items: flex-end;
+}
+.pictosLEI .field-picto:first-of-type .control-label {
+  display: block;
+}
+.pictosLEI .field-picto > div {
+  display: flex;
+}
+.pictosLEI .field-picto > div > div {
+  margin-right: 2rem;
+}
+.pictosLEI .control-label {
+  display: none;
+}
+
 #onglet_SEO .metaTitre, #onglet_SEO #seo_metaTitre, .listeSEO-conteneur .metaTitre, .listeSEO-conteneur #seo_metaTitre {
   color: #1a0dab;
   font-size: 2rem;

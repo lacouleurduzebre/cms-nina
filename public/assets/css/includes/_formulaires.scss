@@ -67,3 +67,25 @@ body.edit, body.new{
 .select2-container--default .select2-results__option--highlighted[aria-selected]{
   background-color: $color-brand;
 }
+
+//Pictos LEI
+.pictosLEI{
+  .field-picto{
+    display: flex;
+    align-items: flex-end;
+    &:first-of-type{
+      .control-label{
+        display: block;
+      }
+    }
+    > div{
+      display: flex;
+      > div{
+        margin-right: 2rem;
+      }
+    }
+  }
+  .control-label{
+    display: none;
+  }
+}

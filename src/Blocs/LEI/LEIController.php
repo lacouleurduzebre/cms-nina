@@ -12,10 +12,15 @@ namespace App\Blocs\LEI;
 use App\Entity\Bloc;
 use App\Service\Langue;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
+use Symfony\Component\Form\Extension\Core\Type\FormType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Yaml\Yaml;
 
 class LEIController extends Controller
 {
@@ -63,5 +68,45 @@ class LEIController extends Controller
         }
 
         return new Response('ok');
+    }
+
+    /**
+     * @Route("/admin/LEI/modifierPictos", name="modifierPictosLEI")
+     */
+    public function modifierPictosLEI(Request $request){
+        //Pictos enregistrés
+        $configLEI = Yaml::parseFile('../src/Blocs/LEI/configLEI.yaml');
+        $pictos = [];
+        $pictos['pictos'] = $configLEI['pictos'];
+
+        //Formulaire
+        $form = $this->createFormBuilder($pictos)
+            ->add('pictos', CollectionType::class, [
+                'entry_type' => PictoType::class,
+                'entry_options' => [
+                    'label' => false
+                ],
+                'allow_add' => true,
+                'allow_delete' => true,
+                'label' => false,
+                'required' => false
+            ])
+            ->add('Enregistrer', SubmitType::class)
+            ->getForm();
+
+        //Enregistrement
+        $form->handleRequest($request);
+        if($form->isSubmitted() && $form->isValid()){
+            $nvPictos = $form->getData()['pictos'];
+
+            $configLEI['pictos'] = $nvPictos;
+
+            $nvFichier = Yaml::dump($configLEI);
+            file_put_contents('../src/Blocs/LEI/configLEI.yaml', $nvFichier);
+
+            $this->addFlash('enregistrement', 'Les pictogrammes ont été enregistrés');
+        }
+
+        return $this->render('Blocs/LEI/configPictos.html.twig', ['form' => $form->createView()]);
     }
 }
