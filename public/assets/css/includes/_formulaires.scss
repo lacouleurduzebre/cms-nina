@@ -73,10 +73,19 @@ body.edit, body.new{
   .field-picto{
     display: flex;
     align-items: flex-end;
+    padding: 1rem;
     &:first-of-type{
       .control-label{
         display: block;
       }
+    }
+    &:not(:first-of-type){
+      .field-collection-item-action{
+        margin-left: 3.5rem;
+      }
+    }
+    &:nth-of-type(2n){
+      background-color: $color-fonce;
     }
     > div{
       display: flex;
@@ -87,5 +96,28 @@ body.edit, body.new{
   }
   .control-label{
     display: none;
+  }
+}
+
+  //Picto
+.pictosLEI{
+  .field-picto > div > div:last-of-type{
+    display: flex;
+    flex-wrap: wrap;
+    label{
+      width: 100%;
+    }
+    > div{
+      display: flex;
+    }
+  }
+  a{
+    margin: auto 1rem;
+  }
+  .bloc_image_apercu_mediatheque{
+    width: 5rem;
+    img{
+      height: 3rem;
+    }
   }
 }

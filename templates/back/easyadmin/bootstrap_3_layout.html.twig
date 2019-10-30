@@ -1403,6 +1403,7 @@
     </div>
 {% endblock %}
 
+{# Bloc LEI #}
 {% block lei_widget %}
     {% if form.vars.value.utiliserFluxSpecifique.0 is defined and form.vars.value.utiliserFluxSpecifique.0 %}{# FLUX SPECIFIQUE #}
         {% set urlFlux = form.vars.value.flux %}
@@ -1432,3 +1433,9 @@
         <a class="btn" href="/admin/LEI/modifierPictos" target="_blank">{{ "Modifier les pictogrammes LEI"|trans }}</a>
     </div>
 {% endblock %}
+
+    {# Modification des pictos : picto #}
+{% block _form_pictos_entry_picto_widget %}
+    {{ block('image_simple_widget') }}
+{% endblock %}
+{# Bloc LEI #}
