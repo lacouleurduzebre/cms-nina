@@ -13,6 +13,7 @@ use App\Entity\Bloc;
 use App\Service\Langue;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -49,5 +50,18 @@ class LEIController extends Controller
         }
 
         return $this->render('Blocs/LEI/fiche.html.twig', array('fiche'=>$fiche[0]));
+    }
+
+    /**
+     * @Route("/admin/LEI/viderCache", name="viderCacheLEI")
+     */
+    public function viderCacheLEI(){
+        $files = glob('../src/Blocs/LEI/cache/*');
+        foreach($files as $file){
+            if(is_file($file))
+                unlink($file);
+        }
+
+        return new Response('ok');
     }
 }

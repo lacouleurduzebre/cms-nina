@@ -673,4 +673,21 @@ $(document).ready(function() {
 
         blocLEI.find('.voirFlux').attr('href', nvUrlFlux);
     });
+
+        //Vider le cache
+    $('body').on('click', '.viderCacheLEI', function(e){
+        e.preventDefault();
+        $.ajax({
+            type: "POST",
+            url: "/admin/LEI/viderCache",
+            success: function()
+            {
+                $('#flash-messages').append("<div class='alert alert-enregistrement'><span>Les fichiers de cache LEI ont été vidés</span><i class='fas fa-times'></i></div>");
+
+                setTimeout(function(){
+                    $('.alert').fadeOut();
+                }, 3000);
+            }
+        });
+    });
 });
