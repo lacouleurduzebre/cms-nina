@@ -27,6 +27,7 @@ class LEITwig extends \Twig_Extension
         return array(
             new \Twig_SimpleFunction('listeLEI', array($this, 'listeLEI')),
             new \Twig_SimpleFunction('getPhotoPrincipale', array($this, 'getPhotoPrincipale')),
+            new \Twig_SimpleFunction('getPictoLEI', array($this, 'getPictoLEI')),
         );
     }
 
@@ -109,5 +110,20 @@ class LEITwig extends \Twig_Extension
         }
 
         return $photo;
+    }
+
+    public function getPictoLEI($critere, $modalite){
+        $configLEI = Yaml::parseFile('../src/Blocs/LEI/configLEI.yaml');
+        $pictos = $configLEI['pictos'];
+
+        foreach ($pictos as $key => $picto) {
+            if (!isset($picto['critere']) || $picto['critere'] != $critere or !isset($picto['modalite']) || $picto['modalite'] != $modalite)
+            {
+                continue;
+            }
+            return $picto;
+        }
+
+        return false;
     }
 }
