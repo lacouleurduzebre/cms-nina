@@ -30,7 +30,6 @@ class LEIType extends AbstractType
         $fluxGenerique = $configLEI['fluxGenerique'];
 
         $builder
-            ->add('id', null, ['mapped' => false])
             ->add('fluxGenerique', TextType::class, array(
                 'mapped' => false,
                 'label' => 'Flux générique',
