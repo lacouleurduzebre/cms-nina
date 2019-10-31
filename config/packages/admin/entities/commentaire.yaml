@@ -35,7 +35,7 @@ easy_admin:
                     - { name: 'list', label: 'Retour', title: 'Retour', icon: 'arrow-left', css_class: '' }
                 fields:
                     - { property: 'page', label: 'Page', type: 'entity', type_options: { class: 'App\Entity\Page' } }
-                    - { property: 'auteur', label: 'Auteur', type: 'entity', type_options: { class: 'App\Entity\Utilisateur' } }
+                    - { property: 'auteur', label: 'Auteur', type: 'text' }
                     - email
                     - site
                     - date
