@@ -4737,6 +4737,23 @@ body.edit .bloc-reseauxsociaux input[type=text], body.new .bloc-reseauxsociaux i
   order: 2;
 }
 
+.bloc-lei--recherche {
+  background-color: #EDEDED;
+  padding: 0 1rem 0.5rem;
+  margin-left: -1rem;
+  margin-right: -1rem;
+}
+
+.bloc-lei .field-critere {
+  margin-top: 0;
+}
+.bloc-lei .field-critere > div {
+  display: flex;
+}
+.bloc-lei .field-critere > div > div {
+  margin-right: 1rem;
+}
+
 .traductionTemplateChoix div {
   display: flex;
   align-items: center;

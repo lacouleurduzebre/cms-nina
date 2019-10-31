@@ -14,6 +14,7 @@ use App\Form\Type\PaginationType;
 use App\Form\Type\ResultatsParPageType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -57,6 +58,24 @@ class LEIType extends AbstractType
                 'help' => "Filtrer les résultats pour ne conserver que les fiches répondant à ce critère",
                 'required' => false
             ))
+            ->add('recherche', ChoiceType::class, [
+                'choices' => [
+                    'Désactivé' => 'off',
+                    'Recherche par mot-clé' => 'texte',
+                    'Recherche par critère(s)' => 'criteres'
+                ],
+                'expanded' => true,
+                'label' => 'Moteur de recherche'
+            ])
+            ->add('criteres', CollectionType::class, [
+                'entry_type' => CritereType::class,
+                'allow_add' => true,
+                'allow_delete' => true,
+                'label' => 'Critères',
+                'entry_options' => [
+                    'label' => false
+                ]
+            ])
             ->add('limite', LimiteType::class)
             ->add('pagination', PaginationType::class)
             ->add('resultatsParPage', ResultatsParPageType::class);

@@ -657,6 +657,15 @@ $(document).ready(function() {
        $(this).closest('.form-group').next('div').slideToggle();
     });
 
+        //Toggle champ recherche par critères
+    $('body').on('change', '.bloc-lei input[name$="[recherche]"]', function(){
+        if($(this).val() === 'criteres'){
+            $(this).closest('.form-group').next('div').slideDown();
+        }else{
+            $(this).closest('.form-group').next('div').slideUp();
+        }
+    });
+
         //Màj de l'url du bouton "voir le flux"
     $('body').on('keyup change', 'input[name$="[fluxGenerique]"], input[name*="[utiliserFluxSpecifique]"], input[name$="[flux]"], input[name$="[clause]"], input[name$="[autresParametres]"]', function(){
         blocLEI = $(this).closest('.bloc-lei');
