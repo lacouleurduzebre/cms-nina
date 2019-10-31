@@ -3,14 +3,14 @@
 {% set photo = getPhotoPrincipale(fiche.CRITERES) %}
 
 {% block head %}
-    <link rel="canonical" href="{{ app.request.server.get('HTTP_REFERER') }}" />
+    <link rel="canonical" href="{{ absolute_url(app.request.requestUri) }}" />
     <title>{{ fiche.NOM }}</title>
     {% if fiche.COMMENTAIRE is defined %}
         <meta name="description" content="{{ fiche.COMMENTAIRE }}" />
         <meta property="og:description" content="{{ fiche.COMMENTAIRE }}">
     {% endif %}
     <meta property="og:title" content="{{ fiche.NOM }}">
-    <meta property="og:url" content="{{ app.request.server.get('HTTP_REFERER') }}">
+    <meta property="og:url" content="{{ absolute_url(app.request.requestUri) }}">
     {% if photo %}
         <meta property="og:image" content="{{ photo.photo }}">
     {% endif %}
@@ -18,91 +18,93 @@
 {% endblock %}
 
 {% block main %}
-    <h1 class="pageFiche-titre">{{ fiche.NOM }}</h1>
-    {% if fiche.TYPE_NOM is defined %}<h2 class="pageFiche-sousTitre">{{ fiche.TYPE_NOM }}</h2>{% endif %}
-    {% if fiche.CRITERES is defined and fiche.CRITERES.Crit is not empty %}
-        <div id="galerieFiche" class="pageFiche-conteneurImages flex-container">
-            {% if photo %}
-                <a data-fancybox="galerieFiche" href="{{ photo.photo }}">
-                    <img class="pageFiche-image" src="{{ photo.photo }}" {% if photo.credits is defined %}title="{{ "Crédits : "|trans }}{{ photo.credits }}"{% endif %}>
-                </a>
+    <div class="pageFiche">
+        <h1 class="pageFiche-titre">{{ fiche.NOM }}</h1>
+        {% if fiche.TYPE_NOM is defined %}<h2 class="pageFiche-sousTitre">{{ fiche.TYPE_NOM }}</h2>{% endif %}
+        {% if fiche.CRITERES is defined and fiche.CRITERES.Crit is not empty %}
+            <div id="galerieFiche" class="pageFiche-conteneurImages flex-container">
+                {% if photo %}
+                    <a data-fancybox="galerieFiche" href="{{ photo.photo }}">
+                        <img class="pageFiche-image" src="{{ photo.photo }}" {% if photo.credits is defined %}title="{{ "Crédits : "|trans }}{{ photo.credits }}"{% endif %}>
+                    </a>
+                {% endif %}
+            </div>
+        {% endif %}
+
+        <div class="pageFiche-presentation">
+            <h3>{{ "Présentation"|trans }}</h3>
+            {% if fiche.COMMENTAIRE is defined %}
+                <p>{{ fiche.COMMENTAIRE|raw }}</p>
             {% endif %}
         </div>
-    {% endif %}
 
-    <div class="pageFiche-presentation">
-        <h3>{{ "Présentation"|trans }}</h3>
-        {% if fiche.COMMENTAIRE is defined %}
-            <p>{{ fiche.COMMENTAIRE|raw }}</p>
+        <div class="pageFiche-adresse">
+            <h3>{{ "Adresse"|trans }}</h3>
+            <p>
+                {% if fiche.ADRPROD_NUM_VOIE is defined %}
+                    {{ fiche.ADRPROD_NUM_VOIE }}
+                {% endif %}
+                {% if fiche.ADRPROD_LIB_VOIE is defined %}
+                    {{ fiche.ADRPROD_LIB_VOIE }}
+                {% endif %}
+            </p>
+            <p>
+                {% if fiche.ADRPROD_COMPL_ADRESSE is defined %}
+                    {{ fiche.ADRPROD_COMPL_ADRESSE }}
+                {% endif %}
+            </p>
+            <p>
+                {% if fiche.ADRPROD_CP is defined %}
+                    {{ fiche.ADRPROD_CP }}
+                {% endif %}
+                {% if fiche.ADRPROD_LIBELLE_COMMUNE is defined %}
+                    {{ fiche.ADRPROD_LIBELLE_COMMUNE }}
+                {% endif %}
+            </p>
+            <p>
+                {% if fiche.ADRPROD_PAYS is defined %}
+                    {{ fiche.ADRPROD_PAYS }}
+                {% endif %}
+            </p>
+        </div>
+
+        {% if fiche.PREST_NOM_RESP is defined or fiche.PREST_PRENOM_RESP is defined or fiche.ADRPROD_TEL is defined or fiche.ADRPROD_EMAIL is defined or fiche.ADRPROD_URL is defined %}
+            <div class="pageFiche-contact">
+                <h3>{{ "Informations de contact"|trans }}</h3>
+                {% if fiche.PREST_NOM_RESP is defined or fiche.PREST_PRENOM_RESP is defined %}
+                    <p>
+                        {% if fiche.CIVILITE_RESPONSABLE is defined and fiche.CIVILITE_RESPONSABLE is not empty %}
+                            {{ fiche.CIVILITE_RESPONSABLE }}
+                        {% endif %}
+                        {% if fiche.PREST_PRENOM_RESP is defined and fiche.PREST_PRENOM_RESP is not empty %}
+                            {{ fiche.PREST_PRENOM_RESP }}
+                        {% endif %}
+                        {% if fiche.PREST_NOM_RESP is defined and fiche.PREST_NOM_RESP is not empty %}
+                            {{ fiche.PREST_NOM_RESP }}
+                        {% endif %}
+                    </p>
+                {% endif %}
+                {% if fiche.ADRPROD_TEL is defined and fiche.ADRPROD_TEL is not empty %}
+                    <p>
+                        <strong>{{ "Tel :"|trans }}</strong>
+                        {{ fiche.ADRPROD_TEL }}
+                    </p>
+                {% endif %}
+                {% if fiche.ADRPROD_EMAIL is defined and fiche.ADRPROD_EMAIL is not empty %}
+                    <p>
+                        <strong>{{ "E-mail :"|trans }}</strong>
+                        <a href="mailto:{{ fiche.ADRPROD_EMAIL }}">{{ fiche.ADRPROD_EMAIL }}</a>
+                    </p>
+                {% endif %}
+                {% if fiche.ADRPROD_URL is defined and fiche.ADRPROD_URL is not empty %}
+                    <p>
+                        <strong>
+                            {{ "Site internet :"|trans }}
+                        </strong>
+                        <a href="{{ fiche.ADRPROD_URL }}">{{ fiche.ADRPROD_URL }}</a>
+                    </p>
+                {% endif %}
+            </div>
         {% endif %}
     </div>
-
-    <div class="pageFiche-adresse">
-        <h3>{{ "Adresse"|trans }}</h3>
-        <p>
-            {% if fiche.ADRPROD_NUM_VOIE is defined %}
-                {{ fiche.ADRPROD_NUM_VOIE }}
-            {% endif %}
-            {% if fiche.ADRPROD_LIB_VOIE is defined %}
-                {{ fiche.ADRPROD_LIB_VOIE }}
-            {% endif %}
-        </p>
-        <p>
-            {% if fiche.ADRPROD_COMPL_ADRESSE is defined %}
-                {{ fiche.ADRPROD_COMPL_ADRESSE }}
-            {% endif %}
-        </p>
-        <p>
-            {% if fiche.ADRPROD_CP is defined %}
-                {{ fiche.ADRPROD_CP }}
-            {% endif %}
-            {% if fiche.ADRPROD_LIBELLE_COMMUNE is defined %}
-                {{ fiche.ADRPROD_LIBELLE_COMMUNE }}
-            {% endif %}
-        </p>
-        <p>
-            {% if fiche.ADRPROD_PAYS is defined %}
-                {{ fiche.ADRPROD_PAYS }}
-            {% endif %}
-        </p>
-    </div>
-
-    {% if fiche.PREST_NOM_RESP is defined or fiche.PREST_PRENOM_RESP is defined or fiche.ADRPROD_TEL is defined or fiche.ADRPROD_EMAIL is defined or fiche.ADRPROD_URL is defined %}
-        <div class="pageFiche-contact">
-            <h3>{{ "Informations de contact"|trans }}</h3>
-            {% if fiche.PREST_NOM_RESP is defined or fiche.PREST_PRENOM_RESP is defined %}
-                <p>
-                    {% if fiche.CIVILITE_RESPONSABLE is defined and fiche.CIVILITE_RESPONSABLE is not empty %}
-                        {{ fiche.CIVILITE_RESPONSABLE }}
-                    {% endif %}
-                    {% if fiche.PREST_PRENOM_RESP is defined and fiche.PREST_PRENOM_RESP is not empty %}
-                        {{ fiche.PREST_PRENOM_RESP }}
-                    {% endif %}
-                    {% if fiche.PREST_NOM_RESP is defined and fiche.PREST_NOM_RESP is not empty %}
-                        {{ fiche.PREST_NOM_RESP }}
-                    {% endif %}
-                </p>
-            {% endif %}
-            {% if fiche.ADRPROD_TEL is defined and fiche.ADRPROD_TEL is not empty %}
-                <p>
-                    <strong>{{ "Tel :"|trans }}</strong>
-                    {{ fiche.ADRPROD_TEL }}
-                </p>
-            {% endif %}
-            {% if fiche.ADRPROD_EMAIL is defined and fiche.ADRPROD_EMAIL is not empty %}
-                <p>
-                    <strong>{{ "E-mail :"|trans }}</strong>
-                    <a href="mailto:{{ fiche.ADRPROD_EMAIL }}">{{ fiche.ADRPROD_EMAIL }}</a>
-                </p>
-            {% endif %}
-            {% if fiche.ADRPROD_URL is defined and fiche.ADRPROD_URL is not empty %}
-                <p>
-                    <strong>
-                        {{ "Site internet :"|trans }}
-                    </strong>
-                    <a href="{{ fiche.ADRPROD_URL }}">{{ fiche.ADRPROD_URL }}</a>
-                </p>
-            {% endif %}
-        </div>
-    {% endif %}
 {% endblock %}

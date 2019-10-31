@@ -8,20 +8,8 @@ body.connected .header_front{
   }
 }
 
-.bouton, #form_envoi, input[type="submit"], button[type="submit"]{
-  display: inline-block;
-  background-color: $color-brand;
-  color: $white;
-  border-radius: 5px;
-  padding: 1rem 1.5rem;
-  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
-  text-decoration: none;
-  transition: background-color .3s;
-  &:hover, &:focus, &:active{
-    background-color: $color-brand-dark;
-    text-decoration: none;
-    color: $white;
-  }
+.bouton, #form_envoi, input[type="submit"], button[type="submit"], .bouton-categorie{
+  @include bouton;
 }
 
 main{
@@ -53,6 +41,14 @@ h1, h2, h3{
 .titre-page, .infos-page{
   padding: 1rem;
   @include centre;
+}
+
+.bouton-categorie{
+  margin-right: 1rem;
+  padding: .5rem 1rem;
+  svg{
+    margin-right: .5rem;
+  }
 }
 
 #ariane{

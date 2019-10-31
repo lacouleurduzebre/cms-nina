@@ -55,8 +55,24 @@ $bp-aliases: (
   }
 }
 
-@mixin centre(){
+@mixin centre{
   max-width: $large;
   margin-left: auto;
   margin-right: auto;
+}
+
+@mixin bouton{
+  display: inline-block;
+  background-color: $color-brand;
+  color: $white;
+  border-radius: 5px;
+  padding: 1rem 1.5rem;
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+  text-decoration: none;
+  transition: background-color .3s;
+  &:hover, &:focus, &:active{
+    background-color: $color-brand-dark;
+    text-decoration: none;
+    color: $white;
+  }
 }

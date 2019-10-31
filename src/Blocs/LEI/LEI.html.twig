@@ -1,14 +1,21 @@
 {% set resultats = listeLEI(bloc) %}
 
-<div class="pagination">
-    {{ resultats.pagination|raw }}
-</div>
-
 {# Recherche #}
 {% if bloc.contenu.recherche is defined and bloc.contenu.recherche != 'off' %}
     <div class="blocLEI-recherche">
         {# Recherche par mot clé #}
         {% if bloc.contenu.recherche == 'texte' %}
+            <form action="{{ absolute_url(app.request.requestUri) }}" method="POST">
+                <label for="bloc-{{ bloc.id }}--libtext">{{ "Recherche: "|trans }}</label>
+                <input type="text" name="bloc-{{ bloc.id }}--libtext" placeholder="{{ "Rechercher..."|trans }}">
+                <input type="submit" value="OK">
+            </form>
+            {% if app.request.request.get("bloc-"~bloc.id~"--libtext") is not empty %}
+                <div class="blocLEI-recherche--resultatsTexte mts">
+                    {{ "Résultats de recherche pour"|trans }}
+                    "{{ app.request.request.get("bloc-"~bloc.id~"--libtext") }}"
+                </div>
+            {% endif %}
         {# Recherche par critères #}
         {% elseif bloc.contenu.recherche == 'criteres' %}
             <div class="blocLEI-recherche--criteres">
@@ -24,39 +31,45 @@
     </div>
 {% endif %}
 
-<div class="fichesLEI grid-3-small-2 has-gutter-l">
-    {% for fiche in resultats['donnees'] %}
-        <div class="ficheLEI fiche-{{ fiche.PRODUIT }}" {% if fiche.CRITERES is defined %}data-criteres="{% for critere in fiche.CRITERES.Crit %}{{ critere.attributes.CLEF_CRITERE~'_'~critere.attributes.CLEF_MODA~' ' }}{% endfor %}"{% endif %}>
-            <p class="ficheLEI-commune">{{ fiche.ADRPROD_LIBELLE_COMMUNE }}</p>
-            {% if fiche.CRITERES is defined %}
-                {% set photo = getPhotoPrincipale(fiche.CRITERES) %}
-            {% endif %}
-            {% if photo.photo is defined %}
-                <div class="ficheLEI-image">
-                    <a href="{% if langues|length > 1 %}/{{ langueActive.abreviation }}{% endif %}/fiche/{{ fiche.NOM|replace({' ':'-'}) }}/{{ fiche.PRODUIT }}/{{ bloc.id }}">
-                        <img src="{{ photo.photo }}" {% if photo.credits is defined %}title="{{ "Crédits : "|trans }}{{ photo.credits }}"{% endif %}>
-                    </a>
-                </div>
-            {% else %}
-                <div class="ficheLEI-sansImage flex-container">
-                    <a href="{% if langues|length > 1 %}/{{ langueActive.abreviation }}{% endif %}/fiche/{{ fiche.NOM|replace({' ':'-'}) }}/{{ fiche.PRODUIT }}/{{ bloc.id }}">
-                        <i class="fas fa-camera"></i>
-                    </a>
-                </div>
-            {% endif %}
-            <p class="ficheLEI-titre">{{ fiche.NOM }}</p>
-            <p class="ficheLEI-description">
-                {% if fiche.COMMENTAIRE is defined and fiche.COMMENTAIRE is not empty %}
-                    {{ fiche.COMMENTAIRE|truncate(100)|striptags }}
-                {% endif %}
-            </p>
-            <div class="ficheLEI-lien">
-                <a class="bouton" href="{% if langues|length > 1 %}/{{ langueActive.abreviation }}{% endif %}/fiche/{{ fiche.NOM|replace({' ':'-'}) }}/{{ fiche.PRODUIT }}/{{ bloc.id }}">{% trans %}LIRE LA SUITE{% endtrans %}</a>
-            </div>
-        </div>
-    {% endfor %}
-</div>
+{% if bloc.contenu.recherche is not defined or bloc.contenu.recherche != 'texte' or app.request.request.get("bloc-"~bloc.id~"--libtext") is not empty %}
+    <div class="pagination">
+        {{ resultats.pagination|raw }}
+    </div>
 
-<div class="pagination">
-    {{ resultats.pagination|raw }}
-</div>
+    <div class="fichesLEI grid-3-small-2 has-gutter-l">
+        {% for fiche in resultats['donnees'] %}
+            <div class="ficheLEI fiche-{{ fiche.PRODUIT }}" {% if fiche.CRITERES is defined %}data-criteres="{% for critere in fiche.CRITERES.Crit %}{{ critere.attributes.CLEF_CRITERE~'_'~critere.attributes.CLEF_MODA~' ' }}{% endfor %}"{% endif %}>
+                <p class="ficheLEI-commune">{{ fiche.ADRPROD_LIBELLE_COMMUNE }}</p>
+                {% if fiche.CRITERES is defined %}
+                    {% set photo = getPhotoPrincipale(fiche.CRITERES) %}
+                {% endif %}
+                {% if photo.photo is defined %}
+                    <div class="ficheLEI-image">
+                        <a href="{% if langues|length > 1 %}/{{ langueActive.abreviation }}{% endif %}/fiche/{{ fiche.NOM|replace({' ':'-'}) }}/{{ fiche.PRODUIT }}/{{ bloc.id }}">
+                            <img src="{{ photo.photo }}" {% if photo.credits is defined %}title="{{ "Crédits : "|trans }}{{ photo.credits }}"{% endif %}>
+                        </a>
+                    </div>
+                {% else %}
+                    <div class="ficheLEI-sansImage flex-container">
+                        <a href="{% if langues|length > 1 %}/{{ langueActive.abreviation }}{% endif %}/fiche/{{ fiche.NOM|replace({' ':'-'}) }}/{{ fiche.PRODUIT }}/{{ bloc.id }}">
+                            <i class="fas fa-camera"></i>
+                        </a>
+                    </div>
+                {% endif %}
+                <p class="ficheLEI-titre">{{ fiche.NOM }}</p>
+                <p class="ficheLEI-description">
+                    {% if fiche.COMMENTAIRE is defined and fiche.COMMENTAIRE is not empty %}
+                        {{ fiche.COMMENTAIRE|truncate(100)|striptags }}
+                    {% endif %}
+                </p>
+                <div class="ficheLEI-lien">
+                    <a class="bouton" href="{% if langues|length > 1 %}/{{ langueActive.abreviation }}{% endif %}/fiche/{{ fiche.NOM|replace({' ':'-'}) }}/{{ fiche.PRODUIT }}/{{ bloc.id }}">{% trans %}LIRE LA SUITE{% endtrans %}</a>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+
+    <div class="pagination">
+        {{ resultats.pagination|raw }}
+    </div>
+{% endif %}

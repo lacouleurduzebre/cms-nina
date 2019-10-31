@@ -38,9 +38,7 @@ class LEITwig extends \Twig_Extension
         //Utilisation du cache si dispo
         $cache = '../src/Blocs/LEI/cache/cache'.$bloc->getId().'.xml';
 
-        if(file_exists($cache)){
-            $xml = simplexml_load_file($cache);
-        }else{
+        if(array_key_exists("bloc-".$bloc->getId()."--libtext", $_POST) || !file_exists($cache)){//Recherche par mot-clé ou fichier de cache absent
             //Utilisation du flux générique ou du flux spécifique
             if(array_key_exists('utiliserFluxSpecifique', $parametres) && isset($parametres['utiliserFluxSpecifique'][0])){
                 $flux = $parametres['flux'];
@@ -58,11 +56,21 @@ class LEITwig extends \Twig_Extension
             }
 
             //Création du fichier de cache
-            $file_headers = @get_headers($flux);
-            if($file_headers && $file_headers[0] != 'HTTP/1.1 404 Not Found') {
-                copy($flux, $cache);
+            if(!file_exists($cache)){
+                $file_headers = @get_headers($flux);
+                if($file_headers && $file_headers[0] != 'HTTP/1.1 404 Not Found') {
+                    copy($flux, $cache);
+                }
             }
 
+            //Recherche par mot-clé
+            if(array_key_exists("bloc-".$bloc->getId()."--libtext", $_POST)){
+                $flux .= '&libtext='.$_POST["bloc-".$bloc->getId()."--libtext"];
+                $xml = simplexml_load_file($flux);
+            }else{
+                $xml = simplexml_load_file($cache);
+            }
+        }else{
             $xml = simplexml_load_file($cache);
         }
 

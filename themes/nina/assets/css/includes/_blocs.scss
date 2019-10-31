@@ -103,6 +103,16 @@
   //Recherche
 .blocLEI-recherche{
   margin-bottom: 2rem;
+  form{
+    display: flex;
+    align-items: center;
+    input[type=text]{
+      margin: 0 1rem;
+    }
+    input[type=submit]{
+      padding: .5rem 1rem;
+    }
+  }
 }
 
 .blocLEI-recherche--critere{
@@ -156,6 +166,10 @@
 
 .ficheLEI-description{
   flex: 1;
+}
+
+.pageFiche{
+  @include centre;
 }
 
 #galerieFiche, .pageFiche-sousTitre, .pageFiche-presentation, .pageFiche-adresse, .pageFiche-contact{

@@ -3055,7 +3055,7 @@ body {
   }
 }
 
-.bouton, #form_envoi, input[type=submit], button[type=submit] {
+.bouton, #form_envoi, input[type=submit], button[type=submit], .bouton-categorie {
   display: inline-block;
   background-color: #5CBFEE;
   color: #fff;
@@ -3065,7 +3065,7 @@ body {
   text-decoration: none;
   transition: background-color 0.3s;
 }
-.bouton:hover, .bouton:focus, .bouton:active, #form_envoi:hover, #form_envoi:focus, #form_envoi:active, input[type=submit]:hover, input[type=submit]:focus, input[type=submit]:active, button[type=submit]:hover, button[type=submit]:focus, button[type=submit]:active {
+.bouton:hover, .bouton:focus, .bouton:active, #form_envoi:hover, #form_envoi:focus, #form_envoi:active, input[type=submit]:hover, input[type=submit]:focus, input[type=submit]:active, button[type=submit]:hover, button[type=submit]:focus, button[type=submit]:active, .bouton-categorie:hover, .bouton-categorie:focus, .bouton-categorie:active {
   background-color: #2eade9;
   text-decoration: none;
   color: #fff;
@@ -3106,6 +3106,14 @@ h1, h2, h3 {
   max-width: 992px;
   margin-left: auto;
   margin-right: auto;
+}
+
+.bouton-categorie {
+  margin-right: 1rem;
+  padding: 0.5rem 1rem;
+}
+.bouton-categorie svg {
+  margin-right: 0.5rem;
 }
 
 #ariane {
@@ -3481,6 +3489,16 @@ body.notFull .cookies {
 .blocLEI-recherche {
   margin-bottom: 2rem;
 }
+.blocLEI-recherche form {
+  display: flex;
+  align-items: center;
+}
+.blocLEI-recherche form input[type=text] {
+  margin: 0 1rem;
+}
+.blocLEI-recherche form input[type=submit] {
+  padding: 0.5rem 1rem;
+}
 
 .blocLEI-recherche--critere {
   background-color: #5CBFEE;
@@ -3530,6 +3548,12 @@ body.notFull .cookies {
 
 .ficheLEI-description {
   flex: 1;
+}
+
+.pageFiche {
+  max-width: 992px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 #galerieFiche, .pageFiche-sousTitre, .pageFiche-presentation, .pageFiche-adresse, .pageFiche-contact {

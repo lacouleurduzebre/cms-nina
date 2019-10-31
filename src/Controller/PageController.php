@@ -84,7 +84,7 @@ class PageController extends AbstractController
 
             if($request->isMethod('POST')){
                 $form->handleRequest($request);
-                if($form->isValid()) {
+                if($form->isSubmitted() && $form->isValid()) {
                     $em = $this->getDoctrine()->getManager();
                     $em->persist($commentaire);
                     $em->flush();
