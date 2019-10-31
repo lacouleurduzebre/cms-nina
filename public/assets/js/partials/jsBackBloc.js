@@ -123,7 +123,7 @@ $(document).ready(function() {
 
         bloc = $(this).closest('.field-bloc');
 
-        bloc.find('.bloc-optionsAffichage').toggleClass('actif');
+        bloc.children('div').children('.bloc-optionsAffichage').toggleClass('actif');
     });
 
     /* Fermeture */
