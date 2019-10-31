@@ -100,6 +100,20 @@
 }
 
 //LEI
+  //Recherche
+.blocLEI-recherche{
+  margin-bottom: 2rem;
+}
+
+.blocLEI-recherche--critere{
+  background-color: $color-brand;
+  color: $white;
+  &.actif{
+    background-color: darken($color-brand, 25);
+  }
+}
+
+  //Fiche
 .ficheLEI{
   display: flex;
   flex-direction: column;

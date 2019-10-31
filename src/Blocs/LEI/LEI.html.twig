@@ -4,9 +4,29 @@
     {{ resultats.pagination|raw }}
 </div>
 
+{# Recherche #}
+{% if bloc.contenu.recherche is defined and bloc.contenu.recherche != 'off' %}
+    <div class="blocLEI-recherche">
+        {# Recherche par mot clé #}
+        {% if bloc.contenu.recherche == 'texte' %}
+        {# Recherche par critères #}
+        {% elseif bloc.contenu.recherche == 'criteres' %}
+            <div class="blocLEI-recherche--criteres">
+                <p>{{ "Filtrer les résultats :"|trans }}</p>
+                    <button class="blocLEI-recherche--critere actif" data-critere="tous">{{ "Tous"|trans }}</button>
+                {% for critere in bloc.contenu.criteres %}
+                    <button class="blocLEI-recherche--critere" data-critere="{{ critere.critere~'_'~critere.modalite }}">
+                        {{ critere.nom }}
+                    </button>
+                {% endfor %}
+            </div>
+        {% endif %}
+    </div>
+{% endif %}
+
 <div class="fichesLEI grid-3-small-2 has-gutter-l">
     {% for fiche in resultats['donnees'] %}
-        <div class="ficheLEI fiche-{{ fiche.PRODUIT }}">
+        <div class="ficheLEI fiche-{{ fiche.PRODUIT }}" {% if fiche.CRITERES is defined %}data-criteres="{% for critere in fiche.CRITERES.Crit %}{{ critere.attributes.CLEF_CRITERE~'_'~critere.attributes.CLEF_MODA~' ' }}{% endfor %}"{% endif %}>
             <p class="ficheLEI-commune">{{ fiche.ADRPROD_LIBELLE_COMMUNE }}</p>
             {% if fiche.CRITERES is defined %}
                 {% set photo = getPhotoPrincipale(fiche.CRITERES) %}

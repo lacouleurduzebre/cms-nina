@@ -3478,6 +3478,18 @@ body.notFull .cookies {
   width: 100%;
 }
 
+.blocLEI-recherche {
+  margin-bottom: 2rem;
+}
+
+.blocLEI-recherche--critere {
+  background-color: #5CBFEE;
+  color: #fff;
+}
+.blocLEI-recherche--critere.actif {
+  background-color: #1383b7;
+}
+
 .ficheLEI {
   display: flex;
   flex-direction: column;
