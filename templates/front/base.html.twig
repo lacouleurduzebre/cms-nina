@@ -41,7 +41,7 @@
     {% endif %}
 </head>
 {% if not config.maintenance or is_granted('IS_AUTHENTICATED_REMEMBERED') %}
-    <body class="front {% if checkDroit('admin') %}connected {% endif %}{% if accueil is defined %}accueil {% endif %}">
+    <body class="front {% if checkDroit('admin') %}connected {% endif %}{% if accueil is defined %}accueil {% endif %}{{ app.request.get('_route') }}">
 
         {# Menu horizontal du back office #}
         {% if checkDroit('admin') %}

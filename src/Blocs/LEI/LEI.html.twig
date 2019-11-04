@@ -32,6 +32,12 @@
 {% endif %}
 
 {% if bloc.contenu.recherche is not defined or bloc.contenu.recherche != 'texte' or app.request.request.get("bloc-"~bloc.id~"--libtext") is not empty %}
+    {% if app.request.request.get("bloc-"~bloc.id~"--libtext") is not empty and resultats['donnees'] is empty %}
+        <div class="mtm">
+            {{ "Aucun résultat pour cette recherche"|trans }}
+        </div>
+    {% endif %}
+
     <div class="pagination">
         {{ resultats.pagination|raw }}
     </div>
