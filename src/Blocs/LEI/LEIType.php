@@ -96,32 +96,34 @@ class LEIType extends AbstractType
             $bloc = $event->getForm()->getParent()->getData();
             $contenuBloc = $event->getData();
 
-            //Utilisation du flux générique ou du flux spécifique
-            if($contenuBloc['utiliserFluxSpecifique'] && isset($contenuBloc['utiliserFluxSpecifique'][0])){
-                $flux = $contenuBloc['flux'];
-            }else{
-                $configLEI = Yaml::parseFile('../src/Blocs/LEI/configLEI.yaml');
-                $flux = $configLEI['fluxGenerique'];
-            }
+            if($bloc){
+                //Utilisation du flux générique ou du flux spécifique
+                if($contenuBloc['utiliserFluxSpecifique'] && isset($contenuBloc['utiliserFluxSpecifique'][0])){
+                    $flux = $contenuBloc['flux'];
+                }else{
+                    $configLEI = Yaml::parseFile('../src/Blocs/LEI/configLEI.yaml');
+                    $flux = $configLEI['fluxGenerique'];
+                }
 
-            //Ajout de la clause et des autres paramètres
-            if(isset($contenuBloc['clause'])){
-                $flux .= '&clause='.$contenuBloc['clause'];
-            }
-            if(isset($contenuBloc['autresParametres'])){
-                $flux .= $contenuBloc['autresParametres'];
-            }
+                //Ajout de la clause et des autres paramètres
+                if(isset($contenuBloc['clause'])){
+                    $flux .= '&clause='.$contenuBloc['clause'];
+                }
+                if(isset($contenuBloc['autresParametres'])){
+                    $flux .= $contenuBloc['autresParametres'];
+                }
 
-            //Enregistrement du fichier
-            $fichier = '../src/Blocs/LEI/cache/cache'.$bloc->getId().'.xml';
+                //Enregistrement du fichier
+                $fichier = '../src/Blocs/LEI/cache/cache'.$bloc->getId().'.xml';
 
-            if(file_exists($fichier)){
-                unlink($fichier);
-            }
+                if(file_exists($fichier)){
+                    unlink($fichier);
+                }
 
-            $file_headers = @get_headers($flux);
-            if($file_headers && $file_headers[0] != 'HTTP/1.1 404 Not Found') {
-                copy($flux, $fichier);
+                $file_headers = @get_headers($flux);
+                if($file_headers && $file_headers[0] != 'HTTP/1.1 404 Not Found') {
+                    copy($flux, $fichier);
+                }
             }
         });
     }
