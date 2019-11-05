@@ -32,29 +32,39 @@ class BlocsFixtures extends Fixture
         $menu = $repoMenu->findOneBy(array('langue' => $langue));
 
         //Page
-        $seo = new SEOPage();
-        $seo->setUrl('tous-les-blocs')
-            ->setMetaTitre('Blocs')
-            ->setMetaDescription('Blocs');
-        $manager->persist($seo);
+        $repoSEOPage = $manager->getRepository(SEOPage::class);
+        $SEOPage = $repoSEOPage->findOneBy(['url' => 'tous-les-blocs']);
+        if($SEOPage){
+            $page = $SEOPage->getPage();
+            foreach($page->getBlocs() as $bloc){
+                $manager->remove($bloc);
+            }
+            $manager->flush();
+        }else{
+            $SEOPage = new SEOPage();
+            $SEOPage->setUrl('tous-les-blocs')
+                ->setMetaTitre('Blocs')
+                ->setMetaDescription('Blocs');
+            $manager->persist($SEOPage);
 
-        $page = new Page();
-        $page->setTitre('Tous les blocs')
-            ->setTitreMenu('Tous les blocs')
-            ->setAuteur($utilisateur)
-            ->setAuteurDerniereModification($utilisateur)
-            ->setDateCreation($date)
-            ->setDatePublication($date)
-            ->setLangue($langue)
-            ->setSEO($seo);
-        $manager->persist($page);
-        $manager->flush();
+            $page = new Page();
+            $page->setTitre('Tous les blocs')
+                ->setTitreMenu('Tous les blocs')
+                ->setAuteur($utilisateur)
+                ->setAuteurDerniereModification($utilisateur)
+                ->setDateCreation($date)
+                ->setDatePublication($date)
+                ->setLangue($langue)
+                ->setSEO($SEOPage);
+            $manager->persist($page);
+            $manager->flush();
 
-        $menuPage = new MenuPage();
-        $menuPage->setPosition(0)
-            ->setMenu($menu)
-            ->setPage($page);
-        $manager->persist($menuPage);
+            $menuPage = new MenuPage();
+            $menuPage->setPosition(0)
+                ->setMenu($menu)
+                ->setPage($page);
+            $manager->persist($menuPage);
+        }
 
         //Blocs
         $image = [
@@ -106,32 +116,47 @@ class BlocsFixtures extends Fixture
         $manager->persist($blocBouton);
 
             //Catégorie
-        $SEOTypeCategorie = new SEOTypeCategorie();
-        $SEOTypeCategorie->setUrl('type-de-categorie');
+        $repoSEOTypeCategorie = $manager->getRepository(SEOTypeCategorie::class);
+        $SEOTypeCategorie = $repoSEOTypeCategorie->findOneBy(['url' => 'type-de-categorie']);
+        if(!$SEOTypeCategorie){
+            $SEOTypeCategorie = new SEOTypeCategorie();
+            $SEOTypeCategorie->setUrl('type-de-categorie');
 
-        $typeCategorie = new TypeCategorie();
-        $typeCategorie->setLangue($langue)
-            ->setNom('Type de catégorie')
-            ->setSeo($SEOTypeCategorie);
-        $manager->persist($typeCategorie);
+            $typeCategorie = new TypeCategorie();
+            $typeCategorie->setLangue($langue)
+                ->setNom('Type de catégorie')
+                ->setSeo($SEOTypeCategorie);
+            $manager->persist($typeCategorie);
+        }else{
+            $typeCategorie = $SEOTypeCategorie->getTypeCategorie();
+        }
 
-        $SEOCategorie = new SEOCategorie();
-        $SEOCategorie->setUrl('categorie-de-test');
+        $repoSEOCategorie = $manager->getRepository(SEOCategorie::class);
+        $SEOCategorie = $repoSEOCategorie->findOneBy(['url' => 'categorie-de-test']);
+        if(!$SEOCategorie){
+            $SEOCategorie = new SEOCategorie();
+            $SEOCategorie->setUrl('categorie-de-test');
 
-        $categorie = new Categorie();
-        $categorie->setNom('Catégorie de test')
-            ->setSeo($SEOCategorie)
-            ->setLangue($langue)
-            ->setTypeCategorie($typeCategorie);
-        $manager->persist($categorie);
-        $manager->flush();
+            $categorie = new Categorie();
+            $categorie->setNom('Catégorie de test')
+                ->setSeo($SEOCategorie)
+                ->setLangue($langue)
+                ->setTypeCategorie($typeCategorie);
+            $manager->persist($categorie);
+            $manager->flush();
+        }else{
+            $categorie = $SEOCategorie->getCategorie();
+        }
 
         $repoPage = $manager->getRepository(Page::class);
         $pages = $repoPage->findBy(array('langue' => $langue), array('titre' => 'ASC'), 6);
 
         foreach($pages as $item){
-            $item->addCategory($categorie);
-            $manager->persist($item);
+            $categories = $item->getCategories();
+            if(!$categories->contains($categorie)){
+                $item->addCategory($categorie);
+                $manager->persist($item);
+            }
         }
 
         $blocCategorie = new Bloc();
@@ -284,18 +309,6 @@ class BlocsFixtures extends Fixture
             ->setContenu([]);
         $manager->persist($blocMenuLangues);
 
-            //Partage
-        $blocPartage = new Bloc();
-        $blocPartage->setType('Partage')
-            ->setPosition(11)
-            ->setPage($page)
-            ->setContenu([
-                'facebook' => [1],
-                'twitter' => [1],
-                'linkedIn' => [1]
-            ]);
-        $manager->persist($blocPartage);
-
             //Plan du site
         $blocPlanDuSite = new Bloc();
         $blocPlanDuSite->setType('PlanDuSite')
@@ -312,12 +325,13 @@ class BlocsFixtures extends Fixture
             ->setContenu([]);
         $manager->persist($blocRecherche);
 
-            //Réseaux sociaux
-        $blocRS = new Bloc();
-        $blocRS->setType('ReseauxSociaux')
+            //Réseaux sociaux - Liens
+        $blocRSLiens = new Bloc();
+        $blocRSLiens->setType('ReseauxSociaux')
             ->setPosition(14)
             ->setPage($page)
             ->setContenu([
+                'typeRS' => 'liens',
                 'facebook' => [1],
                 'twitter' => [1],
                 'linkedIn' => [1],
@@ -329,12 +343,25 @@ class BlocsFixtures extends Fixture
                 'instagramUrl' => '#',
                 'youtubeUrl' => '#',
             ]);
-        $manager->persist($blocRS);
+        $manager->persist($blocRSLiens);
+
+            //Réseaux sociaux - Partage
+        $blocRSPartage = new Bloc();
+        $blocRSPartage->setType('ReseauxSociaux')
+            ->setPosition(15)
+            ->setPage($page)
+            ->setContenu([
+                'typeRS' => 'partage',
+                'facebook' => [1],
+                'twitter' => [1],
+                'linkedIn' => [1],
+            ]);
+        $manager->persist($blocRSPartage);
 
             //Rubrique
         $blocRubrique = new Bloc();
         $blocRubrique->setType('Rubrique')
-            ->setPosition(15)
+            ->setPosition(16)
             ->setPage($page)
             ->setContenu([]);
         $manager->persist($blocRubrique);
@@ -342,7 +369,7 @@ class BlocsFixtures extends Fixture
             //Slider
         $blocSlider = new Bloc();
         $blocSlider->setType('Slider')
-            ->setPosition(16)
+            ->setPosition(17)
             ->setPage($page)
             ->setContenu([
                 'nbSlides' => 1,
@@ -366,7 +393,7 @@ class BlocsFixtures extends Fixture
 
         $blocCaroussel = new Bloc();
         $blocCaroussel->setType('Slider')
-            ->setPosition(16)
+            ->setPosition(18)
             ->setPage($page)
             ->setContenu([
                 'nbSlides' => 3,
@@ -401,7 +428,7 @@ class BlocsFixtures extends Fixture
             //Titre
         $blocTitre = new Bloc();
         $blocTitre->setType('Titre')
-            ->setPosition(17)
+            ->setPosition(19)
             ->setPage($page)
             ->setContenu([
                 'texte' => 'Lorem Elsass ipsum nullam Chulien',
@@ -412,7 +439,7 @@ class BlocsFixtures extends Fixture
             //Type de catégorie
         $blocTypeCategorie = new Bloc();
         $blocTypeCategorie->setType('TypeCategorie')
-            ->setPosition(18)
+            ->setPosition(20)
             ->setPage($page)
             ->setContenu([
                 'typeCategorie' => $typeCategorie->getId(),
@@ -422,7 +449,7 @@ class BlocsFixtures extends Fixture
 
         $blocTypeCategorie2 = new Bloc();
         $blocTypeCategorie2->setType('TypeCategorie')
-            ->setPosition(19)
+            ->setPosition(21)
             ->setPage($page)
             ->setContenu([
                 'typeCategorie' => $typeCategorie->getId(),
@@ -433,7 +460,7 @@ class BlocsFixtures extends Fixture
             //Vidéo
         $blocVideo = new Bloc();
         $blocVideo->setType('Video')
-            ->setPosition(20)
+            ->setPosition(22)
             ->setPage($page)
             ->setContenu([
                 'video' => 'https://www.youtube.com/watch?v=r8yqLJlzQlQ'
@@ -443,7 +470,7 @@ class BlocsFixtures extends Fixture
             //Vidéos
         $blocVideos = new Bloc();
         $blocVideos->setType('Videos')
-            ->setPosition(21)
+            ->setPosition(23)
             ->setPage($page)
             ->setContenu([]);
         $manager->persist($blocVideos);
