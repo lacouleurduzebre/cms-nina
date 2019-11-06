@@ -19,6 +19,18 @@
 
 {% block main %}
     <div class="pageFiche">
+        <div class="pageFiche-navigation">
+            <a class="pageFiche-navigation--retourListe" href="{{ lienPage(liste) }}">{{ "Retour à la liste"|trans }}</a>
+            <div class="flex-container">
+                {% if fichePrecedente %}
+                    <a class="mrauto" href="{% if langues|length > 1 %}/{{ langueActive.abreviation }}{% endif %}/fiche/{{ fichePrecedente.NOM|replace({' ':'-'}) }}/{{ fichePrecedente.PRODUIT }}/{{ app.request.get('idBloc') }}">< {{ fichePrecedente.NOM }}</a>
+                {% endif %}
+                {% if ficheSuivante %}
+                    <a class="mlauto" href="{% if langues|length > 1 %}/{{ langueActive.abreviation }}{% endif %}/fiche/{{ ficheSuivante.NOM|replace({' ':'-'}) }}/{{ ficheSuivante.PRODUIT }}/{{ app.request.get('idBloc') }}">{{ ficheSuivante.NOM }} ></a>
+                {% endif %}
+            </div>
+        </div>
+
         <h1 class="pageFiche-titre">{{ fiche.NOM }}</h1>
         {% if fiche.TYPE_NOM is defined %}<h2 class="pageFiche-sousTitre">{{ fiche.TYPE_NOM }}</h2>{% endif %}
         {% if fiche.CRITERES is defined and fiche.CRITERES.Crit is not empty %}

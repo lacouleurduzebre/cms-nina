@@ -84,7 +84,16 @@ class LEIController extends Controller
             throw new NotFoundHttpException('Cette page n\'existe pas ou a été supprimée');
         }
 
-        return $this->render('Blocs/LEI/fiche.html.twig', array('fiche'=>$fiche[0]));
+        //Navigation
+        $noeudFichePrecedente = $xml->xpath("//Resultat/sit_liste[PRODUIT = $idFiche]/preceding-sibling::sit_liste[position()=1]");
+        $fichePrecedente = $noeudFichePrecedente ? ['PRODUIT' => (string)$noeudFichePrecedente[0]->PRODUIT, 'NOM' => (string)$noeudFichePrecedente[0]->NOM] : false;
+
+        $noeudFicheSuivante = $xml->xpath("//Resultat/sit_liste[PRODUIT = $idFiche]/following-sibling::sit_liste[position()=1]");
+        $ficheSuivante = $noeudFicheSuivante ? ['PRODUIT' => (string)$noeudFicheSuivante[0]->PRODUIT, 'NOM' => (string)$noeudFicheSuivante[0]->NOM] : false;
+
+        $liste = $bloc->getPage();
+
+        return $this->render('Blocs/LEI/fiche.html.twig', array('fiche' => $fiche[0], 'fichePrecedente' => $fichePrecedente, 'ficheSuivante' => $ficheSuivante, 'liste' => $liste));
     }
 
     /**
