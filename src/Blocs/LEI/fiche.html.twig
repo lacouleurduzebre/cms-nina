@@ -80,43 +80,153 @@
             </p>
         </div>
 
-        {% if fiche.PREST_NOM_RESP is defined or fiche.PREST_PRENOM_RESP is defined or fiche.ADRPROD_TEL is defined or fiche.ADRPROD_EMAIL is defined or fiche.ADRPROD_URL is defined %}
-            <div class="pageFiche-contact">
-                <h3>{{ "Informations de contact"|trans }}</h3>
-                {% if fiche.PREST_NOM_RESP is defined or fiche.PREST_PRENOM_RESP is defined %}
-                    <p>
-                        {% if fiche.CIVILITE_RESPONSABLE is defined and fiche.CIVILITE_RESPONSABLE is not empty %}
-                            {{ fiche.CIVILITE_RESPONSABLE }}
-                        {% endif %}
-                        {% if fiche.PREST_PRENOM_RESP is defined and fiche.PREST_PRENOM_RESP is not empty %}
-                            {{ fiche.PREST_PRENOM_RESP }}
-                        {% endif %}
-                        {% if fiche.PREST_NOM_RESP is defined and fiche.PREST_NOM_RESP is not empty %}
-                            {{ fiche.PREST_NOM_RESP }}
-                        {% endif %}
-                    </p>
-                {% endif %}
-                {% if fiche.ADRPROD_TEL is defined and fiche.ADRPROD_TEL is not empty %}
-                    <p>
-                        <strong>{{ "Tel :"|trans }}</strong>
-                        {{ fiche.ADRPROD_TEL }}
-                    </p>
-                {% endif %}
-                {% if fiche.ADRPROD_EMAIL is defined and fiche.ADRPROD_EMAIL is not empty %}
-                    <p>
-                        <strong>{{ "E-mail :"|trans }}</strong>
-                        <a href="mailto:{{ fiche.ADRPROD_EMAIL }}">{{ fiche.ADRPROD_EMAIL }}</a>
-                    </p>
-                {% endif %}
-                {% if fiche.ADRPROD_URL is defined and fiche.ADRPROD_URL is not empty %}
-                    <p>
-                        <strong>
-                            {{ "Site internet :"|trans }}
-                        </strong>
-                        <a href="{{ fiche.ADRPROD_URL }}">{{ fiche.ADRPROD_URL }}</a>
-                    </p>
-                {% endif %}
-            </div>
-        {% endif %}
+        <div class="pageFiche-infos">
+            {% if fiche.PREST_NOM_RESP is defined or fiche.PREST_PRENOM_RESP is defined or fiche.ADRPROD_TEL is defined or fiche.ADRPROD_EMAIL is defined or fiche.ADRPROD_URL is defined %}
+                <div class="pageFiche-contact">
+                    <h3>{{ "Informations de contact"|trans }}</h3>
+                    {% if fiche.PREST_NOM_RESP is defined or fiche.PREST_PRENOM_RESP is defined %}
+                        <p>
+                            {% if fiche.CIVILITE_RESPONSABLE is defined and fiche.CIVILITE_RESPONSABLE is not empty %}
+                                {{ fiche.CIVILITE_RESPONSABLE }}
+                            {% endif %}
+                            {% if fiche.PREST_PRENOM_RESP is defined and fiche.PREST_PRENOM_RESP is not empty %}
+                                {{ fiche.PREST_PRENOM_RESP }}
+                            {% endif %}
+                            {% if fiche.PREST_NOM_RESP is defined and fiche.PREST_NOM_RESP is not empty %}
+                                {{ fiche.PREST_NOM_RESP }}
+                            {% endif %}
+                        </p>
+                    {% endif %}
+                    {% if fiche.ADRPROD_TEL is defined and fiche.ADRPROD_TEL is not empty %}
+                        <p>
+                            <strong>{{ "Tel :"|trans }}</strong>
+                            {{ fiche.ADRPROD_TEL }}
+                        </p>
+                    {% endif %}
+                    {% if fiche.ADRPROD_EMAIL is defined and fiche.ADRPROD_EMAIL is not empty %}
+                        <p>
+                            <strong>{{ "E-mail :"|trans }}</strong>
+                            <a href="mailto:{{ fiche.ADRPROD_EMAIL }}">{{ fiche.ADRPROD_EMAIL }}</a>
+                        </p>
+                    {% endif %}
+                    {% if fiche.ADRPROD_URL is defined and fiche.ADRPROD_URL is not empty %}
+                        <p>
+                            <strong>
+                                {{ "Site internet :"|trans }}
+                            </strong>
+                            <a href="{{ fiche.ADRPROD_URL }}">{{ fiche.ADRPROD_URL }}</a>
+                        </p>
+                    {% endif %}
+                </div>
+            {% endif %}
+
+            {% if infosFiche.confort_equipement is defined %}
+                <div class="pageFiche-infos--item pageFiche-confortEquipement">
+                    <h3>{{ "Confort et équipement"|trans }}</h3>
+                    <div>
+                        {% for nom_critere, critere in infosFiche.confort_equipement %}
+                            <p><strong>{{ nom_critere }}</strong> : {{ critere }}</p>
+                        {% endfor %}
+                    </div>
+                </div>
+            {% endif %}
+
+            {% if infosFiche.accueil is defined %}
+                <div class="pageFiche-infos--item pageFiche-accueil">
+                    <h3>{{ "Accueil"|trans }}</h3>
+                    <div>
+                        {% for nom_critere, critere in infosFiche.accueil %}
+                            <p><strong>{{ nom_critere }}</strong> : {{ critere }}</p>
+                        {% endfor %}
+                    </div>
+                    {% if fiche.HORAIRES is defined and fiche.HORAIRES.Horaire is defined %}
+                        <div class="pageFiche-horaires">
+                            {% for horaire in fiche.HORAIRES.Horaire %}
+                                {# DATES #}
+                                {% if horaire.DATE_DEBUT is defined or horaire.DATE_FIN is defined %}
+                                    <p>
+                                        <strong>
+                                            {% if horaire.DATE_DEBUT is defined %}
+                                                {% if horaire.DATE_FIN is defined %}
+                                                    {{ "Du"|trans }} {{ horaire.DATE_DEBUT }}
+                                                {% else %}
+                                                    {{ "À partir du"|trans }} {{ horaire.DATE_DEBUT }}
+                                                {% endif %}
+                                            {% endif %}
+                                            {% if horaire.DATE_FIN is defined %}
+                                                {% if horaire.DATE_DEBUT is defined %}
+                                                    {{ "au"|trans }} {{ horaire.DATE_FIN }}
+                                                {% else %}
+                                                    {{ "Jusqu'au"|trans }} {{ horaire.DATE_FIN }}
+                                                {% endif %}
+                                            {% endif %}
+                                        </strong>
+                                    </p>
+                                {% endif %}
+                                {# FIN DATES #}
+
+                                {# HEURES #}
+                                {% for heure in horaire.HEURES.Heure %}
+                                    {#{{ dump(heure) }}#}
+                                    <p class="pageFiche-horaires-joursOuverture">
+                                        {% if heure.LUNDI == 'O' and heure.MARDI == 'O' and heure.MERCREDI == 'O' and heure.JEUDI == 'O' and heure.VENDREDI == 'O' and heure.SAMEDI == 'O' and heure.DIMANCHE == 'O' %}
+                                            {{ "Tous les jours"|trans }}
+                                        {% else %}
+                                            {% if heure.LUNDI == 'O' %}
+                                                {{ "lundi"|trans }}<span>, </span>
+                                            {% endif %}
+                                            {% if heure.MARDI == 'O' %}
+                                                {{ "mardi"|trans }}<span>, </span>
+                                            {% endif %}
+                                            {% if heure.MERCREDI == 'O' %}
+                                                {{ "mercredi"|trans }}<span>, </span>
+                                            {% endif %}
+                                            {% if heure.JEUDI == 'O' %}
+                                                {{ "jeudi"|trans }}<span>, </span>
+                                            {% endif %}
+                                            {% if heure.VENDREDI == 'O' %}
+                                                {{ "vendredi"|trans }}<span>, </span>
+                                            {% endif %}
+                                            {% if heure.SAMEDI == 'O' %}
+                                                {{ "samedi"|trans }}<span>, </span>
+                                            {% endif %}
+                                            {% if heure.DIMANCHE == 'O' %}
+                                                {{ "dimanche"|trans }}<span>, </span>
+                                            {% endif %}
+                                        {% endif %}
+                                    </p>
+                                    {% if heure.HEURE_DEBUT is defined and heure.HEURE_DEBUT is not empty %}
+                                        {% if heure.HEURE_FIN is defined %}
+                                            <p>{{ "De"|trans }} {{ heure.HEURE_DEBUT }}
+                                        {% else %}
+                                            <p>{{ "À partir de"|trans }} {{ heure.HEURE_DEBUT }}</p>
+                                        {% endif %}
+                                    {% endif %}
+                                    {% if heure.HEURE_FIN is defined and heure.HEURE_FIN is not empty %}
+                                        {% if heure.HEURE_DEBUT is defined %}
+                                            {{ "à"|trans }} {{ heure.HEURE_FIN }}</p>
+                                        {% else %}
+                                            <p>{{ "Jusqu'à"|trans }} {{ heure.HEURE_FIN }}</p>
+                                        {% endif %}
+                                    {% endif %}
+                                {% endfor %}
+                                {# FIN HEURES #}
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                </div>
+            {% endif %}
+
+            {% if infosFiche.tarifs is defined %}
+                <div class="pageFiche-infos--item pageFiche-tarifs">
+                    <h3>{{ "Tarifs"|trans }}</h3>
+                    <div>
+                        {% for nom_critere, critere in infosFiche.tarifs %}
+                            <p><strong>{{ nom_critere }}</strong> : {{ critere }}</p>
+                        {% endfor %}
+                    </div>
+                </div>
+            {% endif %}
+        </div>
     </div>
 {% endblock %}
