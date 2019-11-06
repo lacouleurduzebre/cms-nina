@@ -103,20 +103,17 @@ class LEIController extends Controller
 
             $legende = $xml->xpath("//NOMENCLATURE/CRIT[@CLEF=$clef_critere]")[0];
 
-            $classe = $legende->attributes()->CLASSE;
+            $classe = (string)$legende->attributes()->CLASSE;
             $nomCritere = (string)$legende->NOMCRIT;
             $moda = $legende->xpath("MODAL[@CLEF=$clef_moda]");
 
             if($moda){
                 $texte = $moda[0]->__toString();
-
-                if(in_array($classe, [1, 16, 32])){
-                    $infosFiche['confort_equipement'][$nomCritere] = $texte;
-                }elseif(in_array($classe, [2, 4])){
-                    $infosFiche['accueil'][$nomCritere] = $texte;
-                }elseif($classe == 8){
-                    $infosFiche['tarifs'][$nomCritere] = $texte;
-                }
+                $infosFiche[$classe][$nomCritere] = [
+                    'texte' => $texte,
+                    'critere' => $clef_critere,
+                    'moda' => $clef_moda
+                ];
             }
         }
 
