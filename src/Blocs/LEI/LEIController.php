@@ -93,7 +93,34 @@ class LEIController extends Controller
 
         $liste = $bloc->getPage();
 
-        return $this->render('Blocs/LEI/fiche.html.twig', array('fiche' => $fiche[0], 'fichePrecedente' => $fichePrecedente, 'ficheSuivante' => $ficheSuivante, 'liste' => $liste));
+        //Infos sur la fiche
+        $infosFiche = [];
+
+        $criteres = $fiche[0]->CRITERES->Crit;
+        foreach($criteres as $critere){
+            $clef_critere = (string)$critere->attributes()->CLEF_CRITERE;
+            $clef_moda = (int)$critere->attributes()->CLEF_MODA;
+
+            $legende = $xml->xpath("//NOMENCLATURE/CRIT[@CLEF=$clef_critere]")[0];
+
+            $classe = $legende->attributes()->CLASSE;
+            $nomCritere = (string)$legende->NOMCRIT;
+            $moda = $legende->xpath("MODAL[@CLEF=$clef_moda]");
+
+            if($moda){
+                $texte = $moda[0]->__toString();
+
+                if(in_array($classe, [1, 16, 32])){
+                    $infosFiche['confort_equipement'][$nomCritere] = $texte;
+                }elseif(in_array($classe, [2, 4])){
+                    $infosFiche['accueil'][$nomCritere] = $texte;
+                }elseif($classe == 8){
+                    $infosFiche['tarifs'][$nomCritere] = $texte;
+                }
+            }
+        }
+
+        return $this->render('Blocs/LEI/fiche.html.twig', array('fiche' => $fiche[0], 'fichePrecedente' => $fichePrecedente, 'ficheSuivante' => $ficheSuivante, 'liste' => $liste, 'infosFiche' => $infosFiche));
     }
 
     /**
