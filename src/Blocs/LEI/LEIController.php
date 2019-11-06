@@ -107,14 +107,12 @@ class LEIController extends Controller
             $nomCritere = (string)$legende->NOMCRIT;
             $moda = $legende->xpath("MODAL[@CLEF=$clef_moda]");
 
-            if($moda){
-                $texte = $moda[0]->__toString();
-                $infosFiche[$classe][$nomCritere] = [
-                    'texte' => $texte,
-                    'critere' => $clef_critere,
-                    'moda' => $clef_moda
-                ];
-            }
+            $texte = $moda ? $moda[0]->__toString() : $critere->__toString();
+            $infosFiche[$classe][$nomCritere] = [
+                'texte' => $texte,
+                'critere' => $clef_critere,
+                'moda' => $clef_moda
+            ];
         }
 
         return $this->render('Blocs/LEI/fiche.html.twig', array('fiche' => $fiche[0], 'fichePrecedente' => $fichePrecedente, 'ficheSuivante' => $ficheSuivante, 'liste' => $liste, 'infosFiche' => $infosFiche));
