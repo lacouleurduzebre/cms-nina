@@ -252,6 +252,7 @@ $(document).ready(function() {
     //Annulation -> restauration des valeurs
     $('form').on('click', '.bloc-panel--annulation', function(){
         formulairePrecedent = $(this).closest('.field-bloc').children('.bloc-barreActions').children('.prototype');
+        formulairePrecedent.find('.mce-tinymce').remove();
         bloc = $(this).closest('.field-bloc');
         formulaire = $(this).closest('.bloc-panel');
 
