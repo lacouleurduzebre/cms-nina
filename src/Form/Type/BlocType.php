@@ -26,43 +26,59 @@ class BlocType extends AbstractType
     private $optionsAlignementVertical = [
         'label' => 'Alignement vertical du bloc',
         'choices' => [
-            'Automatique' => '',
-            'En haut' => 'mbauto',
-            'Centré' => 'mtauto mbauto',
-            'En bas' => 'mtauto',
+            '<img src="/assets/img/optionsAffichage/alignVertAuto.svg">' => '',//Automatique
+            '<img src="/assets/img/optionsAffichage/alignVertHaut.svg">' => 'mbauto',//En haut
+            '<img src="/assets/img/optionsAffichage/alignVertCentre.svg">' => 'mtauto mbauto',//Centré
+            '<img src="/assets/img/optionsAffichage/alignVertBas.svg">' => 'mtauto',//En bas
         ],
-        'required' => false
+        'expanded' => true,
+        'required' => false,
+        'attr' => [
+            'class' => 'bloc-optionsAffichage--alignement'
+        ]
     ];
 
     private $optionsAlignementHorizontal = [
         'label' => 'Alignement horizontal du bloc',
         'choices' => [
-            'Automatique' => '',
-            'À gauche' => 'mrauto',
-            'Centré' => 'mlauto mrauto',
-            'À droite' => 'mlauto',
+            '<img src="/assets/img/optionsAffichage/alignHorAuto.svg">' => '',//Automatique
+            '<img src="/assets/img/optionsAffichage/alignHorGauche.svg">' => 'mrauto',//À gauche
+            '<img src="/assets/img/optionsAffichage/alignHorCentre.svg">' => 'mlauto mrauto',//Centré
+            '<img src="/assets/img/optionsAffichage/alignHorDroit.svg">' => 'mlauto',//À droite
         ],
+        'expanded' => true,
+        'attr' => [
+            'class' => 'bloc-optionsAffichage--alignement'
+        ]
     ];
 
     private $optionsAlignementVerticalEnfants = [
         'label' => 'Alignement vertical des blocs enfants',
         'choices' => [
-            'Sur toute la hauteur' => 'stretch',
-            'En haut' => 'flex-start',
-            'Centré' => 'center',
-            'En bas' => 'flex-end',
+            '<img src="/assets/img/optionsAffichage/alignVertEnfAuto.svg">' => 'stretch',//Sur toute la hauteur
+            '<img src="/assets/img/optionsAffichage/alignVertEnfHaut.svg">' => 'flex-start',//En haut
+            '<img src="/assets/img/optionsAffichage/alignVertEnfCentre.svg">' => 'center',//Centre
+            '<img src="/assets/img/optionsAffichage/alignVertEnfBas.svg">' => 'flex-end',//En bas
         ],
+        'expanded' => true,
+        'attr' => [
+            'class' => 'bloc-optionsAffichage--alignement'
+        ]
     ];
 
     private $optionsAlignementHorizontalEnfants = [
         'label' => 'Alignement horizontal des blocs enfants',
         'choices' => [
-            'À gauche' => 'flex-start',
-            'Centré' => 'center',
-            'À droite' => 'flex-end',
-            "Répartis avec de l'espace entre les blocs" => 'space-between',
-            "Répartis avec de l'espace autour des blocs" => 'space-around',
+            '<img src="/assets/img/optionsAffichage/alignHorEnfGauche.svg">' => 'flex-start',//À gauche
+            '<img src="/assets/img/optionsAffichage/alignHorEnfCentre.svg">' => 'center',//Centre
+            '<img src="/assets/img/optionsAffichage/alignHorEnfDroit.svg">' => 'flex-end',//À droite
+            '<img src="/assets/img/optionsAffichage/alignHorEnfEntre.svg">' => 'space-between',//Répartis avec de l'espace entre les blocs
+            '<img src="/assets/img/optionsAffichage/alignHorEnfAutour.svg">' => 'space-around',//Répartis avec de l'espace autour des blocs
         ],
+        'expanded' => true,
+        'attr' => [
+            'class' => 'bloc-optionsAffichage--alignement'
+        ]
     ];
 
     private $optionsPleineLargeur = [

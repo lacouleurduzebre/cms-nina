@@ -5093,11 +5093,41 @@ body.edit .bloc-reseauxsociaux input[type=text], body.new .bloc-reseauxsociaux i
   position: fixed;
   top: 19rem;
   right: 0;
-  width: 30rem;
+  width: 32rem;
   height: calc(100vw - 19rem);
 }
 body.new-region .bloc-panel.bloc-optionsAffichage, body.edit-region .bloc-panel.bloc-optionsAffichage {
   top: 17rem;
+}
+.bloc-panel.bloc-optionsAffichage .field-choice {
+  display: flex;
+  flex-wrap: wrap;
+}
+.bloc-panel.bloc-optionsAffichage .field-choice > label {
+  width: 100%;
+}
+.bloc-panel.bloc-optionsAffichage select {
+  box-shadow: 0 0 0 1px #DADCE0 inset;
+}
+
+.bloc-optionsAffichage--alignement {
+  display: flex;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+  padding: 0.5rem 0.5rem 0;
+}
+.bloc-optionsAffichage--alignement input {
+  display: none;
+}
+.bloc-optionsAffichage--alignement input + img {
+  border: 2px solid transparent;
+  padding: 0.3rem;
+}
+.bloc-optionsAffichage--alignement input:checked + img {
+  border-color: #0791B3;
+}
+.bloc-optionsAffichage--alignement img {
+  width: 2.8rem;
+  height: 2.8rem;
 }
 
 .dndEnCours {

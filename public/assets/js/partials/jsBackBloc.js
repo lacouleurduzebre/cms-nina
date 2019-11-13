@@ -269,16 +269,16 @@ $(document).ready(function() {
 
         //Annulation des options d'affichage : ràz des classes d'affichage du bloc
         if($(this).hasClass('bloc-optionsAffichage--annulation')){
-            alignementHorizontal = formulaire.find('select[name$="[alignementHorizontal]"]').val();
+            alignementHorizontal = formulaire.find('input[name$="[alignementHorizontal]"]:checked').val();
             bloc.removeClass('mrauto mlauto').addClass(alignementHorizontal);
 
-            alignementVertical = formulaire.find('select[name$="[alignementVertical]"]').val();
+            alignementVertical = formulaire.find('input[name$="[alignementVertical]"]:checked').val();
             bloc.removeClass('mtauto mbauto').addClass(alignementVertical);
 
-            alignementHorizontalEnfants = formulaire.find('select[name$="[alignementHorizontalEnfants]"]').val();
+            alignementHorizontalEnfants = formulaire.find('input[name$="[alignementHorizontalEnfants]"]:checked').val();
             bloc.children('div').children('.contenu').children('.blocsEnfants').children('div').css('justify-content', alignementHorizontalEnfants);
 
-            alignementVerticalEnfants = formulaire.find('select[name$="[alignementVerticalEnfants]"]').val();
+            alignementVerticalEnfants = formulaire.find('input[name$="[alignementVerticalEnfants]"]:checked').val();
             bloc.children('div').children('.contenu').children('.blocsEnfants').children('div').css('align-items', alignementVerticalEnfants);
 
             pleineLargeur = formulaire.find('input[name$="[pleineLargeur]"]').prop('checked');
@@ -762,22 +762,22 @@ $(document).ready(function() {
 
     //Changement des options d'affichage
         //Alignement horizontal
-    $('body').on('change', 'select[name$="[alignementHorizontal]"]', function() {
+    $('body').on('change', 'input[name$="[alignementHorizontal]"]', function() {
         $(this).closest('.field-bloc').removeClass('mrauto mlauto').addClass($(this).val());
     });
 
         //Alignement vertical
-    $('body').on('change', 'select[name$="[alignementVertical]"]', function() {
+    $('body').on('change', 'input[name$="[alignementVertical]"]', function() {
         $(this).closest('.field-bloc').removeClass('mtauto mbauto').addClass($(this).val());
     });
 
         //Alignement horizontal des enfants
-    $('body').on('change', 'select[name$="[alignementHorizontalEnfants]"]', function() {
+    $('body').on('change', 'input[name$="[alignementHorizontalEnfants]"]', function() {
         $(this).closest('.field-bloc').children('div').children('.contenu').children('.blocsEnfants').children('div').css('justify-content', $(this).val());
     });
 
         //Alignement vertical des enfants
-    $('body').on('change', 'select[name$="[alignementVerticalEnfants]"]', function() {
+    $('body').on('change', 'input[name$="[alignementVerticalEnfants]"]', function() {
         $(this).closest('.field-bloc').children('div').children('.contenu').children('.blocsEnfants').children('div').css('align-items', $(this).val());
     });
 

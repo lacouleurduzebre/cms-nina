@@ -815,10 +815,40 @@ body.edit, body.new{
   position: fixed;
   top: 19rem;
   right: 0;
-  width: 30rem;
+  width: 32rem;
   height: calc(100vw - 19rem);
   body.new-region &, body.edit-region &{
     top: 17rem;
+  }
+  .field-choice{
+    display: flex;
+    flex-wrap: wrap;
+    > label{
+      width: 100%;
+    }
+  }
+  select{
+    box-shadow: 0 0 0 1px #DADCE0 inset;
+  }
+}
+
+.bloc-optionsAffichage--alignement{
+  display: flex;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+  padding: .5rem .5rem 0;
+  input{
+    display: none;
+    + img{
+      border: 2px solid transparent;
+      padding: .3rem;
+    }
+    &:checked + img{
+      border-color: $color-brand2;
+    }
+  }
+  img{
+    width: 2.8rem;
+    height: 2.8rem;
   }
 }
 
