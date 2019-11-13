@@ -1,4 +1,7 @@
 $(document).ready(function() {
+    //Formulaire temporaire
+    formulaireTemporaire = '';
+
     /* Gestion de la position des blocs */
     options = {
         handle: '.drag',
@@ -215,8 +218,8 @@ $(document).ready(function() {
             $(this).attr('selected', $(this).prop('selected'));
         });
 
-        //Suppression du prototype
-        $(this).closest('.field-bloc').children('.bloc-barreActions').children('.prototype').remove();
+        //Suppression du formulaire temporaire
+        formulaireTemporaire = '';
     });
 
     //Mise à jour de l'aperçu du bloc
@@ -251,16 +254,14 @@ $(document).ready(function() {
 
     //Annulation -> restauration des valeurs
     $('form').on('click', '.bloc-panel--annulation', function(){
-        formulairePrecedent = $(this).closest('.field-bloc').children('.bloc-barreActions').children('.prototype');
-        formulairePrecedent.find('.mce-tinymce').remove();
         bloc = $(this).closest('.field-bloc');
         formulaire = $(this).closest('.bloc-panel');
 
         bloc.removeClass('bloc-formulairefocus bloc-optionsAffichagefocus');
 
-        formulaire.addClass('hidden').html(formulairePrecedent.html());
+        formulaire.addClass('hidden').html(formulaireTemporaire).find('.mce-container').remove();
 
-        formulairePrecedent.remove();
+        formulaireTemporaire = '';
 
         tinymce.remove();
         tinymce.init(optionsTinyMCEParagraphe);
@@ -325,7 +326,7 @@ $(document).ready(function() {
     });
 
     //Formulaire temporaire
-    formulaireTemporaire = function(bouton, classFormulaire){
+    creationFormulaireTemporaire = function(bouton, classFormulaire){
         //Fermeture panels
         $('.bloc-optionsAffichagefocus').removeClass('bloc-optionsAffichagefocus');
         $('.bloc-formulairefocus').removeClass('bloc-formulairefocus');
@@ -340,21 +341,21 @@ $(document).ready(function() {
 
         formulaire.removeClass('hidden');
 
-        bloc.children('.bloc-barreActions').append('<div class="prototype hidden">'+formulaire.html()+'</div>');
+        formulaireTemporaire = formulaire.html();
     };
 
     /* Formulaire */
     $('form').on('click', '.bloc-edit', function(e){
         e.preventDefault();
 
-        formulaireTemporaire($(this), 'bloc-formulaire');
+        creationFormulaireTemporaire($(this), 'bloc-formulaire');
     });
 
     /* Options d'affichage */
     $('form').on('click', '.optionsAffichage', function(e){
         e.preventDefault();
 
-        formulaireTemporaire($(this), 'bloc-optionsAffichage');
+        creationFormulaireTemporaire($(this), 'bloc-optionsAffichage');
     });
 
     /* Supprimer */
