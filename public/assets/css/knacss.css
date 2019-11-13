@@ -5108,6 +5108,23 @@ body.new-region .bloc-panel.bloc-optionsAffichage, body.edit-region .bloc-panel.
   border: 2px dashed red;
 }
 
+.bloc-lei--recherche {
+  background-color: #EDEDED;
+  padding: 0 1rem 0.5rem;
+  margin-left: -1rem;
+  margin-right: -1rem;
+}
+
+.bloc-lei .field-critere {
+  margin-top: 0;
+}
+.bloc-lei .field-critere > div {
+  display: flex;
+}
+.bloc-lei .field-critere > div > div {
+  margin-right: 1rem;
+}
+
 .traductionTemplateChoix div {
   display: flex;
   align-items: center;
@@ -5219,6 +5236,50 @@ body.edit input[id$=_largeurMax], body.edit input[id$=_hauteurMax], body.new inp
 
 .select2-container--default .select2-results__option--highlighted[aria-selected] {
   background-color: #A1BA1D;
+}
+
+.pictosLEI .field-picto {
+  display: flex;
+  align-items: flex-end;
+  padding: 1rem;
+}
+.pictosLEI .field-picto:first-of-type .control-label {
+  display: block;
+}
+.pictosLEI .field-picto:not(:first-of-type) .field-collection-item-action {
+  margin-left: 3.5rem;
+}
+.pictosLEI .field-picto:nth-of-type(2n) {
+  background-color: #EDEDED;
+}
+.pictosLEI .field-picto > div {
+  display: flex;
+}
+.pictosLEI .field-picto > div > div {
+  margin-right: 2rem;
+}
+.pictosLEI .control-label {
+  display: none;
+}
+
+.pictosLEI .field-picto > div > div:last-of-type {
+  display: flex;
+  flex-wrap: wrap;
+}
+.pictosLEI .field-picto > div > div:last-of-type label {
+  width: 100%;
+}
+.pictosLEI .field-picto > div > div:last-of-type > div {
+  display: flex;
+}
+.pictosLEI a {
+  margin: auto 1rem;
+}
+.pictosLEI .bloc_image_apercu_mediatheque {
+  width: 5rem;
+}
+.pictosLEI .bloc_image_apercu_mediatheque img {
+  height: 3rem;
 }
 
 #onglet_SEO, .listeSEO-conteneur {

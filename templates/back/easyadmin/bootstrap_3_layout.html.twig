@@ -1397,3 +1397,50 @@
         {{ form_row(form.children.instagramUrl) }}
     </div>
 {% endblock %}
+
+{# Bloc LEI #}
+{% block lei_widget %}
+    {% if form.vars.value.utiliserFluxSpecifique.0 is defined and form.vars.value.utiliserFluxSpecifique.0 %}{# FLUX SPECIFIQUE #}
+        {% set urlFlux = form.vars.value.flux %}
+    {% else %}
+        {% set urlFlux = form.children.fluxGenerique.vars.data|default('') %}{# FLUX GENERIQUE #}
+    {% endif %}
+    {# CLAUSE #}
+    {% if form.vars.value.clause is defined and form.vars.value.clause is not empty %}
+        {% set urlFlux = urlFlux~'&clause='~form.vars.value.clause %}
+    {% endif %}
+    {# AUTRES PARAMETRES #}
+    {% if form.vars.value.autresParametres is defined and form.vars.value.autresParametres is not empty %}
+        {% set urlFlux = urlFlux~form.vars.value.autresParametres %}
+    {% endif %}
+
+    {{ form_row(form.children.fluxGenerique) }}
+    {{ form_row(form.children.utiliserFluxSpecifique) }}
+    <div {% if form.vars.value.utiliserFluxSpecifique is defined and not form.vars.value.utiliserFluxSpecifique %}class="hidden"{% endif %}>
+       {{ form_row(form.children.flux) }}
+    </div>
+    {{ form_row(form.children.clause) }}
+    {{ form_row(form.children.autresParametres) }}
+    {{ form_row(form.children.clef_moda) }}
+
+    <div class="bloc-lei--recherche">
+        {{ form_row(form.children.recherche) }}
+        <div {% if form.vars.value.recherche is not defined or form.vars.value.recherche != 'criteres' %}class="hidden"{% endif %}>
+            {{ form_row(form.children.criteres) }}
+        </div>
+    </div>
+
+    {{ block('form_widget') }}
+
+    <div class="mts">
+        <a class="voirFlux btn" href="{{ urlFlux }}" target="_blank">{{ "Voir le flux"|trans }}</a>
+        <button class="viderCacheLEI btn">{{ "Vider le cache LEI"|trans }}</button>
+        <a class="btn" href="/admin/LEI/modifierPictos" target="_blank">{{ "Modifier les pictogrammes LEI"|trans }}</a>
+    </div>
+{% endblock %}
+
+    {# Modification des pictos : picto #}
+{% block _form_pictos_entry_picto_widget %}
+    {{ block('image_simple_widget') }}
+{% endblock %}
+{# Bloc LEI #}

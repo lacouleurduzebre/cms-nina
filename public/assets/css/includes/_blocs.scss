@@ -827,6 +827,24 @@ body.edit, body.new{
   min-height: 5rem;
 }
 
-.dndPlaceholder{
+.dndPlaceholder {
   border: 2px dashed red;
+}
+
+//Bloc LEI
+.bloc-lei--recherche{
+  background-color: $color-fonce;
+  padding: 0 1rem .5rem;
+  margin-left: -1rem;
+  margin-right: -1rem;
+}
+
+.bloc-lei .field-critere{
+  margin-top: 0;
+  > div{
+    display: flex;
+    > div{
+      margin-right: 1rem;
+    }
+  }
 }

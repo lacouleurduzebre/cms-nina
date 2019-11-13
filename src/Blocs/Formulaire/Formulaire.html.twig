@@ -45,5 +45,6 @@
         {% endfor %}
     {% endif %}
     <input type="submit" class="bouton" value="{% if bloc.contenu.submit is not empty %}{{ bloc.contenu.submit }}{% else %}{{ 'Envoyer'|trans }}{% endif %}">
+    <p class="mts">{{ "Les champs suivis d'un"|trans }} <span>*</span> {{ "sont obligatoires"|trans }}</p>
 </form>
 <div class="message{{ bloc.id }}"></div>

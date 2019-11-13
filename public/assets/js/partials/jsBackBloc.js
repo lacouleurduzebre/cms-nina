@@ -853,7 +853,56 @@ $(document).ready(function() {
         $(this).closest('.conteneurBlocs').toggleClass('conteneurs');
     });
 
-    $('#toggleMiseEnPage').click(function(){
+    $('#toggleMiseEnPage').click(function() {
         $(this).closest('.conteneurBlocs').toggleClass('miseEnPage');
+    });
+
+    //Bloc LEI
+        //Toggle champ flux spécifique
+    $('body').on('change', 'input[name*="[utiliserFluxSpecifique]"]', function(){
+       $(this).closest('.form-group').next('div').slideToggle();
+    });
+
+        //Toggle champ recherche par critères
+    $('body').on('change', '.bloc-lei input[name$="[recherche]"]', function(){
+        if($(this).val() === 'criteres'){
+            $(this).closest('.form-group').next('div').slideDown();
+        }else{
+            $(this).closest('.form-group').next('div').slideUp();
+        }
+    });
+
+        //Màj de l'url du bouton "voir le flux"
+    $('body').on('keyup change', 'input[name$="[fluxGenerique]"], input[name*="[utiliserFluxSpecifique]"], input[name$="[flux]"], input[name$="[clause]"], input[name$="[autresParametres]"]', function(){
+        blocLEI = $(this).closest('.bloc-lei');
+
+        //Flux générique ou spécifique
+        if(blocLEI.find('input[name*="[utiliserFluxSpecifique]"]').is(':checked')){
+            nvUrlFlux = blocLEI.find('input[name$="[flux]"]').val();
+        }else{
+            nvUrlFlux = blocLEI.find('input[name$="[fluxGenerique]"]').val();
+        }
+
+        //Ajout de la clause et des autres paramètres
+        nvUrlFlux += '&clause='+blocLEI.find('input[name$="[clause]"]').val()+blocLEI.find('input[name$="[autresParametres]"]').val();
+
+        blocLEI.find('.voirFlux').attr('href', nvUrlFlux);
+    });
+
+        //Vider le cache
+    $('body').on('click', '.viderCacheLEI', function(e){
+        e.preventDefault();
+        $.ajax({
+            type: "POST",
+            url: "/admin/LEI/viderCache",
+            success: function()
+            {
+                $('#flash-messages').append("<div class='alert alert-enregistrement'><span>Les fichiers de cache LEI ont été vidés</span><i class='fas fa-times'></i></div>");
+
+                setTimeout(function(){
+                    $('.alert').fadeOut();
+                }, 3000);
+            }
+        });
     });
 });

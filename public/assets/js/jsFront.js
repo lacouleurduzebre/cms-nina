@@ -102,4 +102,35 @@ $(document).ready(function(){
         $(this).closest('.blocAccordeon-section').toggleClass('actif');
         $(this).next('.blocAccordeon-texte').slideToggle();
     });
+
+    //Recherche du bloc LEI
+    $('.blocLEI-recherche--critere').click(function(){
+        blocLEI = $(this).closest('.blocLEI');
+        boutonTous = blocLEI.find('.blocLEI-recherche--critere[data-critere="tous"]');
+        fiches = blocLEI.find('.ficheLEI');
+        
+        if($(this).data('critere') === 'tous' && !$(this).hasClass('actif')){//Tout afficher
+            blocLEI.find('.blocLEI-recherche--critere').removeClass('actif');
+            $(this).addClass('actif');
+            fiches.show();
+        }else if($(this).data('critere') !== 'tous'){//"Tous"
+            if($(this).hasClass('actif')){//Désactiver le critère
+                fiches.hide();
+                blocLEI.find('.blocLEI-recherche--critere.actif').not($(this)).each(function(){
+                    blocLEI.find('.ficheLEI[data-criteres*="'+$(this).data('critere')+'"]').show();
+                });
+                if(blocLEI.find('.blocLEI-recherche--critere.actif').length < 2){//Dernier critère désactivé -> Tous
+                    boutonTous.addClass('actif');
+                    fiches.show();
+                }
+            }else{//Activer le critère
+                if(boutonTous.hasClass('actif')){//Bouton "Tous" actif : premier critère activé
+                    boutonTous.removeClass('actif');
+                    fiches.hide();
+                }
+                blocLEI.find('.ficheLEI[data-criteres*="'+$(this).data('critere')+'"]').show();
+            }
+            $(this).toggleClass('actif');
+        }
+    });
 });

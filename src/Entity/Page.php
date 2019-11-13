@@ -77,7 +77,7 @@ class Page
     private $langue;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Commentaire", mappedBy="page", cascade={"remove", "persist"})
+     * @ORM\OneToMany(targetEntity="App\Entity\Commentaire", mappedBy="page", orphanRemoval=true, cascade={"remove", "persist"})
      */
     private $commentaires;
 

@@ -57,7 +57,7 @@ class Commentaire
     private $contenu;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Page", inversedBy="commentaires")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Page", inversedBy="commentaires", cascade={"persist"})
      * @ORM\JoinColumn(name="idPage", referencedColumnName="id", nullable=false)
      */
     private $page;
@@ -79,6 +79,11 @@ class Commentaire
     public function __construct()
     {
         $this->date = new \DateTime();
+    }
+
+    public function __toString()
+    {
+        return "Commentaire de ".$this->auteur;
     }
 
     /**

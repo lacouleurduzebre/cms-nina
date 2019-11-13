@@ -25,7 +25,7 @@ class CommentaireType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('auteur', EntityType::class, array('class' => 'App\Entity\Utilisateur', 'choice_label' => 'username'))
+            ->add('auteur', TextType::class)
             ->add('email', EmailType::class)
             ->add('site', TextType::class)
             ->add('date', DateType::class)
