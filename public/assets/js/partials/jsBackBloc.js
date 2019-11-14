@@ -432,6 +432,14 @@ $(document).ready(function() {
                 cible = $('.conteneurBlocs > .dndBlocs .ajoutBloc');
                 blocEnfant = cible.closest('.blocsEnfants').length > 0;
 
+                //Calcul de la largeur du bloc
+                if(blocEnfant){
+                    largeurColonne = cible.closest('.blocsEnfants').width() / 12;
+                }else{
+                    largeurColonne = $('.conteneurBlocs > .dndBlocs').width() / 12;
+                }
+                largeurElement = Math.round(cible.width() / largeurColonne);
+
                 if(!blocEnfant){//Bloc à la racine
                     if(count === 0){
                         count = $('#'+entite+'_blocs').find('.field-bloc').length;
@@ -442,7 +450,7 @@ $(document).ready(function() {
                     var form = data.replace(/bloc_/g, entite+'_blocs_'+count+'_')
                         .replace(/bloc\[/g, entite+'[blocs]['+count+'][');
 
-                    bloc = '<div id="nvBloc'+count+'" class="form-group field-bloc nvBloc col12 bloc-'+type.toLowerCase()+'" data-name="'+count+'">'+form+'</div>';
+                    bloc = '<div id="nvBloc'+count+'" class="form-group field-bloc nvBloc col'+largeurElement+' bloc-'+type.toLowerCase()+'" data-name="'+count+'">'+form+'</div>';
 
                     cible.replaceWith(bloc);
 
@@ -459,7 +467,7 @@ $(document).ready(function() {
                     var form = data.replace(/bloc_/g, idSection+'_'+countBloc+'_')
                         .replace(/bloc\[/g, exp+'['+countBloc+'][');
 
-                    bloc = '<div id="nvBloc'+countBloc+'" class="form-group field-bloc col12 bloc-'+type.toLowerCase()+'" data-name="'+countBloc+'">'+form+'</div>';
+                    bloc = '<div id="nvBloc'+countBloc+'" class="form-group field-bloc col'+largeurElement+' bloc-'+type.toLowerCase()+'" data-name="'+countBloc+'">'+form+'</div>';
 
                     cible.replaceWith(bloc);
 
@@ -468,6 +476,7 @@ $(document).ready(function() {
                     nvBloc.children('div').children('.bloc-optionsAffichage').find('input[name$="[pleineLargeur]"]').closest('.form-group').addClass('hidden');
                 }
 
+                nvBloc.find('input[name$="[largeur]"]').val('col'+largeurElement);
                 nvBloc.find('.bloc-panel.bloc-formulaire').removeClass('hidden');
 
                 //Màj de la position

@@ -3453,7 +3453,6 @@ main .pleineLargeur {
   left: 50%;
   right: 50%;
   margin-left: -50vw;
-  margin-right: -50vw;
 }
 
 .blocActualites h2, .blocTypeCategorie h2, .blocCategorie h2, .blocRubrique h2 {

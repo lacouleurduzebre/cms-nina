@@ -4407,9 +4407,12 @@ body.list #flash-messages > * {
   background-color: #0791B3;
 }
 
+.ajoutBloc.btn.dndPlaceholder, .conteneurBlocs > .dndBlocs .ajoutBloc {
+  flex: 1;
+}
+
 .ajoutBloc.btn.dndPlaceholder, .conteneurBlocs > .dndBlocs .ajoutBloc:not(.ui-draggable-dragging) {
   display: block;
-  width: 100% !important;
   max-width: 992px;
   border: 2px dashed red;
   height: 5rem;
@@ -4536,10 +4539,11 @@ body.edit-region .toggleAffichageBlocs, body.new-region .toggleAffichageBlocs {
   margin-left: 0.5rem;
 }
 
-.blocsEnfants > div, .blocsEnfants #groupeblocs_blocs {
+.dndBlocs {
   display: flex;
   flex-wrap: wrap;
 }
+
 .blocsEnfants > .collection-empty {
   display: none;
 }
@@ -4622,7 +4626,6 @@ div[id^=page_active_blocs] > div > .collection-empty, div[id^=region_blocs] > di
   left: calc(50% + 1rem);
   right: calc(50% + 1rem);
   margin-left: -50vw;
-  margin-right: -50vw;
 }
 body.notFull .conteneurBlocs > .dndBlocs > .pleineLargeur {
   width: calc(100vw - 32rem);

@@ -1,5 +1,7 @@
 {% if blocs is defined %}
-    {% for bloc in blocs if bloc.active %}
-        {% include 'front/bloc.html.twig' with {'bloc': bloc} only %}
-    {% endfor %}
+    <div class="flex-container conteneurBlocs">
+        {% for bloc in blocs if bloc.active %}
+            {% include 'front/bloc.html.twig' with {'bloc': bloc} only %}
+        {% endfor %}
+    </div>
 {% endif %}
