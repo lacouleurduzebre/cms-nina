@@ -971,21 +971,25 @@ function new_thumbnails_creation($targetPath, $targetFile, $name, $current_path,
 	//create fixed thumbs
 	if ($config['fixed_image_creation'])
 	{
-		foreach ($config['fixed_path_from_filemanager'] as $k => $path)
-		{
-			if ($path != "" && $path[ strlen($path) - 1 ] != "/")
-			{
-				$path .= "/";
-			}
-			$base_dir = $path . substr_replace($targetPath, '', 0, strlen($current_path));
-			if ( ! file_exists($base_dir))
-			{
-				create_folder($base_dir, false);
-			}
-			if ( ! create_img($targetFile, $base_dir . $config['fixed_image_creation_name_to_prepend'][ $k ] . $info['filename'] . $config['fixed_image_creation_to_append'][ $k ] . "." . $info['extension'], $config['fixed_image_creation_width'][ $k ], $config['fixed_image_creation_height'][ $k ], $config['fixed_image_creation_option'][ $k ]))
-			{
-				$all_ok = false;
-			}
+		foreach ($config['fixed_path_from_filemanager'] as $k => $path) {
+            //Si image créée plus petite
+            if($config['fixed_image_creation_width'][$k] < getimagesize($targetFile)[0]){
+            //Si image créée plus petite
+
+                if ($path != "" && $path[strlen($path) - 1] != "/") {
+                    $path .= "/";
+                }
+                $base_dir = $path . substr_replace($targetPath, '', 0, strlen($current_path));
+                if (!file_exists($base_dir)) {
+                    create_folder($base_dir, false);
+                }
+                if (!create_img($targetFile, $base_dir . $config['fixed_image_creation_name_to_prepend'][$k] . $info['filename'] . $config['fixed_image_creation_to_append'][$k] . "." . $info['extension'], $config['fixed_image_creation_width'][$k], $config['fixed_image_creation_height'][$k], $config['fixed_image_creation_option'][$k])) {
+                    $all_ok = false;
+                }
+
+            //Si image créée plus petite
+            }
+            //Si image créée plus petite
 		}
 	}
 
