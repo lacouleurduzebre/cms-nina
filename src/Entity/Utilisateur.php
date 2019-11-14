@@ -45,7 +45,7 @@ class Utilisateur extends BaseUser
     private $imageProfil;
 
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\Langue", cascade={"persist", "remove"})
+     * @ORM\ManyToOne(targetEntity="App\Entity\Langue", cascade={"persist", "remove"})
      */
     private $langue;
 
