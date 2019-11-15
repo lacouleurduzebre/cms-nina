@@ -419,7 +419,7 @@ $(document).ready(function(){
         });
     });
 
-    $('.modal-content').click(function(e){
+    $('.modal-box .modal-content').click(function(e){
         e.stopPropagation();
     });
 

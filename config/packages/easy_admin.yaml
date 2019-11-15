@@ -65,6 +65,7 @@ easy_admin:
                   - { entity: 'Page_Active', label: 'Toutes les pages', type: 'entity', menu_index: 0, submenu_index: 0, icon: '', default: true, params: { } }
                   - { entity: 'Page_Corbeille', label: 'Pages à la corbeille', type: 'entity', menu_index: 0, submenu_index: 0, icon: '', default: true, params: { } }
               - { label: 'Référencement', route: 'referencement' }
+              - { entity: 'BlocPartage', label: 'Blocs partagés', icon: '' }
               - label: 'Commentaires'
                 icon: ''
                 children:

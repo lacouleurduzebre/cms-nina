@@ -438,9 +438,8 @@ $(document).ready(function() {
         }).done(function() {
             $('#ajoutBlocPartage').fadeOut('slow', function(){
                 $('#ajoutBlocPartage').css('opacity', 0);
+                $('#nomBlocPartage').val('');
             });
-
-            $('#nomBlocPartage').val('');
 
             //Changement de bouton (ajout / suppression)
             bloc = $('[data-bloc="'+$('#formulaireAjoutBlocPartage input[name="idBloc"]').val()+'"]').closest('.field-bloc');

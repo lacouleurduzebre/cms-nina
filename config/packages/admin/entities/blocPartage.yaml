@@ -1,0 +1,20 @@
+easy_admin:
+  entities:
+    BlocPartage:
+      class: App\Entity\BlocPartage
+      controller: App\Controller\Back\AdminController
+      label: 'Bloc partagé'
+      labels: 'Blocs partagés'
+      disabled_actions: ['search', 'show', 'new']
+      list:
+        sort: 'bloc.type'
+        fields:
+          - nom
+          - { property: 'bloc.type', label: 'Type', type: 'text'}
+          - { property: 'origine', template: 'back/blocs/origineBlocPartage.html.twig' }
+      edit:
+        actions:
+          - { name: 'list', label: 'Retour à la liste des blocs partagés', title: 'Retour à la liste des pages', icon: 'arrow-left', css_class: '' }
+          - { name: 'delete', label: 'Supprimer', title: 'Supprimer', icon: 'trash', css_class: '' }
+        fields:
+          - nom
