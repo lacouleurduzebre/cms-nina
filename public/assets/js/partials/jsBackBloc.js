@@ -281,6 +281,9 @@ $(document).ready(function() {
             alignementVerticalEnfants = formulaire.find('input[name$="[alignementVerticalEnfants]"]:checked').val();
             bloc.children('div').children('.contenu').children('.blocsEnfants').children('div').css('align-items', alignementVerticalEnfants);
 
+            gouttieres = formulaire.find('select[name$="[gouttieres]"]').val();
+            bloc.children('div').children('.contenu').children('.blocsEnfants').children('div').removeClass('gouttieres-s gouttieres-m gouttieres-l gouttieres-').addClass('gouttieres-'+gouttieres);
+
             pleineLargeur = formulaire.find('input[name$="[pleineLargeur]"]').prop('checked');
             pleineLargeur ? bloc.addClass('pleineLargeur') : bloc.removeClass('pleineLargeur');
 
@@ -788,6 +791,11 @@ $(document).ready(function() {
         //Alignement vertical des enfants
     $('body').on('change', 'input[name$="[alignementVerticalEnfants]"]', function() {
         $(this).closest('.field-bloc').children('div').children('.contenu').children('.blocsEnfants').children('div').css('align-items', $(this).val());
+    });
+
+        //Gouttières
+    $('body').on('change', 'select[name$="[gouttieres]"]', function() {
+        $(this).closest('.field-bloc').children('div').children('.contenu').children('.blocsEnfants').children('div').removeClass('gouttieres-s gouttieres-m gouttieres-l gouttieres-').addClass('gouttieres-'+$(this).val());
     });
 
         //Pleine largeur

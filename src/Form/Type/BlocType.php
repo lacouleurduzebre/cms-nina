@@ -81,27 +81,19 @@ class BlocType extends AbstractType
         ]
     ];
 
+    private $optionsGouttieres = [
+        'label' => 'Espacement des blocs enfants',
+        'choices' => [
+            'Aucun' => '',
+            'Fin' => 's',
+            'Moyen' => 'm',
+            'Large' => 'l',
+        ],
+    ];
+
     private $optionsPleineLargeur = [
         'label' => "Pleine largeur"
     ];
-
-//    private $optionsLargeur = [
-//        'label' => 'Largeur par rapport au conteneur',
-//        'choices' => [
-//            'col12' => 'col12',
-//            'col11' => 'col11',
-//            'col10' => 'col10',
-//            'col9' => 'col9',
-//            'col8' => 'col8',
-//            'col7' => 'col7',
-//            'col6' => 'col6',
-//            'col5' => 'col5',
-//            'col4' => 'col4',
-//            'col3' => 'col3',
-//            'col2' => 'col2',
-//            'col1' => 'col1',
-//        ],
-//    ];
 
     private $choixPaddingTout = [
         'Aucune' => 'pan',
@@ -221,6 +213,7 @@ class BlocType extends AbstractType
             ->add('alignementHorizontal', ChoiceType::class, $this->optionsAlignementHorizontal)
             ->add('alignementVerticalEnfants', ChoiceType::class, $this->optionsAlignementVerticalEnfants)
             ->add('alignementHorizontalEnfants', ChoiceType::class, $this->optionsAlignementHorizontalEnfants)
+            ->add('gouttieres', ChoiceType::class, $this->optionsGouttieres)
         ;
 
         $builder->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event) {
@@ -311,6 +304,7 @@ class BlocType extends AbstractType
                 ->add('alignementHorizontal', ChoiceType::class, $this->optionsAlignementHorizontal)
                 ->add('alignementVerticalEnfants', ChoiceType::class, $this->optionsAlignementVerticalEnfants)
                 ->add('alignementHorizontalEnfants', ChoiceType::class, $this->optionsAlignementHorizontalEnfants)
+                ->add('gouttieres', ChoiceType::class, $this->optionsGouttieres)
             ;
 
             //SECTION

@@ -101,6 +101,11 @@ class Bloc
      */
     private $region;
 
+    /**
+     * @ORM\Column(type="string", length=5, nullable=true)
+     */
+    private $gouttieres;
+
     public function __construct()
     {
         $this->blocsEnfants = new ArrayCollection();
@@ -318,6 +323,18 @@ class Bloc
     public function setRegion(?Region $region): self
     {
         $this->region = $region;
+
+        return $this;
+    }
+
+    public function getGouttieres(): ?string
+    {
+        return $this->gouttieres;
+    }
+
+    public function setGouttieres(?string $gouttieres): self
+    {
+        $this->gouttieres = $gouttieres;
 
         return $this;
     }

@@ -353,7 +353,7 @@
 {% block collection_row %}
     {% if 'blocsEnfants' in form.vars.unique_block_prefix %}
         <div class="form-group field-collection blocsEnfants">
-            {{- form_widget(form, { attr: { class: 'dndBlocs' } }) -}}
+            {{- form_widget(form, { attr: { class: 'dndBlocs gouttieres-'~form.parent.vars.value.gouttieres|default('') } }) -}}
         </div>
     {% else %}
         <div class="form-group field-{{ name }} {% if value is empty %}vide{% endif %}">
@@ -903,6 +903,7 @@
                 {% if blocSection %}
                     {{ form_row(form.children.alignementVerticalEnfants) }}
                     {{ form_row(form.children.alignementHorizontalEnfants) }}
+                    {{ form_row(form.children.gouttieres) }}
                 {% endif %}
                 <div class="form-group {% if form.vars.value is defined and form.vars.value is not empty and form.vars.value.page is empty %}hidden{% endif %}">
                     {{ form_label(form.children.pleineLargeur) }}
