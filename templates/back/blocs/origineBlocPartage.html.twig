@@ -1,4 +1,6 @@
-{% set bloc = item.bloc %}
+{% if item.bloc is defined %}
+    {% set bloc = item.bloc %}
+{% endif %}
 
 {% block parent %}
     {% if bloc.blocParent is defined and bloc.blocParent is not empty %}

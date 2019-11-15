@@ -5176,10 +5176,10 @@ body.notFull .conteneurBlocs > .dndBlocs > .pleineLargeur {
   background-color: #E1E0E0;
 }
 
-.bloc-groupeblocs-edition {
-  align-items: center;
+.bloc-blocPartage-edition {
+  align-items: flex-end;
 }
-.bloc-groupeblocs-edition a {
+.bloc-blocPartage-edition a {
   text-decoration: none;
 }
 

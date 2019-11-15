@@ -657,9 +657,9 @@ div[id^="page_active_blocs"], div[id^="region_blocs"]{
   }
 }
 
-//Groupe de blocs
-.bloc-groupeblocs-edition{
-  align-items: center;
+//Blocs partagés
+.bloc-blocPartage-edition{
+  align-items: flex-end;
   a{
     text-decoration: none;
   }

@@ -7,6 +7,9 @@ Annuaire:
 Bandeau:
     priorite: 2
     actif: oui
+BlocPartage:
+    priorite: 28
+    actif: oui
 Bouton:
     priorite: 4
     actif: oui

@@ -8,6 +8,7 @@
 
 namespace App\Twig\Front;
 
+use App\Entity\Bloc;
 use App\Entity\Langue;
 use App\Entity\Page;
 use App\Entity\Region;
@@ -30,8 +31,7 @@ class Front extends \Twig_Extension
     {
         return array(
             new \Twig_SimpleFunction('regions', array($this, 'getRegions'), array('is_safe' => ['html'])),
-            new \Twig_SimpleFunction('groupes', array($this, 'getGroupesBlocs'), array('is_safe' => ['html'])),
-            new \Twig_SimpleFunction('groupe', array($this, 'getGroupeBlocs'), array('is_safe' => ['html'])),
+            new \Twig_SimpleFunction('bloc', array($this, 'getBloc'), array('is_safe' => ['html'])),
             new \Twig_SimpleFunction('blocAnnexe', array($this, 'getBlocAnnexe'), array('is_safe' => ['html'])),
             new \Twig_SimpleFunction('page', array($this, 'getPage')),
             new \Twig_SimpleFunction('lienPage', array($this, 'getLienPage')),
@@ -72,49 +72,12 @@ class Front extends \Twig_Extension
         return false;
     }
 
-    public function getGroupesBlocs($idRegion)
+    public function getBloc($idBloc)
     {
-        //Langue
-        $repoLangue = $this->doctrine->getRepository(Langue::class);
-        $locale = $this->request->getLocale();
-        if($locale){
-            $langue = $repoLangue->findBy(array('abreviation'=>$locale));
-        }
-        if(!$locale || !$langue){
-            $langue = $repoLangue->findBy(array('defaut'=>1));
-        }
-        //Fin langue
+        $repoBloc = $this->doctrine->getRepository(Bloc::class);
+        $bloc = $repoBloc->find($idBloc);
 
-        $repoGroupeBlocs = $this->doctrine->getRepository(\App\Entity\GroupeBlocs::class);
-        $groupesBlocs = $repoGroupeBlocs->findBy(array('region' => $idRegion, 'langue' => $langue ), array('position' => 'ASC'));
-
-        $rendu = '';
-        foreach($groupesBlocs as $groupeBlocs){
-            $tpl = 'front/groupes/groupe-'.$groupeBlocs->getIdentifiant().'.html.twig';
-            if($this->twig->getLoader()->exists($tpl)){
-                $rendu .= $this->twig->render($tpl, array('groupe' => $groupeBlocs));
-            }else{
-                $rendu .= $this->twig->render('front/groupes/groupe.html.twig', array('groupe' => $groupeBlocs));
-            }
-        }
-
-        return $rendu;
-    }
-
-    public function getGroupeBlocs($idGroupeBlocs)
-    {
-        $repoGroupeBlocs = $this->doctrine->getRepository(\App\Entity\GroupeBlocs::class);
-        $groupeBlocs = $repoGroupeBlocs->find($idGroupeBlocs);
-
-        $rendu = '';
-        $tpl = 'front/groupes/groupe-'.$groupeBlocs->getIdentifiant().'.html.twig';
-        if($this->twig->getLoader()->exists($tpl)){
-            $rendu .= $this->twig->render($tpl, array('groupe' => $groupeBlocs));
-        }else{
-            $rendu .= $this->twig->render('front/groupes/groupe.html.twig', array('groupe' => $groupeBlocs));
-        }
-
-        return $rendu;
+        return $bloc;
     }
 
     public function getBlocAnnexe($page, $type, $complet = true){

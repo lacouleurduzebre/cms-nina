@@ -1,0 +1,4 @@
+nom: 'Bloc partagé'
+description: 'Affiche un bloc qui a été ajouté à la liste des blocs partagés'
+type: contenu
+icone: 'fas fa-share'

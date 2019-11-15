@@ -850,14 +850,16 @@
         <div class="bloc-menu"><i class="fas fa-ellipsis-v"></i><span>{{ "Options du bloc"|trans }}</span></div>
     </div>
     <ul>
-        <li>{# Bloc partage #}
-            <a href="#" class="ajoutBlocPartage{% if form.vars.value.blocPartage is defined and form.vars.value.blocPartage is not empty %} hidden{% endif %}" data-modal="ajoutBlocPartage">
-                <i class="fas fa-share"></i>{{ "Ajouter aux blocs partagés"|trans }}
-            </a>
-            <a href="#" class="suppressionBlocPartage{% if form.vars.value.blocPartage is not defined or form.vars.value.blocPartage is empty %} hidden{% endif %}" data-modal="suppressionBlocPartage">
-                <i class="fas fa-minus-circle"></i>{{ "Retirer des blocs partagés"|trans }}
-            </a>
-        </li>
+        {% if form.children.type.vars.value != 'BlocPartage' %}
+            <li>{# Bloc partage #}
+                <a href="#" class="ajoutBlocPartage{% if form.vars.value.blocPartage is defined and form.vars.value.blocPartage is not empty %} hidden{% endif %}" data-modal="ajoutBlocPartage">
+                    <i class="fas fa-share"></i>{{ "Ajouter aux blocs partagés"|trans }}
+                </a>
+                <a href="#" class="suppressionBlocPartage{% if form.vars.value.blocPartage is not defined or form.vars.value.blocPartage is empty %} hidden{% endif %}" data-modal="suppressionBlocPartage">
+                    <i class="fas fa-minus-circle"></i>{{ "Retirer des blocs partagés"|trans }}
+                </a>
+            </li>
+        {% endif %}
         <li>{# Suppression #}
             <a href="#" class="supprimerBloc"><i class="fas fa-trash"></i>{{ "Supprimer le bloc"|trans }}</a>
             <div class="suppressionBloc">
@@ -1345,24 +1347,19 @@
 {% endblock %}
 {# Cases des blocs grille #}
 
-{# Champ du bloc groupe de blocs #}
-{% block groupeBlocs %}
-    <div class="flex-container bloc-groupeblocs-edition">
+{# Bloc Partage #}
+{% block bloc_partage_widget %}
+    <div class="flex-container bloc-blocPartage-edition">
         {{- form_widget(form) -}}
-        {% if data is not empty %}
-            <a class="mls unstyled" href="{{ path('easyadmin', { entity: 'GroupeBlocs', action: 'edit', id: data }) }}"><i class="fas fa-pen"></i> Éditer le groupe de blocs</a>
-        {% endif %}
+        <div class="bloc-blocPartage-origine mls mbs">
+            {% if data is not empty %}
+                {% set bloc = bloc(data.blocPartage) %}
+                {% include 'back/blocs/origineBlocPartage.html.twig' %}
+            {% endif %}
+        </div>
     </div>
 {% endblock %}
-
-{% block _page_active_blocs_entry_contenu_groupeBlocs_row %}
-    {{ block('groupeBlocs') }}
-{% endblock %}
-
-{% block _groupeblocs_blocs_entry_contenu_groupeBlocs_row %}
-    {{ block('groupeBlocs') }}
-{% endblock %}
-{# Champ du bloc groupe de blocs #}
+{# Bloc Partage #}
 
 {# Bloc réseaux sociaux #}
 {% block reseaux_sociaux_widget %}
