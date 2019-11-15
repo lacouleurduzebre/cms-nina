@@ -10,6 +10,7 @@ namespace App\Controller\Back;
 
 
 use App\Entity\Bloc;
+use App\Entity\BlocPartage;
 use App\Service\Droits;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -172,5 +173,42 @@ class BlocController extends AbstractController
             $queue = array_merge($queue, $item);
         }
         return null;
+    }
+
+    /**
+     * @Route("/blocPartage/ajout", name="ajoutBlocPartage")
+     * @param Request $request
+     * @return bool|Response
+     */
+    public function AjoutBlocPartageAction(Request $request){
+        if($request->isXmlHttpRequest()){
+            $bloc = $this->getDoctrine()->getRepository(Bloc::class)->find($_POST['idBloc']);
+
+            $blocPartage = new BlocPartage();
+            $blocPartage->setNom($_POST['nomBlocPartage'])
+                ->setBloc($bloc);
+
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($blocPartage);
+            $em->flush();
+
+            return new Response('ok');
+        }
+
+        return false;
+    }
+
+    /**
+     * @Route("/blocPartage/suppression", name="suppressionBlocPartage")
+     * @param Request $request
+     * @return bool|Response
+     */
+    public function SuppressionBlocPartageAction(Request $request){
+        if($request->isXmlHttpRequest()){
+            //@Todo suppression du bloc partage
+            //@Todo suppression des blocs "bloc partagé" référençant ce bloc
+        }
+
+        return false;
     }
 }

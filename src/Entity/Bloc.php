@@ -106,6 +106,11 @@ class Bloc
      */
     private $gouttieres;
 
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\BlocPartage", mappedBy="bloc", cascade={"persist", "remove"})
+     */
+    private $blocPartage;
+
     public function __construct()
     {
         $this->blocsEnfants = new ArrayCollection();
@@ -335,6 +340,23 @@ class Bloc
     public function setGouttieres(?string $gouttieres): self
     {
         $this->gouttieres = $gouttieres;
+
+        return $this;
+    }
+
+    public function getBlocPartage(): ?BlocPartage
+    {
+        return $this->blocPartage;
+    }
+
+    public function setBlocPartage(BlocPartage $blocPartage): self
+    {
+        $this->blocPartage = $blocPartage;
+
+        // set the owning side of the relation if necessary
+        if ($this !== $blocPartage->getBloc()) {
+            $blocPartage->setBloc($this);
+        }
 
         return $this;
     }

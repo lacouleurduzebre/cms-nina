@@ -318,11 +318,7 @@ $(document).ready(function(){
 
             $(this).prop('disabled', true);
 
-            $('#flash-messages').append('<div class="alert alert-enregistrement"><span>Champs SEO réinitialisés</span><i class="fas fa-times"></i></div>');
-
-            setTimeout(function(){
-                $('#flash-messages .alert-enregistrement').remove();
-            }, 3000);
+            messageFlash('enregistrement', "Champs SEO réinitialisés");
     });
 
         //Si méta-titre, url ou méta-description vide en perdant le focus, on reprend le titre
@@ -357,6 +353,15 @@ $(document).ready(function(){
     setTimeout(function(){
         $('.alert').fadeOut();
     }, 3000);
+
+    //Message flash
+    messageFlash = function(type, message){
+        $('#flash-messages').append("<div class='alert alert-"+type+"'><span>"+message+"</span><i class='fas fa-times'></i></div>");
+
+        setTimeout(function(){
+            $('.alert').fadeOut();
+        }, 3000);
+    };
 
     //Onglet actif en fonction de l'url
     parseURLParams = function(url){

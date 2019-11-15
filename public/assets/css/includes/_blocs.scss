@@ -366,13 +366,15 @@ div[id^="page_active_blocs"], div[id^="region_blocs"]{
     a{
       padding: 0 1rem;
       color: #75726B;
-      display: block;
       text-decoration: none;
       width: auto;
       white-space: nowrap;
       line-height: 2.4em;
       text-shadow: 1px 1px 0 white;
       border-radius: 1px;
+      &:not(.hidden){
+        display: block;
+      }
       &:hover{
         background-color: #e8f3b0;
         box-shadow: 0 0 2px #A1BA1D;

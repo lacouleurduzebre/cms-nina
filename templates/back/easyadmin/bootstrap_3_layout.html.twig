@@ -850,9 +850,15 @@
         <div class="bloc-menu"><i class="fas fa-ellipsis-v"></i><span>{{ "Options du bloc"|trans }}</span></div>
     </div>
     <ul>
-        {#<li><a href="#" class="monterBloc"><i  class="fas fa-arrow-alt-circle-up "></i>{{ "Monter le bloc"|trans }}</a></li>#}
-        {#<li><a href="#" class="descendreBloc"><i class="fas fa-arrow-alt-circle-down "></i>{{ "Descendre le bloc"|trans }}</a></li>#}
-        <li>
+        <li>{# Bloc partage #}
+            <a href="#" class="ajoutBlocPartage{% if form.vars.value.blocPartage is defined and form.vars.value.blocPartage is not empty %} hidden{% endif %}" data-modal="ajoutBlocPartage">
+                <i class="fas fa-share"></i>{{ "Ajouter aux blocs partagés"|trans }}
+            </a>
+            <a href="#" class="suppressionBlocPartage{% if form.vars.value.blocPartage is not defined or form.vars.value.blocPartage is empty %} hidden{% endif %}">
+                <i class="fas fa-minus-circle"></i>{{ "Retirer des blocs partagés"|trans }}
+            </a>
+        </li>
+        <li>{# Suppression #}
             <a href="#" class="supprimerBloc"><i class="fas fa-trash"></i>{{ "Supprimer le bloc"|trans }}</a>
             <div class="suppressionBloc">
                 <p><strong>{{ "Êtes-vous sûr de vouloir supprimer ce bloc ?"|trans }}</strong></p>

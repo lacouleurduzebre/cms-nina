@@ -414,6 +414,48 @@ $(document).ready(function() {
         $('#'+type).removeClass('disabled');
     });
 
+    //Ajouter aux blocs partagés
+        //Ouverture du formulaire
+    $('form').on('click', '.ajoutBlocPartage', function(e){
+        e.preventDefault();
+
+        idBloc = $(this).closest('.field-bloc').children('div').children('.contenu').data('bloc');
+
+        if(!idBloc){
+            messageFlash('erreur', "Ce bloc n'a pas encore été enregistré, et ne peut donc être ajouté à la liste des blocs partagés. Essayez de rafraichir la page.");
+            return;
+        }
+
+        $('#formulaireAjoutBlocPartage input[name="idBloc"]').val(idBloc);
+    });
+
+        //Soumission du formulaire
+    $('#formulaireAjoutBlocPartage').submit(function(e){
+        e.preventDefault();
+
+        $.ajax({
+            url: $(this).attr('action'),
+            method: "post",
+            data: $(this).serialize()
+        }).done(function() {
+            $('#ajoutBlocPartage').fadeOut('slow', function(){
+                $('#ajoutBlocPartage').css('opacity', 0);
+            });
+
+            $('#nomBlocPartage').val('');
+
+            //Changement de bouton (ajout / suppression)
+            bloc = $('[data-bloc="'+$('#formulaireAjoutBlocPartage input[name="idBloc"]').val()+'"]').closest('.field-bloc');
+            bloc.find('.ajoutBlocPartage').addClass('hidden');
+            bloc.find('.suppressionBlocPartage').removeClass('hidden');
+
+            messageFlash('enregistrement', "Le bloc a été ajouté à la liste des blocs partagés");
+        });
+    });
+
+    //Retirer des blocs partagés
+    //@Todo ajax suppression bloc partagé
+
     //Ajout de blocs via liste des blocs
     $('.listeBlocs li').click(function(){
         type = $(this).attr('id');
@@ -916,11 +958,7 @@ $(document).ready(function() {
             url: "/admin/LEI/viderCache",
             success: function()
             {
-                $('#flash-messages').append("<div class='alert alert-enregistrement'><span>Les fichiers de cache LEI ont été vidés</span><i class='fas fa-times'></i></div>");
-
-                setTimeout(function(){
-                    $('.alert').fadeOut();
-                }, 3000);
+                messageFlash('enregistrement', "Les fichiers de cache LEI ont été vidés");
             }
         });
     });
