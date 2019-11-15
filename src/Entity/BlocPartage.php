@@ -22,7 +22,7 @@ class BlocPartage
     private $nom;
 
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\Bloc", inversedBy="blocPartage", cascade={"persist", "remove"})
+     * @ORM\OneToOne(targetEntity="App\Entity\Bloc", inversedBy="blocPartage")
      * @ORM\JoinColumn(nullable=false)
      */
     private $bloc;

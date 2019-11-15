@@ -54,3 +54,27 @@ $bp-aliases: (
         + "Please make sure it is defined in `$breakpoints` map.";
   }
 }
+
+@mixin boutonArrondi{
+  border-radius: 2rem;
+  background-color: $color-base;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.25);
+  margin-left: .5rem;
+  font-family: 'Cabin';
+  color: $white;
+  &:hover{
+    background-color: darken($color-base, 10);
+  }
+  &[type="submit"]{
+    background-color: $color-brand;
+    &:hover{
+      background-color: darken($color-brand, 10);
+    }
+  }
+  &.btn-danger{
+    background-color: $color-danger;
+    &:hover{
+      background-color: darken($color-danger, 10);
+    }
+  }
+}

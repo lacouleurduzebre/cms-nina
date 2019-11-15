@@ -416,9 +416,7 @@ $(document).ready(function() {
 
     //Ajouter aux blocs partagés
         //Ouverture du formulaire
-    $('form').on('click', '.ajoutBlocPartage', function(e){
-        e.preventDefault();
-
+    $('form').on('click', '.ajoutBlocPartage', function(){
         idBloc = $(this).closest('.field-bloc').children('div').children('.contenu').data('bloc');
 
         if(!idBloc){
@@ -454,7 +452,38 @@ $(document).ready(function() {
     });
 
     //Retirer des blocs partagés
+        //Ouverture du formulaire
+    $('form').on('click', '.suppressionBlocPartage', function(){
+        idBloc = $(this).closest('.field-bloc').children('div').children('.contenu').data('bloc');
+
+        $('#suppressionBlocPartage').attr('data-bloc', idBloc);
+    });
+
+        //Annulation
+    $('.suppressionBlocPartage-annulation').click(function(){
+        $(this).closest('.modal-box').fadeOut('fast');
+    });
+
+        //Confirmation
     //@Todo ajax suppression bloc partagé
+    $('.suppressionBlocPartage-confirmation').click(function(){
+        idBloc = $(this).closest('.modal-box').attr('data-bloc');
+
+        $.ajax({
+            url: "/admin/blocPartage/suppression",
+            method: "post",
+            data: {idBloc: idBloc}
+        }).done(function() {
+            $('#suppressionBlocPartage').fadeOut('slow');
+
+            //Changement de bouton (ajout / suppression)
+            bloc = $('[data-bloc="'+idBloc+'"]').closest('.field-bloc');
+            bloc.find('.ajoutBlocPartage').removeClass('hidden');
+            bloc.find('.suppressionBlocPartage').addClass('hidden');
+
+            messageFlash('enregistrement', "Le bloc a été retiré de la liste des blocs partagés");
+        });
+    });
 
     //Ajout de blocs via liste des blocs
     $('.listeBlocs li').click(function(){

@@ -854,7 +854,7 @@
             <a href="#" class="ajoutBlocPartage{% if form.vars.value.blocPartage is defined and form.vars.value.blocPartage is not empty %} hidden{% endif %}" data-modal="ajoutBlocPartage">
                 <i class="fas fa-share"></i>{{ "Ajouter aux blocs partagés"|trans }}
             </a>
-            <a href="#" class="suppressionBlocPartage{% if form.vars.value.blocPartage is not defined or form.vars.value.blocPartage is empty %} hidden{% endif %}">
+            <a href="#" class="suppressionBlocPartage{% if form.vars.value.blocPartage is not defined or form.vars.value.blocPartage is empty %} hidden{% endif %}" data-modal="suppressionBlocPartage">
                 <i class="fas fa-minus-circle"></i>{{ "Retirer des blocs partagés"|trans }}
             </a>
         </li>

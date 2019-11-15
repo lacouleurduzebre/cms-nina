@@ -3,6 +3,7 @@
   border-radius: 1rem;
   padding: 2rem;
   box-shadow: 2px 2px 6px $color-primary;
+  min-width: 40rem;
 }
 
 .modal-box{
@@ -58,6 +59,9 @@
   }
   label{
     font-family: $font-family-base;
+  }
+  button{
+    @include boutonArrondi;
   }
 }
 

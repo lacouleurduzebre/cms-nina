@@ -2848,6 +2848,12 @@ div.popup-ajoutPage-close {
 .ajoutPage-actions button[type=submit]:hover, .ajoutPage-actions button[type=submit][type=submit]:hover {
   background-color: #7b8e16;
 }
+.ajoutPage-actions button.btn-danger, .ajoutPage-actions button[type=submit].btn-danger {
+  background-color: #D9534F;
+}
+.ajoutPage-actions button.btn-danger:hover, .ajoutPage-actions button[type=submit].btn-danger:hover {
+  background-color: #c9302c;
+}
 .ajoutPage-actions svg {
   margin-right: 0.5rem;
 }

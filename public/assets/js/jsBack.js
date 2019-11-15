@@ -402,7 +402,8 @@ $(document).ready(function(){
     });
 
     //Modal
-    $('[data-modal]').click(function(){
+    $('[data-modal]').click(function(e){
+        e.preventDefault();
         idModal = $(this).attr('data-modal');
         $('#'+idModal).fadeIn('slow', function(){
             $('#'+idModal).css({

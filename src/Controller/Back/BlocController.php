@@ -205,8 +205,20 @@ class BlocController extends AbstractController
      */
     public function SuppressionBlocPartageAction(Request $request){
         if($request->isXmlHttpRequest()){
-            //@Todo suppression du bloc partage
-            //@Todo suppression des blocs "bloc partagé" référençant ce bloc
+            $repoBloc = $this->getDoctrine()->getRepository(Bloc::class);
+
+            //Suppression du bloc partagé
+            $bloc = $repoBloc->find($_POST['idBloc']);
+
+            $blocPartage = $bloc->getBlocPartage();
+
+            $em = $this->getDoctrine()->getManager();
+            $em->remove($blocPartage);
+            $em->flush();
+
+            //@Todo suppression des blocs "blocs partagés" qui référencent ce bloc
+
+            return new Response('ok');
         }
 
         return false;

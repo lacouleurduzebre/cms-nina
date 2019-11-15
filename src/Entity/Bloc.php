@@ -107,7 +107,7 @@ class Bloc
     private $gouttieres;
 
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\BlocPartage", mappedBy="bloc", cascade={"persist", "remove"})
+     * @ORM\OneToOne(targetEntity="App\Entity\BlocPartage", mappedBy="bloc")
      */
     private $blocPartage;
 
