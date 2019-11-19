@@ -3665,7 +3665,7 @@ body.new .content-header, body.edit .content-header, .listeSEO-conteneur .conten
   padding: 1.2rem 0;
   z-index: 100;
 }
-body.new h1, body.edit h1, .listeSEO-conteneur h1 {
+body.new h1.title, body.edit h1.title, .listeSEO-conteneur h1.title {
   color: #FFF;
   margin-left: 1rem;
   padding-right: 0.5rem;
@@ -3674,7 +3674,7 @@ body.new h1, body.edit h1, .listeSEO-conteneur h1 {
   font-family: "Cabin", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
 }
 @media (max-width: 767px) {
-  body.new h1, body.edit h1, .listeSEO-conteneur h1 {
+  body.new h1.title, body.edit h1.title, .listeSEO-conteneur h1.title {
     font-size: 2rem;
     line-height: 1.2;
     display: flex;
@@ -4726,12 +4726,16 @@ body.edit-region .toggleAffichageBlocs, body.new-region .toggleAffichageBlocs {
 .miseEnPage .form-group.field-bloc:not(.bloc-section):hover {
   border: 2px dashed #a3a5a9;
 }
+.miseEnPage .blocsEnfants .form-group.field-bloc {
+  background-color: transparent;
+}
 
 .conteneurs #toggleConteneurs {
   background-color: #0791B3;
 }
 .conteneurs .form-group.field-bloc.bloc-section {
   box-shadow: 0 0 5px #939393;
+  border: 1px solid #fff;
   padding: 2rem;
   margin-bottom: 5px;
 }

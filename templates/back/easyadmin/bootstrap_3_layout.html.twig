@@ -352,8 +352,14 @@
 
 {% block collection_row %}
     {% if 'blocsEnfants' in form.vars.unique_block_prefix %}
+        {% set classBloc = '' %}
+        {% if form.parent.vars.value.classes is defined and form.parent.vars.value.classes is not empty %}
+            {% for class in form.parent.vars.value.classes %}
+                {% set classBloc = classBloc~" "~class %}
+            {% endfor %}
+        {% endif %}
         <div class="form-group field-collection blocsEnfants">
-            {{- form_widget(form, { attr: { class: 'dndBlocs gouttieres-'~form.parent.vars.value.gouttieres|default('') } }) -}}
+            {{- form_widget(form, { attr: { class: 'dndBlocs gouttieres-'~form.parent.vars.value.gouttieres|default('')~' '~classBloc } }) -}}
         </div>
     {% else %}
         <div class="form-group field-{{ name }} {% if value is empty %}vide{% endif %}">
@@ -936,8 +942,14 @@
 
         {# APERCU #}
         {% if not blocSection %}
-            <div class="bloc-apercu">
-                {% if form.vars.value is not empty %}
+            {% set classBloc = '' %}
+            {% if form.children.classes.vars.value is defined and form.children.classes.vars.value is not empty %}
+                {% for class in form.children.classes.vars.value %}
+                    {% set classBloc = classBloc~" "~class %}
+                {% endfor %}
+            {% endif %}
+            <div class="bloc-apercu bloc{{ form.children.type.vars.value }} {{ classBloc }}">
+                {% if form.children.type.vars.value != 'Formulaire' and form.vars.value is not empty %}
                     {% include ['/Blocs/'~form.children.type.vars.value~'/bloc-'~form.vars.value.id~'.html.twig', '/Blocs/'~form.children.type.vars.value~'/'~form.children.type.vars.value~'.html.twig'] with{'bloc': form.vars.value} only %}
                 {% endif %}
             </div>

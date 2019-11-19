@@ -1,11 +1,11 @@
 $(document).ready(function() {
     /* Changement du h1 lors de l'édition d'une page */
     if($('#page_active_titre').length > 0){
-        $('h1').html('Page <i>'+$('#page_active_titre').val()+'</i>');
+        $('h1.title').html('Page <i>'+$('#page_active_titre').val()+'</i>');
     }
 
     $('#page_active_titre').on('keyup', function(){
-        $('h1').html('Page <i>'+$(this).val()+'</i>');
+        $('h1.title').html('Page <i>'+$(this).val()+'</i>');
     });
 
     /* Méta-titre automatique */

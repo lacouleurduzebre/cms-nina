@@ -334,7 +334,7 @@ $(document).ready(function() {
         $('.bloc-optionsAffichagefocus').removeClass('bloc-optionsAffichagefocus');
         $('.bloc-formulairefocus').removeClass('bloc-formulairefocus');
         $('.bloc-optionsAffichage').addClass('hidden');
-        $('.bloc-formulaire').addClass('hidden');
+        $('.bloc-panel.bloc-formulaire').addClass('hidden');
 
         bloc = bouton.closest('.field-bloc');
 
@@ -884,7 +884,7 @@ $(document).ready(function() {
             //Marges identiques <-> Marges différentes
     $('body').on('click', '.togglePadding', function() {
         blocPadding = $(this).closest('div').next('.bloc-padding');
-        input = $(this).closest('div').siblings('input');
+        input = $(this).closest('div').siblings('input[name$="[padding]"]');
         selectTout = $(this).prev('select');
 
         if(blocPadding.hasClass('hidden')){//Marges identiques -> Marges différentes
@@ -905,13 +905,13 @@ $(document).ready(function() {
 
             //Changement marges identiques
     $('body').on('change', 'select[name$="[paddingTout]"]', function() {
-        input = $(this).closest('div').siblings('input');
+        input = $(this).closest('div').siblings('input[name$="[padding]"]');
         input.val($(this).val()).trigger('change');
     });
 
             //Changement marges différentes
     $('body').on('change', 'select[name$="[paddingGauche]"], select[name$="[paddingDroit]"], select[name$="[paddingHaut]"], select[name$="[paddingBas]"]', function() {
-        input = $(this).closest('.bloc-padding').siblings('input');
+        input = $(this).closest('.bloc-padding').siblings('input[name$="[padding]"]');
         nouvelleVal = '';
         $(this).closest('.bloc-padding').find('select').each(function(){
             nouvelleVal += $(this).val()+' ';
