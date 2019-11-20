@@ -1081,6 +1081,10 @@ li[data-jstree='{"type":"root"}'] > a.jstree-context, li[data-jstree='{"type":"o
   border-bottom: 1px solid #0791B3;
   margin-bottom: 0;
   background: rgba(238, 238, 238, 0.34);
+  padding: 0.3rem 1rem;
+}
+#popup-ajoutPage input[type=submit] {
+  padding: 1rem 1.5rem;
 }
 
 #ajoutPage-titre {

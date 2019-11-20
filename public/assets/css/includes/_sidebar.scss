@@ -378,6 +378,10 @@ li[data-jstree='{"type":"root"}'] > a, li[data-jstree='{"type":"orphan"}'] > a{
     border-bottom: 1px solid $color-brand2;
     margin-bottom: 0;
     background: rgba(238, 238, 238, 0.34);
+    padding: 0.3rem 1rem;
+  }
+  input[type="submit"]{
+    padding: 1rem 1.5rem;
   }
 }
 

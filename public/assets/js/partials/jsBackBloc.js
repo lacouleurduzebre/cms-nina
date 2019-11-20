@@ -81,7 +81,6 @@ $(document).ready(function() {
     //Blocs étirables
     optionsResizable = {
         handles: "w, e",
-        maxWidth: 992,
         alsoResize: "#mirror",
         start: function(event, ui){
             if(ui.element.closest('.blocsEnfants').length > 0){
@@ -112,10 +111,11 @@ $(document).ready(function() {
         }
     };
 
-    $('.field-bloc').resizable(optionsResizable);
+    $('.field-bloc').resizable(optionsResizable).resizable( "option", "maxWidth", 992 );
 
     //Désactiver le changement de taille sur les blocs pleine largeur
     $('.pleineLargeur').resizable( "option", "disabled", true );
+    $('.pleineLargeur .field-bloc').resizable(optionsResizable).resizable( "option", "maxWidth", null );
 
     //Ajout de bloc via glisser-déposer
     $('.ajoutBloc').draggable({
@@ -528,6 +528,8 @@ $(document).ready(function() {
                     cible.replaceWith(bloc);
 
                     nvBloc = $('#nvBloc' + count);
+
+                    nvBloc.resizable(optionsResizable).resizable( "option", "maxWidth", 992 );
                 }else{//Bloc enfant
                     section = cible.closest('.dndBlocs');
                     idSection = section.attr('id');
@@ -547,6 +549,8 @@ $(document).ready(function() {
                     nvBloc = $('#nvBloc' + countBloc);
 
                     nvBloc.children('div').children('.bloc-optionsAffichage').find('input[name$="[pleineLargeur]"]').closest('.form-group').addClass('hidden');
+
+                    nvBloc.resizable(optionsResizable).resizable( "option", "maxWidth", null );
                 }
 
                 nvBloc.find('input[name$="[largeur]"]').val('col'+largeurElement);
@@ -564,7 +568,6 @@ $(document).ready(function() {
                 $("#page_active_blocs").sortable(options);
                 $("#region_blocs").sortable(options);
                 $("div[id$='blocsEnfants']").sortable(options);
-                $('.field-bloc').resizable(optionsResizable);
             })
             .fail(function(){
                 $('.listeBlocs').removeClass('actif chargement');
@@ -872,8 +875,9 @@ $(document).ready(function() {
     $('body').on('change', 'input[name$="[pleineLargeur]"]', function() {
         if($(this).prop('checked')){
             $(this).closest('.field-bloc').addClass('pleineLargeur').resizable( "option", "disabled", true );
+            $(this).closest('.field-bloc').find('field-bloc').resizable( "option", "disabled", false ).resizable( "option", "maxWidth", null );
         }else{
-            $(this).closest('.field-bloc').removeClass('pleineLargeur').resizable( "option", "disabled", false );
+            $(this).closest('.field-bloc').removeClass('pleineLargeur').resizable( "option", "disabled", false ).resizable( "option", "maxWidth", 992 );
         }
 
         $(this).closest('.field-bloc').removeClass('col12 col11 col10 col9 col8 col7 col6 col5 col4 col3 col2 col1').addClass('col12');

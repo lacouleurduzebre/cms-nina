@@ -4671,7 +4671,7 @@ body.list #flash-messages > * {
   padding-top: 6rem;
   background-color: #EEE;
   margin-bottom: -3rem;
-  padding-bottom: 2rem;
+  padding-bottom: 20rem;
   margin-left: -2rem;
   margin-right: -2rem;
   min-height: calc(100vh - 15rem);
@@ -5284,6 +5284,9 @@ body.edit .bloc-reseauxsociaux input[type=text], body.new .bloc-reseauxsociaux i
   z-index: 50;
   font-family: "Cabin", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
 }
+.bloc-panel select, .bloc-panel input {
+  padding: 0.3rem 1rem;
+}
 .bloc-panel select {
   border: 1px solid #DADCE0;
   box-shadow: none;
@@ -5468,6 +5471,7 @@ body.new-region .bloc-panel.bloc-optionsAffichage, body.edit-region .bloc-panel.
   font-size: 2.5rem;
   line-height: 1;
   font-family: "Cabin", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+  color: #0791B3;
 }
 .groupeDeChamps .box-header svg {
   font-size: 2rem;

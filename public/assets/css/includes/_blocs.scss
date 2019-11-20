@@ -118,7 +118,7 @@
   padding-top: 6rem;
   background-color: #EEE;
   margin-bottom: -3rem;
-  padding-bottom: 2rem;
+  padding-bottom: 20rem;
   margin-left: -2rem;
   margin-right: -2rem;
   min-height: calc(100vh - 15rem);
@@ -782,6 +782,9 @@ body.edit, body.new{
 .bloc-panel{
   z-index: 50;
   font-family: $font-family-base;
+  select, input{
+    padding: 0.3rem 1rem;
+  }
   select{
     border: 1px solid #DADCE0;
     box-shadow: none;
