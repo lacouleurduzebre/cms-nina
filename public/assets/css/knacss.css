@@ -4881,7 +4881,7 @@ body.notFull .conteneurBlocs > .dndBlocs > .pleineLargeur {
 /* Barre d'actions */
 .bloc-barreActions {
   position: absolute;
-  z-index: 15;
+  z-index: 25;
   display: none;
 }
 .bloc-barreActions > * {
@@ -4906,6 +4906,7 @@ body.notFull .conteneurBlocs > .dndBlocs > .pleineLargeur {
   background: #f5f5f5;
   border: 1px solid #979797;
   box-shadow: 2px 2px 2px #999999;
+  white-space: nowrap;
 }
 .bloc-barreActions + ul a {
   padding: 0 1rem;
@@ -4946,8 +4947,9 @@ body.notFull .conteneurBlocs > .dndBlocs > .pleineLargeur {
   margin-left: auto;
 }
 .field-bloc:not(.bloc-section) > .bloc-barreActions > *:hover, .field-bloc_annexe > .bloc-barreActions > *:hover {
-  width: auto;
-  padding: 0 1rem;
+  width: 20rem;
+  padding: 0 3rem 0 1rem;
+  justify-content: flex-start;
 }
 .field-bloc:not(.bloc-section) > .bloc-barreActions > *:hover > svg, .field-bloc_annexe > .bloc-barreActions > *:hover > svg {
   margin-right: 0.5rem;
