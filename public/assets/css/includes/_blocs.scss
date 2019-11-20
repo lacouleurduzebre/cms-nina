@@ -62,6 +62,10 @@
   }
 }
 
+.ui-draggable-dragging:not(.dndPlaceholder){//Btn "ajouter un bloc"
+  width: 20rem;
+}
+
 .ajoutBloc.btn{
   background-color: $color-brand2;
   border-radius: 2rem;
@@ -73,15 +77,24 @@
   }
 }
 
+.dndPlaceholder{//Placeholder
+  animation-name : placeholder;
+  animation-duration : .3s;
+}
+
+.conteneurBlocs > .dndBlocs > .dndPlaceholder{//Placeholder à la racine
+  display: block;
+  max-width: $large;
+}
+
 .ajoutBloc.btn.dndPlaceholder, .conteneurBlocs > .dndBlocs .ajoutBloc{
   flex: 1;
+  display: block;
 }
 
 .ajoutBloc.btn.dndPlaceholder, .conteneurBlocs > .dndBlocs .ajoutBloc:not(.ui-draggable-dragging){
-  display: block;
-  max-width: $large;
   border: 2px dashed red;
-  height: 5rem;
+  min-height: 5rem;
   background-color: transparent;
   border-radius: 0;
   box-shadow: none;

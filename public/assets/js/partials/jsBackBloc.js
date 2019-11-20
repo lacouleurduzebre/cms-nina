@@ -2,6 +2,28 @@ $(document).ready(function() {
     //Formulaire temporaire
     formulaireTemporaire = '';
 
+    //Calcul largeur bloc
+    calculCol = function(elem){
+        if(elem.closest('.blocsEnfants').length > 0){
+            largeurColonne = elem.closest('.blocsEnfants').width() / 12;
+        }else{
+            largeurColonne = $('.conteneurBlocs > .dndBlocs').width() / 12;
+        }
+        largeur = elem.width();
+
+        largeurElement = Math.round(largeur / largeurColonne);
+        if(largeurElement > 12){
+            largeurElement = 12;
+        }
+
+        //Changement de classe
+        elem.attr('style', '');
+        elem.removeClass('col12 col11 col10 col9 col8 col7 col6 col5 col4 col3 col2 col1').addClass('col'+largeurElement);
+
+        //Changement de la valeur du champ largeur
+        elem.children('div').children('.bloc-optionsAffichage').find('input[name$="[largeur]"]').val('col'+largeurElement);
+    };
+    
     /* Gestion de la position des blocs */
     options = {
         handle: '.drag',
@@ -50,6 +72,7 @@ $(document).ready(function() {
 
             //Reprise des classes du bloc (mauto)
             ui.placeholder.attr('class', 'dndPlaceholder '+ui.item.attr('class')).removeClass('field-bloc form-group bloc-section');
+            ui.placeholder.css('width', ui.item.width());
 
             //Annulation marges auto du helper
             var marginsToSet = ui.item.data().sortableItem.margins;
@@ -71,6 +94,9 @@ $(document).ready(function() {
             }else{
                 conteneurPleineLargeur.removeClass('hidden');
             }
+
+            ui.item.css('width', ui.placeholder.css('width'));
+            calculCol(bloc);
         }
     };
 
@@ -93,21 +119,7 @@ $(document).ready(function() {
         stop: function(event, ui){
             saveCloseFormulaire();
 
-            if(ui.element.closest('.blocsEnfants').length > 0){
-                largeurColonne = ui.element.closest('.blocsEnfants').width() / 12;
-            }else{
-                largeurColonne = $('.conteneurBlocs > .dndBlocs').width() / 12;
-            }
-            largeur = ui.element.width();
-
-            largeurElement = Math.round(largeur / largeurColonne);
-
-            //Changement de classe
-            ui.element.attr('style', '');
-            ui.element.removeClass('col12 col11 col10 col9 col8 col7 col6 col5 col4 col3 col2 col1').addClass('col'+largeurElement);
-
-            //Changement de la valeur du champ largeur
-            ui.element.children('div').children('.bloc-optionsAffichage').find('input[name$="[largeur]"]').val('col'+largeurElement);
+            calculCol(ui.element);
         }
     };
 

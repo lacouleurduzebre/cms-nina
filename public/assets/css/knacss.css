@@ -4615,6 +4615,10 @@ body.list #flash-messages > * {
   font-size: 3rem;
 }
 
+.ui-draggable-dragging:not(.dndPlaceholder) {
+  width: 20rem;
+}
+
 .ajoutBloc.btn {
   background-color: #0791B3;
   border-radius: 2rem;
@@ -4626,15 +4630,24 @@ body.list #flash-messages > * {
   background-color: #0791B3;
 }
 
+.dndPlaceholder {
+  animation-name: placeholder;
+  animation-duration: 0.3s;
+}
+
+.conteneurBlocs > .dndBlocs > .dndPlaceholder {
+  display: block;
+  max-width: 992px;
+}
+
 .ajoutBloc.btn.dndPlaceholder, .conteneurBlocs > .dndBlocs .ajoutBloc {
   flex: 1;
+  display: block;
 }
 
 .ajoutBloc.btn.dndPlaceholder, .conteneurBlocs > .dndBlocs .ajoutBloc:not(.ui-draggable-dragging) {
-  display: block;
-  max-width: 992px;
   border: 2px dashed red;
-  height: 5rem;
+  min-height: 5rem;
   background-color: transparent;
   border-radius: 0;
   box-shadow: none;
