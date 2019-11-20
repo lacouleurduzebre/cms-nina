@@ -4762,7 +4762,7 @@ body.edit-region .toggleAffichageBlocs, body.new-region .toggleAffichageBlocs {
   margin-left: 0.5rem;
 }
 
-.dndBlocs {
+.blocsEnfants > .dndBlocs {
   display: flex;
   flex-wrap: wrap;
 }
