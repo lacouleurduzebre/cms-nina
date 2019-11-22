@@ -432,7 +432,7 @@ body.notFull #sidebar-logo{
   }
 }
 
-#btn-edition-page, #btn-toggle-blocs{
+#btn-edition-page, #btn-toggle-regions{
   color: $white;
   padding: 1rem;
   display: flex;
@@ -446,9 +446,20 @@ body.notFull #sidebar-logo{
   }
 }
 
-#btn-toggle-blocs{
+#btn-toggle-regions{
   margin-left: auto;
   margin-right: 1rem;
+  font-size: 1.4rem;
+  height: 3rem;
+  min-width: 3rem;
+  span{
+    display: none;
+  }
+  &:hover{
+    span{
+      display: inline;
+    }
+  }
   &.actif{
     background-color: $color-brand;
     &:hover{
@@ -459,30 +470,27 @@ body.notFull #sidebar-logo{
 
 //Surbrillance des groupes de blocs
 .surbrillance{
-  border: 3px dashed transparent;
+  border: 4px dashed $color-brand;
   width: 100%;
   height: 100%;
   max-width: none;
   position: absolute;
   top: 0;
   left: 0;
-  &.focus{
-    border: 3px dashed $color-brand;
-  }
   a{
-    border: 2px solid $color-brand;
-    padding: .6rem;
+    padding: .8rem;
     border-radius: 50%;
-    color: $color-brand;
+    color: $white;
+    background-color: $color-brand;
     position: absolute;
     top: 2px;
     right: 2px;
-    width: 3.5rem;
-    height: 3.5rem;
-    font-size: 1.6rem;
+    width: 4rem;
+    height: 4rem;
+    font-size: 2rem;
     text-align: center;
     &:hover{
-      color: darken($color-brand, 10);
+      background-color: darken($color-brand, 10);
     }
   }
   .surbrillanceOff &{

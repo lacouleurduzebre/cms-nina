@@ -94,13 +94,13 @@ $(document).ready(function(){
             $('#recherche-arbo-loupe').removeClass('hidden');
         });
 
-    /* Visualisation des blocs */
-    /*$('#btn-toggle-blocs').click(function(e){
+    /* Visualisation des régions */
+    $('#btn-toggle-regions').click(function(e){
         e.preventDefault();
         $(this).toggleClass('actif');
 
         //Groupes de blocs
-        $('.groupeBlocs').each(function(){
+        $('*[class*="region-"]').each(function(){
             //Position static
             if($(this).css('position') === 'static'){
                 $(this).css('position', 'relative');
@@ -109,31 +109,8 @@ $(document).ready(function(){
             if($(this).find('.surbrillance').length > 0){
                 $(this).toggleClass('surbrillanceOff');
             }else{
-                $(this).append('<div class="surbrillance"><a href="/admin/?action=edit&entity=GroupeBlocs&id='+$(this).attr('id')+'"><i class="fas fa-pencil-alt"></i></a></div>');
+                $(this).append('<div class="surbrillance"><a href="/admin/?action=edit&entity=Region&id='+$(this).data('region')+'"><i class="fas fa-pencil-alt"></i></a></div>');
             }
         });
-
-        //Blocs de la page
-        $('main > div[class^="bloc"]').each(function(){
-            //Position static
-            if($(this).css('position') === 'static'){
-                $(this).css('position', 'relative');
-            }
-
-            if($(this).find('.surbrillance').length > 0){
-                $(this).toggleClass('surbrillanceOff');
-            }else{
-                idPage = $('main').attr('id').substr(4, $('main').attr('id').length);
-                $(this).append('<div class="surbrillance"><a href="/admin/?action=edit&entity=Page_Active&id='+idPage+'&blocActif='+$(this).data('bloc')+'"><i class="fas fa-pencil-alt"></i></a></div>');
-            }
-        });
-
-        //Hover
-        $('.surbrillance a').hover(function(){
-            $(this).closest('.surbrillance').addClass('focus');
-        },
-        function(){
-            $(this).closest('.surbrillance').removeClass('focus');
-        });
-    });*/
+    });
 });

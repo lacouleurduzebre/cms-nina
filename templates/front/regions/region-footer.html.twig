@@ -1,5 +1,5 @@
 <div class="scrollTop"><i class="fas fa-angle-up"></i></div>
-<footer>
+<footer class="region-footer" data-region="{{ region.id }}">
     {% if region.blocs is not empty %}
         {% include('front/blocs.html.twig') with {'blocs': region.blocs} only %}
     {% endif %}
