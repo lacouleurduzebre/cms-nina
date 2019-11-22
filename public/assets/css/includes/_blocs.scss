@@ -85,6 +85,7 @@
 .conteneurBlocs > .dndBlocs > .dndPlaceholder{//Placeholder à la racine
   display: block;
   max-width: $large;
+  width: 100%;
 }
 
 .ajoutBloc.btn.dndPlaceholder, .conteneurBlocs > .dndBlocs .ajoutBloc{

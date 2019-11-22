@@ -4638,6 +4638,7 @@ body.list #flash-messages > * {
 .conteneurBlocs > .dndBlocs > .dndPlaceholder {
   display: block;
   max-width: 992px;
+  width: 100%;
 }
 
 .ajoutBloc.btn.dndPlaceholder, .conteneurBlocs > .dndBlocs .ajoutBloc {

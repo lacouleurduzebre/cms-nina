@@ -72,7 +72,9 @@ $(document).ready(function() {
 
             //Reprise des classes du bloc (mauto)
             ui.placeholder.attr('class', 'dndPlaceholder '+ui.item.attr('class')).removeClass('field-bloc form-group bloc-section');
-            ui.placeholder.css('width', ui.item.width());
+            if(!ui.item.hasClass('ajoutBloc')){
+                ui.placeholder.css('width', ui.item.width());
+            }
 
             //Annulation marges auto du helper
             var marginsToSet = ui.item.data().sortableItem.margins;
@@ -95,8 +97,10 @@ $(document).ready(function() {
                 conteneurPleineLargeur.removeClass('hidden');
             }
 
-            ui.item.css('width', ui.placeholder.css('width'));
-            calculCol(bloc);
+            if(!ui.item.hasClass('ajoutBloc')){
+                ui.item.css('width', ui.placeholder.css('width'));
+                calculCol(bloc);
+            }
         }
     };
 
@@ -108,7 +112,7 @@ $(document).ready(function() {
     optionsResizable = {
         handles: "w, e",
         alsoResize: "#mirror",
-        start: function(event, ui){
+        start: function (event, ui){
             if(ui.element.closest('.blocsEnfants').length > 0){
                 largeurColonne = ui.element.closest('.blocsEnfants').width() / 12;
             }else{
