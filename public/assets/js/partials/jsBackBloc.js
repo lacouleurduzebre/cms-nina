@@ -706,35 +706,6 @@ $(document).ready(function() {
         }
     });
 
-    //Déplier / replier tous les blocs
-    toggleBlocs = function(elem, action){
-        actionInverse = (action === 'r') ? 'd' : 'r';
-        elem.closest('.form-group').find('.contenu').each(function(){
-            if(action === 'r'){
-                rotate = !$(this).children('div').hasClass('hide');
-                $(this).children('div').addClass('hide');
-            }else{
-                rotate = $(this).children('div').hasClass('hide');
-                $(this).children('div').removeClass('hide');
-            }
-            if(rotate){
-                $(this).closest('.field-bloc').find('.toggleBloc').toggleClass('rotate');
-            }
-        });
-        elem.hide();
-        $('#'+actionInverse+'eplierBlocs').show();
-    };
-
-    $('#replierBlocs').click(function(e){
-        e.preventDefault();
-        toggleBlocs($(this), 'r');
-    });
-
-    $('#deplierBlocs').click(function(e){
-        e.preventDefault();
-        toggleBlocs($(this), 'd');
-    });
-
     //Activation / désactivation des blocs
     $('.conteneurBlocs').on('change', 'input[id$="_active"]', function(){
         if($(this).prop('checked')){
@@ -942,6 +913,34 @@ $(document).ready(function() {
         //Modification marges
     $('body').on('change', 'input[name$="[padding]"]', function() {
         $(this).closest('.field-bloc').removeClass('pan pas pam pal ptn pts ptm ptl prn prs prm prl pbn pbs pbm pbl pln pls plm pll').addClass($(this).val());
+    });
+
+        //Marges des blocs au chargement
+    $('.field-bloc input[name$="[padding]"]').each(function(){
+        padding = $(this).val().split(' ');
+
+        if(padding[0] !== ''){
+            bloc = $(this).closest('.field-bloc');
+            equivalencePadding = {
+                'pa' : 'paddingTout',
+                'pt' : 'paddingHaut',
+                'pr' : 'paddingDroit',
+                'pb' : 'paddingBas',
+                'pl' : 'paddingGauche',
+            };
+
+            if(padding.length > 1){//Marges différentes
+                togglePadding = bloc.find('.togglePadding');
+                togglePadding.prev('select').attr('disabled', true);
+                togglePadding.find('svg').toggleClass('fa-link fa-unlink');
+                bloc.find('.bloc-padding').toggleClass('hidden');
+            }
+
+            padding.forEach(function(item){
+                typePadding = item.substr(0, 2);
+                bloc.find('select[name$="['+equivalencePadding[typePadding]+']"]').val(item);
+            });
+        }
     });
 
     //Bloc réseaux sociaux : type d'utilisation (liens / partage)
