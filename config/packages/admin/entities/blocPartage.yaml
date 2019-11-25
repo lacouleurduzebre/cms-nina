@@ -11,7 +11,8 @@ easy_admin:
         fields:
           - nom
           - { property: 'bloc.type', label: 'Type', type: 'text'}
-          - { property: 'origine', template: 'back/blocs/origineBlocPartage.html.twig' }
+          - { property: 'origine', template: 'back/blocs/blocsPartages/origineBlocPartage.html.twig' }
+          - { property: 'blocs', label: "Endroits où ce bloc est utilisé", template: 'back/blocs/blocsPartages/emplacementsBlocPartage.html.twig' }
       edit:
         actions:
           - { name: 'list', label: 'Retour à la liste des blocs partagés', title: 'Retour à la liste des pages', icon: 'arrow-left', css_class: '' }

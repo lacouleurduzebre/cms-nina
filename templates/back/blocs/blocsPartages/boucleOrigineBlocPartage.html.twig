@@ -1,17 +1,12 @@
-{% if item.bloc is defined %}
-    {% set bloc = item.bloc %}
-{% endif %}
-
-{% block parent %}
-    {% if bloc.blocParent is defined and bloc.blocParent is not empty %}
-        {% set bloc = bloc.blocParent %}
-        {{ block('parent') }}
-    {% else %}
+{% if bloc.blocParent is defined and bloc.blocParent is not empty %}
+    {% set bloc = bloc.blocParent %}
+    {% include self %}
+{% else %}
+    <p>
         {% if bloc.region is defined and bloc.region is not empty %}{# Bloc dans une région #}
             <a href="{{ path('easyadmin', { action: 'edit', entity: 'Region', id: bloc.region.id }) }}">{{ "Région"|trans~" \""~bloc.region.nom~"\"" }}</a>
-        {% elseif bloc.blocParent is defined and bloc.blocParent is not empty %}{# Bloc dans une section #}
         {% else %}{# Bloc dans une page #}
             <a href="{{ path('easyadmin', { action: 'edit', entity: 'Page_Active', id: bloc.page.id }) }}">{{ "Page"|trans~" \""~bloc.page.titre~"\"" }}</a>
         {% endif %}
-    {% endif %}
-{% endblock %}
+    </p>
+{% endif %}

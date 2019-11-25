@@ -1,0 +1,5 @@
+{%  set blocsPartages = blocsPartages(item.bloc.id) %}
+
+{% for bloc in blocsPartages %}
+    {% include 'back/blocs/blocsPartages/boucleOrigineBlocPartage.html.twig' %}
+{% endfor %}
