@@ -2,7 +2,7 @@ easy_admin:
   entities:
     BlocPartage:
       class: App\Entity\BlocPartage
-      controller: App\Controller\Back\AdminController
+      controller: App\Controller\Back\Admin\BlocPartageAdminController
       label: 'Bloc partagé'
       labels: 'Blocs partagés'
       disabled_actions: ['search', 'show', 'new']
