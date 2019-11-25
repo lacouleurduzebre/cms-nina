@@ -14,6 +14,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -26,18 +27,8 @@ class BlocPartageType extends AbstractType
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $repoBlocsPartages = $this->em->getRepository(BlocPartage::class);
-        $objetsBlocsPartages = $repoBlocsPartages->findAll();
-        $blocsPartages = [];
-        foreach($objetsBlocsPartages as $objetBlocPartage){
-            $blocsPartages[$objetBlocPartage->getNom()] = $objetBlocPartage->getBloc()->getId();
-        }
-
         $builder
-            ->add('blocPartage', ChoiceType::class, array(
-                'choices' => $blocsPartages,
-                'label' => 'Bloc'
-            ));
+            ->add('blocPartage', HiddenType::class);
     }
 
     public function configureOptions(OptionsResolver $resolver)

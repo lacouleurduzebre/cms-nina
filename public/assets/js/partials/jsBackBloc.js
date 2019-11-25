@@ -1,6 +1,8 @@
 $(document).ready(function() {
     //Formulaire temporaire
     formulaireTemporaire = '';
+    //ID bloc partagé
+    idBlocPartage = 0;
 
     //Calcul largeur bloc
     calculCol = function(elem){
@@ -500,15 +502,14 @@ $(document).ready(function() {
     });
 
     //Ajout de blocs via liste des blocs
-    $('.listeBlocs li:not(.blocPartage)').click(function(){
-        type = $(this).attr('id');
+    ajoutBloc = function(type, typeBlocPartage = null){
         $('.listeBlocs').addClass('chargement');
         entite = $('.listeBlocs').siblings('form').attr('name');
 
         $.ajax({
             url: Routing.generate('ajouterBloc'),
             method: "post",
-            data: {type: type, typeBloc: 'Bloc'}
+            data: {type: type, typeBloc: 'Bloc', idBlocPartage: idBlocPartage, typeBlocPartage: typeBlocPartage}
         })
             .done(function(data){
                 $('div[id^=nvBloc]').attr('id', '');
@@ -569,7 +570,14 @@ $(document).ready(function() {
                 }
 
                 nvBloc.find('input[name$="[largeur]"]').val('col'+largeurElement);
-                nvBloc.find('.bloc-panel.bloc-formulaire').removeClass('hidden');
+
+                if(type !== 'BlocPartage'){
+                    nvBloc.find('.bloc-panel.bloc-formulaire').removeClass('hidden');
+                }else{
+                    nvBloc.find('input[name$="[padding]"]').each(function(){
+                        verifPadding($(this));
+                    });
+                }
 
                 //Màj de la position
                 $('.field-bloc').each(function(){
@@ -587,6 +595,33 @@ $(document).ready(function() {
             .fail(function(){
                 $('.listeBlocs').removeClass('actif chargement');
             });
+    };
+
+    $('.listeBlocs li:not(.blocPartage)').click(function(){
+        ajoutBloc($(this).attr('id'));
+    });
+
+    //Ajout de bloc partagé
+    $('.listeBlocs li.blocPartage').click(function(){
+        idBlocPartage = $(this).data('bloc');
+    });
+
+        //Associé
+    $('#ajoutBlocPartageAssocie').click(function(){
+        $(this).closest('.modal-box').fadeOut('slow', function(){
+            $('#ajoutBlocPartage').css('opacity', 0);
+        });
+
+        ajoutBloc('BlocPartage', 'associe');
+    });
+
+        //Dissocié
+    $('#ajoutBlocPartageDissocie').click(function(){
+        $(this).closest('.modal-box').fadeOut('slow', function(){
+            $('#ajoutBlocPartage').css('opacity', 0);
+        });
+
+        ajoutBloc('BlocPartage', 'dissocie');
     });
 
     //Ajout de blocs annexes via liste des blocs
@@ -915,11 +950,11 @@ $(document).ready(function() {
     });
 
         //Marges des blocs au chargement
-    $('.field-bloc input[name$="[padding]"]').each(function(){
-        padding = $(this).val().split(' ');
+    verifPadding = function(champPadding){
+        padding = champPadding.val().split(' ');
 
         if(padding[0] !== ''){
-            bloc = $(this).closest('.field-bloc');
+            bloc = champPadding.closest('.field-bloc');
             equivalencePadding = {
                 'pa' : 'paddingTout',
                 'pt' : 'paddingHaut',
@@ -940,6 +975,10 @@ $(document).ready(function() {
                 bloc.find('select[name$="['+equivalencePadding[typePadding]+']"]').val(item);
             });
         }
+    };
+
+    $('.field-bloc input[name$="[padding]"]').each(function(){
+        verifPadding($(this));
     });
 
     //Bloc réseaux sociaux : type d'utilisation (liens / partage)

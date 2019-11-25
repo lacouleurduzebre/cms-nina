@@ -37,7 +37,30 @@ class BlocController extends AbstractController
             $type = $request->get('type');
             $typeBloc = $request->get('typeBloc');
 
-            $form = $this->get('form.factory')->createBuilder("App\Form\Type\\".$typeBloc."Type", null, array('type' => $type, 'block_name' => $type))->getForm();
+            $bloc = null;
+
+            //Bloc partagé
+            if($type == 'BlocPartage'){
+                $typeBlocPartage = $request->get('typeBlocPartage');
+                $idBlocPartage = $request->get('idBlocPartage');
+
+                if($typeBlocPartage == 'associe'){//Bloc partagé associé
+                    $bloc = new Bloc();
+                    $bloc->setType('BlocPartage')
+                        ->setContenu([
+                            'blocPartage' => $idBlocPartage
+                        ]);
+                }else{//Bloc partagé dissocié
+                    $repoBloc = $this->getDoctrine()->getRepository(Bloc::class);
+                    $blocOriginal = $repoBloc->find($idBlocPartage);
+
+                    $bloc = clone $blocOriginal;
+
+                    $type = $bloc->getType();
+                }
+            }
+
+            $form = $this->get('form.factory')->createBuilder("App\Form\Type\\".$typeBloc."Type", $bloc, array('type' => $type, 'block_name' => $type))->getForm();
             return $this->render('back/blocs/formulaire.html.twig', array('form'=>$form->createView()));
         };
 

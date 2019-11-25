@@ -24,7 +24,7 @@
             <h3 class="w100">{{ "Blocs partagés"|trans }}</h3>
             <ul class="grid-5-small-2 has-gutter-l">
                 {% for blocPartage in blocsPartages %}
-                    <li class="blocPartage" data-modal="ajoutBlocPartage">
+                    <li class="blocPartage" data-modal="ajoutBlocPartage" data-bloc="{{ blocPartage.bloc.id }}">
                         <i class="fas fa-share bloc-icone"></i>
                         <p class="bloc-nom">{{ blocPartage.nom }}</p>
                     </li>

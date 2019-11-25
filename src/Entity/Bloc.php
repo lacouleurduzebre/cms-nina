@@ -116,6 +116,12 @@ class Bloc
         $this->blocsEnfants = new ArrayCollection();
     }
 
+    public function __clone(){
+        if ($this->id) {
+            $this->setBlocPartage(null);
+        }
+    }
+
     public function getId()
     {
         return $this->id;
@@ -349,12 +355,12 @@ class Bloc
         return $this->blocPartage;
     }
 
-    public function setBlocPartage(BlocPartage $blocPartage): self
+    public function setBlocPartage(BlocPartage $blocPartage = null): self
     {
         $this->blocPartage = $blocPartage;
 
         // set the owning side of the relation if necessary
-        if ($this !== $blocPartage->getBloc()) {
+        if ($blocPartage && $this !== $blocPartage->getBloc()) {
             $blocPartage->setBloc($this);
         }
 
