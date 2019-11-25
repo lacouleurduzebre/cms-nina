@@ -5063,6 +5063,11 @@ body.notFull .conteneurBlocs > .dndBlocs > .pleineLargeur {
 .listeBlocs.chargement ul, .listeBlocs.chargement .listeBlocs-fermeture, .listeBlocs.chargement .listeBlocsAnnexes-fermeture, .listeBlocs.chargement .voirBlocs, .listeBlocsAnnexes.chargement ul, .listeBlocsAnnexes.chargement .listeBlocs-fermeture, .listeBlocsAnnexes.chargement .listeBlocsAnnexes-fermeture, .listeBlocsAnnexes.chargement .voirBlocs {
   display: none;
 }
+.listeBlocs h3, .listeBlocsAnnexes h3 {
+  color: #fff;
+  font-size: 2rem;
+  margin-left: 2rem;
+}
 .listeBlocs ul, .listeBlocsAnnexes ul {
   list-style: none;
   width: 100%;

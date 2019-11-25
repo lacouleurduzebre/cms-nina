@@ -4,7 +4,7 @@
     </div>
     <i class="fas fa-spin fa-sync liste{{ typeBlocs }}-chargement"></i>
     <ul class="grid-5-small-2 has-gutter-l">
-        {% for type,bloc in blocs %}
+        {% for type,bloc in blocs if type != "BlocPartage" %}
             <li id="{{ type }}" class="{% if bloc.disabled is defined %}disabled {% endif %}{% if loop.index > 5 %}blocCache hidden{% endif %}">
                 <div class="bloc-help">
                     <i class="fas fa-info-circle"></i>
@@ -19,8 +19,23 @@
     </ul>
     {% if typeBlocs == 'Blocs' %}
         <button class="voirBlocs">Voir tous les blocs</button>
+        {% set blocsPartages = blocsPartages() %}
+        {% if blocsPartages %}
+            <h3 class="w100">{{ "Blocs partagés"|trans }}</h3>
+            <ul class="grid-5-small-2 has-gutter-l">
+                {% for blocPartage in blocsPartages %}
+                    <li class="blocPartage" data-modal="ajoutBlocPartage">
+                        <i class="fas fa-share bloc-icone"></i>
+                        <p class="bloc-nom">{{ blocPartage.nom }}</p>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% endif %}
     {% endif %}
 </div>
 
+{# Boîte de dialogue ajout de bloc partagé #}
+{% include 'back/blocs/blocsPartages/formulaireAjoutBlocPartage.html.twig' %}
+
 {# Formulaire d'ajout de bloc partage #}
-{% include 'back/blocs/blocsPartages/formulairesBlocPartage.html.twig' %}
+{% include 'back/blocs/blocsPartages/formulairesListeBlocsPartages.html.twig' %}

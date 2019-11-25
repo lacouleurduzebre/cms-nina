@@ -432,7 +432,7 @@ $(document).ready(function() {
 
     //Ajouter aux blocs partagés
         //Ouverture du formulaire
-    $('form').on('click', '.ajoutBlocPartage', function(){
+    $('form').on('click', '.ajoutListeBlocPartage', function(){
         idBloc = $(this).closest('.field-bloc').children('div').children('.contenu').data('bloc');
 
         if(!idBloc){
@@ -440,11 +440,11 @@ $(document).ready(function() {
             return;
         }
 
-        $('#formulaireAjoutBlocPartage input[name="idBloc"]').val(idBloc);
+        $('#formulaireAjoutListeBlocPartage input[name="idBloc"]').val(idBloc);
     });
 
         //Soumission du formulaire
-    $('#formulaireAjoutBlocPartage').submit(function(e){
+    $('#formulaireAjoutListeBlocPartage').submit(function(e){
         e.preventDefault();
 
         $.ajax({
@@ -452,15 +452,15 @@ $(document).ready(function() {
             method: "post",
             data: $(this).serialize()
         }).done(function() {
-            $('#ajoutBlocPartage').fadeOut('slow', function(){
-                $('#ajoutBlocPartage').css('opacity', 0);
+            $('#ajoutListeBlocPartage').fadeOut('slow', function(){
+                $('#ajoutListeBlocPartage').css('opacity', 0);
                 $('#nomBlocPartage').val('');
             });
 
             //Changement de bouton (ajout / suppression)
-            bloc = $('[data-bloc="'+$('#formulaireAjoutBlocPartage input[name="idBloc"]').val()+'"]').closest('.field-bloc');
-            bloc.find('.ajoutBlocPartage').addClass('hidden');
-            bloc.find('.suppressionBlocPartage').removeClass('hidden');
+            bloc = $('[data-bloc="'+$('#formulaireAjoutListeBlocPartage input[name="idBloc"]').val()+'"]').closest('.field-bloc');
+            bloc.find('.ajoutListeBlocPartage').addClass('hidden');
+            bloc.find('.suppressionListeBlocPartage').removeClass('hidden');
 
             messageFlash('enregistrement', "Le bloc a été ajouté à la liste des blocs partagés");
         });
@@ -468,40 +468,39 @@ $(document).ready(function() {
 
     //Retirer des blocs partagés
         //Ouverture du formulaire
-    $('form').on('click', '.suppressionBlocPartage', function(){
+    $('form').on('click', '.suppressionListeBlocPartage', function(){
         idBloc = $(this).closest('.field-bloc').children('div').children('.contenu').data('bloc');
 
-        $('#suppressionBlocPartage').attr('data-bloc', idBloc);
+        $('#suppressionListeBlocPartage').attr('data-bloc', idBloc);
     });
 
         //Annulation
-    $('.suppressionBlocPartage-annulation').click(function(){
+    $('.suppressionListeBlocPartage-annulation').click(function(){
         $(this).closest('.modal-box').fadeOut('fast');
     });
 
         //Confirmation
-    //@Todo ajax suppression bloc partagé
-    $('.suppressionBlocPartage-confirmation').click(function(){
+    $('.suppressionListeBlocPartage-confirmation').click(function(){
         idBloc = $(this).closest('.modal-box').attr('data-bloc');
 
         $.ajax({
-            url: "/admin/blocPartage/suppression",
+            url: "/admin/blocPartage/suppressionListe",
             method: "post",
             data: {idBloc: idBloc}
         }).done(function() {
-            $('#suppressionBlocPartage').fadeOut('slow');
+            $('#suppressionListeBlocPartage').fadeOut('slow');
 
             //Changement de bouton (ajout / suppression)
             bloc = $('[data-bloc="'+idBloc+'"]').closest('.field-bloc');
-            bloc.find('.ajoutBlocPartage').removeClass('hidden');
-            bloc.find('.suppressionBlocPartage').addClass('hidden');
+            bloc.find('.ajoutListeBlocPartage').removeClass('hidden');
+            bloc.find('.suppressionListeBlocPartage').addClass('hidden');
 
             messageFlash('enregistrement', "Le bloc a été retiré de la liste des blocs partagés");
         });
     });
 
     //Ajout de blocs via liste des blocs
-    $('.listeBlocs li').click(function(){
+    $('.listeBlocs li:not(.blocPartage)').click(function(){
         type = $(this).attr('id');
         $('.listeBlocs').addClass('chargement');
         entite = $('.listeBlocs').siblings('form').attr('name');

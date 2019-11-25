@@ -858,10 +858,10 @@
     <ul>
         {% if form.children.type.vars.value != 'BlocPartage' %}
             <li>{# Bloc partage #}
-                <a href="#" class="ajoutBlocPartage{% if form.vars.value.blocPartage is defined and form.vars.value.blocPartage is not empty %} hidden{% endif %}" data-modal="ajoutBlocPartage">
+                <a href="#" class="ajoutListeBlocPartage{% if form.vars.value.blocPartage is defined and form.vars.value.blocPartage is not empty %} hidden{% endif %}" data-modal="ajoutListeBlocPartage">
                     <i class="fas fa-share"></i>{{ "Ajouter aux blocs partagés"|trans }}
                 </a>
-                <a href="#" class="suppressionBlocPartage{% if form.vars.value.blocPartage is not defined or form.vars.value.blocPartage is empty %} hidden{% endif %}" data-modal="suppressionBlocPartage">
+                <a href="#" class="suppressionListeBlocPartage{% if form.vars.value.blocPartage is not defined or form.vars.value.blocPartage is empty %} hidden{% endif %}" data-modal="suppressionListeBlocPartage">
                     <i class="fas fa-minus-circle"></i>{{ "Retirer des blocs partagés"|trans }}
                 </a>
             </li>

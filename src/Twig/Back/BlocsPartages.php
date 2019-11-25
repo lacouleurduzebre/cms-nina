@@ -10,6 +10,7 @@ namespace App\Twig\Back;
 
 
 use App\Entity\Bloc;
+use App\Entity\BlocPartage;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
 class BlocsPartages extends \Twig_Extension
@@ -26,19 +27,26 @@ class BlocsPartages extends \Twig_Extension
         );
     }
 
-    public function blocsPartages($idBloc)
+    public function blocsPartages($idBloc = null)
     {
-        $repoBloc = $this->doctrine->getRepository(Bloc::class);
-        $blocsPartages = $repoBloc->findBy(['type' => 'BlocPartage']);
+        if($idBloc){//Tous les blocs liés à un bloc partagé
+            $repoBloc = $this->doctrine->getRepository(Bloc::class);
+            $blocsPartages = $repoBloc->findBy(['type' => 'BlocPartage']);
 
-        $blocs = [];
+            $blocs = [];
 
-        foreach($blocsPartages as $blocPartage){
-            if($blocPartage->getContenu()['blocPartage'] == $idBloc){
-                $blocs[] = $blocPartage;
+            foreach($blocsPartages as $blocPartage){
+                if($blocPartage->getContenu()['blocPartage'] == $idBloc){
+                    $blocs[] = $blocPartage;
+                }
             }
-        }
 
-        return $blocs;
+            return $blocs;
+        }else{//Tous les blocs partagés
+            $repoBlocPartage = $this->doctrine->getRepository(BlocPartage::class);
+            $blocsPartages = $repoBlocPartage->findAll();
+
+            return $blocsPartages;
+        }
     }
 }

@@ -176,11 +176,11 @@ class BlocController extends AbstractController
     }
 
     /**
-     * @Route("/blocPartage/ajout", name="ajoutBlocPartage")
+     * @Route("/blocPartage/ajoutListe", name="ajoutListeBlocPartage")
      * @param Request $request
      * @return bool|Response
      */
-    public function AjoutBlocPartageAction(Request $request){
+    public function AjoutListeBlocPartageAction(Request $request){
         if($request->isXmlHttpRequest()){
             $bloc = $this->getDoctrine()->getRepository(Bloc::class)->find($_POST['idBloc']);
 
@@ -199,11 +199,11 @@ class BlocController extends AbstractController
     }
 
     /**
-     * @Route("/blocPartage/suppression", name="suppressionBlocPartage")
+     * @Route("/blocPartage/suppressionListe", name="suppressionListeBlocPartage")
      * @param Request $request
      * @return bool|Response
      */
-    public function SuppressionBlocPartageAction(Request $request){
+    public function SuppressionListeBlocPartageAction(Request $request){
         if($request->isXmlHttpRequest()){
             $repoBloc = $this->getDoctrine()->getRepository(Bloc::class);
 
@@ -214,9 +214,17 @@ class BlocController extends AbstractController
 
             $em = $this->getDoctrine()->getManager();
             $em->remove($blocPartage);
-            $em->flush();
 
-            //@Todo suppression des blocs "blocs partagés" qui référencent ce bloc
+            //Suppression des emplacements où le bloc partagé est utilisé
+            $blocsPartages = $repoBloc->findBy(['type' => 'BlocPartage']);
+
+            foreach($blocsPartages as $blocPartage){
+                if($blocPartage->getContenu()['blocPartage'] == $_POST['idBloc']){
+                    $em->remove($blocPartage);
+                }
+            }
+
+            $em->flush();
 
             return new Response('ok');
         }

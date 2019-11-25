@@ -1,6 +1,6 @@
-<div id="ajoutBlocPartage" class="modal-box">
+<div id="ajoutListeBlocPartage" class="modal-box">
     <div class="modal-content modal-dialog">
-        <form id="formulaireAjoutBlocPartage" action="{{ path('ajoutBlocPartage') }}" method="POST" autocomplete="off">
+        <form id="formulaireAjoutListeBlocPartage" action="{{ path('ajoutListeBlocPartage') }}" method="POST" autocomplete="off">
             <label for="nomBlocPartage">{{ "Nom du bloc partagé"|trans }}</label>
             <input id="nomBlocPartage" type="text" name="nomBlocPartage" required>
             <input type="hidden" name="idBloc">
@@ -11,15 +11,15 @@
     </div>
 </div>
 
-<div id="suppressionBlocPartage" class="modal-box">
+<div id="suppressionListeBlocPartage" class="modal-box">
     <div class="modal-content modal-dialog">
         <p><strong>{{ "Êtes-vous sûr de vouloir retirer ce bloc de la liste des blocs partagés ?"|trans }}</strong></p>
         <p>{{ "Il sera supprimé de tous les autres endroits où il apparait"|trans }}</p>
         <p class="txtright">
-            <button type="button" class="btn suppressionBlocPartage-annulation">
+            <button type="button" class="btn suppressionListeBlocPartage-annulation">
                 {{ "Annuler"|trans }}
             </button>
-            <button type="button" class="btn btn-danger suppressionBlocPartage-confirmation">
+            <button type="button" class="btn btn-danger suppressionListeBlocPartage-confirmation">
                 <i class="fa fa-trash"></i>
                 {{ "Retirer"|trans }}
             </button>
