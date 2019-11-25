@@ -1361,13 +1361,16 @@
 
 {# Bloc Partage #}
 {% block bloc_partage_widget %}
-    <div class="flex-container bloc-blocPartage-edition">
+    <div class="bloc-blocPartage-edition">
         {{- form_widget(form) -}}
         <div class="bloc-blocPartage-origine mls mbs">
             {% if data is not empty %}
                 {% set bloc = bloc(data.blocPartage) %}
                 {% include 'back/blocs/blocsPartages/origineBlocPartage.html.twig' %}
             {% endif %}
+        </div>
+        <div>
+            <button type="button" class="bloc-blocPartager-dissocier">{{ "Dissocier le bloc"|trans }}</button>
         </div>
     </div>
 {% endblock %}

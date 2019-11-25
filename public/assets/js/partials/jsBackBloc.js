@@ -573,11 +573,11 @@ $(document).ready(function() {
 
                 if(type !== 'BlocPartage'){
                     nvBloc.find('.bloc-panel.bloc-formulaire').removeClass('hidden');
-                }else{
-                    nvBloc.find('input[name$="[padding]"]').each(function(){
-                        verifPadding($(this));
-                    });
                 }
+
+                nvBloc.find('input[name$="[padding]"]').each(function(){
+                    verifPadding($(this));
+                });
 
                 //Màj de la position
                 $('.field-bloc').each(function(){
@@ -620,6 +620,15 @@ $(document).ready(function() {
         $(this).closest('.modal-box').fadeOut('slow', function(){
             $('#ajoutBlocPartage').css('opacity', 0);
         });
+
+        ajoutBloc('BlocPartage', 'dissocie');
+    });
+
+    //Dissociation d'un bloc partagé
+    $('.bloc-blocPartager-dissocier').click(function(){
+        idBlocPartage = $(this).closest('.bloc-blocPartage-edition').find('input[name$="[blocPartage]"]').val();
+
+        $(this).closest('.field-bloc').replaceWith('<div class="ajoutBloc"></div>');
 
         ajoutBloc('BlocPartage', 'dissocie');
     });
