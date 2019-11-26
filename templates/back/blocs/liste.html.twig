@@ -19,17 +19,19 @@
     </ul>
     {% if typeBlocs == 'Blocs' %}
         <button class="voirBlocs">Voir tous les blocs</button>
-        {% set blocsPartages = blocsPartages() %}
-        {% if blocsPartages %}
-            <h3 class="w100">{{ "Blocs partagés"|trans }}</h3>
-            <ul class="grid-5-small-2 has-gutter-l">
-                {% for blocPartage in blocsPartages %}
-                    <li class="blocPartage" data-modal="ajoutBlocPartage" data-bloc="{{ blocPartage.bloc.id }}">
-                        <i class="fas fa-share bloc-icone"></i>
-                        <p class="bloc-nom">{{ blocPartage.nom }}</p>
-                    </li>
-                {% endfor %}
-            </ul>
+        {% if app.request.get('entity') != 'BlocPartage' %}
+            {% set blocsPartages = blocsPartages() %}
+            {% if blocsPartages %}
+                <h3 class="w100">{{ "Blocs partagés"|trans }}</h3>
+                <ul class="grid-5-small-2 has-gutter-l">
+                    {% for blocPartage in blocsPartages %}
+                        <li class="blocPartage" data-modal="ajoutBlocPartage" data-bloc="{{ blocPartage.bloc.id }}">
+                            <i class="fas fa-share bloc-icone"></i>
+                            <p class="bloc-nom">{{ blocPartage.nom }}</p>
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
         {% endif %}
     {% endif %}
 </div>

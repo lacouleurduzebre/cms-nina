@@ -530,7 +530,7 @@ div[id^="page_active_blocs"], div[id^="region_blocs"]{
     .listeBlocs-chargement, .listeBlocsAnnexes-chargement{
       display: block;
     }
-    ul, .listeBlocs-fermeture, .listeBlocsAnnexes-fermeture, .voirBlocs{
+    h3, ul, .listeBlocs-fermeture, .listeBlocsAnnexes-fermeture, .voirBlocs{
       display: none;
     }
   }
@@ -690,8 +690,26 @@ div[id^="page_active_blocs"], div[id^="region_blocs"]{
   }
 }
 
-  //Édition d'un bloc partagé
-#edit-blocpartage-form{
+  //Création / édition d'un bloc partagé
+body.new.new-blocpartage, body.edit.edit-blocpartage{
+  .content-header span{
+    display: none;
+  }
+  #main{
+    padding-top: 12.5rem;
+  }
+}
+
+#new-blocpartage-form{
+  .noDrag{
+    display: none;
+  }
+  .dndBlocs{
+    min-height: 5rem;
+  }
+}
+
+#new-blocpartage-form, #edit-blocpartage-form{
   .toggleAffichageBlocs{
     top: 11.5rem;
   }

@@ -5,8 +5,10 @@
     <div>
         {% if bloc.region is defined and bloc.region is not empty %}{# Bloc dans une région #}
             <a href="{{ path('easyadmin', { action: 'edit', entity: 'Region', id: bloc.region.id }) }}">{{ "Région"|trans~" \""~bloc.region.nom~"\"" }}</a>
-        {% else %}{# Bloc dans une page #}
+        {% elseif bloc.page is defined and bloc.page is not empty %}{# Bloc dans une page #}
             <a href="{{ path('easyadmin', { action: 'edit', entity: 'Page_Active', id: bloc.page.id }) }}">{{ "Page"|trans~" \""~bloc.page.titre~"\"" }}</a>
+        {% else %}
+             {{ "Bibliothèque de blocs partagés"|trans }}
         {% endif %}
     </div>
 {% endif %}

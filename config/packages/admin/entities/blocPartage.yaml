@@ -5,7 +5,7 @@ easy_admin:
       controller: App\Controller\Back\Admin\BlocPartageAdminController
       label: 'Bloc partagé'
       labels: 'Blocs partagés'
-      disabled_actions: ['search', 'show', 'new']
+      disabled_actions: ['search', 'show']
       list:
         sort: 'bloc.type'
         fields:
@@ -13,9 +13,16 @@ easy_admin:
           - { property: 'bloc.type', label: 'Type', type: 'text'}
           - { property: 'origine', template: 'back/blocs/blocsPartages/origineBlocPartage.html.twig' }
           - { property: 'blocs', label: "Endroits où ce bloc est utilisé", template: 'back/blocs/blocsPartages/emplacementsBlocPartage.html.twig' }
-      edit:
+      form:
         actions:
           - { name: 'list', label: 'Retour à la liste des blocs partagés', title: 'Retour à la liste des pages', icon: 'arrow-left', css_class: '' }
+      new:
+        fields:
+          - nom
+          - { property: 'typeBloc', type: 'App\Form\Type\ChoixTypeBlocType', type_options: { mapped: false, required: true } }
+          - { property: 'bloc', type: 'App\Form\Type\BlocType', type_options: { by_reference: true, label: false, required: false } }
+      edit:
+        actions:
           - { name: 'delete', label: 'Supprimer', title: 'Supprimer', icon: 'trash', css_class: '' }
         fields:
           - { type: 'group', label: '', css_id: 'modifTitre', css_class: 'modal-box' }

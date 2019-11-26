@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\BlocPartageRepository")
@@ -18,12 +19,14 @@ class BlocPartage
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank
      */
     private $nom;
 
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\Bloc", inversedBy="blocPartage")
+     * @ORM\OneToOne(targetEntity="App\Entity\Bloc", inversedBy="blocPartage", cascade={"persist"})
      * @ORM\JoinColumn(nullable=false)
+     * @Assert\NotBlank
      */
     private $bloc;
 

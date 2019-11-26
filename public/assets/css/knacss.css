@@ -5060,7 +5060,7 @@ body.notFull .conteneurBlocs > .dndBlocs > .pleineLargeur {
 .listeBlocs.chargement .listeBlocs-chargement, .listeBlocs.chargement .listeBlocsAnnexes-chargement, .listeBlocsAnnexes.chargement .listeBlocs-chargement, .listeBlocsAnnexes.chargement .listeBlocsAnnexes-chargement {
   display: block;
 }
-.listeBlocs.chargement ul, .listeBlocs.chargement .listeBlocs-fermeture, .listeBlocs.chargement .listeBlocsAnnexes-fermeture, .listeBlocs.chargement .voirBlocs, .listeBlocsAnnexes.chargement ul, .listeBlocsAnnexes.chargement .listeBlocs-fermeture, .listeBlocsAnnexes.chargement .listeBlocsAnnexes-fermeture, .listeBlocsAnnexes.chargement .voirBlocs {
+.listeBlocs.chargement h3, .listeBlocs.chargement ul, .listeBlocs.chargement .listeBlocs-fermeture, .listeBlocs.chargement .listeBlocsAnnexes-fermeture, .listeBlocs.chargement .voirBlocs, .listeBlocsAnnexes.chargement h3, .listeBlocsAnnexes.chargement ul, .listeBlocsAnnexes.chargement .listeBlocs-fermeture, .listeBlocsAnnexes.chargement .listeBlocsAnnexes-fermeture, .listeBlocsAnnexes.chargement .voirBlocs {
   display: none;
 }
 .listeBlocs h3, .listeBlocsAnnexes h3 {
@@ -5208,13 +5208,27 @@ body.notFull .conteneurBlocs > .dndBlocs > .pleineLargeur {
   text-decoration: none;
 }
 
-#edit-blocpartage-form .toggleAffichageBlocs {
-  top: 11.5rem;
-}
-#edit-blocpartage-form .conteneurBlocs > div > .field-bloc > .bloc-barreActions > .bloc-menu {
+body.new.new-blocpartage .content-header span, body.edit.edit-blocpartage .content-header span {
   display: none;
 }
-#edit-blocpartage-form .bloc-panel.bloc-optionsAffichage {
+body.new.new-blocpartage #main, body.edit.edit-blocpartage #main {
+  padding-top: 12.5rem;
+}
+
+#new-blocpartage-form .noDrag {
+  display: none;
+}
+#new-blocpartage-form .dndBlocs {
+  min-height: 5rem;
+}
+
+#new-blocpartage-form .toggleAffichageBlocs, #edit-blocpartage-form .toggleAffichageBlocs {
+  top: 11.5rem;
+}
+#new-blocpartage-form .conteneurBlocs > div > .field-bloc > .bloc-barreActions > .bloc-menu, #edit-blocpartage-form .conteneurBlocs > div > .field-bloc > .bloc-barreActions > .bloc-menu {
+  display: none;
+}
+#new-blocpartage-form .bloc-panel.bloc-optionsAffichage, #edit-blocpartage-form .bloc-panel.bloc-optionsAffichage {
   top: 11rem;
 }
 
