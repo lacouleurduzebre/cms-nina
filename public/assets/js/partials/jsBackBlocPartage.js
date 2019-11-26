@@ -54,4 +54,17 @@ $(document).ready(function() {
             $('#toggleConteneurs, .ajoutBloc').removeClass('hidden');
         }
     });
+
+    //Erreur si on ne choisit pas de type de bloc
+    $("#new-blocpartage-form .formulaire-actions-enregistrer").click(function(e) {
+        e.preventDefault();
+
+        $('.error-block').remove();
+
+        if($('#blocpartage_typeBloc').val() === ''){
+            $('.field-choix_type_bloc').append('<div class="error-block"><span>Erreur :</span> Vous devez choisir un type de bloc</div>');
+        }else{
+            $("#new-blocpartage-form").submit();
+        }
+    });
 });
