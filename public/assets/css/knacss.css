@@ -5208,11 +5208,12 @@ body.notFull .conteneurBlocs > .dndBlocs > .pleineLargeur {
   text-decoration: none;
 }
 
-body.new.new-blocpartage .content-header span, body.edit.edit-blocpartage .content-header span {
-  display: none;
-}
 body.new.new-blocpartage #main, body.edit.edit-blocpartage #main {
   padding-top: 12.5rem;
+}
+
+body.new.new-blocpartage .content-header span {
+  display: none;
 }
 
 #new-blocpartage-form .noDrag {

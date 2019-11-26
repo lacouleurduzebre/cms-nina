@@ -692,11 +692,14 @@ div[id^="page_active_blocs"], div[id^="region_blocs"]{
 
   //Création / édition d'un bloc partagé
 body.new.new-blocpartage, body.edit.edit-blocpartage{
-  .content-header span{
-    display: none;
-  }
   #main{
     padding-top: 12.5rem;
+  }
+}
+
+body.new.new-blocpartage{
+  .content-header span{
+    display: none;
   }
 }
 

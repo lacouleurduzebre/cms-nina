@@ -447,13 +447,7 @@ $(document).ready(function(){
                 if(data.erreurs === true){
                     form.unbind('submit').submit();
                 }else{
-                    bouton.width('auto').html(texte);
-
-                    $('#flash-messages').append(data.tpl);
-
-                    setTimeout(function(){
-                        $('.alert').fadeOut();
-                    }, 3000);
+                    window.location.href = data.redirection;
                 }
             }
         });

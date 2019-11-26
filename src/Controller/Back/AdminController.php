@@ -130,15 +130,16 @@ class AdminController extends BaseAdminController
                 $this->executeDynamicMethod('persist<EntityName>Entity', [$entity, $newForm]);
                 $this->dispatch(EasyAdminEvents::POST_PERSIST, ['entity' => $entity]);
 
-                $tpl = $this->render('back/messageEnregistrement.html.twig', ['entite' => $entity])->getContent();
+                $this->addFlash('enregistrement', $entity.' : enregistrement terminé');
 
-                return new JsonResponse(['erreurs' => $erreurs, 'tpl' => $tpl]);
+                $redirection = $this->generateUrl('easyadmin', ['action' => 'edit', 'entity' => $this->entity['name'], 'id' => $entity->getId()]);
+
+                return new JsonResponse(['erreurs' => $erreurs, 'redirection' => $redirection]);
             }else{
                 if($this->request->isXmlHttpRequest()){
                     $erreurs = true;
-                    $tpl = false;
 
-                    return new JsonResponse(['erreurs' => $erreurs, 'tpl' => $tpl]);
+                    return new JsonResponse(['erreurs' => $erreurs]);
                 }
             }
         }
