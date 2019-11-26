@@ -18,4 +18,7 @@ easy_admin:
           - { name: 'list', label: 'Retour à la liste des blocs partagés', title: 'Retour à la liste des pages', icon: 'arrow-left', css_class: '' }
           - { name: 'delete', label: 'Supprimer', title: 'Supprimer', icon: 'trash', css_class: '' }
         fields:
+          - { type: 'group', label: '', css_id: 'modifTitre', css_class: 'modal-box' }
           - nom
+          - { type: 'group', label: '' }
+          - { property: 'bloc', type: 'App\Form\Type\BlocType', type_options: { by_reference: true, label: false, required: false } }

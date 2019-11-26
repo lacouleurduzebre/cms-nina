@@ -5208,6 +5208,16 @@ body.notFull .conteneurBlocs > .dndBlocs > .pleineLargeur {
   text-decoration: none;
 }
 
+#edit-blocpartage-form .toggleAffichageBlocs {
+  top: 11.5rem;
+}
+#edit-blocpartage-form .conteneurBlocs > div > .field-bloc > .bloc-barreActions > .bloc-menu {
+  display: none;
+}
+#edit-blocpartage-form .bloc-panel.bloc-optionsAffichage {
+  top: 11rem;
+}
+
 #page_active_blocs_ .hide, #page_active_blocsAnnexes .hide {
   display: none;
 }

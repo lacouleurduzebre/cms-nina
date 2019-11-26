@@ -19,7 +19,7 @@
         {% endfor %}
 
         {# CSS DU FRONT POUR L'APERCU DES BLOCS #}
-        {% if (_entity_config.name is defined and (_entity_config.name == 'Page_Active' or _entity_config.name == 'Region')) and (app.request.get('action') is defined and (app.request.get('action') == 'new' or app.request.get('action') == 'edit')) %}
+        {% if (_entity_config.name is defined and (_entity_config.name == 'Page_Active' or _entity_config.name == 'Region' or _entity_config.name == 'BlocPartage')) and (app.request.get('action') is defined and (app.request.get('action') == 'new' or app.request.get('action') == 'edit')) %}
             {% include 'front/extraCss.html.twig' %}
         {% endif %}
         {# CSS DU FRONT POUR L'APERCU DES BLOCS #}
@@ -71,7 +71,7 @@
                 <section class="content-header">
                 {% block content_header %}
                     <h1 class="title">{% block content_title %}{% endblock %}</h1>
-                    {% if _entity_config.name == 'Page_Active' or _entity_config.name == 'Region' %}
+                    {% if _entity_config.name == 'Page_Active' or _entity_config.name == 'Region' or _entity_config.name == 'BlocPartage' %}
                         <span data-modal="modifTitre">
                             <i class="fas fa-pen mls"></i>
                         </span>
@@ -116,7 +116,7 @@
         {% endfor %}
 
         {% if _entity_config is defined %}
-            {% if _entity_config.name == 'Page_Active' or _entity_config.name == 'Region' %}
+            {% if _entity_config.name == 'Page_Active' or _entity_config.name == 'Region' or _entity_config.name == 'BlocPartage' %}
                 <script src="{{ asset('assets/js/partials/jsBackBloc.js') }}"></script>
             {% endif %}
 

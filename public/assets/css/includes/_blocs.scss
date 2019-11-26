@@ -690,6 +690,19 @@ div[id^="page_active_blocs"], div[id^="region_blocs"]{
   }
 }
 
+  //Édition d'un bloc partagé
+#edit-blocpartage-form{
+  .toggleAffichageBlocs{
+    top: 11.5rem;
+  }
+  .conteneurBlocs > div > .field-bloc > .bloc-barreActions > .bloc-menu{
+    display: none;
+  }
+  .bloc-panel.bloc-optionsAffichage{
+    top: 11rem;
+  }
+}
+
 //Blocs ouverts / fermés
 #page_active_blocs_, #page_active_blocsAnnexes{
   .hide{

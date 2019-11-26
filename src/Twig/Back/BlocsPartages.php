@@ -24,7 +24,16 @@ class BlocsPartages extends \Twig_Extension
     {
         return array(
             new \Twig_SimpleFunction('blocsPartages', array($this, 'blocsPartages')),
+            new \Twig_SimpleFunction('getBlocPartage', array($this, 'getBlocPartage')),
         );
+    }
+
+    //Récupérer le bloc partagé correspondant à un bloc
+    public function getBlocPartage($idBloc){
+        $repoBlocPartage = $this->doctrine->getRepository(BlocPartage::class);
+        $blocPartage = $repoBlocPartage->findOneBy(['bloc' => $idBloc]);
+
+        return $blocPartage;
     }
 
     public function blocsPartages($idBloc = null)

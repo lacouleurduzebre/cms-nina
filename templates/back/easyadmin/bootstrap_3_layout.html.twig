@@ -797,6 +797,22 @@
     {{ block('conteneurBlocs') }}
 {% endblock %}
 
+{% block _blocpartage_bloc_row %}
+    <div class="miseEnPage conteneurs conteneurBlocs">
+        <div class="toggleAffichageBlocs">
+            <a id="toggleMiseEnPage" class="btn mrs"><i class="fas fa-eye mrs"></i>{{ "Mise en page"|trans }}</a>
+            {% if form.vars.value.type == 'Section' %}
+                <a id="toggleConteneurs" class="btn"><i class="fas fa-eye mrs"></i>{{ "Conteneurs"|trans }}</a>
+                <a class="ajoutBloc btn"><i class="fas fa-plus mrs"></i>{{ "Ajouter un bloc"|trans }}</a>
+            {% endif %}
+        </div>
+
+        <div class="dndBlocs">
+            {{- form_row(form) -}}
+        </div>
+    </div>
+{% endblock %}
+
 {# BLOCS ANNEXES #}
 {% block _page_active_blocsAnnexes_row %}
     <div class="form-group field-collection">
@@ -1364,10 +1380,8 @@
     <div class="bloc-blocPartage-edition">
         {{- form_widget(form) -}}
         <div class="bloc-blocPartage-origine mls mbs">
-            {% if data is not empty %}
-                {% set bloc = bloc(data.blocPartage) %}
-                {% include 'back/blocs/blocsPartages/origineBlocPartage.html.twig' %}
-            {% endif %}
+            {% set blocPartage = getBlocPartage(form.vars.value.blocPartage) %}
+            <a href="{{ path('easyadmin', { action: 'edit', entity: 'BlocPartage', id: blocPartage.id }) }}">{{ "Éditer ce bloc dans la bibliothèque de blocs partagés"|trans }}</a>
         </div>
         <div>
             <button type="button" class="bloc-blocPartager-dissocier">{{ "Dissocier le bloc"|trans }}</button>

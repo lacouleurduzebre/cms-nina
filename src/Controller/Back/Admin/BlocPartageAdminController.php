@@ -58,4 +58,8 @@ class BlocPartageAdminController extends AdminController
 
         return $this->redirectToReferrer();
     }
+
+    protected function editBlocPartageAction(){
+        return $this->editAction(true);
+    }
 }
