@@ -424,8 +424,34 @@ $(document).ready(function(){
     });
 
     //Enregistrement des entités via ajax
-    $(".edit-form, .new-form").submit(function(e) {
+    $(".new-form").submit(function(e) {
+        e.preventDefault();
 
+        bouton = $('.formulaire-actions-enregistrer');
+        largeur = bouton.width();
+
+        bouton.attr('disabled', true).width(largeur).html('<i class="fas fa-sync fa-spin"></i>');
+
+        var form = $(this);
+
+        $('.error-block, .nav-tabs .label-danger').remove();
+
+        $.ajax({
+            type: "POST",
+            url: window.location.href,
+            data: form.serialize(),
+            success: function(data)
+            {
+                if(data.erreurs === true){
+                    form.unbind('submit').submit();
+                }else{
+                    window.location.href = data.redirection;
+                }
+            }
+        });
+    });
+
+    $(".edit-form").submit(function(e) {
         e.preventDefault();
 
         bouton = $('.formulaire-actions-enregistrer');
@@ -447,7 +473,13 @@ $(document).ready(function(){
                 if(data.erreurs === true){
                     form.unbind('submit').submit();
                 }else{
-                    window.location.href = data.redirection;
+                    bouton.width('auto').html(texte);
+
+                    $('#flash-messages').append(data.tpl);
+
+                    setTimeout(function(){
+                        $('.alert').fadeOut();
+                    }, 3000);
                 }
             }
         });
