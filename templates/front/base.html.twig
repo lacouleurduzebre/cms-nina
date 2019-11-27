@@ -46,6 +46,9 @@
         {# Menu horizontal du back office #}
         {% if checkDroit('admin') %}
             {{ include('back/header.html.twig') }}
+        {% else %}
+            {% set _logout_path = easyadmin_logout_path() %}
+            <a style="position: fixed; top: 0; right: 2rem; z-index: 100000; background-color: #A1BA1D; font-size: 30px; box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25); padding: 5px 10px; color: #FFF" href="{{ _logout_path }}" title="{% trans %}Déconnexion{% endtrans %}"><span><i class="fas fa-power-off"></i></span></a>
         {% endif %}
         {# Colonne de gauche du b/o #}
         {% if checkDroit('admin') %}
