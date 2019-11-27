@@ -59,6 +59,7 @@ class ImageType extends AbstractType
                 "label" => false,
                 "choices" => [
                     'Ne pas ajouter de lien' => 'sans',
+                    "Agrandir l'image" => 'lightbox',
                     'Ajouter un lien vers une page du site' => 'page',
                     'Ajouter un lien vers un autre contenu' => 'autre',
                 ],
