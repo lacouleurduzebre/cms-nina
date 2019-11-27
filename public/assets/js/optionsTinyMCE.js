@@ -17,11 +17,13 @@ $(document).ready(function(){
         external_filemanager_path:"/filemanager/",
         external_plugins: { "filemanager" : "/filemanager/plugin.min.js"},
 
+        paste_as_text: true,
+
         extended_valid_elements: 'i[class=class]',
 
         block_formats: 'Paragraphe=p;Titre h2=h2;Titre h3=h3;Titre h4=h4;Titre h5=h5;Titre h6=h6',
         image_advtab: true,
-        toolbar1: "bold italic underline | link unlink | bullist numlist | alignleft aligncenter alignright",
+        toolbar1: "bold italic underline | link unlink | bullist numlist | alignleft aligncenter alignright | pastetext",
 
         init_instance_callback: function (editor) {
             editor.on('Change', function (e) {
@@ -65,6 +67,8 @@ $(document).ready(function(){
         filemanager_title:"Médiathèque",
         external_filemanager_path:"/filemanager/",
         external_plugins: { "filemanager" : "/filemanager/plugin.min.js"},
+
+        paste_as_text: true,
 
         extended_valid_elements: 'i[class=class]',
 
