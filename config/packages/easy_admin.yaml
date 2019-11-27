@@ -14,7 +14,7 @@ easy_admin:
     edit:
         title: '%%entity_label%%'
         actions:
-            - { name: 'delete', label: 'Supprimer', title: 'Supprimer', icon: 'trash' }
+            - { name: 'delete', label: 'Supprimer', title: 'Supprimer', icon: 'trash', css_class: '' }
     formats:
         date: 'd/m/Y'
         time: 'H:i'

@@ -8,7 +8,9 @@ $(document).ready(function(){
         $('.formulaire-actions-enregistrer').attr("disabled", false);
         $(window).bind('beforeunload', function(){
             if(!clicEnregistrement){
-                return 'Êtes-vous sûr de vouloir quitter cette page ? Des données pourraient ne pas avoir été enregistrées';
+                return 'Êtes-vous sûr de vouloir quitter cette page ? Des données pourraient ne pas avoir été$(\'.modal-box .modal-content\').click(function(e){\n' +
+                    '        e.stopPropagation();\n' +
+                    '    }); enregistrées';
             }
         });
     };
@@ -397,7 +399,8 @@ $(document).ready(function(){
     });
 
     //Modal
-    $('[data-modal]').click(function(){
+    $('[data-modal]').click(function(e){
+        e.preventDefault();
         idModal = $(this).attr('data-modal');
         $('#'+idModal).fadeIn('slow', function(){
             $('#'+idModal).css({
@@ -407,19 +410,45 @@ $(document).ready(function(){
         });
     });
 
-    $('.modal-box').click(function(){
+    $('.modal-box, .modal-close').click(function(){
         $(this).closest('.modal-box').fadeOut('slow', function(){
             $('#'+idModal).css('opacity', 0);
         });
     });
 
-    $('.modal-content').click(function(e){
+    $('.modal-box .modal-content').click(function(e){
         e.stopPropagation();
     });
 
     //Enregistrement des entités via ajax
-    $(".edit-form, .new-form").submit(function(e) {
+    $(".new-form").submit(function(e) {
+        e.preventDefault();
 
+        bouton = $('.formulaire-actions-enregistrer');
+        largeur = bouton.width();
+
+        bouton.attr('disabled', true).width(largeur).html('<i class="fas fa-sync fa-spin"></i>');
+
+        var form = $(this);
+
+        $('.error-block, .nav-tabs .label-danger').remove();
+
+        $.ajax({
+            type: "POST",
+            url: window.location.href,
+            data: form.serialize(),
+            success: function(data)
+            {
+                if(data.erreurs === true){
+                    form.unbind('submit').submit();
+                }else{
+                    window.location.href = data.redirection;
+                }
+            }
+        });
+    });
+
+    $(".edit-form").submit(function(e) {
         e.preventDefault();
 
         bouton = $('.formulaire-actions-enregistrer');
