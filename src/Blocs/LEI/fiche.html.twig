@@ -33,7 +33,7 @@
 
         <h1 class="pageFiche-titre">{{ fiche.NOM }}</h1>
         {% if fiche.TYPE_NOM is defined %}<h2 class="pageFiche-sousTitre">{{ fiche.TYPE_NOM }}</h2>{% endif %}
-        {% if fiche.CRITERES is defined and fiche.CRITERES.Crit is not empty %}
+        {% if fiche.CRITERES.Crit is defined and fiche.CRITERES.Crit is not empty %}
             <div id="galerieFiche" class="pageFiche-conteneurImages flex-container">
                 {% if photo %}
                     <a data-fancybox="galerieFiche" href="{{ photo.photo }}">

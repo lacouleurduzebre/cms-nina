@@ -44,9 +44,9 @@
 
     <div class="fichesLEI grid-3-small-2 has-gutter-l">
         {% for fiche in resultats['donnees'] %}
-            <div class="ficheLEI fiche-{{ fiche.PRODUIT }}" {% if fiche.CRITERES is defined %}data-criteres="{% for critere in fiche.CRITERES.Crit %}{{ critere.attributes.CLEF_CRITERE~'_'~critere.attributes.CLEF_MODA~' ' }}{% endfor %}"{% endif %}>
+            <div class="ficheLEI fiche-{{ fiche.PRODUIT }}" {% if fiche.CRITERES.Crit is defined %}data-criteres="{% for critere in fiche.CRITERES.Crit %}{{ critere.attributes.CLEF_CRITERE~'_'~critere.attributes.CLEF_MODA~' ' }}{% endfor %}"{% endif %}>
                 <p class="ficheLEI-commune">{{ fiche.ADRPROD_LIBELLE_COMMUNE }}</p>
-                {% if fiche.CRITERES is defined %}
+                {% if fiche.CRITERES.Crit is defined %}
                     {% set photo = getPhotoPrincipale(fiche.CRITERES) %}
                 {% endif %}
                 {% if photo.photo is defined %}
