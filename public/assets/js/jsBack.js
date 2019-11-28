@@ -122,7 +122,8 @@ $(document).ready(function(){
 
     $(document).on('afterClose.fb', function( e, instance, slide ) {
         id = slide.src.substr(slide.src.indexOf('field_id=')+9);
-        urlImg = $('#'+id).val();
+        urlImg = $('#'+id).val().replace(window.location.origin, '');
+        $('#'+id).val(urlImg);
 
         if(id === 'utilisateur_imageProfil'){//Image de profil
             $('#'+id).siblings('.apercuImageProfil').find('img').attr('src', urlImg);

@@ -45,7 +45,9 @@
 
         <div class="pageFiche-presentation">
             <h3>{{ "Présentation"|trans }}</h3>
-            {% if fiche.COMMENTAIRE is defined %}
+            {% if fiche.COMMENTAIREHTML is defined %}
+                {{ fiche.COMMENTAIREHTML|raw }}
+            {% elseif fiche.COMMENTAIRE is defined %}
                 <p>{{ fiche.COMMENTAIRE|raw }}</p>
             {% endif %}
         </div>
