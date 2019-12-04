@@ -31,6 +31,24 @@ $(document).ready(function(){
         $('.formulaireLangue').slideToggle();
     });
 
+    //Étape 3 : Compte admin
+    $('#voirMDP').click(function(){
+        type = $(this).prev('input').attr('type');
+        (type === 'text') ? $(this).prev('input').attr('type', 'password') : $(this).prev('input').attr('type', 'text');
+        $(this).find('svg').toggleClass('fa-eye fa-eye-slash');
+    });
+
+    $('#genererMDP').click(function(){
+        var length = Math.random() * (20 - 15) + 15,
+            charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789",
+            mdp = "";
+        for (var i = 0, n = charset.length; i < length; ++i) {
+            mdp += charset.charAt(Math.floor(Math.random() * n));
+        }
+        $(this).siblings('input').val(mdp).attr('type', 'text');
+        $('#voirMDP').find('svg').removeClass('fa-eye').addClass('fa-eye-slash');
+    });
+
     //Etape 4 : Thème
     $('.theme').click(function(){
         $('.theme').not($(this)).removeClass('actif');

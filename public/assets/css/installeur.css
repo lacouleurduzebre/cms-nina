@@ -2537,7 +2537,7 @@ input {
   font-size: 1.6rem;
   color: #000 !important;
 }
-input[type=text], input[type=email] {
+input[type=text], input[type=email], input[type=password] {
   background: #EEEEEE;
   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
   border-radius: 5px;
@@ -2675,6 +2675,38 @@ footer img {
   color: #000;
   font-size: 2.5rem;
   font-weight: 700;
+}
+
+._form_plainPassword {
+  position: relative;
+}
+
+#voirMDP, #genererMDP {
+  border-radius: 2rem;
+  background-color: #0791B3;
+  border: none;
+  color: #fff;
+  font-size: 1.2rem;
+  display: flex;
+  align-items: center;
+  padding: 0.3rem 1rem;
+  cursor: pointer;
+  font-size: 1.6rem;
+  padding: 0.5rem 1rem;
+}
+#voirMDP:hover, #genererMDP:hover {
+  background-color: #056982;
+}
+
+#voirMDP {
+  position: absolute;
+  bottom: 5.5rem;
+  right: -5rem;
+}
+
+#genererMDP {
+  display: inline-block;
+  margin-top: 1rem;
 }
 
 .themes {

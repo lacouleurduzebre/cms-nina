@@ -12,3 +12,9 @@
         {{- form_widget(form, widget_attr) -}}
     </div>
 {%- endblock form_row -%}
+
+{% block _form_plainPassword_widget %}
+    {{ form_widget(form) }}
+    <a id="voirMDP"><i class="fas fa-eye"></i></a>
+    <a id="genererMDP">{{ "Générer un mot de passe sécurisé"|trans }}</a>
+{% endblock %}

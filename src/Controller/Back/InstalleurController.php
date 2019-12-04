@@ -27,6 +27,7 @@ use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
+use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\HttpFoundation\Request;
@@ -315,7 +316,7 @@ class InstalleurController extends Controller
                 $form = $this->createFormBuilder($user)
                     ->add('username', TextType::class, ['label' => 'Identifiant'])
                     ->add('email', EmailType::class, ['label' => 'Adresse e-mail'])
-                    ->add('plainPassword', TextType::class, ['label' => 'Mot de passe'])
+                    ->add('plainPassword', PasswordType::class, ['label' => 'Mot de passe'])
                     ->add('etapeSuivante', SubmitType::class, ['label' => 'Étape suivante'])
                     ->getForm();
 

@@ -40,6 +40,28 @@
   }
 }
 
+//Étape 3 : Compte admin
+._form_plainPassword{
+  position: relative;
+}
+
+#voirMDP, #genererMDP{
+  @include boutonBleu;
+  font-size: 1.6rem;
+  padding: .5rem 1rem;
+}
+
+#voirMDP{
+  position: absolute;
+  bottom: 5.5rem;
+  right: -5rem;
+}
+
+#genererMDP{
+  display: inline-block;
+  margin-top: 1rem;
+}
+
 //Étape 4 : Thème
 .themes{
   display: flex;
@@ -151,18 +173,7 @@
 }
 
 button[id^="ajoutPage"], .enregistrement{
-  border-radius: 2rem;
-  background-color: $color-brand2;
-  border: none;
-  color: $white;
-  font-size: 1.2rem;
-  display: flex;
-  align-items: center;
-  padding: .3rem 1rem;
-  cursor: pointer;
-  &:hover{
-    background-color: darken($color-brand2, 10);
-  }
+  @include boutonBleu;
 }
 
 button[id^="ajoutPage"]{
