@@ -23,29 +23,33 @@ class AppFixtures extends Fixture
     {
         $date = new \DateTime();
 
-        if(!$installeur){
-            //Rôles
+        //Rôles
+        if($installeur){
+            $droits = Yaml::parseFile('../config/droits.yaml');
+        }else{
             $droits = Yaml::parseFile(getcwd().'/config/droits.yaml');
+        }
 
-            $droitsAdmin = [];
-            $droitsUtilisateur = [];
-            foreach($droits as $categorie){
-                foreach($categorie as $droit => $label){
-                    $droitsAdmin[$droit] = true;
-                    $droitsUtilisateur[$droit] = ($droit == 'admin');
-                }
+        $droitsAdmin = [];
+        $droitsUtilisateur = [];
+        foreach($droits as $categorie){
+            foreach($categorie as $droit => $label){
+                $droitsAdmin[$droit] = true;
+                $droitsUtilisateur[$droit] = ($droit == 'admin');
             }
+        }
 
-            $roleAdmin = new Role();
-            $roleAdmin->setNom('ROLE_ADMIN')
-                ->setDroits($droitsAdmin);
-            $manager->persist($roleAdmin);
+        $roleAdmin = new Role();
+        $roleAdmin->setNom('ROLE_ADMIN')
+            ->setDroits($droitsAdmin);
+        $manager->persist($roleAdmin);
 
-            $roleUtilisateur = new Role();
-            $roleUtilisateur->setNom('ROLE_UTILISATEUR')
-                ->setDroits($droitsUtilisateur);
-            $manager->persist($roleUtilisateur);
+        $roleUtilisateur = new Role();
+        $roleUtilisateur->setNom('ROLE_UTILISATEUR')
+            ->setDroits($droitsUtilisateur);
+        $manager->persist($roleUtilisateur);
 
+        if(!$installeur){
             //Admin
             $utilisateur = new Utilisateur();
             $utilisateur->setUsername('admin')
