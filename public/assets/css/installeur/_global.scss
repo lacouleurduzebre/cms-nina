@@ -1,0 +1,106 @@
+//Global
+body{
+  font-family: 'Cabin', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+}
+
+.contenu{
+  max-width: $large;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+h1{
+  color: $color-brand2;
+  font-size: 4rem;
+  font-weight: $weight-bold;
+  display: flex;
+  align-items: center;
+  margin-bottom: 3.5rem;
+  svg{
+    margin-right: 1.5rem;
+    font-size: 7rem !important;
+  }
+}
+
+.boutons{
+  margin-top: 8.5rem;
+  display: flex;
+}
+
+//Formulaires
+form > div:not(.boutons){
+  width: 30rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+label{
+  display: block;
+  font-weight: bold;
+  font-size: 2rem;
+  color: $black;
+  margin-top: 1.7rem;
+  margin-bottom: 1.3rem;
+}
+
+input{
+  margin-bottom: 1.5rem;
+  font-size: 1.6rem;
+  color: $black !important;
+  &[type=text], &[type=email]{
+    background: #EEEEEE;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+    border-radius: 5px;
+    height: 5rem;
+    border: none;
+    width: 100%;
+  }
+}
+
+form > .checkbox{
+  display: flex;
+  align-items: center;
+  margin-top: 2rem;
+  label{
+    order: 2;
+    flex: 1;
+    font-weight: $weight-regular;
+    font-size: 1.6rem;
+  }
+}
+
+.checkbox input{
+  border: 1px solid #D3D3D3 !important;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+[type=submit]{
+  color: $white;
+  background-color: $color-brand;
+  border: none;
+  border-radius: .5rem;
+  font-size: 1.8rem;
+  padding: .5rem 3rem;
+  margin-left: 3rem;
+  &:hover{
+    background-color: darken($color-brand, 10);
+  }
+}
+
+button{
+  background: #EEEEEE;
+  box-shadow: none;
+}
+
+.help-text{
+  margin-top: -2rem;
+}
+
+.erreur{
+  border: 1px solid red;
+  padding: 1rem;
+  color: red;
+  margin-bottom: 1rem;
+}

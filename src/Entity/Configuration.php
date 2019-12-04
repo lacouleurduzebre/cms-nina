@@ -109,9 +109,15 @@ class Configuration
      */
     private $favicon;
 
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $installe;
+
     public function __construct()
     {
         $this->maintenance = false;
+        $this->installe = false;
         $this->affichageCommentaires = true;
         $this->affichageDatePublication = true;
         $this->affichageAuteur = true;
@@ -382,6 +388,16 @@ class Configuration
     public function setFavicon(?string $favicon): self
     {
         $this->favicon = $favicon;
+    }
+
+    public function getInstalle(): ?bool
+    {
+        return $this->installe;
+    }
+
+    public function setInstalle(bool $installe): self
+    {
+        $this->installe = $installe;
 
         return $this;
     }

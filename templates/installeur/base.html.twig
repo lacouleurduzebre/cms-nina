@@ -1,0 +1,83 @@
+{% if form is defined %}
+    {% form_theme form with 'installeur/champsFormulaire.html.twig' %}
+{% endif %}
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+        <title>{% block title %}{{ "CMS Nina - Installation"|trans }}{% endblock %}</title>
+        {% block stylesheets %}
+            <link href="https://fonts.googleapis.com/css?family=Cabin:400,700" rel="stylesheet">
+            <link rel="stylesheet" href="{{ asset('assets/css/installeur.css') }}" type="text/css">
+        {% endblock %}
+        <script src="{{ asset('assets/js/jquery-3.2.1.min.js') }}"></script>
+        <script src="{{ asset('assets/js/fontawesome-all.min.js') }}"></script>
+        {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+            <script src="{{ asset('assets/js/fosjsrouting/js/router.js') }}"></script>
+            <script src="{{ asset('assets/js/fosjsrouting/js/fos_js_routes.js') }}"></script>
+        {% endif %}
+        <link rel="icon" type="image/x-icon" href="{{ asset('assets/img/favicon.ico') }}" />
+    </head>
+    <body>
+        <header>
+            <img src="/assets/img/logoNina.png" alt="CMS Nina">
+        </header>
+
+        <main class="center">
+            {% if app.request.get('etape') != 7 %}
+                <div class="tunnel flex-container">
+                    <ul>
+                        {% set etapeDesactivee = false %}
+                        {% for numero, etape in etapes %}
+                            {% if not loop.last %}
+                                {% if etape.active %}
+                                    {% set etapeDesactivee = true %}
+                                {% endif %}
+                                <li {% if etape.active %}class="active"{% endif %}>
+                                    {% if not etapeDesactivee %}
+                                    <a href="{{ path('installeur', {etape: numero}) }}">
+                                        {% endif %}
+                                        <span>{{ numero }}. {{ etape.titre }}</span>
+                                        {% if not etapeDesactivee %}
+                                        <i class="fas fa-check"></i>
+                                    </a>
+                                    {% endif %}
+                                </li>
+                            {% endif %}
+                        {% endfor %}
+                    </ul>
+                </div>
+            {% endif %}
+            <div class="contenu etape-{{ app.request.get('etape') }}">
+                <h1><i class="fas fa-{{ etapes[app.request.get('etape')].icone }}"></i>{{ etapes[app.request.get('etape')].titreComplet }}</h1>
+                {% for message in app.flashes('error') %}
+                    <div class="erreur">
+                        <i class="fas fa-exclamation-circle"></i> {{ message }}
+                    </div>
+                {% endfor %}
+                {% block main %}{% endblock %}
+            </div>
+        </main>
+
+        <footer>
+            <div class="mw1140p center flex-container">
+                <div>
+                    <img src="/assets/img/installeur/logo-nina.png" alt="CMS Nina">
+                </div>
+                <div>
+                    <img src="/assets/img/installeur/logo-alsace.png" alt="Alsace">
+                    <p>Un CMS alsacien simple et complet</p>
+                </div>
+                <div>
+                    <p>Développé par</p>
+                    <a href="https://lacouleurduzebre.com"><img src="/assets/img/installeur/logo-lcdz.png" alt="La couleur du zèbre"></a>
+                </div>
+            </div>
+        </footer>
+
+        {% block javascripts %}
+            <script src="{{ asset('assets/js/jsInstalleur.js') }}"></script>
+        {% endblock %}
+    </body>
+</html>

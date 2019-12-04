@@ -1,0 +1,31 @@
+{% extends 'installeur/base.html.twig' %}
+
+{% block main %}
+    <div class="themes grid-3-small-2-tiny-1 has-gutter-l">
+        {% for nom,theme in themes %}
+            <div id="{{ nom }}" class="theme">
+                <div class="theme-illustration">
+                    {% if theme.installe %}
+                        {% if assetExists(app.request.baseUrl~'themes_thumbs/'~nom~'.jpg') %}
+                            <img src="{{ asset('themes_thumbs/'~nom~'.jpg') }}" alt="{{ nom }}">
+                        {% else %}
+                            <i class="fas fa-camera"></i>
+                        {% endif %}
+                    {% else %}
+                        <img src="https://www.cms-nina.fr/themes-nina/{{ nom }}.jpg" alt="{{ nom }}">
+                    {% endif %}
+                </div>
+                <div class="theme-infos">
+                    <span class="active">{{ "Activé"|trans }}</span>
+                    <h2>{{ theme.nom }}</h2>
+                    <p><strong>{{ "Auteur : "|trans }}</strong>{{ theme.auteur }}</p>
+                    <p><strong>{{ "Site de l'auteur : "|trans }}</strong><a target="_blank" href="{{ theme.site }}">{{ theme.site }}</a></p>
+                    <p><strong>{{ "Description : "|trans }}</strong>{{ theme.description }}</p>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+
+    {% include('installeur/formulaireSimple.html.twig') %}
+
+{% endblock %}

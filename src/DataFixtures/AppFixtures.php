@@ -19,80 +19,122 @@ use Symfony\Component\Yaml\Yaml;
 
 class AppFixtures extends Fixture
 {
-    public function load(ObjectManager $manager)
+    public function load(ObjectManager $manager, $installeur = false)
     {
-        //Rôles
-        $droits = Yaml::parseFile(getcwd().'/config/droits.yaml');
-
-        $droitsAdmin = [];
-        $droitsUtilisateur = [];
-        foreach($droits as $categorie){
-            foreach($categorie as $droit => $label){
-                $droitsAdmin[$droit] = true;
-                $droitsUtilisateur[$droit] = ($droit == 'admin');
-            }
-        }
-
-        $roleAdmin = new Role();
-        $roleAdmin->setNom('ROLE_ADMIN')
-            ->setDroits($droitsAdmin);
-        $manager->persist($roleAdmin);
-
-        $roleUtilisateur = new Role();
-        $roleUtilisateur->setNom('ROLE_UTILISATEUR')
-            ->setDroits($droitsUtilisateur);
-        $manager->persist($roleUtilisateur);
-
-        //Admin
-        $utilisateur = new Utilisateur();
-        $utilisateur->setUsername('admin')
-            ->setEmail('maintenance@lacouleurduzebre.com')
-            ->setPlainPassword('admin')
-            ->addRole('ROLE_ADMIN')
-            ->setEnabled(true);
-        $manager->persist($utilisateur);
-
-        //Configuration générale
-        $config = new Configuration();
-        $config->setNom('Nouveau site')
-            ->setLogo('/theme/img/logo.png')
-            ->setEmailContact('maintenance@lacouleurduzebre.com')
-            ->setEmailMaintenance('maintenance@lacouleurduzebre.com')
-            ->setEditeur('la couleur du Zèbre')
-            ->setTheme('nina')
-            ->setMaintenance(true);
-        $manager->persist($config);
-
         $date = new \DateTime();
 
-        //Langue : français
-        $langue = new Langue();
-        $langue->setNom('français')
-            ->setAbreviation('fr')
-            ->setDefaut(true)
-            ->setCode('fr-FR');
-        $manager->persist($langue);
+        if(!$installeur){
+            //Rôles
+            $droits = Yaml::parseFile(getcwd().'/config/droits.yaml');
 
-        //Page sans titre
-        $seo = new SEOPage();
-        $seo->setUrl('page-sans-titre')
-            ->setMetaTitre('Page sans titre')
-            ->setMetaDescription('Page sans titre');
-        $manager->persist($seo);
+            $droitsAdmin = [];
+            $droitsUtilisateur = [];
+            foreach($droits as $categorie){
+                foreach($categorie as $droit => $label){
+                    $droitsAdmin[$droit] = true;
+                    $droitsUtilisateur[$droit] = ($droit == 'admin');
+                }
+            }
 
-        $page = new Page();
-        $page->setTitre('Page sans titre')
-            ->setTitreMenu('Page sans titre')
-            ->setAuteur($utilisateur)
-            ->setAuteurDerniereModification($utilisateur)
-            ->setDateCreation($date)
-            ->setDatePublication($date)
-            ->setLangue($langue)
-            ->setSEO($seo);
-        $manager->persist($page);
+            $roleAdmin = new Role();
+            $roleAdmin->setNom('ROLE_ADMIN')
+                ->setDroits($droitsAdmin);
+            $manager->persist($roleAdmin);
 
-        $langue->setPageAccueil($page);
-        $manager->persist($langue);
+            $roleUtilisateur = new Role();
+            $roleUtilisateur->setNom('ROLE_UTILISATEUR')
+                ->setDroits($droitsUtilisateur);
+            $manager->persist($roleUtilisateur);
+
+            //Admin
+            $utilisateur = new Utilisateur();
+            $utilisateur->setUsername('admin')
+                ->setEmail('maintenance@lacouleurduzebre.com')
+                ->setPlainPassword('admin')
+                ->addRole('ROLE_ADMIN')
+                ->setEnabled(true);
+            $manager->persist($utilisateur);
+
+            //Configuration générale
+            $config = new Configuration();
+            $config->setNom('Nouveau site')
+                ->setLogo('/theme/img/logo.png')
+                ->setEmailContact('maintenance@lacouleurduzebre.com')
+                ->setEmailMaintenance('maintenance@lacouleurduzebre.com')
+                ->setEditeur('la couleur du Zèbre')
+                ->setTheme('nina')
+                ->setMaintenance(false)
+                ->setInstalle(true);
+            $manager->persist($config);
+
+            //Langue : français
+            $langue = new Langue();
+            $langue->setNom('français')
+                ->setAbreviation('fr')
+                ->setDefaut(true)
+                ->setCode('fr-FR');
+            $manager->persist($langue);
+
+            $manager->flush();
+        }else{
+            $repoConfig = $manager->getRepository(Configuration::class);
+            $config = $repoConfig->find(1);
+        }
+
+        $repoUtilisateur = $manager->getRepository(Utilisateur::class);
+        $utilisateur = $repoUtilisateur->find(1);
+
+        $repoLangue = $manager->getRepository(Langue::class);
+        $langue = $repoLangue->find(1);
+
+        $repoSEOPage = $manager->getRepository(SEOPage::class);
+
+        //Accueil
+        if(!$repoSEOPage->findOneBy(array('url' => 'accueil'))){
+            $seo = new SEOPage();
+            $seo->setUrl('accueil')
+                ->setMetaTitre('Accueil')
+                ->setMetaDescription('Accueil');
+            $manager->persist($seo);
+
+            $page = new Page();
+            $page->setTitre('Accueil')
+                ->setTitreMenu('Accueil')
+                ->setAuteur($utilisateur)
+                ->setAuteurDerniereModification($utilisateur)
+                ->setDateCreation($date)
+                ->setDatePublication($date)
+                ->setLangue($langue)
+                ->setSEO($seo);
+            $manager->persist($page);
+
+            $langue->setPageAccueil($page);
+            $manager->persist($langue);
+        }
+
+        //Page mentions légales
+        if(!$repoSEOPage->findOneBy(array('url' => 'mentions-legales'))) {
+            $seoML = new SEOPage();
+            $seoML->setUrl('mentions-legales')
+                ->setMetaTitre('Mentions légales')
+                ->setMetaDescription('Mentions légales');
+            $manager->persist($seoML);
+
+            $pageML = new Page();
+            $pageML->setTitre('Mentions légales')
+                ->setTitreMenu('Mentions légales')
+                ->setAuteur($utilisateur)
+                ->setAuteurDerniereModification($utilisateur)
+                ->setDateCreation($date)
+                ->setDatePublication($date)
+                ->setLangue($langue)
+                ->setSEO($seoML);
+            $manager->persist($pageML);
+
+            $config->setBandeauCookies(true)
+                ->setPageCookies($pageML);
+            $manager->persist($config);
+        }
 
         //Menu principal
         $menu = new Menu();
@@ -101,11 +143,13 @@ class AppFixtures extends Fixture
             ->setDefaut(true);
         $manager->persist($menu);
 
-        $menuPage = new MenuPage();
-        $menuPage->setPosition(0)
-            ->setMenu($menu)
-            ->setPage($page);
-        $manager->persist($menuPage);
+        if(!$repoSEOPage->findOneBy(array('url' => 'accueil'))){
+            $menuPage = new MenuPage();
+            $menuPage->setPosition(0)
+                ->setMenu($menu)
+                ->setPage($page);
+            $manager->persist($menuPage);
+        }
 
         //Menu footer
         $menuFooter = new Menu();
@@ -114,7 +158,15 @@ class AppFixtures extends Fixture
             ->setDefaut(false);
         $manager->persist($menuFooter);
 
-        //Premier flush pour obtenir les id des menus
+        if(!$repoSEOPage->findOneBy(array('url' => 'mentions-legales'))){
+            $menuPageFooter = new MenuPage();
+            $menuPageFooter->setPosition(0)
+                ->setMenu($menuFooter)
+                ->setPage($pageML);
+            $manager->persist($menuPageFooter);
+        }
+
+        //Flush pour obtenir les id des menus
         $manager->flush();
 
         //Régions header, contenu et footer

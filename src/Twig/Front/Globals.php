@@ -11,6 +11,7 @@ namespace App\Twig\Front;
 
 use App\Entity\Configuration;
 use App\Entity\Langue;
+use App\Entity\Region;
 use App\Service\Page;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
@@ -29,70 +30,92 @@ class Globals extends \Twig_Extension implements \Twig_Extension_GlobalsInterfac
 
     public function getGlobals()
     {
-        //Config
-        $repoConfig = $this->doctrine->getRepository(Configuration::class);
-        $config = $repoConfig->find(1);
+        if($this->doctrine->getConnection()->isConnected()){
+            //Config
+            $repoConfig = $this->doctrine->getRepository(Configuration::class);
 
-        //Thème
-        $theme = $config->getTheme();
+            try {
+                $repoConfig->find(1);
+            } catch (\Exception $e) {
+                return ['installeur' => true];
+            }
 
-        if(!$theme){
-            $theme = 'nina';
-        }
+            $repoRegion = $this->doctrine->getRepository(Region::class);
+            $contenu = $repoRegion->findOneBy(array('identifiant' => 'contenu'));
+            if($contenu){
+                $installeur = false;
+            }else{
+                $installeur = true;
+            }
 
-        //Paramètres du thème
-        $configTheme = null;
+            $config = $repoConfig->find(1);
 
-        if(file_exists('../themes/'.$theme.'/config.yaml')){
-            $fichierDefaut = Yaml::parseFile('../themes/'.$theme.'/config.yaml');
+            //Thème
+            if($config){
+                $theme = $config->getTheme();
+            }
 
-            if(key_exists('champs', $fichierDefaut)){
-                $champs = $fichierDefaut['champs'];
+            if(!$config || !$theme){
+                $theme = 'nina';
+            }
 
-                $nomFichierParametres = '../themes/'.$theme.'/parametres.yaml';
-                if(!file_exists($nomFichierParametres)){
-                    $fichiersParametres = fopen($nomFichierParametres, "w");
-                    fclose($fichiersParametres);
-                }
-                $configTheme = Yaml::parseFile($nomFichierParametres);
+            //Paramètres du thème
+            $configTheme = null;
 
-                foreach($champs as $champ => $infos){
-                    if($configTheme && key_exists($theme, $configTheme)){//Paramètre modifié par l'utilisateur
-                        $data = $configTheme[$theme];
-                    }else{//Paramètre par défaut
-                        $data = $infos['defaut'];
+            if(file_exists('../themes/'.$theme.'/config.yaml')) {
+                $fichierDefaut = Yaml::parseFile('../themes/' . $theme . '/config.yaml');
+
+                if (key_exists('champs', $fichierDefaut)) {
+                    $champs = $fichierDefaut['champs'];
+
+                    $nomFichierParametres = '../themes/' . $theme . '/parametres.yaml';
+                    if (!file_exists($nomFichierParametres)) {
+                        $fichiersParametres = fopen($nomFichierParametres, "w");
+                        fclose($fichiersParametres);
                     }
-                    $configTheme[$champ] = $data;
+                    $configTheme = Yaml::parseFile($nomFichierParametres);
+
+                    foreach ($champs as $champ => $infos) {
+                        if ($configTheme && key_exists($theme, $configTheme)) {//Paramètre modifié par l'utilisateur
+                            $data = $configTheme[$theme];
+                        } else {//Paramètre par défaut
+                            $data = $infos['defaut'];
+                        }
+                        $configTheme[$champ] = $data;
+                    }
                 }
             }
+
+            //Page active
+            $page = $this->servicePage->getPageActive();
+
+            //Langues
+            $repoLangue = $this->doctrine->getRepository(Langue::class);
+            $langues = $repoLangue->findBy(array('active' => '1'));
+
+            //Langue active
+            if($this->request){
+                $locale = $this->request->getLocale();
+                if($locale){
+                    $langueActive = $repoLangue->findOneBy(array('abreviation'=>$locale));
+                }
+                if(!$langueActive){
+                    $langueActive = $repoLangue->findOneBy(array('defaut'=>1));
+                }
+            }else{
+                $langueActive = null;
+            }
+
+            return array(
+                'config' => $config,
+                'page' => $page,
+                'langues' => $langues,
+                'langueActive' => $langueActive,
+                'theme' => $theme,
+                'installeur' => $installeur
+            );
         }
 
-        //Page active
-        $page = $this->servicePage->getPageActive();
-
-        //Langues
-        $repoLangue = $this->doctrine->getRepository(Langue::class);
-        $langues = $repoLangue->findBy(array('active' => '1'));
-
-        //Langue active
-        if($this->request){
-            $locale = $this->request->getLocale();
-            if($locale){
-                $langueActive = $repoLangue->findOneBy(array('abreviation'=>$locale));
-            }
-            if(!$langueActive){
-                $langueActive = $repoLangue->findOneBy(array('defaut'=>1));
-            }
-        }else{
-            $langueActive = null;
-        }
-
-        return array(
-            'config' => $config,
-            'page' => $page,
-            'langues' => $langues,
-            'langueActive' => $langueActive,
-            'theme' => $theme
-        );
+        return ['installeur' => true];
     }
 }
