@@ -12,11 +12,12 @@ namespace App\Blocs\Recherche;
 use App\Entity\Bloc;
 use App\Entity\Page;
 use App\Service\Langue;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use App\Service\Pagination;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
-class RechercheController extends Controller
+class RechercheController extends AbstractController
 {
     /**
      * @Route("/recherche/resultats", name="recherche")
@@ -24,7 +25,7 @@ class RechercheController extends Controller
      *     "_locale"="^[A-Za-z]{1,2}$"
      * })
      */
-    public function rechercheAction(Request $request, Langue $slangue, $_locale = null){
+    public function rechercheAction(Request $request, Langue $slangue, Pagination $pagination, $_locale = null){
         //Test route : locale ou non
         $redirection = $slangue->redirectionLocale('recherche', $_locale);
         if($redirection){
@@ -43,6 +44,17 @@ class RechercheController extends Controller
 
         $pages = array_merge($pages, $blocs);
 
-        return $this->render('Blocs/Recherche/ResultatsRecherche.html.twig', array('pages' => $pages));
+        //Pagination
+        $page = isset($_GET['page']) ? $_GET['page'] : 1;
+        $parametres = [
+            'pagination' => [
+                1
+            ],
+            'resultatsParPage' => 10
+        ];
+        $resultats = $pagination->getPagination($pages, $parametres, $page);
+        //Pagination
+
+        return $this->render('Blocs/Recherche/ResultatsRecherche.html.twig', array('resultats' => $resultats));
     }
 }

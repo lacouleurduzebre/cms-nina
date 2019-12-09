@@ -2,13 +2,23 @@
 
 {% block main %}
     <h1>{{ "Résultats de recherche pour : "|trans }}"{{ app.request.get('recherche') }}"</h1>
-    {% if pages is empty %}
+
+    {% if resultats.donnees is empty %}
         <p class="pas">{{ "Aucun résultat"|trans }}</p>
     {% endif %}
+
     <div class="blocRecherche">
-        {% for page in pages %}
+        <div class="pagination">
+            {{ resultats.pagination|raw }}
+        </div>
+
+        {% for page in resultats.donnees %}
             <h3>{{ page.titre }}</h3>
             <p><a href="{{ lienPage(page) }}">{{ "Voir la page"|trans }}</a></p>
         {% endfor %}
+
+        <div class="pagination">
+            {{ resultats.pagination|raw }}
+        </div>
     </div>
 {% endblock %}
