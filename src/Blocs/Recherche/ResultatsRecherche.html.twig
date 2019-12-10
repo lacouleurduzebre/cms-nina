@@ -13,9 +13,9 @@
 
             {% for page in resultats.donnees %}
                 <div class="blocRecherche-resultat">
-                    <h3>{{ page.titre }}</h3>
-                    {% if resumes[page.id] is defined %}
-                        {{ resumes[page.id]|raw }}
+                    <h3>{{ page.titre|raw }}</h3>
+                    {% if page.resume is defined %}
+                        {{ page.resume|raw }}
                     {% endif %}
                     <p><a href="{{ lienPage(page) }}">{{ "Voir la page"|trans }}</a></p>
                 </div>

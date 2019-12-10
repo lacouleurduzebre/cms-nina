@@ -15,6 +15,7 @@ use App\Service\Langue;
 use App\Service\Pagination;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 class RechercheController extends AbstractController
@@ -39,35 +40,43 @@ class RechercheController extends AbstractController
         $repoPage = $this->getDoctrine()->getRepository(Page::class);
         $pages = $repoPage->recherche($motsCles);
 
+        //Poids des pages dont un des mots-clés est dans le titre
+        foreach($pages as $page){
+            $page->poids = 999;
+        }
+        //Poids des pages dont un des mots-clés est dans le titre
+
         $repoBloc = $this->getDoctrine()->getRepository(Bloc::class);
         $blocs = $repoBloc->recherche($motsCles);
 
         $pages = array_merge($pages, $blocs);
 
-        //Description des pages
-        $resumes = [];
-
+        //Poids des autres pages
         foreach($pages as $page){
-            $blocTexte = $repoBloc->premierBloc($page, 'texte');
-            $blocParagraphe = $repoBloc->premierBloc($page, 'paragraphe');
+            if(!isset($page->poids)){
+                $tpl = $this->renderView('front/blocs.html.twig', ['blocs' => $page->getBlocs()]);
+                $tpl = strip_tags($tpl);
 
-            if(!$blocTexte && !$blocParagraphe){
-                $resumes[$page->getId()] = false;
-            }else{
-                if(!$blocTexte){
-                    $resume = $blocParagraphe->getContenu()['texte'];
-                }elseif(!$blocParagraphe){
-                    $resume = $blocTexte->getContenu()['texte'];
-                }else{
-                    $resume = ($blocTexte->getPosition() < $blocParagraphe->getPosition()) ? $blocTexte->getContenu()['texte'] : $blocParagraphe->getContenu()['texte'];
+                $poids = 0;
+
+                foreach($motsCles as $motCle){
+                    $poids += substr_count($tpl, $motCle);
                 }
 
-                $resume = strip_tags($resume);
-                $resume = substr($resume, 0, 300).'...';
-                $resumes[$page->getId()] = $resume;
+                $page->poids = $poids;
             }
         }
-        //Description des pages
+        //Poids des autres pages
+
+        //Tri par poids
+        usort($pages, function ($a, $b) {
+            if ($a->poids == $b->poids) {
+                return 0;
+            }
+
+            return ($a->poids > $b->poids) ? -1 : 1;
+        });
+        //Tri par poids
 
         //Pagination
         $page = isset($_GET['page']) ? $_GET['page'] : 1;
@@ -80,6 +89,21 @@ class RechercheController extends AbstractController
         $resultats = $pagination->getPagination($pages, $parametres, $page);
         //Pagination
 
-        return $this->render('Blocs/Recherche/ResultatsRecherche.html.twig', array('resultats' => $resultats, 'resumes' => $resumes));
+        //Résumé des pages
+        foreach($resultats['donnees'] as $page){
+            $tpl = $this->renderView('front/blocs.html.twig', ['blocs' => $page->getBlocs()]);
+            $tpl = strip_tags($tpl);
+            $resume = substr($tpl, 0, 300).'...';
+
+            foreach($motsCles as $motCle){
+                $resume = str_ireplace($motCle, '<strong>'.$motCle.'</strong>', $resume);
+                $page->setTitre(str_ireplace($motCle, '<strong>'.$motCle.'</strong>', $page->getTitre()));
+            }
+
+            $page->resume = $resume;
+        }
+        //Résumé des pages
+
+        return $this->render('Blocs/Recherche/ResultatsRecherche.html.twig', array('resultats' => $resultats));
     }
 }

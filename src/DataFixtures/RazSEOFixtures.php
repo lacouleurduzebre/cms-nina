@@ -24,36 +24,6 @@ class RazSEOFixtures extends Fixture
 {
     public function load(ObjectManager $manager)
     {
-        /*//Pages
-        $repoPage = $manager->getRepository(Page::class);
-        $repoBloc = $manager->getRepository(Bloc::class);
-        $pages = $repoPage->findAll();
-
-        foreach($pages as $page){
-            $SEO = new SEOPage();
-
-            $description = $titre = $page->getTitre();
-
-            $blocTexte = $repoBloc->premierBlocTexte($page);
-            if($blocTexte) {
-                $description = strip_tags($blocTexte[0]->getContenu()['texte']);
-            }
-
-            $repoSEOPage = $manager->getRepository(SEOPage::class);
-            $url = SEOController::slugify($titre);
-            while($repoSEOPage->findOneBy(array('url' => $url))){
-                $url .= '-copie';
-            }
-
-            $this->setSEO($SEO, $titre, $url, $description);
-            $manager->persist($SEO);
-
-            $page->setSEO($SEO);
-            $manager->persist($page);
-
-            $manager->flush();
-        }*/
-
         //Catégories
         $repoCategorie = $manager->getRepository(Categorie::class);
         $categories = $repoCategorie->findAll();
