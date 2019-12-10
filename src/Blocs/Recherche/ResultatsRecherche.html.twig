@@ -1,30 +1,38 @@
 {% extends 'front/base.html.twig' %}
 
 {% block main %}
-    <h1>{{ "Résultats de recherche pour : "|trans }}"{{ app.request.get('recherche') }}"</h1>
+    {% if not resultats %}
+        <h1>{{ "Vous devez entrer un ou plusieurs mots-clés pour effectuer une recherche" }}</h1>
 
-    {% if resultats.donnees is empty %}
-        <p class="pas">{{ "Aucun résultat"|trans }}</p>
-    {% else %}
         <div class="blocRecherche">
-            <div class="pagination">
-                {{ resultats.pagination|raw }}
-            </div>
-
-            {% for page in resultats.donnees %}
-                <div class="blocRecherche-resultat">
-                    <h3>{{ page.titre|raw }}</h3>
-                    {% if page.resume is defined %}
-                        {{ page.resume|raw }}
-                    {% endif %}
-                    <p><a href="{{ lienPage(page) }}">{{ "Voir la page"|trans }}</a></p>
-                </div>
-            {% endfor %}
-
-            <div class="pagination">
-                {{ resultats.pagination|raw }}
-            </div>
+            {% include 'Blocs/Recherche/Recherche.html.twig' %}
         </div>
+    {% else %}
+        <h1>{{ "Résultats de recherche pour : "|trans }}"{{ app.request.get('recherche') }}"</h1>
+
+        {% if resultats.donnees is empty %}
+            <p class="pas">{{ "Aucun résultat"|trans }}</p>
+        {% else %}
+            <div class="blocRecherche">
+                <div class="pagination">
+                    {{ resultats.pagination|raw }}
+                </div>
+
+                {% for page in resultats.donnees %}
+                    <div class="blocRecherche-resultat">
+                        <h3>{{ page.titre|raw }}</h3>
+                        {% if page.resume is defined %}
+                            {{ page.resume|raw }}
+                        {% endif %}
+                        <p><a href="{{ lienPage(page) }}">{{ "Voir la page"|trans }}</a></p>
+                    </div>
+                {% endfor %}
+
+                <div class="pagination">
+                    {{ resultats.pagination|raw }}
+                </div>
+            </div>
+        {% endif %}
     {% endif %}
 
 {% endblock %}

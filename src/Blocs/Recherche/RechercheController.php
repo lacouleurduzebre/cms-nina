@@ -35,6 +35,10 @@ class RechercheController extends AbstractController
 
         $recherche = $request->get('recherche');
 
+        if($recherche == ''){
+            return $this->render('Blocs/Recherche/ResultatsRecherche.html.twig', array('resultats' => false));
+        }
+
         $motsCles = explode(' ', $recherche);
 
         $repoPage = $this->getDoctrine()->getRepository(Page::class);
