@@ -20,20 +20,29 @@ class BlocRepository extends ServiceEntityRepository
     }
 
     public function recherche($motsCles){
+        $typesBlocs = ['titre', 'texte', 'paragraphe'];
         $resultats = [];
+        $blocs = [];
 
-        foreach($motsCles as $motCle){
-            $qb = $this
-                ->createQueryBuilder('b')
-                ->where('b.type = :type')
-                ->andWhere('b.contenu LIKE :motCle')
-                ->setParameters(array('motCle' => '%'.$motCle.'%', 'type' => 'texte'));
+        foreach($typesBlocs as $typeBloc){
+            foreach($motsCles as $motCle){
+                $qb = $this
+                    ->createQueryBuilder('b')
+                    ->where('b.type = :type')
+                    ->andWhere('b.contenu LIKE :motCle')
+                    ->setParameters(array('motCle' => '%'.$motCle.'%', 'type' => $typeBloc));
 
-            $blocs = $qb->getQuery()->getResult();
-            foreach($blocs as $bloc){
-                if($bloc->getPage()){
-                    $resultats['page'.$bloc->getPage()->getId()] = $bloc->getPage();
-                };
+                $blocsTrouves = $qb->getQuery()->getResult();
+                $blocs = array_merge($blocs, $blocsTrouves);
+            }
+        }
+
+        foreach($blocs as $bloc){
+            if(!$bloc->getGroupeBlocs()){
+                while($bloc->getBlocParent()){
+                    $bloc = $bloc->getBlocParent();
+                }
+                $resultats['page'.$bloc->getPage()->getId()] = $bloc->getPage();
             }
         }
 
@@ -69,6 +78,7 @@ class BlocRepository extends ServiceEntityRepository
             ->orderBy('b.position', 'ASC')
             ->setMaxResults(1);
 
-        return $qb->getQuery()->getResult();
+        $resultat = $qb->getQuery()->getResult();
+        return key_exists(0, $resultat) ? $resultat[0] : false;
     }
 }

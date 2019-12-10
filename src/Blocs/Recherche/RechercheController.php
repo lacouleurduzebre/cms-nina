@@ -39,10 +39,35 @@ class RechercheController extends AbstractController
         $repoPage = $this->getDoctrine()->getRepository(Page::class);
         $pages = $repoPage->recherche($motsCles);
 
-        $repoBlocs = $this->getDoctrine()->getRepository(Bloc::class);
-        $blocs = $repoBlocs->recherche($motsCles);
+        $repoBloc = $this->getDoctrine()->getRepository(Bloc::class);
+        $blocs = $repoBloc->recherche($motsCles);
 
         $pages = array_merge($pages, $blocs);
+
+        //Description des pages
+        $resumes = [];
+
+        foreach($pages as $page){
+            $blocTexte = $repoBloc->premierBloc($page, 'texte');
+            $blocParagraphe = $repoBloc->premierBloc($page, 'paragraphe');
+
+            if(!$blocTexte && !$blocParagraphe){
+                $resumes[$page->getId()] = false;
+            }else{
+                if(!$blocTexte){
+                    $resume = $blocParagraphe->getContenu()['texte'];
+                }elseif(!$blocParagraphe){
+                    $resume = $blocTexte->getContenu()['texte'];
+                }else{
+                    $resume = ($blocTexte->getPosition() < $blocParagraphe->getPosition()) ? $blocTexte->getContenu()['texte'] : $blocParagraphe->getContenu()['texte'];
+                }
+
+                $resume = strip_tags($resume);
+                $resume = substr($resume, 0, 300).'...';
+                $resumes[$page->getId()] = $resume;
+            }
+        }
+        //Description des pages
 
         //Pagination
         $page = isset($_GET['page']) ? $_GET['page'] : 1;
@@ -55,6 +80,6 @@ class RechercheController extends AbstractController
         $resultats = $pagination->getPagination($pages, $parametres, $page);
         //Pagination
 
-        return $this->render('Blocs/Recherche/ResultatsRecherche.html.twig', array('resultats' => $resultats));
+        return $this->render('Blocs/Recherche/ResultatsRecherche.html.twig', array('resultats' => $resultats, 'resumes' => $resumes));
     }
 }

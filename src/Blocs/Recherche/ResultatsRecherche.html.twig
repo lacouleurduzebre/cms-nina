@@ -5,20 +5,26 @@
 
     {% if resultats.donnees is empty %}
         <p class="pas">{{ "Aucun résultat"|trans }}</p>
+    {% else %}
+        <div class="blocRecherche">
+            <div class="pagination">
+                {{ resultats.pagination|raw }}
+            </div>
+
+            {% for page in resultats.donnees %}
+                <div class="blocRecherche-resultat">
+                    <h3>{{ page.titre }}</h3>
+                    {% if resumes[page.id] is defined %}
+                        {{ resumes[page.id]|raw }}
+                    {% endif %}
+                    <p><a href="{{ lienPage(page) }}">{{ "Voir la page"|trans }}</a></p>
+                </div>
+            {% endfor %}
+
+            <div class="pagination">
+                {{ resultats.pagination|raw }}
+            </div>
+        </div>
     {% endif %}
 
-    <div class="blocRecherche">
-        <div class="pagination">
-            {{ resultats.pagination|raw }}
-        </div>
-
-        {% for page in resultats.donnees %}
-            <h3>{{ page.titre }}</h3>
-            <p><a href="{{ lienPage(page) }}">{{ "Voir la page"|trans }}</a></p>
-        {% endfor %}
-
-        <div class="pagination">
-            {{ resultats.pagination|raw }}
-        </div>
-    </div>
 {% endblock %}

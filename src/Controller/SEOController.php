@@ -103,11 +103,11 @@ class SEOController extends AbstractController
 
                 $blocParagraphe = $repoBloc->premierBloc($page, 'Paragraphe');
                 if($blocParagraphe){
-                    $description = strip_tags($blocParagraphe[0]->getContenu()['texte']);
+                    $description = strip_tags($blocParagraphe->getContenu()['texte']);
                 }else{
                     $blocTexte = $repoBloc->premierBloc($page, 'Texte');
                     if($blocTexte){
-                        $description = strip_tags($blocTexte[0]->getContenu()['texte']);
+                        $description = strip_tags($blocTexte->getContenu()['texte']);
                     }
                 }
             }elseif($type == 'categories'){
