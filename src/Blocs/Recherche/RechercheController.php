@@ -96,15 +96,20 @@ class RechercheController extends AbstractController
         //Résumé des pages
         foreach($resultats['donnees'] as $page){
             $tpl = $this->renderView('front/blocs.html.twig', ['blocs' => $page->getBlocs()]);
-            $tpl = strip_tags($tpl);
-            $resume = substr($tpl, 0, 300).'...';
+            $tpl = trim(strip_tags($tpl));
 
-            foreach($motsCles as $motCle){
-                $resume = str_ireplace($motCle, '<strong>'.$motCle.'</strong>', $resume);
-                $page->setTitre(str_ireplace($motCle, '<strong>'.$motCle.'</strong>', $page->getTitre()));
+            if($tpl != ''){
+                $resume = substr($tpl, 0, 300).'...';
+
+                foreach($motsCles as $motCle){
+                    $resume = str_ireplace($motCle, '<strong>'.$motCle.'</strong>', $resume);
+                    $page->setTitre(str_ireplace($motCle, '<strong>'.$motCle.'</strong>', $page->getTitre()));
+                }
+
+                $page->resume = $resume;
+            }else{
+                $page->resume = false;
             }
-
-            $page->resume = $resume;
         }
         //Résumé des pages
 
