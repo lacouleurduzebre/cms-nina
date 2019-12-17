@@ -44,6 +44,9 @@ class SlideType extends AbstractType
             ))
             ->add('position', HiddenType::class, array(
             ))
+            ->add('titre', TextType::class, array(
+                'label' => 'Titre'
+            ))
             ->add('texte', TextareaType::class, array(
                 'label' => 'Texte'
             ))
