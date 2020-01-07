@@ -1,7 +1,6 @@
 <div style="color: red; padding: 1rem; border: 1px solid red; margin-top: 1rem; margin-bottom: 1rem">
-    <p style="margin-bottom: 5px">{{ "Attention, seuls les utilisateurs authentifiés et ayant le droit de voir les pages non publiées peuvent voir cette page."|trans }}</p>
     <p style="margin-bottom: 0">
-        {{ "Cette page n'est pas publiée car "|trans }}
+        {{ "Cette page n'est pas visible par les internautes car "|trans }}
         {% if page.corbeille %}
             {{ "elle est à la corbeille."|trans }}
         {% elseif not page.active %}
