@@ -1,8 +1,11 @@
 /* Page de login */
+html{
+  overflow: hidden;
+}
+
 body{
   margin:0;
 }
-
 
 #loginPage{
   height:100vh;
@@ -57,6 +60,12 @@ body{
       }
     }
   }
+  > form{
+    padding: 0 6rem 2rem;
+    @include respond-to("small"){
+      padding: 2rem;
+    }
+  }
   .flash-error{//Message d'erreur
     background-color: rgba(255,0,0,.8);
     color: #FFF;
@@ -80,6 +89,35 @@ body{
   &:hover{
     color: #000;
     text-decoration: none;
+  }
+}
+
+#animation_container{
+  margin-top: -2rem;
+  margin-left: auto;
+  margin-right: auto;
+  @media screen and (max-width: 499px){
+    width: auto !important;
+    height: auto !important;
+    .fond{
+      margin-left: auto;
+      margin-right: auto;
+      width: 100%;
+      max-width: 35rem;
+      height: 34rem;
+      background-image: url(/assets/img/login/logo.gif);
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: 100%;
+    }
+    #canvas, #dom_overlay_container{
+      display: none;
+    }
+  }
+  @media screen and (max-width: 400px){
+    .fond{
+      height: 31rem;
+    }
   }
 }
 

@@ -3176,6 +3176,10 @@ button:focus {
 }
 
 /* Page de login */
+html {
+  overflow: hidden;
+}
+
 body {
   margin: 0;
 }
@@ -3240,6 +3244,14 @@ body {
 #loginPage > * input[type=submit]:hover {
   background-color: #056982;
 }
+#loginPage > form {
+  padding: 0 6rem 2rem;
+}
+@media (max-width: 575px) {
+  #loginPage > form {
+    padding: 2rem;
+  }
+}
 #loginPage .flash-error {
   background-color: rgba(255, 0, 0, 0.8);
   color: #FFF;
@@ -3263,6 +3275,37 @@ body {
 .mdpOublie:hover, .retourAccueil:hover {
   color: #000;
   text-decoration: none;
+}
+
+#animation_container {
+  margin-top: -2rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+@media screen and (max-width: 499px) {
+  #animation_container {
+    width: auto !important;
+    height: auto !important;
+  }
+  #animation_container .fond {
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+    max-width: 35rem;
+    height: 34rem;
+    background-image: url(/assets/img/login/logo.gif);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 100%;
+  }
+  #animation_container #canvas, #animation_container #dom_overlay_container {
+    display: none;
+  }
+}
+@media screen and (max-width: 400px) {
+  #animation_container .fond {
+    height: 31rem;
+  }
 }
 
 .retourAccueil {

@@ -5,7 +5,14 @@
 {% endif %}#}
 
 <form class="mw960p center" action="{{ path("fos_user_security_check") }}" method="post">
-    <img src="{{ asset('../assets/img/ninaV3Vertical.png') }}" alt="CMS Nina 3.0">
+
+    <div id="animation_container">
+        <div class="fond"></div>
+        <canvas id="canvas" width="350" height="350"></canvas>
+        <div id="dom_overlay_container" style="pointer-events:none; overflow:hidden; width:350px; height:350px;">
+        </div>
+    </div>
+
     {% if csrf_token %}
         <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
     {% endif %}
