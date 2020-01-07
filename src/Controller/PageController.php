@@ -89,7 +89,7 @@ class PageController extends AbstractController
                     $em->persist($commentaire);
                     $em->flush();
 
-                    $request->getSession()->getFlashBag()->add('comOK', 'Votre commentaire a été enregistré et sera mis en ligne une fois validé');
+                    $this->addFlash('comOK', 'Votre commentaire a été enregistré et sera mis en ligne une fois validé');
 
                     return $this->redirectToRoute('voirPage', array('url' => $url));
                 }
