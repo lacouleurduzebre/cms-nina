@@ -19,11 +19,12 @@ use Symfony\Component\Routing\RouterInterface;
 
 class Page
 {
-    public function __construct(RegistryInterface $doctrine, RequestStack $request, RouterInterface $router)
+    public function __construct(RegistryInterface $doctrine, RequestStack $request, RouterInterface $router, Droits $sDroits)
     {
         $this->doctrine = $doctrine;
         $this->request = $request;
         $this->router = $router;
+        $this->sDroits = $sDroits;
     }
 
     public function getPageActive()
@@ -74,7 +75,7 @@ class Page
                     }
                 }
 
-                if(!Page::isPublie($page)) {
+                if(!Page::isPublie($page) && !$this->sDroits->checkDroit('voirPagesNonPubliees')) {
                     throw new NotFoundHttpException('Cette page n\'existe pas ou a été supprimée');
                 }
             }else{
