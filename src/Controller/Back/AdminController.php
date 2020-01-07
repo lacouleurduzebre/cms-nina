@@ -409,6 +409,12 @@ class AdminController extends BaseAdminController
                     foreach($menuPagesOrphelines as $menuPage){
                         $menuPage->setParent(null);
                     }
+
+                    //Si la page était la page d'accueil, la langue de la page n'a plus de page d'accueil
+                    $langue = $menuPage->getPage()->getLangue();
+                    if($langue->getPageAccueil() == $menuPage->getPage()){
+                        $langue->setPageAccueil(null);
+                    }
                 }
 
                 $this->em->flush();

@@ -1964,6 +1964,9 @@ fieldset {
   color: #666666;
   text-decoration: none;
 }
+.main-sidebar a.nonPubliee {
+  opacity: 0.6;
+}
 
 @media (min-width: 768px) {
   body.notFull {

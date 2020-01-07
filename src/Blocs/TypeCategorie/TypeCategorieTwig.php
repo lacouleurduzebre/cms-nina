@@ -11,6 +11,7 @@ namespace App\Blocs\TypeCategorie;
 
 use App\Controller\SEOController;
 use App\Entity\Categorie;
+use App\Service\Page;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
@@ -59,6 +60,13 @@ class TypeCategorieTwig extends \Twig_Extension
         }
 
         $pages = $pages->toArray();
+
+        //Pages non publiées supprimées de la liste
+        foreach($pages as $id => $page){
+            if(!Page::isPublie($page)){
+                unset($pages[$id]);
+            }
+        }
 
         if($limite){
             $pages = array_slice($pages, 0, $limite);

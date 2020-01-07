@@ -128,12 +128,16 @@ class PageRepository extends \Doctrine\ORM\EntityRepository
             ->createQueryBuilder('p')
             ->where('p.langue = :langue')
             ->andwhere('p.titreMenu LIKE :recherche')
+            ->andWhere('p.corbeille = 0')
             ->setParameters(array('langue' => $langue, 'recherche' => '%'.$recherche.'%'));
 
         return $qb->getQuery()->getResult();
     }
 
     public function recherche($motsCles){
+        $timestamp = new \DateTime();
+        $date = $timestamp->format('Y-m-d H:i:s');
+
         $resultats = [];
 
         foreach($motsCles as $motCle){
@@ -141,7 +145,11 @@ class PageRepository extends \Doctrine\ORM\EntityRepository
                 ->createQueryBuilder('p')
                 ->where('p.titre LIKE :motCle')
                 ->orWhere('p.titreMenu LIKE :motCle')
-                ->setParameters(array('motCle' => '%'.$motCle.'%'));
+                ->andWhere('p.corbeille = 0')
+                ->andWhere('p.active = 1')
+                ->andWhere('p.datePublication < :date')
+                ->andWhere('p.dateDepublication > :date OR p.dateDepublication IS NULL')
+                ->setParameters(array('motCle' => '%'.$motCle.'%', 'date' => $date));
 
             $pages = $qb->getQuery()->getResult();
             foreach($pages as $page){

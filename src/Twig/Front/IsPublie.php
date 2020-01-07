@@ -9,6 +9,7 @@
 namespace App\Twig\Front;
 
 
+use App\Service\Page;
 use Twig\Environment;
 
 class IsPublie extends \Twig_Extension
@@ -25,15 +26,8 @@ class IsPublie extends \Twig_Extension
         );
     }
 
-    public function isPublie($machin)
+    public function isPublie($page)
     {
-        $timestamp = new \DateTime();
-        $date = $timestamp->format('Y-m-d H:i:s');
-
-        if($machin->getDatePublication() < $date && $machin->getDateDepublication() > $date || $machin->getDateDepublication() == null && $machin->getActive() == 1 && $machin->getCorbeille() == 0){
-            return true;
-        }
-
-        return false;
+        return Page::isPublie($page);
     }
 }

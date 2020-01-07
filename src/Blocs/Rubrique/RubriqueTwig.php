@@ -12,6 +12,7 @@ namespace App\Blocs\Rubrique;
 use App\Entity\Menu;
 use App\Entity\MenuPage;
 use App\Entity\Bloc;
+use App\Service\Page;
 use App\Service\Pagination;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
@@ -43,7 +44,10 @@ class RubriqueTwig extends \Twig_Extension
         $menusPagesEnfants = $repoMenuPage->findBy(array('parent' => $menuPage), array('position' => 'ASC'));
         foreach($menusPagesEnfants as $menuPageEnfant){
             $pageEnfant = $menuPageEnfant->getPage();
-            $pages[] = $pageEnfant;
+
+            if(Page::isPublie($pageEnfant)){
+                $pages[] = $pageEnfant;
+            }
         }
 
         $page = isset($_GET['page']) ? $_GET['page'] : 1;

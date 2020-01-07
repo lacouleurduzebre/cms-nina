@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Bloc;
+use App\Service\Page;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
@@ -37,12 +38,22 @@ class BlocRepository extends ServiceEntityRepository
             }
         }
 
+        $timestamp = new \DateTime();
+        $timestamp = $timestamp->getTimestamp();
+
         foreach($blocs as $bloc){
             if(!$bloc->getGroupeBlocs()){
                 while($bloc->getBlocParent()){
                     $bloc = $bloc->getBlocParent();
                 }
-                $resultats['page'.$bloc->getPage()->getId()] = $bloc->getPage();
+
+                $page = $bloc->getPage();
+
+                if(!Page::isPublie($page)) {
+                    continue;
+                }
+
+                $resultats['page'.$page->getId()] = $page;
             }
         }
 
