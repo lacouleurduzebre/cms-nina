@@ -14,6 +14,7 @@ use App\Entity\Commentaire;
 use App\Entity\Langue;
 use App\Entity\MenuPage;
 use App\Entity\Page;
+use App\Entity\SEOPage;
 use App\Entity\TypeCategorie;
 use App\Entity\Utilisateur;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\EasyAdminController as BaseAdminController;
@@ -353,18 +354,34 @@ class AdminController extends BaseAdminController
         $pageOriginale = $this->em->getRepository(Page::class)->find($idPageOriginale);
 
         $nouvellePage = clone $pageOriginale;
+
+        //SEO
         $ancienSEO = $pageOriginale->getSEO();
         $nouveauSEO = clone $ancienSEO;
         $nouvellePage->setSEO($nouveauSEO);
+            //Vérif url
+        $repoSEO = $this->em->getRepository(SEOPage::class);
+        $url = $nouvellePage->getSEO()->getUrl().'-copie';
+        while($repoSEO->findOneBy(array('url' => $url))){
+            $url = $url.'-copie';
+        }
+        $nouvellePage->getSEO()->setUrl($url);
+        $this->em->persist($nouveauSEO);
 
-        $nouvellePage->getSEO()->setUrl($nouvellePage->getSEO()->getUrl().'-copie');
-
+        //Menu page
         $menuPage = new menuPage();
         $menuPage->setPage($nouvellePage)->setPosition(0);
+        $this->em->persist($menuPage);
+
+        //Blocs
+        $blocs = $pageOriginale->getBlocs();
+        foreach($blocs as $ancienBloc){
+            $nouveauBloc = clone $ancienBloc;
+            $nouvellePage->addBloc($nouveauBloc);
+            $this->em->persist($nouveauBloc);
+        }
 
         $this->em->persist($nouvellePage);
-        $this->em->persist($nouveauSEO);
-        $this->em->persist($menuPage);
         $this->em->flush();
 
         return $this->redirectToRoute('easyadmin', array(
