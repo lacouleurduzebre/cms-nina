@@ -239,7 +239,7 @@ class AdminController extends BaseAdminController
         if($blocsUser){
             /* Dernières pages publiées */
             if(in_array('dernieresPages', $blocsUser)){
-                $dernieresPages = $em->getRepository(Page::class)->pagesPubliees($langue, 5);
+                $dernieresPages = $repositoryPage->pagesPubliees($langue, 5);
                 $blocs['dernieresPages'] = $dernieresPages;
             }
 
@@ -268,23 +268,51 @@ class AdminController extends BaseAdminController
                 }
             }
 
-            /* Liste des catégories */
-            if(in_array('listeCategories', $blocsUser)){
-                $repositoryTypeCategorie = $em->getRepository(TypeCategorie::class);
-                $typeCategories = $repositoryTypeCategorie->findAll();
-                $blocs['listeCategories'] = $typeCategories;
-            }
-
-            /* Liste des derniers inscrits */
+            /* Liste des utilisateurs */
             if(in_array('derniersInscrits', $blocsUser)){
                 $repositoryUtilisateur = $em->getRepository(Utilisateur::class);
-                $utilisateurs = $repositoryUtilisateur->findBy(array(), array('id' => 'ASC'), 5);
+                $utilisateurs = $repositoryUtilisateur->triDateDerniereConnexion();
                 $blocs['derniersInscrits'] = $utilisateurs;
             }
 
             /* Nouvelles de version */
             if(in_array('logVersion', $blocsUser)){
                 $blocs['logVersion'] = 'ok';
+            }
+
+            /* Aperçu du référencement */
+            if(in_array('referencement', $blocsUser)){
+                $pagesPubliees = $repositoryPage->pagesPubliees();
+
+                $total = count($pagesPubliees);
+                $scoreTotal = 0;
+                $scoreMetaTitre = 0;
+                $scoreUrl = 0;
+                $scoreMetaDescription = 0;
+
+                foreach($pagesPubliees as $page){
+                    $seo = $page->getSEO();
+                    $scorePage = 0;
+
+                    if(strlen($seo->getMetaTitre()) > ((65/3)*2)){
+                        $scoreMetaTitre++;
+                        $scorePage++;
+                    }
+                    if(strlen($seo->getUrl()) > ((75/3)*2)){
+                        $scoreUrl++;
+                        $scorePage++;
+                    }
+                    if(strlen($seo->getMetaDescription()) > ((150/3)*2)){
+                        $scoreMetaDescription++;
+                        $scorePage++;
+                    }
+
+                    if($scorePage == 3){
+                        $scoreTotal++;
+                    }
+                }
+
+                $blocs['referencement'] = ['total' => $total, 'scoreTotal' => $scoreTotal, 'scoreMetaTitre' => $scoreMetaTitre, 'scoreUrl' => $scoreUrl, 'scoreMetaDescription' => $scoreMetaDescription];
             }
         }
 

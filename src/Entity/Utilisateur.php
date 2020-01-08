@@ -74,6 +74,7 @@ class Utilisateur extends BaseUser
         parent::__construct();
         $this->pages = new ArrayCollection();
         $this->pagesModifiees = new ArrayCollection();
+        $this->blocsTableauDeBord = ['logVersion'];
     }
 
     public function __toString()

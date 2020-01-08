@@ -2,11 +2,11 @@
 
 {% block content %}
     <div id="tdb">
-        <h1>Tableau de bord</h1>
-        <p>Bienvenue {{ app.user.username }}</p>
+        <h1>{{ "Tableau de bord - Bienvenue "|trans~app.user.username }}</h1>
         {% if version is not empty %}
             <div class="tdb-bloc">
                 <div class="version">
+                    <h2><i class="fas fa-info-circle"></i> {{ "À propos de Nina"|trans }}</h2>
                     {{ "Version numéro"|trans~" "~version.numero|slice(0,6)~" "~"du"|trans~" "~version.date }}
                     {% if majDispo %}
                         <div>{{ "Une nouvelle version de Nina est disponible"|trans }}</div>
@@ -23,8 +23,8 @@
                             {{ "Production"|trans }}
                         </span>
                     {% endif %}
-                    <p>
-                        <a href="#" id="viderCache">Vider le cache</a>
+                    <p class="mts">
+                        <a href="#" id="viderCache" class="btn danger">Vider le cache</a>
                     </p>
                 </div>
             </div>
@@ -95,32 +95,7 @@
         <ul>
             {% for page in contenuBloc %}
                 <li>
-                    <a href="{{ path('easyadmin', { 'action': 'edit', 'entity': 'Page_Active', 'id': page.id }) }}">{{ page.titre }}</a>
-                    {{ 'publiée le'|trans }} {{ page.datePublication|date("d/m/Y") }}
-                </li>
-            {% endfor %}
-        </ul>
-    {% endif %}
-{% endblock %}
-
-{% block listeCategories %}
-    <h2>{% trans %}Liste des catégories{% endtrans %}</h2>
-    {% if contenuBloc is empty %}
-        <p>{% trans %}Aucune catégorie n'a été créée pour le moment{% endtrans %}</p>
-    {% else %}
-        <ul>
-            {% for typeCategorie in contenuBloc %}
-                <li>
-                    {{ typeCategorie.nom }}
-                    {% if typeCategorie.categories is not empty %}
-                        <ul>
-                            {% for categorie in typeCategorie.categories %}
-                                <li>
-                                    <a href="{{ path('easyadmin', { 'action': 'edit', 'entity': 'Categorie', 'id': categorie.id }) }}">{{ categorie.nom }}</a>
-                                </li>
-                            {% endfor %}
-                        </ul>
-                    {% endif %}
+                    <a href="{{ path('easyadmin', { 'action': 'edit', 'entity': 'Page_Active', 'id': page.id }) }}">{{ page.titre }}</a> publiée le {{ page.datePublication|date("d/m/Y") }} / {{ page.auteurDerniereModification|default('compte supprimé') }}
                 </li>
             {% endfor %}
         </ul>
@@ -128,7 +103,7 @@
 {% endblock %}
 
 {% block derniersInscrits %}
-    <h2>{% trans %}Derniers inscrits{% endtrans %}</h2>
+    <h2>{% trans %}Comptes utilisateurs{% endtrans %}</h2>
     <ul>
         {% for user in contenuBloc %}
             <li>
@@ -138,7 +113,11 @@
                     <i id="header-sansImageProfil" class="fas fa-user-circle"></i>
                 {% endif %}
                 <a href="{{ path('easyadmin', { 'action': 'edit', 'entity': 'Utilisateur', 'id': user.id }) }}">{{ user.username }}</a>
-                {% trans %}dernière connexion le{% endtrans %} {{ user.lastLogin|date('d/m/Y') }}
+                {% if user.lastLogin %}
+                    {% trans %}dernière connexion le{% endtrans %} {{ user.lastLogin|date('d/m/Y') }}
+                {% else %}
+                    {{ "ne s'est pas encore connecté(e)"|trans }}
+                {% endif %}
             </li>
         {% endfor %}
     </ul>
@@ -147,4 +126,26 @@
 {% block logVersion %}
     <h2>{% trans %}Nouveautés{% endtrans %}</h2>
     {{ include('back/logVersion.html.twig') }}
+{% endblock %}
+
+{% block referencement %}
+    <h2>{% trans %}Aperçu du référencement des pages publiées{% endtrans %}</h2>
+    <p>
+        <span>{{ "Score total :"|trans }}</span>
+        <meter value="{{ contenuBloc.scoreTotal }}" max="{{ contenuBloc.total }}" low="{{ contenuBloc.total / 3 }}" high="{{ contenuBloc.total / 3 * 2 }}" optimum="{{ contenuBloc.total }}"></meter>
+        <i class="mls">{{ "(pages dont tous les champs ont une longueur suffisante)"|trans }}</i>
+    </p>
+    <p>
+        <span>{{ "Longueur des méta-titres :"|trans }}</span>
+        <meter value="{{ contenuBloc.scoreMetaTitre }}" max="{{ contenuBloc.total }}" low="{{ contenuBloc.total / 3 }}" high="{{ contenuBloc.total / 3 * 2 }}" optimum="{{ contenuBloc.total }}"></meter>
+    </p>
+    <p>
+        <span>{{ "Longueur des urls :"|trans }}</span>
+        <meter value="{{ contenuBloc.scoreUrl }}" max="{{ contenuBloc.total }}" low="{{ contenuBloc.total / 3 }}" high="{{ contenuBloc.total / 3 * 2 }}" optimum="{{ contenuBloc.total }}"></meter>
+    </p>
+    <p>
+        <span>{{ "Longueur des méta-descriptions :"|trans }}</span>
+        <meter value="{{ contenuBloc.scoreMetaDescription }}" max="{{ contenuBloc.total }}" low="{{ contenuBloc.total / 3 }}" high="{{ contenuBloc.total / 3 * 2 }}" optimum="{{ contenuBloc.total }}"></meter>
+    </p>
+    <a class="inbl mts" href="/admin/seo">{{ "Vérifier le référencement de toutes les pages du site"|trans }}</a>
 {% endblock %}

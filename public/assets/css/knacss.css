@@ -3870,9 +3870,6 @@ body.list #flash-messages > * {
   height: 77rem;
 }
 
-#tdb {
-  padding: 2rem;
-}
 #tdb h2 {
   color: #0791B3;
 }
@@ -3904,6 +3901,14 @@ body.list #flash-messages > * {
 }
 .tdb-bloc.derniersCommentaires thead {
   border-bottom: 1px solid #75726B;
+}
+
+.tdb-bloc.referencement span {
+  display: inline-block;
+  width: 25rem;
+}
+.tdb-bloc.referencement meter {
+  margin-left: 1rem;
 }
 
 .modal-dialog {
