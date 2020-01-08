@@ -37,8 +37,17 @@
 }
 
 //Page
+#page_active_datePublication, #page_active_dateDepublication{
+  input{
+    margin-right: .5rem;
+  }
+}
+
 #page_active_dateDepublication{
   margin-bottom: .5rem;
+  + .nullable-control{
+    display: none;
+  }
 }
 
 //Utilisateur

@@ -37,7 +37,7 @@ easy_admin:
                     - categories
                     - dateCreation
                     - { property: 'datePublication', label: 'Date de publication' }
-                    - { property: 'datedePublication', label: 'Date de dépublication' }
+                    - { property: 'dateDepublication', label: 'Date de dépublication' }
                     - langue
                     - pageOriginale
                     - pagesTraduites
@@ -61,8 +61,8 @@ easy_admin:
                     - { property: 'affichageSousNiveaux', label: 'Afficher les pages enfants dans les menus' }
                     - { type: 'group', label: 'Publication', icon: 'newspaper' }
                     - { property: 'affichageDatePublication', label: 'Afficher la date de publication' }
-                    - datePublication
-                    - dateDepublication
+                    - { property: 'datePublication', label: 'Date de publication', type_options: { date_widget: single_text, time_widget: single_text, format: "dd/MM/yyyy HH:mm" } }
+                    - { property: 'dateDepublication', label: 'Date de dépublication', type_options: { date_widget: single_text, time_widget: single_text, format: "dd/MM/yyyy HH:mm" } }
                     - { type: 'group', label: 'Auteur(s)', icon: 'feather-alt' }
                     - { property: 'affichageAuteur', label: "Afficher l'auteur" }
                     - { property: 'auteur', type_options: { disabled: true } }

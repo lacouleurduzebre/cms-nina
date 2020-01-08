@@ -4883,8 +4883,15 @@ body.edit .bloc-reseauxsociaux input[type=text], body.new .bloc-reseauxsociaux i
   margin-right: 1rem;
 }
 
+#page_active_datePublication input, #page_active_dateDepublication input {
+  margin-right: 0.5rem;
+}
+
 #page_active_dateDepublication {
   margin-bottom: 0.5rem;
+}
+#page_active_dateDepublication + .nullable-control {
+  display: none;
 }
 
 form.autreUtilisateur .mdp {
