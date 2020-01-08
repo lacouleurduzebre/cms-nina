@@ -1281,7 +1281,8 @@ $files = $sorted;
                      },
                      theme: tuiTheme,
                      initMenu: 'filter',
-                     menuBarPosition: '<?php echo $config['tui_position'] ?>'
+                     menuBarPosition: '<?php echo $config['tui_position'] ?>',
+                     menu: ['crop', 'flip', 'rotate']
                  },
                 cssMaxWidth: 1000, // Component default value: 1000
                 cssMaxHeight: 800,  // Component default value: 800
