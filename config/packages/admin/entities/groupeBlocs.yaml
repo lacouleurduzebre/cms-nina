@@ -5,6 +5,7 @@ easy_admin:
             controller: App\Controller\Back\Admin\GroupeBlocsAdminController
             label: 'Groupe de blocs'
             labels: 'Groupes de blocs'
+            labelDeterminant: 'un groupe de blocs'
             list:
                 fields:
                     - nom

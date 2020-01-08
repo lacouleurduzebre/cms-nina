@@ -5,6 +5,7 @@ easy_admin:
             controller: App\Controller\Back\Admin\ConfigurationAdminController
             label: 'Configuration'
             labels: 'Configurations'
+            labelDeterminant: 'la configuration'
             disabled_actions: ['new', 'search', 'delete']
             list:
                 fields:

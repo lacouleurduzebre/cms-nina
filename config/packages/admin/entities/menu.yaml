@@ -5,6 +5,7 @@ easy_admin:
             controller: App\Controller\Back\AdminController
             label: 'Menu'
             labels: 'Menus'
+            labelDeterminant: 'un menu'
             list:
                 fields:
                     - nom

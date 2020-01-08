@@ -5,6 +5,7 @@ easy_admin:
             controller: App\Controller\Back\Admin\UtilisateurController
             label: 'Utilisateur'
             labels: 'Utilisateurs'
+            labelDeterminant: 'un utilisateur'
             list:
                 fields:
                     - { property: 'imageProfil', type: 'image' }

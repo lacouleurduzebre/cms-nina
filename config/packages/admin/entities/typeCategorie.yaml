@@ -5,6 +5,7 @@ easy_admin:
             controller: App\Controller\Back\AdminController
             label: 'Type de catégories'
             labels: 'Types de catégories'
+            labelDeterminant: 'un type de catégorie'
             list:
                 actions:
                     - { name: 'voir', label: '', title: 'Voir', icon: 'eye' }
