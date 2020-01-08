@@ -1,11 +1,10 @@
-<a href="#" class="easyadmin-thumbnail" data-featherlight="#easyadmin-lightbox-{{ uuid }}" data-featherlight-close-on-click="anywhere">
-    {% if value is not empty %}
+{% if value is not empty %}
+    <a href="#" class="easyadmin-thumbnail" data-featherlight="#easyadmin-lightbox-{{ uuid }}" data-featherlight-close-on-click="anywhere">
         <img src="{{ asset(value) }}">
-    {% else %}
-        <i class="fas fa-user-circle"></i>
-    {% endif %}
-</a>
-
-<div id="easyadmin-lightbox-{{ uuid }}" class="easyadmin-lightbox">
-    <img src="{{ asset(value) }}">
-</div>
+    </a>
+    <div id="easyadmin-lightbox-{{ uuid }}" class="easyadmin-lightbox">
+        <img src="{{ asset(value) }}">
+    </div>
+{% else %}
+    <i class="fas fa-user-circle"></i>
+{% endif %}

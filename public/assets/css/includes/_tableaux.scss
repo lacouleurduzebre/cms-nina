@@ -21,7 +21,7 @@
 
 .toggleElementTableau{
   @include respond-to("medium-up"){
-    svg{
+    svg[class*="angle"]{
       display: none;
     }
   }

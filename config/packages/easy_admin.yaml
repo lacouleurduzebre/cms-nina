@@ -52,6 +52,7 @@ easy_admin:
             field_image: 'back/easyadmin/fields/field_image.html.twig'
             paginator: 'back/easyadmin/paginator.html.twig'
             flash_messages: 'back/easyadmin/flash_messages.html.twig'
+            label_null: 'back/easyadmin/default/label_null.html.twig'
         menu:
             - { label: 'Tableau de bord', icon: 'tachometer-alt', route: 'tableauDeBord' }
             - label: 'Contenus'

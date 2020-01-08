@@ -3563,18 +3563,28 @@ body.notFull .select2-dropdown {
 
 .select2-container--bootstrap.select2-container--focus .select2-selection, .select2-container--bootstrap.select2-container--open .select2-selection, .select2-container--bootstrap .select2-dropdown {
   box-shadow: none;
-  border-color: #000;
+  border-color: #0791B3;
 }
 
 .select2-container--bootstrap .select2-selection {
-  border: 1px solid #000;
+  border: 1px solid #0791B3;
   border-radius: 0;
 }
 
 .select2-container--bootstrap .select2-selection, .select2-container--bootstrap .select2-selection--single .select2-selection__rendered {
-  color: #000;
+  color: #666666;
   font-family: "Cabin";
   font-size: 1.6rem;
+}
+
+.select2-selection--single {
+  background-image: url("data:image/svg+xml,%3C%3Fxml%20version%3D%221.0%22%20standalone%3D%22no%22%3F%3E%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20xmlns%3Axlink%3D%22http%3A//www.w3.org/1999/xlink%22%20style%3D%22isolation%3Aisolate%22%20viewBox%3D%220%200%2020%2020%22%20width%3D%2220%22%20height%3D%2220%22%3E%3Cpath%20d%3D%22%20M%209.96%2011.966%20L%203.523%205.589%20C%202.464%204.627%200.495%206.842%201.505%207.771%20L%201.505%207.771%20L%208.494%2014.763%20C%209.138%2015.35%2010.655%2015.369%2011.29%2014.763%20L%2011.29%2014.763%20L%2018.49%207.771%20C%2019.557%206.752%2017.364%204.68%2016.262%205.725%20L%2016.262%205.725%20L%209.96%2011.966%20Z%20%22%20fill%3D%22inherit%22/%3E%3C/svg%3E");
+  background-position: right 0.6rem center;
+  background-repeat: no-repeat;
+  background-size: 1.2rem;
+}
+.select2-selection--single .select2-selection__arrow {
+  display: none;
 }
 
 .select2-container--bootstrap .select2-results__option--highlighted[aria-selected] {
@@ -3701,7 +3711,8 @@ div[class$=image_apercu_mediatheque] img {
 
 /* TinyMCE */
 .mce-tinymce {
-  border: 1px solid #000 !important;
+  border: 1px solid #0791B3 !important;
+  box-shadow: none !important;
 }
 .mce-tinymce button {
   background: transparent;
@@ -3734,11 +3745,11 @@ div[class$=image_apercu_mediatheque] img {
 }
 
 /* Image de profil */
-td[data-label="Image profil"] img, td[data-label="Image profil"] svg {
+td[data-label="Image de profil"] img, td[data-label="Image de profil"] svg {
   width: 5rem !important;
   height: 5rem;
 }
-td[data-label="Image profil"] img {
+td[data-label="Image de profil"] img {
   border-radius: 50%;
   object-fit: cover;
 }
@@ -4253,7 +4264,7 @@ body.list #flash-messages > * {
 }
 
 @media (min-width: 768px) {
-  .toggleElementTableau svg {
+  .toggleElementTableau svg[class*=angle] {
     display: none;
   }
 }

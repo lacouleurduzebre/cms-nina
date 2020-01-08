@@ -8,7 +8,7 @@ easy_admin:
             labelDeterminant: 'un utilisateur'
             list:
                 fields:
-                    - { property: 'imageProfil', type: 'image' }
+                    - { property: 'imageProfil', label: 'Image de profil', type: 'image' }
                     - { property: 'username', label: 'Identifiant' }
                     - { property: 'email', label: 'E-mail' }
                     - { property: 'enabled', label: 'Activé' }
