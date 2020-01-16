@@ -95,7 +95,7 @@
         {% endblock body_javascript %}
 
         {% if assetExists(app.request.baseUrl~'theme/js/optionsTinyMCE.js') %}
-            <script src="{{ asset('theme/js/optionsTinyMCE.js') }}"></script>
+            <script src="{{ asset('theme/js/optionsTinyMCE.min.js') }}"></script>
         {% else %}
             <script src="{{ asset('assets/js/optionsTinyMCE.min.js') }}"></script>
         {% endif %}
