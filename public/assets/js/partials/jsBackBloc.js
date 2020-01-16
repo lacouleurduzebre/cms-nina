@@ -569,7 +569,7 @@ $(document).ready(function() {
     });
 
     //Section : changement du nombre de colonnes
-    verifNombreBlocs = function(input, contexte = null){
+    verifNombreBlocs = function(input, contexte){
         val = input.val();
 
         max = 2;
@@ -583,8 +583,6 @@ $(document).ready(function() {
         conteneurBlocsEnfants = input.closest('.contenu').children('.blocsEnfants');
         blocsEnfants = conteneurBlocsEnfants.children('div').children('.field-bloc');
         nbBlocsEnfants = blocsEnfants.length;
-
-        console.log(nbBlocsEnfants);
 
         if(contexte === 'suppression'){
             nbBlocsEnfants -= 1;

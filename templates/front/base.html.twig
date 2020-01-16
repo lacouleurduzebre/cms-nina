@@ -21,16 +21,10 @@
             {% if checkDroit('admin') %}
                 <link href="https://fonts.googleapis.com/css?family=Cabin:400,700" rel="stylesheet">
                 <link rel="stylesheet" href="{{ asset('assets/js/jstree/themes/style.css') }}">
-                <link rel="stylesheet" href="{{ asset('assets/css/back.css') }}">
+                <link rel="stylesheet" href="{{ asset('assets/css/back.min.css') }}">
             {% endif %}
         {% endblock %}
         <script src="{{ asset('assets/js/jquery-3.2.1.min.js') }}"></script>
-        <script src="{{ asset('assets/js/fontawesome-all.min.js') }}"></script>
-        <script src="{{ asset('assets/js/slickslider/slick.min.js') }}"></script>
-        {% if checkDroit('admin') %}
-            <script src="{{ asset('assets/js/fosjsrouting/js/router.js') }}"></script>
-            <script src="{{ asset('assets/js/fosjsrouting/js/fos_js_routes.js') }}"></script>
-        {% endif %}
         <link rel="icon" type="image/x-icon" href="
             {% if config.favicon is defined and config.favicon is not empty %}
                 {{ config.favicon }}
@@ -80,19 +74,22 @@
         {% endif %}
 
         {% block javascripts %}
+            <script src="{{ asset('assets/js/jscookie/cookie.js') }}"></script>
+            <script src="{{ asset('assets/js/fancybox/jquery.fancybox.min.js') }}"></script>
+            <script src="{{ asset('assets/js/fontawesome-all.min.js') }}"></script>
+            <script src="{{ asset('assets/js/slickslider/slick.min.js') }}"></script>
+            {% if checkDroit('admin') %}
+                <script src="{{ asset('assets/js/fosjsrouting/js/router.js') }}"></script>
+                <script src="{{ asset('assets/js/fosjsrouting/js/fos_js_routes.js') }}"></script>
+                <script src="{{ asset('assets/js/jstree/jstree.min.js') }}"></script>
+                <script src="{{ asset('assets/js/jsArbo.min.js') }}"></script>
+                <script src="{{ asset('assets/js/jsHeaderSidebar.min.js') }}"></script>
+            {% endif %}
             {% if config.analytics is not empty %}
                 {{ config.analytics|raw }}
             {% endif %}
-            <script src="{{ asset('assets/js/jscookie/cookie.js') }}"></script>
-            <script src="{{ asset('assets/js/fancybox/jquery.fancybox.min.js') }}"></script>
-            <script src="{{ asset('assets/js/jsFront.js') }}"></script>
+            <script src="{{ asset('assets/js/jsFront.min.js') }}"></script>
             {{ include('front/extraJs.html.twig') }}
-            {% if checkDroit('admin') %}
-                <script src="{{ asset('assets/js/jsHeaderSidebar.js') }}"></script>
-                <script src="{{ asset('assets/js/jstree/jstree.min.js') }}"></script>
-                <script src='{{ asset('assets/js/fosjsrouting/js/router.js') }}'></script>
-                <script src="{{ asset('assets/js/fosjsrouting/js/fos_js_routes.js') }}"></script>
-            {% endif %}
         {% endblock %}
     </body>
 {% else %}

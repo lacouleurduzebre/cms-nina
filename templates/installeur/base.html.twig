@@ -9,7 +9,7 @@
         <title>{% block title %}{{ "CMS Nina - Installation"|trans }}{% endblock %}</title>
         {% block stylesheets %}
             <link href="https://fonts.googleapis.com/css?family=Cabin:400,700" rel="stylesheet">
-            <link rel="stylesheet" href="{{ asset('assets/css/installeur.css') }}" type="text/css">
+            <link rel="stylesheet" href="{{ asset('assets/css/installeur.min.css') }}" type="text/css">
         {% endblock %}
         <script src="{{ asset('assets/js/jquery-3.2.1.min.js') }}"></script>
         <script src="{{ asset('assets/js/fontawesome-all.min.js') }}"></script>
@@ -77,7 +77,7 @@
         </footer>
 
         {% block javascripts %}
-            <script src="{{ asset('assets/js/jsInstalleur.js') }}"></script>
+            <script src="{{ asset('assets/js/jsInstalleur.min.js') }}"></script>
         {% endblock %}
     </body>
 </html>

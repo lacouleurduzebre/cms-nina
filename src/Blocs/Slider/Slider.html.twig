@@ -35,21 +35,23 @@
 </div>
 
 <script>
-    options = {};
-    {% if bloc.contenu.nbSlides is defined and bloc.contenu.nbSlides is not empty and bloc.contenu.nbSlides != 1 %}
+    $(document).ready(function(){
+        options = {};
+        {% if bloc.contenu.nbSlides is defined and bloc.contenu.nbSlides is not empty and bloc.contenu.nbSlides != 1 %}
         options["slidesToShow"] = {{ bloc.contenu.nbSlides }};
         options["slidesToScroll"] = {{ bloc.contenu.nbSlides }};
         options["infinite"] = true;
-    {% endif %}
-    {% if bloc.contenu.autoplay is defined and bloc.contenu.autoplay != 0 %}
+        {% endif %}
+        {% if bloc.contenu.autoplay is defined and bloc.contenu.autoplay != 0 %}
         options["autoplay"] = true;
-    {% endif %}
-    {% if bloc.contenu.fleches is defined and bloc.contenu.fleches == 0 %}
+        {% endif %}
+        {% if bloc.contenu.fleches is defined and bloc.contenu.fleches == 0 %}
         options["arrows"] = false;
-    {% endif %}
-    {% if bloc.contenu.points is defined and bloc.contenu.points != 0 %}
+        {% endif %}
+        {% if bloc.contenu.points is defined and bloc.contenu.points != 0 %}
         options["dots"] = true;
-    {% endif %}
+        {% endif %}
 
-    $('#slider{{ bloc.id }}').slick(options);
+        $('#slider{{ bloc.id }}').slick(options);
+    });
 </script>
