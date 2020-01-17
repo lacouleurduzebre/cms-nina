@@ -14,7 +14,7 @@
                 {% else %}
                     {% if case.image.image is defined and case.image.image is not empty %}
                         <div class="blocGrille-case-image">
-                            <img src="{{ getTaille(case.image.image, 'medium') }}" alt="{{ case.image.description }}" {% if case.image.titre is defined %}title="{{ case.image.titre }}"{% endif %} {% if getSrcSet(case.image.image) is not empty %}srcset="{{ getSrcSet(case.image.image) }}" sizes="500px"{% endif %}>
+                            <img data-src="{{ getTaille(case.image.image, 'medium') }}" alt="{{ case.image.description }}" {% if case.image.titre is defined %}title="{{ case.image.titre }}"{% endif %} {% if getSrcSet(case.image.image) is not empty %}data-srcset="{{ getSrcSet(case.image.image) }}" data-sizes="500px"{% endif %}>
                         </div>
                     {% endif %}
                     {% if case.titre is defined and case.titre is not empty %}

@@ -1,4 +1,4 @@
 {% set image = bloc.contenu.image %}
 <div class="blocAnnexeVignette">
-    <img src="{{ getTaille(image.image, 'medium') }}" {% if image.titre is defined and image.titre is not empty %}alt="{{ image.titre }}"{% endif %} {% if image.description is defined and image.description is not empty %}alt="{{ image.description }}"{% endif %} {% if getSrcSet(image.image) is not empty %}srcset="{{ getSrcSet(image.image) }}" sizes="500px"{% endif %}>
+    <img data-src="{{ getTaille(image.image, 'medium') }}" {% if image.titre is defined and image.titre is not empty %}alt="{{ image.titre }}"{% endif %} {% if image.description is defined and image.description is not empty %}alt="{{ image.description }}"{% endif %} {% if getSrcSet(image.image) is not empty %}data-srcset="{{ getSrcSet(image.image) }}" data-sizes="500px"{% endif %}>
 </div>

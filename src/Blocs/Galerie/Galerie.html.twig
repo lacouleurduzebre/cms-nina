@@ -30,7 +30,7 @@
                     {% endif %}
                 "
                 href="{{ elementGalerie.image.image }}">
-                    <img src="{{ getTaille(elementGalerie.image.image, 'medium') }}" {% if elementGalerie.image.titre is defined and elementGalerie.image.titre is not empty %}alt="{{ elementGalerie.image.titre }}"{% endif %} {% if elementGalerie.image.description is defined and elementGalerie.image.description is not empty %}title="{{ elementGalerie.image.description }}"{% endif %} {% if getSrcSet(elementGalerie.image.image) is not empty %}srcset="{{ getSrcSet(elementGalerie.image.image) }}" sizes="500px"{% endif %}>
+                    <img data-src="{{ getTaille(elementGalerie.image.image, 'medium') }}" {% if elementGalerie.image.titre is defined and elementGalerie.image.titre is not empty %}alt="{{ elementGalerie.image.titre }}"{% endif %} {% if elementGalerie.image.description is defined and elementGalerie.image.description is not empty %}title="{{ elementGalerie.image.description }}"{% endif %} {% if getSrcSet(elementGalerie.image.image) is not empty %}data-srcset="{{ getSrcSet(elementGalerie.image.image) }}" data-sizes="500px"{% endif %}>
                 </a>
             </div>
         {% endfor %}
@@ -51,7 +51,7 @@
                        {% endif %}
                             {% if elementGalerie.blank is defined and elementGalerie.blank %}target="_blank"{% endif %}>
                 {% endif %}
-                    <img src="{{ getTaille(elementGalerie.image.image, 'medium') }}" {% if elementGalerie.image.titre is defined and elementGalerie.image.titre is not empty %}alt="{{ elementGalerie.image.titre }}"{% endif %} {% if elementGalerie.image.description is defined and elementGalerie.image.description is not empty %}title="{{ elementGalerie.image.description }}"{% endif %} {% if getSrcSet(elementGalerie.image.image) is not empty %}srcset="{{ getSrcSet(elementGalerie.image.image) }}" sizes="500px"{% endif %}>
+                    <img data-src="{{ getTaille(elementGalerie.image.image, 'medium') }}" {% if elementGalerie.image.titre is defined and elementGalerie.image.titre is not empty %}alt="{{ elementGalerie.image.titre }}"{% endif %} {% if elementGalerie.image.description is defined and elementGalerie.image.description is not empty %}title="{{ elementGalerie.image.description }}"{% endif %} {% if getSrcSet(elementGalerie.image.image) is not empty %}data-srcset="{{ getSrcSet(elementGalerie.image.image) }}" data-sizes="500px"{% endif %}>
                 {% if (elementGalerie.lien is defined and elementGalerie.lien is not empty) or (elementGalerie.page is defined and elementGalerie.page is not empty) %}
                     </a>
                 {% endif %}

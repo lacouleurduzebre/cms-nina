@@ -1,4 +1,7 @@
 $(document).ready(function(){
+    //Lazy load
+    var myLazyLoad = new LazyLoad();
+
     //Envoi des formulaires
     $('.blocFormulaire-formulaire').on('submit', function(e){
         e.preventDefault();
