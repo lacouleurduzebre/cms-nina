@@ -23,10 +23,13 @@
 
     {# Choix du fichier #}
     {% set image = getTaille(bloc.contenu.image, 'large') %}
+    {% set taille = 1000 %}
     {% if bloc.contenu.largeurMax is defined and bloc.contenu.largeurMax is not empty and bloc.contenu.largeurMax <= 200 %}
         {% set image = getTaille(bloc.contenu.image, 'small') %}
+        {% set taille = 200 %}
     {% elseif bloc.contenu.largeurMax is defined and bloc.contenu.largeurMax is not empty and bloc.contenu.largeurMax <= 500 %}
         {% set image = getTaille(bloc.contenu.image, 'medium') %}
+        {% set taille = 500 %}
     {% endif %}
 
     {# Lien ? #}
@@ -58,7 +61,7 @@
             {% if bloc.contenu.blank is defined and bloc.contenu.blank is not empty and bloc.contenu.blank %}target="_blank"{% endif %}
             >
         {% endif %}
-        <img src="{{ image }}" {% if bloc.contenu.description is defined and bloc.contenu.description is not empty %}alt="{{ bloc.contenu.description }}"{% endif %} style="{{ style }}">
+        <img src="{{ image }}" {% if bloc.contenu.description is defined and bloc.contenu.description is not empty %}alt="{{ bloc.contenu.description }}"{% endif %} style="{{ style }}" {% if getSrcSet(bloc.contenu.image) is not empty %}srcset="{{ getSrcSet(bloc.contenu.image) }}" sizes="{{ taille }}px"{% endif %}>
         {% if lien %}
             </a>
         {% endif %}

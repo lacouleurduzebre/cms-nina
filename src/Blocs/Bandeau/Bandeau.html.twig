@@ -1,3 +1,4 @@
+{% set image = bloc.contenu.image.image %}
 <div class="blocAnnexeBandeau">
-    <img src="{{ getTaille(bloc.contenu.image.image, 'large') }}" alt="{{ bloc.contenu.image.titre }}">
+    <img src="{{ getTaille(image, 'large') }}" alt="{{ bloc.contenu.image.titre }}" {% if getSrcSet(image) is not empty %}srcset="{{ getSrcSet(image) }}" sizes="1000px"{% endif %}>
 </div>

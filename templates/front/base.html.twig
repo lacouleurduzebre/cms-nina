@@ -14,8 +14,8 @@
             <meta property="og:description" content="{% if langueActive.metaTitre is not empty %}{{ langueActive.metaTitre }}{% else %}{{ config.nom }}{% endif %}">
         {% endblock %}
         {% block stylesheets %}
-            <link rel="stylesheet" href="{{ asset('assets/js/slickslider/slick.css') }}" type="text/css">
-            <link rel="stylesheet" href="{{ asset('assets/js/slickslider/slick-theme.css') }}" type="text/css">
+            <link rel="stylesheet" href="{{ asset('assets/js/slickslider/slick.min.css') }}" type="text/css">
+            <link rel="stylesheet" href="{{ asset('assets/js/slickslider/slick-theme.min.css') }}" type="text/css">
             <link rel="stylesheet" href="{{ asset('assets/js/fancybox/jquery.fancybox.min.css') }}" type="text/css">
             {{ include('front/extraCss.html.twig') }}
             {% if checkDroit('admin') %}
