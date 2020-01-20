@@ -11,6 +11,7 @@ namespace App\Twig\Front;
 use App\Entity\Langue;
 use App\Entity\Page;
 use App\Entity\Region;
+use Psr\SimpleCache\CacheInterface;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
@@ -18,12 +19,13 @@ use Twig\Environment;
 
 class Front extends \Twig_Extension
 {
-    public function __construct(RegistryInterface $doctrine, Environment $twig, RequestStack $requestStack, UrlGeneratorInterface $router)
+    public function __construct(RegistryInterface $doctrine, Environment $twig, RequestStack $requestStack, UrlGeneratorInterface $router, CacheInterface $cache)
     {
         $this->doctrine = $doctrine;
         $this->twig = $twig;
         $this->request = $requestStack->getCurrentRequest();
         $this->router = $router;
+        $this->cache = $cache;
     }
 
     public function getFunctions()
@@ -78,24 +80,32 @@ class Front extends \Twig_Extension
         $repoLangue = $this->doctrine->getRepository(Langue::class);
         $locale = $this->request->getLocale();
         if($locale){
-            $langue = $repoLangue->findBy(array('abreviation'=>$locale));
+            $langue = $repoLangue->findOneBy(array('abreviation'=>$locale));
         }
         if(!$locale || !$langue){
-            $langue = $repoLangue->findBy(array('defaut'=>1));
+            $langue = $repoLangue->findOneBy(array('defaut'=>1));
         }
         //Fin langue
 
-        $repoGroupeBlocs = $this->doctrine->getRepository(\App\Entity\GroupeBlocs::class);
-        $groupesBlocs = $repoGroupeBlocs->findBy(array('region' => $idRegion, 'langue' => $langue ), array('position' => 'ASC'));
+        $cleCache = 'region_'.$idRegion.'_'.$langue->getAbreviation();
 
-        $rendu = '';
-        foreach($groupesBlocs as $groupeBlocs){
-            $tpl = 'front/groupes/groupe-'.$groupeBlocs->getIdentifiant().'.html.twig';
-            if($this->twig->getLoader()->exists($tpl)){
-                $rendu .= $this->twig->render($tpl, array('groupe' => $groupeBlocs));
-            }else{
-                $rendu .= $this->twig->render('front/groupes/groupe.html.twig', array('groupe' => $groupeBlocs));
+        $rendu = $this->cache->get($cleCache);
+
+        if(!$rendu){
+            $repoGroupeBlocs = $this->doctrine->getRepository(\App\Entity\GroupeBlocs::class);
+            $groupesBlocs = $repoGroupeBlocs->findBy(array('region' => $idRegion, 'langue' => $langue), array('position' => 'ASC'));
+
+            $rendu = '';
+            foreach($groupesBlocs as $groupeBlocs){
+                $tpl = 'front/groupes/groupe-'.$groupeBlocs->getIdentifiant().'.html.twig';
+                if($this->twig->getLoader()->exists($tpl)){
+                    $rendu .= $this->twig->render($tpl, array('groupe' => $groupeBlocs));
+                }else{
+                    $rendu .= $this->twig->render('front/groupes/groupe.html.twig', array('groupe' => $groupeBlocs));
+                }
             }
+
+            $this->cache->set($cleCache, $rendu);
         }
 
         return $rendu;
