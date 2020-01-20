@@ -47,9 +47,7 @@
         </p>
     {% endif %}
 
-    {% if page.blocs is not empty %}
-        {% include('front/blocs.html.twig') with {'blocs': page.blocs} only %}
-    {% endif %}
+    {{ blocs(page)|raw }}
 
     {% if page.affichageCommentaires %}
         <div class="blocCommentaires">

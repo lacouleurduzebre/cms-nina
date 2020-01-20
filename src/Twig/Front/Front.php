@@ -37,6 +37,7 @@ class Front extends \Twig_Extension
             new \Twig_SimpleFunction('blocAnnexe', array($this, 'getBlocAnnexe'), array('is_safe' => ['html'])),
             new \Twig_SimpleFunction('page', array($this, 'getPage')),
             new \Twig_SimpleFunction('lienPage', array($this, 'getLienPage')),
+            new \Twig_SimpleFunction('blocs', array($this, 'getBlocs')),
         );
     }
 
@@ -174,5 +175,23 @@ class Front extends \Twig_Extension
                 return $this->router->generate("voirPage", ['url' => $url], 0);
             }
         }
+    }
+
+    public function getBlocs($page){
+        if(!$page instanceof Page){
+            return false;
+        }
+
+        $cleCache = 'page_'.$page->getId().'_blocs';
+
+        $tpl = $this->cache->get($cleCache);
+
+        if(!$tpl){
+            $tpl = $this->twig->render('front/blocs.html.twig', array('blocs' => $page->getBlocs()));
+
+            $this->cache->set($cleCache, $tpl);
+        }
+
+        return $tpl;
     }
 }
