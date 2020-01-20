@@ -10,17 +10,20 @@ namespace App\Event;
 
 
 use App\Entity\Configuration;
+use Psr\SimpleCache\CacheInterface;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Event\ControllerEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
 
 class Installeur implements EventSubscriberInterface
 {
-    public function __construct(RegistryInterface $doctrine)
+    public function __construct(RegistryInterface $doctrine, CacheInterface $cache)
     {
         $this->doctrine = $doctrine;
+        $this->cache = $cache;
     }
 
     public function onKernelController(ControllerEvent $event)
@@ -60,6 +63,10 @@ class Installeur implements EventSubscriberInterface
                     return new RedirectResponse($redirection);
                 });
             }
+        }
+
+        if(substr($request->getRequestUri(), 0, 7) == '/admin/'){
+            $this->cache->clear();
         }
     }
 

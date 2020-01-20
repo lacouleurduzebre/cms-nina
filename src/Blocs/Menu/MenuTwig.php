@@ -37,7 +37,9 @@ class MenuTwig extends \Twig_Extension
             $menus = [];
             $menus[] = $emMenu->find($id);
 
-            $this->cache->set('menu_'.$id, $this->twig->render('front/menu/menus.html.twig', array('menus' => $menus)));
+            $tpl = $this->twig->render('front/menu/menus.html.twig', array('menus' => $menus));
+
+            $this->cache->set('menu_'.$id, $tpl);
         }
 
         return $tpl;
