@@ -1,7 +1,8 @@
 {% for menuPage in menuPages %}
     {% if menuPage.parent is empty and isPublie(menuPage.page) %}
         <li {% if isParent(menuPage) and menuPage.page.affichageSousNiveaux %}class="parent"{% endif %}>
-            <a href="
+            <a data-idpage="{{ menuPage.page.id }}"
+                href="
                 {% if menuPage.page.langue.pageAccueil == menuPage.page %}
                     {% if langues|length > 1 %}
                         {{ path('accueilLocale', { '_locale': menuPage.page.langue.abreviation }) }}

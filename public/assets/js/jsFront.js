@@ -136,4 +136,8 @@ $(document).ready(function(){
             $(this).toggleClass('actif');
         }
     });
+
+    //Marquage de la page active dans les menus
+    idPage = $('main').attr('id').replace('page', '');
+    $('a[data-idpage="'+idPage+'"]').addClass('pageActive').parents('li').addClass('menuActif');
 });

@@ -43,32 +43,23 @@ class PageController extends AbstractController
             throw new NotFoundHttpException('Cette page n\'existe pas ou a été supprimée');
         }
 
-        $commentaires = $page->getCommentaires();
-
-        $commentaire = new Commentaire();
-
-        $utilisateur = $this->getUser();
-        if ($utilisateur){
-            $commentaire->setAuteur($utilisateur->getUsername());
-            $commentaire->setEmail($utilisateur->getEmail());
-        }else{
-            $commentaire->setAuteur('Anonyme');
-        }
-
-        /* Menus */
-        $repoMenuPages = $this->getDoctrine()->getRepository(MenuPage::class);
-        $menusPages = $repoMenuPages->findBy(array('page' => $page));
-        $menus = [];
-        foreach($menusPages as $menuPage){
-            $menu = $menuPage->getMenu();
-            if($menu){
-                $menus[] = $menu->getId();
-            }
-        }
-        $menus = array_unique($menus);
-        /* Fin menus */
-
         /* Commentaires */
+        $commentaires = false;
+        $form = false;
+
+        if($page->getAffichageCommentaires()) {
+            $commentaires = $page->getCommentaires();
+
+            $commentaire = new Commentaire();
+
+            $utilisateur = $this->getUser();
+            if($utilisateur){
+                $commentaire->setAuteur($utilisateur->getUsername());
+                $commentaire->setEmail($utilisateur->getEmail());
+            }else{
+                $commentaire->setAuteur('Anonyme');
+            }
+
             $commentaire->setPage($page);
 
             $formBuilder = $this->get('form.factory')->createBuilder(FormType::class, $commentaire);
@@ -77,10 +68,10 @@ class PageController extends AbstractController
                 ->add('auteur', TextType::class, array('label' => 'Votre nom :'))
                 ->add('email', EmailType::class, array('label' => 'Votre adresse e-mail :'))
                 ->add('site', TextType::class, array('label' => 'Votre site web :', 'required' => false))
-                ->add('contenu', TextareaType::class, array('label'=>'Votre commentaire :'))
-                ->add('envoi', SubmitType::class, array('attr'=>array('class'=>'envoiCom')));
+                ->add('contenu', TextareaType::class, array('label' => 'Votre commentaire :'))
+                ->add('envoi', SubmitType::class, array('attr' => array('class' => 'envoiCom')));
 
-            $form=$formBuilder->getForm();
+            $form = $formBuilder->getForm();
 
             if($request->isMethod('POST')){
                 $form->handleRequest($request);
@@ -94,8 +85,11 @@ class PageController extends AbstractController
                     return $this->redirectToRoute('voirPage', array('url' => $url));
                 }
             }
+
+            $form = $form->createView();
+        }
         /* Fin commentaires */
 
-        return $this->render('front/page.html.twig', array('page'=>$page, 'form'=>$form->createView(), 'commentaires'=>$commentaires, 'menusDeLaPage'=>$menus));
+        return $this->render('front/page.html.twig', array('page'=>$page, 'form'=>$form, 'commentaires'=>$commentaires));
     }
 }

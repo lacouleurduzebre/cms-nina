@@ -8,20 +8,17 @@
 
 namespace App\Blocs\Menu;
 
-use App\Entity\Langue;
-use App\Service\Page;
+use Psr\SimpleCache\CacheInterface;
 use Symfony\Bridge\Doctrine\RegistryInterface;
-use Symfony\Component\HttpFoundation\RequestStack;
 use Twig\Environment;
 
 class MenuTwig extends \Twig_Extension
 {
-    public function __construct(RegistryInterface $doctrine, Environment $twig, RequestStack $requestStack, Page $spage)
+    public function __construct(RegistryInterface $doctrine, Environment $twig, CacheInterface $cache)
     {
         $this->doctrine = $doctrine;
         $this->twig = $twig;
-        $this->request = $requestStack->getCurrentRequest();
-        $this->spage = $spage;
+        $this->cache = $cache;
     }
 
     public function getFunctions()
@@ -32,13 +29,17 @@ class MenuTwig extends \Twig_Extension
     }
 
     public function menu($id){
-        $emMenu = $this->doctrine->getRepository(\App\Entity\Menu::class);
+        $tpl = $this->cache->get('menu_'.$id);
 
-        $menus = [];
-        $menus[] = $emMenu->find($id);
+        if(!$tpl){
+            $emMenu = $this->doctrine->getRepository(\App\Entity\Menu::class);
 
-        $page = $this->spage->getPageActive();
+            $menus = [];
+            $menus[] = $emMenu->find($id);
 
-        return $this->twig->render('front/menu/menus.html.twig', array('menus' => $menus, 'page' => $page));
+            $this->cache->set('menu_'.$id, $this->twig->render('front/menu/menus.html.twig', array('menus' => $menus)));
+        }
+
+        return $tpl;
     }
 }
