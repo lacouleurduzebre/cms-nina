@@ -65,6 +65,7 @@ class Installeur implements EventSubscriberInterface
             }
         }
 
+        //Vidange du cache
         if(substr($request->getRequestUri(), 0, 7) == '/admin/'){
             $this->cache->clear();
         }

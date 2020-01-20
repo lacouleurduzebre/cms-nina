@@ -30,7 +30,7 @@ class SEOController extends AbstractController
      */
     public function liste(){
         $repoSEOPage = $this->getDoctrine()->getRepository(SEOPage::class);
-        $SEOPage = $repoSEOPage->findAll();
+        $SEOPage = $repoSEOPage->SEOPagesHorsCorbeille();
 
         $repoSEOCategorie = $this->getDoctrine()->getRepository(SEOCategorie::class);
         $SEOCategorie = $repoSEOCategorie->findAll();

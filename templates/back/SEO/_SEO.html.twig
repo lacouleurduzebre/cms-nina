@@ -2,7 +2,7 @@
 
 <div class="titre">
     {% if seo.page is defined %}
-        {{ seo.page.titre }}
+        {{ seo.page.titre }}{% if not isPublie(seo.page) %}<span> - {{ "Désactivée"|trans }}</span>{% endif %}
     {% elseif seo.categorie is defined %}
         {{ seo.categorie.nom }}
     {% else %}

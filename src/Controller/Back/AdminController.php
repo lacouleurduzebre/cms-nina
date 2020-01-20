@@ -282,35 +282,28 @@ class AdminController extends BaseAdminController
 
             /* Aperçu du référencement */
             if(in_array('referencement', $blocsUser)){
-                $pagesPubliees = $repositoryPage->pagesPubliees();
+                $pagesHorsCorbeille = $repositoryPage->findBy(['corbeille' => false]);
 
-                $total = count($pagesPubliees);
-                $scoreTotal = 0;
+                $total = count($pagesHorsCorbeille);
                 $scoreMetaTitre = 0;
                 $scoreUrl = 0;
                 $scoreMetaDescription = 0;
 
-                foreach($pagesPubliees as $page){
+                foreach($pagesHorsCorbeille as $page){
                     $seo = $page->getSEO();
-                    $scorePage = 0;
 
                     if(strlen($seo->getMetaTitre()) > ((65/3)*2)){
                         $scoreMetaTitre++;
-                        $scorePage++;
                     }
                     if(strlen($seo->getUrl()) > ((75/3)*2)){
                         $scoreUrl++;
-                        $scorePage++;
                     }
                     if(strlen($seo->getMetaDescription()) > ((150/3)*2)){
                         $scoreMetaDescription++;
-                        $scorePage++;
-                    }
-
-                    if($scorePage == 3){
-                        $scoreTotal++;
                     }
                 }
+
+                $scoreTotal = ($scoreMetaTitre + $scoreUrl + $scoreMetaDescription)/3;
 
                 $blocs['referencement'] = ['total' => $total, 'scoreTotal' => $scoreTotal, 'scoreMetaTitre' => $scoreMetaTitre, 'scoreUrl' => $scoreUrl, 'scoreMetaDescription' => $scoreMetaDescription];
             }

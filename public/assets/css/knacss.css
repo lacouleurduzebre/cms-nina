@@ -5008,6 +5008,10 @@ body.edit input[id$=_largeurMax], body.edit input[id$=_hauteurMax], body.new inp
   padding-bottom: 0.5rem;
   margin-bottom: 0.5rem;
 }
+.listeSEO-conteneur .titre span {
+  font-style: normal;
+  font-weight: 700;
+}
 .listeSEO-conteneur .actions {
   margin-top: 2rem;
 }
