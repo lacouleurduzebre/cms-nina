@@ -100,3 +100,4 @@ easy_admin:
                 - { label: 'Blocs', icon: '', route: 'configurationBlocs', droit: 'configBlocs' }
                 - { label: 'Sauvegardes', icon: '', route: 'sauvegarde', droit: 'sauvegardes' }
                 - { label: 'Droits', icon: '', route: 'droits', droit: 'droits' }
+                - { label: 'Erreurs 404', icon: '', route: 'listeErreurs404' }

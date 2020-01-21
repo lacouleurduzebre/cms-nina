@@ -78,4 +78,15 @@ class BlocRepository extends ServiceEntityRepository
 
         return $qb->getQuery()->getResult();
     }
+
+    public function blocsAvecImagesMediatheque(){
+        $qb = $this
+            ->createQueryBuilder('b')
+            ->join('b.page', 'p')
+            ->where('p.corbeille = 0')
+            ->andWhere('b.contenu LIKE :motCle')
+            ->setParameters(array('motCle' => '%/uploads/%'));
+
+        return $qb->getQuery()->getResult();
+    }
 }

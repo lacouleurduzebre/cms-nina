@@ -3916,7 +3916,7 @@ body.list #flash-messages > * {
 
 .tdb-bloc.referencement span {
   display: inline-block;
-  width: 25rem;
+  width: 20rem;
 }
 .tdb-bloc.referencement meter {
   margin-left: 1rem;

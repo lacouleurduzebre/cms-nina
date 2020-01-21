@@ -1,0 +1,15 @@
+{% extends 'back/base.html.twig' %}
+
+{% block main %}
+    <h1>{{ "Liste des erreurs 404"|trans }}</h1>
+
+    <h2>{{ "Images de la médiathèque"|trans }}</h2>
+    {% for page in images404 %}
+        <h3><a href="{{ path('easyadmin', {action: 'edit', entity: 'Page_Active', id: page.page.id}) }}" target="_blank">{{ page.page.titre }}</a></h3>
+        <ul>
+            {% for erreur in page.erreurs %}
+                <li>{{ "Bloc"|trans }} "{{ erreur.bloc.type }}" : {{ erreur.url|replace({'/uploads/': ''}) }}</li>
+            {% endfor %}
+        </ul>
+    {% endfor %}
+{% endblock %}
