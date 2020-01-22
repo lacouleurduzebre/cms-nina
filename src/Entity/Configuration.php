@@ -388,6 +388,8 @@ class Configuration
     public function setFavicon(?string $favicon): self
     {
         $this->favicon = $favicon;
+
+        return $this;
     }
 
     public function getInstalle(): ?bool
