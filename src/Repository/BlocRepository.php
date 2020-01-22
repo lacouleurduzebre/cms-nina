@@ -79,7 +79,7 @@ class BlocRepository extends ServiceEntityRepository
         return $qb->getQuery()->getResult();
     }
 
-    public function blocsAvecImagesMediatheque(){
+    public function blocsAvecLiensMediatheque(){
         $qb = $this
             ->createQueryBuilder('b')
             ->join('b.page', 'p')

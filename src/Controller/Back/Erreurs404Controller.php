@@ -21,97 +21,138 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class Erreurs404Controller extends AbstractController
 {
+    private $erreurs;
+    private $bloc;
+    private $element;
+
+    public function __construct()
+    {
+        $this->erreurs = [];
+        $this->bloc = null;
+        $this->element = null;
+    }
+
     /**
      * @Route("/erreurs404/liste", name="listeErreurs404")
      */
     public function listeErreurs404(){
         $repoBlocs = $this->getDoctrine()->getRepository(Bloc::class);
-        $blocsAvecImages = $repoBlocs->blocsAvecImagesMediatheque();
+        $blocsAvecLiens = $repoBlocs->blocsAvecLiensMediatheque();
 
         $repoBlocsAnnexes = $this->getDoctrine()->getRepository(BlocAnnexe::class);
-        $blocsAnnexesAvecImages = $repoBlocsAnnexes->blocsAnnexesAvecImagesMediatheque();
+        $blocsAnnexesAvecLiens = $repoBlocsAnnexes->blocsAnnexesAvecLiensMediatheque();
 
-        //Images
-        $images404 = [];
-
-            //Blocs
-        foreach($blocsAvecImages as $bloc){
-            $type = $bloc->getType();
-            $contenu = $bloc->getContenu();
+        //Blocs
+        foreach($blocsAvecLiens as $bloc){
+            $this->bloc = $bloc;
+            $type = $this->bloc->getType();
+            $contenu = $this->bloc->getContenu();
             if($type == 'Accordeon'){
                 foreach($contenu['sections'] as $section){
-                    $texte = $section['texte'];
-                    $images404 = $this->rechercheImages404($images404, $bloc, $texte, true);
+                    $this->element = $section['texte'];
+                    $this->rechercheLiens404(true, 'fichiers404');
+                    $this->rechercheLiens404(true, 'images404');
                 }
+            }elseif($type == 'Bouton'){
+                $this->element = $contenu['lien'];
+                $this->rechercheLiens404(false, 'fichiers404');
             }elseif($type == 'Galerie'){
                 foreach($contenu['images'] as $image){
-                    $image = $image['image']['image'];
-                    $images404 = $this->rechercheImages404($images404, $bloc, $image);
+                    $this->element = $image['lien'];
+                    $this->rechercheLiens404(false, 'fichiers404');
+                    $this->element = $image['image']['image'];
+                    $this->rechercheLiens404(false, 'images404');
                 }
             }elseif($type == 'Grille'){
                 foreach($contenu['cases'] as $case){
-                    $image = $case['image']['image'];
-                    $images404 = $this->rechercheImages404($images404, $bloc, $image);
-                    $texte = $case['texte'];
-                    $images404 = $this->rechercheImages404($images404, $bloc, $texte, true);
+                    $this->element = $case['image']['image'];
+                    $this->rechercheLiens404(false, 'images404');
+                    $this->element = $case['texte'];
+                    $this->rechercheLiens404(true, 'images404');
+                    $this->rechercheLiens404(true, 'fichiers404');
+                    $this->element = $case['lien']['lien'];
+                    $this->rechercheLiens404(false, 'fichiers404');
                 }
             }elseif($type == 'Image'){
-                $image = $contenu['image'];
-                $images404 = $this->rechercheImages404($images404, $bloc, $image);
+                $this->element = $contenu['image'];
+                $this->rechercheLiens404(false, 'images404');
+                $this->element = $contenu['lien'];
+                $this->rechercheLiens404(false, 'fichiers404');
             }elseif($type == 'HTML'){
-                $texte = $contenu['code'];
-                $images404 = $this->rechercheImages404($images404, $bloc, $texte, true);
+                $this->element = $contenu['code'];
+                $this->rechercheLiens404(true, 'images404');
+                $this->rechercheLiens404(true, 'fichiers404');
+            }elseif($type == 'Paragraphe'){
+                $this->element = $contenu['texte'];
+                $this->rechercheLiens404(true, 'fichiers404');
             }elseif($type == 'Slider'){
                 foreach($contenu['Slide'] as $slide){
-                    $image = $slide['image']['image'];
-                    $images404 = $this->rechercheImages404($images404, $bloc, $image);
+                    $this->element = $slide['image']['image'];
+                    $this->rechercheLiens404(false, 'images404');
+                    $this->element = $slide['texte'];
+                    $this->rechercheLiens404(true, 'fichiers404');
+                    $this->element = $slide['lien'];
+                    $this->rechercheLiens404(false, 'fichiers404');
                 }
             }elseif($type == 'Texte'){
-                $texte = $contenu['texte'];
-                $images404 = $this->rechercheImages404($images404, $bloc, $texte, true);
+                $this->element = $contenu['texte'];
+                $this->rechercheLiens404(true, 'images404');
+                $this->rechercheLiens404(true, 'fichiers404');
             }
         }
 
-            //Blocs annexes
-        foreach($blocsAnnexesAvecImages as $bloc){
-            $type = $bloc->getType();
-            $contenu = $bloc->getContenu();
+        //Blocs annexes
+        foreach($blocsAnnexesAvecLiens as $bloc){
+            $this->bloc = $bloc;
+            $type = $this->bloc->getType();
+            $contenu = $this->bloc->getContenu();
             if($type == 'Bandeau' or $type == 'Vignette'){
-                $image = $contenu['image']['image'];
-                $images404 = $this->rechercheImages404($images404, $bloc, $image);
+                $this->element = $contenu['image']['image'];
+                $this->rechercheLiens404(false, 'images404');
             }elseif($type == 'Resume'){
-                $texte = $contenu['resume'];
-                $images404 = $this->rechercheImages404($images404, $bloc, $texte, true);
+                $this->element = $contenu['resume'];
+                $this->rechercheLiens404(true, 'images404');
+                $this->rechercheLiens404(true, 'fichiers404');
             }
         }
 
-        //Liens
-        //@Todo tester liens balises href
-
-        return $this->render('back/erreurs404.html.twig', ['images404' => $images404]);
+        return $this->render('back/erreurs404.html.twig', ['erreurs' => $this->erreurs]);
     }
 
-    private function rechercheImages404($images404, $bloc, $element, $regex = false){
-        if($regex){
-            preg_match_all('/<img( [a-z]+="[^"]+")* src="(\/uploads\/[^"]*)"/i', $element, $images, PREG_SET_ORDER);
+    private function rechercheLiens404($regex, $type){
+        if(!key_exists($type, $this->erreurs)){
+            $this->erreurs[$type] = [];
+        }
 
-            foreach($images as $image){
-                if(!file_exists(getcwd().$image[2]) && !file_exists(getcwd().urldecode($image[2]))){
-                    if(!key_exists('page'.$bloc->getPage()->getId(), $images404)){
-                        $images404['page'.$bloc->getPage()->getId()]['page'] = $bloc->getPage();
-                    }
-                    $images404['page'.$bloc->getPage()->getId()]['erreurs'][] = ['bloc' => $bloc, 'url' => $image[2]];
-                }
+        if($regex){
+            $regex = ($type == 'fichiers404') ? '/<a( [a-z]+="[^"]+")* href="(\/uploads\/[^"]*)"/i' : '/<img( [a-z]+="[^"]+")* src="(\/uploads\/[^"]*)"/i';
+            preg_match_all($regex, $this->element, $liens, PREG_SET_ORDER);
+
+            foreach($liens as $lien){
+                $this->element = $lien[2];
+                $this->testLien($type);
             }
         }else{
-            if(!file_exists(getcwd().$element) && !file_exists(getcwd().urldecode($element))){
-                if(!key_exists('page'.$bloc->getPage()->getId(), $images404)){
-                    $images404['page'.$bloc->getPage()->getId()]['page'] = $bloc->getPage();
-                }
-                $images404['page'.$bloc->getPage()->getId()]['erreurs'][] = ['bloc' => $bloc, 'url' => $element];
+            $this->testLien($type);
+        }
+    }
+
+    private function testLien($type){
+        if(substr($this->element, 0, 4) == 'http'){
+            $type = 'liensExternes404';
+            $file_headers = @get_headers($this->element);
+            if(!$file_headers[0] == 'HTTP/1.0 404 Not Found' || !($file_headers[0] == 'HTTP/1.0 302 Found' && $file_headers[7] == 'HTTP/1.0 404 Not Found')){
+                return;
+            }
+        }else{
+            if(file_exists(getcwd().$this->element) || file_exists(getcwd().urldecode($this->element))){
+                return;
             }
         }
 
-        return $images404;
+        if(!key_exists('page'.$this->bloc->getPage()->getId(), $this->erreurs[$type])){
+            $this->erreurs[$type]['page'.$this->bloc->getPage()->getId()]['page'] = $this->bloc->getPage();
+        }
+        $this->erreurs[$type]['page'.$this->bloc->getPage()->getId()]['erreurs'][] = ['bloc' => $this->bloc, 'url' => $this->element];
     }
 }

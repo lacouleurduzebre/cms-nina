@@ -1,15 +1,49 @@
 {% extends 'back/base.html.twig' %}
 
 {% block main %}
-    <h1>{{ "Liste des erreurs 404"|trans }}</h1>
+    <div class="listeErreurs404-conteneur">
+        <section class="content-header">
+            <h1>{{ "Liste des erreurs 404"|trans }}</h1>
+        </section>
 
-    <h2>{{ "Images de la médiathèque"|trans }}</h2>
-    {% for page in images404 %}
-        <h3><a href="{{ path('easyadmin', {action: 'edit', entity: 'Page_Active', id: page.page.id}) }}" target="_blank">{{ page.page.titre }}</a></h3>
-        <ul>
-            {% for erreur in page.erreurs %}
-                <li>{{ "Bloc"|trans }} "{{ erreur.bloc.type }}" : {{ erreur.url|replace({'/uploads/': ''}) }}</li>
-            {% endfor %}
+        <ul class="nav-tabs">
+            <li class="active"><a href="#imagesMediatheque-tab" data-toggle="tab">{{ "Images de la médiathèque"|trans }}</a></li>
+            <li><a href="#fichiersMediatheque-tab" data-toggle="tab">{{ "Documents de la médiathèque"|trans }}</a></li>
+            {% if erreurs.liensExternes404 is defined %}
+                <li><a href="#liensExternes-tab" data-toggle="tab">{{ "Liens externes"|trans }}</a></li>
+            {% endif %}
         </ul>
-    {% endfor %}
+
+        <div id="imagesMediatheque-tab" class="tab-pane active">
+            {% for page in erreurs.images404 %}
+                {% block erreur %}
+                    <h3><a href="{{ path('easyadmin', {action: 'edit', entity: 'Page_Active', id: page.page.id}) }}" target="_blank">{{ page.page.titre }}</a></h3>
+                    <ul>
+                        {% for erreur in page.erreurs %}
+                            {% if erreur.url|slice(0,8) == '/uploads' %}
+                                {% set url = erreur.url|replace({'/uploads/': ''}) %}
+                            {% else %}
+                                {% set url = erreur.url %}
+                            {% endif %}
+                            <li>{{ "Bloc"|trans }} "{{ erreur.bloc.type }}" : {{ url }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endblock %}
+            {% endfor %}
+        </div>
+
+        <div id="fichiersMediatheque-tab" class="tab-pane">
+            {% for page in erreurs.fichiers404 %}
+                {{ block('erreur') }}
+            {% endfor %}
+        </div>
+
+        {% if erreurs.liensExternes404 is defined %}
+            <div id="liensExternes-tab" class="tab-pane">
+                {% for page in erreurs.liensExternes404 %}
+                    {{ block('erreur') }}
+                {% endfor %}
+            </div>
+        {% endif %}
+    </div>
 {% endblock %}

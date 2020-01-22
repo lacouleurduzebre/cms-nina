@@ -19,7 +19,7 @@ class BlocAnnexeRepository extends ServiceEntityRepository
         parent::__construct($registry, BlocAnnexe::class);
     }
 
-    public function blocsAnnexesAvecImagesMediatheque(){
+    public function blocsAnnexesAvecLiensMediatheque(){
         $qb = $this
             ->createQueryBuilder('b')
             ->join('b.page', 'p')
