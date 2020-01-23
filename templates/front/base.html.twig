@@ -56,7 +56,7 @@
 
         <main {% if page is defined and page is not empty %}id="page{{ page.id }}"{% endif %} class="center {% if page is defined %} page{% endif %}{% if menusDeLaPage is defined %}{% for menu in menusDeLaPage %} menu-{{ menu }}{% endfor %}{% endif %}">
             {# Message si la page n'est pas visible pour tous les utilisateurs #}
-            {% if page is defined and not isPublie(page) %}
+            {% if page is defined and page is not empty and not isPublie(page) %}
                 {% include 'front/pageNonPubliee.html.twig' %}
             {% endif %}
 

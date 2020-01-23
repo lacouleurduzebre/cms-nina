@@ -11,18 +11,16 @@ namespace App\Blocs\LEI;
 
 use App\Entity\Bloc;
 use App\Service\Langue;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
-use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Yaml\Yaml;
 
-class LEIController extends Controller
+class LEIController extends AbstractController
 {
     /**
      * @Route("/fiche/{url}/{idFiche}/{idBloc}", name="voirFicheLEI")
