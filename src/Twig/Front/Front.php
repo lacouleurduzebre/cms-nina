@@ -90,9 +90,11 @@ class Front extends \Twig_Extension
 
         $cleCache = 'region_'.$idRegion.'_'.$langue->getAbreviation();
 
-        $rendu = $this->cache->get($cleCache);
+        if($_ENV['APP_ENV'] == 'prod'){
+            $rendu = $this->cache->get($cleCache);
+        }
 
-        if(!$rendu){
+        if(!isset($rendu)){
             $repoGroupeBlocs = $this->doctrine->getRepository(\App\Entity\GroupeBlocs::class);
             $groupesBlocs = $repoGroupeBlocs->findBy(array('region' => $idRegion, 'langue' => $langue), array('position' => 'ASC'));
 
@@ -106,7 +108,9 @@ class Front extends \Twig_Extension
                 }
             }
 
-            $this->cache->set($cleCache, $rendu);
+            if($_ENV['APP_ENV'] == 'prod'){
+                $this->cache->set($cleCache, $rendu);
+            }
         }
 
         return $rendu;
@@ -184,12 +188,16 @@ class Front extends \Twig_Extension
 
         $cleCache = 'page_'.$page->getId().'_blocs';
 
-        $tpl = $this->cache->get($cleCache);
+        if($_ENV['APP_ENV'] == 'prod') {
+            $tpl = $this->cache->get($cleCache);
+        }
 
-        if(!$tpl){
+        if(!isset($tpl)){
             $tpl = $this->twig->render('front/blocs.html.twig', array('blocs' => $page->getBlocs()));
 
-            $this->cache->set($cleCache, $tpl);
+            if($_ENV['APP_ENV'] == 'prod'){
+                $this->cache->set($cleCache, $tpl);
+            }
         }
 
         return $tpl;

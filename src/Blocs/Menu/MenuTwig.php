@@ -29,9 +29,11 @@ class MenuTwig extends \Twig_Extension
     }
 
     public function menu($id){
-        $tpl = $this->cache->get('menu_'.$id);
+        if($_ENV['APP_ENV'] == 'prod'){
+            $tpl = $this->cache->get('menu_' . $id);
+        }
 
-        if(!$tpl){
+        if(!isset($tpl)){
             $emMenu = $this->doctrine->getRepository(\App\Entity\Menu::class);
 
             $menus = [];
@@ -39,7 +41,9 @@ class MenuTwig extends \Twig_Extension
 
             $tpl = $this->twig->render('front/menu/menus.html.twig', array('menus' => $menus));
 
-            $this->cache->set('menu_'.$id, $tpl);
+            if($_ENV['APP_ENV'] == 'prod'){
+                $this->cache->set('menu_' . $id, $tpl);
+            }
         }
 
         return $tpl;
