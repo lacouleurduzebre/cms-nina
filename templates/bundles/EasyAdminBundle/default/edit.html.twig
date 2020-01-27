@@ -11,18 +11,16 @@
 {% block body_class 'edit edit-' ~ _entity_config.name|lower %}
 
 {% block content_title %}
-{% spaceless %}
     {% set _default_title = 'edit.page_title'|trans(_trans_parameters, 'EasyAdminBundle') %}
     {% if _entity_config.edit.title is defined %}
         {% if _entity_config.edit.title == '%entity_label%' %}
-            {{ _entity_config.edit.title|trans(_trans_parameters) }}
+            {{ _entity_config.edit.title|trans(_trans_parameters)|spaceless }}
         {% else %}
             {{ _entity_config.label|trans(_trans_parameters) }} : {{ attribute(entity, _entity_config.edit.title) }}
         {% endif %}
     {% else %}
-        {{ _default_title }}
+        {{ _default_title|spaceless }}
     {% endif %}
-{% endspaceless %}
 {% endblock %}
 
 {% block main %}

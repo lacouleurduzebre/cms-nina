@@ -1,13 +1,15 @@
 {% if blocs is defined %}
-    {% for bloc in blocs if bloc.active %}
-        {% set classBloc = '' %}
-        {% if bloc.classes is not empty %}
-            {% for class in bloc.classes %}
-                {% set classBloc = classBloc~" "~class %}
-            {% endfor %}
-        {% endif %}
+    {% for bloc in blocs %}
+        {% if bloc.active %}
+            {% set classBloc = '' %}
+            {% if bloc.classes is not empty %}
+                {% for class in bloc.classes %}
+                    {% set classBloc = classBloc~" "~class %}
+                {% endfor %}
+            {% endif %}
             <div class="bloc{{ bloc.type }} bloc-{{ bloc.id }}{% if classBloc is defined and classBloc is not empty %}{{ classBloc }}{% endif %}" data-bloc="{{ bloc.id }}">
                 {% include ['/Blocs/'~bloc.type~'/bloc-'~bloc.id~'.html.twig', '/Blocs/'~bloc.type~'/'~bloc.type~'.html.twig'] with{'bloc': bloc} only %}
             </div>
+        {% endif %}
     {% endfor %}
 {% endif %}
