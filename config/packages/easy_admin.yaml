@@ -21,7 +21,7 @@ easy_admin:
         datetime: 'd/m/Y H:i'
     design:
         brand_color: '#A1BB0C'
-        form_theme: 'back/easyadmin/bootstrap_3_layout.html.twig'
+        form_theme: 'bundles/EasyAdminBundle/bootstrap_3_layout.html.twig'
         assets:
             favicon: 'assets/img/favicon.ico'
             css:
@@ -44,16 +44,6 @@ easy_admin:
         templates:
             layout: 'back/base.html.twig'
             menu: 'back/menu/menuPrincipal.html.twig'
-            new: 'back/easyadmin/new.html.twig'
-            list: 'back/easyadmin/list.html.twig'
-            edit: 'back/easyadmin/edit.html.twig'
-            field_toggle: 'back/easyadmin/fields/field_toggle.html.twig'
-            field_association: 'back/easyadmin/fields/field_association.html.twig'
-            field_text: 'back/easyadmin/fields/field_text.html.twig'
-            field_image: 'back/easyadmin/fields/field_image.html.twig'
-            paginator: 'back/easyadmin/paginator.html.twig'
-            flash_messages: 'back/easyadmin/flash_messages.html.twig'
-            label_null: 'back/easyadmin/default/label_null.html.twig'
         menu:
             - { label: 'Tableau de bord', icon: 'tachometer-alt', route: 'tableauDeBord' }
             - label: 'Contenus'
