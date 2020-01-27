@@ -10,8 +10,7 @@ namespace App\Event;
 
 
 use App\Entity\Configuration;
-use Doctrine\Common\Persistence\ObjectManager;
-use Symfony\Bridge\Doctrine\RegistryInterface;
+use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpKernel\Event\ControllerEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
@@ -19,9 +18,8 @@ use Symfony\Component\Security\Core\Security;
 
 class Langue implements EventSubscriberInterface
 {
-    public function __construct(ObjectManager $manager, Security $security, RegistryInterface $doctrine)
+    public function __construct(Security $security, ManagerRegistry $doctrine)
     {
-        $this->manager = $manager;
         $this->doctrine = $doctrine;
         $this->security = $security;
     }
@@ -53,7 +51,7 @@ class Langue implements EventSubscriberInterface
         }
 
         if(!isset($langue)){
-            $repoLangue = $this->manager->getRepository(\App\Entity\Langue::class);
+            $repoLangue = $this->doctrine->getRepository(\App\Entity\Langue::class);
             $langue = $repoLangue->findOneBy(array('defaut' => true))->getAbreviation();
         }
 

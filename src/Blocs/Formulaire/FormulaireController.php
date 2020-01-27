@@ -11,12 +11,12 @@ namespace App\Blocs\Formulaire;
 
 use App\Entity\Bloc;
 use App\Entity\Configuration;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-class FormulaireController extends Controller
+class FormulaireController extends AbstractController
 {
     /**
      * @Route("/envoiMail", name="envoiMail")

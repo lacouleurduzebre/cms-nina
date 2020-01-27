@@ -12,11 +12,11 @@ namespace App\Blocs\Categorie;
 use App\Entity\Categorie;
 use App\Entity\Page;
 use App\Service\Pagination;
-use Symfony\Bridge\Doctrine\RegistryInterface;
+use Doctrine\Persistence\ManagerRegistry;
 
 class CategorieTwig extends \Twig_Extension
 {
-    public function __construct(RegistryInterface $doctrine, Pagination $pagination)
+    public function __construct(ManagerRegistry $doctrine, Pagination $pagination)
     {
         $this->doctrine = $doctrine;
         $this->pagination = $pagination;

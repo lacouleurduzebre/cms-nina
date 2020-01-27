@@ -12,14 +12,14 @@ use App\Entity\Langue;
 use App\Entity\Page;
 use App\Entity\Region;
 use Psr\SimpleCache\CacheInterface;
-use Symfony\Bridge\Doctrine\RegistryInterface;
+use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Twig\Environment;
 
 class Front extends \Twig_Extension
 {
-    public function __construct(RegistryInterface $doctrine, Environment $twig, RequestStack $requestStack, UrlGeneratorInterface $router, CacheInterface $cache)
+    public function __construct(ManagerRegistry $doctrine, Environment $twig, RequestStack $requestStack, UrlGeneratorInterface $router, CacheInterface $cache)
     {
         $this->doctrine = $doctrine;
         $this->twig = $twig;

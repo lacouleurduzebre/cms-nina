@@ -10,14 +10,14 @@ namespace App\Service;
 
 
 use App\Entity\Role;
-use Symfony\Bridge\Doctrine\RegistryInterface;
+use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 
 class Droits
 {
-    public function __construct(RequestStack $request, RegistryInterface $doctrine, TokenStorageInterface $token, AuthorizationCheckerInterface $authorizationChecker)
+    public function __construct(RequestStack $request, ManagerRegistry $doctrine, TokenStorageInterface $token, AuthorizationCheckerInterface $authorizationChecker)
     {
         $this->request = $request;
         $this->doctrine = $doctrine;

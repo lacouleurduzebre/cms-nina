@@ -12,12 +12,12 @@ namespace App\Blocs\PlanDuSite;
 use App\Entity\Menu;
 use App\Entity\MenuPage;
 use App\Entity\Bloc;
-use Symfony\Bridge\Doctrine\RegistryInterface;
+use Doctrine\Persistence\ManagerRegistry;
 use Twig\Environment;
 
 class PlanDuSiteTwig extends \Twig_Extension
 {
-    public function __construct(RegistryInterface $doctrine, Environment $twig)
+    public function __construct(ManagerRegistry $doctrine, Environment $twig)
     {
         $this->doctrine = $doctrine;
         $this->twig = $twig;

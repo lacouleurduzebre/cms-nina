@@ -11,12 +11,12 @@ namespace App\Twig\Front;
 
 use App\Entity\MenuPage;
 use App\Entity\Page;
-use Symfony\Bridge\Doctrine\RegistryInterface;
+use Doctrine\Persistence\ManagerRegistry;
 use Twig\Environment;
 
 class FilAriane extends \Twig_Extension
 {
-    public function __construct(RegistryInterface $doctrine, Environment $twig)
+    public function __construct(ManagerRegistry $doctrine, Environment $twig)
     {
         $this->doctrine = $doctrine;
         $this->twig = $twig;

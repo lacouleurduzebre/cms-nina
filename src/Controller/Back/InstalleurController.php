@@ -16,12 +16,10 @@ use App\Entity\Langue;
 use App\Entity\Menu;
 use App\Entity\MenuPage;
 use App\Entity\Page;
-use App\Entity\SEO;
 use App\Entity\SEOPage;
 use App\Entity\Utilisateur;
 use Doctrine\Common\Persistence\ObjectManager;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\Dotenv\Dotenv;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
@@ -35,7 +33,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Yaml\Yaml;
 
-class InstalleurController extends Controller
+class InstalleurController extends AbstractController
 {
     /**
      * @Route("/installeur/{etape}", name="installeur", requirements={

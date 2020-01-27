@@ -13,15 +13,17 @@ use App\Entity\Configuration;
 use App\Entity\Langue;
 use App\Entity\Region;
 use App\Service\Page;
-use Symfony\Bridge\Doctrine\RegistryInterface;
+use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Yaml\Yaml;
+use Twig\Extension\AbstractExtension;
+use Twig\Extension\GlobalsInterface;
 
-class Globals extends \Twig_Extension implements \Twig_Extension_GlobalsInterface
+class Globals extends AbstractExtension implements GlobalsInterface
 {
     private $doctrine;
 
-    public function __construct(RegistryInterface $doctrine, Page $page, RequestStack $request)
+    public function __construct(ManagerRegistry $doctrine, Page $page, RequestStack $request)
     {
         $this->doctrine = $doctrine;
         $this->servicePage = $page;

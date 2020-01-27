@@ -9,12 +9,12 @@
 namespace App\Blocs\Menu;
 
 use Psr\SimpleCache\CacheInterface;
-use Symfony\Bridge\Doctrine\RegistryInterface;
+use Doctrine\Persistence\ManagerRegistry;
 use Twig\Environment;
 
 class MenuTwig extends \Twig_Extension
 {
-    public function __construct(RegistryInterface $doctrine, Environment $twig, CacheInterface $cache)
+    public function __construct(ManagerRegistry $doctrine, Environment $twig, CacheInterface $cache)
     {
         $this->doctrine = $doctrine;
         $this->twig = $twig;

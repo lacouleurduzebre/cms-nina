@@ -10,13 +10,13 @@ namespace App\Blocs\LEI;
 
 
 use App\Service\Pagination;
-use Symfony\Bridge\Doctrine\RegistryInterface;
+use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\Yaml\Yaml;
 use Twig\Environment;
 
 class LEITwig extends \Twig_Extension
 {
-    public function __construct(RegistryInterface $doctrine, Pagination $pagination)
+    public function __construct(ManagerRegistry $doctrine, Pagination $pagination)
     {
         $this->doctrine = $doctrine;
         $this->pagination = $pagination;

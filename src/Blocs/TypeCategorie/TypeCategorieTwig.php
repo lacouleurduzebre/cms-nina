@@ -13,11 +13,11 @@ use App\Controller\SEOController;
 use App\Entity\Categorie;
 use App\Service\Page;
 use Doctrine\Common\Collections\ArrayCollection;
-use Symfony\Bridge\Doctrine\RegistryInterface;
+use Doctrine\Persistence\ManagerRegistry;
 
 class TypeCategorieTwig extends \Twig_Extension
 {
-    public function __construct(RegistryInterface $doctrine)
+    public function __construct(ManagerRegistry $doctrine)
     {
         $this->doctrine = $doctrine;
     }

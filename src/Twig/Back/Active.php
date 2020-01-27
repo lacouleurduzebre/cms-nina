@@ -10,11 +10,11 @@ namespace App\Twig\Back;
 
 
 use App\Entity\Page;
-use Symfony\Bridge\Doctrine\RegistryInterface;
+use Doctrine\Persistence\ManagerRegistry;
 
 class Active extends \Twig_Extension
 {
-    public function __construct(RegistryInterface $doctrine)
+    public function __construct(ManagerRegistry $doctrine)
     {
         $this->doctrine = $doctrine;
     }

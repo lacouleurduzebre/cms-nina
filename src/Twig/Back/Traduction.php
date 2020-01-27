@@ -13,13 +13,13 @@ use App\Entity\Langue;
 use App\Entity\Menu;
 use App\Entity\MenuPage;
 use App\Entity\Page;
-use Symfony\Bridge\Doctrine\RegistryInterface;
+use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Twig\Environment;
 
 class Traduction extends \Twig_Extension
 {
-    public function __construct(RegistryInterface $doctrine, RequestStack $requestStack, Environment $twig)
+    public function __construct(ManagerRegistry $doctrine, RequestStack $requestStack, Environment $twig)
     {
         $this->doctrine = $doctrine;
         $this->request = $requestStack->getCurrentRequest();

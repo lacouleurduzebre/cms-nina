@@ -10,8 +10,8 @@ namespace App\Event;
 
 
 use App\Entity\Configuration;
+use Doctrine\Persistence\ManagerRegistry;
 use Psr\SimpleCache\CacheInterface;
-use Symfony\Bridge\Doctrine\RegistryInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
@@ -20,7 +20,7 @@ use Symfony\Component\HttpKernel\KernelEvents;
 
 class Installeur implements EventSubscriberInterface
 {
-    public function __construct(RegistryInterface $doctrine, CacheInterface $cache)
+    public function __construct(ManagerRegistry $doctrine, CacheInterface $cache)
     {
         $this->doctrine = $doctrine;
         $this->cache = $cache;

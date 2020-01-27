@@ -11,7 +11,7 @@ namespace App\Service;
 
 use App\Entity\Langue;
 use App\Entity\SEOPage;
-use Symfony\Bridge\Doctrine\RegistryInterface;
+use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -19,7 +19,7 @@ use Symfony\Component\Routing\RouterInterface;
 
 class Page
 {
-    public function __construct(RegistryInterface $doctrine, RequestStack $request, RouterInterface $router, Droits $sDroits)
+    public function __construct(ManagerRegistry $doctrine, RequestStack $request, RouterInterface $router, Droits $sDroits)
     {
         $this->doctrine = $doctrine;
         $this->request = $request;
