@@ -13,18 +13,13 @@
                         {% endif %}
                         {% if (slide.lien is defined and slide.lien is not empty) or (slide.page is defined and slide.page is not empty) %}
                             <p class="slide--lien">
-                                <a href="
-                                    {% if slide.page is defined and slide.page is not empty %}
-                                        {% set page = page(slide.page) %}
-                                        {{ lienPage(page) }}
-                                    {% else %}
-                                        {{ slide.lien }}
-                                    {% endif %}
-                                    "
-                                    {% if slide.blank is defined and slide.blank %}
-                                        target="_blank"
-                                    {% endif %}
-                                >{{ "Lire la suite"|trans }}</a>
+                                {% if slide.page is defined and slide.page is not empty %}
+                                    {% set page = page(slide.page) %}
+                                    {% set lien = lienPage(page) %}
+                                {% else %}
+                                    {% set lien = slide.lien %}
+                                {% endif %}
+                                <a href="{{ lien }}" {% if slide.blank is defined and slide.blank %}target="_blank"{% endif %}>{{ "Lire la suite"|trans }}</a>
                             </p>
                         {% endif %}
                     </div>

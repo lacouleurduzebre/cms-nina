@@ -25,13 +25,7 @@
             {% endif %}
         {% endblock %}
         <script src="{{ asset('assets/js/jquery-3.2.1.min.js') }}"></script>
-        <link rel="icon" type="image/x-icon" href="
-            {% if config.favicon is defined and config.favicon is not empty %}
-                {{ config.favicon }}
-            {% else %}
-                {{ asset('assets/img/favicon.ico') }}
-            {% endif %}
-        " />
+        <link rel="icon" type="image/x-icon" href="{{ config.favicon|default(asset('assets/img/favicon.ico')) }}" />
     {% endif %}
 </head>
 {% if not config.maintenance or is_granted('IS_AUTHENTICATED_REMEMBERED') %}

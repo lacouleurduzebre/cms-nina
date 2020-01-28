@@ -26,14 +26,13 @@
                         </div>
                     {% endif %}
                     {% if (case.lien.lien is defined and case.lien.lien is not empty) or (case.lien.page is defined and case.lien.page is not empty) %}
-                        <a class="bouton" href="
-                            {% if case.lien.page is defined and case.lien.page is not empty %}
-                                {% set page = page(case.lien.page) %}
-                                {{ lienPage(page) }}
-                            {% else %}
-                                {{ case.lien.lien }}
-                            {% endif %}
-                            "
+                        {% if case.lien.page is defined and case.lien.page is not empty %}
+                            {% set page = page(case.lien.page) %}
+                            {% set lien = lienPage(page) %}
+                        {% else %}
+                            {% set lien = case.lien.lien %}
+                        {% endif %}
+                        <a class="bouton" href="{{ lien }}"
                             {% if case.lien.blank.0 is defined and case.lien.blank.0 %}
                                 target="_blank"
                             {% endif %}

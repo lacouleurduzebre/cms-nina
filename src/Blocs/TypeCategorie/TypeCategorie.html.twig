@@ -16,13 +16,12 @@
     <div class="flex-container">
         {% for categorie in categoriesDeType(bloc.contenu.typeCategorie, bloc.contenu.limite|default(null)) %}
             <div class="blocTypeCategorie-categorie flex-container-v mrs mbs">
-                <a class="bouton lire" href="
-                    {% if langues|length > 1 %}
-                        {{ path('voirCategorieLocale', { '_locale': categorie.langue.abreviation, 'urlTypeCategorie': categorie.typeCategorie.seo.url, 'urlCategorie': categorie.seo.url }) }}
-                    {% else %}
-                        {{ path('voirCategorie', { 'urlTypeCategorie': categorie.typeCategorie.seo.url, 'urlCategorie': categorie.seo.url }) }}
-                    {% endif %}
-                "><i class="fas fa-tag mrs"></i>{{ categorie.nom }}</a>
+                {% if langues|length > 1 %}
+                    {% set lien = path('voirCategorieLocale', { '_locale': categorie.langue.abreviation, 'urlTypeCategorie': categorie.typeCategorie.seo.url, 'urlCategorie': categorie.seo.url }) %}
+                {% else %}
+                    {% set lien = path('voirCategorie', { 'urlTypeCategorie': categorie.typeCategorie.seo.url, 'urlCategorie': categorie.seo.url }) %}
+                {% endif %}
+                <a class="bouton lire" href="{{ lien }}"><i class="fas fa-tag mrs"></i>{{ categorie.nom }}</a>
             </div>
         {% endfor %}
     </div>

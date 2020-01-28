@@ -33,13 +33,19 @@
 
         <h1 class="pageFiche-titre">{{ fiche.NOM }}</h1>
         {% if fiche.TYPE_NOM is defined %}<h2 class="pageFiche-sousTitre">{{ fiche.TYPE_NOM }}</h2>{% endif %}
-        {% if fiche.CRITERES.Crit is defined and fiche.CRITERES.Crit is not empty %}
+
+        {% if photo.photo is defined %}
             <div id="galerieFiche" class="pageFiche-conteneurImages flex-container">
-                {% if photo %}
-                    <a data-fancybox="galerieFiche" href="{{ photo.photo }}">
-                        <img class="pageFiche-image" data-src="{{ photo.photo }}" {% if photo.credits is defined %}title="{{ "Crédits : "|trans }}{{ photo.credits }}"{% endif %}>
-                    </a>
-                {% endif %}
+                <a data-fancybox="galerieFiche" href="{{ photo.photo }}">
+                    <img class="pageFiche-image" data-src="{{ photo.photo }}" {% if photo.credits is defined %}title="{{ "Crédits : "|trans }}{{ photo.credits }}"{% endif %}>
+                </a>
+            </div>
+        {% endif %}
+
+        {% if fiche.HORAIRES.Horaire is defined %}
+            <div class="ficheLEI-date">
+                <h2>Dates</h2>
+                {% include 'Blocs/LEI/fiche-dates.html.twig' %}
             </div>
         {% endif %}
 

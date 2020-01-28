@@ -33,27 +33,21 @@
     {% endif %}
 
     {# Lien ? #}
-    {% if (bloc.contenu.lien is defined and bloc.contenu.lien is not empty) or (bloc.contenu.page is defined and bloc.contenu.page is not empty) or (bloc.contenu.typeLien is defined and bloc.contenu.typeLien == 'lightbox') %}
-        {% set lien = true %}
-    {% else %}
-        {% set lien = false %}
+    {% if bloc.contenu.page is defined and bloc.contenu.page is not empty %}
+        {% set page = page(bloc.contenu.page) %}
+        {% set lien = lienPage(page) %}
+    {% elseif bloc.contenu.lien is defined and bloc.contenu.lien is not empty %}
+        {% set lien = bloc.contenu.lien %}
+    {% elseif bloc.contenu.typeLien is defined and bloc.contenu.typeLien == 'lightbox' %}
+        {% set lien = bloc.contenu.image %}
     {% endif %}
 
     <div class="{{ alignement }}">
         {% if bloc.contenu.titre is defined and bloc.contenu.titre is not empty %}
             <figure>
         {% endif %}
-        {% if lien %}
-            <a href="
-                {% if bloc.contenu.page is defined and bloc.contenu.page is not empty %}
-                    {% set page = page(bloc.contenu.page) %}
-                    {{ lienPage(page) }}
-                {% elseif bloc.contenu.lien is defined and bloc.contenu.lien is not empty %}
-                    {{ bloc.contenu.lien }}
-                {% else %}
-                    {{ bloc.contenu.image }}
-                {% endif %}
-            "
+        {% if lien is defined %}
+            <a href="{{ lien }}"
             {% if bloc.contenu.typeLien is defined and bloc.contenu.typeLien == 'lightbox' %}
                 class="galerie"
                 data-fancybox="galerie{{ bloc.id }}"
@@ -62,7 +56,7 @@
             >
         {% endif %}
         <img data-src="{{ image }}" {% if bloc.contenu.description is defined and bloc.contenu.description is not empty %}alt="{{ bloc.contenu.description }}"{% endif %} style="{{ style }}" {% if getSrcSet(bloc.contenu.image) is not empty %}data-srcset="{{ getSrcSet(bloc.contenu.image) }}" data-sizes="{{ taille }}px"{% endif %}>
-        {% if lien %}
+        {% if lien is defined %}
             </a>
         {% endif %}
         {% if bloc.contenu.titre is defined and bloc.contenu.titre is not empty %}

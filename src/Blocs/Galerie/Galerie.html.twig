@@ -13,14 +13,13 @@
                         <p>{{ elementGalerie.image.description }}</p>
                     {% endif %}
                     {% if (elementGalerie.lien is defined and elementGalerie.lien is not empty) or (elementGalerie.page is defined and elementGalerie.page is not empty) %}
-                        <p><a href='
-                            {% if elementGalerie.page is defined and elementGalerie.page is not empty %}
-                                {% set page = page(elementGalerie.page) %}
-                                {{ lienPage(page) }}
-                            {% else %}
-                                {{ elementGalerie.lien }}
-                            {% endif %}
-                        ' {% if elementGalerie.blank is defined and elementGalerie.blank %}target='_blank'{% endif %}>
+                        {% if elementGalerie.page is defined and elementGalerie.page is not empty %}
+                            {% set page = page(elementGalerie.page) %}
+                            {% set lien = lienPage(page) %}
+                        {% else %}
+                            {% set lien = elementGalerie.lien %}
+                        {% endif %}
+                        <p><a href='{{ lien }}' {% if elementGalerie.blank is defined and elementGalerie.blank %}target='_blank'{% endif %}>
                             {% if elementGalerie.page is defined and elementGalerie.page is not empty %}
                                 {{ page.titre }}
                             {% else %}
@@ -40,14 +39,13 @@
                 {% if (elementGalerie.lien is defined and elementGalerie.lien is not empty) or (elementGalerie.page is defined and elementGalerie.page is not empty) %}
                     <a class="galerie"
                         {% if (elementGalerie.lien is defined and elementGalerie.lien is not empty) or (elementGalerie.page is defined and elementGalerie.page is not empty) %}
-                       href="
                             {% if elementGalerie.page is defined and elementGalerie.page is not empty %}
                                 {% set page = page(elementGalerie.page) %}
-                                {{ lienPage(page) }}
+                                {% set lien = lienPage(page) %}
                             {% else %}
-                                {{ elementGalerie.lien }}
+                                {% set lien = elementGalerie.lien %}
                             {% endif %}
-                        "
+                       href="{{ lien }}"
                        {% endif %}
                             {% if elementGalerie.blank is defined and elementGalerie.blank %}target="_blank"{% endif %}>
                 {% endif %}

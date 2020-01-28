@@ -63,6 +63,11 @@
                     </div>
                 {% endif %}
                 <p class="ficheLEI-titre">{{ fiche.NOM }}</p>
+                {% if fiche.HORAIRES.Horaire is defined %}
+                    <div class="ficheLEI-date">
+                        {% include 'Blocs/LEI/fiche-dates--compact.html.twig' %}
+                    </div>
+                {% endif %}
                 <p class="ficheLEI-description">
                     {% if fiche.COMMENTAIRE is defined and fiche.COMMENTAIRE is not empty %}
                         {{ fiche.COMMENTAIRE|truncate(100)|striptags }}

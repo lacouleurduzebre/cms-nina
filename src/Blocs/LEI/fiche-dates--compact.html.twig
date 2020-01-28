@@ -1,0 +1,18 @@
+{% set nbDates = 0 %}
+
+{% for horaire in fiche.HORAIRES.Horaire %}
+    {% set nbDates = nbDates + 1 %}
+    {% if loop.index == 2 %}
+        <div class="ficheLEI-autresDates hidden">
+    {% endif %}
+
+    {% include 'Blocs/LEI/fiche-dates--texte.html.twig' %}
+
+    {% if loop.first and fiche.HORAIRES.Horaire.count() > 1 %}
+        <span class="ficheLEI-toggleAutresDates"><i class="fas fa-angle-right"></i> {{ "Voir toutes les dates"|trans }}</span>
+    {% endif %}
+{% endfor %}
+
+{% if nbDates > 1 %}
+    </div>
+{% endif %}

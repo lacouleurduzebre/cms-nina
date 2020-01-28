@@ -1,0 +1,47 @@
+{% set texte = "" %}
+
+{# Jour #}
+{% if horaire.DATE_DEBUT|trim == horaire.DATE_FIN|trim %}
+    {% set texte = texte~"Le"|trans~" "~horaire.DATE_DEBUT %}
+{% else %}
+    {% if horaire.DATE_DEBUT is defined %}
+        {% if horaire.DATE_FIN is defined %}
+            {% set texte = texte~"Du"|trans~" "~horaire.DATE_DEBUT %}
+        {% else %}
+            {% set texte = texte~"À partir du"|trans~" "~horaire.DATE_DEBUT %}
+        {% endif %}
+    {% endif %}
+    {% if horaire.DATE_FIN is defined %}
+        {% if horaire.DATE_DEBUT is defined %}
+            {% set texte = texte~"au"|trans~" "~horaire.DATE_FIN %}
+        {% else %}
+            {% set texte = texte~"Jusqu'au"|trans~" "~horaire.DATE_FIN %}
+        {% endif %}
+    {% endif %}
+{% endif %}
+
+{# Heure #}
+{% if horaire.HEURES is defined %}
+    {% for heure in horaire.HEURES.Heure %}
+        {% if heure.HEURE_DEBUT|trim is not empty and heure.HEURE_FIN|trim is not empty and heure.HEURE_DEBUT|trim == heure.HEURE_FIN|trim %}
+            {% set texte = texte~" "~"à"|trans~" "~heure.HEURE_DEBUT %}
+        {% else %}
+            {% if heure.HEURE_DEBUT is defined and heure.HEURE_DEBUT|trim is not empty %}
+                {% if heure.HEURE_FIN is defined and heure.HEURE_FIN|trim is not empty %}
+                    {% set texte = texte~" "~"de"|trans~" "~heure.HEURE_DEBUT %}
+                {% else %}
+                    {% set texte = texte~" "~"à"|trans~" "~heure.HEURE_DEBUT %}
+                {% endif %}
+            {% endif %}
+            {% if heure.HEURE_FIN is defined and heure.HEURE_FIN|trim is not empty %}
+                {% if heure.HEURE_DEBUT is defined and heure.HEURE_DEBUT|trim is not empty %}
+                    {% set texte = texte~" "~"à"|trans~" "~heure.HEURE_FIN %}
+                {% else %}
+                    {% set texte = texte~" "~"jusqu'à"|trans~" "~heure.HEURE_FIN %}
+                {% endif %}
+            {% endif %}
+        {% endif %}
+    {% endfor %}
+{% endif %}
+
+<span>{{ texte }}</span>
