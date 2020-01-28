@@ -18,7 +18,7 @@ use App\Entity\MenuPage;
 use App\Entity\Page;
 use App\Entity\SEOPage;
 use App\Entity\Utilisateur;
-use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
@@ -42,7 +42,7 @@ class InstalleurController extends AbstractController
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function installeur($etape, Request $request, Filesystem $filesystem, ObjectManager $manager, AppFixtures $fixtures){
+    public function installeur($etape, Request $request, Filesystem $filesystem, EntityManagerInterface $manager, AppFixtures $fixtures){
         $repoConfig = $this->getDoctrine()->getRepository(Configuration::class);
 
         //Redirection vers étape 1 ou 2 si prob de connexion BDD
