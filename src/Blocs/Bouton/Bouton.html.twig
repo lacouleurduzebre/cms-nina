@@ -1,26 +1,31 @@
-<a class="bouton"
-   {% if (bloc.contenu.lien is defined and bloc.contenu.lien is not empty) or (bloc.contenu.page is defined and bloc.contenu.page is not empty) %}
-       href="
-            {% if bloc.contenu.page is defined and bloc.contenu.page is not empty %}
-                {% set page = page(bloc.contenu.page) %}
-                {{ lienPage(page) }}
-            {% elseif bloc.contenu.lien is defined and bloc.contenu.lien is not empty %}
-                {{ bloc.contenu.lien }}
-            {% endif %}
-        "
-   {% endif %}
-   {% if bloc.contenu.blank.0 is defined and bloc.contenu.blank.0 %}
-       target="_blank"
-   {% endif %}
-   {% if bloc.contenu.titre is defined and bloc.contenu.titre is not empty %}
-        title="{{ bloc.contenu.titre }}"
-   {% endif %}
->
-    {% if bloc.contenu.texte is defined and bloc.contenu.texte is not empty %}
-        {{ bloc.contenu.texte|raw }}
-    {% elseif bloc.contenu.page is defined and bloc.contenu.page is not empty %}
-        {{ page.titre }}
+{% if bloc.contenu.typeLien == 'page' %}
+    {% set pageCible = page(bloc.contenu.page|default(false)) %}
+    {% if isPublie(pageCible) %}
+        {% set lien = lienPage(pageCible) %}
     {% else %}
-        {{ "Voir la page"|trans }}
+        {% set lien = false %}
     {% endif %}
-</a>
+{% elseif bloc.contenu.typeLien == 'autre' %}
+    {% set lien = bloc.contenu.lien|default(false) %}
+{% else %}
+    {% set lien = '#' %}
+{% endif %}
+
+{% if lien %}
+    <a class="bouton" {% if lien != '#' %}href="{{ lien }}"{% endif %}
+       {% if bloc.contenu.blank.0 is defined and bloc.contenu.blank.0 %}
+           target="_blank"
+       {% endif %}
+       {% if bloc.contenu.titre is defined and bloc.contenu.titre is not empty %}
+            title="{{ bloc.contenu.titre }}"
+       {% endif %}
+    >
+        {% if bloc.contenu.texte is defined and bloc.contenu.texte is not empty %}
+            {{ bloc.contenu.texte|raw }}
+        {% elseif pageCible is defined and pageCible is not empty %}
+            {{ pageCible.titre }}
+        {% else %}
+            {{ "Voir la page"|trans }}
+        {% endif %}
+    </a>
+{% endif %}
