@@ -1,5 +1,5 @@
 {% if bloc.contenu.affichage is defined and bloc.contenu.affichage == 'pages' %}
-    {% set idPageActive = page.id %}
+    {% set idPageActive = page.id|default(false) %}
     <div class="grid-3-small-2-tiny-1 has-gutter-xl">
         {% for page in pagesDeType(bloc.contenu.typeCategorie, bloc.contenu.limite|default(null)) %}
             {% if page.id != idPageActive %}

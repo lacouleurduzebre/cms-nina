@@ -1,5 +1,5 @@
 {% set resultats = pagesDeLaCategorie(langueActive, bloc.contenu) %}
-{% set idPageActive = page.id %}
+{% set idPageActive = page.id|default(false) %}
 
 <div class="pagination">
     {{ resultats.pagination|raw }}

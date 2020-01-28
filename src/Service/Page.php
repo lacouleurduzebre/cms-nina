@@ -130,7 +130,7 @@ class Page
             throw new NotFoundHttpException('Cette page n\'est pas active');
         }*/
 
-        if($page->getDatePublication()->getTimestamp() > $timestamp || ($page->getDateDepublication() && $page->getDateDepublication()->getTimestamp() < $timestamp) || $page->getCorbeille() || !$page->getActive()) {
+        if(!isset($page) || $page->getDatePublication()->getTimestamp() > $timestamp || ($page->getDateDepublication() && $page->getDateDepublication()->getTimestamp() < $timestamp) || $page->getCorbeille() || !$page->getActive()) {
             return false;
         }
 
