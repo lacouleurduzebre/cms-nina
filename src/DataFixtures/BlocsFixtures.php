@@ -109,6 +109,7 @@ class BlocsFixtures extends Fixture
             ->setPosition(2)
             ->setPage($page)
             ->setContenu([
+                'typeLien' => 'autre',
                 'lien' => '#',
                 'texte' => 'Lire la suite',
                 'titre' => 'Lire la suite'
