@@ -1401,6 +1401,13 @@
     <div class="rs-input-liens{% if partage %} hidden{% endif %}">
         {{ form_row(form.children.instagramUrl) }}
     </div>
+    {# Email #}
+    <div class="rs-input-liens{% if partage %} hidden{% endif %}">
+        {{ form_row(form.children.email) }}
+    </div>
+    <div class="rs-input-liens{% if partage %} hidden{% endif %}">
+        {{ form_row(form.children.emailUrl) }}
+    </div>
 {% endblock %}
 
 {# Bloc LEI #}

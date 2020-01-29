@@ -86,6 +86,17 @@ class ReseauxSociauxType extends AbstractType
             ))
             ->add('linkedInUrl', TextType::class, array(
                 'label' => 'Lien :'
+            ))
+            ->add('email', ChoiceType::class, array(
+                'label' => false,
+                'multiple' => true,
+                'expanded' => true,
+                'choices' => array(
+                    'Email' => 1
+                )
+            ))
+            ->add('emailUrl', TextType::class, array(
+                'label' => 'Adresse mail :'
             ));
     }
 
