@@ -50,34 +50,7 @@
     {{ blocs(page)|raw }}
 
     {% if page.affichageCommentaires %}
-        <div class="blocCommentaires">
-            {# NB commentaires #}
-            {% set nbCommentaires = 0 %}
-            {% for commentaire in commentaires %}
-                {% if commentaire.corbeille == false and commentaire.valide == true %}
-                    {% set nbCommentaires = nbCommentaires + 1 %}
-                {% endif %}
-            {% endfor %}
-            {# NB commentaires #}
-
-            <h2>Commentaires sur "{{ page.titre }}" ({{ nbCommentaires }})</h2>
-
-            {% for message in app.session.flashbag.get('comOK') %}
-                <p class="message">{{ message }}</p>
-            {% endfor %}
-
-            <p class="blocCommentaires-ajout">Ajouter un commentaire<i class="fas fa-angle-down mls"></i></p>
-            <div class="blocCommentaires-formulaire">
-                {{ form(form) }}
-            </div>
-
-            {% for commentaire in commentaires if commentaire.corbeille == false and commentaire.valide == true %}
-                <div class="commentaire">
-                    <p>Par <strong>{{ commentaire.auteur }}</strong> le {{ commentaire.date|date("d/m/Y") }} à {{ commentaire.date|date("G:i") }}</p>
-                    <p class="pas">{{ commentaire.contenu|raw }}</p>
-                </div>
-            {% endfor %}
-        </div>
+        {% include 'front/page-commentaires.html.twig' %}
     {% endif %}
 
 {% endblock %}

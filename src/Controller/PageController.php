@@ -3,11 +3,11 @@
 namespace App\Controller;
 
 use App\Entity\Commentaire;
-use App\Entity\MenuPage;
 use App\Service\Page;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -69,6 +69,27 @@ class PageController extends AbstractController
                 ->add('email', EmailType::class, array('label' => 'Votre adresse e-mail :'))
                 ->add('site', TextType::class, array('label' => 'Votre site web :', 'required' => false))
                 ->add('contenu', TextareaType::class, array('label' => 'Votre commentaire :'))
+                //Antispam
+                ->add('miel_valeur', HiddenType::class, [
+                    'mapped' => false,
+                    'attr' => [
+                        'class' => 'miel_valeur',
+                        'value' => mt_rand()
+                    ]
+                ])
+                ->add('miel_rempli', HiddenType::class, [
+                    'mapped' => false,
+                    'attr' => [
+                        'class' => 'miel_rempli',
+                    ]
+                ])
+                ->add('miel_vide', HiddenType::class, [
+                    'mapped' => false,
+                    'attr' => [
+                        'class' => 'miel_vide',
+                    ]
+                ])
+                //Antispam
                 ->add('envoi', SubmitType::class, array('attr' => array('class' => 'envoiCom')));
 
             $form = $formBuilder->getForm();
@@ -76,13 +97,20 @@ class PageController extends AbstractController
             if($request->isMethod('POST')){
                 $form->handleRequest($request);
                 if($form->isSubmitted() && $form->isValid()) {
-                    $em = $this->getDoctrine()->getManager();
-                    $em->persist($commentaire);
-                    $em->flush();
+                    //Antispam
+                    $mielValeur = $form->get('miel_valeur')->getData();
+                    $mielRempli = $form->get('miel_rempli')->getData();
+                    $mielVide = $form->get('miel_vide')->getData();
 
-                    $this->addFlash('comOK', 'Votre commentaire a été enregistré et sera mis en ligne une fois validé');
+                    if($mielValeur === $mielRempli && $mielVide == '') {
+                        $em = $this->getDoctrine()->getManager();
+                        $em->persist($commentaire);
+                        $em->flush();
 
-                    return $this->redirectToRoute('voirPage', array('url' => $url));
+                        $this->addFlash('comOK', 'Votre commentaire a été enregistré et sera mis en ligne une fois validé');
+                    }else{
+                        $this->addFlash('comOK', 'Le formulaire a été soumis trop rapidement. Attendez 3 secondes avant de soumettre à nouveau le formulaire.');
+                    }
                 }
             }
 
