@@ -44,6 +44,11 @@
             </div>
         {% endfor %}
     {% endif %}
+    {# Antispam #}
+    <input type="hidden" class="miel_valeur" name="miel_valeur" value="{{ random() }}">
+    <input type="hidden" class="miel_rempli" name="miel_rempli">
+    <input type="hidden" class="miel_vide" name="miel_vide">
+    {# Antispam #}
     <input type="submit" class="bouton" value="{% if bloc.contenu.submit is not empty %}{{ bloc.contenu.submit }}{% else %}{{ 'Envoyer'|trans }}{% endif %}">
     <p class="mts">{{ "Les champs suivis d'un"|trans }} <span>*</span> {{ "sont obligatoires"|trans }}</p>
 </form>

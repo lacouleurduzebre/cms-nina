@@ -37,6 +37,13 @@ $(document).ready(function(){
         }
     });
 
+    //Antispam
+    setTimeout(function(){
+        $('.miel_rempli').each(function(){
+            $(this).val($(this).prev('.miel_valeur').val());
+        });
+    }, 3000);
+
     //Cookies
     if(Cookies.get('bandeauCookies') !== 'off'){
         $('.cookies').show();

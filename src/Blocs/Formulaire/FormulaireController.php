@@ -26,22 +26,41 @@ class FormulaireController extends AbstractController
             $donnees = $request->get('donnees');
             $idBloc = $request->get('idBloc');
 
-            $bloc = $this->getDoctrine()->getRepository(Bloc::class)->find($idBloc);
-            $destinataires = $bloc->getContenu()['destinataires'];
-            $objet = $bloc->getContenu()['objet'];
+            //Antispam
+            $mielValeur = array_values(array_filter($donnees, function($ar) {
+                return ($ar['name'] == 'miel_valeur');
+            }));
+            $mielRempli = array_values(array_filter($donnees, function($ar) {
+                return ($ar['name'] == 'miel_rempli');
+            }));
+            $mielVide = array_values(array_filter($donnees, function($ar) {
+                return ($ar['name'] == 'miel_vide');
+            }));
 
-            $config = $this->getDoctrine()->getRepository(Configuration::class)->find(1);
-            $expediteur = $config->getEmailContact();
+            if($mielValeur[0]['value'] === $mielRempli[0]['value'] && $mielVide[0]['value'] == ''){
+                $bloc = $this->getDoctrine()->getRepository(Bloc::class)->find($idBloc);
+                $destinataires = $bloc->getContenu()['destinataires'];
+                $objet = $bloc->getContenu()['objet'];
 
-            //Préparation mail
-            $mail = new \Swift_Message($objet);
-            $mail->setFrom($expediteur)
-                ->setTo($destinataires)
-                ->setBody($this->renderView('Blocs/Formulaire/Mail.html.twig', array('donnees' => $donnees)), 'text/html');
+                $config = $this->getDoctrine()->getRepository(Configuration::class)->find(1);
+                $expediteur = $config->getEmailContact();
 
-            $mailer->send($mail);
+                //Suppression des champs antispam
+                $donnees = array_filter($donnees, function($ar) {
+                    return ($ar['name'] != 'miel_valeur' && $ar['name'] != 'miel_rempli' && $ar['name'] != 'miel_vide');
+                });
 
-            return new Response($bloc->getContenu()['messageConfirmation']);
+                //Préparation mail
+                $mail = new \Swift_Message($objet);
+                $mail->setFrom($expediteur)
+                    ->setTo($destinataires)
+                    ->setBody($this->renderView('Blocs/Formulaire/Mail.html.twig', array('donnees' => $donnees)), 'text/html');
+
+                $mailer->send($mail);
+
+                return new Response($bloc->getContenu()['messageConfirmation']);
+            }
+            return new Response("Le formulaire a été soumis trop rapidement. Attendez 3 secondes avant de soumettre à nouveau le formulaire.");
         }
         return false;
     }
