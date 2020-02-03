@@ -33,7 +33,7 @@ class LEIController extends AbstractController
      * @param $idModule
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
-    public function voirFicheLEIAction($url, $idFiche, $idBloc, Langue $slangue, $_locale = null){
+    public function voirFicheLEIAction($url, $idFiche, $idBloc, Langue $slangue, Request $request, $_locale = null){
         //Test route : locale ou non
         $redirection = $slangue->redirectionLocale('voirFicheLEI', $_locale, array('url' => $url, 'idFiche' => $idFiche, 'idBloc' => $idBloc));
         if($redirection){
@@ -89,7 +89,27 @@ class LEIController extends AbstractController
         $noeudFicheSuivante = $xml->xpath("//Resultat/sit_liste[PRODUIT = $idFiche]/following-sibling::sit_liste[position()=1]");
         $ficheSuivante = $noeudFicheSuivante ? ['PRODUIT' => (string)$noeudFicheSuivante[0]->PRODUIT, 'NOM' => (string)$noeudFicheSuivante[0]->NOM] : false;
 
+        //Liste
         $liste = $bloc->getPage();
+        if(is_null($liste)){
+            //Groupe de blocs -> Accueil
+            if(!is_null($bloc->getGroupeBlocs())){
+                $repoLangue = $this->getDoctrine()->getRepository(\App\Entity\Langue::class);
+                $locale = $request->getLocale();
+                if($locale){
+                    $langue = $repoLangue->findOneBy(array('abreviation'=>$locale));
+                }
+                if(!$locale || !$langue){
+                    $langue = $repoLangue->findOneBy(array('defaut'=>1));
+                }
+                $liste = $langue->getPageAccueil();
+            }else{//Blocs parents
+                while($bloc->getBlocParent()){
+                    $bloc = $bloc->getBlocParent();
+                }
+                $liste = $bloc->getPage();
+            }
+        }
 
         //Infos sur la fiche
         $infosFiche = [];
