@@ -94,8 +94,14 @@ $(document).ready(function(){
         $(this).find('svg').toggleClass('fa-bars fa-times');
     });
 
+    ancienneLargeurFenetre = $(window).width();
     $(window).on('resize orientationchange', function(){
-        $('#burger').removeClass('actif').find('svg').addClass('fa-bars').removeClass('fa-times');
+        nvLargeurFenetre = $(this).width();
+        if(ancienneLargeurFenetre !== nvLargeurFenetre){
+            console.log('modif largeur');
+            $('#burger').removeClass('actif').find('svg').addClass('fa-bars').removeClass('fa-times');
+        }
+        ancienneLargeurFenetre = nvLargeurFenetre;
     });
 
     //Toggle formulaire ajout de commentaire
