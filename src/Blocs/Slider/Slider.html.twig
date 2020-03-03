@@ -14,14 +14,14 @@
                             {% endif %}
                             {% if (slide.lien is defined and slide.lien is not empty) or (slide.page is defined and slide.page is not empty) %}
                                 <p class="slide--lien">
-                                    {% if slide.typeLien == 'page' %}
+                                    {% if slide.typeLien is defined and slide.typeLien == 'page' %}
                                         {% set pageCible = page(slide.page|default(false)) %}
                                         {% if isPublie(pageCible) %}
                                             {% set lien = lienPage(pageCible) %}
                                         {% else %}
                                             {% set lien = false %}
                                         {% endif %}
-                                    {% elseif slide.typeLien == 'autre' %}
+                                    {% elseif slide.typeLien is defined and slide.typeLien == 'autre' %}
                                         {% set lien = slide.lien|default(false) %}
                                     {% else %}
                                         {% set lien = false %}

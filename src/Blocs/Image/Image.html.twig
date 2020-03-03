@@ -33,16 +33,16 @@
     {% endif %}
 
     {# Lien ? #}
-    {% if bloc.contenu.typeLien == 'page' %}
+    {% if bloc.contenu.typeLien is defined and bloc.contenu.typeLien == 'page' %}
         {% set pageCible = page(bloc.contenu.page|default(false)) %}
         {% if isPublie(pageCible) %}
             {% set lien = lienPage(pageCible) %}
         {% else %}
             {% set lien = false %}
         {% endif %}
-    {% elseif bloc.contenu.typeLien == 'autre' %}
+    {% elseif bloc.contenu.typeLien is defined and bloc.contenu.typeLien == 'autre' %}
         {% set lien = bloc.contenu.lien|default(false) %}
-    {% elseif bloc.contenu.typeLien == 'lightbox' %}
+    {% elseif bloc.contenu.typeLien is defined and bloc.contenu.typeLien == 'lightbox' %}
         {% set lien = bloc.contenu.image|default(false) %}
     {% else %}
         {% set lien = false %}

@@ -12,14 +12,14 @@
                     {% if elementGalerie.image.description is defined and elementGalerie.image.description is not empty %}
                         <p>{{ elementGalerie.image.description }}</p>
                     {% endif %}
-                    {% if elementGalerie.typeLien == 'page' %}
+                    {% if elementGalerie.typeLien is defined and elementGalerie.typeLien == 'page' %}
                         {% set pageCible = page(elementGalerie.page|default(false)) %}
                         {% if isPublie(pageCible) %}
                             {% set lien = lienPage(pageCible) %}
                         {% else %}
                             {% set lien = false %}
                         {% endif %}
-                    {% elseif elementGalerie.typeLien == 'autre' %}
+                    {% elseif elementGalerie.typeLien is defined and elementGalerie.typeLien == 'autre' %}
                         {% set lien = elementGalerie.lien|default(false) %}
                     {% else %}
                         {% set lien = false %}
@@ -38,14 +38,14 @@
     {% else %}
         {% for elementGalerie in bloc.contenu.images|sortBy('position') %}
             <div>
-                {% if elementGalerie.typeLien == 'page' %}
+                {% if elementGalerie.typeLien is defined and elementGalerie.typeLien == 'page' %}
                     {% set pageCible = page(elementGalerie.page|default(false)) %}
                     {% if isPublie(pageCible) %}
                         {% set lien = lienPage(pageCible) %}
                     {% else %}
                         {% set lien = false %}
                     {% endif %}
-                {% elseif elementGalerie.typeLien == 'autre' %}
+                {% elseif elementGalerie.typeLien is defined and elementGalerie.typeLien == 'autre' %}
                     {% set lien = elementGalerie.lien|default(false) %}
                 {% else %}
                     {% set lien = false %}
