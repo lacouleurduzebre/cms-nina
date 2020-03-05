@@ -109,7 +109,7 @@ class Front extends \Twig_Extension
             }
 
             if($_ENV['APP_ENV'] == 'prod'){
-                $this->cache->set($cleCache, $rendu);
+                $this->cache->set($cleCache, $rendu, 86400);
             }
         }
 
@@ -196,7 +196,7 @@ class Front extends \Twig_Extension
             $tpl = $this->twig->render('front/blocs.html.twig', array('blocs' => $page->getBlocs()));
 
             if($_ENV['APP_ENV'] == 'prod'){
-                $this->cache->set($cleCache, $tpl);
+                $this->cache->set($cleCache, $tpl, 86400);
             }
         }
 

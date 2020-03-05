@@ -42,7 +42,7 @@ class MenuTwig extends \Twig_Extension
             $tpl = $this->twig->render('front/menu/menus.html.twig', array('menus' => $menus));
 
             if($_ENV['APP_ENV'] == 'prod'){
-                $this->cache->set('menu_' . $id, $tpl);
+                $this->cache->set('menu_' . $id, $tpl, 86400);
             }
         }
 
