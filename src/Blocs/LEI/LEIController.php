@@ -11,11 +11,11 @@ namespace App\Blocs\LEI;
 
 use App\Entity\Bloc;
 use App\Service\Langue;
+use Psr\SimpleCache\CacheInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Yaml\Yaml;
@@ -33,7 +33,7 @@ class LEIController extends AbstractController
      * @param $idModule
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
-    public function voirFicheLEIAction($url, $idFiche, $idBloc, Langue $slangue, Request $request, $_locale = null){
+    public function voirFicheLEIAction($url, $idFiche, $idBloc, Langue $slangue, Request $request, CacheInterface $cache, $_locale = null){
         //Test route : locale ou non
         $redirection = $slangue->redirectionLocale('voirFicheLEI', $_locale, array('url' => $url, 'idFiche' => $idFiche, 'idBloc' => $idBloc));
         if($redirection){
@@ -43,39 +43,54 @@ class LEIController extends AbstractController
         $repoBloc = $this->getDoctrine()->getRepository(Bloc::class);
         $bloc = $repoBloc->find($idBloc);
 
-        //Utilisation du cache si dispo
-        $cache = '../src/Blocs/LEI/cache/cache'.$idBloc.'.xml';
+        //Langue
+        $repoLangue = $this->getDoctrine()->getRepository(\App\Entity\Langue::class);
+        $locale = $request->getLocale();
+        if($locale){
+            $langue = $repoLangue->findOneBy(array('abreviation'=>$locale));
+        }
+        if(!$locale || !$langue){
+            $langue = $repoLangue->findOneBy(array('defaut'=>1));
+        }
+        //Fin langue
 
-        if(file_exists($cache)){
-            $xml = simplexml_load_file($cache);
-        }else{
+        //Utilisation du cache si dispo
+        $cleCache = 'LEI_'.$idBloc.'_'.$langue->getAbreviation();
+
+        if($_ENV['APP_ENV'] == 'prod'){
+            $flux = $cache->get($cleCache);
+        }
+
+        if(!isset($flux)){
             //Utilisation du flux générique ou du flux spécifique
             $parametres = $bloc->getContenu();
 
             if(array_key_exists('utiliserFluxSpecifique', $parametres) && isset($parametres['utiliserFluxSpecifique'][0])){
-                $flux = $parametres['flux'];
+                $urlFlux = $parametres['flux'];
             }else{
                 $configLEI = Yaml::parseFile('../src/Blocs/LEI/configLEI.yaml');
-                $flux = $configLEI['fluxGenerique'];
+                $urlFlux = $configLEI['fluxGenerique'];
             }
 
             //Ajout de la clause et des autres paramètres
             if(array_key_exists('clause', $parametres)){
-                $flux .= '&clause='.$parametres['clause'];
+                $urlFlux .= '&clause='.$parametres['clause'];
             }
             if(array_key_exists('autresParametres', $parametres)){
-                $flux .= $parametres['autresParametres'];
+                $urlFlux .= $parametres['autresParametres'];
             }
 
             //Création du fichier de cache
-            $file_headers = @get_headers($flux);
+            $file_headers = @get_headers($urlFlux);
             if($file_headers && $file_headers[0] != 'HTTP/1.1 404 Not Found') {
-                copy($flux, $cache);
+                $flux = file_get_contents($urlFlux);
+                if($_ENV['APP_ENV'] == 'prod') {
+                    $cache->set($cleCache, $flux, 86400);
+                }
             }
-
-            $xml = simplexml_load_file($cache);
         }
 
+        $xml = simplexml_load_string($flux);
         $fiche = $xml->xpath("//Resultat/sit_liste[PRODUIT = $idFiche]");
 
         if(!$fiche){
@@ -134,19 +149,6 @@ class LEIController extends AbstractController
         }
 
         return $this->render('Blocs/LEI/fiche.html.twig', array('fiche' => $fiche[0], 'fichePrecedente' => $fichePrecedente, 'ficheSuivante' => $ficheSuivante, 'liste' => $liste, 'infosFiche' => $infosFiche));
-    }
-
-    /**
-     * @Route("/admin/LEI/viderCache", name="viderCacheLEI")
-     */
-    public function viderCacheLEI(){
-        $files = glob('../src/Blocs/LEI/cache/*');
-        foreach($files as $file){
-            if(is_file($file))
-                unlink($file);
-        }
-
-        return new Response('ok');
     }
 
     /**

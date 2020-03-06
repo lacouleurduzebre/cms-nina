@@ -11,15 +11,19 @@ namespace App\Blocs\LEI;
 
 use App\Service\Pagination;
 use Doctrine\Persistence\ManagerRegistry;
+use Psr\SimpleCache\CacheInterface;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Yaml\Yaml;
 use Twig\Environment;
 
 class LEITwig extends \Twig_Extension
 {
-    public function __construct(ManagerRegistry $doctrine, Pagination $pagination)
+    public function __construct(ManagerRegistry $doctrine, Pagination $pagination, RequestStack $requestStack, CacheInterface $cache)
     {
         $this->doctrine = $doctrine;
         $this->pagination = $pagination;
+        $this->request = $requestStack->getCurrentRequest();
+        $this->cache = $cache;
     }
 
     public function getFunctions()
@@ -36,42 +40,59 @@ class LEITwig extends \Twig_Extension
         $parametres = $bloc->getContenu();
 
         //Utilisation du cache si dispo
-        $cache = '../src/Blocs/LEI/cache/cache'.$bloc->getId().'.xml';
+        //Langue
+        $repoLangue = $this->doctrine->getRepository(\App\Entity\Langue::class);
+        $locale = $this->request->getLocale();
+        if($locale){
+            $langue = $repoLangue->findOneBy(array('abreviation'=>$locale));
+        }
+        if(!$locale || !$langue){
+            $langue = $repoLangue->findOneBy(array('defaut'=>1));
+        }
+        //Fin langue
 
-        if(array_key_exists("bloc-".$bloc->getId()."--libtext", $_POST) || !file_exists($cache)){//Recherche par mot-clé ou fichier de cache absent
+        //Utilisation du cache si dispo
+        $cleCache = 'LEI_'.$bloc->getId().'_'.$langue->getAbreviation();
+
+        if($_ENV['APP_ENV'] == 'prod'){
+            $flux = $this->cache->get($cleCache);
+        }
+
+        if(array_key_exists("bloc-".$bloc->getId()."--libtext", $_POST) || !isset($flux)){//Recherche par mot-clé ou fichier de cache absent
             //Utilisation du flux générique ou du flux spécifique
             if(array_key_exists('utiliserFluxSpecifique', $parametres) && isset($parametres['utiliserFluxSpecifique'][0])){
-                $flux = $parametres['flux'];
+                $urlFlux = $parametres['flux'];
             }else{
                 $configLEI = Yaml::parseFile('../src/Blocs/LEI/configLEI.yaml');
-                $flux = $configLEI['fluxGenerique'];
+                $urlFlux = $configLEI['fluxGenerique'];
             }
 
             //Ajout de la clause et des autres paramètres
             if(array_key_exists('clause', $parametres)){
-                $flux .= '&clause='.$parametres['clause'];
+                $urlFlux .= '&clause='.$parametres['clause'];
             }
             if(array_key_exists('autresParametres', $parametres)){
-                $flux .= $parametres['autresParametres'];
+                $urlFlux .= $parametres['autresParametres'];
             }
 
             //Création du fichier de cache
-            if(!file_exists($cache)){
-                $file_headers = @get_headers($flux);
-                if($file_headers && $file_headers[0] != 'HTTP/1.1 404 Not Found') {
-                    copy($flux, $cache);
+            $file_headers = @get_headers($urlFlux);
+            if ($file_headers && $file_headers[0] != 'HTTP/1.1 404 Not Found') {
+                $flux = file_get_contents($urlFlux);
+                if ($_ENV['APP_ENV'] == 'prod') {
+                    $this->cache->set($cleCache, $flux, 86400);
                 }
             }
 
             //Recherche par mot-clé
             if(array_key_exists("bloc-".$bloc->getId()."--libtext", $_POST)){
-                $flux .= '&libtext='.$_POST["bloc-".$bloc->getId()."--libtext"];
-                $xml = simplexml_load_file($flux);
+                $urlFlux .= '&libtext='.$_POST["bloc-".$bloc->getId()."--libtext"];
+                $xml = simplexml_load_file($urlFlux);
             }else{
-                $xml = simplexml_load_file($cache);
+                $xml = simplexml_load_string($flux);
             }
         }else{
-            $xml = simplexml_load_file($cache);
+            $xml = simplexml_load_string($flux);
         }
 
         $fiches = $xml->xpath("//Resultat/sit_liste");
