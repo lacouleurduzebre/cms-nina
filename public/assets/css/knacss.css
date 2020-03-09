@@ -4334,7 +4334,9 @@ body.list #flash-messages > * {
 }
 .form-group.field-bloc.desactive, .form-group.field-bloc_annexe.desactive {
   background-color: #DFDFDF;
-  opacity: 0.7 !important;
+}
+.form-group.field-bloc.desactive > div:not(.bloc-barreActions), .form-group.field-bloc_annexe.desactive > div:not(.bloc-barreActions) {
+  opacity: 0.7;
 }
 .form-group.field-bloc.nvBloc, .form-group.field-bloc_annexe.nvBloc {
   opacity: 0;

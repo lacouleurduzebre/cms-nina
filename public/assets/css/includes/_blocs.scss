@@ -42,7 +42,9 @@
   background-color: #F7F7F7;
   &.desactive{
     background-color: #DFDFDF;
-    opacity: .7 !important;
+    > div:not(.bloc-barreActions){
+      opacity: .7;
+    }
   }
   &.nvBloc{
     opacity: 0;
