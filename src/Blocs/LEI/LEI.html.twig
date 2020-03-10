@@ -63,7 +63,7 @@
                     </div>
                 {% endif %}
                 <p class="ficheLEI-titre">{{ fiche.NOM }}</p>
-                {% if fiche.HORAIRES.Horaire is defined %}
+                {% if bloc.contenu.afficherDates is defined and bloc.contenu.afficherDates %}
                     <div class="ficheLEI-date">
                         {% include 'Blocs/LEI/fiche-dates--compact.html.twig' %}
                     </div>

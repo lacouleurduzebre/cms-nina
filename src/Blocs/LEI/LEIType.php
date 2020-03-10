@@ -13,6 +13,7 @@ use App\Form\Type\LimiteType;
 use App\Form\Type\PaginationType;
 use App\Form\Type\ResultatsParPageType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
@@ -78,6 +79,9 @@ class LEIType extends AbstractType
             ])
             ->add('limite', LimiteType::class)
             ->add('pagination', PaginationType::class)
+            ->add('afficherDates', CheckboxType::class, [
+                'label' => 'Afficher les dates et les horaires'
+            ])
             ->add('resultatsParPage', ResultatsParPageType::class);
 
         //Enregistrement du flux générique dans le fichier de config LEI
