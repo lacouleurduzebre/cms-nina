@@ -27,19 +27,18 @@ class BlocRepository extends ServiceEntityRepository
 
         foreach($typesBlocs as $typeBloc){
             foreach($motsCles as $motCle){
-                $qb = $this
-                    ->createQueryBuilder('b')
-                    ->where('b.type = :type')
-                    ->andWhere('b.contenu LIKE :motCle')
-                    ->setParameters(array('motCle' => '%'.$motCle.'%', 'type' => $typeBloc));
+                if(strlen($motCle) > 2){
+                    $qb = $this
+                        ->createQueryBuilder('b')
+                        ->where('b.type = :type')
+                        ->andWhere('b.contenu LIKE :motCle')
+                        ->setParameters(array('motCle' => '%'.$motCle.'%', 'type' => $typeBloc));
 
-                $blocsTrouves = $qb->getQuery()->getResult();
-                $blocs = array_merge($blocs, $blocsTrouves);
+                    $blocsTrouves = $qb->getQuery()->getResult();
+                    $blocs = array_merge($blocs, $blocsTrouves);
+                }
             }
         }
-
-        $timestamp = new \DateTime();
-        $timestamp = $timestamp->getTimestamp();
 
         foreach($blocs as $bloc){
             if(!$bloc->getGroupeBlocs()){

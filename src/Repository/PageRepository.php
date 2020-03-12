@@ -141,19 +141,21 @@ class PageRepository extends \Doctrine\ORM\EntityRepository
         $resultats = [];
 
         foreach($motsCles as $motCle){
-            $qb = $this
-                ->createQueryBuilder('p')
-                ->where('p.titre LIKE :motCle')
-                ->orWhere('p.titreMenu LIKE :motCle')
-                ->andWhere('p.corbeille = 0')
-                ->andWhere('p.active = 1')
-                ->andWhere('p.datePublication < :date')
-                ->andWhere('p.dateDepublication > :date OR p.dateDepublication IS NULL')
-                ->setParameters(array('motCle' => '%'.$motCle.'%', 'date' => $date));
+            if(strlen($motCle) > 2){
+                $qb = $this
+                    ->createQueryBuilder('p')
+                    ->where('p.titre LIKE :motCle')
+                    ->orWhere('p.titreMenu LIKE :motCle')
+                    ->andWhere('p.corbeille = 0')
+                    ->andWhere('p.active = 1')
+                    ->andWhere('p.datePublication < :date')
+                    ->andWhere('p.dateDepublication > :date OR p.dateDepublication IS NULL')
+                    ->setParameters(array('motCle' => '%'.$motCle.'%', 'date' => $date));
 
-            $pages = $qb->getQuery()->getResult();
-            foreach($pages as $page){
-                $resultats['page'.$page->getId()] = $page;
+                $pages = $qb->getQuery()->getResult();
+                foreach($pages as $page){
+                    $resultats['page'.$page->getId()] = $page;
+                }
             }
         }
 

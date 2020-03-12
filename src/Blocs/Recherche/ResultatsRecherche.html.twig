@@ -11,7 +11,7 @@
         <h1>{{ "Résultats de recherche pour : "|trans }}"{{ app.request.get('recherche') }}"</h1>
 
         {% if resultats.donnees is empty %}
-            <p class="pas">{{ "Aucun résultat"|trans }}</p>
+            <div class="blocRecherche-pasDeResultats">{{ "Aucun résultat (seul les mots de plus de deux lettres sont pris en compte dans la recherche)."|trans }}</div>
         {% else %}
             <div class="blocRecherche-resultats">
                 <div class="pagination">
