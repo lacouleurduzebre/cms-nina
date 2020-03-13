@@ -351,7 +351,7 @@
 {%- endblock form_row %}
 
 {% block collection_row %}
-    {% if 'blocsEnfants' in form.vars.unique_block_prefix %}
+    {% if form.vars.unique_block_prefix|split('_')|last == 'blocsEnfants' %}
         <div class="form-group field-collection blocsEnfants" {% if form.parent.vars.value.contenu.colonnes is defined %}data-col="col{{ form.parent.vars.value.contenu.colonnes }}"{% endif %}>
             {{- form_widget(form) -}}
 
