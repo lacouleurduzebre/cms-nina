@@ -24,7 +24,6 @@ src/Blocs/LEI/cache
 
 ###> symfony/framework-bundle ###
 .env
-/cron/
 /public/theme
 /public/theme/
 /public/themes_thumbs/*
