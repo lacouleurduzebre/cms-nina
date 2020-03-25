@@ -1413,7 +1413,7 @@
 
 {# Bloc LEI #}
 {% block lei_widget %}
-    {% if form.vars.value.utiliserFluxSpecifique.0 is defined and form.vars.value.utiliserFluxSpecifique.0 %}{# FLUX SPECIFIQUE #}
+    {% if form.vars.value.utiliserFluxSpecifique.0 is defined and form.vars.value.utiliserFluxSpecifique.0 and form.vars.value.flux is not empty %}{# FLUX SPECIFIQUE #}
         {% set urlFlux = form.vars.value.flux %}
     {% else %}
         {% set urlFlux = form.children.fluxGenerique.vars.data|default('') %}{# FLUX GENERIQUE #}

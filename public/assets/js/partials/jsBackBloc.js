@@ -669,7 +669,7 @@ $(document).ready(function() {
         blocLEI = $(this).closest('.bloc-lei');
 
         //Flux générique ou spécifique
-        if(blocLEI.find('input[name*="[utiliserFluxSpecifique]"]').is(':checked')){
+        if(blocLEI.find('input[name*="[utiliserFluxSpecifique]"]').is(':checked') && blocLEI.find('input[name$="[flux]"]').val() !== ''){
             nvUrlFlux = blocLEI.find('input[name$="[flux]"]').val();
         }else{
             nvUrlFlux = blocLEI.find('input[name$="[fluxGenerique]"]').val();

@@ -60,7 +60,7 @@ class LEITwig extends \Twig_Extension
 
         if(array_key_exists("bloc-".$bloc->getId()."--libtext", $_POST) || !isset($flux)){//Recherche par mot-clé ou fichier de cache absent
             //Utilisation du flux générique ou du flux spécifique
-            if(array_key_exists('utiliserFluxSpecifique', $parametres) && isset($parametres['utiliserFluxSpecifique'][0])){
+            if(array_key_exists('utiliserFluxSpecifique', $parametres) && isset($parametres['utiliserFluxSpecifique'][0]) && isset($parametres['flux'])){
                 $urlFlux = $parametres['flux'];
             }else{
                 $configLEI = Yaml::parseFile('../src/Blocs/LEI/configLEI.yaml');
