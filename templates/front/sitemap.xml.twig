@@ -3,13 +3,13 @@
     {% for page in pages %}
     <url>
         <loc>
-            {% if langues|length > 1 %}
-                {{ absolute_url(path('voirPageLocale', {'_locale': page.langue.abreviation, 'url': page.seo.url})) }}
-            {% else %}
-                {{ absolute_url(path('voirPage', {'url': page.seo.url})) }}
-            {% endif %}
+            {%- if langues|length > 1 -%}
+                {{- absolute_url(path('voirPageLocale', {'_locale': page.langue.abreviation, 'url': page.seo.url})) -}}
+            {%- else -%}
+                {{- absolute_url(path('voirPage', {'url': page.seo.url})) -}}
+            {%- endif -%}
         </loc>
-        <lastmod>{{ page.datePublication|date("d/m/Y") }}</lastmod>
+        <lastmod>{{ page.datePublication|date("Y-m-d") }}</lastmod>
         <changefreq>monthly</changefreq>
         <priority>
             {% if loop.index < loop.length/10 %} 1.0
