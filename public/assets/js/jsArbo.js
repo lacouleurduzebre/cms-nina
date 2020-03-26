@@ -299,7 +299,7 @@ $(document).ready(function(){
             idLi = $(this).attr('id');
             idMenu = $('#'+idLi).parents('div[id^="menu"]').attr('id').substr(5);
             idMenuPage = $('#'+idLi).find('.menuPage').attr('id');
-            idPage = $('#'+idLi).find('.page').length > 0 ? $('#'+idLi).find('.page').attr('id') : false;
+            idPage = $('#'+idLi).children('a').find('.page').length > 0 ? $('#'+idLi).children('a').find('.page').attr('id') : false;
 
             if($(this).parent('ul').parent('li').parent('ul').hasClass('jstree-container-ul') || idMenu === '0'){
                 idParent = null;
@@ -464,7 +464,15 @@ $(document).ready(function(){
 
              node = $('#'+idMenuComplet).jstree("get_node", idNode);
 
-             nouveauNode = $('#'+idMenuComplet).jstree("create_node", node, titreUrl+'<span class="menuPage" id="'+idMenuPage+'"></span>', 'first', false, false);
+             nodeUrl = {
+                text: titreUrl+'<span class="menuPage" id="'+idMenuPage+'"></span>',
+                icon: 'fas fa-link',
+                li_attr: {
+                    'data-jstree': '{"type":"url"}'
+                }
+             };
+
+             nouveauNode = $('#'+idMenuComplet).jstree("create_node", node, nodeUrl, 'first', false, false);
 
              $('#'+idNode).jstree("open_all");
          })
