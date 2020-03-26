@@ -12,17 +12,17 @@
         <lastmod>{{ page.datePublication|date("Y-m-d") }}</lastmod>
         <changefreq>monthly</changefreq>
         <priority>
-            {% if loop.index < loop.length/10 %} 1.0
-            {% elseif loop.index < (loop.length/10)*2 %} 0.9
-            {% elseif loop.index < (loop.length/10)*3 %} 0.8
-            {% elseif loop.index < (loop.length/10)*4 %} 0.7
-            {% elseif loop.index < (loop.length/10)*5 %} 0.6
-            {% elseif loop.index < (loop.length/10)*6 %} 0.5
-            {% elseif loop.index < (loop.length/10)*7 %} 0.4
-            {% elseif loop.index < (loop.length/10)*8 %} 0.3
-            {% elseif loop.index < (loop.length/10)*9 %} 0.2
-            {% else %} 0.1
-            {% endif %}
+            {%- if loop.index < loop.length/10 -%} 1.0
+            {%- elseif loop.index < (loop.length/10)*2 -%} 0.9
+            {%- elseif loop.index < (loop.length/10)*3 -%} 0.8
+            {%- elseif loop.index < (loop.length/10)*4 -%} 0.7
+            {%- elseif loop.index < (loop.length/10)*5 -%} 0.6
+            {%- elseif loop.index < (loop.length/10)*6 -%} 0.5
+            {%- elseif loop.index < (loop.length/10)*7 -%} 0.4
+            {%- elseif loop.index < (loop.length/10)*8 -%} 0.3
+            {%- elseif loop.index < (loop.length/10)*9 -%} 0.2
+            {%- else -%} 0.1
+            {%- endif -%}
         </priority>
     </url>
     {% endfor %}
