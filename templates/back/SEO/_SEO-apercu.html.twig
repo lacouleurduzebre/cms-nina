@@ -13,7 +13,7 @@
     <div class="score-SEO progression-url {% if scoreUrl > 75 or scoreUrl < 75/3 %}danger{% elseif scoreUrl > (75/3)*2 %}success{% else %}warning{% endif %}" title="{{ scoreUrl }} / 75">
         <span class="bulle"></span>
     </div>
-    {{ app.request.server.get('REQUEST_SCHEME')~'://'~app.request.headers.get('host') }} > {{ seo.url|truncate(75) }}
+    {{ app.request.isSecure ? 'https' : 'http' }}{{ '://'~app.request.headers.get('host') }} > {{ seo.url|truncate(75) }}
 </div>
 
 <div class="metaDescription">

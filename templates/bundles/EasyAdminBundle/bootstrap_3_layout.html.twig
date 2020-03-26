@@ -739,7 +739,7 @@
                     </div>
 
                     <div class="url">
-                        <span>{{ app.request.server.get('REQUEST_SCHEME')~'://'~app.request.headers.get('host') }} > </span>
+                        <span>{{ app.request.isSecure ? 'https' : 'http' }}{{ '://'~app.request.headers.get('host') }} > </span>
                         {% if data.url is defined %}
                             {{ data.url|truncate(75) }}
                         {% endif %}
