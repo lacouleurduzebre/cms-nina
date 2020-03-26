@@ -1,22 +1,30 @@
 {% for menuPage in menuPages %}
-    {% if menuPage.parent is empty and isPublie(menuPage.page) %}
-
-        {# Lien #}
-        {% if menuPage.page.langue.pageAccueil == menuPage.page %}
-            {% if langues|length > 1 %}
-                {% set lien = path('accueilLocale', { '_locale': menuPage.page.langue.abreviation }) %}
+    {% if menuPage.page is not empty %}
+        {% if menuPage.parent is empty and isPublie(menuPage.page) %}
+            {# Lien #}
+            {% if menuPage.page.langue.pageAccueil == menuPage.page %}
+                {% if langues|length > 1 %}
+                    {% set lien = path('accueilLocale', { '_locale': menuPage.page.langue.abreviation }) %}
+                {% else %}
+                    {% set lien = path('accueil') %}
+                {% endif %}
             {% else %}
-                {% set lien = path('accueil') %}
+                {% set lien = lienPage(menuPage.page) %}
             {% endif %}
-        {% else %}
-            {% set lien = lienPage(menuPage.page) %}
-        {% endif %}
 
-        <li {% if isParent(menuPage) and menuPage.page.affichageSousNiveaux %}class="parent"{% endif %}>
-            <a data-idpage="{{ menuPage.page.id }}" href="{{ lien }}">{{ menuPage.page.titreMenu }}</a>
-            {% if menuPage.page.affichageSousNiveaux %}
+            <li {% if isParent(menuPage) and menuPage.page.affichageSousNiveaux %}class="parent"{% endif %}>
+                <a data-idpage="{{ menuPage.page.id }}" href="{{ lien }}">{{ menuPage.page.titreMenu }}</a>
+                {% if menuPage.page.affichageSousNiveaux %}
+                    {{ sousMenu(menuPage, 'front')|raw }}
+                {% endif %}
+            </li>
+        {% endif %}
+    {% else %}
+        {% if menuPage.parent is empty %}
+            <li {% if isParent(menuPage) %}class="parent"{% endif %}>
+                <a href="{{ menuPage.url }}" target="_blank">{{ menuPage.titreUrl }}</a>
                 {{ sousMenu(menuPage, 'front')|raw }}
-            {% endif %}
-        </li>
+            </li>
+        {% endif %}
     {% endif %}
 {% endfor %}

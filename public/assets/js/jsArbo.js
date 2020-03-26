@@ -321,7 +321,7 @@ $(document).ready(function(){
             .done(function(){
                 $('#loader-arbo.'+idMenuComplet).fadeIn().html("<i class='fas fa-check'></i>").delay(600).fadeOut();
 
-                if(e.type === 'create_node'){
+                if(e.type === 'create_node' && $('#'+data.node.id).find('.page').length > 0){
                     idPage = $('#'+data.node.id).find('.page').attr('id');
                     url = Routing.generate('easyadmin', { 'action' : 'edit', 'entity' : 'Page_Active', 'id' : idPage });
                     window.location.href = url;
@@ -447,7 +447,7 @@ $(document).ready(function(){
         //Submit
         idNode = $('#ajoutLienExterne-idNode').val();
         idMenuComplet = $('#ajoutLienExterne-idMenuComplet').val();
-        titreMenu = $('#ajoutLienExterne-titreMenu').val();
+        titreUrl = $('#ajoutLienExterne-titre').val();
         $('#loader-arbo.'+idMenuComplet).fadeIn().html("<i class='fas fa-sync fa-spin'></i>");
 
         donneesFormulaire = $(this).serializeArray();
@@ -464,7 +464,7 @@ $(document).ready(function(){
 
              node = $('#'+idMenuComplet).jstree("get_node", idNode);
 
-             nouveauNode = $('#'+idMenuComplet).jstree("create_node", node, titreMenu+'<span class="menuPage" id="'+idMenuPage+'"></span>', 'first', false, false);
+             nouveauNode = $('#'+idMenuComplet).jstree("create_node", node, titreUrl+'<span class="menuPage" id="'+idMenuPage+'"></span>', 'first', false, false);
 
              $('#'+idNode).jstree("open_all");
          })
