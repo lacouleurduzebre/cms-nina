@@ -400,6 +400,10 @@ class AdminController extends BaseAdminController
             $nouveauBloc = clone $ancienBloc;
             $nouvellePage->addBloc($nouveauBloc);
             $this->em->persist($nouveauBloc);
+
+            if($nouveauBloc->getType() == 'Section'){
+                $this->duplicationBlocsEnfants($nouveauBloc);
+            }
         }
 
         $this->em->persist($nouvellePage);
@@ -410,6 +414,19 @@ class AdminController extends BaseAdminController
             'entity' => 'Page_Active',
             'id' => $nouvellePage->getId()
         ));
+    }
+
+    private function duplicationBlocsEnfants($bloc){
+        $blocsEnfants = $bloc->getBlocsEnfants();
+        foreach($blocsEnfants as $blocEnfant){
+            $nouveauBlocEnfant = clone $blocEnfant;
+            $nouveauBlocEnfant->setBlocParent($bloc);
+            $this->em->persist($nouveauBlocEnfant);
+
+            if($nouveauBlocEnfant->getType() == 'Section'){
+                $this->duplicationBlocsEnfants($nouveauBlocEnfant);
+            }
+        }
     }
 
     public function corbeilleAction(){
