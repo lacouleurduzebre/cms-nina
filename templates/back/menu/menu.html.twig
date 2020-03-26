@@ -1,8 +1,17 @@
 {% for menuPage in menuPages %}
-    {% if menuPage.parent is empty and not menuPage.page.corbeille %}
-        <li {% if langueArbo.pageAccueil is not empty and menuPage.page == langueArbo.pageAccueil %}data-jstree='{"type":"home"}'{% endif %}>
-            <a href="#" {% if not isPublie(menuPage.page) %}class="nonPubliee"{% endif %}><span class="menuPage" id="{{ menuPage.id }}"></span><span class="page" id="{{ menuPage.page.id }}"></span>{{ menuPage.page.titreMenu }}</a>
-            {{ sousMenu(menuPage, 'back')|raw }}
-        </li>
+    {% if menuPage.page is not empty %}
+        {% if menuPage.parent is empty and not menuPage.page.corbeille %}
+            <li {% if langueArbo.pageAccueil is not empty and menuPage.page == langueArbo.pageAccueil %}data-jstree='{"type":"home"}'{% endif %}>
+                <a href="#" {% if not isPublie(menuPage.page) %}class="nonPubliee"{% endif %}><span class="menuPage" id="{{ menuPage.id }}"></span><span class="page" id="{{ menuPage.page.id }}"></span>{{ menuPage.page.titreMenu }}</a>
+                {{ sousMenu(menuPage, 'back')|raw }}
+            </li>
+        {% endif %}
+    {% else %}
+        {% if menuPage.parent is empty %}
+            <li data-jstree='{"type":"url"}'>
+                <a href="#"><span class="menuPage" id="{{ menuPage.id }}"></span>{{ menuPage.titreUrl }}</a>
+                {{ sousMenu(menuPage, 'back')|raw }}
+            </li>
+        {% endif %}
     {% endif %}
 {% endfor %}

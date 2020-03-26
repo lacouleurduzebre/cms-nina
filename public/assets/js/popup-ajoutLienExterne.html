@@ -1,0 +1,28 @@
+<div id="popup-ajoutLienExterne">
+    <div class="mw1140p center popup-ajoutLienExterne-formulaire">
+        <div class="popup-ajoutLienExterne-close">
+            <i class="fas fa-times"></i>
+        </div>
+        <h2>Ajouter un lien externe</h2>
+        <form id="popup-ajoutLienExterne-formulaire" action="" method="POST">
+            <div>
+                <input name="ajoutLienExterne-idNode" id="ajoutLienExterne-idNode" type="hidden">
+                <input name="ajoutLienExterne-idParent" id="ajoutLienExterne-idParent" type="hidden">
+                <input name="ajoutLienExterne-idMenu" id="ajoutLienExterne-idMenu" type="hidden">
+                <input name="ajoutLienExterne-idMenuComplet" id="ajoutLienExterne-idMenuComplet" type="hidden">
+            </div>
+            <div>
+                <label for="ajoutLienExterne-titre">Titre du lien</label>
+                <input required name="ajoutLienExterne-titre" id="ajoutLienExterne-titre" type="text">
+            </div>
+            <div>
+                <label for="ajoutLienExterne-url">Lien</label>
+                <input required name="ajoutLienExterne-url" id="ajoutLienExterne-url" type="text">
+            </div>
+            <div class="ajoutLienExterne-actions txtright">
+                <button class="popup-ajoutLienExterne-close"><i class="fas fa-times"></i> Annuler</button>
+                <button type="submit"><i class="fas fa-check-circle"></i> Enregistrer</button>
+            </div>
+        </form>
+    </div>
+</div>

@@ -38,6 +38,8 @@ class MenuController extends AbstractController
     public function enregistrerAction(Request $request){
         if($request->isXmlHttpRequest()){
             $arbo = $request->get('arbo');
+            $repositoryMenu = $this->getDoctrine()->getRepository(Menu::class);
+            $repositoryPage = $this->getDoctrine()->getRepository(Page::class);
             $repositoryMenuPage = $this->getDoctrine()->getRepository(MenuPage::class);
             $em = $this->getDoctrine()->getManager();
 
@@ -49,10 +51,6 @@ class MenuController extends AbstractController
             foreach($arbo as $item){
                 $menuPage = $repositoryMenuPage->find($item[0]);
 
-                $repositoryMenu = $this->getDoctrine()->getRepository(Menu::class);
-                $repositoryPage = $this->getDoctrine()->getRepository(Page::class);
-                $repositoryMenuPage = $this->getDoctrine()->getRepository(MenuPage::class);
-
                 if($item[4] == 0){
                     $menuPage->setMenu(null);
                 }else{
@@ -60,10 +58,15 @@ class MenuController extends AbstractController
                     $menuPage->setMenu($menu);
                 }
 
-                $page = $repositoryPage->find($item[1]);
                 $parent = $repositoryMenuPage->find($item[3]);
+                $menuPage->setPosition($item[2])->setParent($parent);
 
-                $menuPage->setPosition($item[2])->setPage($page)->setParent($parent);
+                if($item[1]){
+                    $page = $repositoryPage->find($item[1]);
+                    if($page){
+                        $menuPage->setPage($page);
+                    }
+                }
 
                 $em->persist($menuPage);
             };
@@ -142,6 +145,46 @@ class MenuController extends AbstractController
             $idMenuPage = $menuPage->getId();
 
             $data = $idPage.'*'.$idMenuPage;
+            return new Response($data);
+        };
+
+        return false;
+    }
+
+    /**
+     * @Route("/menu/ajouterLienExterne", name="ajouterLienExterne")
+     * @param Request $request
+     * @return bool|Response
+     */
+    public function ajouterLienExterneAction(Request $request, UserInterface $user){
+        if($request->isXmlHttpRequest()){
+            //Infos pop-up
+            $data = $request->get('donneesFormulaire');
+            $titre = $data[array_search('ajoutLienExterne-titre', array_column($data, 'name'))]['value'];
+            $url = $data[array_search('ajoutLienExterne-url', array_column($data, 'name'))]['value'];
+            //Infos pop-up
+
+            $em = $this->getDoctrine()->getManager();
+            $repoMenu = $em->getRepository(Menu::class);
+            $repoMenuPage = $em->getRepository(MenuPage::class);
+
+            //Création menuPage
+            $menuPage = new MenuPage();
+
+            $idParent = $data[array_search('ajoutLienExterne-idParent', array_column($data, 'name'))]['value'];
+            $parent = $repoMenuPage->find($idParent);
+
+            $idMenu = $data[array_search('ajoutLienExterne-idMenu', array_column($data, 'name'))]['value'];
+            $menu = $repoMenu->find($idMenu);
+
+            $menuPage->setPosition(0)->setTitreUrl($titre)->setUrl($url)->setParent($parent)->setMenu($menu);
+
+            $em->persist($menuPage);
+            $em->flush();
+
+            $idMenuPage = $menuPage->getId();
+
+            $data = $idMenuPage;
             return new Response($data);
         };
 

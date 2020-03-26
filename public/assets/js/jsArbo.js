@@ -57,6 +57,31 @@ $(document).ready(function(){
                     });
                 }
             },
+            "addUrl":{
+                "icon": "fa fa-link",
+                "label": "Ajouter un lien externe",
+                "action": function(){
+                    if(node.type === 'root' || node.type === 'orphan'){//Si Menu
+                        idParent = null;
+                    }else{//Si Page
+                        idParent = $('#'+node.id).find('.menuPage').attr('id');
+                    }
+                    idMenu = $('#'+node.id).parents('div').attr('id').substr(5);
+
+                    idMenuComplet = $('#'+node.id).parents('div').attr('id');
+
+                    idLangue = $(".arbo-langues .current a").attr("class");
+
+                    //Pop-up
+                    $.get(baseURL+"/assets/js/popup-ajoutLienExterne.html", function(data){
+                        $('body').append(data);
+                        $('#ajoutLienExterne-idNode').val(node.id);
+                        $('#ajoutLienExterne-idParent').val(idParent);
+                        $('#ajoutLienExterne-idMenu').val(idMenu);
+                        $('#ajoutLienExterne-idMenuComplet').val(idMenuComplet);
+                    });
+                }
+            },
             "home":{
                 "icon": "fa fa-home",
                 "label": "Définir comme page d'accueil",
@@ -195,6 +220,16 @@ $(document).ready(function(){
             }
         }
 
+        //On enlève les options inutiles pour les liens externes
+        if(node.type === 'url'){
+            delete items.edit;
+            delete items.see;
+            delete items.home;
+            delete items.alias;
+            delete items.duplicate;
+            delete items.delete;
+        }
+
         return items;
     }
 
@@ -215,6 +250,9 @@ $(document).ready(function(){
             },
             "default" : {
                 "icon" : "fas fa-file"
+            },
+            "url" : {
+                "icon" : "fas fa-link"
             },
             "orphan" : {
                 "icon" : "fas fa-folder",
@@ -261,7 +299,7 @@ $(document).ready(function(){
             idLi = $(this).attr('id');
             idMenu = $('#'+idLi).parents('div[id^="menu"]').attr('id').substr(5);
             idMenuPage = $('#'+idLi).find('.menuPage').attr('id');
-            idPage = $('#'+idLi).find('.page').attr('id');
+            idPage = $('#'+idLi).find('.page').length > 0 ? $('#'+idLi).find('.page').attr('id') : false;
 
             if($(this).parent('ul').parent('li').parent('ul').hasClass('jstree-container-ul') || idMenu === '0'){
                 idParent = null;
@@ -314,13 +352,17 @@ $(document).ready(function(){
 //            context_hide();
     });
 
-    //Pop-up ajout de page
+    //Pop-up ajout de page / lien externe
         //Fermeture
     $('body').on('click', '#popup-ajoutPage, .popup-ajoutPage-close', function(){
         $('#popup-ajoutPage').remove();
     });
 
-    $('body').on('click', '#popup-ajoutPage > div', function(e){
+    $('body').on('click', '#popup-ajoutLienExterne, .popup-ajoutLienExterne-close', function(){
+        $('#popup-ajoutLienExterne').remove();
+    });
+
+    $('body').on('click', '#popup-ajoutPage > div, #popup-ajoutLienExterne > div', function(e){
         e.stopPropagation();
     });
 
@@ -350,7 +392,7 @@ $(document).ready(function(){
         return str;
     }
 
-        //Soumission formulaire
+        //Soumission formulaire ajout de page
     $('body').on('submit', '#popup-ajoutPage-formulaire', function(e){
         e.preventDefault();
 
@@ -388,6 +430,41 @@ $(document).ready(function(){
              node = $('#'+idMenuComplet).jstree("get_node", idNode);
 
              nouveauNode = $('#'+idMenuComplet).jstree("create_node", node, titreMenu+'<span class="menuPage" id="'+idMenuPage+'"></span><span class="page" id="'+idPage+'"></span>', 'first', false, false);
+
+             $('#'+idNode).jstree("open_all");
+         })
+         .fail(function(){
+            $('#loader-arbo.'+idMenuComplet).html("<i class='fas fa-times'></i>").delay(600).fadeOut();
+         });
+    });
+
+        //Soumission formulaire ajout de lien externe
+    $('body').on('submit', '#popup-ajoutLienExterne-formulaire', function(e){
+        e.preventDefault();
+
+        $('#popup-ajoutLienExterne').hide();
+
+        //Submit
+        idNode = $('#ajoutLienExterne-idNode').val();
+        idMenuComplet = $('#ajoutLienExterne-idMenuComplet').val();
+        titreMenu = $('#ajoutLienExterne-titreMenu').val();
+        $('#loader-arbo.'+idMenuComplet).fadeIn().html("<i class='fas fa-sync fa-spin'></i>");
+
+        donneesFormulaire = $(this).serializeArray();
+         $.ajax({
+             url: '/admin/menu/ajouterLienExterne',
+             method: "post",
+             data: {donneesFormulaire: donneesFormulaire}
+         })
+         .done(function(data){
+             $('#popup-ajoutLienExterne').remove();
+             $('#loader-arbo.'+idMenuComplet).fadeIn().html("<i class='fas fa-check'></i>").delay(600).fadeOut();
+
+             idMenuPage = data;
+
+             node = $('#'+idMenuComplet).jstree("get_node", idNode);
+
+             nouveauNode = $('#'+idMenuComplet).jstree("create_node", node, titreMenu+'<span class="menuPage" id="'+idMenuPage+'"></span>', 'first', false, false);
 
              $('#'+idNode).jstree("open_all");
          })

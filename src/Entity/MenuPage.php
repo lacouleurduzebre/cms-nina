@@ -29,7 +29,7 @@ class MenuPage
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Page")
-     * @ORM\JoinColumn(nullable=false, onDelete="CASCADE")
+     * @ORM\JoinColumn(nullable=true, onDelete="CASCADE")
      */
     private $page;
 
@@ -43,6 +43,16 @@ class MenuPage
      * @ORM\ManyToOne(targetEntity="App\Entity\MenuPage")
      */
     private $parent;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $url;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $titreUrl;
 
     /**
      * Get id
@@ -134,6 +144,30 @@ class MenuPage
     public function setParent(?self $parent): self
     {
         $this->parent = $parent;
+
+        return $this;
+    }
+
+    public function getUrl(): ?string
+    {
+        return $this->url;
+    }
+
+    public function setUrl(?string $url): self
+    {
+        $this->url = $url;
+
+        return $this;
+    }
+
+    public function getTitreUrl(): ?string
+    {
+        return $this->titreUrl;
+    }
+
+    public function setTitreUrl(?string $titreUrl): self
+    {
+        $this->titreUrl = $titreUrl;
 
         return $this;
     }

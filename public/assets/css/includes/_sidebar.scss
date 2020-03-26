@@ -343,8 +343,8 @@ li[data-jstree='{"type":"root"}'] > a, li[data-jstree='{"type":"orphan"}'] > a{
   }
 }
 
-//Pop-up ajout de pages
-#popup-ajoutPage{
+//Pop-up ajout de pages / liens externes
+#popup-ajoutPage, #popup-ajoutLienExterne{
   position: fixed;
   top: 0;
   left: 0;
@@ -382,13 +382,13 @@ li[data-jstree='{"type":"root"}'] > a, li[data-jstree='{"type":"orphan"}'] > a{
   }
 }
 
-#ajoutPage-titre{
+#ajoutPage-titre, #ajoutLienExterne-titre{
   box-shadow: none;
   border-bottom: 1px solid #0791B3;
   background-color: transparent;
 }
 
-div.popup-ajoutPage-close{
+div.popup-ajoutPage-close, div.popup-ajoutLienExterne-close{
   top: 1rem;
   right: 2rem;
   position: absolute;
@@ -397,7 +397,7 @@ div.popup-ajoutPage-close{
   cursor: pointer;
 }
 
-.popup-ajoutPage-formulaire{
+.popup-ajoutPage-formulaire, .popup-ajoutLienExterne-formulaire{
   position: relative;
   background-color: $white;
   padding: 2rem;
@@ -410,7 +410,7 @@ div.popup-ajoutPage-close{
   }
 }
 
-.ajoutPage-actions{
+.ajoutPage-actions, .ajoutLienExterne-actions{
   margin-top: 2.5rem;
   font-size: 1.8rem;
   button{
