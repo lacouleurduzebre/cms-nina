@@ -1,2 +1,3 @@
 twig:
     auto_reload: true
+    base_template_class: App\Twig\Debug
