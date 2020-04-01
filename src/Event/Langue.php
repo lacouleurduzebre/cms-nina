@@ -52,10 +52,15 @@ class Langue implements EventSubscriberInterface
 
         if(!isset($langue)){
             $repoLangue = $this->doctrine->getRepository(\App\Entity\Langue::class);
-            $langue = $repoLangue->findOneBy(array('defaut' => true))->getAbreviation();
+            $langue = $repoLangue->findOneBy(array('defaut' => true));
+            if($langue){
+                $langue = $langue->getAbreviation();
+            }
         }
 
-        $request->setLocale($langue);
+        if(isset($langue)){
+            $request->setLocale($langue);
+        }
     }
 
     public static function getSubscribedEvents()
