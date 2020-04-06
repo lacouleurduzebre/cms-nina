@@ -161,4 +161,13 @@ class PageRepository extends \Doctrine\ORM\EntityRepository
 
         return $resultats;
     }
+
+    public function pagesSansContenu(){
+        $qb = $this->createQueryBuilder('p')
+            ->where('p.corbeille = 0')
+            ->leftJoin('p.blocs', 'b')
+            ->andWhere('b IS NULL');
+
+        return $qb->getQuery()->getResult();
+    }
 }

@@ -306,6 +306,11 @@ class AdminController extends BaseAdminController
                 $scoreTotal = ($scoreMetaTitre + $scoreUrl + $scoreMetaDescription)/3;
 
                 $blocs['referencement'] = ['total' => $total, 'scoreTotal' => $scoreTotal, 'scoreMetaTitre' => $scoreMetaTitre, 'scoreUrl' => $scoreUrl, 'scoreMetaDescription' => $scoreMetaDescription];
+
+                /* Pages sans contenus */
+                if(in_array('pagesSansContenu', $blocsUser)){
+                    $blocs['pagesSansContenu'] = $repositoryPage->pagesSansContenu();
+                }
             }
         }
 

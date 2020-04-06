@@ -145,3 +145,18 @@
     </p>
     <a class="inbl mts" href="/admin/seo">{{ "Optimiser le référencement des pages"|trans }}</a>
 {% endblock %}
+
+{% block pagesSansContenu %}
+    <h2>{% trans %}Pages sans contenu{% endtrans %}</h2>
+    {% if contenuBloc is empty %}
+        <p>{% trans %}Toutes les pages contiennent des blocs !{% endtrans %}</p>
+    {% else %}
+        <ul>
+            {% for page in contenuBloc %}
+                <li>
+                    <a href="{{ path('easyadmin', { 'action': 'edit', 'entity': 'Page_Active', 'id': page.id }) }}">{{ page.titre }}</a> publiée le {{ page.datePublication|date("d/m/Y") }} / {{ page.auteurDerniereModification|default('compte supprimé') }}
+                </li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+{% endblock %}
