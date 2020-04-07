@@ -3745,13 +3745,15 @@ div[class$=image_apercu_mediatheque] img {
 }
 
 /* Image de profil */
-td[data-label="Image de profil"] img, td[data-label="Image de profil"] svg {
-  width: 5rem !important;
-  height: 5rem;
+td[data-label="Image de profil"] svg {
+  width: 3rem !important;
+  height: 3rem;
 }
 td[data-label="Image de profil"] img {
   border-radius: 50%;
   object-fit: cover;
+  width: 5rem !important;
+  height: 5rem;
 }
 
 /* Page médiathèque */
@@ -4270,6 +4272,26 @@ body.list #flash-messages > * {
   }
 }
 
+@media (max-width: 767px) {
+  .list-utilisateur table tr {
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+  .list-utilisateur tr td {
+    width: 100%;
+  }
+  .list-utilisateur tr td:first-of-type, .list-utilisateur tr td:nth-of-type(2) {
+    width: auto;
+  }
+  .list-utilisateur tr td:nth-of-type(2) {
+    display: block;
+  }
+  .list-utilisateur tr td:nth-of-type(2):before {
+    content: "";
+  }
+}
+
 @media (min-width: 768px) {
   .toggleElementTableau svg[class*=angle] {
     display: none;
@@ -4277,7 +4299,12 @@ body.list #flash-messages > * {
 }
 @media (max-width: 767px) {
   .toggleElementTableau {
+    display: flex;
+    align-items: center;
     cursor: pointer;
+  }
+  .toggleElementTableau svg[class*=angle] {
+    margin-right: 1rem;
   }
 }
 
