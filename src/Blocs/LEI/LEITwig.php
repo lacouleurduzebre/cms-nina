@@ -14,10 +14,17 @@ use Doctrine\Persistence\ManagerRegistry;
 use Psr\SimpleCache\CacheInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Yaml\Yaml;
-use Twig\Environment;
+use Twig\Extension\AbstractExtension;
+use Twig\TwigFunction;
 
-class LEITwig extends \Twig_Extension
+class LEITwig extends AbstractExtension
 {
+    private $doctrine;
+    private $pagination;
+    private $request;
+    private $cache;
+
+
     public function __construct(ManagerRegistry $doctrine, Pagination $pagination, RequestStack $requestStack, CacheInterface $cache)
     {
         $this->doctrine = $doctrine;
@@ -29,9 +36,10 @@ class LEITwig extends \Twig_Extension
     public function getFunctions()
     {
         return array(
-            new \Twig_SimpleFunction('listeLEI', array($this, 'listeLEI')),
-            new \Twig_SimpleFunction('getPhotoPrincipale', array($this, 'getPhotoPrincipale')),
-            new \Twig_SimpleFunction('getPictoLEI', array($this, 'getPictoLEI')),
+            new TwigFunction('listeLEI', array($this, 'listeLEI')),
+            new TwigFunction('getPhotoPrincipale', array($this, 'getPhotoPrincipale')),
+            new TwigFunction('getPictoLEI', array($this, 'getPictoLEI')),
+            new TwigFunction('getCritere', array($this, 'getCritere')),
         );
     }
 
@@ -151,6 +159,16 @@ class LEITwig extends \Twig_Extension
                 continue;
             }
             return $picto;
+        }
+
+        return false;
+    }
+
+    public function getCritere($fiche, $critere){
+        $criteres = $fiche->CRITERES;
+
+        if($criteres->xpath("Crit[@CLEF_CRITERE='".$critere."']")){
+            return $criteres->xpath("Crit[@CLEF_CRITERE='".$critere."']")[0];
         }
 
         return false;
