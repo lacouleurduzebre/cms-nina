@@ -187,19 +187,37 @@ class Front extends \Twig_Extension
         }
 
         $cleCache = 'page_'.$page->getId().'_blocs';
+        $blocs = $page->getBlocs();
 
         if($_ENV['APP_ENV'] == 'prod') {
             $tpl = $this->cache->get($cleCache);
         }
 
         if(!isset($tpl)){
-            $tpl = $this->twig->render('front/blocs.html.twig', array('blocs' => $page->getBlocs()));
+            $tpl = $this->twig->render('front/blocs.html.twig', array('blocs' => $blocs));
 
-            if($_ENV['APP_ENV'] == 'prod'){
+            if($_ENV['APP_ENV'] == 'prod' && !$this->contientBlocLEIRechercheTexte($blocs)){
                 $this->cache->set($cleCache, $tpl, 86400);
             }
         }
 
         return $tpl;
+    }
+
+    private function contientBlocLEIRechercheTexte($blocs){
+        foreach($blocs as $bloc){
+            if($bloc->getType() == 'LEI'){
+                $contenu = $bloc->getContenu();
+                if(key_exists('recherche', $contenu) && $contenu['recherche'] == 'texte'){
+                    return true;
+                }
+            }elseif($bloc->getType() == 'Section'){
+                $blocsEnfants = $bloc->getBlocsEnfants();
+                if($this->contientBlocLEIRechercheTexte($blocsEnfants)){
+                    return true;
+                };
+            }
+        }
+        return false;
     }
 }
