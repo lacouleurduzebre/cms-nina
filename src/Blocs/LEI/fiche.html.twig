@@ -42,12 +42,18 @@
             </div>
         {% endif %}
 
-        {% if fiche.HORAIRES.Horaire is defined %}
-            <div class="ficheLEI-date">
-                <h2>Dates</h2>
-                {% include 'Blocs/LEI/fiche-dates.html.twig' %}
-            </div>
-        {% endif %}
+        <div class="pageFiche-pictos">
+            {% if fiche.CRITERES.Crit is defined %}
+                {% for critere in fiche.CRITERES.Crit %}
+                    {% set picto = getPictoLEI(critere.attributes.CLEF_CRITERE, critere.attributes.CLEF_MODA) %}
+                    {% if picto %}
+                        <div class="pageFiche-pictos--item">
+                            <img data-src="{{ picto.picto }}" alt="{{ picto.nom }}">
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
+        </div>
 
         <div class="pageFiche-presentation">
             <h3>{{ "Présentation"|trans }}</h3>
@@ -90,7 +96,7 @@
 
         <div class="pageFiche-infos">
             {% if fiche.PREST_NOM_RESP is defined or fiche.PREST_PRENOM_RESP is defined or fiche.ADRPROD_TEL is defined or fiche.ADRPROD_EMAIL is defined or fiche.ADRPROD_URL is defined %}
-                <div class="pageFiche-contact">
+                <div class="pageFiche-infos--item pageFiche-contact">
                     <h3>{{ "Informations de contact"|trans }}</h3>
                     {% if fiche.PREST_NOM_RESP is defined or fiche.PREST_PRENOM_RESP is defined %}
                         <p>
@@ -125,6 +131,17 @@
                             <a href="{{ fiche.ADRPROD_URL }}">{{ fiche.ADRPROD_URL }}</a>
                         </p>
                     {% endif %}
+                </div>
+            {% endif %}
+
+            {% if fiche.HORAIRES.Horaire is defined %}
+                <div class="pageFiche-infos--item pageFiche-horaires">
+                    <h3>{{ "Horaires"|trans }}</h3>
+                    <div>
+                        {% for horaire in fiche.HORAIRES.Horaire %}
+                            {% include 'Blocs/LEI/fiche-horaires.html.twig' %}
+                        {% endfor %}
+                    </div>
                 </div>
             {% endif %}
         </div>

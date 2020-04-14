@@ -13,7 +13,7 @@
     {% endif %}
     {% if horaire.DATE_FIN is defined %}
         {% if horaire.DATE_DEBUT is defined %}
-            {% set texte = texte~"au"|trans~" "~horaire.DATE_FIN %}
+            {% set texte = texte~" "~"au"|trans~" "~horaire.DATE_FIN %}
         {% else %}
             {% set texte = texte~"Jusqu'au"|trans~" "~horaire.DATE_FIN %}
         {% endif %}
@@ -21,7 +21,7 @@
 {% endif %}
 
 {# Heure #}
-{% if horaire.HEURES is defined %}
+{#{% if horaire.HEURES is defined %}
     {% for heure in horaire.HEURES.Heure %}
         {% if heure.HEURE_DEBUT|trim is not empty and heure.HEURE_FIN|trim is not empty and heure.HEURE_DEBUT|trim == heure.HEURE_FIN|trim %}
             {% set texte = texte~" "~"à"|trans~" "~heure.HEURE_DEBUT %}
@@ -42,6 +42,6 @@
             {% endif %}
         {% endif %}
     {% endfor %}
-{% endif %}
+{% endif %}#}
 
 <span>{{ texte }}</span>

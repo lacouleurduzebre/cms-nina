@@ -40,6 +40,7 @@ class LEITwig extends AbstractExtension
             new TwigFunction('getPhotoPrincipale', array($this, 'getPhotoPrincipale')),
             new TwigFunction('getPictoLEI', array($this, 'getPictoLEI')),
             new TwigFunction('getCritere', array($this, 'getCritere')),
+            new TwigFunction('getHoraires', array($this, 'getHoraires')),
         );
     }
 
@@ -172,5 +173,64 @@ class LEITwig extends AbstractExtension
         }
 
         return false;
+    }
+
+    public function getHoraires($horaires){//HORAIRES.Horaire
+        $semaine = [
+            'lundi' => [],
+            'mardi' => [],
+            'mercredi' => [],
+            'jeudi' => [],
+            'vendredi' => [],
+            'samedi' => [],
+            'dimanche' => []
+        ];
+
+        foreach($horaires->HEURES->Heure as $heure){
+            if($heure->LUNDI == 'O'){
+                $semaine['lundi'][] = [
+                    'debut' => $heure->HEURE_DEBUT,
+                    'fin' => $heure->HEURE_FIN
+                ];
+            }
+            if($heure->MARDI == 'O'){
+                $semaine['mardi'][] = [
+                    'debut' => $heure->HEURE_DEBUT,
+                    'fin' => $heure->HEURE_FIN
+                ];
+            }
+            if($heure->MERCREDI == 'O'){
+                $semaine['mercredi'][] = [
+                    'debut' => $heure->HEURE_DEBUT,
+                    'fin' => $heure->HEURE_FIN
+                ];
+            }
+            if($heure->JEUDI == 'O'){
+                $semaine['jeudi'][] = [
+                    'debut' => $heure->HEURE_DEBUT,
+                    'fin' => $heure->HEURE_FIN
+                ];
+            }
+            if($heure->VENDREDI == 'O'){
+                $semaine['vendredi'][] = [
+                    'debut' => $heure->HEURE_DEBUT,
+                    'fin' => $heure->HEURE_FIN
+                ];
+            }
+            if($heure->SAMEDI == 'O'){
+                $semaine['samedi'][] = [
+                    'debut' => $heure->HEURE_DEBUT,
+                    'fin' => $heure->HEURE_FIN
+                ];
+            }
+            if($heure->DIMANCHE == 'O'){
+                $semaine['dimanche'][] = [
+                    'debut' => $heure->HEURE_DEBUT,
+                    'fin' => $heure->HEURE_FIN
+                ];
+            }
+        }
+
+        return $semaine;
     }
 }
