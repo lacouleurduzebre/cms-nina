@@ -41,6 +41,7 @@ class LEITwig extends AbstractExtension
             new TwigFunction('getPictoLEI', array($this, 'getPictoLEI')),
             new TwigFunction('getCritere', array($this, 'getCritere')),
             new TwigFunction('getHoraires', array($this, 'getHoraires')),
+            new TwigFunction('getPhotos', array($this, 'getPhotos')),
         );
     }
 
@@ -232,5 +233,39 @@ class LEITwig extends AbstractExtension
         }
 
         return $semaine;
+    }
+
+    public function getPhotos($fiche){
+        //Photo - Légende - Crédit
+        $equivalenceCriteres = [
+            ['736000294', '4000271', '736001119'],//1
+            ['736001142', '4000272', '736001119'],//2
+            ['736001115', '4000273', '736001119'],//3
+            ['736001116', '4000274', '736001119'],//4
+            ['4000060', '4000275', '736001119'],//5
+            ['4000061', '4000276', '736001119'],//6
+            ['4000214', '4000277', '736001119'],//7
+            ['4000215', '4000278', '736001119'],//8
+            ['4000216', '4000279', '736001119'],//9
+            ['4000217', '4000280', '736001119']//10
+        ];
+
+        $criteres = $fiche->CRITERES;
+
+        $photos = [];
+
+        foreach($equivalenceCriteres as $index => $photo){
+            if($criteres->xpath("Crit[@CLEF_CRITERE='".$photo[0]."']")){
+                $photos[$index]['url'] = $criteres->xpath("Crit[@CLEF_CRITERE='".$photo[0]."']")[0]->__toString();
+                if($criteres->xpath("Crit[@CLEF_CRITERE='".$photo[1]."']")){
+                    $photos[$index]['legende'] = $criteres->xpath("Crit[@CLEF_CRITERE='".$photo[1]."']")[0]->__toString();
+                }
+                if($criteres->xpath("Crit[@CLEF_CRITERE='".$photo[2]."']")){
+                    $photos[$index]['credit'] = $criteres->xpath("Crit[@CLEF_CRITERE='".$photo[2]."']")[0]->__toString();
+                }
+            }
+        }
+
+        return $photos;
     }
 }
