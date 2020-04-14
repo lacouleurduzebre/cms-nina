@@ -42,7 +42,7 @@ class ThemeController extends AbstractController
 
         $entityConfig = ['name' => 'Theme'];
 
-        return $this->render('back/themes/theme.html.twig', array('themes' => $themes, '_entity_config' => $entityConfig));
+        return $this->render('back/themes/themes.html.twig', array('themesInstalles' => $themes['installes'], 'themesDisponibles' => $themes['disponibles'], '_entity_config' => $entityConfig));
     }
 
     /**
@@ -181,12 +181,12 @@ class ThemeController extends AbstractController
         unset($nomThemes[1]);
         $nomThemes = array_values($nomThemes);
 
-        $themes = [];
+        $themesInstalles = [];
         foreach($nomThemes as $nomTheme){
             $config = Yaml::parseFile('../themes/'.$nomTheme.'/config.yaml');
             $infos = $config['infos'];
-            $themes[$nomTheme] = $infos;
-            $themes[$nomTheme]['installe'] = 1;
+            $themesInstalles[$nomTheme] = $infos;
+            $themesInstalles[$nomTheme]['installe'] = 1;
 
             //Miniature
             if(!file_exists(getcwd().'/themes_thumbs')){
@@ -203,18 +203,19 @@ class ThemeController extends AbstractController
         }
 
         //Thèmes externes
+        $themesDisponibles = [];
         $themesExternes = Yaml::parse(file_get_contents('https://www.cms-nina.fr/themes-nina/themes-nina.yml'));
         foreach($themesExternes as $nomTheme => $theme){
-            if(!array_key_exists($nomTheme, $themes)){
-                $themes[$nomTheme] = $theme;
-                $themes[$nomTheme]['installe'] = 0;
+            if(!array_key_exists($nomTheme, $themesInstalles)){
+                $themesDisponibles[$nomTheme] = $theme;
+                $themesDisponibles[$nomTheme]['installe'] = 0;
             }else{
-                $themes[$nomTheme]['lien'] = $theme['lien'];
+                $themesInstalles[$nomTheme]['lien'] = $theme['lien'];
             }
         }
         //Fin thèmes externes
 
-        return $themes;
+        return ['installes' => $themesInstalles, 'disponibles' => $themesDisponibles];
     }
 
     public static function installationTheme($theme, $lien, Filesystem $filesystem){
