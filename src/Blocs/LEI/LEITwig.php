@@ -147,6 +147,9 @@ class LEITwig extends AbstractExtension
         if($criteres->xpath("Crit[@CLEF_CRITERE='1900480']")){
             $photo['credits'] = $criteres->xpath("Crit[@CLEF_CRITERE='1900480']")[0];//Alsace
         }
+        if($criteres->xpath("Crit[@CLEF_CRITERE='4000271']")){
+            $photo['legende'] = $criteres->xpath("Crit[@CLEF_CRITERE='4000271']")[0];//Lorraine
+        }
 
         return $photo;
     }
