@@ -17,8 +17,14 @@ abstract class Debug extends Template
     {
         $racine =  dirname(dirname(__DIR__));
         $cheminTPL = str_replace($racine, '', $this->getSourceContext()->getPath());
-        echo '<!-- ' . $cheminTPL . ' -->';
+        $extensionTPL = substr($cheminTPL, strlen($cheminTPL) - 9);
+
+        if($extensionTPL == 'html.twig'){
+            echo '<!-- ' . $cheminTPL . ' -->';
+        }
         parent::display($context, $blocks);
-        echo '<!-- FIN ' . $cheminTPL . ' -->';
+        if($extensionTPL == 'html.twig'){
+            echo '<!-- FIN ' . $cheminTPL . ' -->';
+        }
     }
 }
