@@ -24,19 +24,21 @@
 {% set semaine = getHoraires(horaire) %}
 
 <span>{{ texte }}</span>
-<div class="ficheLEI-date--horaires">
-    {% for jour, creneaux in semaine %}
-        <div class="flex-container">
-            <span>{{ jour|capitalize|trans }}</span>
-            <div>
-                {% if creneaux %}
-                    {% for creneau in creneaux %}
-                        <p>{% include 'Blocs/LEI/fiche-horaires--horaire.html.twig' with { creneau: creneau } only %}</p>
-                    {% endfor %}
-                {% else %}
-                    {{ "Fermé"|trans }}
-                {% endif %}
+{% if semaine %}
+    <div class="ficheLEI-date--horaires">
+        {% for jour, creneaux in semaine %}
+            <div class="flex-container">
+                <span>{{ jour|capitalize|trans }}</span>
+                <div>
+                    {% if creneaux %}
+                        {% for creneau in creneaux %}
+                            <p>{% include 'Blocs/LEI/fiche-horaires--horaire.html.twig' with { creneau: creneau } only %}</p>
+                        {% endfor %}
+                    {% else %}
+                        {{ "Fermé"|trans }}
+                    {% endif %}
+                </div>
             </div>
-        </div>
-    {% endfor %}
-</div>
+        {% endfor %}
+    </div>
+{% endif %}

@@ -191,59 +191,67 @@ class LEITwig extends AbstractExtension
         ];
 
         foreach($horaires->HEURES->Heure as $heure){
-            if($heure->LUNDI == 'O'){
-                $semaine['lundi'][] = [
-                    'debut' => $heure->HEURE_DEBUT,
-                    'fin' => $heure->HEURE_FIN
-                ];
-            }
-            if($heure->MARDI == 'O'){
-                $semaine['mardi'][] = [
-                    'debut' => $heure->HEURE_DEBUT,
-                    'fin' => $heure->HEURE_FIN
-                ];
-            }
-            if($heure->MERCREDI == 'O'){
-                $semaine['mercredi'][] = [
-                    'debut' => $heure->HEURE_DEBUT,
-                    'fin' => $heure->HEURE_FIN
-                ];
-            }
-            if($heure->JEUDI == 'O'){
-                $semaine['jeudi'][] = [
-                    'debut' => $heure->HEURE_DEBUT,
-                    'fin' => $heure->HEURE_FIN
-                ];
-            }
-            if($heure->VENDREDI == 'O'){
-                $semaine['vendredi'][] = [
-                    'debut' => $heure->HEURE_DEBUT,
-                    'fin' => $heure->HEURE_FIN
-                ];
-            }
-            if($heure->SAMEDI == 'O'){
-                $semaine['samedi'][] = [
-                    'debut' => $heure->HEURE_DEBUT,
-                    'fin' => $heure->HEURE_FIN
-                ];
-            }
-            if($heure->DIMANCHE == 'O'){
-                $semaine['dimanche'][] = [
-                    'debut' => $heure->HEURE_DEBUT,
-                    'fin' => $heure->HEURE_FIN
-                ];
+            if($heure->HEURE_DEBUT->__toString() || $heure->HEURE_FIN->__toString()){
+                if($heure->LUNDI == 'O'){
+                    $semaine['lundi'][] = [
+                        'debut' => $heure->HEURE_DEBUT,
+                        'fin' => $heure->HEURE_FIN
+                    ];
+                }
+                if($heure->MARDI == 'O'){
+                    $semaine['mardi'][] = [
+                        'debut' => $heure->HEURE_DEBUT,
+                        'fin' => $heure->HEURE_FIN
+                    ];
+                }
+                if($heure->MERCREDI == 'O'){
+                    $semaine['mercredi'][] = [
+                        'debut' => $heure->HEURE_DEBUT,
+                        'fin' => $heure->HEURE_FIN
+                    ];
+                }
+                if($heure->JEUDI == 'O'){
+                    $semaine['jeudi'][] = [
+                        'debut' => $heure->HEURE_DEBUT,
+                        'fin' => $heure->HEURE_FIN
+                    ];
+                }
+                if($heure->VENDREDI == 'O'){
+                    $semaine['vendredi'][] = [
+                        'debut' => $heure->HEURE_DEBUT,
+                        'fin' => $heure->HEURE_FIN
+                    ];
+                }
+                if($heure->SAMEDI == 'O'){
+                    $semaine['samedi'][] = [
+                        'debut' => $heure->HEURE_DEBUT,
+                        'fin' => $heure->HEURE_FIN
+                    ];
+                }
+                if($heure->DIMANCHE == 'O'){
+                    $semaine['dimanche'][] = [
+                        'debut' => $heure->HEURE_DEBUT,
+                        'fin' => $heure->HEURE_FIN
+                    ];
+                }
             }
         }
 
-        return $semaine;
+        foreach($semaine as $jour){
+            if(!empty($jour)){
+                return $semaine;
+            }
+        }
+
+        return false;
     }
 
     public function getPhotos($fiche){
         //Photo - Légende - Crédit
         $equivalenceCriteres = [
             ['736000294', '4000271', '736001119'],//1
-            ['736001142', '4000272', '736001119'],//2
-            ['736001115', '4000273', '736001119'],//3
+            ['736001142', '4000272', '736001143'],//2
+            ['736001115', '4000273', '736001117'],//3
             ['736001116', '4000274', '736001119'],//4
             ['4000060', '4000275', '736001119'],//5
             ['4000061', '4000276', '736001119'],//6

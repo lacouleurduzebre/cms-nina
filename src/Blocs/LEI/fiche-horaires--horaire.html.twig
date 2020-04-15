@@ -1,7 +1,7 @@
 {% set texte = "" %}
 
-{% if creneau.debut is not empty and creneau.fin|trim is not empty and creneau.debut|trim == creneau.fin|trim %}
-    {% set texte = texte~" "~"à"|trans~" "~creneau.debut %}
+{% if creneau.debut|trim is not empty and creneau.fin|trim is not empty and creneau.debut|trim == creneau.fin|trim %}
+    {% set texte = "à"|trans~" "~creneau.debut %}
 {% else %}
     {% if creneau.debut is defined and creneau.debut|trim is not empty %}
         {% if creneau.fin is defined and creneau.fin|trim is not empty %}

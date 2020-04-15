@@ -37,7 +37,7 @@
         {% if photo.photo is defined %}
             <div id="galerieFiche" class="pageFiche-conteneurImages flex-container">
                 <a data-fancybox="galerieFiche" href="{{ photo.photo }}">
-                    <img class="pageFiche-image" data-src="{{ photo.photo }}" {% if photo.legende is defined or photo.credits is defined %}title="{% if photo.legende is defined %}{{ photo.legende }}{% endif %}{% if photo.legende is defined and photo.credits is defined %} - {% endif %}{% if photo.credits is defined %}{{ "Crédits photo :"|trans }} {{ photo.credits }}{% endif %}"{% endif %}>
+                    <img class="pageFiche-image" data-src="{{ photo.photo }}" {% if photo.legende is defined or photo.credits is defined %}title="{% if photo.legende is defined %}{{ photo.legende }}{% endif %}{% if photo.legende is defined and photo.credits is defined %} - {% endif %}{% if photo.credits is defined %}&#169; {{ photo.credits }}{% endif %}"{% endif %}>
                 </a>
             </div>
         {% endif %}

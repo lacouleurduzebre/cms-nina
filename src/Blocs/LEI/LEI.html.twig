@@ -52,7 +52,7 @@
                 {% if photo.photo is defined %}
                     <div class="ficheLEI-image">
                         <a href="{% if langues|length > 1 %}/{{ langueActive.abreviation }}{% endif %}/fiche/{{ fiche.NOM|replace({' ':'-'}) }}/{{ fiche.PRODUIT }}/{{ bloc.id }}">
-                            <img data-src="{{ photo.photo }}" {% if photo.legende is defined or photo.credits is defined %}title="{% if photo.legende is defined %}{{ photo.legende }}{% endif %}{% if photo.legende is defined and photo.credits is defined %} - {% endif %}{% if photo.credits is defined %}{{ "Crédits photo :"|trans }} {{ photo.credits }}{% endif %}"{% endif %}>
+                            <img data-src="{{ photo.photo }}" {% if photo.legende is defined or photo.credits is defined %}title="{% if photo.legende is defined %}{{ photo.legende }}{% endif %}{% if photo.legende is defined and photo.credits is defined %} - {% endif %}{% if photo.credits is defined %}&#169; {{ photo.credits }}{% endif %}"{% endif %}>
                         </a>
                     </div>
                 {% else %}
