@@ -4860,13 +4860,13 @@ body.edit .bloc-reseauxsociaux input[type=text], body.new .bloc-reseauxsociaux i
   margin-right: -1rem;
 }
 
-.bloc-lei .field-critere {
+.bloc-lei .field-modalite {
   margin-top: 0;
 }
-.bloc-lei .field-critere > div {
+.bloc-lei .field-modalite > div {
   display: flex;
 }
-.bloc-lei .field-critere > div > div {
+.bloc-lei .field-modalite > div > div {
   margin-right: 1rem;
 }
 
@@ -5028,6 +5028,25 @@ body.edit input[id$=_largeurMax], body.edit input[id$=_hauteurMax], body.new inp
 }
 .pictosLEI .bloc_image_apercu_mediatheque img {
   height: 3rem;
+}
+
+.criteresLEI .field-critere {
+  padding: 1rem;
+}
+.criteresLEI .field-critere > div {
+  display: flex;
+}
+.criteresLEI .field-critere .control-label {
+  display: none;
+}
+.criteresLEI .field-critere:first-of-type .control-label {
+  display: block;
+}
+.criteresLEI .field-critere:nth-of-type(2n) {
+  background-color: #EDEDED;
+}
+.criteresLEI .field-text {
+  margin-right: 2rem;
 }
 
 #onglet_SEO .metaTitre, #onglet_SEO #seo_metaTitre, .listeSEO-conteneur .metaTitre, .listeSEO-conteneur #seo_metaTitre {

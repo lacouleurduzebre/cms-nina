@@ -9,6 +9,7 @@
 namespace App\Blocs\LEI;
 
 
+use App\Blocs\LEI\back\ModaliteType;
 use App\Form\Type\LimiteType;
 use App\Form\Type\PaginationType;
 use App\Form\Type\ResultatsParPageType;
@@ -69,7 +70,7 @@ class LEIType extends AbstractType
                 'label' => 'Moteur de recherche'
             ])
             ->add('criteres', CollectionType::class, [
-                'entry_type' => CritereType::class,
+                'entry_type' => ModaliteType::class,
                 'allow_add' => true,
                 'allow_delete' => true,
                 'label' => 'Critères',

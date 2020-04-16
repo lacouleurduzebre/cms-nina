@@ -23,7 +23,7 @@ class LEITwig extends AbstractExtension
     private $pagination;
     private $request;
     private $cache;
-
+    private $configLEI;
 
     public function __construct(ManagerRegistry $doctrine, Pagination $pagination, RequestStack $requestStack, CacheInterface $cache)
     {
@@ -31,6 +31,8 @@ class LEITwig extends AbstractExtension
         $this->pagination = $pagination;
         $this->request = $requestStack->getCurrentRequest();
         $this->cache = $cache;
+
+        $this->configLEI = Yaml::parseFile('../src/Blocs/LEI/configLEI.yaml');
     }
 
     public function getFunctions()
@@ -73,8 +75,7 @@ class LEITwig extends AbstractExtension
             if(array_key_exists('utiliserFluxSpecifique', $parametres) && isset($parametres['utiliserFluxSpecifique'][0]) && isset($parametres['flux'])){
                 $urlFlux = $parametres['flux'];
             }else{
-                $configLEI = Yaml::parseFile('../src/Blocs/LEI/configLEI.yaml');
-                $urlFlux = $configLEI['fluxGenerique'];
+                $urlFlux = $this->configLEI['fluxGenerique'];
             }
 
             //Ajout de la clause et des autres paramètres
@@ -135,28 +136,26 @@ class LEITwig extends AbstractExtension
     public function getPhotoPrincipale($criteres){
         $photo = [];
 
-        if($criteres->xpath("Crit[@CLEF_CRITERE='736000294']")){
-            $photo['photo'] = $criteres->xpath("Crit[@CLEF_CRITERE='736000294']")[0];//Lorraine
+        $critPhoto = $this->getCritereConfigure('Photo');
+        if($critPhoto && $criteres->xpath("Crit[@CLEF_CRITERE='".$critPhoto."']")){
+            $photo['photo'] = $criteres->xpath("Crit[@CLEF_CRITERE='".$critPhoto."']")[0];
         }
-        if($criteres->xpath("Crit[@CLEF_CRITERE='1900421']")){
-            $photo['photo'] = 'https://'.$criteres->xpath("Crit[@CLEF_CRITERE='1900421']")[0];//Alsace
+
+        $critCredits = $this->getCritereConfigure('CreditsPhoto');
+        if($critCredits && $criteres->xpath("Crit[@CLEF_CRITERE='".$critCredits."']")){
+            $photo['credits'] = $criteres->xpath("Crit[@CLEF_CRITERE='".$critCredits."']")[0];
         }
-        if($criteres->xpath("Crit[@CLEF_CRITERE='736001119']")){
-            $photo['credits'] = $criteres->xpath("Crit[@CLEF_CRITERE='736001119']")[0];//Lorraine
-        }
-        if($criteres->xpath("Crit[@CLEF_CRITERE='1900480']")){
-            $photo['credits'] = $criteres->xpath("Crit[@CLEF_CRITERE='1900480']")[0];//Alsace
-        }
-        if($criteres->xpath("Crit[@CLEF_CRITERE='4000271']")){
-            $photo['legende'] = $criteres->xpath("Crit[@CLEF_CRITERE='4000271']")[0];//Lorraine
+
+        $critLegende = $this->getCritereConfigure('LegendePhoto');
+        if($critLegende && $criteres->xpath("Crit[@CLEF_CRITERE='".$critLegende."']")){
+            $photo['legende'] = $criteres->xpath("Crit[@CLEF_CRITERE='".$critLegende."']")[0];
         }
 
         return $photo;
     }
 
     public function getPictoLEI($critere, $modalite){
-        $configLEI = Yaml::parseFile('../src/Blocs/LEI/configLEI.yaml');
-        $pictos = $configLEI['pictos'];
+        $pictos = $this->configLEI['pictos'];
 
         foreach ($pictos as $key => $picto) {
             if (!isset($picto['critere']) || $picto['critere'] != $critere or !isset($picto['modalite']) || $picto['modalite'] != $modalite)
@@ -247,36 +246,40 @@ class LEITwig extends AbstractExtension
     }
 
     public function getPhotos($fiche){
-        //Photo - Légende - Crédit
-        $equivalenceCriteres = [
-            ['736000294', '4000271', '736001119'],//1
-            ['736001142', '4000272', '736001143'],//2
-            ['736001115', '4000273', '736001117'],//3
-            ['736001116', '4000274', '736001119'],//4
-            ['4000060', '4000275', '736001119'],//5
-            ['4000061', '4000276', '736001119'],//6
-            ['4000214', '4000277', '736001119'],//7
-            ['4000215', '4000278', '736001119'],//8
-            ['4000216', '4000279', '736001119'],//9
-            ['4000217', '4000280', '736001119']//10
-        ];
-
         $criteres = $fiche->CRITERES;
 
         $photos = [];
 
-        foreach($equivalenceCriteres as $index => $photo){
-            if($criteres->xpath("Crit[@CLEF_CRITERE='".$photo[0]."']")){
-                $photos[$index]['url'] = $criteres->xpath("Crit[@CLEF_CRITERE='".$photo[0]."']")[0]->__toString();
-                if($criteres->xpath("Crit[@CLEF_CRITERE='".$photo[1]."']")){
-                    $photos[$index]['legende'] = $criteres->xpath("Crit[@CLEF_CRITERE='".$photo[1]."']")[0]->__toString();
+        $i = 1;
+        while($i <= 10){
+            $nomCriterePhoto = $i != 1 ? 'Photo'.$i : 'Photo';
+            $criterePhoto = $this->getCritereConfigure($nomCriterePhoto);
+            if($criterePhoto && $criteres->xpath("Crit[@CLEF_CRITERE='".$criterePhoto."']")){
+                $photos[$i]['url'] = $criteres->xpath("Crit[@CLEF_CRITERE='".$criterePhoto."']")[0]->__toString();
+
+                $nomCritereLegende = $i != 1 ? 'LegendePhoto'.$i : 'LegendePhoto';
+                $critereLegende = $this->getCritereConfigure($nomCritereLegende);
+                if($critereLegende && $criteres->xpath("Crit[@CLEF_CRITERE='".$critereLegende."']")){
+                    $photos[$i]['legende'] = $criteres->xpath("Crit[@CLEF_CRITERE='".$critereLegende."']")[0]->__toString();
                 }
-                if($criteres->xpath("Crit[@CLEF_CRITERE='".$photo[2]."']")){
-                    $photos[$index]['credit'] = $criteres->xpath("Crit[@CLEF_CRITERE='".$photo[2]."']")[0]->__toString();
+
+                $nomCritereCredits = $i != 1 ? 'CreditsPhoto'.$i : 'CreditsPhoto';
+                $critereCredits = $this->getCritereConfigure($nomCritereCredits);
+                if($critereCredits && $criteres->xpath("Crit[@CLEF_CRITERE='".$critereCredits."']")){
+                    $photos[$i]['credit'] = $criteres->xpath("Crit[@CLEF_CRITERE='".$critereCredits."']")[0]->__toString();
                 }
             }
+            $i++;
         }
 
         return $photos;
+    }
+
+    private function getCritereConfigure($nom){
+        $criteresConfigures = $this->configLEI['criteres'];
+
+        $indexCritere = array_search($nom, array_column($criteresConfigures, 'nom'));
+
+        return ($indexCritere !== false) ? $criteresConfigures[$indexCritere]['critere'] : false;
     }
 }

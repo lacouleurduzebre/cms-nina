@@ -1,0 +1,7 @@
+{% extends 'back/base.html.twig' %}
+{% form_theme form with easyadmin_config('design.form_theme') %}
+
+{% block main %}
+    <h1>{{ "Modifier les critères LEI"|trans }}</h1>
+    {{ form(form, { attr: { class: 'criteresLEI' } }) }}
+{% endblock %}

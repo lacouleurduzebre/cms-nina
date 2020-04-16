@@ -6,7 +6,7 @@
  * Time: 11:45
  */
 
-namespace App\Blocs\LEI;
+namespace App\Blocs\LEI\back;
 
 
 use Symfony\Component\Form\AbstractType;
@@ -15,7 +15,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class PictoType extends AbstractType
+class ModaliteType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -27,7 +27,6 @@ class PictoType extends AbstractType
             ->add('modalite', TextType::class, [
                 'label' => 'Modalité'
             ])
-            ->add('picto', TextType::class)
             ;
     }
 

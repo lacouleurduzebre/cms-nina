@@ -9,6 +9,8 @@
 namespace App\Blocs\LEI;
 
 
+use App\Blocs\LEI\back\CritereType;
+use App\Blocs\LEI\back\PictoType;
 use App\Entity\Bloc;
 use App\Service\Langue;
 use Psr\SimpleCache\CacheInterface;
@@ -202,6 +204,54 @@ class LEIController extends AbstractController
             $this->addFlash('enregistrement', 'Les pictogrammes ont été enregistrés');
         }
 
-        return $this->render('Blocs/LEI/configPictos.html.twig', ['form' => $form->createView()]);
+        return $this->render('Blocs/LEI/back/configPictos.html.twig', ['form' => $form->createView()]);
+    }
+
+    /**
+     * @Route("/admin/LEI/modifierCriteres", name="modifierCriteresLEI")
+     */
+    public function modifierCriteresLEI(Request $request){
+        //Critères enregistrés
+        $configLEI = Yaml::parseFile('../src/Blocs/LEI/configLEI.yaml');
+        $criteres = [];
+
+        //Vide ?
+        if(empty($configLEI['criteres'])){
+            $listeCriteres = ['Photo', 'Photo2', 'Photo3','Photo4', 'Photo5', 'Photo6','Photo7', 'Photo8', 'Photo9', 'Photo10', 'LegendePhoto', 'LegendePhoto2', 'LegendePhoto3', 'LegendePhoto4', 'LegendePhoto5', 'LegendePhoto6', 'LegendePhoto7', 'LegendePhoto8', 'LegendePhoto9', 'LegendePhoto10', 'CreditsPhoto', 'CreditsPhoto2', 'CreditsPhoto3', 'CreditsPhoto4', 'CreditsPhoto5', 'CreditsPhoto6', 'CreditsPhoto7', 'CreditsPhoto8', 'CreditsPhoto9', 'CreditsPhoto10'];
+            foreach($listeCriteres as $critere){
+                $configLEI['criteres'][] = ['nom' => $critere, 'critere' => ''];
+            }
+        }
+
+        $criteres['criteres'] = $configLEI['criteres'];
+
+        //Formulaire
+        $form = $this->createFormBuilder($criteres)
+            ->add('criteres', CollectionType::class, [
+                'entry_type' => CritereType::class,
+                'entry_options' => [
+                    'label' => false
+                ],
+                'required' => false,
+                'allow_add' => true,
+                'label' => false,
+            ])
+            ->add('Enregistrer', SubmitType::class)
+            ->getForm();
+
+        //Enregistrement
+        $form->handleRequest($request);
+        if($form->isSubmitted() && $form->isValid()){
+            $nvCriteres = $form->getData()['criteres'];
+
+            $configLEI['criteres'] = $nvCriteres;
+
+            $nvFichier = Yaml::dump($configLEI);
+            file_put_contents('../src/Blocs/LEI/configLEI.yaml', $nvFichier);
+
+            $this->addFlash('enregistrement', 'Les critères ont été enregistrés');
+        }
+
+        return $this->render('Blocs/LEI/back/configCriteres.html.twig', ['form' => $form->createView()]);
     }
 }

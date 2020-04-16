@@ -130,3 +130,25 @@ body.edit, body.new{
     }
   }
 }
+
+//Critères LEI
+.criteresLEI{
+  .field-critere{
+    padding: 1rem;
+    > div{
+      display: flex;
+    }
+    .control-label{
+      display: none;
+    }
+    &:first-of-type .control-label{
+      display: block;
+    }
+    &:nth-of-type(2n){
+      background-color: $color-fonce;
+    }
+  }
+  .field-text{
+    margin-right: 2rem;
+  }
+}

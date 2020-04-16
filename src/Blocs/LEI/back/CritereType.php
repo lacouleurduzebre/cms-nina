@@ -6,7 +6,7 @@
  * Time: 11:45
  */
 
-namespace App\Blocs\LEI;
+namespace App\Blocs\LEI\back;
 
 
 use Symfony\Component\Form\AbstractType;
@@ -23,9 +23,6 @@ class CritereType extends AbstractType
             ->add('nom', TextType::class)
             ->add('critere', TextType::class, [
                 'label' => 'Critère'
-            ])
-            ->add('modalite', TextType::class, [
-                'label' => 'Modalité'
             ])
             ;
     }
