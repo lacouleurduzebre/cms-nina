@@ -276,10 +276,17 @@ class LEITwig extends AbstractExtension
     }
 
     private function getCritereConfigure($nom){
+        if(!key_exists('criteres', $this->configLEI)){
+            $this->configLEI['criteres'] = [];
+            $nvFichier = Yaml::dump($this->configLEI);
+            file_put_contents('../src/Blocs/LEI/configLEI.yaml', $nvFichier);
+            return false;
+        }
+
         $criteresConfigures = $this->configLEI['criteres'];
 
         $indexCritere = array_search($nom, array_column($criteresConfigures, 'nom'));
 
-        return ($indexCritere !== false) ? $criteresConfigures[$indexCritere]['critere'] : false;
+        return ($indexCritere !== false && isset($criteresConfigures[$indexCritere]['critere'])) ? $criteresConfigures[$indexCritere]['critere'] : false;
     }
 }
