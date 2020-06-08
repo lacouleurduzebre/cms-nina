@@ -1,7 +1,12 @@
 <?php
 $version = "9.14.0";
-if (session_id() == '') {
-    session_start();
+session_start();
+if (isset($_SESSION['_sf2_attributes'])) {
+    if (!isset($_SESSION['_sf2_attributes']['_security_principal'])) {
+        die('Accès refusé');
+    }
+} else {
+    die('Accès refusé');
 }
 
 mb_internal_encoding('UTF-8');
