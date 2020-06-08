@@ -1,6 +1,10 @@
 {% for nom_critere, criteres in infosFiche %}
     <div class="pageFiche-moda">
-        <strong>{{ nom_critere }}  :</strong><br>
-        {% for critere in criteres %}{{ critere.texte }}{% if not loop.last %}<br>{% endif %}{% endfor %}
+        {% if criteres|length == 1 and criteres.0.texte|lower == "oui" %}
+            <strong>{{ nom_critere }}</strong>
+        {% else %}
+            <strong>{{ nom_critere }}  :</strong><br>
+            {% for critere in criteres %}{{ critere.texte }}{% if not loop.last %}, {% endif %}{% endfor %}
+        {% endif %}
     </div>
 {% endfor %}
