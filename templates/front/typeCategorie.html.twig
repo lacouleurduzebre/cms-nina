@@ -20,7 +20,7 @@
 {% endblock %}
 
 {% block main %}
-<h1>{{ "Liste des termes"|trans }} "{{ typeCategorie.nom }}"</h1>
+<h1>{{ "Liste des termes de type \"%typeCategorie%\""|trans({'%typeCategorie%': typeCategorie.nom}) }}</h1>
     <div class="description">{{ typeCategorie.description|raw }}</div>
     {% for categorie in categories %}
     <div class="extrait typeCategorie-categorie">
