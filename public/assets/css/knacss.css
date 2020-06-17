@@ -3886,6 +3886,9 @@ body.list #flash-messages > * {
 .listeErreurs404-conteneur {
   margin-top: 10rem;
 }
+.listeErreurs404-conteneur.vide {
+  margin-top: 8rem;
+}
 .listeErreurs404-conteneur .nav-tabs {
   margin: 0 -1rem;
 }

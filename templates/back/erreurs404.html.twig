@@ -1,42 +1,54 @@
 {% extends 'back/base.html.twig' %}
 
 {% block main %}
-    <div class="listeErreurs404-conteneur">
+    <div class="listeErreurs404-conteneur {% if erreurs is empty %}vide{% endif %}">
         <section class="content-header">
-            <h1>{{ "Liste des erreurs 404"|trans }}</h1>
+            <h1>{{ "Liste des erreurs 404 (liens morts)"|trans }}</h1>
         </section>
 
+        {% if erreurs is empty %}
+            <p>{{ "Aucune erreur détectée"|trans }}</p>
+        {% endif %}
+
         <ul class="nav-tabs">
-            <li class="active"><a href="#imagesMediatheque-tab" data-toggle="tab">{{ "Images de la médiathèque"|trans }}</a></li>
-            <li><a href="#fichiersMediatheque-tab" data-toggle="tab">{{ "Documents de la médiathèque"|trans }}</a></li>
+            {% if erreurs.images404 is defined %}
+                <li class="active"><a href="#imagesMediatheque-tab" data-toggle="tab">{{ "Images de la médiathèque"|trans }}</a></li>
+            {% endif %}
+            {% if erreurs.fichiers404 is defined %}
+                <li><a href="#fichiersMediatheque-tab" data-toggle="tab">{{ "Documents de la médiathèque"|trans }}</a></li>
+            {% endif %}
             {% if erreurs.liensExternes404 is defined %}
                 <li><a href="#liensExternes-tab" data-toggle="tab">{{ "Liens externes"|trans }}</a></li>
             {% endif %}
         </ul>
 
-        <div id="imagesMediatheque-tab" class="tab-pane active">
-            {% for page in erreurs.images404 %}
-                {% block erreur %}
-                    <h3><a href="{{ path('easyadmin', {action: 'edit', entity: 'Page_Active', id: page.page.id}) }}" target="_blank">{{ page.page.titre }}</a></h3>
-                    <ul>
-                        {% for erreur in page.erreurs %}
-                            {% if erreur.url|slice(0,8) == '/uploads' %}
-                                {% set url = erreur.url|replace({'/uploads/': ''}) %}
-                            {% else %}
-                                {% set url = erreur.url %}
-                            {% endif %}
-                            <li>{{ "Bloc"|trans }} "{{ erreur.bloc.type }}" : {{ url }}</li>
-                        {% endfor %}
-                    </ul>
-                {% endblock %}
-            {% endfor %}
-        </div>
+        {% if erreurs.images404 is defined %}
+            <div id="imagesMediatheque-tab" class="tab-pane active">
+                {% for page in erreurs.images404 %}
+                    {% block erreur %}
+                        <h3><a href="{{ path('easyadmin', {action: 'edit', entity: 'Page_Active', id: page.page.id}) }}" target="_blank">{{ page.page.titre }}</a></h3>
+                        <ul>
+                            {% for erreur in page.erreurs %}
+                                {% if erreur.url|slice(0,8) == '/uploads' %}
+                                    {% set url = erreur.url|replace({'/uploads/': ''}) %}
+                                {% else %}
+                                    {% set url = erreur.url %}
+                                {% endif %}
+                                <li>{{ "Bloc"|trans }} "{{ erreur.bloc.type }}" : {{ url }}</li>
+                            {% endfor %}
+                        </ul>
+                    {% endblock %}
+                {% endfor %}
+            </div>
+        {% endif %}
 
-        <div id="fichiersMediatheque-tab" class="tab-pane">
-            {% for page in erreurs.fichiers404 %}
-                {{ block('erreur') }}
-            {% endfor %}
-        </div>
+        {% if erreurs.fichiers404 is defined %}
+            <div id="fichiersMediatheque-tab" class="tab-pane">
+                {% for page in erreurs.fichiers404 %}
+                    {{ block('erreur') }}
+                {% endfor %}
+            </div>
+        {% endif %}
 
         {% if erreurs.liensExternes404 is defined %}
             <div id="liensExternes-tab" class="tab-pane">
