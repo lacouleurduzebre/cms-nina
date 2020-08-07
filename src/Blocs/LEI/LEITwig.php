@@ -32,7 +32,7 @@ class LEITwig extends AbstractExtension
         $this->request = $requestStack->getCurrentRequest();
         $this->cache = $cache;
 
-        $this->configLEI = Yaml::parseFile('../src/Blocs/LEI/configLEI.yaml');
+        $this->configLEI = Yaml::parseFile(__DIR__.'/configLEI.yaml');
     }
 
     public function getFunctions()
@@ -279,7 +279,7 @@ class LEITwig extends AbstractExtension
         if(!key_exists('criteres', $this->configLEI)){
             $this->configLEI['criteres'] = [];
             $nvFichier = Yaml::dump($this->configLEI);
-            file_put_contents('../src/Blocs/LEI/configLEI.yaml', $nvFichier);
+            file_put_contents(__DIR__.'/configLEI.yaml', $nvFichier);
             return false;
         }
 

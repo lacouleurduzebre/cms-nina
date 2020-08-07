@@ -18,6 +18,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Yaml\Yaml;
@@ -70,7 +71,7 @@ class LEIController extends AbstractController
             if(array_key_exists('utiliserFluxSpecifique', $parametres) && isset($parametres['utiliserFluxSpecifique'][0])){
                 $urlFlux = $parametres['flux'];
             }else{
-                $configLEI = Yaml::parseFile('../src/Blocs/LEI/configLEI.yaml');
+                $configLEI = Yaml::parseFile(__DIR__.'/configLEI.yaml');
                 $urlFlux = $configLEI['fluxGenerique'];
             }
 
@@ -172,7 +173,7 @@ class LEIController extends AbstractController
      */
     public function modifierPictosLEI(Request $request){
         //Pictos enregistrés
-        $configLEI = Yaml::parseFile('../src/Blocs/LEI/configLEI.yaml');
+        $configLEI = Yaml::parseFile(__DIR__.'/configLEI.yaml');
         $pictos = [];
         $pictos['pictos'] = $configLEI['pictos'];
 
@@ -199,7 +200,7 @@ class LEIController extends AbstractController
             $configLEI['pictos'] = $nvPictos;
 
             $nvFichier = Yaml::dump($configLEI);
-            file_put_contents('../src/Blocs/LEI/configLEI.yaml', $nvFichier);
+            file_put_contents(__DIR__.'/configLEI.yaml', $nvFichier);
 
             $this->addFlash('enregistrement', 'Les pictogrammes ont été enregistrés');
         }
@@ -212,7 +213,7 @@ class LEIController extends AbstractController
      */
     public function modifierCriteresLEI(Request $request){
         //Critères enregistrés
-        $configLEI = Yaml::parseFile('../src/Blocs/LEI/configLEI.yaml');
+        $configLEI = Yaml::parseFile(__DIR__.'/configLEI.yaml');
         $criteres = [];
 
         //Vide ?
@@ -247,11 +248,19 @@ class LEIController extends AbstractController
             $configLEI['criteres'] = $nvCriteres;
 
             $nvFichier = Yaml::dump($configLEI);
-            file_put_contents('../src/Blocs/LEI/configLEI.yaml', $nvFichier);
+            file_put_contents(__DIR__.'/configLEI.yaml', $nvFichier);
 
             $this->addFlash('enregistrement', 'Les critères ont été enregistrés');
         }
 
         return $this->render('Blocs/LEI/back/configCriteres.html.twig', ['form' => $form->createView()]);
+    }
+
+    /**
+     * @Route("/admin/LEI/viderCache", name="viderCacheLEI")
+     */
+    public function viderCacheLEI(CacheInterface $cache){//Ne sert à rien puisque le cache est vidé sur toutes les pages du b/o
+        $cache->clear();
+        return new Response('ok');
     }
 }

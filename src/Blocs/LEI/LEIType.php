@@ -29,7 +29,7 @@ class LEIType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $configLEI = Yaml::parseFile('../src/Blocs/LEI/configLEI.yaml');
+        $configLEI = Yaml::parseFile(__DIR__.'/configLEI.yaml');
         $fluxGenerique = $configLEI['fluxGenerique'];
 
         $builder
@@ -90,10 +90,10 @@ class LEIType extends AbstractType
             $blocLEI = $event->getData();
             $fluxGenerique = $blocLEI['fluxGenerique'];
 
-            $configLEI = Yaml::parseFile('../src/Blocs/LEI/configLEI.yaml');
+            $configLEI = Yaml::parseFile(__DIR__.'/configLEI.yaml');
             $configLEI['fluxGenerique'] = $fluxGenerique;
             $nvFichier = Yaml::dump($configLEI);
-            file_put_contents('../src/Blocs/LEI/configLEI.yaml', $nvFichier);
+            file_put_contents(__DIR__.'/configLEI.yaml', $nvFichier);
         });
     }
 
