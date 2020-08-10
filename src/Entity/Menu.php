@@ -47,6 +47,11 @@ class Menu
      */
     private $langue;
 
+    /**
+     * @ORM\Column(type="smallint", options={"default" : 1})
+     */
+    private $priorite;
+
     public function __toString()
     {
         return $this->getNom();
@@ -150,6 +155,18 @@ class Menu
     public function setLangue(?Langue $langue): self
     {
         $this->langue = $langue;
+
+        return $this;
+    }
+
+    public function getPriorite(): ?int
+    {
+        return $this->priorite;
+    }
+
+    public function setPriorite(int $priorite): self
+    {
+        $this->priorite = $priorite;
 
         return $this;
     }

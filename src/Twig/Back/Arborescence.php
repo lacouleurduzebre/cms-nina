@@ -51,7 +51,7 @@ class Arborescence extends \Twig_Extension
         }
 
         //Menus
-        $menus = $emMenu->findBy(array('langue'=>$langue));
+        $menus = $emMenu->findBy(['langue'=>$langue], ['priorite' => 'ASC']);
 
         return $this->twig->render('back/menu/arborescence.html.twig', array('menus' => $menus, 'langueArbo' => $langue));
     }

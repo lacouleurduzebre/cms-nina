@@ -97,7 +97,8 @@ class LEITwig extends AbstractExtension
 
             //Recherche par mot-clé
             if(array_key_exists("bloc-".$bloc->getId()."--libtext", $_POST)){
-                $urlFlux .= '&libtext='.$_POST["bloc-".$bloc->getId()."--libtext"];
+                $recherche = $_POST["bloc-".$bloc->getId()."--libtext"];
+                $urlFlux .= '&libtext='.htmlentities($recherche,ENT_QUOTES, 'UTF-8' );
                 $xml = simplexml_load_file($urlFlux);
             }else{
                 $xml = simplexml_load_string($flux);
