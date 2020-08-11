@@ -1304,6 +1304,13 @@
     </div>
 {% endblock %}
 
+{% block section_widget %}
+    <div class="dragSection">
+        <i class="fas fa-arrows-alt"></i>
+    </div>
+    {{- form_widget(form) -}}
+{% endblock %}
+
 {# Images des blocs galerie #}
 {% block _page_active_blocs_entry_contenu_images_row %}
     {{ block('collection_row_double') }}
@@ -1343,6 +1350,16 @@
     {{ block('collection_row_double') }}
 {% endblock %}
 {# Cases des blocs grille #}
+
+{# Sections des blocs accordéon #}
+{% block _page_active_blocs_entry_contenu_sections_row %}
+    {{ block('collection_row_double') }}
+{% endblock %}
+
+{% block _Accordeon_contenu_sections_row %}{# ajax #}
+    {{ block('collection_row_double') }}
+{% endblock %}
+{# Sections des blocs accordéon #}
 
 {# Champ du bloc groupe de blocs #}
 {% block groupeBlocs %}

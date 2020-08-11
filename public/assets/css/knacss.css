@@ -4709,7 +4709,7 @@ div[id^=page_active_blocs] > div > .collection-empty {
   font-size: 2rem;
 }
 
-.dragSlide, .dragGalerie, .dragChamp, .dragCase {
+.dragSlide, .dragGalerie, .dragChamp, .dragCase, .dragSection {
   font-size: 2rem;
   color: #0791B3;
   position: absolute;
@@ -4729,6 +4729,13 @@ div[id^=page_active_blocs] > div > .collection-empty {
   background-color: #EDEDED;
   width: calc(50% - 2rem);
   margin: 0 1rem 2rem;
+}
+
+.bloc-accordeon .field-section {
+  position: relative;
+  padding: 1rem;
+  background-color: #EDEDED;
+  margin: 0 0 2rem;
 }
 
 .bloc-slider .radio {

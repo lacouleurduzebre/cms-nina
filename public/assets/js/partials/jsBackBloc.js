@@ -58,7 +58,7 @@ $(document).ready(function() {
     });
 
     $(".bloc-accordeon div[id$='contenu_sections']").sortable({
-        handle: '.dragCase',
+        handle: '.dragSection',
         update: function(event, ui){
             $('.field-section').each(function(){
                 $(this).find("input[id$='position']").val($(this).index());
