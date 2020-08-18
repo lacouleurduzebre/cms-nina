@@ -5,6 +5,9 @@
 
 body.connected{
   margin-top: 3.8rem;
+  &.voirPage, &.accueil{
+    margin-top: 7.4rem;
+  }
 }
 
 /* Header */
@@ -165,5 +168,39 @@ body.connected{
   background-color: darken($color-primary, 15);
   &:hover{
     background-color: $black;
+  }
+}
+
+// Onglets d'édition en front
+#ongletsEditionFront{
+  position: fixed;
+  top: 3.8rem;
+  left: 0;
+  z-index: 100;
+  display: flex;
+  flex-wrap: wrap;
+  list-style: none;
+  padding: .5rem 0 0;
+  margin: 0;
+  background-color: $color-brand2;
+  width: 100%;
+  font-family: "Cabin";
+  font-size: 1.6rem;
+  body.notFull &{
+    @include respond-to("medium-up"){
+      left: 30rem;
+      width: calc(100% - 30rem);
+    }
+  }
+  li{
+    border-bottom: 7px solid $color-brand2;
+    &:hover{
+      border-color: #92D8E9;
+    }
+  }
+  a{
+    color: $white;
+    text-decoration: none;
+    padding: 0 1rem;
   }
 }

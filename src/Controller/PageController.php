@@ -3,7 +3,9 @@
 namespace App\Controller;
 
 use App\Entity\Commentaire;
+use App\Service\Droits;
 use App\Service\Page;
+use EasyCorp\Bundle\EasyAdminBundle\Configuration\ConfigManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
@@ -26,7 +28,7 @@ class PageController extends AbstractController
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
-    public function voirAction(Request $request, Page $spage, \App\Service\Langue $slangue, $url, $_locale = null){
+    public function voirAction(Request $request, Page $spage, \App\Service\Langue $slangue, Droits $droits, ConfigManager $configManager, $url, $_locale = null){
         //Test route : locale ou non
         $redirection = $slangue->redirectionLocale('voirPage', $_locale, array('url' => $url));
         if($redirection){
@@ -118,6 +120,19 @@ class PageController extends AbstractController
         }
         /* Fin commentaires */
 
-        return $this->render('front/page.html.twig', array('page'=>$page, 'form'=>$form, 'commentaires'=>$commentaires));
+        /* Barre d'admin */
+        if($droits->checkDroit('admin')){
+            $configEA = $configManager->getEntityConfig('Page_Active');
+            $champsEA = $configEA['form']['fields'] ?? [];
+            $ongletsEdition = [];
+            foreach($champsEA as $champ){
+                if(key_exists('type', $champ) && $champ['type'] == 'easyadmin_tab'){
+                    $ongletsEdition[] = $champ;
+                }
+            }
+        }
+        /* Fin barre d'admin */
+
+        return $this->render('front/page.html.twig', ['page' => $page, 'form' => $form, 'commentaires' => $commentaires, 'ongletsEdition' => $ongletsEdition ?? false]);
     }
 }

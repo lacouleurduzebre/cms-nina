@@ -136,4 +136,19 @@ $(document).ready(function(){
             $(this).closest('.surbrillance').removeClass('focus');
         });
     });
+
+    //Barre d'édition
+    $('#ongletsEditionFront a').click(function(){
+        Cookies.set('ongletActif', $(this).data('onglet'));
+    });
+
+    $(window).on('scroll', function(){
+        hauteur = $(window).height();
+        scroll = window.pageYOffset || document.documentElement.scrollTop;
+        if(scroll > 200){
+            $('#ongletsEditionFront').slideUp();
+        }else{
+            $('#ongletsEditionFront').show();
+        }
+    });
 });

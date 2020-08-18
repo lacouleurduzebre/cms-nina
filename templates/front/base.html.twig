@@ -42,6 +42,16 @@
         {% if checkDroit('admin') %}
             {{ include('back/aside.html.twig') }}
         {% endif %}
+        {# Barre d'édition #}
+        {% if ongletsEdition is defined and ongletsEdition %}
+            <ul id="ongletsEditionFront">
+                {% for onglet in ongletsEdition %}
+                    {% if onglet.css_class is not defined or onglet.css_class != 'traductions' or langues|length > 1 %}
+                        <li><a href="{{ path('easyadmin', {entity: 'Page_Active', action: 'edit', id: page.id}) }}" data-onglet="{{ onglet.id }}">{{ onglet.label }}</a></li>
+                    {% endif %}
+                {% endfor %}
+            </ul>
+        {% endif %}
 
     {{ regions('avant') }}
 

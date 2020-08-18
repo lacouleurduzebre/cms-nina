@@ -9,7 +9,9 @@
 namespace App\Controller;
 
 
+use App\Service\Droits;
 use App\Service\Page;
+use EasyCorp\Bundle\EasyAdminBundle\Configuration\ConfigManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -24,7 +26,7 @@ class AccueilController extends AbstractController
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function indexAction(Page $spage, \App\Service\Langue $slangue, $_locale = null)
+    public function indexAction(Page $spage, \App\Service\Langue $slangue, Droits $droits, ConfigManager $configManager, $_locale = null)
     {
         //Test route : locale ou non
         $redirection = $slangue->redirectionLocale('accueil', $_locale);
@@ -40,6 +42,19 @@ class AccueilController extends AbstractController
             return $page;
         }
 
-        return $this->render('front/accueil.html.twig', array('page'=>$page, 'accueil'=>$accueil));
+        /* Barre d'admin */
+        if($droits->checkDroit('admin')){
+            $configEA = $configManager->getEntityConfig('Page_Active');
+            $champsEA = $configEA['form']['fields'] ?? [];
+            $ongletsEdition = [];
+            foreach($champsEA as $champ){
+                if(key_exists('type', $champ) && $champ['type'] == 'easyadmin_tab'){
+                    $ongletsEdition[] = $champ;
+                }
+            }
+        }
+        /* Fin barre d'admin */
+
+        return $this->render('front/accueil.html.twig', ['page' => $page, 'accueil' => $accueil, 'ongletsEdition' => $ongletsEdition ?? false]);
     }
 }
