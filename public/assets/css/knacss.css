@@ -4704,6 +4704,68 @@ div[id^=page_active_blocs] > div > .collection-empty {
   color: #727272;
 }
 
+@keyframes clignotement {
+  from {
+    opacity: 100%;
+  }
+  to {
+    opacity: 40%;
+  }
+}
+.listeBlocsDnD-bloc {
+  z-index: 1000;
+}
+
+.editionContenusPage {
+  position: relative;
+}
+.editionContenusPage > .row {
+  width: calc(100% - 25rem);
+}
+.editionContenusPage > .row .listeBlocsDnD-bloc.chargement {
+  animation-name: clignotement;
+  animation-duration: 0.5s;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+}
+
+.listeBlocsDnD {
+  position: fixed;
+  top: 14rem;
+  right: 0;
+  width: 25rem;
+  height: calc(100vh - 14rem);
+  overflow: hidden auto;
+}
+.listeBlocsDnD ul {
+  background-color: #f7f7f7;
+  height: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  padding: 0 1rem;
+}
+.listeBlocsDnD-bloc {
+  border-radius: 50%;
+  background-color: #0791B3;
+  width: 7.5rem;
+  height: 7.5rem;
+  color: #FFF;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  cursor: move;
+  margin: 0.5rem 0;
+}
+.listeBlocsDnD-bloc svg {
+  font-size: 2.5rem;
+  margin-bottom: 0.5rem;
+}
+.listeBlocsDnD-bloc .bloc-nom {
+  font-size: 1.3rem;
+}
+
 .bloc-image strong {
   color: #0791B3;
   font-size: 2rem;

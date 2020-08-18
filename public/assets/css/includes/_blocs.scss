@@ -386,6 +386,74 @@ div[id^="page_active_blocs"]{
   }
 }
 
+//Liste des blocs - d'n'd
+@keyframes clignotement{
+  from{
+    opacity: 100%;
+  }
+  to{
+    opacity: 40%;
+  }
+}
+
+.listeBlocsDnD-bloc{
+  z-index: 1000;
+}
+
+.editionContenusPage{
+  position: relative;
+  > .row{
+    width: calc(100% - 25rem);
+    .listeBlocsDnD-bloc{
+      &.chargement{
+        animation-name: clignotement;
+        animation-duration: .5s;
+        animation-iteration-count: infinite;
+        animation-direction: alternate;
+      }
+    }
+  }
+}
+
+.listeBlocsDnD{
+  position: fixed;
+  top: 14rem;
+  right: 0;
+  width: 25rem;
+  height: calc(100vh - 14rem);
+  overflow: hidden auto;
+
+  ul{
+    background-color: #f7f7f7;
+    height: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    padding: 0 1rem;
+  }
+
+  &-bloc{
+    border-radius: 50%;
+    background-color: $color-brand2;
+    width: 7.5rem;
+    height: 7.5rem;
+    color: #FFF;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    cursor: move;
+    margin: .5rem 0;
+    svg{
+      font-size: 2.5rem;
+      margin-bottom: .5rem;
+    }
+    .bloc-nom{
+      font-size: 1.3rem;
+    }
+  }
+}
+
 //Image
 .bloc-image{
   strong{

@@ -29,6 +29,8 @@ easy_admin:
                 - 'assets/css/select2-bootstrap.min.css'
                 - 'assets/css/knacss.min.css'
                 - 'assets/css/back.min.css'
+                - 'assets/js/jquery-ui/jquery-ui.css'
+                - 'assets/js/jquery-ui/jquery-ui.theme.css'
                 - 'assets/js/jstree/themes/style.css'
                 - 'assets/js/fancybox/jquery.fancybox.min.css'
             js:
@@ -37,7 +39,7 @@ easy_admin:
                 - 'assets/js/fontawesome-all.min.js'
                 - 'assets/js/jscookie/cookie.js'
                 - 'assets/js/jstree/jstree.min.js'
-                - 'assets/js/sortable/jquery-ui.min.js'
+                - 'assets/js/jquery-ui/jquery-ui.min.js'
                 - 'assets/js/jsArbo.min.js'
                 - 'assets/js/jsBack.min.js'
                 - 'assets/js/jsHeaderSidebar.min.js'
