@@ -1304,13 +1304,6 @@
     </div>
 {% endblock %}
 
-{% block section_widget %}
-    <div class="dragSection">
-        <i class="fas fa-arrows-alt"></i>
-    </div>
-    {{- form_widget(form) -}}
-{% endblock %}
-
 {# Images des blocs galerie #}
 {% block _page_active_blocs_entry_contenu_images_row %}
     {{ block('collection_row_double') }}
@@ -1358,6 +1351,27 @@
 
 {% block _Accordeon_contenu_sections_row %}{# ajax #}
     {{ block('collection_row_double') }}
+{% endblock %}
+
+{% block _page_active_blocs_entry_contenu_sections_entry_widget %}
+    <div class="dragSection">
+        <i class="fas fa-arrows-alt"></i>
+    </div>
+    {{- form_widget(form) -}}
+{% endblock %}
+
+{% block _Accordeon_contenu_sections_entry_widget %}{# ajax #}
+    <div class="dragSection">
+        <i class="fas fa-arrows-alt"></i>
+    </div>
+    {{- form_widget(form) -}}
+{% endblock %}
+
+{% block _page_active_blocs_entry_blocsEnfants_entry_contenu_sections_entry_widget %}{# blocs enfants #}
+    <div class="dragSection">
+        <i class="fas fa-arrows-alt"></i>
+    </div>
+    {{- form_widget(form) -}}
 {% endblock %}
 {# Sections des blocs accordéon #}
 

@@ -401,6 +401,7 @@ div[id^="page_active_blocs"]{
   position: absolute;
   top: .5rem;
   right: 1rem;
+  cursor: grab;
 }
 
 .field-Slide > div > div, .bloc-galerie .field-images > div > div, .field-cases > div > div{
@@ -423,6 +424,9 @@ div[id^="page_active_blocs"]{
   padding: 1rem;
   background-color: #EDEDED;
   margin: 0 0 2rem;
+  .blocsEnfants &{
+    background-color: $color-tres-fonce;
+  }
 }
 
 //Slider

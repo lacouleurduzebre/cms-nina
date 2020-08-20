@@ -4715,6 +4715,7 @@ div[id^=page_active_blocs] > div > .collection-empty {
   position: absolute;
   top: 0.5rem;
   right: 1rem;
+  cursor: grab;
 }
 
 .field-Slide > div > div, .bloc-galerie .field-images > div > div, .field-cases > div > div {
@@ -4736,6 +4737,9 @@ div[id^=page_active_blocs] > div > .collection-empty {
   padding: 1rem;
   background-color: #EDEDED;
   margin: 0 0 2rem;
+}
+.blocsEnfants .bloc-accordeon .field-section {
+  background-color: #E1E0E0;
 }
 
 .bloc-slider .radio {

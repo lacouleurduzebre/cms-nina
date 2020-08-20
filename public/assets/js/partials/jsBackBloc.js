@@ -57,14 +57,22 @@ $(document).ready(function() {
         }
     });
 
-    $(".bloc-accordeon div[id$='contenu_sections']").sortable({
+    var optionsSortableAccordeon = {
         handle: '.dragSection',
         update: function(event, ui){
             $('.field-section').each(function(){
                 $(this).find("input[id$='position']").val($(this).index());
                 saveCloseFormulaire();
             });
+            tinymce.remove();
+            tinymce.init(optionsTinyMCE);
         }
+    };
+    var sortableAccordeon = $(".bloc-accordeon div[id$='contenu_sections']");
+    sortableAccordeon.sortable(optionsSortableAccordeon);
+    $('form').on('click', '.bloc-accordeon .field-collection-action a', function(){
+        sortableAccordeon.sortable(optionsSortableAccordeon);
+        sortableAccordeon.sortable("refresh");
     });
 
     /* Menu blocs */
