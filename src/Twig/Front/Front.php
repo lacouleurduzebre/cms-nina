@@ -16,9 +16,16 @@ use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Twig\Environment;
+use Twig\TwigFunction;
 
 class Front extends \Twig_Extension
 {
+    private $doctrine;
+    private $twig;
+    private $request;
+    private $router;
+    private $cache;
+
     public function __construct(ManagerRegistry $doctrine, Environment $twig, RequestStack $requestStack, UrlGeneratorInterface $router, CacheInterface $cache)
     {
         $this->doctrine = $doctrine;
@@ -31,13 +38,13 @@ class Front extends \Twig_Extension
     public function getFunctions()
     {
         return array(
-            new \Twig_SimpleFunction('regions', array($this, 'getRegions'), array('is_safe' => ['html'])),
-            new \Twig_SimpleFunction('groupes', array($this, 'getGroupesBlocs'), array('is_safe' => ['html'])),
-            new \Twig_SimpleFunction('groupe', array($this, 'getGroupeBlocs'), array('is_safe' => ['html'])),
-            new \Twig_SimpleFunction('blocAnnexe', array($this, 'getBlocAnnexe'), array('is_safe' => ['html'])),
-            new \Twig_SimpleFunction('page', array($this, 'getPage')),
-            new \Twig_SimpleFunction('lienPage', array($this, 'getLienPage')),
-            new \Twig_SimpleFunction('blocs', array($this, 'getBlocs')),
+            new TwigFunction('regions', array($this, 'getRegions'), array('is_safe' => ['html'])),
+            new TwigFunction('groupes', array($this, 'getGroupesBlocs'), array('is_safe' => ['html'])),
+            new TwigFunction('groupe', array($this, 'getGroupeBlocs'), array('is_safe' => ['html'])),
+            new TwigFunction('blocAnnexe', array($this, 'getBlocAnnexe'), array('is_safe' => ['html'])),
+            new TwigFunction('page', array($this, 'getPage')),
+            new TwigFunction('lienPage', array($this, 'getLienPage')),
+            new TwigFunction('blocs', array($this, 'getBlocs')),
         );
     }
 
@@ -189,14 +196,14 @@ class Front extends \Twig_Extension
         $cleCache = 'page_'.$page->getId().'_blocs';
         $blocs = $page->getBlocs();
 
-        if($_ENV['APP_ENV'] == 'prod') {
+        if($_ENV['APP_ENV'] == 'prod' && !$this->request->get('page')) {
             $tpl = $this->cache->get($cleCache);
         }
 
         if(!isset($tpl)){
             $tpl = $this->twig->render('front/blocs.html.twig', array('blocs' => $blocs));
 
-            if($_ENV['APP_ENV'] == 'prod' && !$this->contientBlocLEIRechercheTexte($blocs)){
+            if($_ENV['APP_ENV'] == 'prod' && !$this->contientBlocLEIRechercheTexte($blocs) && !$this->request->get('page')){
                 $this->cache->set($cleCache, $tpl, 86400);
             }
         }
