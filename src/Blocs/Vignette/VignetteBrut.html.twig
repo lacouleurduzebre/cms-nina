@@ -1,2 +1,4 @@
 {% set image = bloc.contenu.image %}
-{{ absolute_url(image.image) }}
+{% if image.image is not empty %}
+    {{ absolute_url(image.image) }}
+{% endif %}
