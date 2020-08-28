@@ -4448,6 +4448,10 @@ body.list #flash-messages > * {
   width: calc(30% - 2rem);
 }
 
+#page_active_blocs {
+  min-height: calc(100vh - 10rem);
+}
+
 div[id^=page_active_blocs] svg {
   transition: 0.3s;
 }
@@ -4459,6 +4463,10 @@ div[id^=page_active_blocs] > .form-group.type {
   align-items: center;
 }
 div[id^=page_active_blocs] > div > .collection-empty {
+  display: none;
+}
+
+#deplierBlocs ~ .empty {
   display: none;
 }
 

@@ -118,6 +118,10 @@
   }
 }
 
+#page_active_blocs{
+  min-height: calc(100vh - 10rem);
+}
+
 div[id^="page_active_blocs"]{
   .field-collection-action, .field-collection-item-action{
     //display: none;
@@ -137,6 +141,9 @@ div[id^="page_active_blocs"]{
   }
 }
 
+#deplierBlocs ~ .empty{
+  display: none;
+}
 
 .bloc-help{
   position: relative;
