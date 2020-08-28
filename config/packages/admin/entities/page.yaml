@@ -51,7 +51,7 @@ easy_admin:
                     - { name: 'corbeille', label: 'Mettre à la corbeille', title: 'Mettre à la corbeille', icon: 'trash' }
                     - { name: 'list', label: 'Retour à la liste des pages', title: 'Retour à la liste des pages', icon: 'arrow-left', css_class: '' }
                 fields:
-                    - { type: 'tab', label: 'Contenus', css_class: 'blocs' }
+                    - { type: 'tab', label: 'Édition', css_class: 'blocs' }
                     - { property: 'titre', type: 'text', type_options: { help: 'Utilisé en tant que balise H1' } }
                     - { property: 'titreMenu', label: 'Titre dans les menus' }
                     - { property: 'blocs', type: 'collection', type_options: { entry_type: 'App\Form\Type\BlocType', by_reference: false } }
