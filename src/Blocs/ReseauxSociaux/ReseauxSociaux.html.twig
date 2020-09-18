@@ -1,10 +1,10 @@
 {% if bloc.contenu.typeRS == 'liens' %}
     <div class="blocReseauxSociaux-liens">
-        {% if bloc.contenu.facebook.0 is defined %}<a href="{{ bloc.contenu.facebookUrl }}"><i class="fab fa-facebook-f"></i></a>{% endif %}
-        {% if bloc.contenu.twitter.0 is defined %}<a href="{{ bloc.contenu.twitterUrl }}"><i class="fab fa-twitter"></i></a>{% endif %}
-        {% if bloc.contenu.instagram.0 is defined %}<a href="{{ bloc.contenu.instagramUrl }}"><i class="fab fa-instagram"></i></a>{% endif %}
-        {% if bloc.contenu.youtube.0 is defined %}<a href="{{ bloc.contenu.youtubeUrl }}"><i class="fab fa-youtube"></i></a>{% endif %}
-        {% if bloc.contenu.linkedIn.0 is defined %}<a href="{{ bloc.contenu.linkedInUrl }}"><i class="fab fa-linkedin-in"></i></a>{% endif %}
+        {% if bloc.contenu.facebook.0 is defined %}<a href="{{ bloc.contenu.facebookUrl }}" target="_blank"><i class="fab fa-facebook-f"></i></a>{% endif %}
+        {% if bloc.contenu.twitter.0 is defined %}<a href="{{ bloc.contenu.twitterUrl }}" target="_blank"><i class="fab fa-twitter"></i></a>{% endif %}
+        {% if bloc.contenu.instagram.0 is defined %}<a href="{{ bloc.contenu.instagramUrl }}" target="_blank"><i class="fab fa-instagram"></i></a>{% endif %}
+        {% if bloc.contenu.youtube.0 is defined %}<a href="{{ bloc.contenu.youtubeUrl }}" target="_blank"><i class="fab fa-youtube"></i></a>{% endif %}
+        {% if bloc.contenu.linkedIn.0 is defined %}<a href="{{ bloc.contenu.linkedInUrl }}" target="_blank"><i class="fab fa-linkedin-in"></i></a>{% endif %}
         {% if bloc.contenu.email.0 is defined %}<a href="mailto:{{ bloc.contenu.emailUrl }}"><i class="fas fa-envelope"></i></a>{% endif %}
     </div>
 {% elseif bloc.contenu.typeRS == 'partage' %}
