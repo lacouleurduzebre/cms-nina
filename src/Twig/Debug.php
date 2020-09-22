@@ -19,11 +19,11 @@ abstract class Debug extends Template
         $cheminTPL = str_replace($racine, '', $this->getSourceContext()->getPath());
         $extensionTPL = substr($cheminTPL, strlen($cheminTPL) - 9);
 
-        if($extensionTPL == 'html.twig'){
+        if($extensionTPL == 'html.twig' && !strpos($cheminTPL, 'Brut')){
             echo '<!-- ' . $cheminTPL . ' -->';
         }
         parent::display($context, $blocks);
-        if($extensionTPL == 'html.twig'){
+        if($extensionTPL == 'html.twig' && !strpos($cheminTPL, 'Brut')){
             echo '<!-- FIN ' . $cheminTPL . ' -->';
         }
     }
