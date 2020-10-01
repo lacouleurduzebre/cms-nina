@@ -127,23 +127,27 @@
 
 {% block referencement %}
     <h2>{% trans %}Aperçu du référencement des pages{% endtrans %}</h2>
-    <p>
-        <span>{{ "Score total :"|trans }}</span>
-        <meter value="{{ contenuBloc.scoreTotal }}" max="{{ contenuBloc.total }}" low="{{ contenuBloc.total / 3 }}" high="{{ contenuBloc.total / 3 * 2 }}" optimum="{{ contenuBloc.total }}" title="{{ (contenuBloc.scoreTotal * 100 / contenuBloc.total)|round }}%"></meter>
-    </p>
-    <p>
-        <span>{{ "Méta-titres :"|trans }}</span>
-        <meter value="{{ contenuBloc.scoreMetaTitre }}" max="{{ contenuBloc.total }}" low="{{ contenuBloc.total / 3 }}" high="{{ contenuBloc.total / 3 * 2 }}" optimum="{{ contenuBloc.total }}" title="{{ (contenuBloc.scoreMetaTitre * 100 / contenuBloc.total)|round }}%"></meter>
-    </p>
-    <p>
-        <span>{{ "Urls :"|trans }}</span>
-        <meter value="{{ contenuBloc.scoreUrl }}" max="{{ contenuBloc.total }}" low="{{ contenuBloc.total / 3 }}" high="{{ contenuBloc.total / 3 * 2 }}" optimum="{{ contenuBloc.total }}" title="{{ (contenuBloc.scoreUrl * 100 / contenuBloc.total)|round }}%"></meter>
-    </p>
-    <p>
-        <span>{{ "Méta-descriptions :"|trans }}</span>
-        <meter value="{{ contenuBloc.scoreMetaDescription }}" max="{{ contenuBloc.total }}" low="{{ contenuBloc.total / 3 }}" high="{{ contenuBloc.total / 3 * 2 }}" optimum="{{ contenuBloc.total }}" title="{{ (contenuBloc.scoreMetaDescription * 100 / contenuBloc.total)|round }}%"></meter>
-    </p>
-    <a class="inbl mts" href="/admin/seo">{{ "Optimiser le référencement des pages"|trans }}</a>
+    {% if contenuBloc.total > 0 %}
+        <p>
+            <span>{{ "Score total :"|trans }}</span>
+            <meter value="{{ contenuBloc.scoreTotal }}" max="{{ contenuBloc.total }}" low="{{ contenuBloc.total / 3 }}" high="{{ contenuBloc.total / 3 * 2 }}" optimum="{{ contenuBloc.total }}" title="{{ (contenuBloc.scoreTotal * 100 / contenuBloc.total)|round }}%"></meter>
+        </p>
+        <p>
+            <span>{{ "Méta-titres :"|trans }}</span>
+            <meter value="{{ contenuBloc.scoreMetaTitre }}" max="{{ contenuBloc.total }}" low="{{ contenuBloc.total / 3 }}" high="{{ contenuBloc.total / 3 * 2 }}" optimum="{{ contenuBloc.total }}" title="{{ (contenuBloc.scoreMetaTitre * 100 / contenuBloc.total)|round }}%"></meter>
+        </p>
+        <p>
+            <span>{{ "Urls :"|trans }}</span>
+            <meter value="{{ contenuBloc.scoreUrl }}" max="{{ contenuBloc.total }}" low="{{ contenuBloc.total / 3 }}" high="{{ contenuBloc.total / 3 * 2 }}" optimum="{{ contenuBloc.total }}" title="{{ (contenuBloc.scoreUrl * 100 / contenuBloc.total)|round }}%"></meter>
+        </p>
+        <p>
+            <span>{{ "Méta-descriptions :"|trans }}</span>
+            <meter value="{{ contenuBloc.scoreMetaDescription }}" max="{{ contenuBloc.total }}" low="{{ contenuBloc.total / 3 }}" high="{{ contenuBloc.total / 3 * 2 }}" optimum="{{ contenuBloc.total }}" title="{{ (contenuBloc.scoreMetaDescription * 100 / contenuBloc.total)|round }}%"></meter>
+        </p>
+        <a class="inbl mts" href="/admin/seo">{{ "Optimiser le référencement des pages"|trans }}</a>
+    {% else %}
+        Aucune page n'a été créée pour le moment
+    {% endif %}
 {% endblock %}
 
 {% block pagesSansContenu %}
