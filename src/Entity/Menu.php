@@ -52,6 +52,15 @@ class Menu
      */
     private $priorite;
 
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->menuPage = new ArrayCollection();
+        $this->defaut = false;
+    }
+
     public function __toString()
     {
         return $this->getNom();
@@ -89,14 +98,6 @@ class Menu
     public function getNom()
     {
         return $this->nom;
-    }
-
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->menuPage = new ArrayCollection();
     }
 
     /**
