@@ -2,7 +2,7 @@
 
 {% block main %}
     <div class="themes grid-3-small-2-tiny-1 has-gutter-l">
-        {% for nom,theme in themes %}
+        {% for nom,theme in themes.themes %}
             <div id="{{ nom }}" class="theme">
                 <div class="theme-illustration">
                     {% if theme.installe %}

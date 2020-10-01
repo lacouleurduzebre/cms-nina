@@ -175,7 +175,7 @@ class ThemeController extends AbstractController
         return false;
     }
 
-    public static function listeThemes(){
+    public static function listeThemes($separes = true){
         $nomThemes = scandir('../themes');
         unset($nomThemes[0]);
         unset($nomThemes[1]);
@@ -215,7 +215,11 @@ class ThemeController extends AbstractController
         }
         //Fin thèmes externes
 
-        return ['installes' => $themesInstalles, 'disponibles' => $themesDisponibles];
+        if($separes){
+            return ['installes' => $themesInstalles, 'disponibles' => $themesDisponibles];
+        }else{
+            return ['themes' => array_merge($themesInstalles, $themesDisponibles)];
+        }
     }
 
     public static function installationTheme($theme, $lien, Filesystem $filesystem){

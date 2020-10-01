@@ -144,7 +144,8 @@ class AppFixtures extends Fixture
         $menu = new Menu();
         $menu->setNom('Menu principal')
             ->setLangue($langue)
-            ->setDefaut(true);
+            ->setDefaut(true)
+            ->setPriorite(1);
         $manager->persist($menu);
 
         if(!$repoSEOPage->findOneBy(array('url' => 'accueil'))){
@@ -159,7 +160,8 @@ class AppFixtures extends Fixture
         $menuFooter = new Menu();
         $menuFooter->setNom('Menu du pied de page')
             ->setLangue($langue)
-            ->setDefaut(false);
+            ->setDefaut(false)
+            ->setPriorite(2);
         $manager->persist($menuFooter);
 
         if(!$repoSEOPage->findOneBy(array('url' => 'mentions-legales'))){

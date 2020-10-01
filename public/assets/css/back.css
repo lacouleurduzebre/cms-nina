@@ -970,7 +970,6 @@ body.connected {
 .sidebar-menu li > ul {
   visibility: hidden;
   opacity: 0;
-  transition: visibility 0.3s 0.1s, opacity 0.3s 0.1s;
   position: absolute;
   top: 38px;
 }

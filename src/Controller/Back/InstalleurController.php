@@ -343,7 +343,7 @@ class InstalleurController extends AbstractController
                     $this->redirectToRoute('installeur', ['etape' => 3]);
                 }
 
-                $themes = ThemeController::listeThemes();
+                $themes = ThemeController::listeThemes(false);
 
                 $config = $repoConfig->find(1);
 
