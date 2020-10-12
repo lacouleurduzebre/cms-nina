@@ -8,7 +8,9 @@ $(document).ready(function(){
         $('.formulaire-actions-enregistrer').attr("disabled", false);
         $(window).bind('beforeunload', function(){
             if(!clicEnregistrement){
-                return 'Êtes-vous sûr de vouloir quitter cette page ? Des données pourraient ne pas avoir été enregistrées';
+                return 'Êtes-vous sûr de vouloir quitter cette page ? Des données pourraient ne pas avoir été$(\'.modal-box .modal-content\').click(function(e){\n' +
+                    '        e.stopPropagation();\n' +
+                    '    }); enregistrées';
             }
         });
     };
@@ -120,7 +122,8 @@ $(document).ready(function(){
 
     $(document).on('afterClose.fb', function( e, instance, slide ) {
         id = slide.src.substr(slide.src.indexOf('field_id=')+9);
-        urlImg = $('#'+id).val();
+        urlImg = $('#'+id).val().replace(window.location.origin, '');
+        $('#'+id).val(urlImg);
 
         if(id === 'utilisateur_imageProfil'){//Image de profil
             $('#'+id).siblings('.apercuImageProfil').find('img').attr('src', urlImg);

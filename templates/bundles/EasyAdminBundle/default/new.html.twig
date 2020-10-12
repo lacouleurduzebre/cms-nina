@@ -1,0 +1,43 @@
+{% form_theme form with easyadmin_config('design.form_theme') %}
+
+{% set _entity_config = easyadmin_entity(app.request.query.get('entity')) %}
+{% trans_default_domain _entity_config.translation_domain %}
+{% set _trans_parameters = { '%entity_name%': _entity_config.name|trans, '%entity_label%': _entity_config.label|trans } %}
+
+{% extends _entity_config.templates.layout %}
+
+{% block body_id 'easyadmin-new-' ~ _entity_config.name %}
+{% block body_class 'new new-' ~ _entity_config.name|lower %}
+
+{% block content_title %}
+    {% set _default_title = 'new.page_title'|trans(_trans_parameters, 'EasyAdminBundle') %}
+    {{ _entity_config.new.title is defined ? _entity_config.new.title|trans(_trans_parameters)|spaceless : _default_title|spaceless }}
+{% endblock %}
+
+{% block main %}
+    {% if blocs is defined %}
+        {% include('back/blocs/liste.html.twig') with { 'blocs': blocs, 'typeBlocs': 'Blocs' } only %}
+    {% endif %}
+
+    {% if blocsAnnexes is defined %}
+        {% include('back/blocs/liste.html.twig') with { 'blocs': blocsAnnexes, 'typeBlocs': 'BlocsAnnexes' } only %}
+    {% endif %}
+
+    {% block entity_form %}
+        {{ form(form, {attr: {novalidate: "novalidate", autocomplete: "off"}}) }}
+    {% endblock entity_form %}
+{% endblock %}
+
+{% block body_javascript %}
+    {{ parent() }}
+
+    <script type="text/javascript">
+        $(function() {
+            $('.new-form').areYouSure({ 'message': '{{ 'form.are_you_sure'|trans({}, 'EasyAdminBundle')|e('js') }}' });
+
+            $('.form-actions').easyAdminSticky();
+        });
+    </script>
+
+    {{ include('@EasyAdmin/default/includes/_select2_widget.html.twig') }}
+{% endblock %}

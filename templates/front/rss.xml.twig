@@ -46,10 +46,8 @@
                 </link>
                 <description>
                     {% if page.blocs is not empty %}
-                        {% set contenu %}
-                            {% include('front/blocs.html.twig') with {'blocs': page.blocs} only %}
-                        {% endset %}
-                        {{ contenu|striptags|truncate(500) }}
+                        {% set contenu = blocs(page)|striptags|truncate(500) %}
+                        {{ contenu }}
                     {% endif %}
                 </description>
                 <pubDate>
@@ -57,10 +55,7 @@
                 </pubDate>
                 <content:encoded>
                     {% if page.blocs is not empty %}
-                        {% set contenu %}
-                            {% include('front/blocs.html.twig') with {'blocs': page.blocs} only %}
-                        {% endset %}
-                        {{ contenu|striptags|truncate(500) }}
+                        {{ contenu }}
                     {% endif %}
                 </content:encoded>
                 {% if blocAnnexe(page, 'Vignette') %}

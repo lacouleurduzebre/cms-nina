@@ -5,6 +5,7 @@ easy_admin:
             controller: App\Controller\Back\AdminController
             label: 'Catégorie'
             labels: 'Catégories'
+            labelDeterminant: 'une catégorie'
             list:
                 actions:
                     - { name: 'voir', label: '', title: 'Voir', icon: 'eye' }
@@ -12,10 +13,10 @@ easy_admin:
                 sort: 'nom'
                 fields:
                     - nom
-                    - { property: 'description', type: 'raw' }
-                    - { property: 'seo.url', label: 'Url', type: 'text'}
-                    - { property : 'categorieParent', label: 'Catégorie parent', sortable: true}
                     - { property : 'typeCategorie.nom', label: 'Type', sortable: true}
+                    - { property : 'categorieParent', label: 'Catégorie parent', sortable: true}
+                    - { property: 'seo.url', label: 'Url', type: 'text'}
+                    - { property: 'description', type: 'string' }
             search:
                 sort: 'nom'
                 fields:

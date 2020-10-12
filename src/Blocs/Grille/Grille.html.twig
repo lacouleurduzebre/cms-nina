@@ -3,18 +3,20 @@
     <div class="{% if bloc.contenu.nbColonnes == 'flex' %}flex-container{% else %}grid-{{ bloc.contenu.nbColonnes }}-small-2-tiny-1 has-gutter-xl{% endif %}">
         {% for case in cases|sortBy('position') %}
             <div class="blocGrille-case{% if bloc.contenu.nbColonnes == 'flex' %} flex-item-center{% endif %}">
-                {% if (case.type is not defined or (case.type is defined and case.type == 'page')) and case.page is defined and case.page is not empty %}
-                    {% set page = page(case.page) %}
-                    <div class="blocGrille-case-image">
-                        {{ blocAnnexe(page, "Vignette") }}
-                    </div>
-                    <h3>{{ page.titre }}</h3>
-                    {{ blocAnnexe(page, "Resume") }}
-                    <a href="{{ lienPage(page) }}" class="bouton">{{ "Voir la page"|trans }}</a>
+                {% if case.type is not defined or (case.type is defined and case.type == 'page') %}
+                    {% set pageCible = page(case.page|default(false)) %}
+                    {% if isPublie(pageCible) %}
+                        <div class="blocGrille-case-image">
+                            {{ blocAnnexe(pageCible, "Vignette") }}
+                        </div>
+                        <h3>{{ pageCible.titre }}</h3>
+                        {{ blocAnnexe(pageCible, "Resume") }}
+                        <a href="{{ lienPage(pageCible) }}" class="bouton">{{ "Voir la page"|trans }}</a>
+                    {% endif %}
                 {% else %}
                     {% if case.image.image is defined and case.image.image is not empty %}
                         <div class="blocGrille-case-image">
-                            <img src="{{ getTaille(case.image.image, 'medium') }}" alt="{{ case.image.description }}" {% if case.image.titre is defined %}title="{{ case.image.titre }}"{% endif %}>
+                            <img data-src="{{ getTaille(case.image.image, 'medium') }}" alt="{{ case.image.description }}" {% if case.image.titre is defined %}title="{{ case.image.titre }}"{% endif %} {% if getSrcSet(case.image.image) is not empty %}data-srcset="{{ getSrcSet(case.image.image) }}" data-sizes="500px"{% endif %}>
                         </div>
                     {% endif %}
                     {% if case.titre is defined and case.titre is not empty %}
@@ -25,15 +27,21 @@
                             {{ case.texte|raw }}
                         </div>
                     {% endif %}
-                    {% if (case.lien.lien is defined and case.lien.lien is not empty) or (case.lien.page is defined and case.lien.page is not empty) %}
-                        <a class="bouton" href="
-                            {% if case.lien.page is defined and case.lien.page is not empty %}
-                                {% set page = page(case.lien.page) %}
-                                {{ lienPage(page) }}
-                            {% else %}
-                                {{ case.lien.lien }}
-                            {% endif %}
-                            "
+                    {# Lien #}
+                    {% if case.lien.typeLien == 'page' %}
+                        {% set pageCible = page(case.lien.page|default(false)) %}
+                        {% if isPublie(pageCible) %}
+                            {% set lien = lienPage(pageCible) %}
+                        {% else %}
+                            {% set lien = false %}
+                        {% endif %}
+                    {% elseif case.lien.typeLien == 'autre' %}
+                        {% set lien = case.lien.lien|default(false) %}
+                    {% else %}
+                        {% set lien = false %}
+                    {% endif %}
+                    {% if lien %}
+                        <a class="bouton" href="{{ lien }}"
                             {% if case.lien.blank.0 is defined and case.lien.blank.0 %}
                                 target="_blank"
                             {% endif %}
@@ -44,12 +52,13 @@
                             {% if case.lien.texte is defined and case.lien.texte is not empty %}
                                 {{ case.lien.texte|raw }}
                             {% elseif case.lien.page is defined and case.lien.page is not empty %}
-                                {{ page.titre }}
+                                {{ pageCible.titre }}
                             {% else %}
                                 {{ "Voir la page"|trans }}
                             {% endif %}
                         </a>
                     {% endif %}
+                    {# Lien #}
                 {% endif %}
             </div>
         {% endfor %}

@@ -3,8 +3,6 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\HttpFoundation\File\File;
-use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 /**
  * Config
@@ -109,9 +107,15 @@ class Configuration
      */
     private $favicon;
 
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $installe;
+
     public function __construct()
     {
         $this->maintenance = false;
+        $this->installe = false;
         $this->affichageCommentaires = true;
         $this->affichageDatePublication = true;
         $this->affichageAuteur = true;
@@ -382,6 +386,18 @@ class Configuration
     public function setFavicon(?string $favicon): self
     {
         $this->favicon = $favicon;
+
+        return $this;
+    }
+
+    public function getInstalle(): ?bool
+    {
+        return $this->installe;
+    }
+
+    public function setInstalle(bool $installe): self
+    {
+        $this->installe = $installe;
 
         return $this;
     }

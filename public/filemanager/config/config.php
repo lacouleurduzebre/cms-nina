@@ -1,7 +1,12 @@
 <?php
 $version = "9.14.0";
-if (session_id() == '') {
-    session_start();
+session_start();
+if (isset($_SESSION['_sf2_attributes'])) {
+    if (!isset($_SESSION['_sf2_attributes']['_security_principal'])) {
+        die('Accès refusé');
+    }
+} else {
+    die('Accès refusé');
 }
 
 mb_internal_encoding('UTF-8');
@@ -287,7 +292,7 @@ $config = array(
     // If you set $image_resizing to TRUE the script converts all uploaded images exactly to image_resizing_width x image_resizing_height dimension
     // If you set width or height to 0 the script automatically calculates the other dimension
     // Is possible that if you upload very big images the script not work to overcome this increase the php configuration of memory and time limit
-    'image_resizing'                          => false,
+    'image_resizing'                          => true,
     'image_resizing_width'                    => 0,
     'image_resizing_height'                   => 0,
     'image_resizing_mode'                     => 'auto', // same as $image_max_mode
@@ -381,7 +386,7 @@ $config = array(
     //**********************
     //Allowed extensions (lowercase insert)
     //**********************
-    'ext_img'                                 => array( 'jpg', 'jpeg', 'png', 'gif', 'bmp', 'svg', 'ico' ), //Images
+    'ext_img'                                 => array( 'jpg', 'jpeg', 'png', 'gif', 'svg', 'ico' ), //Images
     'ext_file'                                => array( 'doc', 'docx', 'rtf', 'pdf', 'xls', 'xlsx', 'txt', 'csv', 'html', 'xhtml', 'psd', 'sql', 'log', 'fla', 'xml', 'ade', 'adp', 'mdb', 'accdb', 'ppt', 'pptx', 'odt', 'ots', 'ott', 'odb', 'odg', 'otp', 'otg', 'odf', 'ods', 'odp', 'css', 'ai', 'kmz','dwg', 'dxf', 'hpgl', 'plt', 'spl', 'step', 'stp', 'iges', 'igs', 'sat', 'cgm', 'tiff',''), //Files
     'ext_video'                               => array( 'mov', 'mpeg', 'm4v', 'mp4', 'avi', 'mpg', 'wma', "flv", "webm" ), //Video
     'ext_music'                               => array( 'mp3', 'mpga', 'm4a', 'ac3', 'aiff', 'mid', 'ogg', 'wav' ), //Audio

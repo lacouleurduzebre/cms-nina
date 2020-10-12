@@ -44,6 +44,10 @@
     border-bottom: 1px solid;
     padding-bottom: .5rem;
     margin-bottom: .5rem;
+    span{
+      font-style: normal;
+      font-weight: $weight-bold;
+    }
   }
   .actions{
     margin-top: 2rem;

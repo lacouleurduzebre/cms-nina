@@ -10,4 +10,12 @@ namespace App\Repository;
  */
 class SEOPageRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function SEOPagesHorsCorbeille(){
+        $qb = $this
+            ->createQueryBuilder('s')
+            ->join('s.page', 'p')
+            ->where('p.corbeille = 0');
+
+        return $qb->getQuery()->getResult();
+    }
 }

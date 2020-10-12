@@ -20,6 +20,13 @@ DirectoryIndex index.php
 <IfModule mod_rewrite.c>
     RewriteEngine On
 
+    #Redirection HTTPS
+    #RewriteCond %{HTTPS} !=on
+    #RewriteCond %{HTTP:X-Forwarded-Proto} !=https
+    #RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=permanent]
+    #RewriteCond %{HTTP_HOST} !^www\.
+    #RewriteRule ^(.*)$ https://www.%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
+
     # Determine the RewriteBase automatically and set it as environment variable.
     # If you are using Apache aliases to do mass virtual hosting or installed the
     # project in a subdirectory, the base path will be prepended to allow proper
@@ -65,4 +72,18 @@ DirectoryIndex index.php
         RedirectMatch 307 ^/$ /index.php/
         # RedirectTemp cannot be used instead
     </IfModule>
+</IfModule>
+
+<IfModule mod_headers.c>
+    <FilesMatch ".(ttf|otf)$">
+    Header set Cache-Control "max-age=31536000, public"
+    </FilesMatch>
+
+    <FilesMatch ".(jpg|jpeg|png|gif|ico|svg)$">
+    Header set Cache-Control "max-age=2592000, public"
+    </FilesMatch>
+
+    <FilesMatch ".(css|js)$">
+    Header set Cache-Control "max-age=86400, public"
+    </FilesMatch>
 </IfModule>

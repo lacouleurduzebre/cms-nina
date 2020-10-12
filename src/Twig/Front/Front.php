@@ -12,19 +12,28 @@ use App\Entity\Bloc;
 use App\Entity\Langue;
 use App\Entity\Page;
 use App\Entity\Region;
-use Symfony\Bridge\Doctrine\RegistryInterface;
+use Psr\SimpleCache\CacheInterface;
+use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Twig\Environment;
+use Twig\TwigFunction;
 
 class Front extends \Twig_Extension
 {
-    public function __construct(RegistryInterface $doctrine, Environment $twig, RequestStack $requestStack, UrlGeneratorInterface $router)
+    private $doctrine;
+    private $twig;
+    private $request;
+    private $router;
+    private $cache;
+
+    public function __construct(ManagerRegistry $doctrine, Environment $twig, RequestStack $requestStack, UrlGeneratorInterface $router, CacheInterface $cache)
     {
         $this->doctrine = $doctrine;
         $this->twig = $twig;
         $this->request = $requestStack->getCurrentRequest();
         $this->router = $router;
+        $this->cache = $cache;
     }
 
     public function getFunctions()
@@ -35,6 +44,7 @@ class Front extends \Twig_Extension
             new \Twig_SimpleFunction('blocAnnexe', array($this, 'getBlocAnnexe'), array('is_safe' => ['html'])),
             new \Twig_SimpleFunction('page', array($this, 'getPage')),
             new \Twig_SimpleFunction('lienPage', array($this, 'getLienPage')),
+            new TwigFunction('blocs', array($this, 'getBlocs')),
         );
     }
 
@@ -42,10 +52,9 @@ class Front extends \Twig_Extension
         $repoRegion = $this->doctrine->getRepository(Region::class);
 
         $regionContenu = $repoRegion->findOneBy(array('identifiant' => 'contenu'));
+
         if($regionContenu){
             $positionContenu = $regionContenu->getPosition();
-
-            $rendu = '';
 
             if($position == 'avant'){
                 $regions = $repoRegion->getRegionsAvant($positionContenu);
@@ -57,6 +66,7 @@ class Front extends \Twig_Extension
                 return false;
             }
 
+            $rendu = '';
             foreach($regions as $region){
                 $tpl = 'front/regions/region-'.$region->getIdentifiant().'.html.twig';
                 if($this->twig->getLoader()->exists($tpl)){
@@ -127,5 +137,45 @@ class Front extends \Twig_Extension
                 return $this->router->generate("voirPage", ['url' => $url], 0);
             }
         }
+    }
+
+    public function getBlocs($page){
+        if(!$page instanceof Page){
+            return false;
+        }
+
+        $cleCache = 'page_'.$page->getId().'_blocs';
+        $blocs = $page->getBlocs();
+
+        if($_ENV['APP_ENV'] == 'prod' && !$this->request->get('page')) {
+            $tpl = $this->cache->get($cleCache);
+        }
+
+        if(!isset($tpl)){
+            $tpl = $this->twig->render('front/blocs.html.twig', array('blocs' => $blocs));
+
+            if($_ENV['APP_ENV'] == 'prod' && !$this->contientBlocLEIRechercheTexte($blocs) && !$this->request->get('page')){
+                $this->cache->set($cleCache, $tpl, 86400);
+            }
+        }
+
+        return $tpl;
+    }
+
+    private function contientBlocLEIRechercheTexte($blocs){
+        foreach($blocs as $bloc){
+            if($bloc->getType() == 'LEI'){
+                $contenu = $bloc->getContenu();
+                if(key_exists('recherche', $contenu) && $contenu['recherche'] == 'texte'){
+                    return true;
+                }
+            }elseif($bloc->getType() == 'Section'){
+                $blocsEnfants = $bloc->getBlocsEnfants();
+                if($this->contientBlocLEIRechercheTexte($blocsEnfants)){
+                    return true;
+                };
+            }
+        }
+        return false;
     }
 }

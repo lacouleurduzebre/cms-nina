@@ -1,0 +1,14 @@
+<div style="color: red; padding: 1rem; border: 1px solid red; margin-top: 1rem; margin-bottom: 1rem">
+    <p style="margin-bottom: 0">
+        {{ "Cette page n'est pas visible par les internautes car "|trans }}
+        {% if page.corbeille %}
+            {{ "elle est à la corbeille."|trans }}
+        {% elseif not page.active %}
+            {{ "elle est désactivée."|trans }}
+        {% elseif page.datePublication > date() %}
+            {{ "sa date de publication est postérieure à la date actuelle." }}
+        {% elseif page.dateDepublication and page.dateDepublication < date() %}
+            {{ "sa date de dépublication est antérieure à la date actuelle." }}
+        {% endif %}
+    </p>
+</div>

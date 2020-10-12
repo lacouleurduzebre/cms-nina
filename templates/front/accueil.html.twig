@@ -7,8 +7,6 @@
 
 {% block main %}
     {% if page is not empty %}
-        {% if page.blocs is not empty %}
-            {% include('front/blocs.html.twig') with {'blocs': page.blocs} only %}
-        {% endif %}
+        {{ blocs(page)|raw }}
     {% endif %}
 {% endblock %}

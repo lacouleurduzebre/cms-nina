@@ -7,17 +7,17 @@
         <table class="table">
             <thead>
                 <tr>
-                    {% for langue in langues|sortBy('defaut')|reverse %}
+                    {% for langue in langues %}
                         <th>{{ langue.nom }}</th>
                     {% endfor %}
                 </tr>
             </thead>
                 <tbody>
-                    {% for langue in langues|sortBy('defaut')|reverse %}
+                    {% for langue in langues %}
                         {% for page in langue.pages %}
                             {% if page.traductions[langueDefaut.id] is not defined or page.traductions[langueDefaut.id] is empty %}
                                 <tr>
-                                    {% for langue in langues|sortBy('defaut')|reverse %}
+                                    {% for langue in langues %}
                                         {% if langue == page.langue %}
                                             <td><a href="{{ path('easyadmin', {'action':'edit', 'entity':'Page_Active', 'id':page.id}) }}">{{ page.titre }}</a></td>
                                         {% else %}

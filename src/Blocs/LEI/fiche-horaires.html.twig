@@ -1,0 +1,44 @@
+{% set texte = "" %}
+
+{# Date #}
+{% if horaire.DATE_DEBUT|trim == horaire.DATE_FIN|trim %}
+    {% set texte = texte~"Le"|trans~" "~horaire.DATE_DEBUT %}
+{% else %}
+    {% if horaire.DATE_DEBUT is defined %}
+        {% if horaire.DATE_FIN is defined %}
+            {% set texte = texte~"Du"|trans~" "~horaire.DATE_DEBUT %}
+        {% else %}
+            {% set texte = texte~"À partir du"|trans~" "~horaire.DATE_DEBUT %}
+        {% endif %}
+    {% endif %}
+    {% if horaire.DATE_FIN is defined %}
+        {% if horaire.DATE_DEBUT is defined %}
+            {% set texte = texte~" "~"au"|trans~" "~horaire.DATE_FIN %}
+        {% else %}
+            {% set texte = texte~"Jusqu'au"|trans~" "~horaire.DATE_FIN %}
+        {% endif %}
+    {% endif %}
+{% endif %}
+
+{# Horaires #}
+{% set semaine = getHoraires(horaire) %}
+
+<span>{{ texte }}</span>
+{% if semaine %}
+    <div class="ficheLEI-date--horaires">
+        {% for jour, creneaux in semaine %}
+            <div class="flex-container">
+                <span>{{ jour|capitalize|trans }}</span>
+                <div>
+                    {% if creneaux %}
+                        {% for creneau in creneaux %}
+                            <p>{% include 'Blocs/LEI/fiche-horaires--horaire.html.twig' with { creneau: creneau } only %}</p>
+                        {% endfor %}
+                    {% else %}
+                        {{ "Fermé"|trans }}
+                    {% endif %}
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endif %}

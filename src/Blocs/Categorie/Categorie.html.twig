@@ -1,4 +1,5 @@
 {% set resultats = pagesDeLaCategorie(langueActive, bloc.contenu) %}
+{% set idPageActive = page.id|default(false) %}
 
 <div class="pagination">
     {{ resultats.pagination|raw }}
@@ -6,12 +7,14 @@
 
 <div class="grid-3-small-2-tiny-1 has-gutter-xl">
     {% for page in resultats['donnees'] %}
-        <div class="blocCategorie-page flex-container-v">
-            {{ blocAnnexe(page, 'Vignette') }}
-            <h3>{{ page.titre }}</h3>
-            {{ blocAnnexe(page, 'Resume') }}
-            <a class="bouton lire" href="{{ lienPage(page) }}">{{ "Lire la suite"|trans }}</a>
-        </div>
+        {% if page.id != idPageActive %}
+            <div class="blocCategorie-page flex-container-v">
+                {{ blocAnnexe(page, 'Vignette') }}
+                <h3>{{ page.titre }}</h3>
+                {{ blocAnnexe(page, 'Resume') }}
+                <a class="bouton lire" href="{{ lienPage(page) }}">{{ "Lire la suite"|trans }}</a>
+            </div>
+        {% endif %}
     {% endfor %}
 </div>
 

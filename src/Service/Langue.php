@@ -9,13 +9,13 @@
 namespace App\Service;
 
 
-use Symfony\Bridge\Doctrine\RegistryInterface;
+use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\Routing\RouterInterface;
 
 class Langue
 {
-    public function __construct(RegistryInterface $doctrine, RouterInterface $router)
+    public function __construct(ManagerRegistry $doctrine, RouterInterface $router)
     {
         $this->doctrine = $doctrine;
         $this->router = $router;

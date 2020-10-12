@@ -3,3 +3,8 @@
 {% block fos_user_content %}
     {{ include('bundles/FOSUserBundle/Security/login_content.html.twig') }}
 {% endblock fos_user_content %}
+
+{% block scripts %}
+    <script src="https://code.createjs.com/1.0.0/createjs.min.js"></script>
+    <script src="{{ asset('assets/js/jsLogin.min.js') }}"></script>
+{% endblock %}

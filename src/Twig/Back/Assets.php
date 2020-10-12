@@ -9,11 +9,11 @@
 namespace App\Twig\Back;
 
 
-use Symfony\Bridge\Doctrine\RegistryInterface;
+use Doctrine\Persistence\ManagerRegistry;
 
 class Assets extends \Twig_Extension
 {
-    public function __construct(RegistryInterface $doctrine)
+    public function __construct(ManagerRegistry $doctrine)
     {
         $this->doctrine = $doctrine;
     }
@@ -23,6 +23,7 @@ class Assets extends \Twig_Extension
         return array(
             new \Twig_SimpleFunction('assetExists', array($this, 'assetExists')),
             new \Twig_SimpleFunction('getTaille', array($this, 'getTaille')),
+            new \Twig_SimpleFunction('getSrcSet', array($this, 'getSrcSet')),
         );
     }
 
@@ -35,5 +36,27 @@ class Assets extends \Twig_Extension
     {
         $miniature = '/images/'.$taille.substr($asset, 8, strlen($asset));
         return file_exists(getcwd().$miniature) ? $miniature : $asset;
+    }
+
+    public function getSrcSet($asset)
+    {
+        $srcSet = '';
+
+        $tailles = [
+            'extra-large' => 2000,
+            'large' => 1000,
+            'medium' => 500,
+            'small' => 200
+        ];
+
+        foreach($tailles as $taille => $valeur){
+            $miniature = '/images/'.$taille.substr($asset, 8, strlen($asset));
+            if(file_exists(getcwd().$miniature))
+                $srcSet .= $miniature.' '.$valeur.'w, ';
+        }
+
+        $srcSet = substr($srcSet, 0, strlen($srcSet) - 2);
+
+        return $srcSet;
     }
 }

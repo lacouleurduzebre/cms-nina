@@ -9,11 +9,11 @@
 namespace App\Service;
 
 
-use Symfony\Bridge\Doctrine\RegistryInterface;
+use Doctrine\Persistence\ManagerRegistry;
 
 class Configuration
 {
-    public function __construct(RegistryInterface $doctrine){
+    public function __construct(ManagerRegistry $doctrine){
         $this->doctrine = $doctrine;
     }
 

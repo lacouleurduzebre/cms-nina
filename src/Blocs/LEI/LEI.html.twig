@@ -44,15 +44,15 @@
 
     <div class="fichesLEI grid-3-small-2 has-gutter-l">
         {% for fiche in resultats['donnees'] %}
-            <div class="ficheLEI fiche-{{ fiche.PRODUIT }}" {% if fiche.CRITERES is defined %}data-criteres="{% for critere in fiche.CRITERES.Crit %}{{ critere.attributes.CLEF_CRITERE~'_'~critere.attributes.CLEF_MODA~' ' }}{% endfor %}"{% endif %}>
+            <div class="ficheLEI fiche-{{ fiche.PRODUIT }}" {% if fiche.CRITERES.Crit is defined %}data-criteres="{% for critere in fiche.CRITERES.Crit %}{{ critere.attributes.CLEF_CRITERE~'_'~critere.attributes.CLEF_MODA~' ' }}{% endfor %}"{% endif %}>
                 <p class="ficheLEI-commune">{{ fiche.ADRPROD_LIBELLE_COMMUNE }}</p>
-                {% if fiche.CRITERES is defined %}
+                {% if fiche.CRITERES.Crit is defined %}
                     {% set photo = getPhotoPrincipale(fiche.CRITERES) %}
                 {% endif %}
                 {% if photo.photo is defined %}
                     <div class="ficheLEI-image">
                         <a href="{% if langues|length > 1 %}/{{ langueActive.abreviation }}{% endif %}/fiche/{{ fiche.NOM|replace({' ':'-'}) }}/{{ fiche.PRODUIT }}/{{ bloc.id }}">
-                            <img src="{{ photo.photo }}" {% if photo.credits is defined %}title="{{ "Crédits : "|trans }}{{ photo.credits }}"{% endif %}>
+                            <img data-src="{{ photo.photo }}" {% if photo.legende is defined or photo.credits is defined %}title="{% if photo.legende is defined %}{{ photo.legende }}{% endif %}{% if photo.legende is defined and photo.credits is defined %} - {% endif %}{% if photo.credits is defined %}&#169; {{ photo.credits }}{% endif %}"{% endif %}>
                         </a>
                     </div>
                 {% else %}
@@ -63,6 +63,11 @@
                     </div>
                 {% endif %}
                 <p class="ficheLEI-titre">{{ fiche.NOM }}</p>
+                {% if bloc.contenu.afficherDates is defined and bloc.contenu.afficherDates %}
+                    <div class="ficheLEI-date">
+                        {% include 'Blocs/LEI/fiche-dates--compact.html.twig' %}
+                    </div>
+                {% endif %}
                 <p class="ficheLEI-description">
                     {% if fiche.COMMENTAIRE is defined and fiche.COMMENTAIRE is not empty %}
                         {{ fiche.COMMENTAIRE|truncate(100)|striptags }}

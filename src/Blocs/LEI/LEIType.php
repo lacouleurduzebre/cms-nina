@@ -9,10 +9,12 @@
 namespace App\Blocs\LEI;
 
 
+use App\Blocs\LEI\back\ModaliteType;
 use App\Form\Type\LimiteType;
 use App\Form\Type\PaginationType;
 use App\Form\Type\ResultatsParPageType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
@@ -27,7 +29,7 @@ class LEIType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $configLEI = Yaml::parseFile('../src/Blocs/LEI/configLEI.yaml');
+        $configLEI = Yaml::parseFile(__DIR__.'/configLEI.yaml');
         $fluxGenerique = $configLEI['fluxGenerique'];
 
         $builder
@@ -68,7 +70,7 @@ class LEIType extends AbstractType
                 'label' => 'Moteur de recherche'
             ])
             ->add('criteres', CollectionType::class, [
-                'entry_type' => CritereType::class,
+                'entry_type' => ModaliteType::class,
                 'allow_add' => true,
                 'allow_delete' => true,
                 'label' => 'Critères',
@@ -78,6 +80,9 @@ class LEIType extends AbstractType
             ])
             ->add('limite', LimiteType::class)
             ->add('pagination', PaginationType::class)
+            ->add('afficherDates', CheckboxType::class, [
+                'label' => 'Afficher les dates et les horaires'
+            ])
             ->add('resultatsParPage', ResultatsParPageType::class);
 
         //Enregistrement du flux générique dans le fichier de config LEI
@@ -85,46 +90,10 @@ class LEIType extends AbstractType
             $blocLEI = $event->getData();
             $fluxGenerique = $blocLEI['fluxGenerique'];
 
-            $configLEI = Yaml::parseFile('../src/Blocs/LEI/configLEI.yaml');
+            $configLEI = Yaml::parseFile(__DIR__.'/configLEI.yaml');
             $configLEI['fluxGenerique'] = $fluxGenerique;
             $nvFichier = Yaml::dump($configLEI);
-            file_put_contents('../src/Blocs/LEI/configLEI.yaml', $nvFichier);
-        });
-
-        //Enregistrement du fichier de cache
-        $builder->addEventListener(FormEvents::POST_SUBMIT, function (FormEvent $event) {
-            $bloc = $event->getForm()->getParent()->getData();
-            $contenuBloc = $event->getData();
-
-            if($bloc){
-                //Utilisation du flux générique ou du flux spécifique
-                if($contenuBloc['utiliserFluxSpecifique'] && isset($contenuBloc['utiliserFluxSpecifique'][0])){
-                    $flux = $contenuBloc['flux'];
-                }else{
-                    $configLEI = Yaml::parseFile('../src/Blocs/LEI/configLEI.yaml');
-                    $flux = $configLEI['fluxGenerique'];
-                }
-
-                //Ajout de la clause et des autres paramètres
-                if(isset($contenuBloc['clause'])){
-                    $flux .= '&clause='.$contenuBloc['clause'];
-                }
-                if(isset($contenuBloc['autresParametres'])){
-                    $flux .= $contenuBloc['autresParametres'];
-                }
-
-                //Enregistrement du fichier
-                $fichier = '../src/Blocs/LEI/cache/cache'.$bloc->getId().'.xml';
-
-                if(file_exists($fichier)){
-                    unlink($fichier);
-                }
-
-                $file_headers = @get_headers($flux);
-                if($file_headers && $file_headers[0] != 'HTTP/1.1 404 Not Found') {
-                    copy($flux, $fichier);
-                }
-            }
+            file_put_contents(__DIR__.'/configLEI.yaml', $nvFichier);
         });
     }
 

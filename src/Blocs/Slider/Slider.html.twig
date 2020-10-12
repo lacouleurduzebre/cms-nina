@@ -1,52 +1,62 @@
 <div id="slider{{ bloc.id }}">
     {% if bloc.contenu.Slide is defined %}
         {% for slide in bloc.contenu.Slide|sortBy('position') %}
-            <div>
-                <img src="{{ getTaille(slide.image.image, 'large') }}" {% if slide.image.titre is defined %}title="{{ slide.image.titre }}"{% endif %} {% if slide.image.description is defined %}alt="{{ slide.image.description }}"{% endif %}>
-                {% if (slide.texte is defined and slide.texte is not empty) or (slide.lien is defined and slide.lien is not empty) or (slide.page is defined and slide.page is not empty)%}
-                    <div class="blocSlider-slide--texte">
-                        {% if slide.texte is defined and slide.texte is not empty %}
-                            <div class="slide--texte">{{ slide.texte|raw }}</div>
-                        {% endif %}
-                        {% if (slide.lien is defined and slide.lien is not empty) or (slide.page is defined and slide.page is not empty) %}
-                            <p class="slide--lien">
-                                <a href="
-                                    {% if slide.page is defined and slide.page is not empty %}
-                                        {% set page = page(slide.page) %}
-                                        {{ lienPage(page) }}
+            {% if slide.image.image is not empty %}
+                <div>
+                    <img data-src="{{ getTaille(slide.image.image, 'large') }}" {% if slide.image.titre is defined %}title="{{ slide.image.titre }}"{% endif %} {% if slide.image.description is defined %}alt="{{ slide.image.description }}"{% endif %} {% if getSrcSet(slide.image.image) is not empty %}data-srcset="{{ getSrcSet(slide.image.image) }}" data-sizes="1000px"{% endif %}>
+                    {% if (slide.texte is defined and slide.texte is not empty) or (slide.lien is defined and slide.lien is not empty) or (slide.page is defined and slide.page is not empty)%}
+                        <div class="blocSlider-slide--texte">
+                            {% if slide.titre is defined and slide.titre is not empty %}
+                                <h3 class="slide--titre">{{ slide.titre }}</h3>
+                            {% endif %}
+                            {% if slide.texte is defined and slide.texte is not empty %}
+                                <div class="slide--texte">{{ slide.texte|raw }}</div>
+                            {% endif %}
+                            {% if (slide.lien is defined and slide.lien is not empty) or (slide.page is defined and slide.page is not empty) %}
+                                <p class="slide--lien">
+                                    {% if slide.typeLien is defined and slide.typeLien == 'page' %}
+                                        {% set pageCible = page(slide.page|default(false)) %}
+                                        {% if isPublie(pageCible) %}
+                                            {% set lien = lienPage(pageCible) %}
+                                        {% else %}
+                                            {% set lien = false %}
+                                        {% endif %}
+                                    {% elseif slide.typeLien is defined and slide.typeLien == 'autre' %}
+                                        {% set lien = slide.lien|default(false) %}
                                     {% else %}
-                                        {{ slide.lien }}
+                                        {% set lien = false %}
                                     {% endif %}
-                                    "
-                                    {% if slide.blank is defined and slide.blank %}
-                                        target="_blank"
+                                    {% if lien %}
+                                        <a href="{{ lien }}" {% if slide.blank is defined and slide.blank %}target="_blank"{% endif %}>{{ "Lire la suite"|trans }}</a>
                                     {% endif %}
-                                >{{ "Lire la suite"|trans }}</a>
-                            </p>
-                        {% endif %}
-                    </div>
-                {% endif %}
-            </div>
+                                </p>
+                            {% endif %}
+                        </div>
+                    {% endif %}
+                </div>
+            {% endif %}
         {% endfor %}
     {% endif %}
 </div>
 
 <script>
-    options = {};
-    {% if bloc.contenu.nbSlides is defined and bloc.contenu.nbSlides is not empty and bloc.contenu.nbSlides != 1 %}
+    $(document).ready(function(){
+        options = {};
+        {% if bloc.contenu.nbSlides is defined and bloc.contenu.nbSlides is not empty and bloc.contenu.nbSlides != 1 %}
         options["slidesToShow"] = {{ bloc.contenu.nbSlides }};
         options["slidesToScroll"] = {{ bloc.contenu.nbSlides }};
         options["infinite"] = true;
-    {% endif %}
-    {% if bloc.contenu.autoplay is defined and bloc.contenu.autoplay != 0 %}
+        {% endif %}
+        {% if bloc.contenu.autoplay is defined and bloc.contenu.autoplay != 0 %}
         options["autoplay"] = true;
-    {% endif %}
-    {% if bloc.contenu.fleches is defined and bloc.contenu.fleches != 0 %}
-        options["arrows"] = true;
-    {% endif %}
-    {% if bloc.contenu.points is defined and bloc.contenu.points != 0 %}
+        {% endif %}
+        {% if bloc.contenu.fleches is defined and bloc.contenu.fleches == 0 %}
+        options["arrows"] = false;
+        {% endif %}
+        {% if bloc.contenu.points is defined and bloc.contenu.points != 0 %}
         options["dots"] = true;
-    {% endif %}
+        {% endif %}
 
-    $('#slider{{ bloc.id }}').slick(options);
+        $('#slider{{ bloc.id }}').slick(options);
+    });
 </script>

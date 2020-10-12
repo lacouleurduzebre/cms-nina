@@ -14,6 +14,7 @@ use App\Entity\Langue;
 use App\Entity\SEOCategorie;
 use App\Entity\SEOTypeCategorie;
 use App\Entity\TypeCategorie;
+use App\Service\Page;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -59,7 +60,15 @@ class CategorieController extends AbstractController
                 throw new NotFoundHttpException('Cette page n\'existe pas ou a été supprimée');
             }
 
-            $pages = $categorie->getPages();
+            $pages = [];
+
+            $pagesCategorie = $categorie->getPages();
+
+            foreach($pagesCategorie as $page){
+                if(Page::isPublie($page)){
+                    $pages[] = $page;
+                }
+            }
 
             return $this->render('front/categorie.html.twig', compact('pages', 'categorie'));
         }else{

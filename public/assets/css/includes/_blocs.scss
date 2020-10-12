@@ -110,7 +110,9 @@
   position: relative;
   &.desactive{
     background-color: #DFDFDF;
-    opacity: .7 !important;
+    > div:not(.bloc-barreActions){
+      opacity: .7;
+    }
   }
   > label{
     display: none;
@@ -632,12 +634,13 @@ div[id^="page_active_blocs"], div[id^="region_blocs"]{
 }
 
 //Slider, Grille et Galerie (+ drag formulaire)
-.dragSlide, .dragGalerie, .dragChamp, .dragCase{
+.dragSlide, .dragGalerie, .dragChamp, .dragCase, .dragSection{
   font-size: 2rem;
   color: $color-brand2;
   position: absolute;
   top: .5rem;
   right: 1rem;
+  cursor: grab;
 }
 
 .field-Slide > div > div, .bloc-galerie .field-images > div > div, .field-cases > div > div{
@@ -654,10 +657,28 @@ div[id^="page_active_blocs"], div[id^="region_blocs"]{
   margin: 0 1rem 2rem;
 }
 
+//Accordéon
+.bloc-accordeon .field-section{
+  position: relative;
+  padding: 1rem;
+  background-color: #EDEDED;
+  margin: 0 0 2rem;
+  .blocsEnfants &{
+    background-color: $color-tres-fonce;
+  }
+}
+
 //Slider
 .bloc-slider .radio{
   display: inline-block;
   margin-right: 2rem;
+}
+
+.field-Slide{
+  .field-image_defaut{
+    padding: 1rem;
+    background-color: #E1E0E0;
+  }
 }
 
 //Formulaire
@@ -936,7 +957,7 @@ body.edit, body.new{
   margin-right: -1rem;
 }
 
-.bloc-lei .field-critere{
+.bloc-lei .field-modalite{
   margin-top: 0;
   > div{
     display: flex;

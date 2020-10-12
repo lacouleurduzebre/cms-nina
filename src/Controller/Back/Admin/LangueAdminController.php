@@ -50,6 +50,7 @@ class LangueAdminController extends AdminController
                     'query_builder' => function (EntityRepository $er) use ($langue) {
                         return $er->createQueryBuilder('p')
                             ->andWhere('p.langue = :langue')
+                            ->andWhere('p.corbeille = 0')
                             ->setParameters(array('langue' => $langue))
                             ->orderBy('p.titreMenu', 'ASC');
                     }

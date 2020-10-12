@@ -186,14 +186,22 @@ $(document).ready(function() {
         }
     });
 
-    $(".bloc-accordeon div[id$='contenu_sections']").sortable({
-        handle: '.dragCase',
+    var optionsSortableAccordeon = {
+        handle: '.dragSection',
         update: function(event, ui){
             $('.field-section').each(function(){
                 $(this).find("input[id$='position']").val($(this).index());
                 saveCloseFormulaire();
             });
+            tinymce.remove();
+            tinymce.init(optionsTinyMCE);
         }
+    };
+    var sortableAccordeon = $(".bloc-accordeon div[id$='contenu_sections']");
+    sortableAccordeon.sortable(optionsSortableAccordeon);
+    $('form').on('click', '.bloc-accordeon .field-collection-action a', function(){
+        sortableAccordeon.sortable(optionsSortableAccordeon);
+        sortableAccordeon.sortable("refresh");
     });
 
     /* Menu blocs */
@@ -875,6 +883,67 @@ $(document).ready(function() {
         $(this).prev('ul').find('.blocCache').removeClass('hidden');
     });
 
+    //Section : changement du nombre de colonnes
+    verifNombreBlocs = function(input, contexte){
+        val = input.val();
+
+        max = 2;
+
+        if(val === '1'){
+            max = 0;
+        }else if (val === '3' || val === '4'){
+            max = parseInt(val);
+        }
+
+        conteneurBlocsEnfants = input.closest('.contenu').children('.blocsEnfants');
+        blocsEnfants = conteneurBlocsEnfants.children('div').children('.field-bloc');
+        nbBlocsEnfants = blocsEnfants.length;
+
+        if(contexte === 'suppression'){
+            nbBlocsEnfants -= 1;
+        }
+
+        if(max !== 0 && nbBlocsEnfants >= max){
+            //Désactivation bouton d'ajout de bloc
+            conteneurBlocsEnfants.children('.field-collection-action').children('.ajout-bloc').attr('disabled', true);
+
+            if(max !== 0 && nbBlocsEnfants > max){
+                if(confirm('Il y a plus de blocs que de colonnes. Les blocs supplémentaires vont être supprimés. Continuer ?')){
+                    //Suppression des blocs en trop
+                    blocsEnfants.each(function(){
+                        if($(this).index() >= max){
+                            $(this).remove();
+                        }
+                    });
+
+                    input.closest('.contenu').find('.blocsEnfants').attr('data-col', 'col'+input.val());
+                    input.closest('.form-group').attr('data-val', input.val());
+                }else{
+                    valPrecedente = input.closest('.form-group').attr('data-val');
+                    input.closest('.form-group').find('input[value="'+valPrecedente+'"]').click();
+                }
+            }else{
+                input.closest('.contenu').find('.blocsEnfants').attr('data-col', 'col'+input.val());
+                input.closest('.form-group').attr('data-val', input.val());
+            }
+        }else{
+            //Activation bouton d'ajout de bloc
+            conteneurBlocsEnfants.children('.field-collection-action').children('.ajout-bloc').attr('disabled', false);
+            input.closest('.contenu').find('.blocsEnfants').attr('data-col', 'col'+input.val());
+            input.closest('.form-group').attr('data-val', input.val());
+        }
+    };
+
+    $('body').on('change', 'input[name$="[colonnes]"]', function(){
+        verifNombreBlocs($(this));
+    });
+
+    $('input[name$="[colonnes]"]').each(function(){
+        if($(this).prop('checked')){
+            verifNombreBlocs($(this));
+        }
+    });
+
     //Changement des options d'affichage
         //Alignement horizontal
     $('body').on('change', 'input[name$="[alignementHorizontal]"]', function() {
@@ -1032,7 +1101,7 @@ $(document).ready(function() {
         blocLEI = $(this).closest('.bloc-lei');
 
         //Flux générique ou spécifique
-        if(blocLEI.find('input[name*="[utiliserFluxSpecifique]"]').is(':checked')){
+        if(blocLEI.find('input[name*="[utiliserFluxSpecifique]"]').is(':checked') && blocLEI.find('input[name$="[flux]"]').val() !== ''){
             nvUrlFlux = blocLEI.find('input[name$="[flux]"]').val();
         }else{
             nvUrlFlux = blocLEI.find('input[name$="[fluxGenerique]"]').val();

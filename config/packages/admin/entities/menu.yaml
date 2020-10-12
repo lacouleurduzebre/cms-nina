@@ -5,12 +5,14 @@ easy_admin:
             controller: App\Controller\Back\AdminController
             label: 'Menu'
             labels: 'Menus'
+            labelDeterminant: 'un menu'
             list:
+                sort: ['priorite', 'ASC']
                 fields:
                     - nom
                     - langue
-                    - { property: 'langue', label: 'Langue'}
                     - { property: 'defaut', label: 'Menu principal ?'}
+                    - priorite
             search:
                 fields:
                     - nom
@@ -21,6 +23,7 @@ easy_admin:
                 fields:
                     - nom
                     - langue
+                    - priorite
             edit:
                 title: nom
                 fields:

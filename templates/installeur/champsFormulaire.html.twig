@@ -1,0 +1,20 @@
+{% use 'form_div_layout.html.twig' %}
+
+{%- block form_row -%}
+    {%- set widget_attr = {} -%}
+    {%- if help is not empty -%}
+        {%- set widget_attr = {attr: {'aria-describedby': id ~"_help"}} -%}
+    {%- endif -%}
+    <div class="{% for class in form.vars.block_prefixes %}{{ class }} {% endfor %}">
+        {{- form_label(form) -}}
+        {{- form_help(form) -}}
+        {{- form_errors(form) -}}
+        {{- form_widget(form, widget_attr) -}}
+    </div>
+{%- endblock form_row -%}
+
+{% block _form_plainPassword_widget %}
+    {{ form_widget(form) }}
+    <a id="voirMDP"><i class="fas fa-eye"></i></a>
+    <a id="genererMDP">{{ "Générer un mot de passe sécurisé"|trans }}</a>
+{% endblock %}

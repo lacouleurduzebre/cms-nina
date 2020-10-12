@@ -24,7 +24,6 @@ src/Blocs/LEI/cache
 
 ###> symfony/framework-bundle ###
 .env
-/cron/
 /public/theme
 /public/theme/
 /public/themes_thumbs/*
@@ -41,12 +40,6 @@ src/Blocs/LEI/cache
 /var/
 /vendor/
 ###< symfony/framework-bundle ###
-
-###> symfony/webpack-encore-pack ###
-/node_modules/
-/public/build/
-###< symfony/webpack-encore-pack ###
-
 ###> symfony/phpunit-bridge ###
 .phpunit
 /phpunit.xml

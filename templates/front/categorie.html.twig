@@ -20,7 +20,7 @@
 {% endblock %}
 
 {% block main %}
-    <h1>Liste des pages classées dans "{{ categorie.nom }}"</h1>
+    <h1>{{ "Liste des pages classées dans \"%categorie%\""|trans({'%categorie%': categorie.nom}) }}</h1>
     <p class="description">{{ categorie.description|raw }}</p>
     <div class="blocPageCategorie grid-3 small-1 has-gutter-xl">
         {% for page in pages %}

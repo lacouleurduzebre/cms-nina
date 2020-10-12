@@ -19,14 +19,43 @@
   }
 }
 
+.list-utilisateur{
+  @include respond-to("medium"){
+    table tr{
+      flex-direction: row;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+    tr{
+      td{
+        width: 100%;
+      }
+      td:first-of-type, td:nth-of-type(2){
+        width: auto;
+      }
+      td:nth-of-type(2){
+        display: block;
+        &:before{
+          content: "";
+        }
+      }
+    }
+  }
+}
+
 .toggleElementTableau{
   @include respond-to("medium-up"){
-    svg{
+    svg[class*="angle"]{
       display: none;
     }
   }
   @include respond-to("medium"){
+    display: flex;
+    align-items: center;
     cursor: pointer;
+    svg[class*="angle"]{
+      margin-right: 1rem;
+    }
   }
 }
 

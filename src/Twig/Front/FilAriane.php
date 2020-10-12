@@ -11,12 +11,12 @@ namespace App\Twig\Front;
 
 use App\Entity\MenuPage;
 use App\Entity\Page;
-use Symfony\Bridge\Doctrine\RegistryInterface;
+use Doctrine\Persistence\ManagerRegistry;
 use Twig\Environment;
 
 class FilAriane extends \Twig_Extension
 {
-    public function __construct(RegistryInterface $doctrine, Environment $twig)
+    public function __construct(ManagerRegistry $doctrine, Environment $twig)
     {
         $this->doctrine = $doctrine;
         $this->twig = $twig;
@@ -30,17 +30,21 @@ class FilAriane extends \Twig_Extension
     }
 
     public function ariane($idPage){
-        $emMenu = $this->doctrine->getRepository(\App\Entity\Menu::class);
-        $menuPrincipal = $emMenu->findOneBy(array('defaut' => true));
-
         $emPage = $this->doctrine->getRepository(Page::class);
         $page = $emPage->find($idPage);
 
         $emMenuPage = $this->doctrine->getRepository(MenuPage::class);
-        $menuPage = $emMenuPage->findOneBy(array('menu' => $menuPrincipal, 'page' => $page));
+        $menusPages = $emMenuPage->findBy(['page' => $page]);
 
-        if($menuPage){
-            $pageDansMenuPrincipal = true;
+        if($menusPages){
+            usort($menusPages, function($a, $b){
+                if ($a->getMenu()->getPriorite() == $b->getMenu()->getPriorite()) {
+                    return 0;
+                }
+                return ($a->getMenu()->getPriorite() < $b->getMenu()->getPriorite()) ? -1 : 1;
+            });
+            $menuPage = $menusPages[0];
+
             $ariane = [];
 
             $ariane[] = $page;
@@ -52,10 +56,9 @@ class FilAriane extends \Twig_Extension
             }
             $ariane = array_reverse($ariane);
         }else{
-            $pageDansMenuPrincipal = false;
             $ariane = false;
         }
 
-        return $this->twig->render('front/filAriane.html.twig', array('pageDansMenuPrincipal' => $pageDansMenuPrincipal, 'ariane' => $ariane));
+        return $this->twig->render('front/filAriane.html.twig', ['ariane' => $ariane]);
     }
 }

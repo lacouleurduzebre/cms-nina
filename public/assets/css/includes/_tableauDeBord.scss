@@ -1,5 +1,4 @@
 #tdb{
-  padding: 2rem;
   h2{
     color: $color-brand2;
   }
@@ -37,5 +36,16 @@
   }
   thead{
     border-bottom: 1px solid $color-primary;
+  }
+}
+
+//Référencement
+.tdb-bloc.referencement{
+  span{
+    display: inline-block;
+    width: 20rem;
+  }
+  meter{
+    margin-left: 1rem;
   }
 }

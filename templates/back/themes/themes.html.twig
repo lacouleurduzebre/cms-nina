@@ -1,0 +1,19 @@
+{% extends 'back/base.html.twig' %}
+
+{% block content %}
+    <h1>Thèmes</h1>
+
+    <h2>Thèmes installés</h2>
+    <div class="grid-4-small-2 has-gutter-xl themes themesInstalles">
+        {% for nom,theme in themesInstalles %}
+             {% include 'back/themes/_theme.html.twig' %}
+        {% endfor %}
+    </div>
+
+    <h2>Thèmes disponibles</h2>
+    <div class="grid-4-small-2 has-gutter-xl themes themesDisponibles">
+        {% for nom,theme in themesDisponibles %}
+            {% include 'back/themes/_theme.html.twig' %}
+        {% endfor %}
+    </div>
+{% endblock %}

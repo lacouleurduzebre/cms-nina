@@ -30,7 +30,7 @@ class SEOController extends AbstractController
      */
     public function liste(){
         $repoSEOPage = $this->getDoctrine()->getRepository(SEOPage::class);
-        $SEOPage = $repoSEOPage->findAll();
+        $SEOPage = $repoSEOPage->SEOPagesHorsCorbeille();
 
         $repoSEOCategorie = $this->getDoctrine()->getRepository(SEOCategorie::class);
         $SEOCategorie = $repoSEOCategorie->findAll();
@@ -97,19 +97,8 @@ class SEOController extends AbstractController
             if($type == 'pages'){
                 $page = $SEO->getPage();
 
-                $description = $titre = $page->getTitre();
-
-                $repoBloc = $this->getDoctrine()->getRepository(Bloc::class);
-
-                $blocParagraphe = $repoBloc->premierBloc($page, 'Paragraphe');
-                if($blocParagraphe){
-                    $description = strip_tags($blocParagraphe[0]->getContenu()['texte']);
-                }else{
-                    $blocTexte = $repoBloc->premierBloc($page, 'Texte');
-                    if($blocTexte){
-                        $description = strip_tags($blocTexte[0]->getContenu()['texte']);
-                    }
-                }
+                $description = $this->renderView('front/blocs.html.twig', ['blocs' => $page->getBlocs()]);
+                $description = strip_tags($description);
             }elseif($type == 'categories'){
                 $categorie = $SEO->getCategorie();
                 $description = $titre = $categorie->getNom();

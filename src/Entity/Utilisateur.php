@@ -5,8 +5,6 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use FOS\UserBundle\Model\User as BaseUser;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\HttpFoundation\File\File;
-use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 /**
  * Utilisateur
@@ -45,7 +43,7 @@ class Utilisateur extends BaseUser
     private $imageProfil;
 
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\Langue", cascade={"persist", "remove"})
+     * @ORM\ManyToOne(targetEntity="App\Entity\Langue", cascade={"persist", "remove"})
      */
     private $langue;
 
@@ -74,6 +72,7 @@ class Utilisateur extends BaseUser
         parent::__construct();
         $this->pages = new ArrayCollection();
         $this->pagesModifiees = new ArrayCollection();
+        $this->blocsTableauDeBord = ['logVersion', 'referencement'];
     }
 
     public function __toString()

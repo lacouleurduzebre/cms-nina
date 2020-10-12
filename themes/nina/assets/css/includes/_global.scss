@@ -40,6 +40,10 @@ h1, h2, h3{
   color: $color-brand2;
 }
 
+body.recherche h1{
+  @include centre;
+}
+
 .titre-page, .infos-page{
   @include centre;
   padding: 1rem;

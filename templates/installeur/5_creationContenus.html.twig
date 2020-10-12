@@ -1,0 +1,46 @@
+{% extends 'installeur/base.html.twig' %}
+
+{% block main %}
+    <div id="creationPages">
+        <div>
+            <h2>Menu principal</h2>
+            <div class="pages">
+                {% for page in pagesHeader %}
+                    <p data-page="{{ page.id }}">
+                        {% if loop.first %}
+                            <i class="fas fa-home"></i>
+                        {% else %}
+                            <i class="fas fa-file"></i>
+                        {% endif %}
+                        {{ block('actions') }}
+                    </p>
+                {% endfor %}
+            </div>
+            <button id="ajoutPageHeader" data-menu="1"><i class="fas fa-plus"></i>Ajouter une page</button>
+        </div>
+
+        <div>
+            <h2>Menu du pied de page</h2>
+            <div class="pages">
+                {% for page in pagesFooter %}
+                    <p data-page="{{ page.id }}">
+                        <i class="fas fa-file"></i>
+                        {{ block('actions') }}
+                    </p>
+                {% endfor %}
+            </div>
+            <button id="ajoutPageFooter" data-menu="2"><i class="fas fa-plus"></i>Ajouter une page</button>
+        </div>
+    </div>
+
+    <div class="boutons">
+        <a class="etapePrecedente" href="{{ path('installeur', { etape: 4 }) }}">{{ "Revenir en arrière"|trans }}</a>
+        <a id="terminerInstallation" href="{{ path('installeur', { etape: 6 }) }}">Terminer l'installation</a>
+    </div>
+{% endblock %}
+
+{% block actions %}
+    {{ page.titre }}
+    <button class="edition"><i class="fas fa-pen"></i></button>
+    <button class="suppression"><i class="fas fa-trash"></i></button>
+{% endblock %}

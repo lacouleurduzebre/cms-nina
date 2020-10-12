@@ -40,8 +40,14 @@ class TraductionController extends AbstractController
         $repoLangue = $this->getDoctrine()->getRepository(Langue::class);
 
         $langues = $repoLangue->findAll();
+        uasort ($langues, function($a, $b) {
+            if($a->getDefaut() === $b->getDefaut()) {
+                return 0;
+            }
+            return $a->getDefaut() > $b->getDefaut() ? -1 : 1;
+        });
         $langue = $repoLangue->findOneBy(array('defaut' => true));
-        $pages = $repoPage->findBy(array('active' => true, 'corbeille' => false, 'langue' => $langue));
+        $pages = $repoPage->findBy(array('corbeille' => false));
 
         $entityConfig = ['name' => 'Traduction'];
 

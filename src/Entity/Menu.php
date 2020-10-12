@@ -47,6 +47,20 @@ class Menu
      */
     private $langue;
 
+    /**
+     * @ORM\Column(type="smallint", options={"default" : 1})
+     */
+    private $priorite;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->menuPage = new ArrayCollection();
+        $this->defaut = false;
+    }
+
     public function __toString()
     {
         return $this->getNom();
@@ -84,14 +98,6 @@ class Menu
     public function getNom()
     {
         return $this->nom;
-    }
-
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->menuPage = new ArrayCollection();
     }
 
     /**
@@ -150,6 +156,18 @@ class Menu
     public function setLangue(?Langue $langue): self
     {
         $this->langue = $langue;
+
+        return $this;
+    }
+
+    public function getPriorite(): ?int
+    {
+        return $this->priorite;
+    }
+
+    public function setPriorite(int $priorite): self
+    {
+        $this->priorite = $priorite;
 
         return $this;
     }

@@ -1,8 +1,8 @@
 <ul>
     {% for menuPage in menuPages %}
-        {% if isPublie(menuPage.page) %}
+        {% if not menuPage.page.corbeille %}
             <li {% if langueArbo.pageAccueil is not empty and menuPage.page == langueArbo.pageAccueil %}data-jstree='{"type":"home"}'{% endif %}>
-                <a href="#"><span class="menuPage" id="{{ menuPage.id }}"></span><span class="page" id="{{ menuPage.page.id }}"></span>{{ menuPage.page.titreMenu }}</a>
+                <a href="#" {% if not isPublie(menuPage.page) %}class="nonPubliee"{% endif %}><span class="menuPage" id="{{ menuPage.id }}"></span><span class="page" id="{{ menuPage.page.id }}"></span>{{ menuPage.page.titreMenu }}</a>
                 {{ sousMenu(menuPage, 'back')|raw }}
             </li>
         {% endif %}

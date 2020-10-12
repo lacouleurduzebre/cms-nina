@@ -37,6 +37,13 @@ $(document).ready(function(){
         }
     });
 
+    //Antispam
+    setTimeout(function(){
+        $('.miel_rempli').each(function(){
+            $(this).val($(this).prev('.miel_valeur').val());
+        });
+    }, 3000);
+
     //Cookies
     if(Cookies.get('bandeauCookies') !== 'off'){
         $('.cookies').show();
@@ -87,8 +94,14 @@ $(document).ready(function(){
         $(this).find('svg').toggleClass('fa-bars fa-times');
     });
 
+    ancienneLargeurFenetre = $(window).width();
     $(window).on('resize orientationchange', function(){
-        $('#burger').removeClass('actif').find('svg').addClass('fa-bars').removeClass('fa-times');
+        nvLargeurFenetre = $(this).width();
+        if(ancienneLargeurFenetre !== nvLargeurFenetre){
+            console.log('modif largeur');
+            $('#burger').removeClass('actif').find('svg').addClass('fa-bars').removeClass('fa-times');
+        }
+        ancienneLargeurFenetre = nvLargeurFenetre;
     });
 
     //Toggle formulaire ajout de commentaire
@@ -133,4 +146,8 @@ $(document).ready(function(){
             $(this).toggleClass('actif');
         }
     });
+
+    //Marquage de la page active dans les menus
+    idPage = $('main').attr('id').replace('page', '');
+    $('a[data-idpage="'+idPage+'"]').addClass('pageActive').parents('li').addClass('menuActif');
 });

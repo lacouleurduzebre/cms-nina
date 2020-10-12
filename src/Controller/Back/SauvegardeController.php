@@ -59,7 +59,7 @@ class SauvegardeController extends AbstractController
         $dumpsMediatheque = [];
 
         foreach($exportsMediatheque as $dump){
-            $timestamp = str_replace(array("mediatheque", ".zip"), '', $dump);
+            $timestamp = (int)str_replace(array("mediatheque", ".zip"), '', $dump);
             $dumpsMediatheque[$dump] = date('d/m/Y H:i', $timestamp);
         }
 

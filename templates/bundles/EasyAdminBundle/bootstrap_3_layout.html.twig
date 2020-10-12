@@ -1,0 +1,1530 @@
+{% use 'form_div_layout.html.twig' %}
+
+{% block javascript_ajout %}
+    <script>
+        function ajoutItem(id, nom, position, verifs){
+            //if (event.preventDefault) event.preventDefault(); else event.returnValue = false;
+
+            var collection = $('#'+id);
+            // Use a counter to avoid having the same index more than once
+            var numItems = collection.data('count') || collection.children('div.form-group').length;
+
+            //Vérif numItems est unique
+            if(verifs){
+                while(collection.find("div[id='"+id+"_"+numItems+"']").length > 0){
+                    numItems++;
+                }
+            }
+
+            collection.prev('.collection-empty').remove();
+
+            var newItem = collection.attr('data-prototype')
+                .replace(/\>__name__label__\</g, '>' + numItems + '<')
+                .replace(/__name__/g, numItems);
+
+            // Increment the counter and store it in the collection
+            collection.data('count', ++numItems);
+
+            if(position === 'avant'){
+                collection.prepend(newItem).trigger('easyadmin.collection.item-added');
+            }else{
+                collection.append(newItem).trigger('easyadmin.collection.item-added');
+            }
+
+            //Position
+            if(verifs){
+                $('#'+id+' input[id$="position"]').each(function(){
+                    $(this).val($(this).closest('.form-group').index());
+                });
+
+                tinymce.remove();
+                tinymce.init(optionsTinyMCE);
+            }
+        }
+    </script>
+{% endblock %}
+
+{% block form_start -%}
+    {{ block('javascript_ajout') }}
+
+    {% if block_prefixes is defined and 'easyadmin' == block_prefixes|slice(-2)|first %}
+        {% set attr = attr|merge({
+            'class': [
+                _easyadmin_form_type|default('') == 'horizontal' ? 'form-horizontal' : 'form-vertical',
+                attr.class|default(''),
+                easyadmin.view ~ '-form'
+            ]|join(' '),
+            'data-view': easyadmin.view,
+            'data-entity': easyadmin.entity.name,
+            'data-entity-id': attribute(value, easyadmin.entity.primary_key_field_name),
+        }) %}
+    {% endif %}
+
+    {% if form.vars.errors|length > 0 %}
+        {{ form_errors(form) }}
+    {% endif %}
+
+    {{- parent() -}}
+
+    <input type="hidden" name="referer" value="{{ app.request.query.get('referer', '') }}"/>
+{%- endblock form_start %}
+
+{# Widgets #}
+
+{% block suppression_item %}
+    {% set remove_item_javascript %}
+        $(function() {
+        if (event.preventDefault) event.preventDefault(); else event.returnValue = false;
+
+        var containerDiv = $('#{{ id }}').parents('.form-group:first');
+        var parentDiv = containerDiv.parents('[data-prototype]:first');
+        containerDiv.remove();
+        parentDiv.trigger('easyadmin.collection.item-deleted');
+
+        if (0 == parentDiv.children().length && 'undefined' !== parentDiv.attr('data-empty-collection')) {
+        $(parentDiv.attr('data-empty-collection')).insertBefore(parentDiv);
+        }
+
+        $('.formulaire-actions-enregistrer').attr('disabled', false);
+        $(window).bind('beforeunload', function(){
+        if(!clicEnregistrement){
+        return 'Êtes-vous sûr de vouloir quitter cette page ? Des données pourraient ne pas avoir été enregistrées';
+        }
+        });
+        });
+    {% endset %}
+
+    <div class="text-right field-collection-item-action">
+        <a href="#" onclick="{{ remove_item_javascript|raw }}" class="text-danger">
+            <i class="fas fa-trash"></i>
+            <span>
+                    {% if label_format is not empty %}
+                        Supprimer {{ label_format }}
+                    {% else %}
+                        {{ 'action.remove_item'|trans({}, 'EasyAdminBundle') }}
+                    {% endif %}
+                </span>
+        </a>
+    </div>
+{% endblock %}
+
+{% block form_widget %}
+    {{- parent() -}}
+
+    {% if form.parent.vars.allow_delete|default(false) %}
+        {{ block('suppression_item') }}
+    {% endif %}
+{% endblock form_widget %}
+
+{% block form_widget_simple -%}
+    {% if type is not defined or type not in ['file', 'hidden'] %}
+        {%- set attr = attr|merge({class: (attr.class|default('') ~ ' form-control')|trim}) -%}
+    {% endif %}
+    {{- parent() -}}
+    {{ form_help(form) }}
+{%- endblock form_widget_simple %}
+
+{%- block number_widget -%}
+    {%- set type = type|default('text') -%}
+    {{ block('form_widget_simple') }}
+{%- endblock number_widget -%}
+
+{% block textarea_widget -%}
+    {% set attr = attr|merge({class: (attr.class|default('') ~ ' form-control')|trim}) %}
+    {{- parent() -}}
+{%- endblock textarea_widget %}
+
+{% block button_widget -%}
+    {% set attr = attr|merge({class: (attr.class|default('btn-default') ~ ' btn')|trim}) %}
+    {{- parent() -}}
+{%- endblock %}
+
+{% block money_widget -%}
+    <div class="input-group">
+        {% set prepend = '{{' == money_pattern[0:2] %}
+        {% if not prepend %}
+            <span class="input-group-addon">{{ money_pattern|replace({ '{{ widget }}':''}) }}</span>
+        {% endif %}
+        {{- block('form_widget_simple') -}}
+        {% if prepend %}
+            <span class="input-group-addon">{{ money_pattern|replace({ '{{ widget }}':''}) }}</span>
+        {% endif %}
+    </div>
+{%- endblock money_widget %}
+
+{% block percent_widget -%}
+    <div class="input-group">
+        {{- block('form_widget_simple') -}}
+        <span class="input-group-addon">%</span>
+    </div>
+{%- endblock percent_widget %}
+
+{% block datetime_widget -%}
+    {% if widget == 'single_text' %}
+        {{- block('form_widget_simple') -}}
+    {% else -%}
+        {% set attr = attr|merge({class: (attr.class|default('') ~ ' form-inline')|trim}) -%}
+        <div {{ block('widget_container_attributes') }}>
+            {{- form_errors(form.date) -}}
+            {{- form_errors(form.time) -}}
+            {{- form_widget(form.date, { datetime: true } ) -}}
+            {{- form_widget(form.time, { datetime: true } ) -}}
+        </div>
+    {%- endif %}
+{%- endblock datetime_widget %}
+
+{% block date_widget -%}
+    {% if widget == 'single_text' %}
+        {{- block('form_widget_simple') -}}
+    {% else -%}
+        {% set attr = attr|merge({class: (attr.class|default('') ~ ' form-inline')|trim}) -%}
+        {% if datetime is not defined or not datetime -%}
+            <div {{ block('widget_container_attributes') -}}>
+        {%- endif %}
+            {{- date_pattern|replace({
+                '{{ year }}': form_widget(form.year),
+                '{{ month }}': form_widget(form.month),
+                '{{ day }}': form_widget(form.day),
+            })|raw -}}
+        {% if datetime is not defined or not datetime -%}
+            </div>
+        {%- endif -%}
+    {% endif %}
+{%- endblock date_widget %}
+
+{% block time_widget -%}
+    {% if widget == 'single_text' %}
+        {{- block('form_widget_simple') -}}
+    {% else -%}
+        {% set attr = attr|merge({class: (attr.class|default('') ~ ' form-inline')|trim}) -%}
+        {% if datetime is not defined or false == datetime -%}
+            <div {{ block('widget_container_attributes') -}}>
+        {%- endif -%}
+        {{- form_widget(form.hour) }}:{{ form_widget(form.minute) }}{% if with_seconds %}:{{ form_widget(form.second) }}{% endif %}
+        {% if datetime is not defined or false == datetime -%}
+            </div>
+        {%- endif -%}
+    {% endif %}
+{%- endblock time_widget %}
+
+{% block choice_widget_collapsed -%}
+    {% set attr = attr|merge({class: (attr.class|default('') ~ ' form-control')|trim}) %}
+    {{- parent() -}}
+    {{ form_help(form) }}
+    {% if form.parent.vars.allow_delete|default(false) %}
+        {% set remove_item_javascript %}
+            $(function() {
+            if (event.preventDefault) event.preventDefault(); else event.returnValue = false;
+
+            var containerDiv = $('#{{ id }}').parents('.form-group:first');
+            var parentDiv = containerDiv.parents('[data-prototype]:first');
+            containerDiv.remove();
+            parentDiv.trigger('easyadmin.collection.item-deleted');
+
+            if (0 == parentDiv.children().length && 'undefined' !== parentDiv.attr('data-empty-collection')) {
+            $(parentDiv.attr('data-empty-collection')).insertBefore(parentDiv);
+            }
+            });
+        {% endset %}
+
+        <div class="text-right field-collection-item-action">
+            <a href="#" onclick="{{ remove_item_javascript|raw }}" class="text-danger">
+                <i class="fa fa-remove"></i>
+                {{ 'action.remove_item'|trans({}, 'EasyAdminBundle') }}
+            </a>
+        </div>
+    {% endif %}
+{%- endblock %}
+
+{% block choice_widget_expanded -%}
+    {% if '-inline' in label_attr.class|default('') -%}
+        <div class="control-group">
+            {%- for child in form %}
+                {{- form_widget(child, {
+                    parent_label_class: label_attr.class|default(''),
+                    translation_domain: choice_translation_domain,
+                }) -}}
+            {% endfor -%}
+        </div>
+    {%- else -%}
+        <div {{ block('widget_container_attributes') }}>
+            {%- for child in form %}
+                {{- form_widget(child, {
+                    parent_label_class: label_attr.class|default(''),
+                    translation_domain: choice_translation_domain,
+                }) -}}
+            {% endfor -%}
+        </div>
+    {%- endif %}
+{%- endblock choice_widget_expanded %}
+
+{% block checkbox_widget -%}
+    {%- set parent_label_class = parent_label_class|default(label_attr.class|default('')) -%}
+    {% if 'checkbox-inline' in parent_label_class %}
+        {{- form_label(form, null, { widget: parent() }) -}}
+    {% else -%}
+        <div class="checkbox">
+            {{- form_label(form, null, { widget: parent() }) -}}
+            {% if easyadmin.field.help is defined %}
+                <p class="help-text">{{ easyadmin.field.help }}</p>
+            {% endif %}
+        </div>
+    {%- endif %}
+{%- endblock checkbox_widget %}
+
+{% block radio_widget -%}
+    {%- set parent_label_class = parent_label_class|default(label_attr.class|default('')) -%}
+    {% if 'radio-inline' in parent_label_class %}
+        {{- form_label(form, null, { widget: parent() }) -}}
+    {% else -%}
+        <div class="radio">
+            {{- form_label(form, null, { widget: parent() }) -}}
+        </div>
+    {%- endif %}
+{%- endblock radio_widget %}
+
+{# Labels #}
+
+{% block form_label -%}
+    {%- set label_attr = label_attr|merge({class: (label_attr.class|default('') ~ ' control-label')|trim}) -%}
+    {{- parent() -}}
+    {% if required %}
+        <span>*</span>
+    {% endif %}
+{%- endblock form_label %}
+
+{% block choice_label -%}
+    {# remove the checkbox-inline and radio-inline class, it's only useful for embed labels #}
+    {%- set label_attr = label_attr|merge({class: label_attr.class|default('')|replace({'checkbox-inline': '', 'radio-inline': ''})|trim}) -%}
+    {{- block('form_label') -}}
+{% endblock %}
+
+{% block checkbox_label -%}
+    {{- block('checkbox_radio_label') -}}
+{%- endblock checkbox_label %}
+
+{% block radio_label -%}
+    {{- block('checkbox_radio_label') -}}
+{%- endblock radio_label %}
+
+{% block checkbox_radio_label %}
+    {# Do no display the label if widget is not defined in order to prevent double label rendering #}
+    {% if widget is defined %}
+        {% if required %}
+            {% set label_attr = label_attr|merge({class: (label_attr.class|default('') ~ ' required')|trim}) %}
+        {% endif %}
+        {% if parent_label_class is defined %}
+            {% set label_attr = label_attr|merge({class: (label_attr.class|default('') ~ ' ' ~ parent_label_class)|trim}) %}
+        {% endif %}
+        {% if label is not same as(false) and label is empty %}
+            {% set label = name|humanize %}
+        {% endif %}
+        <label{% for attrname, attrvalue in label_attr %} {{ attrname }}="{{ attrvalue }}"{% endfor %}>
+            {{- widget|raw -}}
+            {{- label is not same as(false) ? label|trans|raw -}}
+        </label>
+    {% endif %}
+{% endblock checkbox_radio_label %}
+
+{# Rows #}
+
+{% block form_row -%}
+    {% set _field_type = easyadmin.field.fieldType|default('default') %}
+    <div class="form-group {% if (not compound or force_error|default(false)) and not valid %}has-error{% endif %} field-{{ block_prefixes|slice(-2)|first }}" {% if form.vars.name == 'colonnes' %}data-val="{{ form.vars.value }}"{% endif %}>
+        {{- form_label(form) -}}
+        {#{% if help|default('') != '' %}
+            <div class="infobulle"><i class="fa fa-info-circle"></i><span>{{ help|trans(domain = easyadmin.entity.translation_domain)|raw }}</span></div>
+        {% endif %}#}
+        {{- form_widget(form) -}}
+
+        {% if _field_type in ['datetime', 'datetime_immutable', 'date', 'date_immutable', 'time', 'time_immutable', 'birthday'] and easyadmin.field.nullable|default(false) %}
+            <div class="nullable-control checkbox">
+                <label>
+                    <input type="checkbox" {% if data is null %}checked="checked"{% endif %}>
+                    {{ 'label.nullable_field'|trans({}, 'EasyAdminBundle')}}
+                </label>
+            </div>
+        {% endif %}
+
+        {{- form_errors(form) -}}
+    </div>
+{%- endblock form_row %}
+
+{% block collection_row %}
+    {% if form.vars.unique_block_prefix|split('_')|last == 'blocsEnfants' %}
+        {% set classBloc = '' %}
+        {% if form.parent.vars.value.classes is defined and form.parent.vars.value.classes is not empty %}
+            {% for class in form.parent.vars.value.classes %}
+                {% set classBloc = classBloc~" "~class %}
+            {% endfor %}
+        {% endif %}
+        <div class="form-group field-collection blocsEnfants" {% if form.parent.vars.value.contenu.colonnes is defined %}data-col="col{{ form.parent.vars.value.contenu.colonnes }}"{% endif %}>
+            {{- form_widget(form, { attr: { class: 'dndBlocs gouttieres-'~form.parent.vars.value.gouttieres|default('')~' '~classBloc } }) -}}
+
+            <div class="text-right field-collection-action">
+                <button href="#" onclick="$(function (){if (event.preventDefault) event.preventDefault(); else event.returnValue = false; $('.listeBlocs').attr('id', 'section').attr('data-section', '{{ form.vars.id }}').addClass('actif')})" class="ajout-bloc">
+                    <i class="fas fa-plus-circle"></i>
+                    {{ 'ajouter un bloc'|trans({}, 'EasyAdminBundle') }}
+                </button>
+            </div>
+        </div>
+    {% else %}
+        <div class="form-group field-{{ name }} {% if value is empty %}vide{% endif %}">
+            {{ block('form_row') }}
+
+            {% if allow_add|default(false) %}
+                <div class="text-right field-collection-action">
+                    <a href="#" onclick="if (event.preventDefault) event.preventDefault(); else event.returnValue = false; ajoutItem('{{ id }}', '{{ name }}', 'apres', true)" class="text-primary">
+                        <i class="fa fa-plus-square"></i>
+                        {% if label_format is not empty %}
+                            Ajouter {{ label_format }}
+                        {% else %}
+                            {{ (form|length == 0 ? 'action.add_new_item' : 'action.add_another_item')|trans({}, 'EasyAdminBundle') }}
+                        {% endif %}
+                    </a>
+                </div>
+            {% endif %}
+        </div>
+    {% endif %}
+{% endblock collection_row %}
+
+{% block collection_row_double %}
+    <div class="form-group field-{{ name }} {% if value is empty %}vide{% endif %}">
+        {% if allow_add|default(false) %}
+            <div class="text-right field-collection-action">
+                <a href="#" onclick="if (event.preventDefault) event.preventDefault(); else event.returnValue = false; ajoutItem('{{ id }}', '{{ name }}', 'avant', true)" class="text-primary">
+                    <i class="fa fa-plus-square"></i>
+                    {% if label_format is not empty %}
+                        Ajouter {{ label_format }}
+                    {% else %}
+                        {{ (form|length == 0 ? 'action.add_new_item' : 'action.add_another_item')|trans({}, 'EasyAdminBundle') }}
+                    {% endif %}
+                </a>
+            </div>
+        {% endif %}
+
+        {{ block('form_row') }}
+
+        {% if allow_add|default(false) %}
+            <div class="text-right field-collection-action">
+                <a href="#" onclick="if (event.preventDefault) event.preventDefault(); else event.returnValue = false; ajoutItem('{{ id }}', '{{ name }}', 'apres', true)" class="text-primary">
+                    <i class="fa fa-plus-square"></i>
+                    {% if label_format is not empty %}
+                        Ajouter {{ label_format }}
+                    {% else %}
+                        {{ (form|length == 0 ? 'action.add_new_item' : 'action.add_another_item')|trans({}, 'EasyAdminBundle') }}
+                    {% endif %}
+                </a>
+            </div>
+        {% endif %}
+    </div>
+{% endblock collection_row_double %}
+
+{% block button_row -%}
+    <div class="form-group field-{{ block_prefixes|slice(-2)|first }} {{ easyadmin.field.css_class|default('') }}">
+        {{- form_widget(form) -}}
+    </div>
+{%- endblock button_row %}
+
+{% block choice_row -%}
+    {% set force_error = true %}
+    {{- block('form_row') }}
+{%- endblock choice_row %}
+
+{% block date_row -%}
+    {% set force_error = true %}
+    {{- block('form_row') }}
+{%- endblock date_row %}
+
+{% block time_row -%}
+    {% set force_error = true %}
+    {{- block('form_row') }}
+{%- endblock time_row %}
+
+{% block datetime_row -%}
+    {% set force_error = true %}
+    {{- block('form_row') }}
+{%- endblock datetime_row %}
+
+{% block checkbox_row -%}
+    <div class="form-group {% if not valid %}has-error{% endif %} field-{{ block_prefixes|slice(-2)|first }}">
+        {{- form_widget(form) -}}
+        {{- form_errors(form) -}}
+    </div>
+{%- endblock checkbox_row %}
+
+{% block radio_row -%}
+    <div class="form-group {% if not valid %}has-error{% endif %} field-{{ block_prefixes|slice(-2)|first }}">
+        {{- form_widget(form) -}}
+        {{- form_errors(form) -}}
+    </div>
+{%- endblock radio_row %}
+
+{# Errors #}
+{% block form_errors %}
+    {% set error_count = errors|length %}
+    {% if error_count >= 1 %}
+        <div class="error-block">
+            <span class="label label-danger">{{ 'errors'|transchoice(error_count, {}, 'EasyAdminBundle') }}</span>
+            {% if error_count == 1 %}
+                {{ errors|first.message }}
+            {% else %}
+                <ul>
+                    {% for error in errors %}
+                        <li>{{ error.message }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        </div>
+    {% endif %}
+{% endblock form_errors %}
+
+{%- block form_widget_compound -%}
+    {# the "is iterable" check is needed because if an object implements __toString() and
+       returns an empty string, "is empty" returns true even if it's not a collection #}
+    {% if value is iterable and value is empty %}
+        {{ block('empty_collection') }}
+    {% endif %}
+    {% if value is iterable and value is empty or form.vars.prototype is defined %}
+        {% set attr = attr|merge({'data-empty-collection': block('empty_collection') }) %}
+    {% endif %}
+
+    {{ parent() }}
+{%- endblock form_widget_compound -%}
+
+{% block empty_collection %}
+    <div class="empty collection-empty">
+        {% if easyadmin is defined %}
+            {{ include(easyadmin.entity.templates.label_empty) }}
+        {% else %}
+            <p>{{ "Vide"|trans }}</p>
+        {% endif %}
+    </div>
+{% endblock empty_collection %}
+
+{% block easyadmin_rest %}
+    {{- form_rest(form) -}}
+    <div class="formulaire-actions">
+        {{- block('item_actions') -}}
+    </div>
+    {#<div class="row">
+        <div class="col-xs-12 form-actions">
+            <div class="form-group">
+                <div id="form-actions-row">
+                    {{- block('item_actions') -}}
+                </div>
+            </div>
+        </div>
+    </div>#}
+{% endblock easyadmin_rest %}
+
+{% block item_actions %}
+    {% set _translation_domain = easyadmin.entity.translation_domain %}
+    {% set _trans_parameters = { '%entity_name%':  easyadmin.entity.name|trans, '%entity_label%': easyadmin.entity.label|trans } %}
+
+    {# the 'save' action is hardcoded for the 'edit' and 'new' views #}
+    <button type="submit" class="formulaire-actions-enregistrer" disabled>
+        <i class="fas fa-check-circle"></i><span>{% trans %}Enregistrer{% endtrans %}</span>
+    </button>
+
+    {% set _entity_actions = (easyadmin.view == 'new')
+        ? easyadmin_get_actions_for_new_item(easyadmin.entity.name)
+        : easyadmin_get_actions_for_edit_item(easyadmin.entity.name) %}
+
+    {% set _entity_id = (easyadmin.view == 'new')
+        ? null
+        : attribute(easyadmin.item, easyadmin.entity.primary_key_field_name) %}
+
+    {% set _request_parameters = { entity: easyadmin.entity.name, referer: app.request.query.get('referer') } %}
+
+    {{ include('back/actionsFormulaire.html.twig', {
+        actions: _entity_actions,
+        request_parameters: _request_parameters,
+        translation_domain: _translation_domain,
+        trans_parameters: _trans_parameters,
+        item_id: _entity_id
+    }, with_context = false) }}
+{% endblock item_actions %}
+
+{# EasyAdmin form type #}
+{% block easyadmin_widget %}
+    {% set _translation_domain = easyadmin.entity.translation_domain %}
+    <div class="row">
+        {% if easyadmin_form_tabs | length > 0 %}
+            <div class="col-xs-12">
+                <div class="nav-tabs-custom">
+                    <ul class="nav nav-tabs">
+                        {% for tab_name, tab_config in easyadmin_form_tabs %}
+                            {% if tab_config['css_class'] != 'traductions' or langues|length > 1 %}
+                                <li class="{% if tab_config.active %}active{% endif %}">
+                                    <a href="#{{ tab_config['id'] }}" id="{{ tab_config['id'] }}-tab" data-toggle="tab">
+                                        {% if tab_config.icon|default(false) %}
+                                            <i class="fa fa-{{ tab_config.icon }}"></i>
+                                        {% endif %}
+                                        {{ tab_config['label'] }}
+                                        {% if tab_config.errors > 0 %}
+                                            <span class="label label-danger" title="{{ 'form.tab.error_badge_title'|transchoice(tab_config.errors, {}, 'EasyAdminBundle') }}">
+                                                {{ tab_config.errors }}
+                                            </span>
+                                        {% endif %}
+                                    </a>
+                                </li>
+                            {% endif %}
+                        {% endfor %}
+                    </ul>
+                    <div class="tab-content">
+                        {% for tab_name, tab_config in easyadmin_form_tabs %}
+                            <div id="{{ tab_config['id'] }}" class="tab-pane {% if tab_config.active %}active{% endif %}">
+                                <div class="row">
+                                    {{ block('easyadmin_widget_groups') }}
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        {% else %}
+            {{ block('easyadmin_widget_groups') }}
+        {% endif %}
+    </div>
+{% endblock easyadmin_widget %}
+
+{% block easyadmin_widget_groups %}
+    {% for group_name, group_config in easyadmin_form_groups if not group_config.form_tab or group_config.form_tab == tab_name %}
+        <div id="{{ group_config.css_id|default('') }}" class="field-group {{ group_config.css_class|default('') }}">
+
+            <div class="box box-default {% if group_config.label|default(false) or group_config.icon|default(false) %}groupeDeChamps{% endif %} {% if 'modal-box' in group_config.css_class %}modal-content fond{% endif %}">
+                {# Fermeture modal-dialog #}
+                {% if 'modal-box' in group_config.css_class %}
+                    <div class="modal-close">
+                        <i class="fas fa-check"></i>
+                    </div>
+                {% endif %}
+
+                {% if group_config.label|default(false) or group_config.icon|default(false) %}
+                    <div class="box-header with-border">
+                        <h2 class="box-title">
+                            {% if group_config.icon|default(false) %}
+                                <i class="fa fa-{{ group_config.icon }}"></i>
+                            {% endif %}
+                            {{ group_config.label|trans(domain = _translation_domain)|raw }}
+                        </h2>
+                    </div>
+                {% endif %}
+
+                <div class="box-body">
+                    {% if group_config.help|default(false) %}
+                        <p class="help-block">{{ group_config.help|trans(domain = _translation_domain)|raw }}</p>
+                    {% endif %}
+
+                    <div class="row">
+                        {% for field in form if 'hidden' not in field.vars.block_prefixes and field.vars.easyadmin.form_group == group_name %}
+                            {% if not field.vars.easyadmin.form_tab or field.vars.easyadmin.form_tab == tab_name %}
+                                <div class="{{ field.vars.easyadmin.field.css_class|default('') }}">
+                                    {{ form_row(field) }}
+                                </div>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% else %}
+        {% for field in form if 'hidden' not in field.vars.block_prefixes and (not field.vars.easyadmin.form_tab or field.vars.easyadmin.form_tab == tab_name) %}
+            <div class="{{ field.vars.easyadmin.field.css_class|default('') }}">
+                {{ form_row(field) }}
+            </div>
+        {% endfor %}
+    {% endfor %}
+{% endblock easyadmin_widget_groups %}
+
+{# EasyAdminAutocomplete form type #}
+{% block easyadmin_autocomplete_widget %}
+    {{ form_widget(form.autocomplete, {
+        attr: attr|merge({
+            'data-easyadmin-autocomplete-url' : path('easyadmin', {
+                action: 'autocomplete',
+                entity: autocomplete_entity_name
+            })|raw })
+        })
+    }}
+{% endblock easyadmin_autocomplete_widget %}
+
+{% block easyadmin_autocomplete_inner_label %}
+    {% set name = form.parent.vars.name %}
+    {{- block('form_label') -}}
+{% endblock easyadmin_autocomplete_inner_label %}
+
+{# EasyAdminDivider form type #}
+{% block easyadmin_divider_row %}
+    <div class="field-divider">
+        <hr>
+    </div>
+{% endblock easyadmin_divider_row %}
+
+{# EasyAdminSection form type #}
+{% block easyadmin_section_row %}
+    {% set _translation_domain = easyadmin.entity.translation_domain %}
+    <div class="field-section {{ easyadmin.field.css_class|default('') }}">
+        {% if easyadmin.field.label|default(false) or easyadmin.field.icon|default(false) %}
+            <h2>
+                {% if easyadmin.field.icon|default(false) %}<i class="fa fa-{{ easyadmin.field.icon }}"></i>{% endif %}
+                {{ easyadmin.field.label|default('')|trans(domain = _translation_domain)|raw }}
+            </h2>
+        {% endif %}
+
+        {% if easyadmin.field.help|default(false) %}
+            <p class="help-block">{{ easyadmin.field.help|trans(domain = _translation_domain)|nl2br|raw }}</p>
+        {% endif %}
+    </div>
+{% endblock easyadmin_section_row %}
+
+{% block _configuration_logo_widget %}
+    {{- block('form_widget_simple') -}}
+    <a class="ouvrirMediatheque" href="/filemanager/dialog.php?type=1&field_id=configuration_logo">{{ 'Choisir une image dans la médiathèque'|trans }}</a>
+    <div class="apercuLogo">
+        <img src="{% if value is not empty %}{{ value }}{% endif %}" alt="">
+    </div>
+{% endblock %}
+
+{% block _configuration_favicon_widget %}
+    {{- block('form_widget_simple') -}}
+    <a class="ouvrirMediatheque" href="/filemanager/dialog.php?type=1&field_id=configuration_favicon">{{ 'Choisir une image dans la médiathèque'|trans }}</a>
+    <div class="apercuLogo">
+        <img src="{% if value is not empty %}{{ value }}{% endif %}" alt="">
+    </div>
+{% endblock %}
+
+{% block _utilisateur_imageProfil_widget %}
+    {{- block('form_widget_simple') -}}
+    <a class="ouvrirMediatheque" href="/filemanager/dialog.php?type=1&field_id=utilisateur_imageProfil">{{ 'Choisir une image dans la médiathèque'|trans }}</a>
+    <div class="apercuImageProfil">
+        {% if value is not empty %}
+            <img src="{{ value }}" alt="">
+        {% endif %}
+    </div>
+{% endblock %}
+
+{% block SEO %}
+    <div id="onglet_SEO">
+        <button class="raz">{{ "Réinitialiser"|trans }}</button>
+        <div class="flex-container">
+            <div class="w50">
+                <div class="form-group field-text">
+                    {{- form_label(form.children.metaTitre) -}}
+                    <div class="progression">
+                        <div></div>
+                    </div>
+                    <div class="nbCaracteres">
+                        <span></span>/ 65
+                    </div>
+                    {{- form_widget(form.children.metaTitre) -}}
+                </div>
+                <div class="form-group field-text">
+                    {{- form_label(form.children.url) -}}
+                    <div class="progression">
+                        <div></div>
+                    </div>
+                    <div class="nbCaracteres">
+                        <span></span>/ 75
+                    </div>
+                    {{- form_widget(form.children.url) -}}
+                </div>
+                <div class="form-group field-textarea">
+                    {{- form_label(form.children.metaDescription) -}}
+                    <div class="progression">
+                        <div></div>
+                    </div>
+                    <div class="nbCaracteres">
+                        <span></span>/ 150
+                    </div>
+                    {{- form_widget(form.children.metaDescription) -}}
+                </div>
+                <a class="inbl mts" href="/admin/seo">{{ "Vérifier le référencement de toutes les pages du site"|trans }}</a>
+            </div>
+            <div class="w50 plm">
+                <p>La page apparaîtra de cette façon dans les résultats de Google : </p>
+                <div class="listeSEO-SEO">
+                    <div class="metaTitre">
+                        {% if data.metaTitre is defined %}
+                            {{ data.metaTitre|truncate(65) }}
+                        {% endif %}
+                    </div>
+
+                    <div class="url">
+                        <span>{{ app.request.isSecure ? 'https' : 'http' }}{{ '://'~app.request.headers.get('host') }} > </span>
+                        {% if data.url is defined %}
+                            {{ data.url|truncate(75) }}
+                        {% endif %}
+                    </div>
+
+                    <div class="metaDescription">
+                        {% if data.metaDescription is defined %}
+                            {{ data.metaDescription|truncate(150)|raw }}
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block _page_active_SEO_widget %}
+    {{ block('SEO') }}
+{% endblock %}
+
+{% block _categorie_SEO_widget %}
+    {{ block('SEO') }}
+{% endblock %}
+
+{% block _typecategorie_SEO_widget %}
+    {{ block('SEO') }}
+{% endblock %}
+
+{% block conteneurBlocs %}
+    <div class="miseEnPage conteneurs conteneurBlocs">
+        {{- form_label(form) -}}
+
+        <div class="toggleAffichageBlocs">
+            <a id="toggleMiseEnPage" class="btn mrs"><i class="fas fa-eye mrs"></i>{{ "Mise en page"|trans }}</a>
+            <a id="toggleConteneurs" class="btn"><i class="fas fa-eye mrs"></i>{{ "Conteneurs"|trans }}</a>
+            <a class="ajoutBloc btn"><i class="fas fa-plus mrs"></i>{{ "Ajouter un bloc"|trans }}</a>
+        </div>
+
+        {{- form_widget(form, { attr: { class: 'dndBlocs' } }) -}}
+
+    </div>
+{% endblock %}
+
+{% block _page_active_blocs_row %}
+    {{ block('conteneurBlocs') }}
+{% endblock %}
+
+{% block _region_blocs_row %}
+    {{ block('conteneurBlocs') }}
+{% endblock %}
+
+{% block _blocpartage_bloc_row %}
+    <div class="miseEnPage conteneurs conteneurBlocs">
+        <div class="toggleAffichageBlocs">
+            <a id="toggleMiseEnPage" class="btn mrs"><i class="fas fa-eye mrs"></i>{{ "Mise en page"|trans }}</a>
+            {% if form.vars.value is empty or form.vars.value.type == 'Section' %}
+                <a id="toggleConteneurs" class="btn {% if form.vars.value is empty %}hidden{% endif %}"><i class="fas fa-eye mrs"></i>{{ "Conteneurs"|trans }}</a>
+                <a class="ajoutBloc btn {% if form.vars.value is empty %}hidden{% endif %}"><i class="fas fa-plus mrs"></i>{{ "Ajouter un bloc"|trans }}</a>
+            {% endif %}
+        </div>
+
+        <div class="dndBlocs noDrag">
+            {{- form_row(form) -}}
+        </div>
+    </div>
+{% endblock %}
+
+{# BLOCS ANNEXES #}
+{% block _page_active_blocsAnnexes_row %}
+    <div class="form-group field-collection">
+        {{- form_label(form) -}}
+
+        <div class="text-right field-collection-action mbs">
+            <a href="#" onclick="$(function (){if (event.preventDefault) event.preventDefault(); else event.returnValue = false; $('.listeBlocsAnnexes').attr('id', 'avant').addClass('actif')})" class="ajout-blocAnnexe">
+                <i class="fas fa-plus-circle"></i>
+                {{ 'ajouter un bloc'|trans({}, 'EasyAdminBundle') }}
+            </a>
+        </div>
+
+        {{- form_widget(form) -}}
+
+        <div class="text-right field-collection-action">
+            <a href="#" onclick="$(function (){if (event.preventDefault) event.preventDefault(); else event.returnValue = false; $('.listeBlocsAnnexes').attr('id', 'apres').addClass('actif')})" class="ajout-blocAnnexe">
+                <i class="fas fa-plus-circle"></i>
+                {{ 'ajouter un bloc'|trans({}, 'EasyAdminBundle') }}
+            </a>
+        </div>
+
+    </div>
+{% endblock %}
+{# FIN BLOCS ANNEXES #}
+
+{# BLOC #}
+{% block bloc_row -%}
+    {% set _field_type = easyadmin.field.fieldType|default('default') %}
+    <div class="form-group {% if (not compound or force_error|default(false)) and not valid %}has-error{% endif %} field-{{ block_prefixes|slice(-2)|first }} {% if not form.children.active.vars.data %} desactive{% endif %} {{ form.children.largeur.vars.data|default('col12') }}{% if form.children.type.vars.value is defined %} bloc-{{ form.children.type.vars.value|lower }}{% endif %} {{ form.children.alignementHorizontal.vars.value|default('') }} {{ form.children.alignementVertical.vars.value|default('') }} {{ form.children.padding.vars.value|default('') }} {% if form.children.pleineLargeur.vars.data %}pleineLargeur{% endif %}" data-name="{{ name }}">
+        {{- form_label(form) -}}
+        {{- form_widget(form) -}}
+
+        {% if _field_type in ['datetime', 'datetime_immutable', 'date', 'date_immutable', 'time', 'time_immutable', 'birthday'] and easyadmin.field.nullable|default(false) %}
+            <div class="nullable-control checkbox">
+                <label>
+                    <input type="checkbox" {% if data is null %}checked="checked"{% endif %}>
+                    {{ 'label.nullable_field'|trans({}, 'EasyAdminBundle')}}
+                </label>
+            </div>
+        {% endif %}
+
+        {{- form_errors(form) -}}
+    </div>
+{%- endblock bloc_row %}
+
+{% block bloc_widget %}
+    {% set blocSection = (form.children.type.vars.value == 'Section') %}
+    {% set _field_type = easyadmin.field.fieldType|default('default') %}
+
+    {# BARRE D'ACTIONS #}
+    <div class="bloc-barreActions">
+        {% if not blocSection %}
+            <div class="bloc-edit"><i class="fas fa-pen"></i><span>{{ "Modifier"|trans~' '~form.children.type.vars.value }}</span></div>
+        {% endif %}
+        <div class="drag"><i class="fas fa-arrows-alt "></i><span>{{ "Déplacer"|trans }}</span></div>
+        <div class="optionsAffichage"><i class="fas fa-columns"></i><span>{{ "Mise en page"|trans }}</span></div>
+        <div class="bloc-menu"><i class="fas fa-ellipsis-v"></i><span>{{ "Options du bloc"|trans }}</span></div>
+    </div>
+    <ul>
+        {% if form.children.type.vars.value != 'BlocPartage' %}
+            <li>{# Bloc partage #}
+                <a href="#" class="ajoutListeBlocPartage{% if form.vars.value.blocPartage is defined and form.vars.value.blocPartage is not empty %} hidden{% endif %}" data-modal="ajoutListeBlocPartage">
+                    <i class="fas fa-share"></i>{{ "Ajouter aux blocs partagés"|trans }}
+                </a>
+                <a href="#" class="suppressionListeBlocPartage{% if form.vars.value.blocPartage is not defined or form.vars.value.blocPartage is empty %} hidden{% endif %}" data-modal="suppressionListeBlocPartage">
+                    <i class="fas fa-minus-circle"></i>{{ "Retirer des blocs partagés"|trans }}
+                </a>
+            </li>
+        {% endif %}
+        <li>{# Suppression #}
+            <a href="#" class="supprimerBloc"><i class="fas fa-trash"></i>{{ "Supprimer le bloc"|trans }}</a>
+            <div class="suppressionBloc">
+                <p><strong>{{ "Êtes-vous sûr de vouloir supprimer ce bloc ?"|trans }}</strong></p>
+                <button type="button" class="btn suppressionBloc-annuler">
+                    {{ "Annuler"|trans }}
+                </button>
+                <button type="button" class="btn btn-danger suppressionBloc-supprimer">
+                    <i class="fa fa-trash"></i>
+                    {{ "Supprimer"|trans }}
+                </button>
+            </div>
+        </li>
+    </ul>
+    {# BARRE D'ACTIONS #}
+
+    <div id="page_active_blocs_">
+        {# TYPE DE BLOC #}
+        {% if not blocSection %}
+            <div class="form-group type">
+                <label>{{ form.children.type.vars.label|raw }}</label>
+                {% if form.children.contenu is defined %}
+                    <div class="bloc-help {% if form_help(form.children.contenu) is empty %}hide{% endif %}">
+                        <i class="fas fa-info-circle"></i>
+                        {{- form_help(form.children.contenu) -}}
+                    </div>
+                {% endif %}
+            </div>
+        {% endif %}
+        {{- form_widget(form.children.type) -}}
+        {{- form_widget(form.children.position) -}}
+        {{- form_widget(form.children.active) -}}
+        {# TYPE DE BLOC #}
+
+        {# OPTIONS D'AFFICHAGE #}
+        <div class="bloc-optionsAffichage bloc-panel hidden">
+            <div class="bloc-panel--header">
+                <i class="fas fa-columns"></i>
+                <span>{{ "Mise en page du bloc"|trans }}</span>
+                <i class="bloc-optionsAffichage--sauvegarde bloc-panel--sauvegarde right fas fa-check"></i>
+                <i class="bloc-optionsAffichage--annulation bloc-panel--annulation mls fas fa-times"></i>
+            </div>
+            <div class="bloc-panel--body">
+                {% if form.children.classes.vars.choices is defined and form.children.classes.vars.choices is not empty %}
+                    {{ form_row(form.children.classes) }}
+                {% endif %}
+                {{ form_row(form.children.alignementVertical) }}
+                {{ form_row(form.children.alignementHorizontal) }}
+                {% if blocSection %}
+                    {{ form_row(form.children.alignementVerticalEnfants) }}
+                    {{ form_row(form.children.alignementHorizontalEnfants) }}
+                    {{ form_row(form.children.gouttieres) }}
+                {% endif %}
+                <div class="form-group {% if form.vars.value is defined and form.vars.value is not empty and form.vars.value.page is empty %}hidden{% endif %}">
+                    {{ form_label(form.children.pleineLargeur) }}
+                    {{ form_widget(form.children.pleineLargeur) }}
+                </div>
+                {{ form_row(form.children.largeur) }}
+                {{ form_row(form.children.padding) }}
+                {{ form_label(form.children.paddingTout) }}
+                <div class="flex-container">
+                    {{ form_widget(form.children.paddingTout) }}
+                    <a class="togglePadding item-center"><i class="fas fa-link"></i></a>
+                </div>
+                <div class="bloc-padding hidden">
+                    {{ form_row(form.children.paddingGauche) }}
+                    {{ form_row(form.children.paddingDroit) }}
+                    {{ form_row(form.children.paddingHaut) }}
+                    {{ form_row(form.children.paddingBas) }}
+                </div>
+            </div>
+        </div>
+        {# OPTIONS D'AFFICHAGE #}
+
+        {# APERCU #}
+        {% if not blocSection %}
+            {% set classBloc = '' %}
+            {% if form.children.classes.vars.value is defined and form.children.classes.vars.value is not empty %}
+                {% for class in form.children.classes.vars.value %}
+                    {% set classBloc = classBloc~" "~class %}
+                {% endfor %}
+            {% endif %}
+            <div class="bloc-apercu bloc{{ form.children.type.vars.value }} {{ classBloc }}">
+                {% if form.children.type.vars.value != 'Formulaire' and form.vars.value is not empty %}
+                    {% include ['/Blocs/'~form.children.type.vars.value~'/bloc-'~form.vars.value.id~'.html.twig', '/Blocs/'~form.children.type.vars.value~'/'~form.children.type.vars.value~'.html.twig'] with{'bloc': form.vars.value} only %}
+                {% endif %}
+            </div>
+        {% endif %}
+        {# APERCU #}
+
+        {# FORMULAIRE #}
+        {% if not blocSection %}
+            <div class="form-group contenu bloc-formulaire bloc-panel hidden" {% if form.vars.value is not empty %}data-bloc="{{ form.vars.value.id }}"{% endif %} data-type="{{ form.children.type.vars.value|default('') }}">
+                <div class="bloc-panel--header">
+                    <i class="fas fa-pen"></i>
+                    <span>{{ "Modification du bloc"|trans }}</span>
+                    <i class="bloc-formulaire--sauvegarde bloc-panel--sauvegarde right fas fa-check"></i>
+                    <i class="bloc-formulaire--annulation bloc-panel--annulation mls fas fa-times"></i>
+                </div>
+                <div class="bloc-panel--body">
+                    {% if form.children.contenu is defined %}
+                        {% if form.children.contenu is empty %}
+                            <div>
+                                <p class="pasDeParametre mbn">{{ "Bloc non paramétrable"|trans }}</p>
+                            </div>
+                        {% endif %}
+                        {{- form_label(form.children.contenu) -}}
+                        {{- form_widget(form.children.contenu) -}}
+                    {% endif %}
+                </div>
+            </div>
+        {% else %}
+            <div class="form-group contenu" {% if form.vars.value is not empty %}data-bloc="{{ form.vars.value.id }}"{% endif %} >
+                {{- form_row(form.children.blocsEnfants, { 'attr': { 'style': "align-items: "~form.vars.value.alignementVerticalEnfants|default('stretch')~"; justify-content: "~form.vars.value.alignementHorizontalEnfants|default('flex-start')~";" } }) -}}
+            </div>
+        {% endif %}
+        {# FORMULAIRE #}
+    </div>
+
+    {% if _field_type in ['datetime', 'datetime_immutable', 'date', 'date_immutable', 'time', 'time_immutable', 'birthday'] and easyadmin.field.nullable|default(false) %}
+        <div class="nullable-control checkbox">
+            <label>
+                <input type="checkbox" {% if data is null %}checked="checked"{% endif %}>
+                {{ 'label.nullable_field'|trans({}, 'EasyAdminBundle')}}
+            </label>
+        </div>
+    {% endif %}
+
+    {{- form_errors(form) -}}
+
+    {% if easyadmin.field.help|default('') != '' %}
+        <span class="help-block"><i class="fa fa-info-circle"></i> {{ easyadmin.field.help|trans(domain = easyadmin.entity.translation_domain)|raw }}</span>
+    {% endif %}
+
+    {% if allow_add|default(false) %}
+        <div class="text-right field-collection-action">
+            <a href="#" onclick="if (event.preventDefault) event.preventDefault(); else event.returnValue = false; ajoutItem('{{ id }}', '{{ name }}', 'apres', false)" class="text-primary">
+                <i class="fa fa-plus-square"></i>
+                {{ (form|length == 0 ? 'action.add_new_item' : 'action.add_another_item')|trans({}, 'EasyAdminBundle') }}
+            </a>
+        </div>
+    {% endif %}
+{% endblock %}
+{# FIN BLOC #}
+
+{# BLOC ANNEXE #}
+{% block bloc_annexe_widget %}
+    {% set _field_type = easyadmin.field.fieldType|default('default') %}
+    <div class="bloc-barreActions">
+        <div class="bloc-menu"><i class="fas fa-ellipsis-v"></i><span>{{ "Options du bloc"|trans }}</span></div>
+    </div>
+    <ul>
+        <li>
+            <a href="#" class="supprimerBloc"><i class="fas fa-trash"></i>{{ "Supprimer le bloc"|trans }}</a>
+            <div class="suppressionBloc">
+                <p><strong>{{ "Êtes-vous sûr de vouloir supprimer ce bloc ?"|trans }}</strong></p>
+                <button type="button" class="btn suppressionBloc-annuler">
+                    {{ "Annuler"|trans }}
+                </button>
+                <button type="button" class="btn btn-danger suppressionBlocAnnexe-supprimer">
+                    <i class="fa fa-trash"></i>
+                    {{ "Supprimer"|trans }}
+                </button>
+            </div>
+        </li>
+    </ul>
+
+    <div id="page_active_blocsAnnexes" {% if form.children.type.vars.value is defined %}class="blocAnnexe-{{ form.children.type.vars.value|lower }}"{% endif %}>
+        <div class="form-group type">
+            {{- form_label(form.children.type) -}}
+            {{- form_widget(form.children.type) -}}
+            {% if form.children.contenu is defined %}
+                <div class="bloc-help {% if form_help(form.children.contenu) is empty %}hide{% endif %}">
+                    <i class="fas fa-info-circle"></i>
+                    {{- form_help(form.children.contenu) -}}
+                </div>
+            {% endif %}
+        </div>
+        <div class="form-group contenu">
+            {% if form.children.contenu is defined %}
+                {% if form.children.contenu is empty %}
+                    <p class="pasDeParametre">{{ "Bloc non paramétrable"|trans }}</p>
+                {% endif %}
+                {{- form_label(form.children.contenu) -}}
+                {{- form_widget(form.children.contenu) -}}
+            {% endif %}
+        </div>
+    </div>
+
+    {% if _field_type in ['datetime', 'datetime_immutable', 'date', 'date_immutable', 'time', 'time_immutable', 'birthday'] and easyadmin.field.nullable|default(false) %}
+        <div class="nullable-control checkbox">
+            <label>
+                <input type="checkbox" {% if data is null %}checked="checked"{% endif %}>
+                {{ 'label.nullable_field'|trans({}, 'EasyAdminBundle')}}
+            </label>
+        </div>
+    {% endif %}
+
+    {{- form_errors(form) -}}
+
+    {% if easyadmin.field.help|default('') != '' %}
+        <span class="help-block"><i class="fa fa-info-circle"></i> {{ easyadmin.field.help|trans(domain = easyadmin.entity.translation_domain)|raw }}</span>
+    {% endif %}
+
+    {% if allow_add|default(false) %}
+        <div class="text-right field-collection-action">
+            <a href="#" onclick="if (event.preventDefault) event.preventDefault(); else event.returnValue = false; ajoutItem('{{ id }}', '{{ name }}', 'apres', false)" class="text-primary">
+                <i class="fa fa-plus-square"></i>
+                {{ (form|length == 0 ? 'action.add_new_item' : 'action.add_another_item')|trans({}, 'EasyAdminBundle') }}
+            </a>
+        </div>
+    {% endif %}
+{% endblock %}
+{# FIN BLOC ANNEXE #}
+
+{% block image_widget %}
+    <div>
+        {{- form_label(form.children.image) -}}
+        {{- form_widget(form.children.image) -}}
+    </div>
+    <div>
+        <a class="iframe bloc_image_bouton_mediatheque" href='/filemanager/dialog.php?type=1&field_id={{ form.children.image.vars.id }}' type="button">{{ 'Choisir une image'|trans }}</a>
+        <div class="bloc_image_apercu_mediatheque">
+            <img src="{{ form.children.image.vars.value }}" alt="">
+        </div>
+    </div>
+    <div>
+        {{- form_label(form.children.titre) -}}
+        {{- form_widget(form.children.titre) -}}
+    </div>
+    <div>
+        {{- form_label(form.children.description) -}}
+        {{- form_widget(form.children.description) -}}
+    </div>
+    <div>
+        {{- form_label(form.children.hauteurMax) -}}
+        {{- form_widget(form.children.hauteurMax) -}} px
+    </div>
+    <div>
+        {{- form_label(form.children.largeurMax) -}}
+        {{- form_widget(form.children.largeurMax) -}} px
+    </div>
+    <div>
+        {{- form_label(form.children.alignement) -}}
+        {{- form_widget(form.children.alignement) -}}
+    </div>
+    {% set nv = 1 %}
+    {{ block('lien_page') }}
+    <script>
+        $('.bloc_image_bouton_mediatheque').fancybox({
+            type: 'iframe',
+            minHeight: '600'
+        });
+    </script>
+{% endblock %}
+
+{% block image_defaut_widget %}
+    <div>
+        {{- form_label(form.children.image) -}}
+        {{- form_widget(form.children.image) -}}
+    </div>
+    <div>
+        <a class="iframe bloc_image_bouton_mediatheque" href='/filemanager/dialog.php?type=1&field_id={{ form.children.image.vars.id }}' type="button">{{ 'Choisir une image'|trans }}</a>
+        <div class="bloc_image_apercu_mediatheque">
+            <img src="{{ form.children.image.vars.value }}" alt="">
+        </div>
+    </div>
+    <div>
+        {{- form_label(form.children.titre) -}}
+        {{- form_widget(form.children.titre) -}}
+    </div>
+    <div>
+        {{- form_label(form.children.description) -}}
+        {{- form_widget(form.children.description) -}}
+    </div>
+    <script>
+        $('.bloc_image_bouton_mediatheque').fancybox({
+            type: 'iframe',
+            minHeight: '600'
+        });
+    </script>
+{% endblock %}
+
+{% block image_simple_widget %}
+    <div>
+        {{- form_widget(form) -}}
+    </div>
+    <div>
+        <a class="iframe bloc_image_bouton_mediatheque" href='/filemanager/dialog.php?type=1&field_id={{ form.vars.id }}' type="button">{{ 'Choisir une image'|trans }}</a>
+        <div class="bloc_image_apercu_mediatheque">
+            <img src="{{ form.vars.value }}" alt="">
+        </div>
+    </div>
+    <script>
+        $('.bloc_image_bouton_mediatheque').fancybox({
+            type: 'iframe',
+            minHeight: '600'
+        });
+    </script>
+{% endblock %}
+
+{% block video_widget %}
+    <div>
+        {{- form_label(form.children.video) -}}
+        {{- form_widget(form.children.video) -}}
+    </div>
+    <div>
+        <a class="iframe bloc_image_bouton_mediatheque" href='/filemanager/dialog.php?type=3&field_id={{ form.children.video.vars.id }}' type="button">{{ 'Choisir une vidéo dans la médiathèque'|trans }}</a>
+        <div class="bloc_video_apercu_mediatheque">
+            {% set urlVideo = form.children.video.vars.value %}
+            {% if 'youtube' in urlVideo or 'youtu.be' in urlVideo %}
+                {% if '?v=' in urlVideo %}
+                    {% set urlVideo = urlVideo|split('?v=')|last %}
+                {% else %}
+                    {% set urlVideo = urlVideo|split('/')|last %}
+                {% endif %}
+                {% set urlVideo = "https://www.youtube.com/embed/"~urlVideo~"?rel=0" %}
+            {% endif %}
+            <iframe src="{{ urlVideo }}" frameborder="0" {% if urlVideo is empty %}class="hidden"{% endif %}></iframe>
+        </div>
+    </div>
+    <script>
+        $('.bloc_image_bouton_mediatheque').fancybox({
+            type: 'iframe',
+            minHeight: '600'
+        });
+    </script>
+{% endblock %}
+
+{% block slide_widget %}
+    <div class="dragSlide">
+        <i class="fas fa-arrows-alt"></i>
+    </div>
+    {% set nv = 2 %}
+    {{ block('lien_page') }}
+    {{- form_widget(form) -}}
+{% endblock %}
+
+{% block case_widget %}
+    <div class="dragCase">
+        <i class="fas fa-arrows-alt"></i>
+    </div>
+    {#{{- form_widget(form) -}}#}
+    <div class="case-choix">
+        {{- form_label(form.children.type) -}}
+        {{- form_widget(form.children.type) -}}
+    </div>
+    <div class="hidden case-page mts">
+        {{- form_label(form.children.page) -}}
+        {{- form_widget(form.children.page) -}}
+    </div>
+    <div class="hidden case-autre mts">
+        <div>
+            {{- form_label(form.children.titre) -}}
+            {{- form_widget(form.children.titre) -}}
+        </div>
+        <div>
+            {{- form_label(form.children.texte) -}}
+            {{- form_widget(form.children.texte) -}}
+        </div>
+        <div class="tresFonce">
+            {{- form_label(form.children.lien) -}}
+            {{- form_widget(form.children.lien) -}}
+        </div>
+        <div class="tresFonce">
+            {{- form_label(form.children.image) -}}
+            {{- form_widget(form.children.image) -}}
+        </div>
+    </div>
+    {{- form_widget(form) -}}
+{% endblock %}
+
+{% block galerie_image_widget %}
+    <div class="dragGalerie">
+        <i class="fas fa-arrows-alt"></i>
+    </div>
+    {% set nv = 2 %}
+    {{ block('lien_page') }}
+    {{- form_widget(form) -}}
+{% endblock %}
+
+{% block champ_widget %}
+    <div class="dragChamp">
+        <i class="fas fa-arrows-alt"></i>
+    </div>
+    {{- form_widget(form) -}}
+{% endblock %}
+
+{% block _page_active_auteur_widget %}
+    <p>
+        {% if data is not empty %}
+            {{ data.username }}
+        {% else %}
+            <i>{{ "Compte supprimé"|trans }}</i>
+        {% endif %}
+    </p>
+{% endblock %}
+
+{% block _page_active_auteurDerniereModification_widget %}
+    <p>
+        {% if data is not empty %}
+            {{ data.username }}
+        {% else %}
+            <i>{{ "Compte supprimé"|trans }}</i>
+        {% endif %}
+    </p>
+{% endblock %}
+
+{% block bouton_widget -%}
+    {% set nv = 1 %}
+    {{ block('lien_page') }}
+    <div>
+        {{- form_label(form.children.texte) -}}
+        {{- form_widget(form.children.texte) -}}
+    </div>
+    <div>
+        {{- form_label(form.children.titre) -}}
+        {{- form_widget(form.children.titre) -}}
+    </div>
+{%- endblock %}
+
+{% block lien_page %}
+    <div class="lien-page {% if nv == 2 %}tresFonce{% else %}fonce{% endif %}">
+        <label>{{ "Lien"|trans }}</label>
+        <div>
+            {{- form_label(form.children.typeLien) -}}
+            {{- form_widget(form.children.typeLien) -}}
+        </div>
+        <div class="hidden lien-page--choix page mts">
+            {{- form_label(form.children.page) -}}
+            {{- form_widget(form.children.page) -}}
+        </div>
+        <div class="hidden lien-page--choix autre mts">
+            <div>
+                {{- form_label(form.children.lien) -}}
+                {{- form_widget(form.children.lien) -}}
+            </div>
+            <div class="mbm">
+                <a class="iframe ouvrirMediatheque" href='/filemanager/dialog.php?type=2&field_id={{ form.children.lien.vars.id }}' type="button">{{ 'Choisir un fichier dans la médiathèque'|trans }}</a>
+            </div>
+        </div>
+        <div class="hidden lien-page--blank mts">
+            {{- form_label(form.children.blank) -}}
+            {{- form_widget(form.children.blank) -}}
+        </div>
+        <script>
+            $('.ouvrirMediatheque').fancybox({
+                type: 'iframe',
+                minHeight: '600'
+            });
+        </script>
+    </div>
+{% endblock %}
+
+{# Images des blocs galerie #}
+{% block _page_active_blocs_entry_contenu_images_row %}
+    {{ block('collection_row_double') }}
+{% endblock %}
+
+{% block _Galerie_contenu_images_row %}{# ajax #}
+    {{ block('collection_row_double') }}
+{% endblock %}
+{# Images des blocs galerie #}
+
+{# Slides des blocs slider #}
+{% block _page_active_blocs_entry_contenu_Slide_row %}
+    {{ block('collection_row_double') }}
+{% endblock %}
+
+{% block _Slider_contenu_Slide_row %}{# ajax #}
+    {{ block('collection_row_double') }}
+{% endblock %}
+{# Slides des blocs slider #}
+
+{# Champs des blocs formulaire #}
+{% block _page_active_blocs_entry_contenu_champs_row %}
+    {{ block('collection_row_double') }}
+{% endblock %}
+
+{% block _Formulaire_contenu_champs_row %}{# ajax #}
+    {{ block('collection_row_double') }}
+{% endblock %}
+{# Champs des blocs formulaire #}
+
+{# Cases des blocs grille #}
+{% block _page_active_blocs_entry_contenu_cases_row %}
+    {{ block('collection_row_double') }}
+{% endblock %}
+
+{% block _Grille_contenu_cases_row %}{# ajax #}
+    {{ block('collection_row_double') }}
+{% endblock %}
+{# Cases des blocs grille #}
+
+{# Bloc Partage #}
+{% block bloc_partage_widget %}
+    <div class="bloc-blocPartage-edition">
+
+{# Sections des blocs accordéon #}
+{% block _page_active_blocs_entry_contenu_sections_row %}
+    {{ block('collection_row_double') }}
+{% endblock %}
+
+{% block _Accordeon_contenu_sections_row %}{# ajax #}
+    {{ block('collection_row_double') }}
+{% endblock %}
+
+{% block _page_active_blocs_entry_contenu_sections_entry_widget %}
+    <div class="dragSection">
+        <i class="fas fa-arrows-alt"></i>
+    </div>
+    {{- form_widget(form) -}}
+{% endblock %}
+
+{% block _Accordeon_contenu_sections_entry_widget %}{# ajax #}
+    <div class="dragSection">
+        <i class="fas fa-arrows-alt"></i>
+    </div>
+    {{- form_widget(form) -}}
+{% endblock %}
+
+{% block _page_active_blocs_entry_blocsEnfants_entry_contenu_sections_entry_widget %}{# blocs enfants #}
+    <div class="dragSection">
+        <i class="fas fa-arrows-alt"></i>
+    </div>
+    {{- form_widget(form) -}}
+{% endblock %}
+{# Sections des blocs accordéon #}
+
+{# Champ du bloc groupe de blocs #}
+{% block groupeBlocs %}
+    <div class="flex-container bloc-groupeblocs-edition">
+        {{- form_widget(form) -}}
+        <div class="bloc-blocPartage-origine mls mbs">
+            {% set blocPartage = getBlocPartage(form.vars.value.blocPartage) %}
+            <a href="{{ path('easyadmin', { action: 'edit', entity: 'BlocPartage', id: blocPartage.id }) }}">{{ "Éditer ce bloc dans la bibliothèque de blocs partagés"|trans }}</a>
+        </div>
+        <div>
+            <button type="button" class="bloc-blocPartager-dissocier">{{ "Dissocier le bloc"|trans }}</button>
+        </div>
+    </div>
+{% endblock %}
+{# Bloc Partage #}
+
+{# Bloc réseaux sociaux #}
+{% block reseaux_sociaux_widget %}
+    {% set partage = (form.children.typeRS.vars.data is empty or form.children.typeRS.vars.data == 'partage') %}
+    {{ form_widget(form.children.typeRS) }}
+    {# FB #}
+    <div class="rs-input-partage{% if form.children.typeRS.vars.data is empty %} hidden{% endif %}">
+        {{ form_row(form.children.facebook) }}
+    </div>
+    <div class="rs-input-liens{% if partage %} hidden{% endif %}">
+        {{ form_row(form.children.facebookUrl) }}
+    </div>
+    {# Twitter #}
+    <div class="rs-input-partage{% if form.children.typeRS.vars.data is empty %} hidden{% endif %}">
+        {{ form_row(form.children.twitter) }}
+    </div>
+    <div class="rs-input-liens{% if partage %} hidden{% endif %}">
+        {{ form_row(form.children.twitterUrl) }}
+    </div>
+    {# LinkedIn #}
+    <div class="rs-input-partage{% if form.children.typeRS.vars.data is empty %} hidden{% endif %}">
+        {{ form_row(form.children.linkedIn) }}
+    </div>
+    <div class="rs-input-liens{% if partage %} hidden{% endif %}">
+        {{ form_row(form.children.linkedInUrl) }}
+    </div>
+    {# Youtube #}
+    <div class="rs-input-liens{% if partage %} hidden{% endif %}">
+        {{ form_row(form.children.youtube) }}
+    </div>
+    <div class="rs-input-liens{% if partage %} hidden{% endif %}">
+        {{ form_row(form.children.youtubeUrl) }}
+    </div>
+    {# Instagram #}
+    <div class="rs-input-liens{% if partage %} hidden{% endif %}">
+        {{ form_row(form.children.instagram) }}
+    </div>
+    <div class="rs-input-liens{% if partage %} hidden{% endif %}">
+        {{ form_row(form.children.instagramUrl) }}
+    </div>
+    {# Email #}
+    <div class="rs-input-liens{% if partage %} hidden{% endif %}">
+        {{ form_row(form.children.email) }}
+    </div>
+    <div class="rs-input-liens{% if partage %} hidden{% endif %}">
+        {{ form_row(form.children.emailUrl) }}
+    </div>
+{% endblock %}
+
+{# Bloc LEI #}
+{% block lei_widget %}
+    {% if form.vars.value.utiliserFluxSpecifique.0 is defined and form.vars.value.utiliserFluxSpecifique.0 and form.vars.value.flux is not empty %}{# FLUX SPECIFIQUE #}
+        {% set urlFlux = form.vars.value.flux %}
+    {% else %}
+        {% set urlFlux = form.children.fluxGenerique.vars.data|default('') %}{# FLUX GENERIQUE #}
+    {% endif %}
+    {# CLAUSE #}
+    {% if form.vars.value.clause is defined and form.vars.value.clause is not empty %}
+        {% set urlFlux = urlFlux~'&clause='~form.vars.value.clause %}
+    {% endif %}
+    {# AUTRES PARAMETRES #}
+    {% if form.vars.value.autresParametres is defined and form.vars.value.autresParametres is not empty %}
+        {% set urlFlux = urlFlux~form.vars.value.autresParametres %}
+    {% endif %}
+
+    {{ form_row(form.children.fluxGenerique) }}
+    {{ form_row(form.children.utiliserFluxSpecifique) }}
+    <div {% if form.vars.value.utiliserFluxSpecifique is defined and not form.vars.value.utiliserFluxSpecifique %}class="hidden"{% endif %}>
+       {{ form_row(form.children.flux) }}
+    </div>
+    {{ form_row(form.children.clause) }}
+    {{ form_row(form.children.autresParametres) }}
+    {{ form_row(form.children.clef_moda) }}
+
+    <div class="bloc-lei--recherche">
+        {{ form_row(form.children.recherche) }}
+        <div {% if form.vars.value.recherche is not defined or form.vars.value.recherche != 'criteres' %}class="hidden"{% endif %}>
+            {{ form_row(form.children.criteres) }}
+        </div>
+    </div>
+
+    {{ block('form_widget') }}
+
+    <div class="mts">
+        <a class="voirFlux btn" href="{{ urlFlux }}" target="_blank">{{ "Voir le flux"|trans }}</a>
+        <a class="btn" href="{{ path('modifierPictosLEI') }}" target="_blank">{{ "Modifier les pictogrammes LEI"|trans }}</a>
+        <a class="btn" href="{{ path('modifierCriteresLEI') }}" target="_blank">{{ "Modifier les critères LEI"|trans }}</a>
+        <button class="viderCacheLEI btn">{{ "Vider le cache LEI"|trans }}</button>
+    </div>
+{% endblock %}
+
+    {# Modification des pictos : picto #}
+{% block _form_pictos_entry_picto_widget %}
+    {{ block('image_simple_widget') }}
+{% endblock %}
+{# Bloc LEI #}

@@ -1,0 +1,22 @@
+{% set texte = "" %}
+
+{% if creneau.debut|trim is not empty and creneau.fin|trim is not empty and creneau.debut|trim == creneau.fin|trim %}
+    {% set texte = "à"|trans~" "~creneau.debut %}
+{% else %}
+    {% if creneau.debut is defined and creneau.debut|trim is not empty %}
+        {% if creneau.fin is defined and creneau.fin|trim is not empty %}
+            {% set texte = texte~" "~"de"|trans~" "~creneau.debut %}
+        {% else %}
+            {% set texte = texte~" "~"à"|trans~" "~creneau.debut %}
+        {% endif %}
+    {% endif %}
+    {% if creneau.fin is defined and creneau.fin|trim is not empty %}
+        {% if creneau.debut is defined and creneau.debut|trim is not empty %}
+            {% set texte = texte~" "~"à"|trans~" "~creneau.fin %}
+        {% else %}
+            {% set texte = texte~" "~"jusqu'à"|trans~" "~creneau.fin %}
+        {% endif %}
+    {% endif %}
+{% endif %}
+
+{{ texte }}

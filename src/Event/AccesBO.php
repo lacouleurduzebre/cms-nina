@@ -10,7 +10,9 @@ namespace App\Event;
 
 
 use App\Controller\AccueilController;
+use App\Entity\Configuration;
 use App\Service\Droits;
+use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpKernel\Event\ControllerEvent;
@@ -22,13 +24,26 @@ class AccesBO implements EventSubscriberInterface
 {
     private $droits;
 
-    public function __construct(Droits $droits)
+    public function __construct(Droits $droits, ManagerRegistry $doctrine)
     {
         $this->droits = $droits;
+        $this->doctrine = $doctrine;
     }
 
     public function verificationAccesBO(ControllerEvent $event)
     {
+        $repoConfig = $this->doctrine->getRepository(Configuration::class);
+        try {
+            $repoConfig->find(1);
+        } catch (\Exception $e) {
+            return;
+        }
+
+        $config = $repoConfig->find(1);
+        if(!$config || !$config->getInstalle()){
+            return;
+        }
+
         $request = $event->getRequest();
 
         if(substr($request->getRequestUri(), 0, 7) == '/admin/'){//Back-office

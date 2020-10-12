@@ -18,4 +18,12 @@ class UtilisateurRepository extends \Doctrine\ORM\EntityRepository
 
         return $qb->getQuery()->getResult();
     }
+
+    public function triDateDerniereConnexion(){
+        $qb = $this
+            ->createQueryBuilder('u')
+            ->orderBy('u.lastLogin', 'DESC');
+
+        return $qb->getQuery()->getResult();
+    }
 }

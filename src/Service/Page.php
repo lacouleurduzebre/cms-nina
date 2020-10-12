@@ -11,7 +11,7 @@ namespace App\Service;
 
 use App\Entity\Langue;
 use App\Entity\SEOPage;
-use Symfony\Bridge\Doctrine\RegistryInterface;
+use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -19,11 +19,12 @@ use Symfony\Component\Routing\RouterInterface;
 
 class Page
 {
-    public function __construct(RegistryInterface $doctrine, RequestStack $request, RouterInterface $router)
+    public function __construct(ManagerRegistry $doctrine, RequestStack $request, RouterInterface $router, Droits $sDroits)
     {
         $this->doctrine = $doctrine;
         $this->request = $request;
         $this->router = $router;
+        $this->sDroits = $sDroits;
     }
 
     public function getPageActive()
@@ -74,11 +75,8 @@ class Page
                     }
                 }
 
-                $timestamp = new \DateTime();
-                $date = $timestamp->format('Y-m-d H:i:s');
-
-                if(!$page->getDatePublication() < $date && $page->getDateDepublication() > $date && $page->getCorbeille()=="0" && $page->getActive()=="1") {
-                    throw new NotFoundHttpException('Cette page n\'est plus accessible');
+                if(!Page::isPublie($page) && !$this->sDroits->checkDroit('voirPagesNonPubliees')) {
+                    throw new NotFoundHttpException('Cette page n\'existe pas ou a été supprimée');
                 }
             }else{
                 if(!in_array($route, $routes)){
@@ -115,5 +113,27 @@ class Page
         }
 
         return null;
+    }
+
+    public static function isPublie($page){
+        $timestamp = new \DateTime();
+        $timestamp = $timestamp->getTimestamp();
+
+        //Debug
+        /*if($page->getDatePublication()->getTimestamp() > $timestamp) {
+            throw new NotFoundHttpException('Cette page n\'est pas encore publiée');
+        }if($page->getDateDepublication() && $page->getDateDepublication()->getTimestamp() < $timestamp) {
+            throw new NotFoundHttpException('Cette page est dépubliée');
+        }if($page->getCorbeille()) {
+            throw new NotFoundHttpException('Cette page est à la corbeille');
+        }if(!$page->getActive()) {
+            throw new NotFoundHttpException('Cette page n\'est pas active');
+        }*/
+
+        if(!isset($page) || $page->getDatePublication()->getTimestamp() > $timestamp || ($page->getDateDepublication() && $page->getDateDepublication()->getTimestamp() < $timestamp) || $page->getCorbeille() || !$page->getActive()) {
+            return false;
+        }
+
+        return true;
     }
 }

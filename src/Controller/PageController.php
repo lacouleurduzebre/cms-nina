@@ -3,11 +3,11 @@
 namespace App\Controller;
 
 use App\Entity\Commentaire;
-use App\Entity\MenuPage;
 use App\Service\Page;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -43,32 +43,23 @@ class PageController extends AbstractController
             throw new NotFoundHttpException('Cette page n\'existe pas ou a été supprimée');
         }
 
-        $commentaires = $page->getCommentaires();
-
-        $commentaire = new Commentaire();
-
-        $utilisateur = $this->getUser();
-        if ($utilisateur){
-            $commentaire->setAuteur($utilisateur->getUsername());
-            $commentaire->setEmail($utilisateur->getEmail());
-        }else{
-            $commentaire->setAuteur('Anonyme');
-        }
-
-        /* Menus */
-        $repoMenuPages = $this->getDoctrine()->getRepository(MenuPage::class);
-        $menusPages = $repoMenuPages->findBy(array('page' => $page));
-        $menus = [];
-        foreach($menusPages as $menuPage){
-            $menu = $menuPage->getMenu();
-            if($menu){
-                $menus[] = $menu->getId();
-            }
-        }
-        $menus = array_unique($menus);
-        /* Fin menus */
-
         /* Commentaires */
+        $commentaires = false;
+        $form = false;
+
+        if($page->getAffichageCommentaires()) {
+            $commentaires = $page->getCommentaires();
+
+            $commentaire = new Commentaire();
+
+            $utilisateur = $this->getUser();
+            if($utilisateur){
+                $commentaire->setAuteur($utilisateur->getUsername());
+                $commentaire->setEmail($utilisateur->getEmail());
+            }else{
+                $commentaire->setAuteur('Anonyme');
+            }
+
             $commentaire->setPage($page);
 
             $formBuilder = $this->get('form.factory')->createBuilder(FormType::class, $commentaire);
@@ -77,25 +68,56 @@ class PageController extends AbstractController
                 ->add('auteur', TextType::class, array('label' => 'Votre nom :'))
                 ->add('email', EmailType::class, array('label' => 'Votre adresse e-mail :'))
                 ->add('site', TextType::class, array('label' => 'Votre site web :', 'required' => false))
-                ->add('contenu', TextareaType::class, array('label'=>'Votre commentaire :'))
-                ->add('envoi', SubmitType::class, array('attr'=>array('class'=>'envoiCom')));
+                ->add('contenu', TextareaType::class, array('label' => 'Votre commentaire :'))
+                //Antispam
+                ->add('miel_valeur', HiddenType::class, [
+                    'mapped' => false,
+                    'attr' => [
+                        'class' => 'miel_valeur',
+                        'value' => mt_rand()
+                    ]
+                ])
+                ->add('miel_rempli', HiddenType::class, [
+                    'mapped' => false,
+                    'attr' => [
+                        'class' => 'miel_rempli',
+                    ]
+                ])
+                ->add('miel_vide', HiddenType::class, [
+                    'mapped' => false,
+                    'attr' => [
+                        'class' => 'miel_vide',
+                    ]
+                ])
+                //Antispam
+                ->add('envoi', SubmitType::class, array('attr' => array('class' => 'envoiCom')));
 
-            $form=$formBuilder->getForm();
+            $form = $formBuilder->getForm();
 
             if($request->isMethod('POST')){
                 $form->handleRequest($request);
                 if($form->isSubmitted() && $form->isValid()) {
-                    $em = $this->getDoctrine()->getManager();
-                    $em->persist($commentaire);
-                    $em->flush();
+                    //Antispam
+                    $mielValeur = $form->get('miel_valeur')->getData();
+                    $mielRempli = $form->get('miel_rempli')->getData();
+                    $mielVide = $form->get('miel_vide')->getData();
 
-                    $request->getSession()->getFlashBag()->add('comOK', 'Votre commentaire a été enregistré et sera mis en ligne une fois validé');
+                    if($mielValeur === $mielRempli && $mielVide == '') {
+                        $em = $this->getDoctrine()->getManager();
+                        $em->persist($commentaire);
+                        $em->flush();
 
-                    return $this->redirectToRoute('voirPage', array('url' => $url));
+                        $this->addFlash('comOK', 'Votre commentaire a été enregistré et sera mis en ligne une fois validé');
+                    }else{
+                        $this->addFlash('comOK', 'Le formulaire a été soumis trop rapidement. Attendez 3 secondes avant de soumettre à nouveau le formulaire.');
+                    }
                 }
             }
+
+            $form = $form->createView();
+        }
         /* Fin commentaires */
 
-        return $this->render('front/page.html.twig', array('page'=>$page, 'form'=>$form->createView(), 'commentaires'=>$commentaires, 'menusDeLaPage'=>$menus));
+        return $this->render('front/page.html.twig', array('page'=>$page, 'form'=>$form, 'commentaires'=>$commentaires));
     }
 }

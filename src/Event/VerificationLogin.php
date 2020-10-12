@@ -9,28 +9,33 @@
 namespace App\Event;
 
 
+use App\Entity\Configuration;
 use App\Entity\Utilisateur;
-use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
-use Symfony\Component\HttpFoundation\Session\Flash\FlashBag;
 use Symfony\Component\HttpFoundation\Session\Flash\FlashBagInterface;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Security\Core\AuthenticationEvents;
 use Symfony\Component\Security\Core\Event\AuthenticationFailureEvent;
 use Symfony\Component\Security\Http\Event\InteractiveLoginEvent;
 use Symfony\Component\Security\Http\SecurityEvents;
+use Symfony\Component\Templating\EngineInterface;
 
 class VerificationLogin implements EventSubscriberInterface
 {
     private $em;
+    private $request;
+    private $flash;
+    private $mailer;
+    private $twig;
 
-    public function __construct(EntityManagerInterface $em, RequestStack $request, FlashBagInterface $flash)
+    public function __construct(EntityManagerInterface $em, RequestStack $request, FlashBagInterface $flash, \Swift_Mailer $mailer, EngineInterface $twig)
     {
         $this->em = $em;
-        $this->request = $request;
+        $this->request = $request->getCurrentRequest();
         $this->flash = $flash;
+        $this->mailer = $mailer;
+        $this->twig = $twig;
     }
 
     public static function getSubscribedEvents()
@@ -70,6 +75,19 @@ class VerificationLogin implements EventSubscriberInterface
                 $this->flash->add('error', 'Identifiants invalides. Essais restants : '. $tentativesRestantes);
             }elseif($tentativesRestantes == 0){
                 $this->flash->add('error', 'Identifiants invalides. Votre compte a été suspendu pour 10min');
+
+                //Mail d'avertissement
+                $config = $this->em->getRepository(Configuration::class)->find(1);
+                $expediteur = $config->getEmailMaintenance();
+                $ip = $this->request->getClientIp();
+                $mailUtilisateur = $user->getEmail();
+
+                $mail = new \Swift_Message('Blocage du compte '.$mailUtilisateur.' sur le site '.$config->getNom());
+                $mail->setFrom($expediteur)
+                    ->setTo([$expediteur, $mailUtilisateur])
+                    ->setBody($this->twig->render('back/mails/blocageCompte.html.twig', array('mail' => $mailUtilisateur, 'ip' => $ip)), 'text/html');
+
+                $this->mailer->send($mail);
             }
 
             $this->em->persist($user);

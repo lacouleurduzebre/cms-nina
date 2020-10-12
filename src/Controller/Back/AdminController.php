@@ -14,6 +14,7 @@ use App\Entity\Commentaire;
 use App\Entity\Langue;
 use App\Entity\MenuPage;
 use App\Entity\Page;
+use App\Entity\SEOPage;
 use App\Entity\TypeCategorie;
 use App\Entity\Utilisateur;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\EasyAdminController as BaseAdminController;
@@ -238,7 +239,7 @@ class AdminController extends BaseAdminController
         if($blocsUser){
             /* Dernières pages publiées */
             if(in_array('dernieresPages', $blocsUser)){
-                $dernieresPages = $em->getRepository(Page::class)->pagesPubliees($langue, 5);
+                $dernieresPages = $repositoryPage->pagesPubliees($langue, 5);
                 $blocs['dernieresPages'] = $dernieresPages;
             }
 
@@ -267,23 +268,49 @@ class AdminController extends BaseAdminController
                 }
             }
 
-            /* Liste des catégories */
-            if(in_array('listeCategories', $blocsUser)){
-                $repositoryTypeCategorie = $em->getRepository(TypeCategorie::class);
-                $typeCategories = $repositoryTypeCategorie->findAll();
-                $blocs['listeCategories'] = $typeCategories;
-            }
-
-            /* Liste des derniers inscrits */
+            /* Liste des utilisateurs */
             if(in_array('derniersInscrits', $blocsUser)){
                 $repositoryUtilisateur = $em->getRepository(Utilisateur::class);
-                $utilisateurs = $repositoryUtilisateur->findBy(array(), array('id' => 'ASC'), 5);
+                $utilisateurs = $repositoryUtilisateur->triDateDerniereConnexion();
                 $blocs['derniersInscrits'] = $utilisateurs;
             }
 
             /* Nouvelles de version */
             if(in_array('logVersion', $blocsUser)){
                 $blocs['logVersion'] = 'ok';
+            }
+
+            /* Aperçu du référencement */
+            if(in_array('referencement', $blocsUser)){
+                $pagesHorsCorbeille = $repositoryPage->findBy(['corbeille' => false]);
+
+                $total = count($pagesHorsCorbeille);
+                $scoreMetaTitre = 0;
+                $scoreUrl = 0;
+                $scoreMetaDescription = 0;
+
+                foreach($pagesHorsCorbeille as $page){
+                    $seo = $page->getSEO();
+
+                    if(strlen($seo->getMetaTitre()) > ((65/3)*2)){
+                        $scoreMetaTitre++;
+                    }
+                    if(strlen($seo->getUrl()) > ((75/3)*2)){
+                        $scoreUrl++;
+                    }
+                    if(strlen($seo->getMetaDescription()) > ((150/3)*2)){
+                        $scoreMetaDescription++;
+                    }
+                }
+
+                $scoreTotal = ($scoreMetaTitre + $scoreUrl + $scoreMetaDescription)/3;
+
+                $blocs['referencement'] = ['total' => $total, 'scoreTotal' => $scoreTotal, 'scoreMetaTitre' => $scoreMetaTitre, 'scoreUrl' => $scoreUrl, 'scoreMetaDescription' => $scoreMetaDescription];
+
+                /* Pages sans contenus */
+                if(in_array('pagesSansContenu', $blocsUser)){
+                    $blocs['pagesSansContenu'] = $repositoryPage->pagesSansContenu();
+                }
             }
         }
 
@@ -353,18 +380,38 @@ class AdminController extends BaseAdminController
         $pageOriginale = $this->em->getRepository(Page::class)->find($idPageOriginale);
 
         $nouvellePage = clone $pageOriginale;
+
+        //SEO
         $ancienSEO = $pageOriginale->getSEO();
         $nouveauSEO = clone $ancienSEO;
         $nouvellePage->setSEO($nouveauSEO);
+            //Vérif url
+        $repoSEO = $this->em->getRepository(SEOPage::class);
+        $url = $nouvellePage->getSEO()->getUrl().'-copie';
+        while($repoSEO->findOneBy(array('url' => $url))){
+            $url = $url.'-copie';
+        }
+        $nouvellePage->getSEO()->setUrl($url);
+        $this->em->persist($nouveauSEO);
 
-        $nouvellePage->getSEO()->setUrl($nouvellePage->getSEO()->getUrl().'-copie');
-
+        //Menu page
         $menuPage = new menuPage();
         $menuPage->setPage($nouvellePage)->setPosition(0);
+        $this->em->persist($menuPage);
+
+        //Blocs
+        $blocs = $pageOriginale->getBlocs();
+        foreach($blocs as $ancienBloc){
+            $nouveauBloc = clone $ancienBloc;
+            $nouvellePage->addBloc($nouveauBloc);
+            $this->em->persist($nouveauBloc);
+
+            if($nouveauBloc->getType() == 'Section'){
+                $this->duplicationBlocsEnfants($nouveauBloc);
+            }
+        }
 
         $this->em->persist($nouvellePage);
-        $this->em->persist($nouveauSEO);
-        $this->em->persist($menuPage);
         $this->em->flush();
 
         return $this->redirectToRoute('easyadmin', array(
@@ -372,6 +419,19 @@ class AdminController extends BaseAdminController
             'entity' => 'Page_Active',
             'id' => $nouvellePage->getId()
         ));
+    }
+
+    private function duplicationBlocsEnfants($bloc){
+        $blocsEnfants = $bloc->getBlocsEnfants();
+        foreach($blocsEnfants as $blocEnfant){
+            $nouveauBlocEnfant = clone $blocEnfant;
+            $nouveauBlocEnfant->setBlocParent($bloc);
+            $this->em->persist($nouveauBlocEnfant);
+
+            if($nouveauBlocEnfant->getType() == 'Section'){
+                $this->duplicationBlocsEnfants($nouveauBlocEnfant);
+            }
+        }
     }
 
     public function corbeilleAction(){
@@ -408,6 +468,12 @@ class AdminController extends BaseAdminController
                     $menuPagesOrphelines = $repoMenuPage->findBy(array('parent' => $menuPage));
                     foreach($menuPagesOrphelines as $menuPage){
                         $menuPage->setParent(null);
+                    }
+
+                    //Si la page était la page d'accueil, la langue de la page n'a plus de page d'accueil
+                    $langue = $menuPage->getPage()->getLangue();
+                    if($langue->getPageAccueil() == $menuPage->getPage()){
+                        $langue->setPageAccueil(null);
                     }
                 }
 

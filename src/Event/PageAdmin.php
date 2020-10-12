@@ -13,7 +13,7 @@ use App\Entity\MenuPage;
 use App\Entity\Bloc;
 use App\Entity\Page;
 use App\Service\Configuration;
-use Symfony\Bridge\Doctrine\RegistryInterface;
+use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\EventDispatcher\GenericEvent;
 use Symfony\Component\HttpFoundation\Request;
@@ -22,7 +22,7 @@ use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInt
 
 class PageAdmin implements EventSubscriberInterface
 {
-    public function __construct(RegistryInterface $doctrine, TokenStorageInterface $tokenStorage)
+    public function __construct(ManagerRegistry $doctrine, TokenStorageInterface $tokenStorage)
     {
         $this->doctrine = $doctrine;
         $this->tokenStorage = $tokenStorage;

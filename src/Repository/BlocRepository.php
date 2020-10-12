@@ -3,8 +3,9 @@
 namespace App\Repository;
 
 use App\Entity\Bloc;
+use App\Service\Page;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Symfony\Bridge\Doctrine\RegistryInterface;
+use Doctrine\Persistence\ManagerRegistry;
 
 /**
  * @method Bloc|null find($id, $lockMode = null, $lockVersion = null)
@@ -14,26 +15,44 @@ use Symfony\Bridge\Doctrine\RegistryInterface;
  */
 class BlocRepository extends ServiceEntityRepository
 {
-    public function __construct(RegistryInterface $registry)
+    public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Bloc::class);
     }
 
     public function recherche($motsCles){
+        $typesBlocs = ['titre', 'texte', 'paragraphe'];
         $resultats = [];
+        $blocs = [];
 
-        foreach($motsCles as $motCle){
-            $qb = $this
-                ->createQueryBuilder('b')
-                ->where('b.type = :type')
-                ->andWhere('b.contenu LIKE :motCle')
-                ->setParameters(array('motCle' => '%'.$motCle.'%', 'type' => 'texte'));
+        foreach($typesBlocs as $typeBloc){
+            foreach($motsCles as $motCle){
+                if(strlen($motCle) > 2){
+                    $qb = $this
+                        ->createQueryBuilder('b')
+                        ->where('b.type = :type')
+                        ->andWhere('b.contenu LIKE :motCle')
+                        ->setParameters(array('motCle' => '%'.$motCle.'%', 'type' => $typeBloc));
 
-            $blocs = $qb->getQuery()->getResult();
-            foreach($blocs as $bloc){
-                if($bloc->getPage()){
-                    $resultats['page'.$bloc->getPage()->getId()] = $bloc->getPage();
-                };
+                    $blocsTrouves = $qb->getQuery()->getResult();
+                    $blocs = array_merge($blocs, $blocsTrouves);
+                }
+            }
+        }
+
+        foreach($blocs as $bloc){
+            if(!$bloc->getGroupeBlocs()){
+                while($bloc->getBlocParent()){
+                    $bloc = $bloc->getBlocParent();
+                }
+
+                $page = $bloc->getPage();
+
+                if(!Page::isPublie($page)) {
+                    continue;
+                }
+
+                $resultats['page'.$page->getId()] = $page;
             }
         }
 
@@ -59,15 +78,13 @@ class BlocRepository extends ServiceEntityRepository
         return $qb->getQuery()->getResult();
     }
 
-    public function premierBloc($page, $typeBloc){
+    public function blocsAvecLiensMediatheque(){
         $qb = $this
             ->createQueryBuilder('b')
             ->join('b.page', 'p')
-            ->andWhere('p = :page')
-            ->andWhere('b.type = :type')
-            ->setParameters(array('page' => $page, 'type' => $typeBloc))
-            ->orderBy('b.position', 'ASC')
-            ->setMaxResults(1);
+            ->where('p.corbeille = 0')
+            ->andWhere('b.contenu LIKE :motCle')
+            ->setParameters(array('motCle' => '%/uploads/%'));
 
         return $qb->getQuery()->getResult();
     }

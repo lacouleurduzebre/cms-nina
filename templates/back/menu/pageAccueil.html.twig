@@ -11,7 +11,7 @@
             </li>
         </ul>
     {% else %}
-        <a class="pageAccueil-page" href="#">
+        <a class="pageAccueil-page {% if not isPublie(pageAccueil) %}nonPubliee{% endif %}" href="#">
             <i class="fas fa-home"></i>
             <span class="pageAccueil-titre">
                 {{ pageAccueil.titreMenu }}

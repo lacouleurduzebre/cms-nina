@@ -14,30 +14,18 @@
             <meta property="og:description" content="{% if langueActive.metaTitre is not empty %}{{ langueActive.metaTitre }}{% else %}{{ config.nom }}{% endif %}">
         {% endblock %}
         {% block stylesheets %}
-            <link rel="stylesheet" href="{{ asset('assets/js/slickslider/slick.css') }}" type="text/css">
-            <link rel="stylesheet" href="{{ asset('assets/js/slickslider/slick-theme.css') }}" type="text/css">
+            <link rel="stylesheet" href="{{ asset('assets/js/slickslider/slick.min.css') }}" type="text/css">
+            <link rel="stylesheet" href="{{ asset('assets/js/slickslider/slick-theme.min.css') }}" type="text/css">
             <link rel="stylesheet" href="{{ asset('assets/js/fancybox/jquery.fancybox.min.css') }}" type="text/css">
             {{ include('front/extraCss.html.twig') }}
             {% if checkDroit('admin') %}
                 <link href="https://fonts.googleapis.com/css?family=Cabin:400,700" rel="stylesheet">
                 <link rel="stylesheet" href="{{ asset('assets/js/jstree/themes/style.css') }}">
-                <link rel="stylesheet" href="{{ asset('assets/css/back.css') }}">
+                <link rel="stylesheet" href="{{ asset('assets/css/back.min.css') }}">
             {% endif %}
         {% endblock %}
         <script src="{{ asset('assets/js/jquery-3.2.1.min.js') }}"></script>
-        <script src="{{ asset('assets/js/fontawesome-all.min.js') }}"></script>
-        <script src="{{ asset('assets/js/slickslider/slick.min.js') }}"></script>
-        {% if checkDroit('admin') %}
-            <script src="{{ asset('assets/js/fosjsrouting/js/router.js') }}"></script>
-            <script src="{{ asset('assets/js/fosjsrouting/js/fos_js_routes.js') }}"></script>
-        {% endif %}
-        <link rel="icon" type="image/x-icon" href="
-            {% if config.favicon is defined and config.favicon is not empty %}
-                {{ config.favicon }}
-            {% else %}
-                {{ asset('assets/img/favicon.ico') }}
-            {% endif %}
-        " />
+        <link rel="icon" type="image/x-icon" href="{{ config.favicon|default(asset('assets/img/favicon.ico')) }}" />
     {% endif %}
 </head>
 {% if not config.maintenance or is_granted('IS_AUTHENTICATED_REMEMBERED') %}
@@ -46,24 +34,32 @@
         {# Menu horizontal du back office #}
         {% if checkDroit('admin') %}
             {{ include('back/header.html.twig') }}
+        {% elseif is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+            {% set _logout_path = easyadmin_logout_path() %}
+            <a style="position: fixed; top: 0; right: 2rem; z-index: 100000; background-color: #A1BA1D; font-size: 30px; box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25); padding: 5px 10px; color: #FFF" href="{{ _logout_path }}" title="{% trans %}Déconnexion{% endtrans %}"><span><i class="fas fa-power-off"></i></span></a>
         {% endif %}
         {# Colonne de gauche du b/o #}
         {% if checkDroit('admin') %}
             {{ include('back/aside.html.twig') }}
         {% endif %}
 
-        {{ regions('avant') }}
+    {{ regions('avant') }}
 
-        {# Si besoin d'un bloc sur toute la largeur de l'écran #}
-        {% block before_main %}{% endblock %}
+    {# Si besoin d'un bloc sur toute la largeur de l'écran #}
+    {% block before_main %}{% endblock %}
 
         <main {% if page is defined and page is not empty %}id="page{{ page.id }}"{% endif %} class="center {% if page is defined %} page{% endif %}{% if menusDeLaPage is defined %}{% for menu in menusDeLaPage %} menu-{{ menu }}{% endfor %}{% endif %}">
+            {# Message si la page n'est pas visible pour tous les utilisateurs #}
+            {% if page is defined and page is not empty and not isPublie(page) %}
+                {% include 'front/pageNonPubliee.html.twig' %}
+            {% endif %}
+
             {% block fos_user_content %}{% endblock %}
             {% block main %}{% endblock %}
             {{ regions('centre') }}
         </main>
 
-        {{ regions('apres') }}
+    {{ regions('apres') }}
 
         {% if config.bandeauCookies %}
             <div class="cookies" style="display: none">
@@ -72,24 +68,28 @@
         {% endif %}
 
         {% block javascripts %}
+            <script async src="{{ asset('assets/js/lazyload.min.js') }}"></script>
+            <script src="{{ asset('assets/js/fontawesome-all.min.js') }}"></script>
+            <script src="{{ asset('assets/js/slickslider/slick.min.js') }}"></script>
+            <script src="{{ asset('assets/js/jscookie/cookie.js') }}"></script>
+            <script src="{{ asset('assets/js/fancybox/jquery.fancybox.min.js') }}"></script>
+            {% if checkDroit('admin') %}
+                <script src="{{ asset('assets/js/fosjsrouting/js/router.js') }}"></script>
+                <script src="{{ asset('assets/js/fosjsrouting/js/fos_js_routes.js') }}"></script>
+                <script src="{{ asset('assets/js/jstree/jstree.min.js') }}"></script>
+                <script src="{{ asset('assets/js/jsArbo.min.js') }}"></script>
+                <script src="{{ asset('assets/js/jsHeaderSidebar.min.js') }}"></script>
+            {% endif %}
             {% if config.analytics is not empty %}
                 {{ config.analytics|raw }}
             {% endif %}
-            <script src="{{ asset('assets/js/jscookie/cookie.js') }}"></script>
-            <script src="{{ asset('assets/js/fancybox/jquery.fancybox.min.js') }}"></script>
-            <script src="{{ asset('assets/js/jsFront.js') }}"></script>
+            <script src="{{ asset('assets/js/jsFront.min.js') }}"></script>
             {{ include('front/extraJs.html.twig') }}
-            {% if checkDroit('admin') %}
-                <script src="{{ asset('assets/js/jsHeaderSidebar.js') }}"></script>
-                <script src="{{ asset('assets/js/jstree/jstree.min.js') }}"></script>
-                <script src='{{ asset('assets/js/fosjsrouting/js/router.js') }}'></script>
-                <script src="{{ asset('assets/js/fosjsrouting/js/fos_js_routes.js') }}"></script>
-            {% endif %}
         {% endblock %}
     </body>
 {% else %}
     <body style="display: flex; align-items: center; justify-content: center; height: 100vh; margin: 0; background-color: #6e6e6e">
-        <p style="text-align: center; border: 2px solid #ffff00; border-radius: 5px; padding: 10px 20px; font-family: arial; font-weight: bold; color: #ffff00; font-size: 2rem; ">Vous essayez d'accéder à un site protégé. <br> Merci de vous authentifier.</p>
+    <p style="text-align: center; border: 2px solid #ffff00; border-radius: 5px; padding: 10px 20px; font-family: arial; font-weight: bold; color: #ffff00; font-size: 2rem; ">Vous essayez d'accéder à un site protégé. <br> Merci de vous authentifier.</p>
     </body>
 {% endif %}
 </html>

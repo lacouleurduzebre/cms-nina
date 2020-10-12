@@ -9,7 +9,7 @@
         <div class="blocAnnuaire-utilisateur flex-container-v">
             <div class="blocAnnuaire-utilisateur-image">
                 {% if utilisateur.imageProfil is not empty %}
-                    <img src="{{ getTaille(utilisateur.imageProfil, 'small') }}" alt="{{ utilisateur.username }}">
+                    <img data-src="{{ getTaille(utilisateur.imageProfil, 'small') }}" alt="{{ utilisateur.username }}">
                 {% else %}
                     <i class="fas fa-user"></i>
                 {% endif %}

@@ -1,8 +1,10 @@
+{% set recherche = app.request.get('recherche') is not empty ? '&recherche='~app.request.get('recherche')|replace({' ': '+'}) : '' %}
+
 <ul class="unstyled flex-container">
     {# Lien première page - texte #}
     <li>
         {% if page != 1 %}
-            <a href="?page=1">{#{{ "Première page"|trans }}#}<i class="fas fa-angle-double-left"></i></a>
+            <a href="?page=1{{ recherche }}">{#{{ "Première page"|trans }}#}<i class="fas fa-angle-double-left"></i></a>
         {% else %}
             {#<span>{{ "Première page"|trans }}</span>#}
             <span><i class="fas fa-angle-double-left"></i></span>
@@ -12,7 +14,7 @@
     {# Lien page précédente - texte #}
     <li>
         {% if page != 1 %}
-            <a href="?page={{ page - 1 }}">{#{{ "Page précédente"|trans }}#}<i class="fas fa-angle-left"></i></a>
+            <a href="?page={{ page - 1 }}{{ recherche }}">{#{{ "Page précédente"|trans }}#}<i class="fas fa-angle-left"></i></a>
         {% else %}
             {#<span>{{ "Page précédente"|trans }}</span>#}
             <span><i class="fas fa-angle-left"></i></span>
@@ -22,7 +24,7 @@
     {# Lien première page - nb #}
     {% if page > 2 %}
         <li>
-            <a href="?page=1">1</a>
+            <a href="?page=1{{ recherche }}">1</a>
         </li>
         {% if page > 3 %}
             <li>
@@ -34,7 +36,7 @@
     {# Lien page précédente - nb #}
     {% if page != 1 %}
         <li>
-            <a href="?page={{ page - 1 }}">{{ page - 1 }}</a>
+            <a href="?page={{ page - 1 }}{{ recherche }}">{{ page - 1 }}</a>
         </li>
     {% endif %}
 
@@ -48,7 +50,7 @@
     {# Lien page suivante - nb #}
     {% if page != nbPages %}
         <li>
-            <a href="?page={{ page + 1 }}">{{ page + 1 }}</a>
+            <a href="?page={{ page + 1 }}{{ recherche }}">{{ page + 1 }}</a>
         </li>
     {% endif %}
 
@@ -60,14 +62,14 @@
             </li>
         {% endif %}
         <li>
-            <a href="?page={{ nbPages }}">{{ nbPages }}</a>
+            <a href="?page={{ nbPages }}{{ recherche }}">{{ nbPages }}</a>
         </li>
     {% endif %}
 
     {# Lien page suivante - texte #}
     <li>
         {% if page != nbPages %}
-            <a href="?page={{ page + 1 }}">{#{{ "Page suivante"|trans }}#}<i class="fas fa-angle-right"></i></a>
+            <a href="?page={{ page + 1 }}{{ recherche }}">{#{{ "Page suivante"|trans }}#}<i class="fas fa-angle-right"></i></a>
         {% else %}
             {#<span>{{ "Page suivante"|trans }}</span>#}
             <span><i class="fas fa-angle-right"></i></span>
@@ -77,7 +79,7 @@
     {# Lien dernière page - texte #}
     <li>
         {% if page != nbPages %}
-            <a href="?page={{ nbPages }}">{#{{ "Dernière page"|trans }}#}<i class="fas fa-angle-double-right"></i></a>
+            <a href="?page={{ nbPages }}{{ recherche }}">{#{{ "Dernière page"|trans }}#}<i class="fas fa-angle-double-right"></i></a>
         {% else %}
             {#<span>{{ "Dernière page"|trans }}</span>#}
             <span><i class="fas fa-angle-double-right"></i></span>

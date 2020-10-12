@@ -5,6 +5,7 @@ easy_admin:
             controller: App\Controller\Back\Admin\RegionAdminController
             label: 'Région'
             labels: 'Régions'
+            labelDeterminant: 'une région'
             list:
                 sort: 'position'
                 fields:

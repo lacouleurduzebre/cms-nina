@@ -3344,6 +3344,12 @@ h1, h2, h3 {
   color: #007492;
 }
 
+body.recherche h1 {
+  max-width: 992px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
 .titre-page, .infos-page {
   max-width: 992px;
   margin-left: auto;

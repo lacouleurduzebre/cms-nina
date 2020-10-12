@@ -1,19 +1,19 @@
 {% for menuPage in menuPages %}
     {% if menuPage.parent is empty and isPublie(menuPage.page) %}
+
+        {# Lien #}
+        {% if menuPage.page.langue.pageAccueil == menuPage.page %}
+            {% if langues|length > 1 %}
+                {% set lien = path('accueilLocale', { '_locale': menuPage.page.langue.abreviation }) %}
+            {% else %}
+                {% set lien = path('accueil') %}
+            {% endif %}
+        {% else %}
+            {% set lien = lienPage(menuPage.page) %}
+        {% endif %}
+
         <li {% if isParent(menuPage) and menuPage.page.affichageSousNiveaux %}class="parent"{% endif %}>
-            <a href="
-                {% if menuPage.page.langue.pageAccueil == menuPage.page %}
-                    {% if langues|length > 1 %}
-                        {{ path('accueilLocale', { '_locale': menuPage.page.langue.abreviation }) }}
-                    {% else %}
-                        {{ path('accueil') }}
-                    {% endif %}
-                {% else %}
-                    {{ lienPage(menuPage.page) }}
-                {% endif %}
-            ">
-                {{ menuPage.page.titreMenu }}
-            </a>
+            <a data-idpage="{{ menuPage.page.id }}" href="{{ lien }}">{{ menuPage.page.titreMenu }}</a>
             {% if menuPage.page.affichageSousNiveaux %}
                 {{ sousMenu(menuPage, 'front')|raw }}
             {% endif %}

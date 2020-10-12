@@ -37,7 +37,7 @@
                 {% for categorie in page.categories %}
                     <a class="bouton-categorie" href="
                         {% if langues|length > 1 %}
-                            {{ path('voirCategorieLocale', { '_locale': categorie.typeCategorie.langue.abreviation, 'urlTypeCategorie': categorie.typeCategorie.seo.url, 'urlCategorie': categorie.url }) }}
+                            {{ path('voirCategorieLocale', { '_locale': categorie.typeCategorie.langue.abreviation, 'urlTypeCategorie': categorie.typeCategorie.seo.url, 'urlCategorie': categorie.seo.url }) }}
                         {% else %}
                             {{ path('voirCategorie', { 'urlTypeCategorie': categorie.typeCategorie.seo.url, 'urlCategorie': categorie.seo.url }) }}
                         {% endif %}
@@ -47,29 +47,10 @@
         </p>
     {% endif %}
 
-    {% if page.blocs is not empty %}
-        {% include('front/blocs.html.twig') with {'blocs': page.blocs} only %}
-    {% endif %}
+    {{ blocs(page)|raw }}
 
     {% if page.affichageCommentaires %}
-        <div class="blocCommentaires">
-            <h2>Commentaires sur "{{ page.titre }}" ({{ page.commentaires|length }})</h2>
-            {% for message in app.session.flashbag.get('comOK') %}
-                <p class="message">{{ message }}</p>
-            {% endfor %}
-            <p class="blocCommentaires-ajout">Ajouter un commentaire<i class="fas fa-angle-down mls"></i></p>
-            <div class="blocCommentaires-formulaire">
-                {{ form(form) }}
-            </div>
-            {% for commentaire in commentaires %}
-                {% if commentaire.corbeille == false and commentaire.valide == true %}
-                <div class="commentaire">
-                    <p>Par <strong>{{ commentaire.auteur }}</strong> le {{ commentaire.date|date("d/m/Y") }} à {{ commentaire.date|date("G:i") }}</p>
-                    <p class="pas">{{ commentaire.contenu|raw }}</p>
-                </div>
-                {% endif %}
-            {% endfor %}
-        </div>
+        {% include 'front/page-commentaires.html.twig' %}
     {% endif %}
 
 {% endblock %}

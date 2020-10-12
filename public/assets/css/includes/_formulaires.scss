@@ -42,8 +42,17 @@
 }
 
 //Page
+#page_active_datePublication, #page_active_dateDepublication{
+  input{
+    margin-right: .5rem;
+  }
+}
+
 #page_active_dateDepublication{
   margin-bottom: .5rem;
+  + .nullable-control{
+    display: none;
+  }
 }
 
 //Utilisateur
@@ -124,5 +133,27 @@ body.edit, body.new{
     img{
       height: 3rem;
     }
+  }
+}
+
+//Critères LEI
+.criteresLEI{
+  .field-critere{
+    padding: 1rem;
+    > div{
+      display: flex;
+    }
+    .control-label{
+      display: none;
+    }
+    &:first-of-type .control-label{
+      display: block;
+    }
+    &:nth-of-type(2n){
+      background-color: $color-fonce;
+    }
+  }
+  .field-text{
+    margin-right: 2rem;
   }
 }

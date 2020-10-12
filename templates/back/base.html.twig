@@ -106,9 +106,9 @@
         {% endblock body_javascript %}
 
         {% if assetExists(app.request.baseUrl~'theme/js/optionsTinyMCE.js') %}
-            <script src="{{ asset('theme/js/optionsTinyMCE.js') }}"></script>
+            <script src="{{ asset('theme/js/optionsTinyMCE.min.js') }}"></script>
         {% else %}
-            <script src="{{ asset('assets/js/optionsTinyMCE.js') }}"></script>
+            <script src="{{ asset('assets/js/optionsTinyMCE.min.js') }}"></script>
         {% endif %}
 
         {% for js_asset in easyadmin_config('design.assets.js') %}
@@ -117,13 +117,13 @@
 
         {% if _entity_config is defined %}
             {% if _entity_config.name == 'Page_Active' or _entity_config.name == 'Region' or _entity_config.name == 'BlocPartage' %}
-                <script src="{{ asset('assets/js/partials/jsBackBloc.js') }}"></script>
+                <script src="{{ asset('assets/js/partials/jsBackBloc.min.js') }}"></script>
             {% endif %}
 
             {% if _entity_config.name == 'Page_Active' %}
-                <script src="{{ asset('assets/js/partials/jsBackPage.js') }}"></script>
+                <script src="{{ asset('assets/js/partials/jsBackPage.min.js') }}"></script>
             {% else %}
-                <script src="{{ asset('assets/js/partials/jsBack'~_entity_config.name~'.js') }}"></script>
+                <script src="{{ asset('assets/js/partials/jsBack'~_entity_config.name~'.min.js') }}"></script>
             {% endif %}
         {% endif %}
 
