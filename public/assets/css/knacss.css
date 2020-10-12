@@ -4878,9 +4878,6 @@ body.edit-region .toggleAffichageBlocs, body.new-region .toggleAffichageBlocs {
 .conteneurs .bloc-section {
   background-color: #FFF;
 }
-.conteneurs .bloc-section .blocsEnfants > .field-collection-action {
-  display: block;
-}
 
 .form-group.field-bloc_annexe {
   background-color: #EDEDED;

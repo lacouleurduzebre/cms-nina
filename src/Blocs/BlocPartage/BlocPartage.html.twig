@@ -1,1 +1,3 @@
-{% include 'front/blocBrut.html.twig' with { bloc : bloc(bloc.contenu.blocPartage) } %}
+{% if bloc.contenu.blocPartage is not empty %}
+    {% include 'front/blocBrut.html.twig' with { bloc : bloc(bloc.contenu.blocPartage) } %}
+{% endif %}

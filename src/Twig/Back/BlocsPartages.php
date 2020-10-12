@@ -11,11 +11,11 @@ namespace App\Twig\Back;
 
 use App\Entity\Bloc;
 use App\Entity\BlocPartage;
-use Symfony\Bridge\Doctrine\RegistryInterface;
+use Doctrine\Persistence\ManagerRegistry;
 
 class BlocsPartages extends \Twig_Extension
 {
-    public function __construct(RegistryInterface $doctrine)
+    public function __construct(ManagerRegistry $doctrine)
     {
         $this->doctrine = $doctrine;
     }

@@ -414,12 +414,6 @@ $(document).ready(function() {
             });
             saveCloseFormulaire();
         });
-
-        //Bloc enfant
-        if($(this).closest('.blocsEnfants').length > 0){
-            input = $(this).closest('.contenu').find('input[name$="[colonnes]"]:checked');
-            verifNombreBlocs(input, 'suppression');
-        }
     });
 
     $('form').on('click', '.suppressionBlocAnnexe-supprimer', function(e){
@@ -510,7 +504,7 @@ $(document).ready(function() {
     });
 
     //Ajout de blocs via liste des blocs
-    ajoutBloc = function(type, typeBlocPartage = null){
+    ajoutBloc = function(type, typeBlocPartage){
         $('.listeBlocs').addClass('chargement');
         entite = $('.listeBlocs').siblings('form').attr('name');
 
@@ -606,7 +600,7 @@ $(document).ready(function() {
     };
 
     $('.listeBlocs li:not(.blocPartage)').click(function(){
-        ajoutBloc($(this).attr('id'));
+        ajoutBloc($(this).attr('id'), null);
     });
 
     //Ajout de bloc partagé
@@ -881,67 +875,6 @@ $(document).ready(function() {
         e.stopPropagation();
         $(this).addClass('hidden');
         $(this).prev('ul').find('.blocCache').removeClass('hidden');
-    });
-
-    //Section : changement du nombre de colonnes
-    verifNombreBlocs = function(input, contexte){
-        val = input.val();
-
-        max = 2;
-
-        if(val === '1'){
-            max = 0;
-        }else if (val === '3' || val === '4'){
-            max = parseInt(val);
-        }
-
-        conteneurBlocsEnfants = input.closest('.contenu').children('.blocsEnfants');
-        blocsEnfants = conteneurBlocsEnfants.children('div').children('.field-bloc');
-        nbBlocsEnfants = blocsEnfants.length;
-
-        if(contexte === 'suppression'){
-            nbBlocsEnfants -= 1;
-        }
-
-        if(max !== 0 && nbBlocsEnfants >= max){
-            //Désactivation bouton d'ajout de bloc
-            conteneurBlocsEnfants.children('.field-collection-action').children('.ajout-bloc').attr('disabled', true);
-
-            if(max !== 0 && nbBlocsEnfants > max){
-                if(confirm('Il y a plus de blocs que de colonnes. Les blocs supplémentaires vont être supprimés. Continuer ?')){
-                    //Suppression des blocs en trop
-                    blocsEnfants.each(function(){
-                        if($(this).index() >= max){
-                            $(this).remove();
-                        }
-                    });
-
-                    input.closest('.contenu').find('.blocsEnfants').attr('data-col', 'col'+input.val());
-                    input.closest('.form-group').attr('data-val', input.val());
-                }else{
-                    valPrecedente = input.closest('.form-group').attr('data-val');
-                    input.closest('.form-group').find('input[value="'+valPrecedente+'"]').click();
-                }
-            }else{
-                input.closest('.contenu').find('.blocsEnfants').attr('data-col', 'col'+input.val());
-                input.closest('.form-group').attr('data-val', input.val());
-            }
-        }else{
-            //Activation bouton d'ajout de bloc
-            conteneurBlocsEnfants.children('.field-collection-action').children('.ajout-bloc').attr('disabled', false);
-            input.closest('.contenu').find('.blocsEnfants').attr('data-col', 'col'+input.val());
-            input.closest('.form-group').attr('data-val', input.val());
-        }
-    };
-
-    $('body').on('change', 'input[name$="[colonnes]"]', function(){
-        verifNombreBlocs($(this));
-    });
-
-    $('input[name$="[colonnes]"]').each(function(){
-        if($(this).prop('checked')){
-            verifNombreBlocs($(this));
-        }
     });
 
     //Changement des options d'affichage

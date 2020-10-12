@@ -1,6 +1,6 @@
 {% if bloc.blocParent is defined and bloc.blocParent is not empty %}
     {% set bloc = bloc.blocParent %}
-    {% include self %}
+    {% include 'back/blocs/blocsPartages/boucleOrigineBlocPartage.html.twig' %}
 {% else %}
     <div>
         {% if bloc.region is defined and bloc.region is not empty %}{# Bloc dans une région #}
