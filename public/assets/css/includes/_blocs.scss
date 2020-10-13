@@ -51,17 +51,17 @@
   width: 32rem;
   height: calc(100vh - 19rem);
   overflow: hidden auto;
+  background-color: #f7f7f7;
+  padding: 1rem;
 
   ul{
-    background-color: #f7f7f7;
-    height: 100%;
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
-    padding: 0 1rem;
+    padding-left: 0;
   }
 
-  &-bloc:not(.dndPlaceholder){
+  &-bloc:not(.dndPlaceholder):not(.chargement){
     border-radius: 50%;
     background-color: $color-brand2;
     width: 7.5rem;
@@ -72,13 +72,15 @@
     align-items: center;
     justify-content: center;
     cursor: move;
-    margin: .5rem 0;
+    margin: .5rem;
     svg{
       font-size: 2.5rem;
       margin-bottom: .5rem;
     }
     .bloc-nom{
-      font-size: 1.3rem;
+      font-size: 1.1rem;
+      padding: 0 10px;
+      line-height: 1;
     }
   }
 }
@@ -141,7 +143,7 @@
   }
 }
 
-.dndPlaceholder{//Placeholder
+.conteneurBlocs .listeBlocsDnd:not(.ui-draggable-dragging){//Placeholder
   animation-name : placeholder;
   animation-duration : .3s;
   width: auto !important;
@@ -159,7 +161,7 @@
   display: block;
 }
 
-.ajoutBloc.btn.dndPlaceholder, .conteneurBlocs > .dndBlocs .ajoutBloc:not(.ui-draggable-dragging){
+.ajoutBloc.btn.dndPlaceholder, .conteneurBlocs > .dndBlocs .listeBlocsDnD-bloc:not(.ui-draggable-dragging){
   border: 2px dashed red;
   min-height: 5rem;
   background-color: transparent;
@@ -656,11 +658,6 @@ div[id^="page_active_blocs"], div[id^="region_blocs"]{
   &:hover{
     background-color: $color-brand2;
   }
-}
-
-.bloc-nom{
-  font-size: 2rem;
-  line-height: 1;
 }
 
 .listeBlocs-chargement, .listeBlocsAnnexes-chargement{

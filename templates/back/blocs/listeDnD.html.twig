@@ -1,5 +1,5 @@
 <div class="listeBlocsDnD">
-    <ul class="unstyled">
+    <ul>
         {% for type,bloc in blocs %}
             <li class="listeBlocsDnD-bloc{% if bloc.disabled is defined %} disabled{% endif %}" data-type="{{ type }}">
                 <i class="{{ bloc.icone }} bloc-icone"></i>
@@ -7,4 +7,16 @@
             </li>
         {% endfor %}
     </ul>
+    {% set blocsPartages = blocsPartages() %}
+    {% if blocsPartages %}
+        <h3 class="txtcenter">{{ "Blocs partagés"|trans }}</h3>
+        <ul>
+            {% for blocPartage in blocsPartages %}
+                <li class="listeBlocsDnD-bloc" data-bloc="{{ blocPartage.bloc.id }}" data-type="BlocPartage">
+                    <i class="fas fa-share bloc-icone"></i>
+                    <p class="bloc-nom txtcenter">{{ blocPartage.nom }}</p>
+                </li>
+            {% endfor %}
+        </ul>
+    {% endif %}
 </div>

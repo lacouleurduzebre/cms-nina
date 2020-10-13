@@ -4721,16 +4721,16 @@ body.list #flash-messages > * {
   width: 32rem;
   height: calc(100vh - 19rem);
   overflow: hidden auto;
+  background-color: #f7f7f7;
+  padding: 1rem;
 }
 .listeBlocsDnD ul {
-  background-color: #f7f7f7;
-  height: 100%;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
-  padding: 0 1rem;
+  padding-left: 0;
 }
-.listeBlocsDnD-bloc:not(.dndPlaceholder) {
+.listeBlocsDnD-bloc:not(.dndPlaceholder):not(.chargement) {
   border-radius: 50%;
   background-color: #0791B3;
   width: 7.5rem;
@@ -4741,14 +4741,16 @@ body.list #flash-messages > * {
   align-items: center;
   justify-content: center;
   cursor: move;
-  margin: 0.5rem 0;
+  margin: 0.5rem;
 }
-.listeBlocsDnD-bloc:not(.dndPlaceholder) svg {
+.listeBlocsDnD-bloc:not(.dndPlaceholder):not(.chargement) svg {
   font-size: 2.5rem;
   margin-bottom: 0.5rem;
 }
-.listeBlocsDnD-bloc:not(.dndPlaceholder) .bloc-nom {
-  font-size: 1.3rem;
+.listeBlocsDnD-bloc:not(.dndPlaceholder):not(.chargement) .bloc-nom {
+  font-size: 1.1rem;
+  padding: 0 10px;
+  line-height: 1;
 }
 
 /* Bouton pour ajouter un bloc */
@@ -4809,7 +4811,7 @@ body.list #flash-messages > * {
   background-color: #0791B3;
 }
 
-.dndPlaceholder {
+.conteneurBlocs .listeBlocsDnd:not(.ui-draggable-dragging) {
   animation-name: placeholder;
   animation-duration: 0.3s;
   width: auto !important;
@@ -4827,7 +4829,7 @@ body.list #flash-messages > * {
   display: block;
 }
 
-.ajoutBloc.btn.dndPlaceholder, .conteneurBlocs > .dndBlocs .ajoutBloc:not(.ui-draggable-dragging) {
+.ajoutBloc.btn.dndPlaceholder, .conteneurBlocs > .dndBlocs .listeBlocsDnD-bloc:not(.ui-draggable-dragging) {
   border: 2px dashed red;
   min-height: 5rem;
   background-color: transparent;
@@ -4836,7 +4838,7 @@ body.list #flash-messages > * {
   z-index: 200;
   font-size: 0;
 }
-.ajoutBloc.btn.dndPlaceholder svg, .conteneurBlocs > .dndBlocs .ajoutBloc:not(.ui-draggable-dragging) svg {
+.ajoutBloc.btn.dndPlaceholder svg, .conteneurBlocs > .dndBlocs .listeBlocsDnD-bloc:not(.ui-draggable-dragging) svg {
   display: none;
 }
 
@@ -5303,11 +5305,6 @@ body.notFull .conteneurBlocs > .dndBlocs > .pleineLargeur {
 }
 .voirBlocs:hover {
   background-color: #0791B3;
-}
-
-.bloc-nom {
-  font-size: 2rem;
-  line-height: 1;
 }
 
 .listeBlocs-chargement, .listeBlocsAnnexes-chargement {
