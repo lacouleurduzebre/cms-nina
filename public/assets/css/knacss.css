@@ -3684,15 +3684,6 @@ body.new #main, body.edit #main {
   padding-bottom: 2rem;
   flex: 1;
 }
-body.new h1, body.edit h1 {
-  width: calc(100% - 28rem);
-  padding-right: 30rem;
-}
-@media (max-width: 767px) {
-  body.new h1, body.edit h1 {
-    width: calc(100% - 16rem);
-  }
-}
 body.new .tab-content, body.new .form-actions, body.edit .tab-content, body.edit .form-actions {
   padding: 0 2rem;
   margin: 0 -2rem;
@@ -3702,6 +3693,16 @@ body.new ul.nav-tabs, body.edit ul.nav-tabs {
 }
 body.new.gris ul.nav-tabs, body.edit.gris ul.nav-tabs {
   background-color: #75726B;
+}
+
+body.new:not(.new-page_active) h1, body.edit:not(.edit-page_active) h1 {
+  width: calc(100% - 28rem);
+  padding-right: 30rem;
+}
+@media (max-width: 767px) {
+  body.new:not(.new-page_active) h1, body.edit:not(.edit-page_active) h1 {
+    width: calc(100% - 16rem);
+  }
 }
 
 body.new .content-header, body.edit .content-header, .listeSEO-conteneur .content-header, .listeErreurs404-conteneur .content-header {

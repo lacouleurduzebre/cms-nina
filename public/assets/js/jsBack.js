@@ -40,7 +40,7 @@ $(document).ready(function(){
 
     /* Restauration de l'onglet actif */
     if(Cookies.get('ongletActif')){
-        $('#'+Cookies.get('ongletActif')).click();
+        $('#'+Cookies.get('ongletActif')+'-tab').click();
         Cookies.remove('ongletActif');
     }
 
