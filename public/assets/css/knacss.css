@@ -4689,6 +4689,68 @@ body.list #flash-messages > * {
   background-color: #E1E0E0;
 }
 
+@keyframes clignotement {
+  from {
+    opacity: 100%;
+  }
+  to {
+    opacity: 40%;
+  }
+}
+.listeBlocsDnD-bloc {
+  z-index: 1000;
+}
+
+.editionContenusPage {
+  position: relative;
+}
+.editionContenusPage > .row {
+  width: calc(100% - 25rem);
+}
+.editionContenusPage > .row .listeBlocsDnD-bloc.chargement {
+  animation-name: clignotement;
+  animation-duration: 0.5s;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+}
+
+.listeBlocsDnD {
+  position: fixed;
+  top: 19rem;
+  right: 0;
+  width: 32rem;
+  height: calc(100vh - 19rem);
+  overflow: hidden auto;
+}
+.listeBlocsDnD ul {
+  background-color: #f7f7f7;
+  height: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  padding: 0 1rem;
+}
+.listeBlocsDnD-bloc:not(.dndPlaceholder) {
+  border-radius: 50%;
+  background-color: #0791B3;
+  width: 7.5rem;
+  height: 7.5rem;
+  color: #FFF;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  cursor: move;
+  margin: 0.5rem 0;
+}
+.listeBlocsDnD-bloc:not(.dndPlaceholder) svg {
+  font-size: 2.5rem;
+  margin-bottom: 0.5rem;
+}
+.listeBlocsDnD-bloc:not(.dndPlaceholder) .bloc-nom {
+  font-size: 1.3rem;
+}
+
 /* Bouton pour ajouter un bloc */
 .ajout-blocAnnexe {
   background-color: #0791B3;
@@ -4736,10 +4798,6 @@ body.list #flash-messages > * {
   font-size: 3rem;
 }
 
-.ui-draggable-dragging:not(.dndPlaceholder) {
-  width: 20rem;
-}
-
 .ajoutBloc.btn {
   background-color: #0791B3;
   border-radius: 2rem;
@@ -4754,12 +4812,14 @@ body.list #flash-messages > * {
 .dndPlaceholder {
   animation-name: placeholder;
   animation-duration: 0.3s;
+  width: auto !important;
+  height: 3rem !important;
 }
 
 .conteneurBlocs > .dndBlocs > .dndPlaceholder {
   display: block;
   max-width: 992px;
-  width: 100%;
+  width: 100% !important;
 }
 
 .ajoutBloc.btn.dndPlaceholder, .conteneurBlocs > .dndBlocs .ajoutBloc {

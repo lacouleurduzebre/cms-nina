@@ -32,6 +32,7 @@ easy_admin:
                 - 'assets/js/jstree/themes/style.css'
                 - 'assets/js/fancybox/jquery.fancybox.min.css'
                 - 'assets/js/jquery-ui.min.css'
+                - 'assets/js/jquery-ui-theme.min.css'
             js:
                 # dans base.html.twig - '../assets/js/jquery-3.2.1.min.js'
 #                - 'assets/js/fancybox/jquery.fancybox.min.js'

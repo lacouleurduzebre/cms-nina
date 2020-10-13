@@ -136,6 +136,97 @@ $(document).ready(function() {
     $('.pleineLargeur .field-bloc').resizable(optionsResizable).resizable( "option", "maxWidth", null );
 
     //Ajout de bloc via glisser-déposer
+    $('.listeBlocsDnD-bloc').draggable({
+        connectToSortable: "#page_active_blocs",
+        helper: "clone",
+        appendTo: "body",
+        stop: function(event, ui){
+            $('#page_active_blocs').find('.listeBlocsDnD-bloc').each(function(){
+                placeholder = $(this);
+                type = placeholder.data('type');
+                entite = $('.listeBlocsDnD-bloc').closest('form').attr('name');
+
+                placeholder.addClass('chargement');
+
+                $.ajax({
+                    url: Routing.generate('ajouterBloc'),
+                    method: "post",
+                    data: {type: type, typeBloc: 'Bloc'}
+                })
+                    .done(function(data){
+                        saveCloseFormulaire();
+
+                        if(placeholder.closest('.blocsEnfants').length > 0){//Bloc enfant
+                            section = $('#'+$('.listeBlocs').attr('data-section'));
+
+                            count = section.closest('.field-bloc').data('name');
+                            countBloc = section.find('.field-bloc').length;
+
+                            exp = entite+'['+$('.listeBlocs').attr('data-section').replace(entite+'_', '').replace(/_/g, '][')+']';
+
+                            var form = data.replace(/bloc_/g, $('.listeBlocs').attr('data-section')+'_'+countBloc+'_')
+                                .replace(/bloc\[/g, exp+'['+countBloc+'][');
+
+                            bloc = '<div id="nvBloc'+countBloc+'" class="form-group field-bloc" data-name="'+countBloc+'">'+form+'</div>';
+                            section.append(bloc);
+
+                            section.closest('.contenu').find('input[name$="[colonnes]"]').each(function(){
+                                if($(this).prop('checked')){
+                                    verifNombreBlocs($(this));
+                                }
+                            });
+                        }else{
+                            if(count === 0){
+                                count = $('#'+entite+'_blocs').find('.field-bloc').length;
+                            }else{
+                                count++;
+                            }
+
+                            var form = data.replace(/bloc_/g, entite+'_blocs_'+count+'_')
+                                .replace(/bloc\[/g, entite+'[blocs]['+count+'][');
+
+                            bloc = '<div id="nvBloc'+count+'" class="form-group field-bloc nvBloc" data-name="'+count+'">'+form+'</div>';
+                            placeholder.replaceWith(bloc);
+
+                            //Anim ajout de bloc
+                            $('.field-bloc').removeClass('focus');
+
+                            nvBloc = $('#nvBloc'+count);
+                            nvBloc.addClass('focus');
+
+                            var elOffset = nvBloc.offset().top;
+                            var elHeight = nvBloc.height();
+                            var windowHeight = $(window).height();
+
+                            if (elHeight < windowHeight) {
+                                offset = elOffset - ((windowHeight / 2) - (elHeight / 2));
+                            }
+                            else {
+                                offset = elOffset;
+                            }
+
+                            $('body, html').animate({
+                                scrollTop: offset
+                            }, 600, 'swing', function(){
+                                nvBloc.fadeTo(600, 1);
+                            });
+
+                            $('#'+entite+'_blocs').prev('.empty').remove();
+                        }
+
+                        $('.field-bloc').each(function(){
+                            $(this).find("input[id$='position']").val($(this).index());
+                        });
+
+                        tinymce.remove();
+                        tinymce.init(optionsTinyMCEParagraphe);
+                        tinymce.init(optionsTinyMCE);
+                        $('.select-multiple').select2();
+                    });
+            });
+        }
+    });
+
     $('.ajoutBloc').draggable({
         connectToSortable: ".dndBlocs",
         helper: "clone",

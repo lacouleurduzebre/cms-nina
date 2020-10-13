@@ -1,0 +1,10 @@
+<div class="listeBlocsDnD">
+    <ul class="unstyled">
+        {% for type,bloc in blocs %}
+            <li class="listeBlocsDnD-bloc{% if bloc.disabled is defined %} disabled{% endif %}" data-type="{{ type }}">
+                <i class="{{ bloc.icone }} bloc-icone"></i>
+                <p class="bloc-nom txtcenter">{{ bloc.nom }}</p>
+            </li>
+        {% endfor %}
+    </ul>
+</div>

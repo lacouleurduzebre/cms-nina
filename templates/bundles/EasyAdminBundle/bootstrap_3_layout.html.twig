@@ -574,10 +574,13 @@
                     </ul>
                     <div class="tab-content">
                         {% for tab_name, tab_config in easyadmin_form_tabs %}
-                            <div id="{{ tab_config['id'] }}" class="tab-pane {% if tab_config.active %}active{% endif %}">
+                            <div id="{{ tab_config['id'] }}" class="tab-pane {% if tab_config.active %}active{% endif %}{% if tab_config['css_class'] == 'blocs' %} editionContenusPage{% endif %}">
                                 <div class="row">
                                     {{ block('easyadmin_widget_groups') }}
                                 </div>
+                                {% if blocs is defined and tab_config['css_class'] == 'blocs' %}
+                                    {% include('back/blocs/listeDnD.html.twig') with { 'blocs': blocs } only %}
+                                {% endif %}
                             </div>
                         {% endfor %}
                     </div>
@@ -788,7 +791,6 @@
         <div class="toggleAffichageBlocs">
             <a id="toggleMiseEnPage" class="btn mrs"><i class="fas fa-eye mrs"></i>{{ "Mise en page"|trans }}</a>
             <a id="toggleConteneurs" class="btn"><i class="fas fa-eye mrs"></i>{{ "Conteneurs"|trans }}</a>
-            <a class="ajoutBloc btn"><i class="fas fa-plus mrs"></i>{{ "Ajouter un bloc"|trans }}</a>
         </div>
 
         {{- form_widget(form, { attr: { class: 'dndBlocs' } }) -}}
