@@ -4,6 +4,8 @@ $(document).ready(function() {
     //ID bloc partagé
     idBlocPartage = 0;
 
+    var lazyLoadInstance = new LazyLoad();
+
     //Calcul largeur bloc
     calculCol = function(elem){
         if(elem.closest('.blocsEnfants').length > 0){
@@ -41,6 +43,7 @@ $(document).ready(function() {
             tinymce.remove();
             tinymce.init(optionsTinyMCEParagraphe);
             tinymce.init(optionsTinyMCE);
+            lazyLoadInstance.update();
 
             entite = $('.listeBlocs').siblings('form').attr('name');
             ancienParent = ui.sender;
@@ -297,6 +300,7 @@ $(document).ready(function() {
         })
             .done(function(data){
                 conteneurApercu.html(data);
+                lazyLoadInstance.update();
             })
             .fail(function(){
             });
@@ -316,6 +320,7 @@ $(document).ready(function() {
         tinymce.remove();
         tinymce.init(optionsTinyMCEParagraphe);
         tinymce.init(optionsTinyMCE);
+        lazyLoadInstance.update();
 
         //Annulation des options d'affichage : ràz des classes d'affichage du bloc
         if($(this).hasClass('bloc-optionsAffichage--annulation')){
@@ -354,6 +359,7 @@ $(document).ready(function() {
         tinymce.remove();
         tinymce.init(optionsTinyMCEParagraphe);
         tinymce.init(optionsTinyMCE);
+        lazyLoadInstance.update();
 
         $('.field-bloc').each(function(){
             $(this).find("input[id$='position']").val($(this).index());
@@ -372,6 +378,7 @@ $(document).ready(function() {
         tinymce.remove();
         tinymce.init(optionsTinyMCEParagraphe);
         tinymce.init(optionsTinyMCE);
+        lazyLoadInstance.update();
 
         $('.field-bloc').each(function(){
             $(this).find("input[id$='position']").val($(this).index());
@@ -615,6 +622,7 @@ $(document).ready(function() {
                 $("#page_active_blocs").sortable(options);
                 $("#region_blocs").sortable(options);
                 $("div[id$='blocsEnfants']").sortable(options);
+                lazyLoadInstance.update();
             })
             .fail(function(){
                 cible.remove();
@@ -1028,13 +1036,18 @@ $(document).ready(function() {
         }
     });
 
-    //Toggle mise en page et conteneurs
+    //Toggle mise en page, conteneurs, liste blocs dnd
     $('#toggleConteneurs').click(function(){
         $(this).closest('.conteneurBlocs').toggleClass('conteneurs');
     });
 
     $('#toggleMiseEnPage').click(function() {
         $(this).closest('.conteneurBlocs').toggleClass('miseEnPage');
+    });
+
+    $('#toggleListeBlocsDnD').click(function() {
+        $(this).closest('.conteneurBlocs').toggleClass('affichagelisteBlocsDnD');
+        $('.listeBlocsDnD').toggle();
     });
 
     //Bloc LEI

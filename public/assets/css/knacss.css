@@ -4704,9 +4704,6 @@ body.list #flash-messages > * {
 .editionContenusPage {
   position: relative;
 }
-.editionContenusPage > .row {
-  width: calc(100% - 25rem);
-}
 .editionContenusPage > .row .listeBlocsDnD-bloc.chargement {
   animation-name: clignotement;
   animation-duration: 0.5s;
@@ -4718,10 +4715,10 @@ body.list #flash-messages > * {
   position: fixed;
   top: 19rem;
   right: 0;
-  width: 32rem;
+  width: 30rem;
   height: calc(100vh - 19rem);
   overflow: hidden auto;
-  background-color: #f7f7f7;
+  background-color: #fff;
   padding: 1rem;
 }
 .listeBlocsDnD ul {
@@ -4746,6 +4743,9 @@ body.list #flash-messages > * {
 .listeBlocsDnD-bloc:not(.dndPlaceholder):not(.chargement) svg {
   font-size: 2.5rem;
   margin-bottom: 0.5rem;
+}
+.listeBlocsDnD-bloc:not(.dndPlaceholder):not(.chargement)[data-type=BlocPartage] svg {
+  font-size: 2rem;
 }
 .listeBlocsDnD-bloc:not(.dndPlaceholder):not(.chargement) .bloc-nom {
   font-size: 1.1rem;
@@ -4900,7 +4900,7 @@ body.edit-region .toggleAffichageBlocs, body.new-region .toggleAffichageBlocs {
   top: 11.5rem;
 }
 
-#toggleConteneurs, #toggleMiseEnPage {
+.toggleAffichageBlocs a.btn {
   border-radius: 2rem;
   background-color: #B1B1B1;
   color: #fff;
@@ -4940,6 +4940,10 @@ body.edit-region .toggleAffichageBlocs, body.new-region .toggleAffichageBlocs {
 }
 .conteneurs .bloc-section {
   background-color: #FFF;
+}
+
+.affichagelisteBlocsDnD #toggleListeBlocsDnD {
+  background-color: #0791B3;
 }
 
 .form-group.field-bloc_annexe {
@@ -5563,7 +5567,7 @@ body.edit .bloc-reseauxsociaux input[type=text], body.new .bloc-reseauxsociaux i
   position: fixed;
   top: 19rem;
   right: 0;
-  width: 32rem;
+  width: 30rem;
   height: calc(100vw - 19rem);
 }
 body.new-region .bloc-panel.bloc-optionsAffichage, body.edit-region .bloc-panel.bloc-optionsAffichage {

@@ -785,12 +785,13 @@
 {% endblock %}
 
 {% block conteneurBlocs %}
-    <div class="miseEnPage conteneurs conteneurBlocs">
+    <div class="miseEnPage conteneurs conteneurBlocs affichagelisteBlocsDnD">
         {{- form_label(form) -}}
 
         <div class="toggleAffichageBlocs">
             <a id="toggleMiseEnPage" class="btn mrs"><i class="fas fa-eye mrs"></i>{{ "Mise en page"|trans }}</a>
             <a id="toggleConteneurs" class="btn"><i class="fas fa-eye mrs"></i>{{ "Conteneurs"|trans }}</a>
+            <a id="toggleListeBlocsDnD" class="btn mla"><i class="fas fa-th mrs"></i>{{ "Liste des blocs"|trans }}</a>
         </div>
 
         {{- form_widget(form, { attr: { class: 'dndBlocs' } }) -}}

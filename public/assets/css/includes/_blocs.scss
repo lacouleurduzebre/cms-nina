@@ -32,7 +32,6 @@
 .editionContenusPage{
   position: relative;
   > .row{
-    width: calc(100% - 25rem);
     .listeBlocsDnD-bloc{
       &.chargement{
         animation-name: clignotement;
@@ -48,10 +47,10 @@
   position: fixed;
   top: 19rem;
   right: 0;
-  width: 32rem;
+  width: 30rem;
   height: calc(100vh - 19rem);
   overflow: hidden auto;
-  background-color: #f7f7f7;
+  background-color: $white;
   padding: 1rem;
 
   ul{
@@ -76,6 +75,9 @@
     svg{
       font-size: 2.5rem;
       margin-bottom: .5rem;
+    }
+    &[data-type="BlocPartage"] svg{
+      font-size: 2rem;
     }
     .bloc-nom{
       font-size: 1.1rem;
@@ -232,7 +234,7 @@
   }
 }
 
-#toggleConteneurs, #toggleMiseEnPage{
+.toggleAffichageBlocs a.btn{
   border-radius: 2rem;
   background-color: #B1B1B1;
   color: $white;
@@ -275,6 +277,12 @@
   }
   .bloc-section{
     background-color: #FFF;
+  }
+}
+
+.affichagelisteBlocsDnD{
+  #toggleListeBlocsDnD{
+    background-color: $color-brand2;
   }
 }
 
@@ -963,7 +971,7 @@ body.edit, body.new{
   position: fixed;
   top: 19rem;
   right: 0;
-  width: 32rem;
+  width: 30rem;
   height: calc(100vw - 19rem);
   body.new-region &, body.edit-region &{
     top: 17rem;
