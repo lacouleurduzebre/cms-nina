@@ -87,6 +87,13 @@
   }
 }
 
+body.new-blocpartage, body.edit-blocpartage, body.new-region, body.edit-region{
+  .listeBlocsDnD{
+    top: 17rem;
+    height: calc(100vh - 17rem);
+  }
+}
+
 .conteneurBlocs li.dndPlaceholder{
   height: 5rem;
 }
@@ -505,6 +512,7 @@ div[id^="page_active_blocs"], div[id^="region_blocs"]{
     margin-left: auto;
     &:hover{
       min-width: 20rem;
+      width: auto;
       white-space: nowrap;
       padding: 0 3rem 0 1rem;
       justify-content: flex-start;

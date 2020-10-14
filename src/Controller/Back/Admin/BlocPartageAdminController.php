@@ -60,10 +60,24 @@ class BlocPartageAdminController extends AdminController
     }
 
     protected function newBlocPartageAction(){
-        return $this->newAction(true);
+        $easyadmin = $this->request->attributes->get('easyadmin');
+        $blocPartage = $easyadmin['item'];
+
+        if($blocPartage->getBloc()->getType() == 'Section'){
+            return $this->newAction(true);
+        }
+
+        return $this->newAction();
     }
 
     protected function editBlocPartageAction(){
-        return $this->editAction(true);
+        $easyadmin = $this->request->attributes->get('easyadmin');
+        $blocPartage = $easyadmin['item'];
+
+        if($blocPartage->getBloc()->getType() == 'Section'){
+            return $this->editAction(true);
+        }
+
+        return $this->editAction();
     }
 }

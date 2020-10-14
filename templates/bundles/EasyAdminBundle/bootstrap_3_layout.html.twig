@@ -822,7 +822,7 @@
             <a id="toggleMiseEnPage" class="btn mrs"><i class="fas fa-eye mrs"></i>{{ "Mise en page"|trans }}</a>
             {% if form.vars.value is empty or form.vars.value.type == 'Section' %}
                 <a id="toggleConteneurs" class="btn {% if form.vars.value is empty %}hidden{% endif %}"><i class="fas fa-eye mrs"></i>{{ "Conteneurs"|trans }}</a>
-                <a class="ajoutBloc btn {% if form.vars.value is empty %}hidden{% endif %}"><i class="fas fa-plus mrs"></i>{{ "Ajouter un bloc"|trans }}</a>
+                <a id="toggleListeBlocsDnD" class="btn {% if form.vars.value is empty %}hidden{% endif %} mla"><i class="fas fa-th mrs"></i>{{ "Liste des blocs"|trans }}</a>
             {% endif %}
         </div>
 
@@ -884,7 +884,7 @@
     {# BARRE D'ACTIONS #}
     <div class="bloc-barreActions">
         {% if not blocSection %}
-            <div class="bloc-edit"><i class="fas fa-pen"></i><span>{{ "Modifier"|trans~' '~form.children.type.vars.value }}</span></div>
+            <div class="bloc-edit"><i class="fas fa-pen"></i><span>{{ "Modifier"|trans~' '~form.children.type.vars.label|lower }}</span></div>
         {% endif %}
         <div class="drag"><i class="fas fa-arrows-alt "></i><span>{{ "Déplacer"|trans }}</span></div>
         <div class="optionsAffichage"><i class="fas fa-columns"></i><span>{{ "Mise en page"|trans }}</span></div>

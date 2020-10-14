@@ -15,8 +15,8 @@
 {% endblock %}
 
 {% block main %}
-    {% if blocs is defined %}
-        {% include('back/blocs/liste.html.twig') with { 'blocs': blocs, 'typeBlocs': 'Blocs' } only %}
+    {% if blocs is defined and blocs is not empty %}
+        {% include('back/blocs/listeDnD.html.twig') with { 'blocs': blocs } only %}
     {% endif %}
 
     {% if blocsAnnexes is defined %}

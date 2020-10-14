@@ -3695,12 +3695,12 @@ body.new.gris ul.nav-tabs, body.edit.gris ul.nav-tabs {
   background-color: #75726B;
 }
 
-body.new:not(.new-page_active) h1, body.edit:not(.edit-page_active) h1 {
+body.new:not(.new-page_active):not(.new-blocpartage):not(.new-region) h1, body.edit:not(.edit-page_active):not(.edit-blocpartage):not(.edit-region) h1 {
   width: calc(100% - 28rem);
   padding-right: 30rem;
 }
 @media (max-width: 767px) {
-  body.new:not(.new-page_active) h1, body.edit:not(.edit-page_active) h1 {
+  body.new:not(.new-page_active):not(.new-blocpartage):not(.new-region) h1, body.edit:not(.edit-page_active):not(.edit-blocpartage):not(.edit-region) h1 {
     width: calc(100% - 16rem);
   }
 }
@@ -4753,6 +4753,11 @@ body.list #flash-messages > * {
   line-height: 1;
 }
 
+body.new-blocpartage .listeBlocsDnD, body.edit-blocpartage .listeBlocsDnD, body.new-region .listeBlocsDnD, body.edit-region .listeBlocsDnD {
+  top: 17rem;
+  height: calc(100vh - 17rem);
+}
+
 .conteneurBlocs li.dndPlaceholder {
   height: 5rem;
 }
@@ -5154,6 +5159,7 @@ body.notFull .conteneurBlocs > .dndBlocs > .pleineLargeur {
 }
 .field-bloc:not(.bloc-section) > .bloc-barreActions > *:hover, .field-bloc_annexe > .bloc-barreActions > *:hover {
   min-width: 20rem;
+  width: auto;
   white-space: nowrap;
   padding: 0 3rem 0 1rem;
   justify-content: flex-start;
