@@ -4,9 +4,10 @@
 
 body.connected{
   margin-top: 3.8rem;
-  &.voirPage, &.accueil{
-    margin-top: 7.4rem;
-  }
+}
+
+body.ongletsEdition{
+  margin-top: 13.9rem;
 }
 
 /* Header */
@@ -177,20 +178,22 @@ body.connected{
   top: 3.8rem;
   left: 0;
   z-index: 100;
-  display: flex;
-  flex-wrap: wrap;
-  list-style: none;
-  padding: .5rem 0 0;
-  margin: 0;
   background-color: $color-brand2;
   width: 100%;
   font-family: "Cabin";
-  font-size: 1.6rem;
   body.notFull & {
     @include respond-to("medium-up") {
       left: 30rem;
       width: calc(100% - 30rem);
     }
+  }
+  ul{
+    font-size: 1.6rem;
+    display: flex;
+    flex-wrap: wrap;
+    list-style: none;
+    padding: .5rem 0 0;
+    margin: 0;
   }
   li {
     border-bottom: 7px solid $color-brand2;
@@ -203,4 +206,11 @@ body.connected{
     text-decoration: none;
     padding: 0 1rem;
   }
+}
+
+.ongletsEditionFront-titrePage{
+  margin: 1rem 0 .5rem 1.2rem;
+  height: 5rem;
+  font-size: 3.2rem;
+  color: $white;
 }

@@ -271,8 +271,9 @@ fieldset {
 body.connected {
   margin-top: 3.8rem;
 }
-body.connected.voirPage, body.connected.accueil {
-  margin-top: 7.4rem;
+
+body.ongletsEdition {
+  margin-top: 13.9rem;
 }
 
 /* Header */
@@ -448,21 +449,23 @@ body.connected.voirPage, body.connected.accueil {
   top: 3.8rem;
   left: 0;
   z-index: 100;
-  display: flex;
-  flex-wrap: wrap;
-  list-style: none;
-  padding: 0.5rem 0 0;
-  margin: 0;
   background-color: #0791B3;
   width: 100%;
   font-family: "Cabin";
-  font-size: 1.6rem;
 }
 @media (min-width: 768px) {
   body.notFull #ongletsEditionFront {
     left: 30rem;
     width: calc(100% - 30rem);
   }
+}
+#ongletsEditionFront ul {
+  font-size: 1.6rem;
+  display: flex;
+  flex-wrap: wrap;
+  list-style: none;
+  padding: 0.5rem 0 0;
+  margin: 0;
 }
 #ongletsEditionFront li {
   border-bottom: 7px solid #0791B3;
@@ -474,6 +477,13 @@ body.connected.voirPage, body.connected.accueil {
   color: #fff;
   text-decoration: none;
   padding: 0 1rem;
+}
+
+.ongletsEditionFront-titrePage {
+  margin: 1rem 0 0.5rem 1.2rem;
+  height: 5rem;
+  font-size: 3.2rem;
+  color: #fff;
 }
 
 /* -------------------------- */
