@@ -610,6 +610,11 @@ $(document).ready(function() {
                     verifPadding($(this));
                 });
 
+                calculCol(nvBloc);
+                nvBloc.find('.field-bloc').each(function(){
+                    calculCol($(this));
+                });
+
                 //Màj de la position
                 $('.field-bloc').each(function(){
                     $(this).find("input[id$='position']").val($(this).index());
@@ -658,10 +663,10 @@ $(document).ready(function() {
     });
 
     //Dissociation d'un bloc partagé
-    $('.bloc-blocPartager-dissocier').click(function(){
+    $('.conteneurBlocs').on('click', '.bloc-blocPartager-dissocier', function(){
         idBlocPartage = $(this).closest('.bloc-blocPartage-edition').find('input[name$="[blocPartage]"]').val();
 
-        $(this).closest('.field-bloc').replaceWith('<div class="ajoutBloc"></div>');
+        $(this).closest('.field-bloc').replaceWith('<div class="dndPlaceholder listeBlocsDnD-bloc"></div>');
 
         ajoutBloc('BlocPartage', 'dissocie');
     });
