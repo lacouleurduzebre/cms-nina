@@ -1388,7 +1388,7 @@
 
 {# Bloc Partage #}
 {% block bloc_partage_widget %}
-    <div class="bloc-blocPartage-edition">
+    {{ block('groupeBlocs') }}
 {% endblock %}
 
 {# Sections des blocs accordéon #}
@@ -1424,15 +1424,19 @@
 
 {# Champ du bloc groupe de blocs #}
 {% block groupeBlocs %}
-    <div class="flex-container bloc-groupeblocs-edition">
+    <div class="bloc-groupeblocs-edition">
         {{- form_widget(form) -}}
-        <div class="bloc-blocPartage-origine mls mbs">
-            {% set blocPartage = getBlocPartage(form.vars.value.blocPartage) %}
-            <a href="{{ path('easyadmin', { action: 'edit', entity: 'BlocPartage', id: blocPartage.id }) }}">{{ "Éditer ce bloc dans la bibliothèque de blocs partagés"|trans }}</a>
-        </div>
-        <div>
-            <button type="button" class="bloc-blocPartager-dissocier">{{ "Dissocier le bloc"|trans }}</button>
-        </div>
+        {% set blocPartage = getBlocPartage(form.vars.value.blocPartage) %}
+        {% if blocPartage %}
+            <div class="bloc-blocPartage-origine mbs">
+                <a href="{{ path('easyadmin', { action: 'edit', entity: 'BlocPartage', id: blocPartage.id }) }}">{{ "Éditer ce bloc dans la bibliothèque de blocs partagés"|trans }}</a>
+            </div>
+            <div>
+                <button type="button" class="btn bloc-blocPartager-dissocier"><i class="fas fa-cut mrs"></i>{{ "Dissocier le bloc"|trans }}</button>
+            </div>
+        {% else %}
+            <div>{{ "Une erreur est survenue, essayez de supprimer ce bloc et d'ajouter à nouveau le bloc partagé"|trans }}</div>
+        {% endif %}
     </div>
 {% endblock %}
 {# Bloc Partage #}

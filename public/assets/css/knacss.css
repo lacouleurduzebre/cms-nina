@@ -4753,6 +4753,10 @@ body.list #flash-messages > * {
   line-height: 1;
 }
 
+.conteneurBlocs li.dndPlaceholder {
+  height: 5rem;
+}
+
 /* Bouton pour ajouter un bloc */
 .ajout-blocAnnexe {
   background-color: #0791B3;
@@ -4815,6 +4819,7 @@ body.list #flash-messages > * {
   animation-name: placeholder;
   animation-duration: 0.3s;
   width: auto !important;
+  flex: 1;
   height: 3rem !important;
 }
 
@@ -4824,19 +4829,20 @@ body.list #flash-messages > * {
   width: 100% !important;
 }
 
-.ajoutBloc.btn.dndPlaceholder, .conteneurBlocs > .dndBlocs .ajoutBloc {
+.ajoutBloc.btn.dndPlaceholder, .conteneurBlocs > .dndBlocs .dndPlaceholder {
   flex: 1;
   display: block;
 }
 
 .ajoutBloc.btn.dndPlaceholder, .conteneurBlocs > .dndBlocs .listeBlocsDnD-bloc:not(.ui-draggable-dragging) {
   border: 2px dashed red;
-  min-height: 5rem;
+  height: 5rem;
   background-color: transparent;
   border-radius: 0;
   box-shadow: none;
   z-index: 200;
   font-size: 0;
+  flex: 1;
 }
 .ajoutBloc.btn.dndPlaceholder svg, .conteneurBlocs > .dndBlocs .listeBlocsDnD-bloc:not(.ui-draggable-dragging) svg {
   display: none;
@@ -5147,7 +5153,8 @@ body.notFull .conteneurBlocs > .dndBlocs > .pleineLargeur {
   margin-left: auto;
 }
 .field-bloc:not(.bloc-section) > .bloc-barreActions > *:hover, .field-bloc_annexe > .bloc-barreActions > *:hover {
-  width: 20rem;
+  min-width: 20rem;
+  white-space: nowrap;
   padding: 0 3rem 0 1rem;
   justify-content: flex-start;
 }
@@ -5610,6 +5617,7 @@ body.new-region .bloc-panel.bloc-optionsAffichage, body.edit-region .bloc-panel.
 
 .dndPlaceholder {
   border: 2px dashed red;
+  list-style: none;
 }
 
 .bloc-lei--recherche {

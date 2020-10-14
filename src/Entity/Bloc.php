@@ -107,7 +107,7 @@ class Bloc
     private $gouttieres;
 
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\BlocPartage", mappedBy="bloc")
+     * @ORM\OneToOne(targetEntity="App\Entity\BlocPartage", mappedBy="bloc", orphanRemoval=true)
      */
     private $blocPartage;
 
