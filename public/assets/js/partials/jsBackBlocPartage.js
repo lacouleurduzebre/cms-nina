@@ -12,7 +12,7 @@ $(document).ready(function() {
     $('#blocpartage_typeBloc').on('change', function(){
         type = $(this).val();
 
-        entite = $('.listeBlocs').siblings('form').attr('name');
+        entite = 'blocpartage';
 
         $.ajax({
             url: Routing.generate('ajouterBloc'),
@@ -27,11 +27,11 @@ $(document).ready(function() {
                 var form = data.replace(/bloc_/g, entite+'_bloc_')
                     .replace(/bloc\[/g, entite+'[bloc][');
 
-                bloc = '<div id="nvBloc'+count+'" class="form-group field-bloc nvBloc col12 bloc-'+type.toLowerCase()+'" data-name="0">'+form+'</div>';
+                bloc = '<div id="nvBloc0" class="form-group field-bloc nvBloc col12 bloc-'+type.toLowerCase()+'" data-name="0">'+form+'</div>';
 
                 $('.field-bloc').replaceWith(bloc);
 
-                nvBloc = $('#nvBloc' + count);
+                nvBloc = $('#nvBloc0');
 
                 nvBloc.resizable(optionsResizable).resizable( "option", "maxWidth", 992 );
 
@@ -45,6 +45,7 @@ $(document).ready(function() {
                 $('.select-multiple').select2();
                 $(".dndBlocs").sortable(options);
                 $(".dndBlocs.noDrag").sortable("disable");
+                lazyLoadInstance = new LazyLoad();
             });
 
         $('.field-choix_type_bloc').addClass('hidden');

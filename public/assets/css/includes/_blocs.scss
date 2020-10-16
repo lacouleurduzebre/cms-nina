@@ -820,8 +820,13 @@ body.new.new-blocpartage{
   .toggleAffichageBlocs{
     top: 11.5rem;
   }
-  .conteneurBlocs > div > .field-bloc > .bloc-barreActions > .bloc-menu{
-    display: none;
+  .conteneurBlocs > div > .field-bloc > .bloc-barreActions{
+    > .bloc-menu, > .drag{
+      display: none;
+    }
+  }
+  .conteneurBlocs > div > .field-bloc.bloc-section > .bloc-barreActions .optionsAffichage{
+    border: none;
   }
   .bloc-panel.bloc-optionsAffichage{
     top: 17rem;

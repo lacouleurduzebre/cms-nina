@@ -5436,8 +5436,11 @@ body.new.new-blocpartage .content-header span {
 #new-blocpartage-form .toggleAffichageBlocs, #edit-blocpartage-form .toggleAffichageBlocs {
   top: 11.5rem;
 }
-#new-blocpartage-form .conteneurBlocs > div > .field-bloc > .bloc-barreActions > .bloc-menu, #edit-blocpartage-form .conteneurBlocs > div > .field-bloc > .bloc-barreActions > .bloc-menu {
+#new-blocpartage-form .conteneurBlocs > div > .field-bloc > .bloc-barreActions > .bloc-menu, #new-blocpartage-form .conteneurBlocs > div > .field-bloc > .bloc-barreActions > .drag, #edit-blocpartage-form .conteneurBlocs > div > .field-bloc > .bloc-barreActions > .bloc-menu, #edit-blocpartage-form .conteneurBlocs > div > .field-bloc > .bloc-barreActions > .drag {
   display: none;
+}
+#new-blocpartage-form .conteneurBlocs > div > .field-bloc.bloc-section > .bloc-barreActions .optionsAffichage, #edit-blocpartage-form .conteneurBlocs > div > .field-bloc.bloc-section > .bloc-barreActions .optionsAffichage {
+  border: none;
 }
 #new-blocpartage-form .bloc-panel.bloc-optionsAffichage, #edit-blocpartage-form .bloc-panel.bloc-optionsAffichage {
   top: 17rem;
