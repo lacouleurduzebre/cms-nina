@@ -442,6 +442,7 @@ body.ongletsEdition {
 }
 #voirSite:hover {
   background-color: #000;
+  color: #fff;
 }
 
 #ongletsEditionFront {

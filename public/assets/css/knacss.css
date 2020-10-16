@@ -4721,7 +4721,7 @@ body.list #flash-messages > * {
   overflow: hidden auto;
   background-color: #fff;
   padding: 1rem;
-  z-index: 50;
+  z-index: 40;
 }
 .listeBlocsDnD ul {
   display: flex;

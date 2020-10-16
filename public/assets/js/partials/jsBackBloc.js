@@ -45,7 +45,7 @@ $(document).ready(function() {
             tinymce.init(optionsTinyMCE);
             lazyLoadInstance.update();
 
-            entite = $('.listeBlocs').siblings('form').attr('name');
+            entite = $('#main > form').attr('name');
             ancienParent = ui.sender;
             bloc = ui.item;
 
@@ -167,16 +167,6 @@ $(document).ready(function() {
                     ajoutBloc(type, null);
                 }
             });
-        }
-    });
-
-    $('.ajoutBloc').draggable({
-        connectToSortable: ".dndBlocs",
-        helper: "clone",
-        stop: function(event, ui){
-            if($('.conteneurBlocs > .dndBlocs').find('.ajoutBloc').length > 0){
-                $('.listeBlocs').addClass('actif');
-            }
         }
     });
 
@@ -442,7 +432,7 @@ $(document).ready(function() {
         e.preventDefault();
 
         if(count === 0){
-            entite = $('.listeBlocs').siblings('form').attr('name');
+            entite = $('#main > form').attr('name');
             count = $('#'+entite+'_blocs').find('.field-bloc').length;
         }
 
@@ -613,6 +603,10 @@ $(document).ready(function() {
                     nvBloc.find('.bloc-panel.bloc-formulaire').removeClass('hidden');
                 }
 
+                if(typeBlocPartage === 'dissocie'){
+                    nvBloc.removeClass('bloc-blocpartage').addClass('bloc-'+nvBloc.find('input[name$="[type]"]').val().toLowerCase());
+                }
+
                 nvBloc.find('input[name$="[padding]"]').each(function(){
                     verifPadding($(this));
                 });
@@ -641,15 +635,6 @@ $(document).ready(function() {
             });
         });
     };
-
-    $('.listeBlocs li:not(.blocPartage)').click(function(){
-        ajoutBloc($(this).attr('id'), null);
-    });
-
-    //Ajout de bloc partagé
-    $('.listeBlocs li.blocPartage').click(function(){
-        idBlocPartage = $(this).data('bloc');
-    });
 
         //Associé
     $('#ajoutBlocPartageAssocie').click(function(){
@@ -829,13 +814,13 @@ $(document).ready(function() {
     }
 
     //Clic sur fond de la liste des blocs = fermeture
-    $('.listeBlocs li, .listeBlocsAnnexes li').click(function(e){
+    $('.listeBlocsAnnexes li').click(function(e){
         e.stopPropagation();
         $(this).siblings('li.blocCache').addClass('hidden');
         $('.voirBlocs').removeClass('hidden');
     });
 
-    $('.listeBlocs, .listeBlocsAnnexes').click(function(){
+    $('.listeBlocsAnnexes').click(function(){
         $(this).removeClass('actif');
         $(this).find('li.blocCache').addClass('hidden');
         $('.voirBlocs').removeClass('hidden');

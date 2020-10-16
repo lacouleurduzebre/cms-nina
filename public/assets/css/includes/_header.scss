@@ -169,6 +169,7 @@ body.ongletsEdition{
   background-color: darken($color-primary, 15);
   &:hover{
     background-color: $black;
+    color: $white;
   }
 }
 

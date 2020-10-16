@@ -15,7 +15,8 @@ easy_admin:
           - { property: 'blocs', label: "Endroits où ce bloc est utilisé", template: 'back/blocs/blocsPartages/emplacementsBlocPartage.html.twig' }
       form:
         actions:
-          - { name: 'list', label: 'Retour à la liste des blocs partagés', title: 'Retour à la liste des pages', icon: 'arrow-left', css_class: '' }
+          - { name: 'delete', label: 'Supprimer', title: 'Supprimer', icon: 'trash', css_class: '' }
+          - { name: 'list', label: 'Retour', title: 'Retour', icon: 'arrow-left', css_class: '' }
       new:
         fields:
           - nom
