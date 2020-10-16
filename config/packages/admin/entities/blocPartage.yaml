@@ -22,6 +22,7 @@ easy_admin:
           - { property: 'typeBloc', type: 'App\Form\Type\ChoixTypeBlocType', type_options: { mapped: false, required: true } }
           - { property: 'bloc', type: 'App\Form\Type\BlocType', type_options: { by_reference: true, label: false, required: false } }
       edit:
+        title: nom
         actions:
           - { name: 'delete', label: 'Supprimer', title: 'Supprimer', icon: 'trash', css_class: '' }
         fields:

@@ -139,12 +139,19 @@ $(document).ready(function() {
     $('.pleineLargeur .field-bloc').resizable(optionsResizable).resizable( "option", "maxWidth", null );
 
     //Ajout de bloc via glisser-déposer
+    if($('body').hasClass('new-page_active') || $('body').hasClass('edit-page_active')){
+        listeBlocs = "#page_active_blocs";
+    }else if($('body').hasClass('new-region') || $('body').hasClass('edit-region')){
+        listeBlocs = "#region_blocs"
+    }else{
+        listeBlocs = "div[id$='blocsEnfants']"
+    }
     $('.listeBlocsDnD-bloc').draggable({
-        connectToSortable: "#page_active_blocs",
+        connectToSortable: listeBlocs,
         helper: "clone",
         appendTo: "body",
         stop: function(event, ui){
-            $('#page_active_blocs').find('.listeBlocsDnD-bloc').each(function(){
+            $(listeBlocs).find('.listeBlocsDnD-bloc').each(function(){
                 type = $(this).data('type');
                 $(this).addClass('chargement');
 
@@ -536,7 +543,7 @@ $(document).ready(function() {
 
     //Ajout de blocs via liste des blocs
     ajoutBloc = function(type, typeBlocPartage){
-        $('#page_active_blocs').find('.listeBlocsDnD-bloc').each(function(){
+        $(listeBlocs).find('.listeBlocsDnD-bloc').each(function(){
             cible = $(this);
             entite = $('.listeBlocsDnD-bloc').closest('form').attr('name');
 

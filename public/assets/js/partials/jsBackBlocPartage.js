@@ -51,7 +51,8 @@ $(document).ready(function() {
         $('.noDrag').show();
 
         if(type === 'Section'){
-            $('#toggleConteneurs, .ajoutBloc').removeClass('hidden');
+            $('#toggleConteneurs, #toggleListeBlocsDnD').removeClass('hidden');
+            $('.listeBlocsDnD').show();
         }
     });
 

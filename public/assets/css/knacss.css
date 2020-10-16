@@ -4704,7 +4704,8 @@ body.list #flash-messages > * {
 .editionContenusPage {
   position: relative;
 }
-.editionContenusPage > .row .listeBlocsDnD-bloc.chargement {
+
+.editionContenusPage > .row .listeBlocsDnD-bloc.chargement, #region_blocs .listeBlocsDnD-bloc.chargement {
   animation-name: clignotement;
   animation-duration: 0.5s;
   animation-iteration-count: infinite;
@@ -4720,6 +4721,7 @@ body.list #flash-messages > * {
   overflow: hidden auto;
   background-color: #fff;
   padding: 1rem;
+  z-index: 50;
 }
 .listeBlocsDnD ul {
   display: flex;
@@ -4756,6 +4758,10 @@ body.list #flash-messages > * {
 body.new-blocpartage .listeBlocsDnD, body.edit-blocpartage .listeBlocsDnD, body.new-region .listeBlocsDnD, body.edit-region .listeBlocsDnD {
   top: 17rem;
   height: calc(100vh - 17rem);
+}
+
+body.new-blocpartage .listeBlocsDnD {
+  display: none;
 }
 
 .conteneurBlocs li.dndPlaceholder {
@@ -4865,9 +4871,6 @@ body.new-blocpartage .listeBlocsDnD, body.edit-blocpartage .listeBlocsDnD, body.
 .form-group.field-bloc > label, .form-group.field-bloc_annexe > label {
   display: none;
 }
-.form-group.field-bloc:hover > .bloc-barreActions, .form-group.field-bloc_annexe:hover > .bloc-barreActions {
-  display: block;
-}
 
 .form-group.field-bloc.nvBloc {
   min-height: 5rem;
@@ -4935,9 +4938,6 @@ body.edit-region .toggleAffichageBlocs, body.new-region .toggleAffichageBlocs {
 }
 .miseEnPage .form-group.field-bloc:not(.bloc-section):hover {
   border: 2px dashed #a3a5a9;
-}
-.miseEnPage .blocsEnfants .form-group.field-bloc {
-  background-color: transparent;
 }
 
 .conteneurs #toggleConteneurs {
@@ -5419,7 +5419,7 @@ body.notFull .conteneurBlocs > .dndBlocs > .pleineLargeur {
 }
 
 body.new.new-blocpartage #main, body.edit.edit-blocpartage #main {
-  padding-top: 12.5rem;
+  padding-top: 12rem;
 }
 
 body.new.new-blocpartage .content-header span {
@@ -5440,7 +5440,7 @@ body.new.new-blocpartage .content-header span {
   display: none;
 }
 #new-blocpartage-form .bloc-panel.bloc-optionsAffichage, #edit-blocpartage-form .bloc-panel.bloc-optionsAffichage {
-  top: 11rem;
+  top: 17rem;
 }
 
 #page_active_blocs_ .hide, #page_active_blocsAnnexes .hide {

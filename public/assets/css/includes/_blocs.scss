@@ -31,14 +31,15 @@
 
 .editionContenusPage{
   position: relative;
-  > .row{
-    .listeBlocsDnD-bloc{
-      &.chargement{
-        animation-name: clignotement;
-        animation-duration: .5s;
-        animation-iteration-count: infinite;
-        animation-direction: alternate;
-      }
+}
+
+.editionContenusPage > .row, #region_blocs{
+  .listeBlocsDnD-bloc{
+    &.chargement{
+      animation-name: clignotement;
+      animation-duration: .5s;
+      animation-iteration-count: infinite;
+      animation-direction: alternate;
     }
   }
 }
@@ -52,6 +53,7 @@
   overflow: hidden auto;
   background-color: $white;
   padding: 1rem;
+  z-index: 50;
 
   ul{
     display: flex;
@@ -92,6 +94,10 @@ body.new-blocpartage, body.edit-blocpartage, body.new-region, body.edit-region{
     top: 17rem;
     height: calc(100vh - 17rem);
   }
+}
+
+body.new-blocpartage .listeBlocsDnD{
+  display: none;
 }
 
 .conteneurBlocs li.dndPlaceholder{
@@ -200,9 +206,6 @@ body.new-blocpartage, body.edit-blocpartage, body.new-region, body.edit-region{
   > label{
     display: none;
   }
-  &:hover > .bloc-barreActions{
-    display: block;
-  }
 }
 
 .form-group.field-bloc.nvBloc{
@@ -272,9 +275,6 @@ body.new-blocpartage, body.edit-blocpartage, body.new-region, body.edit-region{
     &:hover{
       border: 2px dashed #a3a5a9;
     }
-  }
-  .blocsEnfants .form-group.field-bloc{
-    background-color: transparent;
   }
 }
 
@@ -797,7 +797,7 @@ div[id^="page_active_blocs"], div[id^="region_blocs"]{
   //Création / édition d'un bloc partagé
 body.new.new-blocpartage, body.edit.edit-blocpartage{
   #main{
-    padding-top: 12.5rem;
+    padding-top: 12rem;
   }
 }
 
@@ -824,7 +824,7 @@ body.new.new-blocpartage{
     display: none;
   }
   .bloc-panel.bloc-optionsAffichage{
-    top: 11rem;
+    top: 17rem;
   }
 }
 
