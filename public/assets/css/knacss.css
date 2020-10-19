@@ -4946,8 +4946,10 @@ body.edit-region .toggleAffichageBlocs, body.new-region .toggleAffichageBlocs {
 .conteneurs .form-group.field-bloc.bloc-section {
   box-shadow: 0 0 5px #939393;
   border: 1px solid #fff;
-  padding: 2rem;
   margin-bottom: 5px;
+}
+.conteneurs .form-group.field-bloc.bloc-section > #page_active_blocs_ {
+  padding: 2rem;
 }
 .conteneurs .bloc-section {
   background-color: #FFF;

@@ -77,7 +77,7 @@ $(document).ready(function() {
 
             //Reprise des classes du bloc (mauto)
             ui.placeholder.attr('class', 'dndPlaceholder '+ui.item.attr('class')).removeClass('field-bloc form-group bloc-section');
-            if(!ui.item.hasClass('ajoutBloc')){
+            if(!ui.item.hasClass('listeBlocsDnD-bloc')){
                 ui.placeholder.css('width', ui.item.width());
             }
 
@@ -739,12 +739,6 @@ $(document).ready(function() {
     });
 
     //Fermeture
-    $('.listeBlocs-fermeture').click(function(){
-        $('.listeBlocs').removeClass('actif');
-        $('.voirBlocs').removeClass('hidden');
-        $('.conteneurBlocs > .dndBlocs .ajoutBloc').remove();
-    });
-
     $('.listeBlocsAnnexes-fermeture').click(function(){
         $('.listeBlocsAnnexes').removeClass('actif');
         $('.voirBlocs').removeClass('hidden');

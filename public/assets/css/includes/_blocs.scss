@@ -285,8 +285,10 @@ body.new-blocpartage .listeBlocsDnD{
   .form-group.field-bloc.bloc-section{
     box-shadow: 0 0 5px #939393;
     border: 1px solid $white;
-    padding: 2rem;
     margin-bottom: 5px;
+    > #page_active_blocs_{
+      padding: 2rem;
+    }
   }
   .bloc-section{
     background-color: #FFF;
