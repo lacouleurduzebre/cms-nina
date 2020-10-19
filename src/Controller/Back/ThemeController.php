@@ -135,21 +135,18 @@ class ThemeController extends AbstractController
             //Formulaire
             $form = $this->createForm(FormType::class);
 
+            $anciennesValeurs = [];
             foreach($champs as $champ => $infos){
-                if($parametres && key_exists($nom, $parametres)){//Paramètre modifié par l'utilisateur
-                    $data = $parametres[$nom];
+                if($parametres && key_exists($champ, $parametres)){//Paramètre modifié par l'utilisateur
+                    $anciennesValeurs[$champ] = $data = $parametres[$champ];
                 }else{//Paramètre par défaut
-                    $data = $infos['defaut'];
+                    $anciennesValeurs[$champ] = $data = $infos['defaut'];
                 }
 
                 if($infos['type'] == 'image'){
-                    $form->add($champ, ImageSimpleType::class, array(
-                        'label' => $infos['label']
-                    ));
+                    $form->add($champ, ImageSimpleType::class, $infos['options'] ?? []);
                 }else{
-                    $form->add($champ, 'Symfony\Component\Form\Extension\Core\Type\\'.ucfirst($infos['type']).'Type', array(
-                        'label' => $infos['label']
-                    ));
+                    $form->add($champ, 'Symfony\Component\Form\Extension\Core\Type\\'.ucfirst($infos['type']).'Type', $infos['options'] ?? []);
                 }
 
                 $form->get($champ)->setData($data);
@@ -158,6 +155,47 @@ class ThemeController extends AbstractController
             $form->add('Envoyer', SubmitType::class);
         }else{//Pas de paramètres
             $champs = null;
+        }
+
+        //Enregistrement des paramètres
+        $form->handleRequest($request);
+        if($form->isSubmitted() && $form->isValid()){
+            $data = $form->getData();
+
+            $nomFichierVariablesScss = '../themes/'.$nom.'/assets/css/_config/_parametres.scss';
+            if(!file_exists($nomFichierVariablesScss)){
+                file_put_contents($nomFichierVariablesScss, '');
+            }
+
+            foreach($data as $champ=>$valeur){
+                if(strpos(file_get_contents($nomFichierVariablesScss), '$'.$champ.':') === false){//Création de la variable si elle n'existe pas
+                    file_put_contents($nomFichierVariablesScss, file_get_contents($nomFichierVariablesScss).PHP_EOL.'$'.$champ.': '.$valeur.';');
+                }else{//Modif variable
+                    file_put_contents($nomFichierVariablesScss, str_replace(
+                        '$'.$champ.': '.$anciennesValeurs[$champ], '$'.$champ.': '.$valeur, file_get_contents($nomFichierVariablesScss)
+                    ));
+                }
+
+                //Modif config.yaml
+                $parametres[$champ] = $valeur;
+            }
+
+            //Compilation SCSS
+            $nomFichierCss = '../themes/'.$nom.'/assets/css/knacss.css';
+            exec('pwd', $pwd);
+            exec($pwd[0].'/../vendor/scssphp/scssphp/bin/pscss '.$pwd[0].'/../themes/'.$nom.'/assets/css/knacss.scss', $css);
+
+            //Enregistrement fichier css
+            file_put_contents($nomFichierCss, $css);
+
+            //Enregistrement config.yaml
+            $nvFichier = Yaml::dump($parametres);
+            file_put_contents($nomFichierParametres, $nvFichier);
+
+            $this->addFlash(
+                'enregistrement',
+                'Les paramètres ont été enregistrés'
+            );
         }
 
         //Template

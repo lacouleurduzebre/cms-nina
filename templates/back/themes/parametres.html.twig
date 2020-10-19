@@ -3,11 +3,12 @@
     {% form_theme form with easyadmin_config('design.form_theme') %}
 {% endif %}
 
-{% block content %}
+{% block main %}
     <h1>{{ "Paramètres du thème"|trans }} "{{ nom }}"</h1>
+    <p><a href="{{ path("theme") }}"><i class="fas fa-arrow-left"></i> {{ "Retour à la liste des thèmes"|trans }}</a></p>
     {% if form is not empty %}
         {{ form(form) }}
     {% else %}
-        {{ "Ce thème n'est pas paramétrable"|trans }}
+        <p>{{ "Ce thème n'est pas paramétrable"|trans }}</p>
     {% endif %}
 {% endblock %}

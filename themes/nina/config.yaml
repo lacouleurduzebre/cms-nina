@@ -5,13 +5,23 @@ infos:
     description: Thème par défaut du CMS Nina
 champs:
     couleur:
-        label: "Couleur principale"
         type: color
         defaut: "#5CBFEE"
-    fond:
-        label: "Image de fond"
-        type: image
-        defaut: "theme/img/background.jpg"
+        options:
+            label: "Couleur 1"
+    couleur2:
+        type: color
+        defaut: "#0A9C00"
+        options:
+            label: "Couleur 2"
+    couleurh1:
+        type: choice
+        defaut: "$couleur"
+        options:
+            label: "Titres h1 - Couleur"
+            choices:
+                Couleur 1: $couleur
+                Couleur 2: $couleur2
 #blocs:
 #    Titre:
 #        classes:
