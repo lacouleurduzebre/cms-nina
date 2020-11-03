@@ -4,7 +4,6 @@ namespace App\DataFixtures;
 
 use App\Entity\Bloc;
 use App\Entity\Configuration;
-use App\Entity\GroupeBlocs;
 use App\Entity\Langue;
 use App\Entity\Menu;
 use App\Entity\MenuPage;
@@ -195,21 +194,13 @@ class AppFixtures extends Fixture
         $manager->persist($footer);
 
         //Bloc menu dans le header
-        $groupeBlocHeader = new GroupeBlocs();
-        $groupeBlocHeader->setNom('Header')
-            ->setLangue($langue)
-            ->setRegion($header)
-            ->setIdentifiant('header')
-            ->setPosition(0);
-        $manager->persist($groupeBlocHeader);
-
         $contenuBlocMenuPrincipal = [];
         $contenuBlocMenuPrincipal['menu'] = $menu->getId();
 
         $blocMenuPrincipal = new Bloc();
         $blocMenuPrincipal->setType('Menu')
             ->setPosition(1)
-            ->setGroupeBlocs($groupeBlocHeader)
+            ->setRegion($header)
             ->setContenu($contenuBlocMenuPrincipal);
         $manager->persist($blocMenuPrincipal);
 
@@ -221,26 +212,18 @@ class AppFixtures extends Fixture
         $blocLogo = new Bloc();
         $blocLogo->setType('LogoSite')
             ->setPosition(0)
-            ->setGroupeBlocs($groupeBlocHeader)
+            ->setRegion($header)
             ->setContenu($contenuBlocLogo);
         $manager->persist($blocLogo);
 
         //Bloc menu dans le footer
-        $groupeBlocFooter = new GroupeBlocs();
-        $groupeBlocFooter->setNom('Footer')
-            ->setLangue($langue)
-            ->setRegion($footer)
-            ->setIdentifiant('footer')
-            ->setPosition(0);
-        $manager->persist($groupeBlocFooter);
-
         $contenuBlocMenuFooter = [];
         $contenuBlocMenuFooter['menu'] = $menuFooter->getId();
 
         $blocMenuFooter = new Bloc();
         $blocMenuFooter->setType('Menu')
             ->setPosition(0)
-            ->setGroupeBlocs($groupeBlocFooter)
+            ->setRegion($footer)
             ->setContenu($contenuBlocMenuFooter);
         $manager->persist($blocMenuFooter);
 
