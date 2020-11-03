@@ -17,7 +17,7 @@ main{
 
 //Accordéon
 .blocAccordeon-titre{
-  background-color: $color-brand;
+  background-color: $couleur;
   color: $white;
   padding: 1rem 2rem;
   margin-bottom: 2px;
@@ -127,10 +127,10 @@ main{
 }
 
 .blocLEI-recherche--critere{
-  background-color: $color-brand;
+  background-color: $couleur;
   color: $white;
   &.actif{
-    background-color: darken($color-brand, 25);
+    background-color: darken($couleur, 25);
   }
 }
 
@@ -142,7 +142,7 @@ main{
 }
 
 .ficheLEI-commune{
-  color: $color-brand;
+  color: $couleur;
   font-weight: bold;
   margin-bottom: 0;
 }
@@ -169,7 +169,7 @@ main{
 
 .ficheLEI-titre{
   font-weight: bold;
-  color: $color-brand;
+  color: $couleur;
   font-size: 1.8rem;
   line-height: 1.2;
   margin-top: 1rem;
@@ -227,7 +227,7 @@ main{
 .blocReseauxSociaux-liens{
   display: flex;
   a{
-    background-color: $color-brand;
+    background-color: $couleurLiens;
     color: $white;
     width: 4rem;
     height: 4rem;
@@ -237,7 +237,7 @@ main{
     justify-content: center;
     margin: 0 .5rem;
     &:hover{
-      background-color: darken($color-brand, 10);
+      background-color: darken($couleurLiens, 10);
     }
   }
   svg {
@@ -270,10 +270,10 @@ main{
   }
   .slick-dots li button::before{
     font-size: 1.2rem;
-    color: $color-brand;
+    color: $couleurLiens;
   }
   .slick-dots li.slick-active button::before{
-    color: $color-brand;
+    color: $couleurLiens;
   }
 }
 
@@ -285,7 +285,7 @@ main{
 
 .blocSlider-slide--texte{
   padding: 1rem;
-  background-color: $color-brand;
+  background-color: $couleur;
 }
 
 .blocSlider-slide--titre{

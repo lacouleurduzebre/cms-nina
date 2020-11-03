@@ -17,8 +17,8 @@ $extra-large : 1200px !default;
 // ----------
 
 // Font families
-$font-family-base      : -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif !default; // system font stack
-$font-family-headings  : sans-serif !default; // font for h1, h2.. h6
+$font-family-base      : $policeTextes, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif !default; // system font stack
+$font-family-headings  : $policeH1, sans-serif !default; // font for h1, h2.. h6
 $font-family-monospace : consolas, courier, monospace !default; // font for code and samples
 
 // Font sizes (1.6rem value is "16px" equivalent)
@@ -30,20 +30,20 @@ $font-sizes: (
     desktop : $font-size-base
   ),
   h1: (
-    mobile  : 2.8rem,
-    desktop : 3.2rem
+    mobile  : $taillePoliceH1 - $taillePoliceH1/4,
+    desktop : $taillePoliceH1
   ),
   h2: (
-    mobile  : 2.4rem,
-    desktop : 2.8rem
+    mobile  : $taillePoliceH2 - $taillePoliceH2/4,
+    desktop : $taillePoliceH2
   ),
   h3: (
-    mobile  : 2.0rem,
-    desktop : 2.4rem
+    mobile  : $taillePoliceH3 - $taillePoliceH3/4,
+    desktop : $taillePoliceH3
   ),
   h4: (
-    mobile  : 1.8rem,
-    desktop : 2.0rem
+    mobile  : $taillePoliceH4 - $taillePoliceH4/4,
+    desktop : $taillePoliceH4
   ),
   h5: (
     mobile  : 1.6rem,
@@ -133,10 +133,6 @@ $orange-500 : #F0AD4E !default;
 $red-500    : #D9534F !default;
 
 // Semantic colors
-$color-brand    : #5CBFEE;
-$color-brand-dark    : darken($color-brand, 10);
-$color-brand2   : #007492;
-$color-primary  : #5A5853;
 $color-success  : $green-500;
 $color-info     : $blue-300;
 $color-warning  : $orange-500;
@@ -145,17 +141,17 @@ $color-inverse  : $gray-800;
 $color-ghost    : transparent;
 $color-muted    : $gray-200;
 
-$color-base      : $gray-900;
+$color-base      : $couleurTextes;
 $background-base : $white;
 
-$forms-color     : $gray-800;
+$forms-color     : $couleurFormulaires;
 
 // ---------------
 // Components zone
 // ---------------
 
 // Component: links
-$link-color            : $gray-800;
+$link-color            : $couleurLiens;
 $link-color-hover      : darken($link-color, 15%);
 $link-decoration       : underline;
 $link-decoration-hover : underline;
@@ -171,13 +167,13 @@ $arrow-color     : $black;
 
 // Components: checkboxes, radios, switches
 $checkbox-color: $white;
-$checkbox-background: $color-brand;
+$checkbox-background: $couleurFormulaires;
 $checkbox-size: 2rem;
 $checkbox-border-radius: 4px;
-$radio-color: $color-brand;
+$radio-color: $couleurFormulaires;
 $radio-background: $white;
 $switch-color: $white;
-$switch-background: $gray-800;
+$switch-background: $couleurFormulaires;
 $switch-size: 2rem;
 $switch-border-radius: 3em;
 
@@ -193,7 +189,7 @@ $table-footer-background    : transparent;
 // Components: buttons, badges, alerts color variants list
 // Convention is: name - background-color - color - border
 $variants-list: (
-  (primary,    $color-primary,    $white,    none),
+  (primary,    $couleur,    $white,    none),
   (success,    $color-success,    $white,    none),
   (info,       $color-info,       $black,    none),
   (warning,    $color-warning,    $black,    none),

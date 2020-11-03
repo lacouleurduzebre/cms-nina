@@ -36,8 +36,20 @@ main{
   }
 }
 
-h1, h2, h3{
-  color: $color-brand2;
+h1{
+  color: $couleurH1;
+}
+
+h2{
+  color: $couleurH2;
+}
+
+h3{
+  color: $couleurH3;
+}
+
+h4{
+  color: $couleurH4;
 }
 
 body.recherche h1{
@@ -51,6 +63,7 @@ body.recherche h1{
 }
 
 .bouton-categorie{
+  background-color: $couleurCategories;
   margin-right: 1rem;
   padding: .5rem 1rem;
   svg{
@@ -62,9 +75,6 @@ body.recherche h1{
   @include centre;
   padding: 1rem;
   width: 100%;
-  a{
-    color: $color-brand2;
-  }
 }
 
 .pagination{
@@ -77,7 +87,7 @@ body.recherche h1{
       margin: 0 .5rem;
     }
     &, a{
-      color: $color-brand2;
+      color: $couleurLiens;
       font-weight: bold;
       text-decoration: none;
     }

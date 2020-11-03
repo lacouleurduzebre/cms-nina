@@ -63,7 +63,7 @@ $bp-aliases: (
 
 @mixin bouton{
   display: inline-block;
-  background-color: $color-brand;
+  background-color: $couleurLiens;
   color: $white;
   border-radius: 5px;
   padding: 1rem 1.5rem;
@@ -71,7 +71,7 @@ $bp-aliases: (
   text-decoration: none;
   transition: background-color .3s;
   &:hover, &:focus, &:active{
-    background-color: $color-brand-dark;
+    background-color: darken($couleurLiens, 15);
     text-decoration: none;
     color: $white;
   }

@@ -14,7 +14,6 @@
     }
     a{
       text-decoration: none;
-      color: $color-brand2;
     }
   }
 }
@@ -40,11 +39,9 @@
     }
   }
   a{
-    color: $color-brand2;
     text-decoration: none;
     @include respond-to("medium"){
       font-weight: bold;
-      color: $color-brand;
       display: flex;
       text-align: left;
       padding: 1rem;
@@ -66,7 +63,7 @@
       position: relative;
       &:after{
         content: ">";
-        color: $color-brand;
+        color: $couleurLiens;
         font-weight: bold;
         transform: rotate(90deg);
         margin-left: auto;
@@ -106,7 +103,7 @@
           width: 100%;
           @include respond-to("medium-up"){
             &:hover{
-              background-color: rgba($color-brand, .5);
+              background-color: rgba($couleurLiens, .5);
             }
           }
         }
@@ -140,7 +137,7 @@
 
 //Burger
 #burger{
-  color: $color-brand;
+  color: $couleurLiens;
   font-size: 3rem;
   background-color: #FFF;
   display: inline-block;
