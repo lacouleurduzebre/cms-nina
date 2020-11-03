@@ -4,24 +4,138 @@ infos:
     site: https://www.lacouleurduzebre.com
     description: Thème par défaut du CMS Nina
 champs:
+    #Couleurs
     couleur:
         type: color
-        defaut: "#5CBFEE"
+        defaut: "#0791B3"
         options:
             label: "Couleur 1"
     couleur2:
         type: color
-        defaut: "#0A9C00"
+        defaut: "#A1BA1D"
         options:
             label: "Couleur 2"
-    couleurh1:
+    couleur3:
+        type: color
+        defaut: "#F29400"
+        options:
+            label: "Couleur 3"
+    #H1
+    couleurH1:
         type: choice
         defaut: "$couleur"
         options:
-            label: "Titres h1 - Couleur"
-            choices:
+            label: "Titres H1 - Couleur"
+            choices: &couleurs
                 Couleur 1: $couleur
                 Couleur 2: $couleur2
+                Couleur 3: $couleur3
+    policeH1:
+        type: text
+        defaut: "Open Sans"
+        options:
+            label: "Titres H1 - Police"
+    taillePoliceH1:
+        type: text
+        defaut: "16px"
+        options:
+            label: "Titres H1 - Taille de police"
+    #H2
+    couleurH2:
+        type: choice
+        defaut: "$couleur"
+        options:
+            label: "Titres H2 - Couleur"
+            choices:
+                <<: *couleurs
+    policeH2:
+        type: text
+        defaut: "Open Sans"
+        options:
+            label: "Titres H2 - Police"
+    taillePoliceH2:
+        type: text
+        defaut: "16px"
+        options:
+            label: "Titres H2 - Taille de police"
+    #H3
+    couleurH3:
+        type: choice
+        defaut: "$couleur"
+        options:
+            label: "Titres H3 - Couleur"
+            choices:
+                <<: *couleurs
+    policeH3:
+        type: text
+        defaut: "Open Sans"
+        options:
+            label: "Titres H3 - Police"
+    taillePoliceH3:
+        type: text
+        defaut: "16px"
+        options:
+            label: "Titres H3 - Taille de police"
+    #H4
+    couleurH4:
+        type: choice
+        defaut: "$couleur"
+        options:
+            label: "Titres H4 - Couleur"
+            choices:
+                <<: *couleurs
+    policeH4:
+        type: text
+        defaut: "Open Sans"
+        options:
+            label: "Titres H4 - Police"
+    taillePoliceH4:
+        type: text
+        defaut: "16px"
+        options:
+            label: "Titres H4 - Taille de police"
+    #Textes
+    couleurTextes:
+        type: choice
+        defaut: "$couleur"
+        options:
+            label: "Textes - Couleur"
+            choices:
+                <<: *couleurs
+    policeTextes:
+        type: text
+        defaut: "Open Sans"
+        options:
+            label: "Textes - Police"
+    tailleTextes:
+        type: text
+        defaut: "16px"
+        options:
+            label: "Textes - Taille de police"
+    #Liens
+    couleurLiens:
+        type: choice
+        defaut: "$couleur"
+        options:
+            label: "Liens - Couleur"
+            choices:
+                <<: *couleurs
+    #Formulaires
+    couleurFormulaires:
+        type: choice
+        defaut: "$couleur"
+        options:
+            label: "Formulaires - Couleur"
+            choices:
+                <<: *couleurs
+    #Étiquettes de catégorie
+    couleurCategories:
+        type: choice
+        defaut: "$couleur"
+        options:
+            label: "Étiquettes de catégorie - Couleur"
+            choices:
+                <<: *couleurs
 #blocs:
 #    Titre:
 #        classes:

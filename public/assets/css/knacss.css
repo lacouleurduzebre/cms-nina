@@ -4450,6 +4450,19 @@ body.list #flash-messages > * {
   display: none;
 }
 
+.parametrageTheme .form-group {
+  display: flex;
+}
+.parametrageTheme label {
+  margin-right: 1rem;
+}
+.parametrageTheme label + span {
+  display: none;
+}
+.parametrageTheme input[type=text] {
+  border-bottom: 2px solid #0791B3;
+}
+
 .sauvegarde h2 {
   color: #0791B3;
 }

@@ -143,6 +143,7 @@ class ThemeController extends AbstractController
                     $anciennesValeurs[$champ] = $data = $infos['defaut'];
                 }
 
+                //Champs
                 if($infos['type'] == 'image'){
                     $form->add($champ, ImageSimpleType::class, $infos['options'] ?? []);
                 }else{
@@ -163,39 +164,27 @@ class ThemeController extends AbstractController
             $data = $form->getData();
 
             $nomFichierVariablesScss = '../themes/'.$nom.'/assets/css/_config/_parametres.scss';
-            if(!file_exists($nomFichierVariablesScss)){
-                file_put_contents($nomFichierVariablesScss, '');
-            }
+            fopen($nomFichierVariablesScss, "w");
 
             foreach($data as $champ=>$valeur){
-                if(strpos(file_get_contents($nomFichierVariablesScss), '$'.$champ.':') === false){//Création de la variable si elle n'existe pas
-                    file_put_contents($nomFichierVariablesScss, file_get_contents($nomFichierVariablesScss).PHP_EOL.'$'.$champ.': '.$valeur.';');
-                }else{//Modif variable
-                    file_put_contents($nomFichierVariablesScss, str_replace(
-                        '$'.$champ.': '.$anciennesValeurs[$champ], '$'.$champ.': '.$valeur, file_get_contents($nomFichierVariablesScss)
-                    ));
-                }
+                //Modif fichier scss
+                file_put_contents($nomFichierVariablesScss, file_get_contents($nomFichierVariablesScss).PHP_EOL.'$'.$champ.': '.$valeur.';');
 
                 //Modif config.yaml
                 $parametres[$champ] = $valeur;
             }
 
-            //Compilation SCSS
+            //Compilation SCSS / enregistrement fichier css
             $nomFichierCss = '../themes/'.$nom.'/assets/css/knacss.css';
             exec('pwd', $pwd);
             exec($pwd[0].'/../vendor/scssphp/scssphp/bin/pscss '.$pwd[0].'/../themes/'.$nom.'/assets/css/knacss.scss', $css);
-
-            //Enregistrement fichier css
             file_put_contents($nomFichierCss, $css);
 
             //Enregistrement config.yaml
             $nvFichier = Yaml::dump($parametres);
             file_put_contents($nomFichierParametres, $nvFichier);
 
-            $this->addFlash(
-                'enregistrement',
-                'Les paramètres ont été enregistrés'
-            );
+            $this->addFlash('enregistrement', 'Les paramètres ont été enregistrés');
         }
 
         //Template

@@ -83,3 +83,19 @@
 .theme:not(.actif) .theme-actif{
   display: none;
 }
+
+//Paramétrage
+.parametrageTheme{
+  .form-group{
+    display: flex;
+  }
+  label{
+    margin-right: 1rem;
+    + span{
+      display: none;
+    }
+  }
+  input[type=text]{
+    border-bottom: 2px solid $color-brand2;
+  }
+}
