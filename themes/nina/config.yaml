@@ -22,14 +22,10 @@ champs:
             label: "Couleur 3"
     #H1
     couleurH1:
-        type: choice
+        type: choixCouleur
         defaut: "$couleur"
         options:
             label: "Titres H1 - Couleur"
-            choices: &couleurs
-                Couleur 1: $couleur
-                Couleur 2: $couleur2
-                Couleur 3: $couleur3
     policeH1:
         type: text
         defaut: "Open Sans"
@@ -42,12 +38,10 @@ champs:
             label: "Titres H1 - Taille de police"
     #H2
     couleurH2:
-        type: choice
+        type: choixCouleur
         defaut: "$couleur"
         options:
             label: "Titres H2 - Couleur"
-            choices:
-                <<: *couleurs
     policeH2:
         type: text
         defaut: "Open Sans"
@@ -60,12 +54,10 @@ champs:
             label: "Titres H2 - Taille de police"
     #H3
     couleurH3:
-        type: choice
+        type: choixCouleur
         defaut: "$couleur"
         options:
             label: "Titres H3 - Couleur"
-            choices:
-                <<: *couleurs
     policeH3:
         type: text
         defaut: "Open Sans"
@@ -78,12 +70,10 @@ champs:
             label: "Titres H3 - Taille de police"
     #H4
     couleurH4:
-        type: choice
+        type: choixCouleur
         defaut: "$couleur"
         options:
             label: "Titres H4 - Couleur"
-            choices:
-                <<: *couleurs
     policeH4:
         type: text
         defaut: "Open Sans"
@@ -96,12 +86,10 @@ champs:
             label: "Titres H4 - Taille de police"
     #Textes
     couleurTextes:
-        type: choice
+        type: choixCouleur
         defaut: "$couleur"
         options:
             label: "Textes - Couleur"
-            choices:
-                <<: *couleurs
     policeTextes:
         type: text
         defaut: "Open Sans"
@@ -114,28 +102,22 @@ champs:
             label: "Textes - Taille de police"
     #Liens
     couleurLiens:
-        type: choice
+        type: choixCouleur
         defaut: "$couleur"
         options:
             label: "Liens - Couleur"
-            choices:
-                <<: *couleurs
     #Formulaires
     couleurFormulaires:
-        type: choice
+        type: choixCouleur
         defaut: "$couleur"
         options:
             label: "Formulaires - Couleur"
-            choices:
-                <<: *couleurs
     #Étiquettes de catégorie
     couleurCategories:
-        type: choice
+        type: choixCouleur
         defaut: "$couleur"
         options:
             label: "Étiquettes de catégorie - Couleur"
-            choices:
-                <<: *couleurs
 #blocs:
 #    Titre:
 #        classes:

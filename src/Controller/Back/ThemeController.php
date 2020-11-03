@@ -11,6 +11,7 @@ namespace App\Controller\Back;
 
 use App\Entity\Configuration;
 use App\Form\Type\ImageSimpleType;
+use App\Form\Type\ParametresThemes\ChoixCouleurType;
 use App\Service\Droits;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Filesystem\Filesystem;
@@ -144,8 +145,11 @@ class ThemeController extends AbstractController
                 }
 
                 //Champs
+                $options = $infos['options'] ?? [];
                 if($infos['type'] == 'image'){
-                    $form->add($champ, ImageSimpleType::class, $infos['options'] ?? []);
+                    $form->add($champ, ImageSimpleType::class, $options);
+                }elseif($infos['type'] == 'choixCouleur'){
+                    $form->add($champ, ChoixCouleurType::class, $options);
                 }else{
                     $form->add($champ, 'Symfony\Component\Form\Extension\Core\Type\\'.ucfirst($infos['type']).'Type', $infos['options'] ?? []);
                 }
