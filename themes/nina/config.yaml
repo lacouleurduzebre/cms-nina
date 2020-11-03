@@ -20,6 +20,12 @@ champs:
         defaut: "#F29400"
         options:
             label: "Couleur 3"
+    #Polices à importer
+    polices:
+        type: polices
+        defaut: {}
+        options:
+            label: "Polices à importer"
     #H1
     couleurH1:
         type: choixCouleur

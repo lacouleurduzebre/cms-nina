@@ -16,5 +16,6 @@
 {% endblock %}
 
 {% block body_javascript %}
+    {{ include('@EasyAdmin/default/includes/_select2_widget.html.twig') }}
     <script src="{{ asset('assets/js/partials/jsBackTheme.js') }}"></script>
 {% endblock body_javascript %}

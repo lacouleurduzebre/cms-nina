@@ -12,6 +12,7 @@ namespace App\Controller\Back;
 use App\Entity\Configuration;
 use App\Form\Type\ImageSimpleType;
 use App\Form\Type\ParametresThemes\ChoixCouleurType;
+use App\Form\Type\ParametresThemes\PolicesType;
 use App\Service\Droits;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Filesystem\Filesystem;
@@ -148,6 +149,8 @@ class ThemeController extends AbstractController
                 $options = $infos['options'] ?? [];
                 if($infos['type'] == 'image'){
                     $form->add($champ, ImageSimpleType::class, $options);
+                }elseif($infos['type'] == 'polices'){
+                    $form->add($champ, PolicesType::class, $options);
                 }elseif($infos['type'] == 'choixCouleur'){
                     $form->add($champ, ChoixCouleurType::class, $options);
                 }else{
@@ -172,7 +175,13 @@ class ThemeController extends AbstractController
 
             foreach($data as $champ=>$valeur){
                 //Modif fichier scss
-                file_put_contents($nomFichierVariablesScss, file_get_contents($nomFichierVariablesScss).PHP_EOL.'$'.$champ.': '.$valeur.';');
+                if($fichierDefaut['champs'][$champ]['type'] == 'polices'){//Si police
+                    foreach($valeur as $police){
+                        file_put_contents($nomFichierVariablesScss, file_get_contents($nomFichierVariablesScss).PHP_EOL."@import url('https://fonts.googleapis.com/css2?family=".$police."');");
+                    }
+                }else{
+                    file_put_contents($nomFichierVariablesScss, file_get_contents($nomFichierVariablesScss).PHP_EOL.'$'.$champ.': '.$valeur.';');
+                }
 
                 //Modif config.yaml
                 $parametres[$champ] = $valeur;
