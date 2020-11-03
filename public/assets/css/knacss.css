@@ -4451,16 +4451,26 @@ body.list #flash-messages > * {
 }
 
 .parametrageTheme .form-group {
+  margin-bottom: 2rem;
+}
+.parametrageTheme .form-group.field-color {
   display: flex;
 }
 .parametrageTheme label {
+  display: block;
   margin-right: 1rem;
 }
 .parametrageTheme label + span {
   display: none;
 }
+.parametrageTheme .radio label {
+  color: #75726B;
+}
 .parametrageTheme input[type=text] {
   border-bottom: 2px solid #0791B3;
+}
+.parametrageTheme .field-choix_couleur > div {
+  display: flex;
 }
 
 .echantillonCouleur {

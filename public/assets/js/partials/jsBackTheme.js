@@ -107,4 +107,10 @@ $(document).ready(function() {
                 $('#'+nom+' .message-fail').fadeIn().delay(800).fadeOut();
             });
     });
+
+    //Paramétrage
+    $('input[type="color"]').change(function(){
+        couleur = $(this).val();
+        $('.echantillonCouleur[data-champ="'+$(this).attr('name')+'"]').css('background-color', couleur);
+    })
 });

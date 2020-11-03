@@ -31,7 +31,7 @@ class ChoixCouleurType extends AbstractType
                 }
 
                 $label = $infos['options']['label'];
-                $couleurs[$label.'<span class="echantillonCouleur" style="background-color: '.$valeur.'"></span>'] = '$'.$champ;
+                $couleurs[$label.'<span class="echantillonCouleur" data-champ="form['.$champ.']" style="background-color: '.$valeur.'"></span>'] = '$'.$champ;
             }
         }
 

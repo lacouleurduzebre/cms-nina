@@ -87,16 +87,28 @@
 //Paramétrage
 .parametrageTheme{
   .form-group{
-    display: flex;
+    margin-bottom: 2rem;
+    &.field-color{
+      display: flex;
+    }
   }
   label{
+    display: block;
     margin-right: 1rem;
     + span{
       display: none;
     }
   }
+  .radio label{
+    color: $color-primary;
+  }
   input[type=text]{
     border-bottom: 2px solid $color-brand2;
+  }
+  .field-choix_couleur{
+    > div{
+      display: flex;
+    }
   }
 }
 
