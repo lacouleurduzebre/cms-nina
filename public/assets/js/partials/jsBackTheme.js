@@ -113,7 +113,7 @@ $(document).ready(function () {
         couleur = $(this).val();
         $('.echantillonCouleur[data-champ="' + $(this).attr('name') + '"]').css('background-color', couleur);
     });
-    $('.field-polices select').change(function () {
+    /*$('.field-polices select').change(function () {
         polices = $(this).val();
         html = '';
         polices.forEach(function (item) {
@@ -122,5 +122,5 @@ $(document).ready(function () {
         $('.field-choix_police').each(function () {
             $(this).find('select').html(html);
         });
-    });
+    });*/
 });
