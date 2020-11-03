@@ -32,7 +32,9 @@ class PolicesType extends AbstractType
         if($requetePolices->getStatusCode() == '200') {
             $googleFonts = $requetePolices->toArray();
             foreach($googleFonts['items'] as $font){
-                $polices[$font['family']] = $font['family'];
+                if(in_array('latin-ext', $font['subsets'])){
+                    $polices[$font['family']] = $font['family'];
+                }
             }
         }
 

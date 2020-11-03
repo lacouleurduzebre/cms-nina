@@ -33,8 +33,8 @@ champs:
         options:
             label: "Titres H1 - Couleur"
     policeH1:
-        type: text
-        defaut: "Open Sans"
+        type: choixPolice
+        defaut: ""
         options:
             label: "Titres H1 - Police"
     taillePoliceH1:
@@ -49,8 +49,8 @@ champs:
         options:
             label: "Titres H2 - Couleur"
     policeH2:
-        type: text
-        defaut: "Open Sans"
+        type: choixPolice
+        defaut: ""
         options:
             label: "Titres H2 - Police"
     taillePoliceH2:
@@ -65,8 +65,8 @@ champs:
         options:
             label: "Titres H3 - Couleur"
     policeH3:
-        type: text
-        defaut: "Open Sans"
+        type: choixPolice
+        defaut: ""
         options:
             label: "Titres H3 - Police"
     taillePoliceH3:
@@ -81,8 +81,8 @@ champs:
         options:
             label: "Titres H4 - Couleur"
     policeH4:
-        type: text
-        defaut: "Open Sans"
+        type: choixPolice
+        defaut: ""
         options:
             label: "Titres H4 - Police"
     taillePoliceH4:
@@ -97,8 +97,8 @@ champs:
         options:
             label: "Textes - Couleur"
     policeTextes:
-        type: text
-        defaut: "Open Sans"
+        type: choixPolice
+        defaut: ""
         options:
             label: "Textes - Police"
     tailleTextes:
