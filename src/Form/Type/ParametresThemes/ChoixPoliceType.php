@@ -33,12 +33,14 @@ class ChoixPoliceType extends AbstractType
             }
         }
 
+        $policesDisponibles[''] = '';
         foreach($polices as $cle => $police){
             $policesDisponibles[$police] = $police;
         }
 
         $resolver->setDefaults(array(
-            'choices' => $policesDisponibles
+            'choices' => $policesDisponibles,
+            'required' => false
         ));
     }
 

@@ -41,6 +41,7 @@ class PolicesType extends AbstractType
         $resolver->setDefaults(array(
             'choices' => $polices,
             'multiple' => true,
+            'required' => false,
             'attr' => [
                 'data-widget' => 'select2'
             ]
