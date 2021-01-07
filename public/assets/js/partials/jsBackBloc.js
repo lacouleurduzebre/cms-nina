@@ -600,6 +600,7 @@ $(document).ready(function() {
                 nvBloc.find('input[name$="[largeur]"]').val('col'+largeurElement);
 
                 if(type !== 'BlocPartage'){
+                    nvBloc.addClass('bloc-formulairefocus');
                     nvBloc.find('.bloc-panel.bloc-formulaire').removeClass('hidden');
                 }
 
@@ -1027,11 +1028,7 @@ $(document).ready(function() {
         }
     });
 
-    //Toggle mise en page, conteneurs, liste blocs dnd
-    $('#toggleConteneurs').click(function(){
-        $(this).closest('.conteneurBlocs').toggleClass('conteneurs');
-    });
-
+    //Toggle mise en page et liste blocs dnd
     $('#toggleMiseEnPage').click(function() {
         $(this).closest('.conteneurBlocs').toggleClass('miseEnPage');
     });

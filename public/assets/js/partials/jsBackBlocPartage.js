@@ -52,7 +52,7 @@ $(document).ready(function() {
         $('.noDrag').show();
 
         if(type === 'Section'){
-            $('#toggleConteneurs, #toggleListeBlocsDnD').removeClass('hidden');
+            $('#toggleListeBlocsDnD').removeClass('hidden');
             $('.listeBlocsDnD').show();
         }
     });

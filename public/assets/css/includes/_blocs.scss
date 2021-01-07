@@ -259,42 +259,41 @@ body.new-blocpartage, .editionContenusPage:not(.active){
   font-family: $font-family-base;
 }
 
-#toggleConteneurs{
-  margin-right: auto;
+//Bouton mise en page
+.miseEnPage #toggleMiseEnPage{
+  background-color: $color-brand2;
 }
 
-.miseEnPage{
-  #toggleMiseEnPage{
-    background-color: $color-brand2;
+.conteneurBlocs.miseEnPage .form-group.field-bloc:not(.bloc-section), .conteneurBlocs:not(.miseEnPage) .form-group.field-bloc:not(.bloc-section):hover, .form-group.field-bloc:not(.bloc-section).bloc-optionsAffichagefocus, .form-group.field-bloc:not(.bloc-section).bloc-formulairefocus{
+  min-height: 2rem;
+  background-color: $white;
+  &:not(.mbauto){
+    margin-bottom: 3px;
   }
-  .form-group.field-bloc:not(.bloc-section){
-    border: 2px dashed #DADCE0;
-    min-height: 2rem;
-    background-color: $white;
-    &:not(.mbauto){
-      margin-bottom: 3px;
-    }
-    &:hover{
-      border: 2px dashed #a3a5a9;
-    }
+  &:hover{
+    border: 2px dashed #a3a5a9;
   }
 }
 
-.conteneurs{
-  #toggleConteneurs{
-    background-color: $color-brand2;
+.conteneurBlocs.miseEnPage .form-group.field-bloc:not(.bloc-section), .conteneurBlocs:not(.miseEnPage) .form-group.field-bloc:not(.bloc-section):hover{
+  border: 2px dashed #DADCE0;
+}
+
+.conteneurBlocs.miseEnPage .form-group.field-bloc.bloc-section, .conteneurBlocs:not(.miseEnPage) .form-group.field-bloc.bloc-section:hover{
+  box-shadow: 0 0 5px #939393;
+  border: 2px solid $white;
+  margin-bottom: 5px;
+  > #page_active_blocs_{
+    padding: 2rem;
   }
-  .form-group.field-bloc.bloc-section{
-    box-shadow: 0 0 5px #939393;
-    border: 1px solid $white;
-    margin-bottom: 5px;
-    > #page_active_blocs_{
-      padding: 2rem;
-    }
-  }
-  .bloc-section{
-    background-color: #FFF;
-  }
+}
+
+.conteneurBlocs.miseEnPage .bloc-section, .conteneurBlocs:not(.miseEnPage) .bloc-section:hover, .bloc-section.bloc-optionsAffichagefocus, .bloc-section.bloc-formulairefocus{
+  background-color: #FFF;
+}
+
+.conteneurBlocs.miseEnPage .field-bloc.bloc-section > .bloc-barreActions, .conteneurBlocs:not(.miseEnPage) .field-bloc.bloc-section:hover > .bloc-barreActions{
+  display: flex;
 }
 
 .affichagelisteBlocsDnD{
@@ -546,9 +545,6 @@ div[id^="page_active_blocs"], div[id^="region_blocs"]{
   background-color: $color-brand2;
   border-radius: 0 0 2rem 0;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
-  .conteneurs &{
-    display: flex;
-  }
   .optionsAffichage{
     border-left: 1px solid;
     border-right: 1px solid;
@@ -559,13 +555,13 @@ div[id^="page_active_blocs"], div[id^="region_blocs"]{
   }
 }
 
-.miseEnPage .field-bloc:not(.bloc-section):hover{
+.field-bloc:not(.bloc-section):hover{
   > #page_active_blocs_ > .type{
     display: flex;
   }
 }
 
-.miseEnPage .field-bloc:not(.bloc-section):not(.ui-sortable-helper):hover{
+.field-bloc:not(.bloc-section):not(.ui-sortable-helper):hover{
   > .bloc-barreActions{
     display: flex;
   }
@@ -965,6 +961,9 @@ body.edit, body.new{
   span{
     margin-left: .5rem;
   }
+  .fa-check, .fa-times{
+    cursor: pointer;
+  }
 }
 
 .bloc-panel--body{
@@ -991,9 +990,15 @@ body.edit, body.new{
 }
 
   //Panel options d'affichage
-.miseEnPage .form-group.field-bloc:not(.bloc-section), .conteneurs .form-group.field-bloc.blocSection{
-  &.bloc-optionsAffichagefocus, &.bloc-formulairefocus{
-    border: 2px dashed $color-brand2;
+.form-group.field-bloc:not(.bloc-section){
+  &.bloc-optionsAffichagefocus, &.bloc-formulairefocus, &.bloc-optionsAffichagefocus:hover, &.bloc-formulairefocus:hover{
+    border: 2px dashed $color-brand2 !important;
+  }
+}
+
+.form-group.field-bloc.bloc-section{
+  &.bloc-optionsAffichagefocus, &.bloc-formulairefocus, &.bloc-optionsAffichagefocus:hover, &.bloc-formulairefocus:hover{
+    border: 2px solid $color-brand2 !important;
   }
 }
 
