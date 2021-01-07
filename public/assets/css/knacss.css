@@ -4487,6 +4487,43 @@ body.list #flash-messages > * {
   margin-left: 1rem;
 }
 
+.elementParametrable {
+  position: relative;
+  cursor: pointer;
+  border: 2px solid #fff;
+}
+.elementParametrable.actif {
+  border: 2px solid #0791B3;
+}
+.elementParametrable-conteneur {
+  position: relative;
+}
+
+.guideStyle {
+  max-width: 70rem;
+}
+.guideStyle > h2 {
+  background-color: #0791B3;
+  color: #fff;
+  text-align: center;
+}
+.guideStyle .parametres {
+  display: none;
+  position: absolute;
+  left: 10rem;
+  bottom: 100%;
+  background-color: #fff;
+  width: 50rem;
+  padding: 2rem;
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.parametrageTheme-couleurs .form-group {
+  margin: 0 3rem 0 0;
+  display: flex;
+  flex-direction: column-reverse;
+}
+
 .sauvegarde h2 {
   color: #0791B3;
 }

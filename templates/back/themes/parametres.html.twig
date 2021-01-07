@@ -8,7 +8,94 @@
         <h1>{{ "Paramètres du thème"|trans }} "{{ nom }}"</h1>
         <p><a href="{{ path("theme") }}"><i class="fas fa-arrow-left"></i> {{ "Retour à la liste des thèmes"|trans }}</a></p>
         {% if form is not empty %}
-            {{ form(form) }}
+            <div class="guideStyle center">
+                <h2>Guide de style</h2>
+                {{ form_start(form) }}
+                <div class="parametrageTheme-couleurs flex-container aic">
+                    {{ form_row(form.couleur1) }}
+                    {{ form_row(form.couleur2) }}
+                    {{ form_row(form.couleur3) }}
+                </div>
+                <div class="parametrageTheme-polices">
+                    {{ form_row(form.polices) }}
+                </div>
+                <div class="elementParametrable-conteneur">
+                    <h1 class="elementParametrable" data-parametres="h1" style="color: {{ champs.couleurH1 }}; font-size: {{ champs.taillePoliceH1 }}">Titre H1</h1>
+                    <div class="parametres h1">
+                        {{ form_row(form.policeH1) }}
+                        {{ form_row(form.couleurH1) }}
+                        {{ form_row(form.taillePoliceH1) }}
+                    </div>
+                </div>
+                <div class="elementParametrable-conteneur">
+                    <h2 class="elementParametrable" data-parametres="h2" style="color: {{ champs.couleurH2 }}; font-size: {{ champs.taillePoliceH2 }}">Titre H2</h2>
+                    <div class="parametres h2">
+                        {{ form_row(form.policeH2) }}
+                        {{ form_row(form.couleurH2) }}
+                        {{ form_row(form.taillePoliceH2) }}
+                    </div>
+                </div>
+                <div class="elementParametrable-conteneur">
+                    <h3 class="elementParametrable" data-parametres="h3" style="color: {{ champs.couleurH3 }}; font-size: {{ champs.taillePoliceH3 }}">Titre H3</h3>
+                    <div class="parametres h3">
+                        {{ form_row(form.policeH3) }}
+                        {{ form_row(form.couleurH3) }}
+                        {{ form_row(form.taillePoliceH3) }}
+                    </div>
+                </div>
+                <div class="elementParametrable-conteneur">
+                    <h4 class="elementParametrable" data-parametres="h4" style="color: {{ champs.couleurH4 }}; font-size: {{ champs.taillePoliceH4 }}">Titre H4</h4>
+                    <div class="parametres h4">
+                        {{ form_row(form.policeH4) }}
+                        {{ form_row(form.couleurH4) }}
+                        {{ form_row(form.taillePoliceH4) }}
+                    </div>
+                </div>
+                <div class="elementParametrable-conteneur">
+                    <p class="elementParametrable" data-parametres="btnsCategories">
+                        <a class="bouton-categorie" href="#" style="background-color: {{ champs.couleurCategories }}"><i class="fas fa-tag"></i>Catégorie 1</a>
+                    </p>
+                    <div class="parametres btnsCategories">
+                        {{ form_row(form.couleurCategories) }}
+                    </div>
+                </div>
+                <div class="elementParametrable-conteneur">
+                    <p class="elementParametrable" data-parametres="textes" style="color: {{ champs.couleurTextes }}; font-size: {{ champs.tailleTextes }}">Ob haec et huius <strong>modi multa, quae cernebantur in paucis</strong>, omnibus timeri sunt coepta. et ne tot malis dissimulatis paulatimque serpentibus acervi <a href="#" style="color: {{ champs.couleurLiens }}">cr escerent aerumnarum</a>, nobilitatis decreto legati mittuntur: Praetextatus ex urbi praefecto et ex vicario Venustus et ex consulari Minervius oraturi, ne delictis supplicia sint grandiora, neve senator quisquam inusitato et inlicito more tormentis exponeretur. </p>
+                    <div class="parametres textes">
+                        {{ form_row(form.policeTextes) }}
+                        {{ form_row(form.couleurTextes) }}
+                        {{ form_row(form.couleurLiens) }}
+                        {{ form_row(form.tailleTextes) }}
+                    </div>
+                </div>
+                <div class="elementParametrable-conteneur">
+                    <div class="elementParametrable" data-parametres="formulaires" style="color: {{ champs.couleurFormulaires }}">
+                        <p>
+                            <label>Champ texte</label>
+                            <input type="text">
+                        </p>
+                        <p>
+                            <label>Zone de texte</label>
+                            <textarea cols="30" rows="5" class="notTinymce"></textarea>
+                        </p>
+                        <p>
+                            <input type="checkbox"> Case à cocher (choix multiple)
+                        </p>
+                        <p>
+                            <input type="radio"> Case à cocher (choix unique)
+                        </p>
+                        <p>
+                            <select>
+                                <option value="select">Champ déroulant</option>
+                            </select>
+                        </p>
+                    </div>
+                    <div class="parametres formulaires">
+                        {{ form_row(form.couleurFormulaires) }}
+                    </div>
+                </div>
+                {{ form(form) }}
+            </div>
         {% else %}
             <p>{{ "Ce thème n'est pas paramétrable"|trans }}</p>
         {% endif %}
@@ -16,6 +103,7 @@
 {% endblock %}
 
 {% block body_javascript %}
+    {{ parent() }}
     {{ include('@EasyAdmin/default/includes/_select2_widget.html.twig') }}
     <script src="{{ asset('assets/js/partials/jsBackTheme.js') }}"></script>
 {% endblock body_javascript %}

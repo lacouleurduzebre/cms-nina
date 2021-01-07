@@ -10,17 +10,14 @@ namespace App\Controller\Back;
 
 
 use App\Entity\Configuration;
-use App\Form\Type\ImageSimpleType;
+use App\Form\Type\ParametresThemes\ParametrageThemeType;
 use App\Service\Droits;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Filesystem\Filesystem;
-use Symfony\Component\Form\Extension\Core\Type\FormType;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Security\Core\Exception\AuthenticationException;
 use Symfony\Component\Yaml\Yaml;
 
 /**
@@ -132,73 +129,63 @@ class ThemeController extends AbstractController
             }
             $parametres = Yaml::parseFile($nomFichierParametres);
 
-            //Formulaire
-            $form = $this->createForm(FormType::class);
-
             $anciennesValeurs = [];
-            foreach($champs as $champ => $infos){
+            foreach($champs as $champ => $valeur){
                 if($parametres && key_exists($champ, $parametres)){//Paramètre modifié par l'utilisateur
-                    $anciennesValeurs[$champ] = $data = $parametres[$champ];
+                    $champs[$champ] = $anciennesValeurs[$champ] = $parametres[$champ];
                 }else{//Paramètre par défaut
-                    $anciennesValeurs[$champ] = $data = $infos['defaut'];
+                    $champs[$champ] = $anciennesValeurs[$champ] = $parametres[$champ] = $valeur;
                 }
 
-                //Champs
-                $options = $infos['options'] ?? [];
-                if($infos['type'] == 'image'){
-                    $form->add($champ, ImageSimpleType::class, $options);
-                }elseif(in_array($infos['type'], ['polices', 'choixPolice', 'choixCouleur'])){
-                    $form->add($champ, 'App\Form\Type\ParametresThemes\\'.ucfirst($infos['type']).'Type', $options);
-                }else{
-                    $form->add($champ, 'Symfony\Component\Form\Extension\Core\Type\\'.ucfirst($infos['type']).'Type', $infos['options'] ?? []);
+                //Remplacement des variables par leur valeur
+                if(!is_array($anciennesValeurs[$champ]) && substr($anciennesValeurs[$champ], 0, 1) == '$'){
+                    $champs[$champ] = $anciennesValeurs[str_replace('$', '', $anciennesValeurs[$champ])];
                 }
-
-                $form->get($champ)->setData($data);
             }
 
-            $form->add('Envoyer', SubmitType::class);
+            //Formulaire
+            $form = $this->createForm(ParametrageThemeType::class, $parametres);
+
+            //Enregistrement des paramètres
+            $form->handleRequest($request);
+            if($form->isSubmitted() && $form->isValid()){
+                $data = $form->getData();
+
+                $nomFichierVariablesScss = '../themes/'.$nom.'/assets/css/_config/_parametres.scss';
+                fopen($nomFichierVariablesScss, "w");
+
+                foreach($data as $champ=>$valeur){
+                    //Modif fichier scss
+                    if($champ == 'polices'){//Si police
+                        foreach($valeur as $police){
+                            file_put_contents($nomFichierVariablesScss, file_get_contents($nomFichierVariablesScss).PHP_EOL."@import url('https://fonts.googleapis.com/css2?family=".$police."');");
+                        }
+                    }else{
+                        if(strpos($champ, 'police') > 0){
+                            $valeur = '"'.$valeur.'"';
+                        }
+
+                        file_put_contents($nomFichierVariablesScss, file_get_contents($nomFichierVariablesScss).PHP_EOL.'$'.$champ.': '.$valeur.';');
+                    }
+
+                    //Modif config.yaml
+                    $parametres[$champ] = $valeur;
+                }
+
+                //Compilation SCSS / enregistrement fichier css
+                $nomFichierCss = '../themes/'.$nom.'/assets/css/knacss.css';
+                exec('pwd', $pwd);
+                exec($pwd[0].'/../vendor/scssphp/scssphp/bin/pscss '.$pwd[0].'/../themes/'.$nom.'/assets/css/knacss.scss', $css);
+                file_put_contents($nomFichierCss, $css);
+
+                //Enregistrement config.yaml
+                $nvFichier = Yaml::dump($parametres);
+                file_put_contents($nomFichierParametres, $nvFichier);
+
+                $this->addFlash('enregistrement', 'Les paramètres ont été enregistrés');
+            }
         }else{//Pas de paramètres
             $champs = null;
-        }
-
-        //Enregistrement des paramètres
-        $form->handleRequest($request);
-        if($form->isSubmitted() && $form->isValid()){
-            $data = $form->getData();
-
-            $nomFichierVariablesScss = '../themes/'.$nom.'/assets/css/_config/_parametres.scss';
-            fopen($nomFichierVariablesScss, "w");
-
-            foreach($data as $champ=>$valeur){
-                //Modif fichier scss
-                $type = $fichierDefaut['champs'][$champ]['type'];
-                if($type == 'polices'){//Si police
-                    foreach($valeur as $police){
-                        file_put_contents($nomFichierVariablesScss, file_get_contents($nomFichierVariablesScss).PHP_EOL."@import url('https://fonts.googleapis.com/css2?family=".$police."');");
-                    }
-                }else{
-                    if($type == 'choixPolice'){
-                        $valeur = '"'.$valeur.'"';
-                    }
-
-                    file_put_contents($nomFichierVariablesScss, file_get_contents($nomFichierVariablesScss).PHP_EOL.'$'.$champ.': '.$valeur.';');
-                }
-
-                //Modif config.yaml
-                $parametres[$champ] = $valeur;
-            }
-
-            //Compilation SCSS / enregistrement fichier css
-            $nomFichierCss = '../themes/'.$nom.'/assets/css/knacss.css';
-            exec('pwd', $pwd);
-            exec($pwd[0].'/../vendor/scssphp/scssphp/bin/pscss '.$pwd[0].'/../themes/'.$nom.'/assets/css/knacss.scss', $css);
-            file_put_contents($nomFichierCss, $css);
-
-            //Enregistrement config.yaml
-            $nvFichier = Yaml::dump($parametres);
-            file_put_contents($nomFichierParametres, $nvFichier);
-
-            $this->addFlash('enregistrement', 'Les paramètres ont été enregistrés');
         }
 
         //Template

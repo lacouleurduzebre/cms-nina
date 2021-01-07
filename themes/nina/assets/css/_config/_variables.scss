@@ -189,7 +189,7 @@ $table-footer-background    : transparent;
 // Components: buttons, badges, alerts color variants list
 // Convention is: name - background-color - color - border
 $variants-list: (
-  (primary,    $couleur,    $white,    none),
+  (primary,    $couleur1,    $white,    none),
   (success,    $color-success,    $white,    none),
   (info,       $color-info,       $black,    none),
   (warning,    $color-warning,    $black,    none),

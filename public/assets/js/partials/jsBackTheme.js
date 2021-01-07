@@ -113,6 +113,19 @@ $(document).ready(function () {
         couleur = $(this).val();
         $('.echantillonCouleur[data-champ="' + $(this).attr('name') + '"]').css('background-color', couleur);
     });
+
+    $('.elementParametrable').click(function(e){
+        e.preventDefault();
+
+        //Masquer les autres paramètres
+        $('.elementParametrable').not(this).removeClass('actif');
+        parametres = $(this).data('parametres');
+        $('.parametres').not('.'+parametres).hide();
+
+        //Afficher / masquer les paramètres de l'élément
+        $(this).toggleClass('actif');
+        $('.parametres.'+parametres).toggle();
+    });
     /*$('.field-polices select').change(function () {
         polices = $(this).val();
         html = '';

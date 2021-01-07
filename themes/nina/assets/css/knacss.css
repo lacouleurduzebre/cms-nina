@@ -29,6 +29,7 @@
   - Alerts
 */
 @import url("https://fonts.googleapis.com/css2?family=Courgette");
+@import url("https://fonts.googleapis.com/css2?family=Roboto");
 *,
 *::before,
 *::after {
@@ -393,7 +394,7 @@ body {
   font-size: 1.4rem;
   background-color: #fff;
   color: #002260;
-  font-family: "", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+  font-family: "Roboto", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
   line-height: 1.5;
 }
 @media (min-width: 576px) {
@@ -3342,7 +3343,7 @@ main div.blocSlider, main div[class^=blocAnnexe] {
 }
 
 h1 {
-  color: #d27a00;
+  color: #002260;
 }
 
 h2 {

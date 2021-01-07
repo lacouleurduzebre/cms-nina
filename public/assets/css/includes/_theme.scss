@@ -121,3 +121,43 @@
   display: inline-block;
   margin-left: 1rem;
 }
+
+  //Guide de style
+.elementParametrable{
+  position: relative;
+  cursor: pointer;
+  border: 2px solid $white;
+  &.actif{
+    border: 2px solid $color-brand2;
+  }
+  &-conteneur{
+    position: relative;
+  }
+}
+
+.guideStyle{
+  max-width: 70rem;
+  > h2{
+    background-color: $color-brand2;
+    color: $white;
+    text-align: center;
+  }
+  .parametres{
+    display: none;
+    position: absolute;
+    left: 10rem;
+    bottom: 100%;
+    background-color: $white;
+    width: 50rem;
+    padding: 2rem;
+    box-shadow: 0 4px 4px rgba(0,0,0,.25);
+  }
+}
+
+.parametrageTheme-couleurs{
+  .form-group{
+    margin: 0 3rem 0 0;
+    display: flex;
+    flex-direction: column-reverse;
+  }
+}

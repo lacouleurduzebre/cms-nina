@@ -17,7 +17,7 @@ main{
 
 //Accordéon
 .blocAccordeon-titre{
-  background-color: $couleur;
+  background-color: $couleur1;
   color: $white;
   padding: 1rem 2rem;
   margin-bottom: 2px;
@@ -127,10 +127,10 @@ main{
 }
 
 .blocLEI-recherche--critere{
-  background-color: $couleur;
+  background-color: $couleur1;
   color: $white;
   &.actif{
-    background-color: darken($couleur, 25);
+    background-color: darken($couleur1, 25);
   }
 }
 
@@ -142,7 +142,7 @@ main{
 }
 
 .ficheLEI-commune{
-  color: $couleur;
+  color: $couleur1;
   font-weight: bold;
   margin-bottom: 0;
 }
@@ -169,7 +169,7 @@ main{
 
 .ficheLEI-titre{
   font-weight: bold;
-  color: $couleur;
+  color: $couleur1;
   font-size: 1.8rem;
   line-height: 1.2;
   margin-top: 1rem;
@@ -285,7 +285,7 @@ main{
 
 .blocSlider-slide--texte{
   padding: 1rem;
-  background-color: $couleur;
+  background-color: $couleur1;
 }
 
 .blocSlider-slide--titre{

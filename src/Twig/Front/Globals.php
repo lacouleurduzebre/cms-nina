@@ -62,7 +62,7 @@ class Globals extends AbstractExtension implements GlobalsInterface
             }
 
             //Paramètres du thème
-            $configTheme = null;
+            $configTheme = [];
 
             if(file_exists('../themes/'.$theme.'/config.yaml')) {
                 $fichierDefaut = Yaml::parseFile('../themes/' . $theme . '/config.yaml');
@@ -75,15 +75,14 @@ class Globals extends AbstractExtension implements GlobalsInterface
                         $fichiersParametres = fopen($nomFichierParametres, "w");
                         fclose($fichiersParametres);
                     }
-                    $configTheme = Yaml::parseFile($nomFichierParametres);
+                    $parametresTheme = Yaml::parseFile($nomFichierParametres);
 
                     foreach ($champs as $champ => $infos) {
-                        if ($configTheme && key_exists($theme, $configTheme)) {//Paramètre modifié par l'utilisateur
-                            $data = $configTheme[$theme];
+                        if ($parametresTheme && key_exists($champ, $parametresTheme)) {//Paramètre modifié par l'utilisateur
+                            $configTheme[$champ] = $parametresTheme[$champ];
                         } else {//Paramètre par défaut
-                            $data = $infos['defaut'];
+                            $configTheme[$champ] = $infos;
                         }
-                        $configTheme[$champ] = $data;
                     }
                 }
             }

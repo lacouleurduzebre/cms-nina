@@ -5,126 +5,38 @@ infos:
     description: Thème par défaut du CMS Nina
 champs:
     #Couleurs
-    couleur:
-        type: color
-        defaut: "#0791B3"
-        options:
-            label: "Couleur 1"
-    couleur2:
-        type: color
-        defaut: "#A1BA1D"
-        options:
-            label: "Couleur 2"
-    couleur3:
-        type: color
-        defaut: "#F29400"
-        options:
-            label: "Couleur 3"
+    couleur1: "#0791B3"
+    couleur2: "#A1BA1D"
+    couleur3: "#F29400"
     #Polices à importer
-    polices:
-        type: polices
-        defaut: {}
-        options:
-            label: "Polices à importer"
+    polices: {}
     #H1
-    couleurH1:
-        type: choixCouleur
-        defaut: "$couleur"
-        options:
-            label: "Titres H1 - Couleur"
-    policeH1:
-        type: choixPolice
-        defaut: ""
-        options:
-            label: "Titres H1 - Police"
-    taillePoliceH1:
-        type: text
-        defaut: "16px"
-        options:
-            label: "Titres H1 - Taille de police"
+    couleurH1: "$couleur"
+    policeH1: ""
+    taillePoliceH1: "16px"
     #H2
-    couleurH2:
-        type: choixCouleur
-        defaut: "$couleur"
-        options:
-            label: "Titres H2 - Couleur"
-    policeH2:
-        type: choixPolice
-        defaut: ""
-        options:
-            label: "Titres H2 - Police"
-    taillePoliceH2:
-        type: text
-        defaut: "16px"
-        options:
-            label: "Titres H2 - Taille de police"
+    couleurH2: "$couleur"
+    policeH2: ""
+    taillePoliceH2: "16px"
     #H3
-    couleurH3:
-        type: choixCouleur
-        defaut: "$couleur"
-        options:
-            label: "Titres H3 - Couleur"
-    policeH3:
-        type: choixPolice
-        defaut: ""
-        options:
-            label: "Titres H3 - Police"
-    taillePoliceH3:
-        type: text
-        defaut: "16px"
-        options:
-            label: "Titres H3 - Taille de police"
+    couleurH3: "$couleur"
+    policeH3: ""
+    taillePoliceH3: "16px"
     #H4
-    couleurH4:
-        type: choixCouleur
-        defaut: "$couleur"
-        options:
-            label: "Titres H4 - Couleur"
-    policeH4:
-        type: choixPolice
-        defaut: ""
-        options:
-            label: "Titres H4 - Police"
-    taillePoliceH4:
-        type: text
-        defaut: "16px"
-        options:
-            label: "Titres H4 - Taille de police"
+    couleurH4: $couleur"
+    policeH4: ""
+    taillePoliceH4: "16px"
     #Textes
-    couleurTextes:
-        type: choixCouleur
-        defaut: "$couleur"
-        options:
-            label: "Textes - Couleur"
-    policeTextes:
-        type: choixPolice
-        defaut: ""
-        options:
-            label: "Textes - Police"
-    tailleTextes:
-        type: text
-        defaut: "16px"
-        options:
-            label: "Textes - Taille de police"
+    couleurTextes: "$couleur"
+    policeTextes: ""
+    tailleTextes: "16px"
     #Liens
-    couleurLiens:
-        type: choixCouleur
-        defaut: "$couleur"
-        options:
-            label: "Liens - Couleur"
+    couleurLiens: "$couleur"
     #Formulaires
-    couleurFormulaires:
-        type: choixCouleur
-        defaut: "$couleur"
-        options:
-            label: "Formulaires - Couleur"
+    couleurFormulaires: "$couleur"
     #Étiquettes de catégorie
-    couleurCategories:
-        type: choixCouleur
-        defaut: "$couleur"
-        options:
-            label: "Étiquettes de catégorie - Couleur"
+    couleurCategories: "$couleur"
 #blocs:
 #    Titre:
 #        classes:
-#            - Test: test
+#            Test: test

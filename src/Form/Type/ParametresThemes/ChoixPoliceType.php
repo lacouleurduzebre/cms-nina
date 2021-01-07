@@ -22,15 +22,10 @@ class ChoixPoliceType extends AbstractType
         $parametres = Yaml::parseFile('../themes/nina/parametres.yaml');
 
         $policesDisponibles = [];
-        foreach($configurationTheme['champs'] as $champ => $infos){
-            if($infos['type'] == 'polices'){
-                if($parametres && key_exists($champ, $parametres)){//Paramètre modifié par l'utilisateur
-                    $polices =  $parametres[$champ];
-                }else{//Paramètre par défaut
-                    $polices = $infos['defaut'];
-                }
-                break;
-            }
+        if($parametres && key_exists('polices', $parametres)){//Paramètre modifié par l'utilisateur
+            $polices =  $parametres['polices'];
+        }else{//Paramètre par défaut
+            $polices = $configurationTheme['champ']['polices'];
         }
 
         $policesDisponibles[''] = '';

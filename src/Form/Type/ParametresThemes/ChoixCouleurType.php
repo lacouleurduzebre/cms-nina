@@ -22,17 +22,20 @@ class ChoixCouleurType extends AbstractType
         $parametres = Yaml::parseFile('../themes/nina/parametres.yaml');
 
         $couleurs = [];
-        foreach($configurationTheme['champs'] as $champ => $infos){
-            if($infos['type'] == 'color'){
-                if($parametres && key_exists($champ, $parametres)){//Paramètre modifié par l'utilisateur
-                    $valeur =  $parametres[$champ];
-                }else{//Paramètre par défaut
-                    $valeur = $infos['defaut'];
-                }
+        $i = 1;
+        while($i <= 3){
+            $champ = 'couleur'.$i;
 
-                $label = $infos['options']['label'];
-                $couleurs[$label.'<span class="echantillonCouleur" data-champ="form['.$champ.']" style="background-color: '.$valeur.'"></span>'] = '$'.$champ;
+            if($parametres && key_exists($champ, $parametres)){//Paramètre modifié par l'utilisateur
+                $valeur =  $parametres[$champ];
+            }else{//Paramètre par défaut
+                $valeur = $configurationTheme['champs'][$champ];
             }
+
+            $label = 'Couleur '.$i;
+            $couleurs[$label.'<span class="echantillonCouleur" data-champ="form['.$champ.']" style="background-color: '.$valeur.'"></span>'] = '$'.$champ;
+
+            $i++;
         }
 
         $couleurs['Noir <span class="echantillonCouleur" style="background-color: #000"></span>'] = '#000';
