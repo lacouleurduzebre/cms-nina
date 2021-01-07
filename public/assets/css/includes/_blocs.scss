@@ -90,14 +90,16 @@
 }
 
 body.new-blocpartage, body.edit-blocpartage, body.new-region, body.edit-region{
-  .listeBlocsDnD{
+  .listeBlocsDnD, .bloc-panel.bloc-optionsAffichage, .bloc-panel.bloc-formulaire{
     top: 17rem;
     height: calc(100vh - 17rem);
   }
 }
 
-body.new-blocpartage .listeBlocsDnD{
-  display: none;
+body.new-blocpartage, .editionContenusPage:not(.active){
+  .listeBlocsDnD{
+    display: none;
+  }
 }
 
 .conteneurBlocs li.dndPlaceholder{
@@ -586,7 +588,6 @@ div[id^="page_active_blocs"], div[id^="region_blocs"]{
 }
 
 .bloc-optionsAffichage{
-  background: #FFF;
   p{
     align-items: center;
     font-size: 1.8rem;
@@ -738,7 +739,6 @@ div[id^="page_active_blocs"], div[id^="region_blocs"]{
   position: relative;
   padding: 1rem;
   background-color: #EDEDED;
-  width: calc(50% - 2rem);
   margin: 0 1rem 2rem;
 }
 
@@ -961,6 +961,7 @@ body.edit, body.new{
   color: $white;
   display: flex;
   align-items: center;
+  flex: 0 0 auto;
   span{
     margin-left: .5rem;
   }
@@ -969,16 +970,23 @@ body.edit, body.new{
 .bloc-panel--body{
   padding: 1rem 1.5rem 1.5rem;
   background-color: #fff;
+  overflow-y: scroll;
+  overflow-x: hidden;
 }
 
-  //Panel formulaire
-.bloc-panel.bloc-formulaire{
-  position: absolute;
-  right: -2px;
-  top: -2px;
-  width: 60rem;
-  .bloc-panel--body{
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
+.bloc-panel.bloc-optionsAffichage, .bloc-panel.bloc-formulaire{
+  position: fixed;
+  top: 19rem;
+  right: 0;
+  width: 30rem;
+  height: calc(100vh - 19rem);
+  background-color: $white;
+  &:not(.hidden){
+    display: flex;
+    flex-direction: column;
+  }
+  body.new-region &, body.edit-region &{
+    top: 17rem;
   }
 }
 
@@ -990,14 +998,6 @@ body.edit, body.new{
 }
 
 .bloc-panel.bloc-optionsAffichage{
-  position: fixed;
-  top: 19rem;
-  right: 0;
-  width: 30rem;
-  height: calc(100vw - 19rem);
-  body.new-region &, body.edit-region &{
-    top: 17rem;
-  }
   .field-choice{
     display: flex;
     flex-wrap: wrap;

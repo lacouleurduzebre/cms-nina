@@ -24,7 +24,7 @@
 {% endblock %}
 
 {% block main %}
-    {% if blocs is defined and blocs is not empty %}
+    {% if form.vars.id != "page_active" and blocs is defined and blocs is not empty %}
         {% include('back/blocs/listeDnD.html.twig') with { 'blocs': blocs } only %}
     {% endif %}
 

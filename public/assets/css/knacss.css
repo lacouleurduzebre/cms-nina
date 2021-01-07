@@ -3981,10 +3981,14 @@ a[class$=image_bouton_mediatheque] {
   border: 5px solid #FFF;
 }
 
-div[class$=image_apercu_mediatheque] img {
-  object-fit: contain;
+div[class$=image_apercu_mediatheque] {
   max-width: 30rem;
   max-height: 30rem;
+}
+div[class$=image_apercu_mediatheque] img {
+  object-fit: contain;
+  max-width: 100%;
+  max-height: 100%;
 }
 
 /* Téléchargement d'images (ex: logo) */
@@ -4788,12 +4792,12 @@ body.list #flash-messages > * {
   line-height: 1;
 }
 
-body.new-blocpartage .listeBlocsDnD, body.edit-blocpartage .listeBlocsDnD, body.new-region .listeBlocsDnD, body.edit-region .listeBlocsDnD {
+body.new-blocpartage .listeBlocsDnD, body.new-blocpartage .bloc-panel.bloc-optionsAffichage, body.new-blocpartage .bloc-panel.bloc-formulaire, body.edit-blocpartage .listeBlocsDnD, body.edit-blocpartage .bloc-panel.bloc-optionsAffichage, body.edit-blocpartage .bloc-panel.bloc-formulaire, body.new-region .listeBlocsDnD, body.new-region .bloc-panel.bloc-optionsAffichage, body.new-region .bloc-panel.bloc-formulaire, body.edit-region .listeBlocsDnD, body.edit-region .bloc-panel.bloc-optionsAffichage, body.edit-region .bloc-panel.bloc-formulaire {
   top: 17rem;
   height: calc(100vh - 17rem);
 }
 
-body.new-blocpartage .listeBlocsDnD {
+body.new-blocpartage .listeBlocsDnD, .editionContenusPage:not(.active) .listeBlocsDnD {
   display: none;
 }
 
@@ -5259,9 +5263,6 @@ body.notFull .conteneurBlocs > .dndBlocs > .pleineLargeur {
   position: relative;
 }
 
-.bloc-optionsAffichage {
-  background: #FFF;
-}
 .bloc-optionsAffichage p {
   align-items: center;
   font-size: 1.8rem;
@@ -5405,7 +5406,6 @@ body.notFull .conteneurBlocs > .dndBlocs > .pleineLargeur {
   position: relative;
   padding: 1rem;
   background-color: #EDEDED;
-  width: calc(50% - 2rem);
   margin: 0 1rem 2rem;
 }
 
@@ -5590,6 +5590,7 @@ body.edit .bloc-reseauxsociaux input[type=text], body.new .bloc-reseauxsociaux i
   color: #fff;
   display: flex;
   align-items: center;
+  flex: 0 0 auto;
 }
 .bloc-panel--header span {
   margin-left: 0.5rem;
@@ -5598,32 +5599,30 @@ body.edit .bloc-reseauxsociaux input[type=text], body.new .bloc-reseauxsociaux i
 .bloc-panel--body {
   padding: 1rem 1.5rem 1.5rem;
   background-color: #fff;
+  overflow-y: scroll;
+  overflow-x: hidden;
 }
 
-.bloc-panel.bloc-formulaire {
-  position: absolute;
-  right: -2px;
-  top: -2px;
-  width: 60rem;
+.bloc-panel.bloc-optionsAffichage, .bloc-panel.bloc-formulaire {
+  position: fixed;
+  top: 19rem;
+  right: 0;
+  width: 30rem;
+  height: calc(100vh - 19rem);
+  background-color: #fff;
 }
-.bloc-panel.bloc-formulaire .bloc-panel--body {
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
+.bloc-panel.bloc-optionsAffichage:not(.hidden), .bloc-panel.bloc-formulaire:not(.hidden) {
+  display: flex;
+  flex-direction: column;
+}
+body.new-region .bloc-panel.bloc-optionsAffichage, body.edit-region .bloc-panel.bloc-optionsAffichage, body.new-region .bloc-panel.bloc-formulaire, body.edit-region .bloc-panel.bloc-formulaire {
+  top: 17rem;
 }
 
 .miseEnPage .form-group.field-bloc:not(.bloc-section).bloc-optionsAffichagefocus, .miseEnPage .form-group.field-bloc:not(.bloc-section).bloc-formulairefocus, .conteneurs .form-group.field-bloc.blocSection.bloc-optionsAffichagefocus, .conteneurs .form-group.field-bloc.blocSection.bloc-formulairefocus {
   border: 2px dashed #0791B3;
 }
 
-.bloc-panel.bloc-optionsAffichage {
-  position: fixed;
-  top: 19rem;
-  right: 0;
-  width: 30rem;
-  height: calc(100vw - 19rem);
-}
-body.new-region .bloc-panel.bloc-optionsAffichage, body.edit-region .bloc-panel.bloc-optionsAffichage {
-  top: 17rem;
-}
 .bloc-panel.bloc-optionsAffichage .field-choice {
   display: flex;
   flex-wrap: wrap;
