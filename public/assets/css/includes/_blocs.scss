@@ -450,6 +450,7 @@ div[id^="page_active_blocs"], div[id^="region_blocs"]{
   position: absolute;
   z-index: 25;
   display: none;
+  text-align: left;
   > *{
     color: $white;
     height: 3rem;
@@ -1008,6 +1009,7 @@ body.edit, body.new{
   width: 30rem;
   height: calc(100vh - 19rem);
   background-color: $white;
+  text-align: left;
   &:not(.hidden){
     display: flex;
     flex-direction: column;

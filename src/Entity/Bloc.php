@@ -111,6 +111,11 @@ class Bloc
      */
     private $blocPartage;
 
+    /**
+     * @ORM\Column(type="string", length=15, nullable=true)
+     */
+    private $alignementContenu;
+
     public function __construct()
     {
         $this->blocsEnfants = new ArrayCollection();
@@ -363,6 +368,18 @@ class Bloc
         if ($blocPartage && $this !== $blocPartage->getBloc()) {
             $blocPartage->setBloc($this);
         }
+
+        return $this;
+    }
+
+    public function getAlignementContenu(): ?string
+    {
+        return $this->alignementContenu;
+    }
+
+    public function setAlignementContenu(?string $alignementContenu): self
+    {
+        $this->alignementContenu = $alignementContenu;
 
         return $this;
     }

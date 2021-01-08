@@ -322,6 +322,9 @@ $(document).ready(function() {
 
         //Annulation des options d'affichage : ràz des classes d'affichage du bloc
         if($(this).hasClass('bloc-optionsAffichage--annulation')){
+            alignementContenu = formulaire.find('input[name$="[alignementContenu]"]:checked').val();
+            bloc.removeClass('txtleft txtcenter txtright').addClass(alignementContenu);
+
             alignementHorizontal = formulaire.find('input[name$="[alignementHorizontal]"]:checked').val();
             bloc.removeClass('mrauto mlauto').addClass(alignementHorizontal);
 
@@ -902,6 +905,11 @@ $(document).ready(function() {
     });
 
     //Changement des options d'affichage
+        //Alignement du contenu
+    $('body').on('change', 'input[name$="[alignementContenu]"]', function() {
+        $(this).closest('.field-bloc').removeClass('txtleft txtcenter txtright').addClass($(this).val());
+    });
+
         //Alignement horizontal
     $('body').on('change', 'input[name$="[alignementHorizontal]"]', function() {
         $(this).closest('.field-bloc').removeClass('mrauto mlauto').addClass($(this).val());

@@ -5172,6 +5172,7 @@ body.notFull .conteneurBlocs > .dndBlocs > .pleineLargeur {
   position: absolute;
   z-index: 25;
   display: none;
+  text-align: left;
 }
 .bloc-barreActions > * {
   color: #fff;
@@ -5677,6 +5678,7 @@ body.edit .bloc-reseauxsociaux input[type=text], body.new .bloc-reseauxsociaux i
   width: 30rem;
   height: calc(100vh - 19rem);
   background-color: #fff;
+  text-align: left;
 }
 .bloc-panel.bloc-optionsAffichage:not(.hidden), .bloc-panel.bloc-formulaire:not(.hidden) {
   display: flex;

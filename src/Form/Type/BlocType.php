@@ -81,6 +81,19 @@ class BlocType extends AbstractType
         ]
     ];
 
+    private $optionsAlignementContenu = [
+        'label' => 'Alignement du contenu',
+        'choices' => [
+            '<img src="/assets/img/optionsAffichage/alignContGauche.svg">' => 'txtleft',//À gauche
+            '<img src="/assets/img/optionsAffichage/alignContCentre.svg">' => 'txtcenter',//Centre
+            '<img src="/assets/img/optionsAffichage/alignContDroite.svg">' => 'txtright',//À droite
+        ],
+        'expanded' => true,
+        'attr' => [
+            'class' => 'bloc-optionsAffichage--alignement'
+        ]
+    ];
+
     private $optionsGouttieres = [
         'label' => 'Espacement des blocs enfants',
         'choices' => [
@@ -209,6 +222,7 @@ class BlocType extends AbstractType
                 'choices' => $this->choixPaddingBas,
                 'mapped' => false
             ])
+            ->add('alignementContenu', ChoiceType::class, $this->optionsAlignementContenu)
             ->add('alignementVertical', ChoiceType::class, $this->optionsAlignementVertical)
             ->add('alignementHorizontal', ChoiceType::class, $this->optionsAlignementHorizontal)
             ->add('alignementVerticalEnfants', ChoiceType::class, $this->optionsAlignementVerticalEnfants)
@@ -300,6 +314,7 @@ class BlocType extends AbstractType
                     'choices' => $this->choixPaddingBas,
                     'mapped' => false
                 ])
+                ->add('alignementContenu', ChoiceType::class, $this->optionsAlignementContenu)
                 ->add('alignementVertical', ChoiceType::class, $this->optionsAlignementVertical)
                 ->add('alignementHorizontal', ChoiceType::class, $this->optionsAlignementHorizontal)
                 ->add('alignementVerticalEnfants', ChoiceType::class, $this->optionsAlignementVerticalEnfants)
