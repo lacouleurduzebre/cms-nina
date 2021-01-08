@@ -5224,7 +5224,7 @@ body.notFull .conteneurBlocs > .dndBlocs > .pleineLargeur {
 
 .field-bloc:not(.bloc-section) > .bloc-barreActions, .field-bloc_annexe > .bloc-barreActions {
   top: 0.5rem;
-  right: 0.5rem;
+  right: 1rem;
   flex-direction: column;
 }
 .field-bloc:not(.bloc-section) > .bloc-barreActions > *, .field-bloc_annexe > .bloc-barreActions > * {
@@ -5293,6 +5293,34 @@ body.notFull .conteneurBlocs > .dndBlocs > .pleineLargeur {
 
 .drag:active {
   cursor: grabbing;
+}
+
+.ui-resizable-w, .ui-resizable-e {
+  width: 2rem;
+  top: calc(50% - 1rem);
+  height: 2rem;
+  background-color: #fff;
+  color: #0791B3;
+  border-radius: 50%;
+}
+.ui-resizable-w:before, .ui-resizable-e:before {
+  font-family: "slick";
+  font-size: 2rem;
+  line-height: 1;
+}
+
+.ui-resizable-w {
+  left: -1rem;
+}
+.ui-resizable-w:before {
+  content: "←";
+}
+
+.ui-resizable-e {
+  right: -1rem;
+}
+.ui-resizable-e:before {
+  content: "→";
 }
 
 .bloc-menu {

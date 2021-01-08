@@ -504,7 +504,7 @@ div[id^="page_active_blocs"], div[id^="region_blocs"]{
 
 .field-bloc:not(.bloc-section) > .bloc-barreActions, .field-bloc_annexe > .bloc-barreActions{
   top: .5rem;
-  right: .5rem;
+  right: 1rem;
   flex-direction: column;
   > *{
     background-color: $color-brand2;
@@ -577,6 +577,34 @@ div[id^="page_active_blocs"], div[id^="region_blocs"]{
 
 .drag:active{
   cursor: grabbing;
+}
+
+.ui-resizable-w, .ui-resizable-e{
+  width: 2rem;
+  top: calc(50% - 1rem);
+  height: 2rem;
+  background-color: $white;
+  color: $color-brand2;
+  border-radius: 50%;
+  &:before{
+    font-family: "slick";
+    font-size: 2rem;
+    line-height: 1;
+  }
+}
+
+.ui-resizable-w{
+  left: -1rem;
+  &:before{
+    content: '←';
+  }
+}
+
+.ui-resizable-e{
+  right: -1rem;
+  &:before{
+    content: '→';
+  }
 }
 
 .bloc-menu{

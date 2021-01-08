@@ -117,6 +117,7 @@ $(document).ready(function() {
     optionsResizable = {
         handles: "w, e",
         alsoResize: "#mirror",
+        autoHide: true,
         start: function (event, ui){
             if(ui.element.closest('.blocsEnfants').length > 0){
                 largeurColonne = ui.element.closest('.blocsEnfants').width() / 12;
