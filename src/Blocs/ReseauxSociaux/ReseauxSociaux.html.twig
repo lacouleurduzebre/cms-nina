@@ -1,11 +1,11 @@
 {% if bloc.contenu.typeRS == 'liens' %}
     <div class="blocReseauxSociaux-liens">
-        {% if bloc.contenu.facebook.0 is defined %}<a href="{{ bloc.contenu.facebookUrl }}" target="_blank"><i class="fab fa-facebook-f"></i></a>{% endif %}
-        {% if bloc.contenu.twitter.0 is defined %}<a href="{{ bloc.contenu.twitterUrl }}" target="_blank"><i class="fab fa-twitter"></i></a>{% endif %}
-        {% if bloc.contenu.instagram.0 is defined %}<a href="{{ bloc.contenu.instagramUrl }}" target="_blank"><i class="fab fa-instagram"></i></a>{% endif %}
-        {% if bloc.contenu.youtube.0 is defined %}<a href="{{ bloc.contenu.youtubeUrl }}" target="_blank"><i class="fab fa-youtube"></i></a>{% endif %}
-        {% if bloc.contenu.linkedIn.0 is defined %}<a href="{{ bloc.contenu.linkedInUrl }}" target="_blank"><i class="fab fa-linkedin-in"></i></a>{% endif %}
-        {% if bloc.contenu.email.0 is defined %}<a href="mailto:{{ bloc.contenu.emailUrl }}"><i class="fas fa-envelope"></i></a>{% endif %}
+        {% if bloc.contenu.facebookUrl is not empty %}<a href="{{ bloc.contenu.facebookUrl }}" target="_blank"><i class="fab fa-facebook-f"></i></a>{% endif %}
+        {% if bloc.contenu.twitterUrl is not empty %}<a href="{{ bloc.contenu.twitterUrl }}" target="_blank"><i class="fab fa-twitter"></i></a>{% endif %}
+        {% if bloc.contenu.instagramUrl is not empty %}<a href="{{ bloc.contenu.instagramUrl }}" target="_blank"><i class="fab fa-instagram"></i></a>{% endif %}
+        {% if bloc.contenu.youtubeUrl is not empty %}<a href="{{ bloc.contenu.youtubeUrl }}" target="_blank"><i class="fab fa-youtube"></i></a>{% endif %}
+        {% if bloc.contenu.linkedInUrl is not empty %}<a href="{{ bloc.contenu.linkedInUrl }}" target="_blank"><i class="fab fa-linkedin-in"></i></a>{% endif %}
+        {% if bloc.contenu.emailUrl is not empty %}<a href="mailto:{{ bloc.contenu.emailUrl }}"><i class="fas fa-envelope"></i></a>{% endif %}
     </div>
 {% elseif bloc.contenu.typeRS == 'partage' %}
     <div class="blocReseauxSociaux-partage">

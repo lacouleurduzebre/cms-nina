@@ -1024,7 +1024,7 @@ $(document).ready(function() {
             conteneur.find('.rs-input-partage').removeClass('hidden');
             conteneur.find('.rs-input-liens').addClass('hidden');
         }else{
-            conteneur.find('.rs-input-partage').removeClass('hidden');
+            conteneur.find('.rs-input-partage').addClass('hidden');
             conteneur.find('.rs-input-liens').removeClass('hidden');
         }
     });

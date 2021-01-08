@@ -41,7 +41,7 @@ class ReseauxSociauxType extends AbstractType
                 )
             ))
             ->add('facebookUrl', TextType::class, array(
-                'label' => 'Lien :'
+                'label' => 'Lien Facebook :'
             ))
             ->add('twitter', ChoiceType::class, array(
                 'label' => false,
@@ -52,29 +52,13 @@ class ReseauxSociauxType extends AbstractType
                 )
             ))
             ->add('twitterUrl', TextType::class, array(
-                'label' => 'Lien :'
-            ))
-            ->add('instagram', ChoiceType::class, array(
-                'label' => false,
-                'multiple' => true,
-                'expanded' => true,
-                'choices' => array(
-                    'Instagram' => 1
-                )
+                'label' => 'Lien Twitter :'
             ))
             ->add('instagramUrl', TextType::class, array(
-                'label' => 'Lien :'
-            ))
-            ->add('youtube', ChoiceType::class, array(
-                'label' => false,
-                'multiple' => true,
-                'expanded' => true,
-                'choices' => array(
-                    'Youtube' => 1
-                )
+                'label' => 'Lien Instagram :'
             ))
             ->add('youtubeUrl', TextType::class, array(
-                'label' => 'Lien :'
+                'label' => 'Lien YouTube :'
             ))
             ->add('linkedIn', ChoiceType::class, array(
                 'label' => false,
@@ -85,15 +69,7 @@ class ReseauxSociauxType extends AbstractType
                 )
             ))
             ->add('linkedInUrl', TextType::class, array(
-                'label' => 'Lien :'
-            ))
-            ->add('email', ChoiceType::class, array(
-                'label' => false,
-                'multiple' => true,
-                'expanded' => true,
-                'choices' => array(
-                    'Email' => 1
-                )
+                'label' => 'Lien LinkedIn :'
             ))
             ->add('emailUrl', TextType::class, array(
                 'label' => 'Adresse mail :'
