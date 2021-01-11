@@ -9,6 +9,7 @@
 namespace App\Form\Type;
 
 
+use App\Controller\SEOController;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
@@ -358,6 +359,18 @@ class BlocType extends AbstractType
             $infosBlocTheme = Yaml::parseFile('../themes/'.$theme.'/config.yaml');
             if(isset($infosBlocTheme['blocs'][$type]['classes'])){
                 $classes = array_merge($classes, $infosBlocTheme['blocs'][$type]['classes']);
+            }
+        }
+
+        //Paramétrées par l'utilisateur
+        if($type == 'Section' && file_exists('../themes/'.$theme.'/parametres.yaml')){
+            $parametresTheme = Yaml::parseFile('../themes/'.$theme.'/parametres.yaml');
+            if(isset($parametresTheme['stylesBlocs'])){
+                $classesTheme = [];
+                foreach($parametresTheme['stylesBlocs'] as $style){
+                    $classesTheme[$style['nom']] = SEOController::slugify($style['nom'], '_');
+                }
+                $classes = array_merge($classes, $classesTheme);
             }
         }
 
