@@ -15,6 +15,7 @@ use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class ParametrageThemeType extends AbstractType
 {
@@ -82,6 +83,15 @@ class ParametrageThemeType extends AbstractType
 
             //Enregistrement
                 ->add('Enregistrer', SubmitType::class);
+    }
+
+    public function configureOptions(OptionsResolver $resolver)
+    {
+        $resolver->setDefaults([
+            'attr' => [
+                'autocomplete' => 'off'
+            ]
+        ]);
     }
 
     public function getParent(){

@@ -10,8 +10,30 @@
         {% if form is not empty %}
             <div class="guideStyle center">
                 <h2>Guide de style</h2>
+                {% if config.logo is defined and config.logo is not empty %}
+                    <div class="parametrageTheme-selectionCouleur flex-container aic mbs">
+                        <img class="parametrageTheme-logo hidden" src="{{ getTaille(config.logo, 'small') }}">
+                        <div class="parametrageTheme-couleurSurvolee txtcenter mlm">
+                            <p>{{ "Couleur survolée"|trans }}</p>
+                            <div class="echantillon"></div>
+                            <p class="codeHexa">#FFFFFF</p>
+                            <p class="codeRGB">RGB (255,255,255)</p>
+                        </div>
+                        <div class="parametrageTheme-couleurSelectionnee txtcenter mlm">
+                            <p>{{ "Couleur sélectionnée"|trans }}</p>
+                            <div class="echantillon"></div>
+                            <p class="codeHexa">#FFFFFF</p>
+                            <p class="codeRGB">RGB (255,255,255)</p>
+                        </div>
+                    </div>
+                {% endif %}
                 {{ form_start(form) }}
                 <div class="parametrageTheme-couleurs flex-container aic">
+                    {#<div class="form-group field-color">
+                        {{ form_widget(form.couleur1) }}
+                        {{ form_label(form.couleur1) }}
+                        <i class="fas fa-eye-dropper"></i>
+                    </div>#}
                     {{ form_row(form.couleur1) }}
                     {{ form_row(form.couleur2) }}
                     {{ form_row(form.couleur3) }}

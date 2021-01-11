@@ -1247,6 +1247,14 @@ ul.is-unstyled, ul.unstyled {
   padding-left: 4rem;
 }
 
+.aic {
+  align-items: center;
+}
+
+.jcc {
+  justify-content: center;
+}
+
 /* -------------------------- */
 /* ==Responsive helpers       */
 /* -------------------------- */

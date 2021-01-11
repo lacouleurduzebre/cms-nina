@@ -1369,6 +1369,14 @@ ul.is-unstyled, ul.unstyled {
   padding-left: 4rem;
 }
 
+.aic {
+  align-items: center;
+}
+
+.jcc {
+  justify-content: center;
+}
+
 /* -------------------------- */
 /* ==Responsive helpers       */
 /* -------------------------- */
@@ -4516,6 +4524,24 @@ body.list #flash-messages > * {
   width: 50rem;
   padding: 2rem;
   box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.parametrageTheme-logo img {
+  max-width: 30rem;
+}
+
+.parametrageTheme-couleurSurvolee, .parametrageTheme-couleurSelectionnee {
+  min-width: 15rem;
+}
+.parametrageTheme-couleurSurvolee p, .parametrageTheme-couleurSelectionnee p {
+  margin: 0.5rem 0;
+  line-height: 1;
+}
+.parametrageTheme-couleurSurvolee .echantillon, .parametrageTheme-couleurSelectionnee .echantillon {
+  margin: 0 auto;
+  width: 4rem;
+  height: 4rem;
+  border: 1px solid #000;
 }
 
 .parametrageTheme-couleurs .form-group {

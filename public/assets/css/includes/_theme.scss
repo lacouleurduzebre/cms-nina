@@ -154,6 +154,26 @@
   }
 }
 
+.parametrageTheme-logo{
+  img{
+    max-width: 30rem;
+  }
+}
+
+.parametrageTheme-couleurSurvolee, .parametrageTheme-couleurSelectionnee{
+  min-width: 15rem;
+  p{
+    margin: .5rem 0;
+    line-height: 1;
+  }
+  .echantillon{
+    margin: 0 auto;
+    width: 4rem;
+    height: 4rem;
+    border: 1px solid $black;
+  }
+}
+
 .parametrageTheme-couleurs{
   .form-group{
     margin: 0 3rem 0 0;
