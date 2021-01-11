@@ -16,7 +16,7 @@
         <p><a href="{{ path("theme") }}"><i class="fas fa-arrow-left"></i> {{ "Retour à la liste des thèmes"|trans }}</a></p>
         {% if form is not empty %}
             <div class="guideStyle center">
-                <h2>Guide de style</h2>
+                <h2 class="guideStyle-titreSection">Guide de style</h2>
                 {% if config.logo is defined and config.logo is not empty %}
                     <div class="parametrageTheme-selectionCouleur flex-container aic mbs">
                         <img class="parametrageTheme-logo hidden" src="{{ getTaille(config.logo, 'small') }}">
@@ -123,6 +123,8 @@
                         {{ form_row(form.couleurFormulaires) }}
                     </div>
                 </div>
+
+                <h2 class="guideStyle-titreSection">Styles de blocs</h2>
                 {{ form(form) }}
             </div>
         {% else %}

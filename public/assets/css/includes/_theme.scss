@@ -138,7 +138,7 @@
 
 .guideStyle{
   max-width: 70rem;
-  > h2{
+  &-titreSection{
     background-color: $color-brand2;
     color: $white;
     text-align: center;

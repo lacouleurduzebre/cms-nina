@@ -9,6 +9,7 @@
 namespace App\Controller\Back;
 
 
+use App\Controller\SEOController;
 use App\Entity\Configuration;
 use App\Form\Type\ParametresThemes\ParametrageThemeType;
 use App\Service\Droits;
@@ -159,6 +160,26 @@ class ThemeController extends AbstractController
                     if($champ == 'polices'){//Si police
                         foreach($valeur as $police){
                             file_put_contents($nomFichierVariablesScss, file_get_contents($nomFichierVariablesScss).PHP_EOL."@import url('https://fonts.googleapis.com/css2?family=".$police."');");
+                        }
+                    }elseif($champ == 'stylesBlocs'){
+                        foreach($valeur as $style){
+                            $class = '.'.SEOController::slugify($style['nom'], '_').'{';
+
+                            if($style['opaciteFond'] && $style['couleurFond']){
+                                $hex = $style['couleurFond'];
+                                list($r, $g, $b) = sscanf($hex, "#%02x%02x%02x");
+                                $class .= PHP_EOL.'background-color: rgb('.$r.','.$g.','.$b.','.$style['opaciteFond'].');';
+                            }elseif($style['couleurFond']){
+                                $class .= PHP_EOL.'background-color: '.$style['couleurFond'].';';
+                            }
+
+                            if($style['couleur']){
+                                $class .= PHP_EOL.'color: '.$style['couleur'].';';
+                            }
+
+                            $class .= PHP_EOL.'}';
+
+                            file_put_contents($nomFichierVariablesScss, file_get_contents($nomFichierVariablesScss).PHP_EOL.$class);
                         }
                     }else{
                         if(strpos($champ, 'police') > 0){

@@ -365,6 +365,16 @@ template {
 }
 
 /*# sourceMappingURL=bootstrap-reboot.css.map */
+.test_classe {
+  background-color: rgba(18, 0, 235, 0.5);
+  color: #ffffff;
+}
+
+.fond_vert {
+  background-color: #3fb062;
+  color: #000000;
+}
+
 /* ----------------------------- */
 /* ==Base (basic styles)         */
 /* ----------------------------- */
@@ -394,7 +404,7 @@ body {
   font-size: 1.4rem;
   background-color: #fff;
   color: #002260;
-  font-family: "Roboto", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+  font-family: Roboto, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
   line-height: 1.5;
 }
 @media (min-width: 576px) {
@@ -416,7 +426,7 @@ a:focus, a:hover, a:active {
 /* Headings */
 h1, .h1-like {
   font-size: 3rem;
-  font-family: "Courgette", sans-serif;
+  font-family: Courgette, sans-serif;
   font-weight: 500;
 }
 @media (min-width: 576px) {
@@ -427,7 +437,7 @@ h1, .h1-like {
 
 h2, .h2-like {
   font-size: 2.25rem;
-  font-family: "Courgette", sans-serif;
+  font-family: Courgette, sans-serif;
   font-weight: 500;
 }
 @media (min-width: 576px) {

@@ -4511,7 +4511,7 @@ body.list #flash-messages > * {
 .guideStyle {
   max-width: 70rem;
 }
-.guideStyle > h2 {
+.guideStyle-titreSection {
   background-color: #0791B3;
   color: #fff;
   text-align: center;

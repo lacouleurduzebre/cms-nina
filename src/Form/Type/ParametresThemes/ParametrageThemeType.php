@@ -10,6 +10,7 @@ namespace App\Form\Type\ParametresThemes;
 
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\ColorType;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -103,6 +104,16 @@ class ParametrageThemeType extends AbstractType
                     'attr' => [
                         'data-propriete' => 'background-color'
                     ]
+                ])
+
+            //Styles de blocs
+                ->add('stylesBlocs', CollectionType::class, [
+                    'entry_type' => StyleBlocType::class,
+                    'label' => false,
+                    'label_format' => 'un style de bloc',
+                    'allow_add' => true,
+                    'allow_delete' => true,
+                    'required' => false
                 ])
 
             //Enregistrement
