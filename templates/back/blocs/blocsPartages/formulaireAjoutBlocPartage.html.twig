@@ -1,12 +1,15 @@
 <div id="ajoutBlocPartage" class="modal-box">
     <div class="modal-content modal-dialog">
-        <div class="mbm">
-            <button id="ajoutBlocPartageAssocie" class="mln" type="button">{{ "Associer au bloc original"|trans }}</button>
-            <p class="mts help-text">{{ "Ce bloc sera toujours identique au bloc original."|trans }}</p>
-        </div>
-        <div>
-            <button id="ajoutBlocPartageDissocie" class="mln" type="button">{{ "Dissocier du bloc original"|trans }}</button>
-            <p class="mts help-text">{{ "Créé une copie du bloc original. Le bloc original et le bloc nouvellement créé seront dissociés : modifier l'un ne modifiera pas l'autre."|trans }}</p>
+        <p class="txtcenter mbm">Vous souhaitez ajouter un bloc partagé à la page.<br> Préférez-vous qu'il soit :</p>
+        <div class="flex-container txtcenter">
+            <div class="w50 pls prs">
+                <button id="ajoutBlocPartageAssocie" class="mln" type="button">{{ "Associé au bloc original"|trans }}</button>
+                <p class="mts help-text">{{ "Ce bloc sera toujours identique au bloc original."|trans }}</p>
+            </div>
+            <div class="w50 pls prs">
+                <button id="ajoutBlocPartageDissocie" class="mln" type="button">{{ "Dissocié du bloc original"|trans }}</button>
+                <p class="mts help-text">{{ "Ce bloc et le bloc original ne seront pas liés  : modifier l'un ne modifiera pas l'autre."|trans }}</p>
+            </div>
         </div>
     </div>
 </div>

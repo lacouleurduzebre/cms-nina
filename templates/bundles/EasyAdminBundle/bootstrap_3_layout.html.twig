@@ -877,12 +877,13 @@
 
 {% block bloc_widget %}
     {% set blocSection = (form.children.type.vars.value == 'Section') %}
+    {% set blocPartage = (form.children.type.vars.value == 'BlocPartage') %}
     {% set _field_type = easyadmin.field.fieldType|default('default') %}
 
     {# BARRE D'ACTIONS #}
     <div class="bloc-barreActions">
         {% if not blocSection %}
-            <div class="bloc-edit"><i class="fas fa-pen"></i><span>{{ "Modifier"|trans~' '~form.children.type.vars.label|lower }}</span></div>
+            <div class="bloc-edit"><i class="fas {% if blocPartage %}fa-lock{% else %}fa-pen{% endif %}"></i><span>{{ "Modifier"|trans~' '~form.children.type.vars.label|lower }}</span></div>
         {% endif %}
         <div class="drag"><i class="fas fa-arrows-alt "></i><span>{{ "Déplacer"|trans }}</span></div>
         <div class="optionsAffichage"><i class="fas fa-columns"></i><span>{{ "Mise en page"|trans }}</span></div>
@@ -994,7 +995,7 @@
         {% if not blocSection %}
             <div class="form-group contenu bloc-formulaire bloc-panel hidden" {% if form.vars.value is not empty %}data-bloc="{{ form.vars.value.id }}"{% endif %} data-type="{{ form.children.type.vars.value|default('') }}">
                 <div class="bloc-panel--header">
-                    <i class="fas fa-pen"></i>
+                    <i class="fas {% if blocPartage %}fa-lock{% else %}fa-pen{% endif %}"></i>
                     <span>{{ "Modification du bloc"|trans }}</span>
                     <i class="bloc-formulaire--sauvegarde bloc-panel--sauvegarde right fas fa-check"></i>
                     <i class="bloc-formulaire--annulation bloc-panel--annulation mlm fas fa-times"></i>
@@ -1436,8 +1437,9 @@
         {{- form_widget(form) -}}
         {% set blocPartage = getBlocPartage(form.vars.value.blocPartage) %}
         {% if blocPartage %}
+            <p>{{ "Ce bloc partagé est lié à son bloc original et ne peut pas être modifié directement dans une page"|trans }}</p>
             <div class="bloc-blocPartage-origine mbs">
-                <a href="{{ path('easyadmin', { action: 'edit', entity: 'BlocPartage', id: blocPartage.id }) }}">{{ "Éditer ce bloc dans la bibliothèque de blocs partagés"|trans }}</a>
+                <a class="btn" href="{{ path('easyadmin', { action: 'edit', entity: 'BlocPartage', id: blocPartage.id }) }}"><i class="fas fa-pen mrs"></i>{{ "Modifier le bloc original"|trans }}</a>
             </div>
             <div>
                 <button type="button" class="btn bloc-blocPartager-dissocier"><i class="fas fa-cut mrs"></i>{{ "Dissocier le bloc"|trans }}</button>
