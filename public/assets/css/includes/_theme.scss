@@ -108,6 +108,7 @@
   .field-choix_couleur{
     > div{
       display: flex;
+      flex-direction: column;
     }
   }
   .select2-container{

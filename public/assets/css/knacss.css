@@ -4483,6 +4483,7 @@ body.list #flash-messages > * {
 }
 .parametrageTheme .field-choix_couleur > div {
   display: flex;
+  flex-direction: column;
 }
 .parametrageTheme .select2-container {
   width: 100% !important;

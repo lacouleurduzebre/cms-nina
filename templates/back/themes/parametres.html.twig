@@ -3,6 +3,13 @@
     {% form_theme form with easyadmin_config('design.form_theme') %}
 {% endif %}
 
+{% block head_stylesheets %}
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    {% for police in form.polices.vars.value %}
+        <link href="https://fonts.googleapis.com/css2?family={{ police }}&display=swap" rel="stylesheet">
+    {% endfor %}
+{% endblock %}
+
 {% block main %}
     <div class="parametrageTheme">
         <h1>{{ "Paramètres du thème"|trans }} "{{ nom }}"</h1>
@@ -42,32 +49,32 @@
                     {{ form_row(form.polices) }}
                 </div>
                 <div class="elementParametrable-conteneur">
-                    <h1 class="elementParametrable" data-parametres="h1" style="color: {{ champs.couleurH1 }}; font-size: {{ champs.taillePoliceH1 }}">Titre H1</h1>
-                    <div class="parametres h1">
+                    <h1 class="elementParametrable" data-parametres="h1" style="font-family: {{ champs.policeH1 }}; color: {{ champs.couleurH1 }}; font-size: {{ champs.taillePoliceH1 }}">Titre H1</h1>
+                    <div class="parametres" data-parametres="h1">
                         {{ form_row(form.policeH1) }}
                         {{ form_row(form.couleurH1) }}
                         {{ form_row(form.taillePoliceH1) }}
                     </div>
                 </div>
                 <div class="elementParametrable-conteneur">
-                    <h2 class="elementParametrable" data-parametres="h2" style="color: {{ champs.couleurH2 }}; font-size: {{ champs.taillePoliceH2 }}">Titre H2</h2>
-                    <div class="parametres h2">
+                    <h2 class="elementParametrable" data-parametres="h2" style="font-family: {{ champs.policeH2 }}; color: {{ champs.couleurH2 }}; font-size: {{ champs.taillePoliceH2 }}">Titre H2</h2>
+                    <div class="parametres" data-parametres="h2">
                         {{ form_row(form.policeH2) }}
                         {{ form_row(form.couleurH2) }}
                         {{ form_row(form.taillePoliceH2) }}
                     </div>
                 </div>
                 <div class="elementParametrable-conteneur">
-                    <h3 class="elementParametrable" data-parametres="h3" style="color: {{ champs.couleurH3 }}; font-size: {{ champs.taillePoliceH3 }}">Titre H3</h3>
-                    <div class="parametres h3">
+                    <h3 class="elementParametrable" data-parametres="h3" style="font-family: {{ champs.policeH3 }}; color: {{ champs.couleurH3 }}; font-size: {{ champs.taillePoliceH3 }}">Titre H3</h3>
+                    <div class="parametres" data-parametres="h3">
                         {{ form_row(form.policeH3) }}
                         {{ form_row(form.couleurH3) }}
                         {{ form_row(form.taillePoliceH3) }}
                     </div>
                 </div>
                 <div class="elementParametrable-conteneur">
-                    <h4 class="elementParametrable" data-parametres="h4" style="color: {{ champs.couleurH4 }}; font-size: {{ champs.taillePoliceH4 }}">Titre H4</h4>
-                    <div class="parametres h4">
+                    <h4 class="elementParametrable" data-parametres="h4" style="font-family: {{ champs.policeH4 }}; color: {{ champs.couleurH4 }}; font-size: {{ champs.taillePoliceH4 }}">Titre H4</h4>
+                    <div class="parametres" data-parametres="h4">
                         {{ form_row(form.policeH4) }}
                         {{ form_row(form.couleurH4) }}
                         {{ form_row(form.taillePoliceH4) }}
@@ -77,13 +84,13 @@
                     <p class="elementParametrable" data-parametres="btnsCategories">
                         <a class="bouton-categorie" href="#" style="background-color: {{ champs.couleurCategories }}"><i class="fas fa-tag"></i>Catégorie 1</a>
                     </p>
-                    <div class="parametres btnsCategories">
+                    <div class="parametres" data-parametres="btnsCategories">
                         {{ form_row(form.couleurCategories) }}
                     </div>
                 </div>
                 <div class="elementParametrable-conteneur">
-                    <p class="elementParametrable" data-parametres="textes" style="color: {{ champs.couleurTextes }}; font-size: {{ champs.tailleTextes }}">Ob haec et huius <strong>modi multa, quae cernebantur in paucis</strong>, omnibus timeri sunt coepta. et ne tot malis dissimulatis paulatimque serpentibus acervi <a href="#" style="color: {{ champs.couleurLiens }}">cr escerent aerumnarum</a>, nobilitatis decreto legati mittuntur: Praetextatus ex urbi praefecto et ex vicario Venustus et ex consulari Minervius oraturi, ne delictis supplicia sint grandiora, neve senator quisquam inusitato et inlicito more tormentis exponeretur. </p>
-                    <div class="parametres textes">
+                    <p class="elementParametrable" data-parametres="textes" style="font-family: {{ champs.policeTextes }}; color: {{ champs.couleurTextes }}; font-size: {{ champs.tailleTextes }}">Ob haec et huius <strong>modi multa, quae cernebantur in paucis</strong>, omnibus timeri sunt coepta. et ne tot malis dissimulatis paulatimque serpentibus acervi <a href="#" style="color: {{ champs.couleurLiens }}">cr escerent aerumnarum</a>, nobilitatis decreto legati mittuntur: Praetextatus ex urbi praefecto et ex vicario Venustus et ex consulari Minervius oraturi, ne delictis supplicia sint grandiora, neve senator quisquam inusitato et inlicito more tormentis exponeretur. </p>
+                    <div class="parametres" data-parametres="textes">
                         {{ form_row(form.policeTextes) }}
                         {{ form_row(form.couleurTextes) }}
                         {{ form_row(form.couleurLiens) }}
@@ -112,7 +119,7 @@
                             </select>
                         </p>
                     </div>
-                    <div class="parametres formulaires">
+                    <div class="parametres" data-parametres="formulaires">
                         {{ form_row(form.couleurFormulaires) }}
                     </div>
                 </div>

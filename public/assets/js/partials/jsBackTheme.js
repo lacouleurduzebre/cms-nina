@@ -120,11 +120,11 @@ $(document).ready(function () {
         //Masquer les autres paramètres
         $('.elementParametrable').not(this).removeClass('actif');
         parametres = $(this).data('parametres');
-        $('.parametres').not('.'+parametres).hide();
+        $('.parametres').not('[data-parametres="'+parametres+'"]').hide();
 
         //Afficher / masquer les paramètres de l'élément
         $(this).toggleClass('actif');
-        $('.parametres.'+parametres).toggle();
+        $('.parametres[data-parametres="'+parametres+'"]').toggle();
     });
 
         //Color picker logo
@@ -190,4 +190,22 @@ $(document).ready(function () {
             selectionCouleur(e);
         });
     }
+
+    //Modification du guide de style en direct
+    $('.guideStyle input, .guideStyle select').on('keyup change', function(){
+       if($(this).closest('[data-propriete]').length > 0){
+           propriete = $(this).closest('[data-propriete]').attr('data-propriete');
+           valeur = $(this).val();
+           parametre = $(this).closest('.parametres').data('parametres');
+
+           //Si valeur = variable, on cherche la vraie valeur
+           if(valeur.substr(0, 1) === '$'){
+               nomVariable = valeur.substr(1, valeur.length - 1);
+               valeur = $('[name="parametrage_theme['+nomVariable+']"]').val();
+           }
+
+           //Modification du guide de style
+           $('.elementParametrable[data-parametres="'+parametre+'"]').css(propriete, valeur);
+       }
+    });
 });

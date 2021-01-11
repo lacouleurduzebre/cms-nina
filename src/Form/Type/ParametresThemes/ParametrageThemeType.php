@@ -43,13 +43,22 @@ class ParametrageThemeType extends AbstractType
             while($i <= 4){
                 $builder
                     ->add('policeH'.$i, ChoixPoliceType::class, [
-                        'label' => 'Titres H'.$i.' - Police'
+                        'label' => 'Titres H'.$i.' - Police',
+                        'attr' => [
+                            'data-propriete' => 'font-family'
+                        ]
                     ])
                     ->add('couleurH'.$i, ChoixCouleurType::class, [
-                        'label' => 'Titres H'.$i.' - Couleur'
+                        'label' => 'Titres H'.$i.' - Couleur',
+                        'attr' => [
+                            'data-propriete' => 'color'
+                        ]
                     ])
                     ->add('taillePoliceH'.$i, TextType::class, [
-                        'label' => 'Titres H'.$i.' - Taille de police'
+                        'label' => 'Titres H'.$i.' - Taille de police',
+                        'attr' => [
+                            'data-propriete' => 'font-size'
+                        ]
                     ]);
                 $i++;
             }
@@ -57,13 +66,22 @@ class ParametrageThemeType extends AbstractType
             //Textes
             $builder
                 ->add('policeTextes', ChoixPoliceType::class, [
-                    'label' => 'Textes - Police'
+                    'label' => 'Textes - Police',
+                    'attr' => [
+                        'data-propriete' => 'font-family'
+                    ]
                 ])
                 ->add('couleurTextes', ChoixCouleurType::class, [
-                    'label' => 'Textes - Couleur'
+                    'label' => 'Textes - Couleur',
+                    'attr' => [
+                        'data-propriete' => 'color'
+                    ]
                 ])
                 ->add('tailleTextes', TextType::class, [
-                    'label' => 'Textes - Taille de police'
+                    'label' => 'Textes - Taille de police',
+                    'attr' => [
+                        'data-propriete' => 'font-size'
+                    ]
                 ])
 
             //Liens
@@ -73,12 +91,18 @@ class ParametrageThemeType extends AbstractType
 
             //Formulaires
                 ->add('couleurFormulaires', ChoixCouleurType::class, [
-                    'label' => 'Formulaires - Couleur'
+                    'label' => 'Formulaires - Couleur',
+                    'attr' => [
+                        'data-propriete' => 'color'
+                    ]
                 ])
 
             //Étiquettes de catégorie
                 ->add('couleurCategories', ChoixCouleurType::class, [
-                    'label' => 'Étiquettes de catégorie - Couleur'
+                    'label' => 'Étiquettes de catégorie - Couleur',
+                    'attr' => [
+                        'data-propriete' => 'background-color'
+                    ]
                 ])
 
             //Enregistrement
