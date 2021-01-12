@@ -162,4 +162,10 @@ $(document).ready(function() {
             }
         }
     }
+
+    //Onglet voir
+    $('.nav-tabs-custom .voirPage').click(function(e){
+        e.preventDefault();
+        window.location = $('.formulaire-actions .action-voir').attr('href');
+    })
 });

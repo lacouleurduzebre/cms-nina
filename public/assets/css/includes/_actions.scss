@@ -73,6 +73,9 @@
     color: $white;
     display: flex;
     align-items: center;
+    .edit-page_active &{
+      display: none;
+    }
     @include respond-to("medium"){
       span{
         display: none;

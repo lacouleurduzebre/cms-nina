@@ -563,7 +563,7 @@
                             {% if 'forced_first_tab' not in tab_name %}
                                 {% if tab_config['css_class'] != 'traductions' or langues|length > 1 %}
                                     <li class="{% if (easyadmin_form_tabs["_easyadmin_form_design_element_forced_first_tab"] is defined and loop.index == 2) or tab_config.active %}active{% endif %}">
-                                        <a href="#{{ tab_config['id'] }}" id="{{ tab_config['id'] }}-tab" data-toggle="tab">
+                                        <a href="#{% if tab_config['css_class'] != 'voirPage' %}{{ tab_config['id'] }}{% endif %}" id="{{ tab_config['id'] }}-tab" class="{{ tab_config['css_class']|default('') }}" data-toggle="tab">
                                             {% if tab_config.icon|default(false) %}
                                                 <i class="fa fa-{{ tab_config.icon }}"></i>
                                             {% endif %}

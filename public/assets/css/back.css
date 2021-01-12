@@ -471,6 +471,9 @@ body.ongletsEdition {
 #ongletsEditionFront li {
   border-bottom: 7px solid #0791B3;
 }
+#ongletsEditionFront li.active {
+  border-color: #fff;
+}
 #ongletsEditionFront li:hover {
   border-color: #92D8E9;
 }

@@ -4660,6 +4660,9 @@ body.list #flash-messages > * {
   display: flex;
   align-items: center;
 }
+.edit-page_active .formulaire-actions .action-voir {
+  display: none;
+}
 @media (max-width: 767px) {
   .formulaire-actions .action-voir span {
     display: none;

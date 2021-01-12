@@ -198,6 +198,9 @@ body.ongletsEdition{
   }
   li {
     border-bottom: 7px solid $color-brand2;
+    &.active{
+      border-color: $white;
+    }
     &:hover {
       border-color: #92D8E9;
     }
