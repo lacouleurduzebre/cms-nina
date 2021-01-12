@@ -1536,3 +1536,16 @@
 {% block _form_pictos_entry_picto_widget %}
     {{ block('image_simple_widget') }}
 {% endblock %}
+
+{% block _parametrage_theme_stylesBlocs_entry_widget %}
+    {% set champs = form.vars.value %}
+    <div class="elementParametrable-conteneur">
+        <p class="styleBloc-nom">{{ champs.nom|default('') }}</p>
+        <p class="elementParametrable" data-parametres="styleBloc{{ form.vars.name }}" style="color: {{ champs.couleur|default('') }}; background-color: {{ champs.couleurFond|default('') }}">
+            Ob haec et huius modi multa, quae cernebantur in paucis, omnibus timeri sunt coepta. et ne tot malis dissimulatis paulatimque serpentibus acervi cr escerent aerumnarum, nobilitatis decreto legati mittuntur: Praetextatus ex urbi praefecto et ex vicario Venustus et ex consulari Minervius oraturi, ne delictis supplicia sint grandiora, neve senator quisquam inusitato et inlicito more tormentis exponeretur.
+        </p>
+        <div class="parametres" data-parametres="styleBloc{{ form.vars.name }}">
+            {{ form_widget(form) }}
+        </div>
+    </div>
+{% endblock %}

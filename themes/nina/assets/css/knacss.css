@@ -365,14 +365,14 @@ template {
 }
 
 /*# sourceMappingURL=bootstrap-reboot.css.map */
-.test_classe {
-  background-color: rgba(18, 0, 235, 0.5);
-  color: #ffffff;
+.fond_bleu_transparent {
+  background-color: rgba(0, 28, 235, 0.5);
+  color: #f5fdff;
 }
 
 .fond_vert {
   background-color: #3fb062;
-  color: #000000;
+  color: #effff5;
 }
 
 /* ----------------------------- */

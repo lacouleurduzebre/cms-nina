@@ -182,3 +182,11 @@
     flex-direction: column-reverse;
   }
 }
+
+.field-style_bloc > label{
+  display: none;
+}
+
+.styleBloc-nom{
+  line-height: 1;
+}

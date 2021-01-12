@@ -114,7 +114,7 @@ $(document).ready(function () {
         $('.echantillonCouleur[data-champ="' + $(this).attr('name') + '"]').css('background-color', couleur);
     });
 
-    $('.elementParametrable').click(function(e){
+    $('.guideStyle').on('click', '.elementParametrable', function(e){
         e.preventDefault();
 
         //Masquer les autres paramètres
@@ -133,6 +133,15 @@ $(document).ready(function () {
         if   (i >= 0  && i <= 15)  { hex = "0" + i.toString(16); }
         else if (i >= 16  && i <= 255)  { hex = i.toString(16); }
         return hex;
+    };
+
+    hex2rgb = function(hex){
+        var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+        return result ? {
+            r: parseInt(result[1], 16),
+            g: parseInt(result[2], 16),
+            b: parseInt(result[3], 16)
+        } : null;
     };
 
     selectionCouleur = function(e) {
@@ -191,9 +200,29 @@ $(document).ready(function () {
         });
     }
 
+    //Styles de blocs : fond
+    fondsStylesBlocs = function(){
+        $('input[name^="parametrage_theme[stylesBlocs]"][name$="[opaciteFond]"]').each(function(){
+            if($(this).val()){
+                parametre = $(this).closest('.parametres').data('parametres');
+                opacite = 0.01*$(this).val();
+
+                idChampCouleurFond = $(this).attr('id').replace('opaciteFond', 'couleurFond');
+                couleurFond = $('#'+idChampCouleurFond).val();
+                if(couleurFond){
+                    rgb = hex2rgb(couleurFond);
+                    $('.elementParametrable[data-parametres="'+parametre+'"]').css('background-color', 'rgba('+rgb.r+','+rgb.g+','+rgb.b+','+opacite+')');
+                }
+            }
+        })
+    };
+    fondsStylesBlocs();
+
     //Modification du guide de style en direct
-    $('.guideStyle input, .guideStyle select').on('keyup change', function(){
-       if($(this).closest('[data-propriete]').length > 0){
+    $('.guideStyle').on('keyup change', 'input, select', function(){
+        if($(this).attr('name').indexOf('stylesBlocs') > 0 && $(this).attr('name').indexOf('Fond') > 0){
+            fondsStylesBlocs();
+        }else if($(this).closest('[data-propriete]').length > 0){
            propriete = $(this).closest('[data-propriete]').attr('data-propriete');
            valeur = $(this).val();
            parametre = $(this).closest('.parametres').data('parametres');
@@ -207,5 +236,11 @@ $(document).ready(function () {
            //Modification du guide de style
            $('.elementParametrable[data-parametres="'+parametre+'"]').css(propriete, valeur);
        }
+    });
+
+    //Modification du nom / fond d'un style de bloc
+    $('.guideStyle').on('change', 'input[name^="parametrage_theme[stylesBlocs]"][name$="[nom]"]', function(){
+        nom = $(this).val();
+        $(this).closest('.elementParametrable-conteneur').find('.styleBloc-nom').html(nom);
     });
 });

@@ -110,7 +110,7 @@ class ParametrageThemeType extends AbstractType
                 ->add('stylesBlocs', CollectionType::class, [
                     'entry_type' => StyleBlocType::class,
                     'label' => false,
-                    'label_format' => 'un style de bloc',
+                    'label_format' => 'style de bloc',
                     'allow_add' => true,
                     'allow_delete' => true,
                     'required' => false

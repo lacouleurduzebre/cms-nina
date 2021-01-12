@@ -32,7 +32,10 @@ class StyleBlocType extends AbstractType
                 'label' => 'Opacité du fond'
             ])
             ->add('couleur', ColorType::class, [
-                'label' => 'Couleur du texte'
+                'label' => 'Couleur du texte',
+                'attr' => [
+                    'data-propriete' => 'color'
+                ]
             ]);
     }
 

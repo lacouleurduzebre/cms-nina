@@ -4551,6 +4551,14 @@ body.list #flash-messages > * {
   flex-direction: column-reverse;
 }
 
+.field-style_bloc > label {
+  display: none;
+}
+
+.styleBloc-nom {
+  line-height: 1;
+}
+
 .sauvegarde h2 {
   color: #0791B3;
 }
