@@ -26,6 +26,13 @@ $filesystem = new \Symfony\Component\Filesystem\Filesystem();
 if(!file_exists('public/theme')){
     $filesystem->symlink(getcwd().'/themes/nina/assets', getcwd().'/public/theme');
 }
+//Compilation du thème Nina
+$fichierCSS = getcwd().'/themes/nina/assets/css/knacss.css';
+if(!file_exists($fichierCSS)){
+    exec('pwd', $pwd);
+    exec($pwd[0] . '/vendor/scssphp/scssphp/bin/pscss ' . $pwd[0] . '/themes/nina/assets/css/knacss.scss', $css);
+    file_put_contents($fichierCSS, $css);
+}
 
 //Copie des fichiers de conf par défaut
 if(!file_exists('config/packages/doctrine_migrations.yaml')){

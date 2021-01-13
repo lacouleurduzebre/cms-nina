@@ -5,7 +5,11 @@
 /themes/*
 !/themes/nina/
 /themes/nina/parametres.yaml
+/themes/nina/parametres.yaml
 /themes/nina/assets/css/_config/_parametres.scss
+/themes/nina/assets/css/knacss.css
+/themes/nina/assets/css/knacss.map.css
+/themes/nina/assets/css/knacss.min.css
 
 ###> OVH ###
 .bash_history
