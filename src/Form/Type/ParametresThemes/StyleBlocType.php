@@ -10,7 +10,6 @@ namespace App\Form\Type\ParametresThemes;
 
 
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\ColorType;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\Form\Extension\Core\Type\PercentType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -25,13 +24,13 @@ class StyleBlocType extends AbstractType
             ->add('nom', TextType::class, [
                 'label' => 'Nom'
             ])
-            ->add('couleurFond', ColorType::class, [
+            ->add('couleurFond', ChoixCouleurType::class, [
                 'label' => 'Couleur de fond'
             ])
             ->add('opaciteFond', PercentType::class, [
                 'label' => 'Opacité du fond'
             ])
-            ->add('couleur', ColorType::class, [
+            ->add('couleur', ChoixCouleurType::class, [
                 'label' => 'Couleur du texte',
                 'attr' => [
                     'data-propriete' => 'color'

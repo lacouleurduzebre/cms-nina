@@ -38,8 +38,8 @@ class ChoixCouleurType extends AbstractType
             $i++;
         }
 
-        $couleurs['Noir <span class="echantillonCouleur" style="background-color: #000"></span>'] = '#000';
-        $couleurs['Blanc <span class="echantillonCouleur" style="background-color: #FFF"></span>'] = '#FFF';
+        $couleurs['Noir <span class="echantillonCouleur" style="background-color: #000"></span>'] = '#000000';
+        $couleurs['Blanc <span class="echantillonCouleur" style="background-color: #FFF"></span>'] = '#FFFFFF';
         $couleurs['Transparent <span class="echantillonCouleur"></span>'] = 'transparent';
 
         $resolver->setDefaults(array(

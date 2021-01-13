@@ -111,7 +111,8 @@ $(document).ready(function () {
     //Paramétrage
     $('input[type="color"]').change(function () {
         couleur = $(this).val();
-        $('.echantillonCouleur[data-champ="' + $(this).attr('name') + '"]').css('background-color', couleur);
+        numeroCouleur = $(this).attr('id').substr($(this).attr('id').length - 1, 1);
+        $('.echantillonCouleur[data-champ="form[couleur'+numeroCouleur+']"]').css('background-color', couleur);
     });
 
     $('.guideStyle').on('click', '.elementParametrable', function(e){
@@ -186,7 +187,7 @@ $(document).ready(function () {
         while(imageWidth === 0){
             setTimeout(function(){
                 imageWidth = image.width;
-            }, 500);
+            }, 2000);
         }
 
         canvas.width = image.width;
@@ -202,16 +203,24 @@ $(document).ready(function () {
 
     //Styles de blocs : fond
     fondsStylesBlocs = function(){
-        $('input[name^="parametrage_theme[stylesBlocs]"][name$="[opaciteFond]"]').each(function(){
-            if($(this).val()){
-                parametre = $(this).closest('.parametres').data('parametres');
-                opacite = 0.01*$(this).val();
+        $('.field-style_bloc').each(function(){
+            couleurFond = $(this).find('input[name$="[couleurFond]"]:checked').val();
+            opacite = $(this).find('input[name$="[opaciteFond]"]').val();
+            parametre = $(this).find('.parametres').data('parametres');
 
-                idChampCouleurFond = $(this).attr('id').replace('opaciteFond', 'couleurFond');
-                couleurFond = $('#'+idChampCouleurFond).val();
-                if(couleurFond){
+            if(couleurFond){
+                if(couleurFond.substr(0, 1) === '$'){
+                    nomVariable = couleurFond.substr(1, couleurFond.length - 1);
+                    couleurFond = $('[name="parametrage_theme['+nomVariable+']"]').val();
+                }
+
+                if(opacite){
+                    opacite = 0.01*opacite;
+
                     rgb = hex2rgb(couleurFond);
                     $('.elementParametrable[data-parametres="'+parametre+'"]').css('background-color', 'rgba('+rgb.r+','+rgb.g+','+rgb.b+','+opacite+')');
+                }else{
+                    $('.elementParametrable[data-parametres="'+parametre+'"]').css('background-color', couleurFond);
                 }
             }
         })
