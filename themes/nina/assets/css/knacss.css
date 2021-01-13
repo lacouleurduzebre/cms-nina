@@ -3300,16 +3300,6 @@ button:focus {
   display: none;
 }
 
-body {
-  background: url("../img/background.jpg");
-}
-
-@media (min-width: 768px) {
-  body.connected .header_front {
-    padding-top: 5rem;
-  }
-}
-
 .bouton, #form_envoi, input[type=submit], button[type=submit], .bouton-categorie {
   display: inline-block;
   background-color: #a1ba1d;
@@ -3318,24 +3308,17 @@ body {
   padding: 1rem 1.5rem;
   box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
   text-decoration: none;
-  transition: background-color 0.3s;
+  transition: background-color 0.3s, color 0.3s;
 }
 .bouton:hover, .bouton:focus, .bouton:active, #form_envoi:hover, #form_envoi:focus, #form_envoi:active, input[type=submit]:hover, input[type=submit]:focus, input[type=submit]:active, button[type=submit]:hover, button[type=submit]:focus, button[type=submit]:active, .bouton-categorie:hover, .bouton-categorie:focus, .bouton-categorie:active {
   background-color: #687813;
-  text-decoration: none;
   color: #fff;
+  text-decoration: none;
 }
 
 main {
-  background-color: rgba(255, 255, 255, 0.9);
   padding-top: 3rem;
   padding-bottom: 3rem;
-  /* > div[class^="bloc"]{
-     @include centre;
-     &:not(.blocTitre){
-       margin-bottom: 3rem;
-     }
-   }*/
 }
 @media (max-width: 575px) {
   main {
@@ -3417,13 +3400,10 @@ body.recherche h1 {
   opacity: 0.5;
 }
 .pagination ul li.pagination-active span {
-  color: #000;
+  color: #002260;
 }
 
 .header_front {
-  padding: 1rem;
-  text-align: center;
-  background-color: rgba(255, 255, 255, 0.7);
   position: relative;
 }
 
@@ -3445,7 +3425,6 @@ body.recherche h1 {
     top: 0;
     left: 0;
     z-index: 100;
-    background-color: #FFF;
     height: 100vh;
     width: 100vw;
     padding-top: 7rem;
@@ -3559,7 +3538,6 @@ body.recherche h1 {
 #burger {
   color: #a1ba1d;
   font-size: 3rem;
-  background-color: #FFF;
   display: inline-block;
   margin-right: 100%;
   padding: 0 1rem;
@@ -3593,8 +3571,6 @@ body.recherche h1 {
 }
 
 footer {
-  background-color: rgba(210, 122, 0, 0.9);
-  color: #fff;
   padding: 5rem 1rem;
 }
 footer > * {
@@ -3603,7 +3579,6 @@ footer > * {
 }
 
 footer a {
-  color: #fff;
   text-decoration: none;
 }
 
@@ -3725,7 +3700,7 @@ main .pleineLargeur {
   color: red;
 }
 .blocFormulaire input[type=text], .blocFormulaire textarea, .blocFormulaire select, .blocFormulaire input[type=checkbox], .blocFormulaire input[type=password], .blocFormulaire input[type=email], .blocCommentaires input[type=text], .blocCommentaires textarea, .blocCommentaires select, .blocCommentaires input[type=checkbox], .blocCommentaires input[type=password], .blocCommentaires input[type=email] {
-  box-shadow: 0 0 0 1px #5CBFEE inset;
+  box-shadow: 0 0 0 1px #d27a00 inset;
 }
 .blocFormulaire input[type=text], .blocFormulaire textarea, .blocFormulaire input[type=password], .blocFormulaire input[type=email], .blocCommentaires input[type=text], .blocCommentaires textarea, .blocCommentaires input[type=password], .blocCommentaires input[type=email] {
   width: 100%;
@@ -3811,7 +3786,7 @@ main .pleineLargeur {
 }
 
 .ficheLEI-sansImage a {
-  color: #5cbfee4d;
+  color: #d27a00;
   font-size: 15rem;
   display: flex;
   align-items: center;
@@ -3870,9 +3845,10 @@ main .pleineLargeur {
   border-radius: 0;
   box-shadow: none;
   margin-left: -1px;
-  border-top: 1px solid #000;
-  border-right: 1px solid #000;
-  border-bottom: 1px solid #000;
+  border-top: 1px solid #d27a00;
+  border-right: 1px solid #d27a00;
+  border-bottom: 1px solid #d27a00;
+  background-color: #d27a00;
 }
 
 .blocReseauxSociaux-liens {
@@ -3906,7 +3882,7 @@ main .pleineLargeur {
   width: 40px;
   height: 40px;
   z-index: 10;
-  text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  text-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
 }
 .blocSlider .slick-prev {
   left: 1rem;

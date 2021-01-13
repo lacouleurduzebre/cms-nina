@@ -55,6 +55,19 @@ $bp-aliases: (
   }
 }
 
+@function setCouleurTexte($color) {
+  @if (lightness($color) > 45) {
+    @return $black;
+  } @else {
+    @return $white;
+  }
+}
+
+@mixin couleursAutomatiques($color){
+  background-color: $color;
+  color: setCouleurTexte($color);
+}
+
 @mixin centre{
   max-width: $large;
   margin-left: auto;
@@ -63,16 +76,14 @@ $bp-aliases: (
 
 @mixin bouton{
   display: inline-block;
-  background-color: $couleurLiens;
-  color: $white;
+  @include couleursAutomatiques($couleurLiens);
   border-radius: 5px;
   padding: 1rem 1.5rem;
   box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
   text-decoration: none;
-  transition: background-color .3s;
+  transition: background-color .3s, color .3s;
   &:hover, &:focus, &:active{
-    background-color: darken($couleurLiens, 15);
+    @include couleursAutomatiques(darken($couleurLiens, 15));
     text-decoration: none;
-    color: $white;
   }
 }

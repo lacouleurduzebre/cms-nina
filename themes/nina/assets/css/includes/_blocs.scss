@@ -17,8 +17,7 @@ main{
 
 //Accordéon
 .blocAccordeon-titre{
-  background-color: $couleur1;
-  color: $white;
+  @include couleursAutomatiques($couleur1);
   padding: 1rem 2rem;
   margin-bottom: 2px;
   cursor: pointer;
@@ -65,7 +64,7 @@ main{
     }
   }
   input[type="text"], textarea, select, input[type='checkbox'], input[type="password"], input[type="email"]{
-    box-shadow: 0 0 0 1px #5CBFEE inset;
+    box-shadow: 0 0 0 1px $couleurFormulaires inset;
   }
   input[type="text"], textarea, input[type="password"], input[type="email"]{
     width: 100%;
@@ -158,7 +157,7 @@ main{
 
 .ficheLEI-sansImage{
   a{
-    color: #5cbfee4d;
+    color: $couleur1;
     font-size: 15rem;
     display: flex;
     align-items: center;
@@ -217,9 +216,10 @@ main{
     border-radius: 0;
     box-shadow: none;
     margin-left: -1px;
-    border-top: 1px solid #000;
-    border-right: 1px solid #000;
-    border-bottom: 1px solid #000;
+    border-top: 1px solid $couleurFormulaires;
+    border-right: 1px solid $couleurFormulaires;
+    border-bottom: 1px solid $couleurFormulaires;
+    background-color: $couleurFormulaires;
   }
 }
 
@@ -227,8 +227,7 @@ main{
 .blocReseauxSociaux-liens{
   display: flex;
   a{
-    background-color: $couleurLiens;
-    color: $white;
+    @include couleursAutomatiques($couleurLiens);
     width: 4rem;
     height: 4rem;
     border-radius: 10px;
@@ -255,7 +254,7 @@ main{
     width: 40px;
     height: 40px;
     z-index: 10;
-    text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    text-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
   }
   .slick-prev{
     left: 1rem;

@@ -1,30 +1,13 @@
-body{
-  background: url('../img/background.jpg');
-}
-
-body.connected .header_front{
-  @include respond-to("medium-up"){
-    padding-top: 5rem;
-  }
-}
-
 .bouton, #form_envoi, input[type="submit"], button[type="submit"], .bouton-categorie{
   @include bouton;
 }
 
 main{
-  background-color: rgba($white, .9);
   padding-top: 3rem;
   padding-bottom: 3rem;
   @include respond-to("small"){
     flex-direction: row !important;
   }
- /* > div[class^="bloc"]{
-    @include centre;
-    &:not(.blocTitre){
-      margin-bottom: 3rem;
-    }
-  }*/
   .blocCommentaires{
     width: 100%;
   }
@@ -95,7 +78,7 @@ body.recherche h1{
       opacity: .5;
     }
     li.pagination-active span{
-      color: $black;
+      color: $couleurTextes;
     }
   }
 }
