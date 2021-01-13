@@ -59,7 +59,7 @@ easy_admin:
                     - { property: 'blocs', type: 'collection', type_options: { entry_type: 'App\Form\Type\BlocType', by_reference: false, label: false } }
                     - { type: 'tab', label: 'Référencement' }
                     - { property: 'SEO', type: 'App\Form\Type\SEOPageType', type_options: { by_reference: true, label: false } }
-                    - { type: 'tab', label: 'Affichage' }
+                    - { type: 'tab', label: 'Options' }
                     - { type: 'group', label: 'Affichage des pages enfants', icon: 'file-alt' }
                     - { property: 'affichageSousNiveaux', label: 'Afficher les pages enfants dans les menus' }
                     - { type: 'group', label: 'Publication', icon: 'newspaper' }
@@ -84,7 +84,7 @@ easy_admin:
                 actions:
                     - { name: 'voir', label: 'Voir', title: 'Voir', icon: 'eye' }
                 fields:
-                    - { type: 'tab', label: 'Voir', css_class: 'voirPage' }
+                    - { type: 'tab', label: 'Affichage', css_class: 'voirPage' }
                 title: titre
 
         Page_Corbeille:

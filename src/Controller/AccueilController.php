@@ -9,6 +9,7 @@
 namespace App\Controller;
 
 
+use App\Helper\PageHelper;
 use App\Service\Droits;
 use App\Service\Page;
 use EasyCorp\Bundle\EasyAdminBundle\Configuration\ConfigManager;
@@ -44,14 +45,7 @@ class AccueilController extends AbstractController
 
         /* Barre d'admin */
         if($droits->checkDroit('admin')){
-            $configEA = $configManager->getEntityConfig('Page_Active');
-            $champsEA = $configEA['form']['fields'] ?? [];
-            $ongletsEdition = [];
-            foreach($champsEA as $champ){
-                if(key_exists('type', $champ) && $champ['type'] == 'easyadmin_tab'){
-                    $ongletsEdition[] = $champ;
-                }
-            }
+            $ongletsEdition = PageHelper::getOnglets($configManager);
         }
         /* Fin barre d'admin */
 

@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Commentaire;
+use App\Helper\PageHelper;
 use App\Service\Droits;
 use App\Service\Page;
 use EasyCorp\Bundle\EasyAdminBundle\Configuration\ConfigManager;
@@ -122,16 +123,7 @@ class PageController extends AbstractController
 
         /* Barre d'admin */
         if($droits->checkDroit('admin')){
-            $configEA = $configManager->getEntityConfig('Page_Active');
-            $champsEA1 = $configEA['form']['fields'] ?? [];
-            $champsEA2 = $configEA['edit']['fields'] ?? [];
-            $champsEA = array_merge($champsEA1, $champsEA2);
-            $ongletsEdition = [];
-            foreach($champsEA as $champ){
-                if(key_exists('type', $champ) && $champ['type'] == 'easyadmin_tab'){
-                    $ongletsEdition[] = $champ;
-                }
-            }
+            $ongletsEdition = PageHelper::getOnglets($configManager);
         }
         /* Fin barre d'admin */
 
