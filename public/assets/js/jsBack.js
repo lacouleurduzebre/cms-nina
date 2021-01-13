@@ -418,7 +418,7 @@ $(document).ready(function(){
 
     $('.modal-box, .modal-close').click(function(){
         $(this).closest('.modal-box').fadeOut('slow', function(){
-            $('#'+idModal).css('opacity', 0);
+            $(this).closest('.modal-box').css('opacity', 0);
         });
     });
 

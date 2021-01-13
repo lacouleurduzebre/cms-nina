@@ -501,7 +501,7 @@ $(document).ready(function() {
             messageFlash('enregistrement', "Le bloc a été ajouté à la liste des blocs partagés");
         });
     });
-
+    
     //Retirer des blocs partagés
         //Ouverture du formulaire
     $('form').on('click', '.suppressionListeBlocPartage', function(){
@@ -657,6 +657,14 @@ $(document).ready(function() {
         });
 
         ajoutBloc('BlocPartage', 'dissocie');
+    });
+
+        //Bloc partagé : annulation
+    $('#ajoutBlocPartage-annulation, #ajoutBlocPartage').click(function(){
+        $('.listeBlocsDnD-bloc.chargement').remove();
+        $(this).closest('.modal-box').fadeOut('slow', function(){
+            $('#ajoutBlocPartage').css('opacity', 0);
+        });
     });
 
     //Dissociation d'un bloc partagé
