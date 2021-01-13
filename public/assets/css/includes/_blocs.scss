@@ -811,6 +811,9 @@ div[id^="page_active_blocs"], div[id^="region_blocs"]{
     padding: 1rem;
     background-color: #E1E0E0;
   }
+  .checkbox label{
+    white-space: normal;
+  }
 }
 
 //Blocs partagés
@@ -977,6 +980,12 @@ body.edit, body.new{
   select{
     border: 1px solid #DADCE0;
     box-shadow: none;
+    width: 100%;
+  }
+  input.checkbox, .checkbox input{
+    &:checked{
+      background-color: $checkbox-checked-background;
+    }
   }
 }
 

@@ -11,7 +11,7 @@
 
 // common styles
 body.edit, body.new{//Contrer le css du front
-  .checkbox{
+  input.checkbox, .checkbox input{
     box-shadow: none;
     border: none;
   }
@@ -23,7 +23,7 @@ body.edit, body.new{//Contrer le css du front
   }
 }
 
-.checkbox{
+input.checkbox, .checkbox input{
   background: transparent;
   input{
     border-radius: $checkbox-border-radius;
@@ -39,7 +39,7 @@ body.edit, body.new{//Contrer le css du front
 }
 
 .toggle input,
-.checkbox input,
+input.checkbox, .checkbox input,
 .radio input{
   appearance: none;
   vertical-align: text-bottom;
@@ -89,7 +89,7 @@ body.edit, body.new{//Contrer le css du front
 
 
 // checkbox styling
-.checkbox input{
+input.checkbox, .checkbox input{
   width: $checkbox-size;
   height: $checkbox-size;
   box-shadow: inset 0 0 0 1px $checkbox-background;

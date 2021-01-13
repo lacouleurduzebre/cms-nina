@@ -167,6 +167,11 @@ class ThemeController extends AbstractController
 
                             if($style['opaciteFond'] && $style['couleurFond']){
                                 $hex = $style['couleurFond'];
+
+                                if(substr($hex, 0, 1) == '$'){
+                                    $hex = $data[substr($hex, 1)];
+                                }
+
                                 list($r, $g, $b) = sscanf($hex, "#%02x%02x%02x");
                                 $class .= PHP_EOL.'background-color: rgb('.$r.','.$g.','.$b.','.$style['opaciteFond'].');';
                             }elseif($style['couleurFond']){
