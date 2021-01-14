@@ -97,8 +97,12 @@ class SEOController extends AbstractController
             if($type == 'pages'){
                 $page = $SEO->getPage();
 
+                $titre = $page->getTitre();
                 $description = $this->renderView('front/blocs.html.twig', ['blocs' => $page->getBlocs()]);
-                $description = strip_tags($description);
+                $description = trim(strip_tags($description));
+                if($description == ''){
+                    $description = $titre;
+                }
             }elseif($type == 'categories'){
                 $categorie = $SEO->getCategorie();
                 $description = $titre = $categorie->getNom();
