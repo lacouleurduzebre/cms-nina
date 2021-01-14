@@ -25,7 +25,7 @@ class ChoixPoliceType extends AbstractType
         if($parametres && key_exists('polices', $parametres)){//Paramètre modifié par l'utilisateur
             $polices =  $parametres['polices'];
         }else{//Paramètre par défaut
-            $polices = $configurationTheme['champ']['polices'];
+            $polices = $configurationTheme['champs']['polices'];
         }
 
         $policesDisponibles[''] = '';

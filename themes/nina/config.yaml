@@ -9,33 +9,34 @@ champs:
     couleur2: "#A1BA1D"
     couleur3: "#F29400"
     #Polices à importer
-    polices: {}
+    polices:
+        - Roboto
     #H1
-    couleurH1: "$couleur"
-    policeH1: ""
-    taillePoliceH1: "16px"
+    couleurH1: $couleur1
+    policeH1: Roboto
+    taillePoliceH1: 4rem
     #H2
-    couleurH2: "$couleur"
-    policeH2: ""
-    taillePoliceH2: "16px"
+    couleurH2: $couleur1
+    policeH2: Roboto
+    taillePoliceH2: 3rem
     #H3
-    couleurH3: "$couleur"
-    policeH3: ""
-    taillePoliceH3: "16px"
+    couleurH3: $couleur1
+    policeH3: Roboto
+    taillePoliceH3: 2.5rem
     #H4
-    couleurH4: $couleur"
-    policeH4: ""
-    taillePoliceH4: "16px"
+    couleurH4: $couleur1
+    policeH4: Roboto
+    taillePoliceH4: 2rem
     #Textes
-    couleurTextes: "$couleur"
-    policeTextes: ""
-    tailleTextes: "16px"
+    couleurTextes: $couleur1
+    policeTextes: Roboto
+    tailleTextes: 1.6rem
     #Liens
-    couleurLiens: "$couleur"
+    couleurLiens: $couleur2
     #Formulaires
-    couleurFormulaires: "$couleur"
+    couleurFormulaires: $couleur1
     #Étiquettes de catégorie
-    couleurCategories: "$couleur"
+    couleurCategories: $couleur1
 #blocs:
 #    Titre:
 #        classes:

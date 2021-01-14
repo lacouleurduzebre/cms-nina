@@ -42,7 +42,7 @@ Menu:
     actif: oui
 MenuLangues:
     priorite: 19
-    actif: oui
+    actif: non
 Paragraphe:
     priorite: 1
     actif: oui
@@ -51,7 +51,7 @@ PlanDuSite:
     actif: oui
 Recherche:
     priorite: 22
-    actif: oui
+    actif: non
 ReseauxSociaux:
     priorite: 14
     actif: oui
@@ -78,7 +78,7 @@ Titre:
     actif: oui
 TypeCategorie:
     priorite: 17
-    actif: oui
+    actif: non
 Video:
     priorite: 12
     actif: oui

@@ -116,9 +116,9 @@ class Configuration
     {
         $this->maintenance = false;
         $this->installe = false;
-        $this->affichageCommentaires = true;
-        $this->affichageDatePublication = true;
-        $this->affichageAuteur = true;
+        $this->affichageCommentaires = false;
+        $this->affichageDatePublication = false;
+        $this->affichageAuteur = false;
         $this->nbArticlesFluxRSS = 20;
         $this->bandeauCookies = false;
     }

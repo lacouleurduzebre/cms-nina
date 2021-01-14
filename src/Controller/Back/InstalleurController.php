@@ -260,7 +260,7 @@ class InstalleurController extends AbstractController
                     $logo = $form->get('logo')->getData();
                     $format = $logo->guessExtension();
                     $logo->move('uploads', 'logo.'.$format);
-                    $config->setLogo('uploads/logo.'.$format);
+                    $config->setLogo('/uploads/logo.'.$format);
                     //Fin logo
 
                     $em = $this->getDoctrine()->getManager();

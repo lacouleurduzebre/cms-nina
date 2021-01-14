@@ -1,5 +1,5 @@
-main{
-  max-width: $large;
+main, .region-header, .region-footer{
+  @include centre;
   .pleineLargeur{
     width: 100vw;
     position: relative;
@@ -7,6 +7,10 @@ main{
     right: 50%;
     margin-left: -50vw;
   }
+}
+
+.styleBloc a{
+  color: inherit;
 }
 
 .blocActualites, .blocTypeCategorie, .blocCategorie, .blocRubrique{
