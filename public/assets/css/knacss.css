@@ -4833,7 +4833,7 @@ body.list #flash-messages > * {
   overflow: hidden auto;
   background-color: #fff;
   padding: 1rem;
-  z-index: 40;
+  z-index: 100;
 }
 .listeBlocsDnD ul {
   display: flex;
@@ -5679,7 +5679,7 @@ body.edit .bloc-reseauxsociaux input[type=text], body.new .bloc-reseauxsociaux i
 }
 
 .bloc-panel {
-  z-index: 50;
+  z-index: 110;
   font-family: "Cabin", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
 }
 .bloc-panel select, .bloc-panel input {

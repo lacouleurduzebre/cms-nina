@@ -26,8 +26,9 @@ $(document).ready(function(){
                 data: {donnees: donnees, idBloc: idBloc}
             })
                 .done(function(data){
-                    $('.message'+idBloc).prev('form').animate({opacity: 0}, function(){
+                    $('.message'+idBloc).prev('form').animate({opacity: 0, height: 0}, function(){
                         $(this).css('visibility', 'hidden');
+                        $('body, html').scrollTop($('.message'+idBloc).offset().top - 50);
                     });
                     $('.message'+idBloc).html(data);
                 });
