@@ -11,7 +11,7 @@
 
             //Vérif numItems est unique
             if(verifs){
-                while(collection.find("div[id='"+id+"_"+numItems+"']").length > 0){
+                while(collection.find("#"+id+"_"+numItems).length > 0){
                     numItems++;
                 }
             }
