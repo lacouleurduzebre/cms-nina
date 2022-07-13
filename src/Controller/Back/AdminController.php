@@ -391,6 +391,10 @@ class AdminController extends BaseAdminController
         while($repoSEO->findOneBy(array('url' => $url))){
             $url = $url.'-copie';
         }
+        if(strlen($url) > 190){//Nouvelle url trop longue -> erreur, on arrête la duplication
+            $this->addFlash('-danger', "L'url du nouveau contenu serait trop longue, réduisez la longueur de l'url du contenu que vous souhaitez dupliquer");
+            return $this->redirectToReferrer();
+        }
         $nouvellePage->getSEO()->setUrl($url);
         $this->em->persist($nouveauSEO);
 

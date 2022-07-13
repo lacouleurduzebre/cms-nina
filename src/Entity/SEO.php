@@ -24,6 +24,10 @@ abstract class SEO
      * @var string
      * @Assert\NotBlank
      * @ORM\Column(name="url", type="string", length=190, unique=true)
+     * @Assert\Length(
+     *     maxMessage="Le champ ""URL"" ne doit pas dépasser les 190 caractères",
+     *     max=190,
+     * )
      */
     private $url;
 
