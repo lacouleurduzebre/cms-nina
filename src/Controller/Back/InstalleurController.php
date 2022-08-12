@@ -411,6 +411,14 @@ class InstalleurController extends AbstractController
                 $em->persist($config);
                 $em->flush();
 
+                //Désactivation de l'installeur dans le .env
+                $env = '../.env';
+                if (file_exists($env)) {
+                    file_put_contents($env, str_replace(
+                        'INSTALLEUR=1', 'INSTALLEUR=0', file_get_contents($env)
+                    ));
+                }
+
                 return $this->render('installeur/6_validation.html.twig', ['etapes' => $etapes]);
         }
     }

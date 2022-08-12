@@ -20,48 +20,53 @@ use Symfony\Component\HttpKernel\KernelEvents;
 
 class Installeur implements EventSubscriberInterface
 {
-    public function __construct(ManagerRegistry $doctrine, CacheInterface $cache)
+    private $installeurActive;
+
+    public function __construct(ManagerRegistry $doctrine, CacheInterface $cache, $installeurActive)
     {
         $this->doctrine = $doctrine;
         $this->cache = $cache;
+        $this->installeurActive = $installeurActive;
     }
 
     public function onKernelController(ControllerEvent $event)
     {
         $request = $event->getRequest();
 
-        $route = $request->get('_route');
+        if($this->installeurActive == "1"){
+            $route = $request->get('_route');
 
-        $routesInstalleur = ['installeur', 'installeurTestConnexion', 'installeurEnregistrementPage', 'installeurSuppressionPage'];
+            $routesInstalleur = ['installeur', 'installeurTestConnexion', 'installeurEnregistrementPage', 'installeurSuppressionPage'];
 
-        if(isset($route) && !in_array($route, $routesInstalleur)){
-            try {
-                $this->doctrine->getConnection()->connect();
-            } catch (\Exception $e) {
-                $redirection = 'installeur/1';
-                $event->setController(function () use($redirection) {
-                    return new RedirectResponse($redirection);
-                });
-                return;
-            }
+            if(isset($route) && !in_array($route, $routesInstalleur)){
+                try {
+                    $this->doctrine->getConnection()->connect();
+                } catch (\Exception $e) {
+                    $redirection = 'installeur/1';
+                    $event->setController(function () use($redirection) {
+                        return new RedirectResponse($redirection);
+                    });
+                    return;
+                }
 
-            $repoConfig = $this->doctrine->getRepository(Configuration::class);
-            try {
-                $repoConfig->find(1);
-            } catch (\Exception $e) {
-                $redirection = 'installeur/2';
-                $event->setController(function () use($redirection) {
-                    return new RedirectResponse($redirection);
-                });
-                return;
-            }
+                $repoConfig = $this->doctrine->getRepository(Configuration::class);
+                try {
+                    $repoConfig->find(1);
+                } catch (\Exception $e) {
+                    $redirection = 'installeur/2';
+                    $event->setController(function () use($redirection) {
+                        return new RedirectResponse($redirection);
+                    });
+                    return;
+                }
 
-            $config = $repoConfig->find(1);
-            if(!$config || !$config->getInstalle()){
-                $redirection = 'installeur/1';
-                $event->setController(function () use($redirection) {
-                    return new RedirectResponse($redirection);
-                });
+                $config = $repoConfig->find(1);
+                if(!$config || !$config->getInstalle()){
+                    $redirection = 'installeur/1';
+                    $event->setController(function () use($redirection) {
+                        return new RedirectResponse($redirection);
+                    });
+                }
             }
         }
 
