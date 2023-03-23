@@ -116,6 +116,26 @@ class Erreurs404Controller extends AbstractController
             }
         }
 
+        //Correction Filemanager
+        if(isset($_GET['correctionFilemanager']) && $_GET['correctionFilemanager'] == 1){
+            $em = $this->getDoctrine()->getManager();
+            foreach($this->erreurs as $type => $pages){
+                foreach($pages as $idPage => $infos){
+                    foreach($infos['erreurs'] as $erreur){
+                        if(substr($erreur['url'], 0, 9) == '/uploads/'){
+                            $bloc = $erreur['bloc'];
+                            $contenuBloc = $bloc->getContenu();
+                            $nomFichierCorrige = $this->correctionNomFichier($erreur['url']);
+                            $nouveauContenuBloc = $this->str_replace_deep($erreur['url'], $nomFichierCorrige, $contenuBloc);
+                            $bloc->setContenu($nouveauContenuBloc);
+                            $em->persist($bloc);
+                        }
+                    }
+                }
+            }
+            $em->flush();
+        }
+
         return $this->render('back/erreurs404.html.twig', ['erreurs' => $this->erreurs]);
     }
 
@@ -154,5 +174,63 @@ class Erreurs404Controller extends AbstractController
             $this->erreurs[$type]['page'.$this->bloc->getPage()->getId()]['page'] = $this->bloc->getPage();
         }
         $this->erreurs[$type]['page'.$this->bloc->getPage()->getId()]['erreurs'][] = ['bloc' => $this->bloc, 'url' => $this->element];
+    }
+
+    private function str_replace_deep($search, $replace, $subject){
+        if (is_array($subject)){
+            foreach($subject as &$oneSubject)
+
+                $oneSubject = $this->str_replace_deep($search, $replace, $oneSubject);
+
+            unset($oneSubject);
+
+            return $subject;
+        }else{
+            return str_replace($search, $replace, $subject);
+        }
+    }
+
+
+    private function correctionNomFichier($cheminCompletFichierProblematique){
+        $nomFichierProblematique = explode('/', $cheminCompletFichierProblematique);
+        $nomFichierProblematique = end($nomFichierProblematique);
+        $nomFichierCorrige = strip_tags(htmlspecialchars($nomFichierProblematique));
+        $nomFichierCorrige = str_replace([
+            ' ',
+            '%2C%20',
+            '%20',
+            '%C3%A9',
+            '%C3%A8',
+            '%C3%A0',
+            '%C2%A9',
+            '%E2%80',
+            '%C3%A7',
+            '%CC%81',
+            '%99',
+            '%2',
+            '%C3%A4',
+            '%C3%B4',
+            '(',
+            ')'
+        ], [
+            '_',
+            '_',
+            '_',
+            'e',
+            'e',
+            'a',
+            'C',
+            '',
+            'c',
+            '',
+            '',
+            '',
+            'a',
+            'o',
+            '',
+            ''
+        ], $nomFichierCorrige);
+
+        return str_replace($nomFichierProblematique, $nomFichierCorrige, $cheminCompletFichierProblematique);
     }
 }
