@@ -27,7 +27,7 @@
         "doctrine/doctrine-bundle": "^2.13",
         "doctrine/doctrine-migrations-bundle": "^3.0",
         "doctrine/orm": "^2.20",
-        "easycorp/easyadmin-bundle": "^4.0",
+        "easycorp/easyadmin-bundle": "^5.0",
         "friendsofsymfony/jsrouting-bundle": "^3.0",
         "friendsofsymfony/user-bundle": "^3.4",
         "mpdf/mpdf": "^8.0",

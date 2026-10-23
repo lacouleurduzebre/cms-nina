@@ -257,7 +257,7 @@ abstract class BaseCrudController extends AbstractCrudController
 
     private function verifierAction(AdminContext $context, string $action, ?EntityDto $entite): void
     {
-        if (!$this->isGranted(Permission::EA_EXECUTE_ACTION, ['action' => $action, 'entity' => $entite])) {
+        if (!$this->isGranted(Permission::EA_EXECUTE_ACTION, ['action' => $action, 'entity' => $entite, 'entityFqcn' => $context->getEntity()->getFqcn()])) {
             throw new ForbiddenActionException($context);
         }
 
@@ -268,7 +268,7 @@ abstract class BaseCrudController extends AbstractCrudController
 
     private function formulaireSoumis(AdminContext $context, string $page): FormInterface
     {
-        $this->container->get(FieldFactory::class)->processFields($context->getEntity(), FieldCollection::new($this->configureFields($page)), $page);
+        $this->container->get(FieldFactory::class)->processFields($context->getEntity(), new FieldCollection($this->configureFields($page)), $page);
 
         $form = Crud::PAGE_EDIT === $page
             ? $this->createEditForm($context->getEntity(), $context->getCrud()->getEditFormOptions(), $context)
