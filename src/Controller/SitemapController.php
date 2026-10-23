@@ -12,7 +12,7 @@ namespace App\Controller;
 use App\Entity\Langue;
 use App\Entity\Page;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Attribute\Route;
 use Doctrine\Persistence\ManagerRegistry;
 
 class SitemapController extends AbstractController
@@ -24,12 +24,8 @@ class SitemapController extends AbstractController
         $this->doctrine = $doctrine;
     }
 
-    /**
-     * @Route("/sitemap.xml", defaults={"_format"="xml"}, name="sitemap")
-     * @Route("/{_locale}/sitemap.xml", defaults={"_format"="xml"}, name="sitemapLocale", requirements={
-     *     "_locale"="^[A-Za-z]{1,2}$"
-     * })
-     */
+    #[Route(path: '/sitemap.xml', defaults: ['_format' => 'xml'], name: 'sitemap')]
+    #[Route(path: '/{_locale}/sitemap.xml', defaults: ['_format' => 'xml'], name: 'sitemapLocale', requirements: ['_locale' => '^[A-Za-z]{1,2}$'])]
     public function sitemapAction(\App\Service\Langue $slangue, $_locale = null){
         //Test route : locale ou non
         $redirection = $slangue->redirectionLocale('sitemap', $_locale);

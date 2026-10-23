@@ -7,41 +7,35 @@ use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ORM\Mapping\MappedSuperclass;
 
 
-/** @MappedSuperclass */
+#[MappedSuperclass]
 abstract class SEO
 {
     /**
      * @var int
-     *
-     * @ORM\Column(name="id", type="integer")
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
      */
+    #[ORM\Column(name: 'id', type: 'integer')]
+    #[ORM\Id]
+    #[ORM\GeneratedValue(strategy: 'AUTO')]
     private $id;
 
     /**
      * @var string
-     * @Assert\NotBlank
-     * @ORM\Column(name="url", type="string", length=190, unique=true)
-     * @Assert\Length(
-     *     maxMessage="Le champ ""URL"" ne doit pas dépasser les 190 caractères",
-     *     max=190,
-     * )
      */
+    #[Assert\NotBlank]
+    #[ORM\Column(name: 'url', type: 'string', length: 190, unique: true)]
+    #[Assert\Length(max: 190, maxMessage: 'Le champ "URL" ne doit pas dépasser les 190 caractères')]
     private $url;
 
     /**
      * @var string
-     *
-     * @ORM\Column(name="metaTitre", type="text", nullable=true)
      */
+    #[ORM\Column(name: 'metaTitre', type: 'text', nullable: true)]
     private $metaTitre;
 
     /**
      * @var string
-     *
-     * @ORM\Column(name="metaDescription", type="text", nullable=true)
      */
+    #[ORM\Column(name: 'metaDescription', type: 'text', nullable: true)]
     private $metaDescription;
 
     public function __toString()

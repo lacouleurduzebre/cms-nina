@@ -10,16 +10,16 @@ namespace App\Command;
 
 
 use App\Controller\Back\SauvegardeController;
+use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Dotenv\Dotenv;
 
+#[AsCommand(name: 'nina:sauvegarde:bdd')]
 class SauvegardeBDDCommand extends Command
 {
-    protected static $defaultName = 'nina:sauvegarde:bdd';
-
-    protected function configure()
+    protected function configure(): void
     {
         $this->setDescription('Sauvegarde la bdd dans un fichier zip')
             ->setHelp('Créé un fichier zip de l\'export de la bdd dans le dossier sauvegardes');

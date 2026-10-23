@@ -4,7 +4,6 @@ namespace App\Controller\Admin;
 
 use App\Admin\Field\Champ;
 use App\Entity\BlocAnnexe;
-use App\Entity\Page;
 use App\Service\AdminUrl;
 use App\Service\Droits;
 use Doctrine\ORM\EntityManagerInterface;
@@ -31,6 +30,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\Yaml\Yaml;
 
@@ -128,21 +128,21 @@ abstract class BaseCrudController extends AbstractCrudController
         return $this->container->get('doctrine')->getManager();
     }
 
-    public function index(AdminContext $context)
+    public function index(AdminContext $context): KeyValueStore|Response
     {
         $this->controleAcces(Action::INDEX);
 
         return parent::index($context);
     }
 
-    public function detail(AdminContext $context)
+    public function detail(AdminContext $context): KeyValueStore|Response
     {
         $this->controleAcces(Action::DETAIL, $context->getEntity()->getInstance());
 
         return parent::detail($context);
     }
 
-    public function delete(AdminContext $context)
+    public function delete(AdminContext $context): KeyValueStore|Response
     {
         $this->controleAcces(Action::DELETE, $context->getEntity()->getInstance());
 
@@ -181,7 +181,7 @@ abstract class BaseCrudController extends AbstractCrudController
 
     /* Enregistrement en AJAX : jsBack.js attend une réponse JSON */
 
-    public function edit(AdminContext $context)
+    public function edit(AdminContext $context): KeyValueStore|Response
     {
         $this->controleAcces(Action::EDIT, $context->getEntity()->getInstance());
 
@@ -209,7 +209,7 @@ abstract class BaseCrudController extends AbstractCrudController
         return new JsonResponse(['erreurs' => false, 'tpl' => $tpl]);
     }
 
-    public function new(AdminContext $context)
+    public function new(AdminContext $context): KeyValueStore|Response
     {
         $this->controleAcces(Action::NEW);
 

@@ -22,7 +22,7 @@ use Symfony\Component\Yaml\Yaml;
 
 class BlocType extends AbstractType
 {
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         if($options['type'] != ''){//Ajax
             $infos = Yaml::parseFile('../src/Blocs/'.$options['type'].'/infos.yaml');
@@ -87,7 +87,7 @@ class BlocType extends AbstractType
         });
     }
 
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults(array(
             'label' => false,

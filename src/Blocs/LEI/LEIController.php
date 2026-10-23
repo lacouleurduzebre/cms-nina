@@ -20,7 +20,7 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Yaml\Yaml;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -34,16 +34,14 @@ class LEIController extends AbstractController
     }
 
     /**
-     * @Route("/fiche/{url}/{idFiche}/{idBloc}", name="voirFicheLEI")
-     * @Route("/{_locale}/fiche/{url}/{idFiche}/{idBloc}", name="voirFicheLEILocale", requirements={
-     *     "_locale"="^[A-Za-z]{1,2}$"
-     * })
      * @param Request $request
      * @param $idFiche
      * @param $url
      * @param $idModule
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
+    #[Route(path: '/fiche/{url}/{idFiche}/{idBloc}', name: 'voirFicheLEI')]
+    #[Route(path: '/{_locale}/fiche/{url}/{idFiche}/{idBloc}', name: 'voirFicheLEILocale', requirements: ['_locale' => '^[A-Za-z]{1,2}$'])]
     public function voirFicheLEIAction($url, $idFiche, $idBloc, Langue $slangue, Request $request, CacheInterface $cache, $_locale = null){
         //Test route : locale ou non
         $redirection = $slangue->redirectionLocale('voirFicheLEI', $_locale, array('url' => $url, 'idFiche' => $idFiche, 'idBloc' => $idBloc));
@@ -176,9 +174,7 @@ class LEIController extends AbstractController
         return $this->render('Blocs/LEI/fiche.html.twig', array('fiche' => $fiche[0], 'fichePrecedente' => $fichePrecedente, 'ficheSuivante' => $ficheSuivante, 'liste' => $liste, 'infosFiche' => $infosFiche));
     }
 
-    /**
-     * @Route("/admin/LEI/modifierPictos", name="modifierPictosLEI")
-     */
+    #[Route(path: '/admin/LEI/modifierPictos', name: 'modifierPictosLEI')]
     public function modifierPictosLEI(Request $request){
         //Pictos enregistrés
         $configLEI = Yaml::parseFile(__DIR__.'/configLEI.yaml');
@@ -216,9 +212,7 @@ class LEIController extends AbstractController
         return $this->render('Blocs/LEI/back/configPictos.html.twig', ['form' => $form->createView()]);
     }
 
-    /**
-     * @Route("/admin/LEI/modifierCriteres", name="modifierCriteresLEI")
-     */
+    #[Route(path: '/admin/LEI/modifierCriteres', name: 'modifierCriteresLEI')]
     public function modifierCriteresLEI(Request $request){
         //Critères enregistrés
         $configLEI = Yaml::parseFile(__DIR__.'/configLEI.yaml');
@@ -264,9 +258,7 @@ class LEIController extends AbstractController
         return $this->render('Blocs/LEI/back/configCriteres.html.twig', ['form' => $form->createView()]);
     }
 
-    /**
-     * @Route("/admin/LEI/viderCache", name="viderCacheLEI")
-     */
+    #[Route(path: '/admin/LEI/viderCache', name: 'viderCacheLEI')]
     public function viderCacheLEI(CacheInterface $cache){//Ne sert à rien puisque le cache est vidé sur toutes les pages du b/o
         $cache->clear();
         return new Response('ok');

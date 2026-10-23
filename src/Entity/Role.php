@@ -5,27 +5,19 @@ namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
-/**
- * @ORM\Entity(repositoryClass="App\Repository\RoleRepository")
- */
+#[ORM\Entity(repositoryClass: \App\Repository\RoleRepository::class)]
 class Role
 {
-    /**
-     * @ORM\Id()
-     * @ORM\GeneratedValue()
-     * @ORM\Column(type="integer")
-     */
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column(type: 'integer')]
     private $id;
 
-    /**
-     * @ORM\Column(type="string", length=255, length=191, unique=true)
-     * @Assert\NotBlank
-     */
+    #[ORM\Column(type: 'string', length: 191, unique: true)]
+    #[Assert\NotBlank]
     private $nom;
 
-    /**
-     * @ORM\Column(type="array", nullable=true)
-     */
+    #[ORM\Column(type: 'array', nullable: true)]
     private $droits;
 
     public function __toString()

@@ -6,7 +6,7 @@ use App\Service\AdminUrl;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Attribute\Route;
 
 /**
  * Route "easyadmin" d'EasyAdmin 2, encore utilisée par le JS (Routing.generate('easyadmin', {entity, action, id})).
@@ -15,9 +15,7 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class AncienneUrlController extends AbstractController
 {
-    /**
-     * @Route("/admin", name="easyadmin", priority=-10)
-     */
+    #[Route(path: '/admin', name: 'easyadmin', priority: -10)]
     public function redirection(Request $request, AdminUrl $adminUrl): RedirectResponse
     {
         return $this->redirect($adminUrl->depuisAncienneUrl($request) ?? $adminUrl->tableauDeBord());

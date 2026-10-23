@@ -16,7 +16,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Email;
-use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Attribute\Route;
 use Doctrine\Persistence\ManagerRegistry;
 
 class FormulaireController extends AbstractController
@@ -28,9 +28,7 @@ class FormulaireController extends AbstractController
         $this->doctrine = $doctrine;
     }
 
-    /**
-     * @Route("/envoiMail", name="envoiMail")
-     */
+    #[Route(path: '/envoiMail', name: 'envoiMail')]
     public function envoiMailAction(Request $request, MailerInterface $mailer){
         if($request->isXmlHttpRequest()){
             $donnees = $request->get('donnees');

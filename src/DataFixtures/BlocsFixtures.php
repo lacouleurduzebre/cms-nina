@@ -18,7 +18,7 @@ use Doctrine\Persistence\ObjectManager;
 
 class BlocsFixtures extends Fixture
 {
-    public function load(ObjectManager $manager)
+    public function load(ObjectManager $manager): void
     {
         $repoUtilisateur = $manager->getRepository(Utilisateur::class);
         $utilisateur = $repoUtilisateur->find(1);

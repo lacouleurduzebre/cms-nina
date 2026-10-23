@@ -17,20 +17,20 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\ResponseHeaderBag;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
-use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Attribute\Route;
 
 /**
  * Class SauvegardeController
  * @package App\Controller\Back
- * @Route("/admin")
  */
+#[Route(path: '/admin')]
 class SauvegardeController extends AbstractController
 {
     /**
-     * @Route("/sauvegarde", name="sauvegarde")
      * @param Request $request
      * @return bool|Response
      */
+    #[Route(path: '/sauvegarde', name: 'sauvegarde')]
     public function sauvegardeAction(Droits $droits){
         if(!$droits->checkDroit('sauvegardes')){
             throw new AccessDeniedHttpException("Vous n'êtes pas autorisé à accéder à cette page");
@@ -67,10 +67,10 @@ class SauvegardeController extends AbstractController
     }
 
     /**
-     * @Route("/sauvegarde/bdd", name="sauvegarderBDD")
      * @param Request $request
      * @return bool|Response
      */
+    #[Route(path: '/sauvegarde/bdd', name: 'sauvegarderBDD')]
     public function sauvegarderBDDAction(Request $request){
         if($request->isXmlHttpRequest()){
             $timestamp = time();
@@ -101,10 +101,10 @@ class SauvegardeController extends AbstractController
     }
 
     /**
-     * @Route("/sauvegarde/supprimerDumps", name="supprimerDumps")
      * @param Request $request
      * @return bool|Response
      */
+    #[Route(path: '/sauvegarde/supprimerDumps', name: 'supprimerDumps')]
     public function supprimerDumpsAction(Request $request){
         if($request->isXmlHttpRequest()){
             $type = $request->get('type');
@@ -123,10 +123,10 @@ class SauvegardeController extends AbstractController
     }
 
     /**
-     * @Route("/sauvegarde/mediatheque", name="sauvegarderMediatheque")
      * @param Request $request
      * @return bool|Response
      */
+    #[Route(path: '/sauvegarde/mediatheque', name: 'sauvegarderMediatheque')]
     public function sauvegardeMediathequeAction(Request $request){
         if($request->isXmlHttpRequest()){
             $timestamp = time();
@@ -141,10 +141,10 @@ class SauvegardeController extends AbstractController
     }
 
     /**
-     * @Route("/sauvegarde/telechargerDump", name="telechargerDump")
      * @param Request $request
      * @return bool|Response
      */
+    #[Route(path: '/sauvegarde/telechargerDump', name: 'telechargerDump')]
     public function telechargerMediathequeAction(Request $request, Droits $droits){
         if(!$droits->checkDroit('sauvegardes')){
             throw new AccessDeniedHttpException("Vous n'êtes pas autorisé à accéder à cette page");

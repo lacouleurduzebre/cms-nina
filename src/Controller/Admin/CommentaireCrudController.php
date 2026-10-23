@@ -73,7 +73,7 @@ class CommentaireCrudController extends BaseCrudController
             Champ::new('auteur', 'Auteur')->setFormType(TextType::class),
             Champ::new('email'),
             Champ::new('site'),
-            Champ::new('date'),
+            Champ::new('date')->setFormTypeOption('widget', 'choice'),
             Champ::new('contenu')->setFormType(TextType::class),
         ];
 

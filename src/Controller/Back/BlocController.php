@@ -14,21 +14,21 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
-use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Yaml\Yaml;
 
 /**
  * Class BlocController
  * @package App\Controller\Back
- * @Route("/admin")
  */
+#[Route(path: '/admin')]
 class BlocController extends AbstractController
 {
     /**
-     * @Route("/bloc/ajouterBloc", name="ajouterBloc")
      * @param Request $request
      * @return bool|Response
      */
+    #[Route(path: '/bloc/ajouterBloc', name: 'ajouterBloc')]
     public function ajouterBlocAction(Request $request){
         if($request->isXmlHttpRequest()){
             $type = $request->get('type');
@@ -42,10 +42,10 @@ class BlocController extends AbstractController
     }
 
     /**
-     * @Route("/bloc/configuration", name="configurationBlocs")
      * @param Request $request
      * @return bool|Response
      */
+    #[Route(path: '/bloc/configuration', name: 'configurationBlocs')]
     public function ConfigurationBlocsAction(Request $request, Droits $droits){
         if(!$droits->checkDroit('configBlocs')){
             throw new AccessDeniedHttpException("Vous n'êtes pas autorisé à accéder à cette page");

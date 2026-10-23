@@ -19,7 +19,7 @@ use Symfony\Component\Yaml\Yaml;
 
 class AppFixtures extends Fixture
 {
-    public function load(ObjectManager $manager, $installeur = false)
+    public function load(ObjectManager $manager, $installeur = false): void
     {
         $date = new \DateTime();
 

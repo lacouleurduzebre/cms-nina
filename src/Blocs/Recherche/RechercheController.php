@@ -15,7 +15,7 @@ use App\Service\Langue;
 use App\Service\Pagination;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Attribute\Route;
 use Doctrine\Persistence\ManagerRegistry;
 
 class RechercheController extends AbstractController
@@ -27,12 +27,8 @@ class RechercheController extends AbstractController
         $this->doctrine = $doctrine;
     }
 
-    /**
-     * @Route("/recherche/resultats", name="recherche")
-     * @Route("/{_locale}/recherche/resultats", name="rechercheLocale", requirements={
-     *     "_locale"="^[A-Za-z]{1,2}$"
-     * })
-     */
+    #[Route(path: '/recherche/resultats', name: 'recherche')]
+    #[Route(path: '/{_locale}/recherche/resultats', name: 'rechercheLocale', requirements: ['_locale' => '^[A-Za-z]{1,2}$'])]
     public function rechercheAction(Request $request, Langue $slangue, Pagination $pagination, $_locale = null){
         //Test route : locale ou non
         $redirection = $slangue->redirectionLocale('recherche', $_locale);

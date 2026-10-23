@@ -30,7 +30,7 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Yaml\Yaml;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -44,12 +44,10 @@ class InstalleurController extends AbstractController
     }
 
     /**
-     * @Route("/installeur/{etape}", name="installeur", requirements={
-     *     "etape"="^[1-6]{1,1}$"
-     * })
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\Response
      */
+    #[Route(path: '/installeur/{etape}', name: 'installeur', requirements: ['etape' => '^[1-6]{1,1}$'])]
     public function installeur($etape, Request $request, Filesystem $filesystem, EntityManagerInterface $manager, AppFixtures $fixtures){
         $repoConfig = $this->doctrine->getRepository(Configuration::class);
 
@@ -432,10 +430,10 @@ class InstalleurController extends AbstractController
     }
 
     /**
-     * @Route("/installeur/0", name="installeurTestConnexion")
      * @param Request $request
      * @return @return bool|Response
      */
+    #[Route(path: '/installeur/0', name: 'installeurTestConnexion')]
     public function testConnexion(Request $request, $data = null){
         if(!$request->isXmlHttpRequest()){
             $repoConfig = $this->doctrine->getRepository(Configuration::class);
@@ -500,10 +498,10 @@ class InstalleurController extends AbstractController
     }
 
     /**
-     * @Route("/installeur/7", name="installeurEnregistrementPage")
      * @param Request $request
      * @return @return bool|Response
      */
+    #[Route(path: '/installeur/7', name: 'installeurEnregistrementPage')]
     public function enregistrementPage(Request $request, SEOController $seoController){
         if ($request->isXmlHttpRequest()) {
             $titre = $request->get('titre');
@@ -565,10 +563,10 @@ class InstalleurController extends AbstractController
     }
 
     /**
-     * @Route("/installeur/8", name="installeurSuppressionPage")
      * @param Request $request
      * @return @return bool|Response
      */
+    #[Route(path: '/installeur/8', name: 'installeurSuppressionPage')]
     public function suppressionPage(Request $request){
         if ($request->isXmlHttpRequest()) {
             $em = $this->doctrine->getManager();

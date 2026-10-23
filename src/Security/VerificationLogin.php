@@ -24,10 +24,10 @@ class VerificationLogin implements UserCheckerInterface
         $this->requestStack = $requestStack;
     }
 
-    public function checkPreAuth(UserInterface $user)
+    public function checkPreAuth(UserInterface $user): void
     {
         if (!$user instanceof Utilisateur) {
-            return false;
+            return;
         }
 
         $now = time();
@@ -41,11 +41,9 @@ class VerificationLogin implements UserCheckerInterface
             $this->requestStack->getSession()->getFlashBag()->add('error', 'Votre compte est suspendu pour '.$tempsRestant.' minutes');
             throw new AuthenticationException();
         }
-
-        return false;
     }
 
-    public function checkPostAuth(UserInterface $user)
+    public function checkPostAuth(UserInterface $user): void
     {
     }
 }

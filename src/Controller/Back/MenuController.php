@@ -19,15 +19,15 @@ use App\Entity\SEOPage;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
  * Class MenuController
  * @package App\Controller\Back
- * @Route("/admin")
  */
+#[Route(path: '/admin')]
 class MenuController extends AbstractController
 {
     private $doctrine;
@@ -38,10 +38,10 @@ class MenuController extends AbstractController
     }
 
     /**
-     * @Route("/menu/enregistrer", name="enregistrerMenu")
      * @param Request $request
      * @return bool|Response
      */
+    #[Route(path: '/menu/enregistrer', name: 'enregistrerMenu')]
     public function enregistrerAction(Request $request){
         if($request->isXmlHttpRequest()){
             $arbo = $request->get('arbo');
@@ -84,10 +84,10 @@ class MenuController extends AbstractController
     }
 
     /**
-     * @Route("/menu/ajouter", name="ajouterPageEnfant")
      * @param Request $request
      * @return bool|Response
      */
+    #[Route(path: '/menu/ajouter', name: 'ajouterPageEnfant')]
     public function ajouterPageEnfantAction(Request $request, UserInterface $user){
         if($request->isXmlHttpRequest()){
             //Infos pop-up
@@ -156,10 +156,10 @@ class MenuController extends AbstractController
     }
 
     /**
-     * @Route("/menu/alias", name="creerAlias")
      * @param Request $request
      * @return bool|Response
      */
+    #[Route(path: '/menu/alias', name: 'creerAlias')]
     public function creerAlias(Request $request){
         if($request->isXmlHttpRequest()){
             $em = $this->doctrine->getManager();
@@ -199,10 +199,10 @@ class MenuController extends AbstractController
     }
 
     /**
-     * @Route("/menu/voirPage", name="urlPage")
      * @param Request $request
      * @return bool|Response
      */
+    #[Route(path: '/menu/voirPage', name: 'urlPage')]
     public function urlPageAction(Request $request){
         if($request->isXmlHttpRequest()){
             $em = $this->doctrine->getManager();
@@ -220,10 +220,10 @@ class MenuController extends AbstractController
     }
 
     /**
-     * @Route("/menu/definirPageAccueil", name="definirPageAccueil")
      * @param Request $request
      * @return bool|Response
      */
+    #[Route(path: '/menu/definirPageAccueil', name: 'definirPageAccueil')]
     public function definirPageAccueilAction(Request $request){
         if($request->isXmlHttpRequest()){
             $em = $this->doctrine->getManager();
@@ -255,10 +255,10 @@ class MenuController extends AbstractController
     }
 
     /**
-     * @Route("/menu/changerMenuPrincipal", name="changerMenuPrincipal")
      * @param Request $request
      * @return bool|Response
      */
+    #[Route(path: '/menu/changerMenuPrincipal', name: 'changerMenuPrincipal')]
     public function changerMenuPrincipalAction(Request $request){
         if($request->isXmlHttpRequest()){
             $em = $this->doctrine->getManager();
@@ -304,10 +304,10 @@ class MenuController extends AbstractController
     }
 
     /**
-     * @Route("/menu/filtreArbo", name="filtreArbo")
      * @param Request $request
      * @return bool|Response
      */
+    #[Route(path: '/menu/filtreArbo', name: 'filtreArbo')]
     public function filtreArbo(Request $request){
         if($request->isXmlHttpRequest()){
             $langue = $request->get('langue');

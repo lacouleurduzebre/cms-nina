@@ -15,7 +15,7 @@ use App\Entity\SEOPage;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Attribute\Route;
 use Doctrine\Persistence\ManagerRegistry;
 
 class LangueController extends AbstractController
@@ -28,11 +28,11 @@ class LangueController extends AbstractController
     }
 
     /**
-     * @Route("/langue/{id}", name="changerLangue")
      * @param $id
      * @param Request $request
      * @return Response
      */
+    #[Route(path: '/langue/{id}', name: 'changerLangue')]
     public function changerAction($id, Request $request){
         $repoLangue = $this->doctrine->getRepository(Langue::class);
 

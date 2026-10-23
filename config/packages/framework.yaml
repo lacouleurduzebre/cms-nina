@@ -1,17 +1,24 @@
 framework:
     secret: '%env(APP_SECRET)%'
+    annotations: false
+    http_method_override: false
+    handle_all_throwables: true
     default_locale: fr
     #csrf_protection: true
-    #http_method_override: true
 
     # Enables session support. Note that the session will ONLY be started if you read or write from it.
     # Remove or comment this section to explicitly disable session support.
     session:
         handler_id: ~
         storage_factory_id: session.storage.factory.native
+        cookie_secure: auto
+        cookie_samesite: lax
 
     router:
         utf8: true
+
+    validation:
+        email_validation_mode: html5
 
     #esi: true
     #fragments: true

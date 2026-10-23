@@ -19,7 +19,7 @@ use Doctrine\Persistence\ObjectManager;
 
 class RazSEOFixtures extends Fixture
 {
-    public function load(ObjectManager $manager)
+    public function load(ObjectManager $manager): void
     {
         //Catégories
         $repoCategorie = $manager->getRepository(Categorie::class);

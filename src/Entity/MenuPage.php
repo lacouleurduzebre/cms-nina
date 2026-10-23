@@ -6,42 +6,33 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * MenuPage
- *
- * @ORM\Entity(repositoryClass="App\Repository\MenuPageRepository")
  */
+#[ORM\Entity(repositoryClass: \App\Repository\MenuPageRepository::class)]
 class MenuPage
 {
     /**
      * @var int
-     *
-     * @ORM\Column(name="id", type="integer")
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
      */
+    #[ORM\Column(name: 'id', type: 'integer')]
+    #[ORM\Id]
+    #[ORM\GeneratedValue(strategy: 'AUTO')]
     private $id;
 
     /**
      * @var int
-     *
-     * @ORM\Column(name="position", type="integer")
      */
+    #[ORM\Column(name: 'position', type: 'integer')]
     private $position;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Page")
-     * @ORM\JoinColumn(nullable=false, onDelete="CASCADE")
-     */
+    #[ORM\ManyToOne(targetEntity: \App\Entity\Page::class)]
+    #[ORM\JoinColumn(nullable: false, onDelete: 'CASCADE')]
     private $page;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Menu", inversedBy="menuPage")
-     * @ORM\JoinColumn(referencedColumnName="id", nullable=true)
-     */
+    #[ORM\ManyToOne(targetEntity: \App\Entity\Menu::class, inversedBy: 'menuPage')]
+    #[ORM\JoinColumn(referencedColumnName: 'id', nullable: true)]
     private $menu;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\MenuPage")
-     */
+    #[ORM\ManyToOne(targetEntity: \App\Entity\MenuPage::class)]
     private $parent;
 
     /**

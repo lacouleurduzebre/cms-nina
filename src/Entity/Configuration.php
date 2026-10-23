@@ -6,110 +6,82 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * Config
- *
- * @ORM\Entity(repositoryClass="App\Repository\ConfigurationRepository")
  */
+#[ORM\Entity(repositoryClass: \App\Repository\ConfigurationRepository::class)]
 class Configuration
 {
     /**
      * @var int
-     *
-     * @ORM\Column(name="id", type="integer")
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
      */
+    #[ORM\Column(name: 'id', type: 'integer')]
+    #[ORM\Id]
+    #[ORM\GeneratedValue(strategy: 'AUTO')]
     private $id;
 
     /**
      * @var string
-     *
-     * @ORM\Column(name="logo", type="text")
      */
+    #[ORM\Column(name: 'logo', type: 'text')]
     private $logo;
 
     /**
      * @var string
-     *
-     * @ORM\Column(name="nom", type="string", length=255)
      */
+    #[ORM\Column(name: 'nom', type: 'string', length: 255)]
     private $nom;
 
     /**
      * @var string
-     *
-     * @ORM\Column(name="emailContact", type="string", length=255)
      */
+    #[ORM\Column(name: 'emailContact', type: 'string', length: 255)]
     private $emailContact;
 
     /**
      * @var string
-     *
-     * @ORM\Column(name="emailMaintenance", type="string", length=255)
      */
+    #[ORM\Column(name: 'emailMaintenance', type: 'string', length: 255)]
     private $emailMaintenance;
 
     /**
      * @var string
-     *
-     * @ORM\Column(name="analytics", type="text", nullable=true)
      */
+    #[ORM\Column(name: 'analytics', type: 'text', nullable: true)]
     private $analytics;
 
     /**
      * @var string
-     *
-     * @ORM\Column(name="editeur", type="string", length=255)
      */
+    #[ORM\Column(name: 'editeur', type: 'string', length: 255)]
     private $editeur;
 
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private $theme;
 
-    /**
-     * @ORM\Column(type="boolean")
-     */
+    #[ORM\Column(type: 'boolean')]
     private $maintenance;
 
-    /**
-     * @ORM\Column(type="boolean")
-     */
+    #[ORM\Column(type: 'boolean')]
     private $affichageCommentaires;
 
-    /**
-     * @ORM\Column(type="boolean")
-     */
+    #[ORM\Column(type: 'boolean')]
     private $affichageDatePublication;
 
-    /**
-     * @ORM\Column(type="boolean")
-     */
+    #[ORM\Column(type: 'boolean')]
     private $affichageAuteur;
 
-    /**
-     * @ORM\Column(type="smallint", nullable=true)
-     */
+    #[ORM\Column(type: 'smallint', nullable: true)]
     private $nbArticlesFluxRSS;
 
-    /**
-     * @ORM\Column(type="boolean")
-     */
+    #[ORM\Column(type: 'boolean')]
     private $bandeauCookies = false;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Page")
-     */
+    #[ORM\ManyToOne(targetEntity: \App\Entity\Page::class)]
     private $pageCookies;
 
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private $favicon;
 
-    /**
-     * @ORM\Column(type="boolean")
-     */
+    #[ORM\Column(type: 'boolean')]
     private $installe;
 
     public function __construct()

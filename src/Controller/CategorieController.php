@@ -9,7 +9,6 @@
 namespace App\Controller;
 
 
-use App\Entity\Categorie;
 use App\Entity\Langue;
 use App\Entity\SEOCategorie;
 use App\Entity\SEOTypeCategorie;
@@ -17,7 +16,7 @@ use App\Service\Page;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Attribute\Route;
 use Doctrine\Persistence\ManagerRegistry;
 
 class CategorieController extends AbstractController
@@ -30,15 +29,13 @@ class CategorieController extends AbstractController
     }
 
     /**
-     * @Route("/categorie/{urlTypeCategorie}/{urlCategorie}", name="voirCategorie")
-     * @Route("/{_locale}/categorie/{urlTypeCategorie}/{urlCategorie}", name="voirCategorieLocale", requirements={
-     *     "_locale"="^[A-Za-z]{1,2}$"
-     * })
      * @param $_locale
      * @param $urlTypeCategorie
      * @param $urlCategorie
      * @return \Symfony\Component\HttpFoundation\Response
      */
+    #[Route(path: '/categorie/{urlTypeCategorie}/{urlCategorie}', name: 'voirCategorie')]
+    #[Route(path: '/{_locale}/categorie/{urlTypeCategorie}/{urlCategorie}', name: 'voirCategorieLocale', requirements: ['_locale' => '^[A-Za-z]{1,2}$'])]
     public function voirCategorieAction(Request $request, \App\Service\Langue $slangue, $urlTypeCategorie, $urlCategorie, $_locale = null){
         //Test route : locale ou non
         $redirection = $slangue->redirectionLocale('voirCategorie', $_locale, array('urlTypeCategorie' => $urlTypeCategorie, 'urlCategorie' => $urlCategorie));
@@ -84,13 +81,11 @@ class CategorieController extends AbstractController
     }
 
     /**
-     * @Route("/categorie/{urlTypeCategorie}", name="voirTypeCategorie")
-     * @Route("/{_locale}/categorie/{urlTypeCategorie}", name="voirTypeCategorieLocale", requirements={
-     *     "_locale"="^[A-Za-z]{1,2}$"
-     * })
      * @param $urlTypeCategorie
      * @return \Symfony\Component\HttpFoundation\Response
      */
+    #[Route(path: '/categorie/{urlTypeCategorie}', name: 'voirTypeCategorie')]
+    #[Route(path: '/{_locale}/categorie/{urlTypeCategorie}', name: 'voirTypeCategorieLocale', requirements: ['_locale' => '^[A-Za-z]{1,2}$'])]
     public function voirTypeCategorieAction(Request $request, \App\Service\Langue $slangue, $urlTypeCategorie, $_locale = null){
         //Test route : locale ou non
         $redirection = $slangue->redirectionLocale('voirTypeCategorie', $_locale, array('urlTypeCategorie' => $urlTypeCategorie));

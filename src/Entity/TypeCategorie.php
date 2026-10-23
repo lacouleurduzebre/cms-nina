@@ -8,49 +8,40 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * TypeCategorie
- *
- * @ORM\Entity(repositoryClass="App\Repository\TypeCategorieRepository")
  */
+#[ORM\Entity(repositoryClass: \App\Repository\TypeCategorieRepository::class)]
 class TypeCategorie
 {
     /**
      * @var int
-     *
-     * @ORM\Column(name="id", type="integer")
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
      */
+    #[ORM\Column(name: 'id', type: 'integer')]
+    #[ORM\Id]
+    #[ORM\GeneratedValue(strategy: 'AUTO')]
     private $id;
 
     /**
      * @var string
-     * @Assert\NotBlank
-     * @ORM\Column(name="nom", type="string", length=255)
      */
+    #[Assert\NotBlank]
+    #[ORM\Column(name: 'nom', type: 'string', length: 255)]
     private $nom;
 
     /**
      * @var string
-     *
-     * @ORM\Column(name="description", type="text", nullable=true)
      */
+    #[ORM\Column(name: 'description', type: 'text', nullable: true)]
     private $description;
 
-    /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Categorie", mappedBy="typeCategorie", cascade={"remove"})
-     */
+    #[ORM\OneToMany(targetEntity: \App\Entity\Categorie::class, mappedBy: 'typeCategorie', cascade: ['remove'])]
     private $categories;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Langue")
-     * @ORM\JoinColumn(nullable=false)
-     */
+    #[ORM\ManyToOne(targetEntity: \App\Entity\Langue::class)]
+    #[ORM\JoinColumn(nullable: false)]
     private $langue;
 
-    /**
-     * @ORM\OneToOne(targetEntity="App\Entity\SEOTypeCategorie", inversedBy="typeCategorie", cascade={"remove", "persist"})
-     * @Assert\Valid
-     */
+    #[ORM\OneToOne(targetEntity: \App\Entity\SEOTypeCategorie::class, inversedBy: 'typeCategorie', cascade: ['remove', 'persist'])]
+    #[Assert\Valid]
     private $seo;
 
     public function __construct()

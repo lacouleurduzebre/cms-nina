@@ -7,63 +7,51 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Categorie
- *
- * @ORM\Entity(repositoryClass="App\Repository\CategorieRepository")
  */
+#[ORM\Entity(repositoryClass: \App\Repository\CategorieRepository::class)]
 class Categorie
 {
     /**
      * @var int
-     *
-     * @ORM\Column(name="id", type="integer")
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
      */
+    #[ORM\Column(name: 'id', type: 'integer')]
+    #[ORM\Id]
+    #[ORM\GeneratedValue(strategy: 'AUTO')]
     private $id;
 
     /**
      * @var string
-     * @Assert\NotBlank
-     * @ORM\Column(name="nom", type="string", length=255)
      */
+    #[Assert\NotBlank]
+    #[ORM\Column(name: 'nom', type: 'string', length: 255)]
     private $nom;
 
     /**
      * @var string
-     *
-     * @ORM\Column(name="description", type="text", nullable=true)
      */
+    #[ORM\Column(name: 'description', type: 'text', nullable: true)]
     private $description;
 
     /**
      * @var string
-     *
-     * @ORM\Column(name="categorieParent", type="string", length=255, nullable=true)
      */
+    #[ORM\Column(name: 'categorieParent', type: 'string', length: 255, nullable: true)]
     private $categorieParent = null;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\TypeCategorie", inversedBy="categories")
-     * @ORM\JoinColumn(nullable=false)
-     */
+    #[ORM\ManyToOne(targetEntity: \App\Entity\TypeCategorie::class, inversedBy: 'categories')]
+    #[ORM\JoinColumn(nullable: false)]
     private $typeCategorie;
 
-    /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Page", mappedBy="categories")
-     * @ORM\OrderBy({"datePublication" = "DESC"})
-     */
+    #[ORM\ManyToMany(targetEntity: \App\Entity\Page::class, mappedBy: 'categories')]
+    #[ORM\OrderBy(['datePublication' => 'DESC'])]
     private $pages;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Langue")
-     * @ORM\JoinColumn(nullable=false)
-     */
+    #[ORM\ManyToOne(targetEntity: \App\Entity\Langue::class)]
+    #[ORM\JoinColumn(nullable: false)]
     private $langue;
 
-    /**
-     * @ORM\OneToOne(targetEntity="App\Entity\SEOCategorie", inversedBy="categorie", cascade={"remove", "persist"})
-     * @Assert\Valid
-     */
+    #[ORM\OneToOne(targetEntity: \App\Entity\SEOCategorie::class, inversedBy: 'categorie', cascade: ['remove', 'persist'])]
+    #[Assert\Valid]
     private $seo;
 
     public function __toString()

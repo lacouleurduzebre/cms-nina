@@ -19,7 +19,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class AccordeonType extends AbstractType
 {
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder->add('sections', CollectionType::class, array(
             'entry_type' => SectionType::class,
@@ -34,7 +34,7 @@ class AccordeonType extends AbstractType
         ));
     }
 
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults(array(
             'data_class' => null,
@@ -45,7 +45,7 @@ class AccordeonType extends AbstractType
         return FormType::class;
     }
 
-    public function finishView(FormView $view, FormInterface $form, array $options)
+    public function finishView(FormView $view, FormInterface $form, array $options): void
     {
         usort($view['sections']->children, function (FormView $a, FormView $b) {
             $objectA = $a->vars['data'];

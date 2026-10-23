@@ -9,143 +9,108 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * page
- *
- * @ORM\Entity(repositoryClass="App\Repository\PageRepository")
  */
+#[ORM\Entity(repositoryClass: \App\Repository\PageRepository::class)]
 class Page
 {
     /**
      * @var int
-     *
-     * @ORM\Column(name="id", type="integer")
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
      */
+    #[ORM\Column(name: 'id', type: 'integer')]
+    #[ORM\Id]
+    #[ORM\GeneratedValue(strategy: 'AUTO')]
     private $id;
 
     /**
      * @var string
-     * @Assert\NotBlank
-     * @ORM\Column(name="titre", type="text")
      */
+    #[Assert\NotBlank]
+    #[ORM\Column(name: 'titre', type: 'text')]
     private $titre;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Utilisateur", inversedBy="pages")
-     * @ORM\JoinColumn(onDelete="SET NULL")
-     */
+    #[ORM\ManyToOne(targetEntity: \App\Entity\Utilisateur::class, inversedBy: 'pages')]
+    #[ORM\JoinColumn(onDelete: 'SET NULL')]
     private $auteur;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Utilisateur", inversedBy="pagesModifiees")
-     * @ORM\JoinColumn(onDelete="SET NULL")
-     */
+    #[ORM\ManyToOne(targetEntity: \App\Entity\Utilisateur::class, inversedBy: 'pagesModifiees')]
+    #[ORM\JoinColumn(onDelete: 'SET NULL')]
     private $auteurDerniereModification;
 
     /**
      * @var \DateTime
-     *
-     * @ORM\Column(name="date_creation", type="datetime")
      */
+    #[ORM\Column(name: 'date_creation', type: 'datetime')]
     private $dateCreation;
 
     /**
      * @var \DateTime
-     * @Assert\NotBlank
-     * @ORM\Column(name="date_publication", type="datetime")
      */
+    #[Assert\NotBlank]
+    #[ORM\Column(name: 'date_publication', type: 'datetime')]
     private $datePublication;
 
     /**
      * @var \DateTime
-     *
-     * @ORM\Column(name="date_depublication", type="datetime", nullable=true)
      */
+    #[ORM\Column(name: 'date_depublication', type: 'datetime', nullable: true)]
     private $dateDepublication;
 
     /**
      * @var string
-     *
-     * @ORM\Column(name="image", type="string", nullable=true)
      */
+    #[ORM\Column(name: 'image', type: 'string', nullable: true)]
     private $image;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Langue", inversedBy="pages")
-     * @ORM\JoinColumn(onDelete="CASCADE")
-     */
+    #[ORM\ManyToOne(targetEntity: \App\Entity\Langue::class, inversedBy: 'pages')]
+    #[ORM\JoinColumn(onDelete: 'CASCADE')]
     private $langue;
 
-    /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Commentaire", mappedBy="page", orphanRemoval=true, cascade={"remove", "persist"})
-     */
+    #[ORM\OneToMany(targetEntity: \App\Entity\Commentaire::class, mappedBy: 'page', orphanRemoval: true, cascade: ['remove', 'persist'])]
     private $commentaires;
 
     /**
      * @var bool
-     *
-     * @ORM\Column(name="active", type="boolean")
      */
+    #[ORM\Column(name: 'active', type: 'boolean')]
     private $active = true;
 
     /**
      * @var bool
-     *
-     * @ORM\Column(name="corbeille", type="boolean")
      */
+    #[ORM\Column(name: 'corbeille', type: 'boolean')]
     private $corbeille = false;
 
-    /**
-     * @ORM\OneToOne(targetEntity="App\Entity\SEOPage", inversedBy="page", cascade={"remove", "persist"})
-     * @ORM\JoinColumn(name="seo_page", referencedColumnName="id")
-     * @Assert\Valid
-     */
+    #[ORM\OneToOne(targetEntity: \App\Entity\SEOPage::class, inversedBy: 'page', cascade: ['remove', 'persist'])]
+    #[ORM\JoinColumn(name: 'seo_page', referencedColumnName: 'id')]
+    #[Assert\Valid]
     private $seo;
 
-    /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Categorie", inversedBy="pages", cascade={"persist"})
-     */
+    #[ORM\ManyToMany(targetEntity: \App\Entity\Categorie::class, inversedBy: 'pages', cascade: ['persist'])]
     private $categories;
 
-    /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Bloc", mappedBy="page", orphanRemoval=true, cascade={"persist"})
-     * @ORM\OrderBy({"position" = "ASC"})
-     */
+    #[ORM\OneToMany(targetEntity: \App\Entity\Bloc::class, mappedBy: 'page', orphanRemoval: true, cascade: ['persist'])]
+    #[ORM\OrderBy(['position' => 'ASC'])]
     private $blocs;
 
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private $titreMenu;
 
-    /**
-     * @ORM\Column(type="array", nullable=true)
-     */
+    #[ORM\Column(type: 'array', nullable: true)]
     private $traductions;
 
-    /**
-     * @ORM\OneToMany(targetEntity="App\Entity\BlocAnnexe", mappedBy="page", orphanRemoval=true, cascade={"persist"})
-     */
+    #[ORM\OneToMany(targetEntity: \App\Entity\BlocAnnexe::class, mappedBy: 'page', orphanRemoval: true, cascade: ['persist'])]
     private $blocsAnnexes;
 
-    /**
-     * @ORM\Column(type="boolean")
-     */
+    #[ORM\Column(type: 'boolean')]
     private $affichageSousNiveaux = true;
 
-    /**
-     * @ORM\Column(type="boolean")
-     */
+    #[ORM\Column(type: 'boolean')]
     private $affichageCommentaires = true;
 
-    /**
-     * @ORM\Column(type="boolean")
-     */
+    #[ORM\Column(type: 'boolean')]
     private $affichageDatePublication = true;
 
-    /**
-     * @ORM\Column(type="boolean")
-     */
+    #[ORM\Column(type: 'boolean')]
     private $affichageAuteur = true;
 
     public function __construct()

@@ -29,7 +29,7 @@ class CategorieType extends AbstractType
         $this->em = $em;
     }
 
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $repoCategorie = $this->em->getRepository(Categorie::class);
         $objetsCategories = $repoCategorie->findBy(array(), array('nom' => 'ASC'));
@@ -57,7 +57,7 @@ class CategorieType extends AbstractType
             ->add('resultatsParPage', ResultatsParPageType::class);
     }
 
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults(array(
             'data_class' => null

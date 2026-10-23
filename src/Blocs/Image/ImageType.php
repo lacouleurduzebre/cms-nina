@@ -27,7 +27,7 @@ class ImageType extends AbstractType
         $this->em = $em;
     }
 
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $repoPage = $this->em->getRepository(Page::class);
         $objetsPages = $repoPage->pagesPubliees();
@@ -87,7 +87,7 @@ class ImageType extends AbstractType
             ));
     }
 
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults(array(
             'data_class' => null

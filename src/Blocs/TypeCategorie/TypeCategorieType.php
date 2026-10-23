@@ -27,7 +27,7 @@ class TypeCategorieType extends AbstractType
         $this->em = $em;
     }
 
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $repoTypeCategorie = $this->em->getRepository(TypeCategorie::class);
         $objetsTypesCategories = $repoTypeCategorie->findAll();
@@ -56,7 +56,7 @@ class TypeCategorieType extends AbstractType
             ));
     }
 
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults(array(
             'data_class' => null

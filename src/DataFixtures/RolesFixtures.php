@@ -10,7 +10,7 @@ use Symfony\Component\Yaml\Yaml;
 
 class RolesFixtures extends Fixture
 {
-    public function load(ObjectManager $manager)
+    public function load(ObjectManager $manager): void
     {
         //Création rôles
         $droits = Yaml::parseFile(getcwd().'/config/droits.yaml');

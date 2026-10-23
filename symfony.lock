@@ -179,15 +179,6 @@
     "psr/simple-cache": {
         "version": "1.0.1"
     },
-    "sensio/framework-extra-bundle": {
-        "version": "4.0",
-        "recipe": {
-            "repo": "github.com/symfony/recipes",
-            "branch": "master",
-            "version": "4.0",
-            "ref": "aaddfdf43cdecd4cf91f992052d76c2cadc04543"
-        }
-    },
     "setasign/fpdi": {
         "version": "1.6.2"
     },
@@ -365,9 +356,6 @@
     "symfony/polyfill-php72": {
         "version": "v1.7.0"
     },
-    "symfony/polyfill-php73": {
-        "version": "v1.12.0"
-    },
     "symfony/polyfill-php80": {
         "version": "v1.18.1"
     },
@@ -403,9 +391,6 @@
     },
     "symfony/security-csrf": {
         "version": "v4.2.0"
-    },
-    "symfony/security-guard": {
-        "version": "v4.3.3"
     },
     "symfony/security-http": {
         "version": "v4.3.3"
@@ -445,6 +430,18 @@
             "version": "3.3",
             "ref": "f75ac166398e107796ca94cc57fa1edaa06ec47f"
         }
+    },
+    "symfony/uid": {
+        "version": "6.4",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "main",
+            "version": "6.2",
+            "ref": "d294ad4add3e15d7eb1bae0221588ca89b38e558"
+        },
+        "files": [
+            "config/packages/uid.yaml"
+        ]
     },
     "symfony/ux-twig-component": {
         "version": "2.36",

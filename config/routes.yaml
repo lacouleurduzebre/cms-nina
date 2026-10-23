@@ -20,31 +20,31 @@ fos_user_change_password:
 
 theme:
     resource: "../themes"
-    type: annotation
+    type: attribute
 
 blocs:
     resource: "../src/Blocs"
-    type: annotation
+    type: attribute
 
 bloc:
     resource: "../src/Controller/Back/BlocController.php"
-    type: annotation
+    type: attribute
 
 sitemap:
     resource: "../src/Controller/SitemapController.php"
-    type: annotation
+    type: attribute
 
 rss:
     resource: "../src/Controller/RSSController.php"
-    type: annotation
+    type: attribute
 
 controllersBack:
     resource: "../src/Controller/Back"
-    type: annotation
+    type: attribute
 
 admin:
     resource: "../src/Controller/Admin"
-    type: annotation
+    type: attribute
 
 #EasyAdmin (pretty URLs) : routes du tableau de bord et des CRUD (/admin/page/1/edit...).
 #Après les contrôleurs du back-office, pour que leurs routes sous /admin (ex : /admin/menu/enregistrer) restent
@@ -55,20 +55,20 @@ easyadmin_routes:
 
 SEO:
     resource: "../src/Controller/SEOController.php"
-    type: annotation
+    type: attribute
 
 langue:
     resource: "../src/Controller/LangueController.php"
-    type: annotation
+    type: attribute
 
 accueil:
     resource: "../src/Controller/AccueilController.php"
-    type: annotation
+    type: attribute
 
 categorie:
     resource: "../src/Controller/CategorieController.php"
-    type: annotation
+    type: attribute
 
 page:
     resource: "../src/Controller/PageController.php"
-    type: annotation
+    type: attribute

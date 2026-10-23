@@ -20,7 +20,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class GalerieType extends AbstractType
 {
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder->add('affichage', ChoiceType::class, array(
             'choices' => array(
@@ -43,7 +43,7 @@ class GalerieType extends AbstractType
         ));
     }
 
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults(array(
             'data_class' => null,
@@ -54,7 +54,7 @@ class GalerieType extends AbstractType
         return FormType::class;
     }
 
-    public function finishView(FormView $view, FormInterface $form, array $options)
+    public function finishView(FormView $view, FormInterface $form, array $options): void
     {
         usort($view['images']->children, function (FormView $a, FormView $b) {
             $objectA = $a->vars['data'];

@@ -6,64 +6,42 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
-/**
- * @ORM\Entity(repositoryClass="App\Repository\BlocRepository")
- */
+#[ORM\Entity(repositoryClass: \App\Repository\BlocRepository::class)]
 class Bloc
 {
-    /**
-     * @ORM\Id()
-     * @ORM\GeneratedValue()
-     * @ORM\Column(type="integer")
-     */
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column(type: 'integer')]
     private $id;
 
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private $type;
 
-    /**
-     * @ORM\Column(type="array", nullable=true)
-     */
+    #[ORM\Column(type: 'array', nullable: true)]
     private $contenu;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Page", inversedBy="blocs", cascade={"persist"})
-     * @ORM\JoinColumn(nullable=true)
-     */
+    #[ORM\ManyToOne(targetEntity: \App\Entity\Page::class, inversedBy: 'blocs', cascade: ['persist'])]
+    #[ORM\JoinColumn(nullable: true)]
     private $page;
 
-    /**
-     * @ORM\Column(type="integer", nullable=true)
-     */
+    #[ORM\Column(type: 'integer', nullable: true)]
     private $position;
 
-    /**
-     * @ORM\Column(type="array", length=255, nullable=true)
-     */
+    #[ORM\Column(type: 'array', length: 255, nullable: true)]
     private $classes;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\GroupeBlocs", inversedBy="blocs")
-     * @ORM\JoinColumn(nullable=true, onDelete="CASCADE")
-     */
+    #[ORM\ManyToOne(targetEntity: \App\Entity\GroupeBlocs::class, inversedBy: 'blocs')]
+    #[ORM\JoinColumn(nullable: true, onDelete: 'CASCADE')]
     private $groupeBlocs;
 
-    /**
-     * @ORM\Column(type="boolean", nullable=true, options={"default" : 1})
-     */
+    #[ORM\Column(type: 'boolean', nullable: true, options: ['default' => 1])]
     private $active = true;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Bloc", inversedBy="blocsEnfants", cascade={"persist"})
-     */
+    #[ORM\ManyToOne(targetEntity: \App\Entity\Bloc::class, inversedBy: 'blocsEnfants', cascade: ['persist'])]
     private $blocParent;
 
-    /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Bloc", mappedBy="blocParent", orphanRemoval=true, cascade={"persist"})
-     * @ORM\OrderBy({"position" = "ASC"})
-     */
+    #[ORM\OneToMany(targetEntity: \App\Entity\Bloc::class, mappedBy: 'blocParent', orphanRemoval: true, cascade: ['persist'])]
+    #[ORM\OrderBy(['position' => 'ASC'])]
     private $blocsEnfants;
 
     public function __construct()

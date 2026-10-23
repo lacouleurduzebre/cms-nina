@@ -22,14 +22,14 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\KernelInterface;
-use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Attribute\Route;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
  * Class TraductionController
  * @package App\Controller\Back
- * @Route("/admin")
  */
+#[Route(path: '/admin')]
 class TraductionController extends AbstractController
 {
     private $doctrine;
@@ -40,9 +40,9 @@ class TraductionController extends AbstractController
     }
 
     /**
-     * @Route("/traductions/pages", name="traductionsPages")
      * @return Response
      */
+    #[Route(path: '/traductions/pages', name: 'traductionsPages')]
     public function traductionsPagesAction(){
         $repoPage = $this->doctrine->getRepository(Page::class);
         $repoLangue = $this->doctrine->getRepository(Langue::class);
@@ -61,11 +61,11 @@ class TraductionController extends AbstractController
     }
 
     /**
-     * @Route("/traductions/templates", name="traductionsTemplates")
      * @param Request $request
      * @param KernelInterface $kernel
      * @return Response
      */
+    #[Route(path: '/traductions/templates', name: 'traductionsTemplates')]
     public function traductionsTemplatesAction(Request $request, KernelInterface $kernel){
         //Vider le cache
         if($request->isXmlHttpRequest()){
@@ -119,11 +119,11 @@ class TraductionController extends AbstractController
     }
 
     /**
-     * @Route("/traductions/templates/modifier/{domaine}/{abreviation}", name="modifierTraductionsTemplates")
      * @param Request $request
      * @param KernelInterface $kernel
      * @return Response
      */
+    #[Route(path: '/traductions/templates/modifier/{domaine}/{abreviation}', name: 'modifierTraductionsTemplates')]
     public function modifierAction(Request $request, KernelInterface $kernel, $domaine, $abreviation){
         $app = getcwd().'/../';
 

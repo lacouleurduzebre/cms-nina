@@ -7,73 +7,64 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Commentaire
- *
- * @ORM\Entity(repositoryClass="App\Repository\CommentaireRepository")
  */
+#[ORM\Entity(repositoryClass: \App\Repository\CommentaireRepository::class)]
 class Commentaire
 {
     /**
      * @var int
-     *
-     * @ORM\Column(name="id", type="integer")
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
      */
+    #[ORM\Column(name: 'id', type: 'integer')]
+    #[ORM\Id]
+    #[ORM\GeneratedValue(strategy: 'AUTO')]
     private $id;
 
     /**
      * @var string
-     * @Assert\NotBlank
-     * @ORM\Column(name="auteur", type="string", length=255)
      */
+    #[Assert\NotBlank]
+    #[ORM\Column(name: 'auteur', type: 'string', length: 255)]
     private $auteur;
 
     /**
      * @var string
-     *
-     * @ORM\Column(name="email", type="string", length=255)
      */
+    #[ORM\Column(name: 'email', type: 'string', length: 255)]
     private $email;
 
     /**
      * @var string
-     *
-     * @ORM\Column(name="site", type="string", length=255, nullable=true)
      */
+    #[ORM\Column(name: 'site', type: 'string', length: 255, nullable: true)]
     private $site;
 
     /**
      * @var \DateTime
-     * @Assert\NotBlank
-     * @ORM\Column(name="date", type="date")
      */
+    #[Assert\NotBlank]
+    #[ORM\Column(name: 'date', type: 'date')]
     private $date;
 
     /**
      * @var string
-     *
-     * @ORM\Column(name="contenu", type="text")
      */
+    #[ORM\Column(name: 'contenu', type: 'text')]
     private $contenu;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Page", inversedBy="commentaires", cascade={"persist"})
-     * @ORM\JoinColumn(name="idPage", referencedColumnName="id", nullable=false)
-     */
+    #[ORM\ManyToOne(targetEntity: \App\Entity\Page::class, inversedBy: 'commentaires', cascade: ['persist'])]
+    #[ORM\JoinColumn(name: 'idPage', referencedColumnName: 'id', nullable: false)]
     private $page;
 
     /**
      * @var bool
-     *
-     * @ORM\Column(name="corbeille", type="boolean")
      */
+    #[ORM\Column(name: 'corbeille', type: 'boolean')]
     private $corbeille = false;
 
     /**
      * @var bool
-     *
-     * @ORM\Column(name="valide", type="boolean")
      */
+    #[ORM\Column(name: 'valide', type: 'boolean')]
     private $valide = false;
 
     public function __construct()

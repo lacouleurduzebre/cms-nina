@@ -7,51 +7,37 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
-/**
- * @ORM\Entity(repositoryClass="App\Repository\GroupeBlocsRepository")
- */
+#[ORM\Entity(repositoryClass: \App\Repository\GroupeBlocsRepository::class)]
 class GroupeBlocs
 {
-    /**
-     * @ORM\Id()
-     * @ORM\GeneratedValue()
-     * @ORM\Column(type="integer")
-     */
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column(type: 'integer')]
     private $id;
 
     /**
      * @var string
-     * @Assert\NotBlank
-     * @ORM\Column(type="string", length=255)
      */
+    #[Assert\NotBlank]
+    #[ORM\Column(type: 'string', length: 255)]
     private $nom;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Langue")
-     * @ORM\JoinColumn(nullable=false, onDelete="CASCADE")
-     */
+    #[ORM\ManyToOne(targetEntity: \App\Entity\Langue::class)]
+    #[ORM\JoinColumn(nullable: false, onDelete: 'CASCADE')]
     private $langue;
 
-    /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Bloc", mappedBy="groupeBlocs", orphanRemoval=true, cascade={"persist", "remove"})
-     * @ORM\OrderBy({"position" = "ASC"})
-     */
+    #[ORM\OneToMany(targetEntity: \App\Entity\Bloc::class, mappedBy: 'groupeBlocs', orphanRemoval: true, cascade: ['persist', 'remove'])]
+    #[ORM\OrderBy(['position' => 'ASC'])]
     private $blocs;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Region", inversedBy="groupesBlocs")
-     */
+    #[ORM\ManyToOne(targetEntity: \App\Entity\Region::class, inversedBy: 'groupesBlocs')]
     private $region;
 
-    /**
-     * @Assert\NotBlank
-     * @ORM\Column(type="string", length=255)
-     */
+    #[Assert\NotBlank]
+    #[ORM\Column(type: 'string', length: 255)]
     private $identifiant;
 
-    /**
-     * @ORM\Column(type="smallint", nullable=true)
-     */
+    #[ORM\Column(type: 'smallint', nullable: true)]
     private $position;
 
     public function __construct()

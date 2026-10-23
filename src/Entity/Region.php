@@ -7,39 +7,27 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
-/**
- * @ORM\Entity(repositoryClass="App\Repository\RegionRepository")
- */
+#[ORM\Entity(repositoryClass: \App\Repository\RegionRepository::class)]
 class Region
 {
-    /**
-     * @ORM\Id()
-     * @ORM\GeneratedValue()
-     * @ORM\Column(type="integer")
-     */
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column(type: 'integer')]
     private $id;
 
-    /**
-     * @Assert\NotBlank
-     * @ORM\Column(type="string", length=255)
-     */
+    #[Assert\NotBlank]
+    #[ORM\Column(type: 'string', length: 255)]
     private $nom;
 
-    /**
-     * @ORM\Column(type="smallint")
-     */
+    #[ORM\Column(type: 'smallint')]
     private $position;
 
-    /**
-     * @ORM\OneToMany(targetEntity="App\Entity\GroupeBlocs", mappedBy="region", orphanRemoval=true, cascade={"persist"})
-     * @ORM\OrderBy({"position" = "ASC"})
-     */
+    #[ORM\OneToMany(targetEntity: \App\Entity\GroupeBlocs::class, mappedBy: 'region', orphanRemoval: true, cascade: ['persist'])]
+    #[ORM\OrderBy(['position' => 'ASC'])]
     private $groupesBlocs;
 
-    /**
-     * @Assert\NotBlank
-     * @ORM\Column(type="string", length=255)
-     */
+    #[Assert\NotBlank]
+    #[ORM\Column(type: 'string', length: 255)]
     private $identifiant;
 
     public function __construct()

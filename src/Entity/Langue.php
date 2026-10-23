@@ -8,71 +8,56 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Langue
- *
- * @ORM\Entity(repositoryClass="App\Repository\LangueRepository")
  */
+#[ORM\Entity(repositoryClass: \App\Repository\LangueRepository::class)]
 class Langue
 {
     /**
      * @var int
-     *
-     * @ORM\Column(name="id", type="integer")
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
      */
+    #[ORM\Column(name: 'id', type: 'integer')]
+    #[ORM\Id]
+    #[ORM\GeneratedValue(strategy: 'AUTO')]
     private $id;
 
     /**
      * @var string
-     * @Assert\NotBlank
-     * @ORM\Column(name="nom", type="string", length=255)
      */
+    #[Assert\NotBlank]
+    #[ORM\Column(name: 'nom', type: 'string', length: 255)]
     private $nom;
 
     /**
      * @var string
-     * @Assert\NotBlank
-     * @ORM\Column(name="abreviation", type="string", length=191, unique=true)
      */
+    #[Assert\NotBlank]
+    #[ORM\Column(name: 'abreviation', type: 'string', length: 191, unique: true)]
     private $abreviation;
 
     /**
      * @var bool
-     *
-     * @ORM\Column(name="active", type="boolean")
      */
+    #[ORM\Column(name: 'active', type: 'boolean')]
     private $active = true;
 
-    /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Page", mappedBy="langue", cascade={"persist", "remove"})
-     * @ORM\OrderBy({"titre" = "ASC"})
-     */
+    #[ORM\OneToMany(targetEntity: \App\Entity\Page::class, mappedBy: 'langue', cascade: ['persist', 'remove'])]
+    #[ORM\OrderBy(['titre' => 'ASC'])]
     private $pages;
 
-    /**
-     * @ORM\Column(type="boolean")
-     */
+    #[ORM\Column(type: 'boolean')]
     private $defaut = false;
 
-    /**
-     * @ORM\OneToOne(targetEntity="App\Entity\Page", cascade={"persist", "remove"})
-     * @ORM\JoinColumn(onDelete="CASCADE")
-     */
+    #[ORM\OneToOne(targetEntity: \App\Entity\Page::class, cascade: ['persist', 'remove'])]
+    #[ORM\JoinColumn(onDelete: 'CASCADE')]
     private $pageAccueil;
 
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private $metaTitre;
 
-    /**
-     * @ORM\Column(type="text", nullable=true)
-     */
+    #[ORM\Column(type: 'text', nullable: true)]
     private $metaDescription;
 
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private $code;
 
 

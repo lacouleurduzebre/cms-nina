@@ -19,15 +19,15 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
-use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Yaml\Yaml;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
  * Class ThemeController
  * @package App\Controller\Back
- * @Route("/admin")
  */
+#[Route(path: '/admin')]
 class ThemeController extends AbstractController
 {
     private $doctrine;
@@ -37,9 +37,7 @@ class ThemeController extends AbstractController
         $this->doctrine = $doctrine;
     }
 
-    /**
-     * @Route("/theme", name="theme")
-     */
+    #[Route(path: '/theme', name: 'theme')]
     public function themeAction(Droits $droits){
         if(!$droits->checkDroit('themes')){
             throw new AccessDeniedHttpException("Vous n'êtes pas autorisé à accéder à cette page");
@@ -50,9 +48,7 @@ class ThemeController extends AbstractController
         return $this->render('back/themes/themes.html.twig', array('themesInstalles' => $themes['installes'], 'themesDisponibles' => $themes['disponibles'], 'jsPartiel' => 'Theme'));
     }
 
-    /**
-     * @Route("/theme/changer", name="changerTheme")
-     */
+    #[Route(path: '/theme/changer', name: 'changerTheme')]
     public function changerThemeAction(Request $request, Filesystem $filesystem){
         if($request->isXmlHttpRequest()){
             $theme = $request->get('theme');
@@ -76,9 +72,7 @@ class ThemeController extends AbstractController
         return false;
     }
 
-    /**
-     * @Route("/theme/installer", name="installerTheme")
-     */
+    #[Route(path: '/theme/installer', name: 'installerTheme')]
     public function installerThemeAction(Request $request, Filesystem $filesystem){
         if($request->isXmlHttpRequest()){
             $lien = $request->get('lien');
@@ -92,9 +86,7 @@ class ThemeController extends AbstractController
         return false;
     }
 
-    /**
-     * @Route("/theme/desinstaller", name="desinstallerTheme")
-     */
+    #[Route(path: '/theme/desinstaller', name: 'desinstallerTheme')]
     public function desinstallerThemeAction(Request $request, Filesystem $filesystem){
         if($request->isXmlHttpRequest()){
             $nom = $request->get('nom');
@@ -114,10 +106,10 @@ class ThemeController extends AbstractController
     }
 
     /**
-     * @Route("/theme/parametrer/{nom}", name="parametrerTheme")
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
+    #[Route(path: '/theme/parametrer/{nom}', name: 'parametrerTheme')]
     public function parametrerThemeAction(Droits $droits, Request $request, $nom){
         if(!$droits->checkDroit('themes')){
             throw new AccessDeniedHttpException("Vous n'êtes pas autorisé à accéder à cette page");
@@ -169,9 +161,7 @@ class ThemeController extends AbstractController
         return $this->render('back/themes/parametres.html.twig', array('nom' => $nom, 'champs' => $champs, 'form' => isset($form) ? $form->createView() : null ));
     }
 
-    /**
-     * @Route("/theme/maj", name="majTheme")
-     */
+    #[Route(path: '/theme/maj', name: 'majTheme')]
     public function majThemeAction(Request $request){
         if($request->isXmlHttpRequest()){
 

@@ -15,7 +15,7 @@ use App\Entity\Langue;
 use App\Entity\Page;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Attribute\Route;
 use Doctrine\Persistence\ManagerRegistry;
 
 class RSSController extends AbstractController
@@ -28,13 +28,11 @@ class RSSController extends AbstractController
     }
 
     /**
-     * @Route("/rss.xml", defaults={"_format"="xml"}, name="rss")
-     * @Route("/{_locale}/rss.xml", defaults={"_format"="xml"}, name="rssLocale", requirements={
-     *     "_locale"="^[A-Za-z]{1,2}$"
-     * })
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
+    #[Route(path: '/rss.xml', defaults: ['_format' => 'xml'], name: 'rss')]
+    #[Route(path: '/{_locale}/rss.xml', defaults: ['_format' => 'xml'], name: 'rssLocale', requirements: ['_locale' => '^[A-Za-z]{1,2}$'])]
     public function rssAction(\App\Service\Langue $slangue, $_locale = null){
         //Test route : locale ou non
         $redirection = $slangue->redirectionLocale('rss', $_locale);

@@ -1,0 +1,5 @@
+services:
+    # Chemins des templates en commentaires HTML dans les pages (aide au développement des thèmes)
+    App\Twig\Dev\CheminsTemplates:
+        arguments: ['%kernel.project_dir%']
+        tags: ['twig.extension']

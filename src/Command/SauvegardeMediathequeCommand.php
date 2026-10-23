@@ -10,15 +10,15 @@ namespace App\Command;
 
 
 use App\Controller\Back\SauvegardeController;
+use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
+#[AsCommand(name: 'nina:sauvegarde:mediatheque')]
 class SauvegardeMediathequeCommand extends Command
 {
-    protected static $defaultName = 'nina:sauvegarde:mediatheque';
-
-    protected function configure()
+    protected function configure(): void
     {
         $this->setDescription('Sauvegarde la médiathèque dans un fichier zip')
             ->setHelp('Créé un fichier zip du dossier "uploads" dans le dossier sauvegardes');

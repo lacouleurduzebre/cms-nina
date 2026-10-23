@@ -4,32 +4,22 @@ namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
-/**
- * @ORM\Entity(repositoryClass="App\Repository\BlocAnnexeRepository")
- */
+#[ORM\Entity(repositoryClass: \App\Repository\BlocAnnexeRepository::class)]
 class BlocAnnexe
 {
-    /**
-     * @ORM\Id()
-     * @ORM\GeneratedValue()
-     * @ORM\Column(type="integer")
-     */
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column(type: 'integer')]
     private $id;
 
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private $type;
 
-    /**
-     * @ORM\Column(type="array", nullable=true)
-     */
+    #[ORM\Column(type: 'array', nullable: true)]
     private $contenu;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Page", inversedBy="blocsAnnexes")
-     * @ORM\JoinColumn(nullable=false)
-     */
+    #[ORM\ManyToOne(targetEntity: \App\Entity\Page::class, inversedBy: 'blocsAnnexes')]
+    #[ORM\JoinColumn(nullable: false)]
     private $page;
 
     public function getId()

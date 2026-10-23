@@ -24,7 +24,7 @@ class RoleType extends AbstractType
         $this->em = $em;
     }
 
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
         $repoRole = $this->em->getRepository(Role::class);
         $objetsRoles = $repoRole->findAll();

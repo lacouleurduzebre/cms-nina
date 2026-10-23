@@ -8,15 +8,12 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * SEOCategorie
- *
- * @ORM\Entity(repositoryClass="App\Repository\SEOCategorieRepository")
- * @UniqueEntity(fields={"url"}, message="L'url {{ value }} est déjà utilisée pour une autre catégorie")
  */
+#[ORM\Entity(repositoryClass: \App\Repository\SEOCategorieRepository::class)]
+#[UniqueEntity(fields: ['url'], message: "L'url {{ value }} est déjà utilisée pour une autre catégorie")]
 class SEOCategorie extends SEO
 {
-    /**
-     * @ORM\OneToOne(targetEntity="App\Entity\Categorie", mappedBy="seo")
-     */
+    #[ORM\OneToOne(targetEntity: \App\Entity\Categorie::class, mappedBy: 'seo')]
     private $categorie;
 
     /**

@@ -21,7 +21,7 @@ use Symfony\Component\Yaml\Yaml;
 
 class BlocAnnexeType extends AbstractType
 {
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         if($options['type'] != ''){//Ajax
             $infos = Yaml::parseFile('../src/Blocs/'.$options['type'].'/infos.yaml');
@@ -54,7 +54,7 @@ class BlocAnnexeType extends AbstractType
         });
     }
 
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults(array(
             'label' => false,

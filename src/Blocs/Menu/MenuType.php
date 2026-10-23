@@ -27,7 +27,7 @@ class MenuType extends AbstractType
      $this->em = $em;
     }
 
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $repoLangue = $this->em->getRepository(Langue::class);
         $langues = $repoLangue->findAll();
@@ -49,7 +49,7 @@ class MenuType extends AbstractType
             ));
     }
 
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults(array(
             'data_class' => null

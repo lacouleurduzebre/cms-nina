@@ -12,18 +12,16 @@ namespace App\Controller;
 use App\Service\Page;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Attribute\Route;
 
 class AccueilController extends AbstractController
 {
     /**
-     * @Route("/", name="accueil")
-     * @Route("/{_locale}", name="accueilLocale", requirements={
-     *     "_locale"="^[A-Za-z]{1,2}$"
-     * })
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\Response
      */
+    #[Route(path: '/', name: 'accueil')]
+    #[Route(path: '/{_locale}', name: 'accueilLocale', requirements: ['_locale' => '^[A-Za-z]{1,2}$'])]
     public function indexAction(Page $spage, \App\Service\Langue $slangue, $_locale = null)
     {
         //Test route : locale ou non

@@ -20,7 +20,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class GrilleType extends AbstractType
 {
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder->add('nbColonnes', ChoiceType::class, array(
             'label' => "Nombre de cellules par ligne",
@@ -46,7 +46,7 @@ class GrilleType extends AbstractType
         ));
     }
 
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults(array(
             'data_class' => null,
@@ -57,7 +57,7 @@ class GrilleType extends AbstractType
         return FormType::class;
     }
 
-    public function finishView(FormView $view, FormInterface $form, array $options)
+    public function finishView(FormView $view, FormInterface $form, array $options): void
     {
         usort($view['cases']->children, function (FormView $a, FormView $b) {
             $objectA = $a->vars['data'];

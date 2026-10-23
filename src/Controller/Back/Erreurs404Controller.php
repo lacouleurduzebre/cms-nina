@@ -12,14 +12,14 @@ namespace App\Controller\Back;
 use App\Entity\Bloc;
 use App\Entity\BlocAnnexe;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Attribute\Route;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
  * Class Erreurs404Controller
  * @package App\Controller\Back
- * @Route("/admin")
  */
+#[Route(path: '/admin')]
 class Erreurs404Controller extends AbstractController
 {
     private $erreurs;
@@ -36,9 +36,7 @@ class Erreurs404Controller extends AbstractController
         $this->element = null;
     }
 
-    /**
-     * @Route("/erreurs404/liste", name="listeErreurs404")
-     */
+    #[Route(path: '/erreurs404/liste', name: 'listeErreurs404')]
     public function listeErreurs404(){
         $repoBlocs = $this->doctrine->getRepository(Bloc::class);
         $blocsAvecLiens = $repoBlocs->blocsAvecLiensMediatheque();

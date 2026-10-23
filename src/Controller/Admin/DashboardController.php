@@ -20,7 +20,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Config\UserMenu;
 use EasyCorp\Bundle\EasyAdminBundle\Contracts\Menu\MenuItemInterface;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractDashboardController;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 #[AdminDashboard(routePath: '/admin', routeName: 'admin')]
@@ -193,16 +193,14 @@ class DashboardController extends AbstractDashboardController
 
     /**
      * Ancienne URL du tableau de bord
-     * @Route("/admin/accueil", name="tableauDeBord")
      */
+    #[Route(path: '/admin/accueil', name: 'tableauDeBord')]
     public function tableauDeBord(): Response
     {
         return $this->redirect($this->adminUrl->tableauDeBord());
     }
 
-    /**
-     * @Route("/admin/mediatheque", name="mediatheque")
-     */
+    #[Route(path: '/admin/mediatheque', name: 'mediatheque')]
     public function mediatheque(): Response
     {
         return $this->render('back/mediatheque.html.twig');

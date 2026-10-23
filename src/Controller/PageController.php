@@ -13,7 +13,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Attribute\Route;
 use Doctrine\Persistence\ManagerRegistry;
 
 class PageController extends AbstractController
@@ -26,13 +26,11 @@ class PageController extends AbstractController
     }
 
     /**
-     * @Route("/{url}", name="voirPage")
-     * @Route("/{_locale}/{url}", name="voirPageLocale", requirements={
-     *     "_locale"="^[A-Za-z]{1,2}$"
-     * })
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
+    #[Route(path: '/{url}', name: 'voirPage')]
+    #[Route(path: '/{_locale}/{url}', name: 'voirPageLocale', requirements: ['_locale' => '^[A-Za-z]{1,2}$'])]
     public function voirAction(Request $request, Page $spage, \App\Service\Langue $slangue, $url, $_locale = null){
         //Test route : locale ou non
         $redirection = $slangue->redirectionLocale('voirPage', $_locale, array('url' => $url));

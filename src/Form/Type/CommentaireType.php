@@ -21,18 +21,18 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class CommentaireType extends AbstractType
 {
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
             ->add('auteur', TextType::class)
             ->add('email', EmailType::class)
             ->add('site', TextType::class)
-            ->add('date', DateType::class)
+            ->add('date', DateType::class, ['widget' => 'choice'])
             ->add('contenu', TextareaType::class)
             ->add('valide', CheckboxType::class);
     }
 
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults(array(
             'data_class' => 'App\Entity\Commentaire',

@@ -27,7 +27,7 @@ use Symfony\Component\Yaml\Yaml;
 
 class LEIType extends AbstractType
 {
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $configLEI = Yaml::parseFile(__DIR__.'/configLEI.yaml');
         $fluxGenerique = $configLEI['fluxGenerique'];
@@ -97,7 +97,7 @@ class LEIType extends AbstractType
         });
     }
 
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults(array(
             'data_class' => null,

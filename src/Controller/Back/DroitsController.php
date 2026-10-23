@@ -18,15 +18,15 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
-use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Yaml\Yaml;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
  * Class DroitsController
  * @package App\Controller\Back
- * @Route("/admin")
  */
+#[Route(path: '/admin')]
 class DroitsController extends AbstractController
 {
     private $doctrine;
@@ -37,10 +37,10 @@ class DroitsController extends AbstractController
     }
 
     /**
-     * @Route("/droits", name="droits")
      * @param Request $request
      * @return bool|Response
      */
+    #[Route(path: '/droits', name: 'droits')]
     public function listeDroits(Request $request, Droits $droits){
         if(!$droits->checkDroit('droits')){
             throw new AccessDeniedHttpException("Vous n'êtes pas autorisé à accéder à cette page");
@@ -126,10 +126,10 @@ class DroitsController extends AbstractController
     }
 
     /**
-     * @Route("/droits/suppressionRole", name="suppressionRole")
      * @param Request $request
      * @return bool|Response
      */
+    #[Route(path: '/droits/suppressionRole', name: 'suppressionRole')]
     public function suppressionRole(Request $request){
         if($request->isXmlHttpRequest()){
             $idRole = $request->get('idRole');

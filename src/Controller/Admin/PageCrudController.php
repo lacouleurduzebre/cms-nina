@@ -173,7 +173,7 @@ class PageCrudController extends BaseCrudController
     }
 
     //Nouvelle page : options d'affichage par défaut de la configuration ; traduction : reprise de la page originale
-    public function createEntity(string $entityFqcn)
+    public function createEntity(string $entityFqcn): object
     {
         $request = $this->getContext()->getRequest();
         $em = $this->em();

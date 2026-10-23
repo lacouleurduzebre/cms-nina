@@ -8,48 +8,38 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Menu
- *
- * @ORM\Entity(repositoryClass="App\Repository\MenuRepository")
  */
+#[ORM\Entity(repositoryClass: \App\Repository\MenuRepository::class)]
 class Menu
 {
     /**
      * @var int
-     *
-     * @ORM\Column(name="id", type="integer")
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
      */
+    #[ORM\Column(name: 'id', type: 'integer')]
+    #[ORM\Id]
+    #[ORM\GeneratedValue(strategy: 'AUTO')]
     private $id;
 
     /**
      * @var string
-     * @Assert\NotBlank
-     * @ORM\Column(name="nom", type="string", length=255)
      */
+    #[Assert\NotBlank]
+    #[ORM\Column(name: 'nom', type: 'string', length: 255)]
     private $nom;
 
-    /**
-     * @ORM\OneToMany(targetEntity="App\Entity\MenuPage", mappedBy="menu", cascade={"persist", "remove"})
-     * @ORM\JoinColumn(nullable=false)
-     * @ORM\OrderBy({"position" = "ASC"})
-     */
+    #[ORM\OneToMany(targetEntity: \App\Entity\MenuPage::class, mappedBy: 'menu', cascade: ['persist', 'remove'])]
+    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\OrderBy(['position' => 'ASC'])]
     private $menuPage;
 
-    /**
-     * @ORM\Column(type="boolean", nullable=true)
-     */
+    #[ORM\Column(type: 'boolean', nullable: true)]
     private $defaut;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Langue")
-     * @ORM\JoinColumn(nullable=false, onDelete="CASCADE")
-     */
+    #[ORM\ManyToOne(targetEntity: \App\Entity\Langue::class)]
+    #[ORM\JoinColumn(nullable: false, onDelete: 'CASCADE')]
     private $langue;
 
-    /**
-     * @ORM\Column(type="smallint", options={"default" : 1})
-     */
+    #[ORM\Column(type: 'smallint', options: ['default' => 1])]
     private $priorite;
 
     /**
