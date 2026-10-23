@@ -1,0 +1,64 @@
+{% extends '@EasyAdmin/layout.html.twig' %}
+
+{# Layout du back-office : layout d'EasyAdmin + arborescence des pages, scripts du CMS #}
+
+{% block head_metas %}
+    {{ parent() }}
+    <meta name="robots" content="noindex, nofollow, noarchive, nosnippet, noodp, noimageindex, notranslate, nocache" />
+    <link href="https://fonts.googleapis.com/css?family=Cabin:400,700" rel="stylesheet">
+{% endblock %}
+
+{% block javascript_page_layout %}
+    {{ parent() }}
+    {# Classes utilisées par le CSS et le JS du CMS (cf. jsHeaderSidebar.js) #}
+    <script>
+        document.body.classList.add('easyadmin'{% if app.user and app.user.couleurBO is not empty %}, '{{ app.user.couleurBO|e('js') }}'{% endif %});
+    </script>
+{% endblock %}
+
+{% block main_menu_wrapper %}
+    {{ parent() }}
+    <div class="sidebar-arborescence">
+        {{ menusBack()|raw }}
+    </div>
+{% endblock %}
+
+{% block header_custom_menu %}
+    {% if page.id is defined %}
+        <a id="voirSite" href="{{ admin_url('Page_Active', 'edit', page.id) }}" title="{{ "Éditer cette page"|trans }}"><i class="fas fa-pencil-alt"></i></a>
+    {% else %}
+        <a id="voirSite" href="{{ langues|default([])|length > 1 and langueActive is defined and langueActive ? path('accueilLocale', { '_locale': langueActive.abreviation }) : path('accueil') }}" title="{% trans %}Voir le site{% endtrans %}"><i class="far fa-eye"></i></a>
+    {% endif %}
+    {{ parent() }}
+{% endblock %}
+
+{% block body_javascript %}
+    {{ parent() }}
+
+    <div class="conteneurChargement">
+        <i class="fas fa-sync fa-spin"></i>
+    </div>
+
+    {% if assetExists(app.request.baseUrl~'theme/js/optionsTinyMCE.js') %}
+        <script src="{{ asset('theme/js/optionsTinyMCE.min.js') }}"></script>
+    {% else %}
+        <script src="{{ asset('assets/js/optionsTinyMCE.min.js') }}"></script>
+    {% endif %}
+
+    {% for js in ['fontawesome-all.min.js', 'jscookie/cookie.js', 'jstree/jstree.min.js', 'sortable/jquery-ui.min.js', 'jsArbo.min.js', 'jsBack.min.js', 'jsHeaderSidebar.min.js'] %}
+        <script src="{{ asset('assets/js/' ~ js) }}"></script>
+    {% endfor %}
+
+    {# Scripts propres à un écran : CRUD (entite) ou page du back-office (jsPartiel) #}
+    {% set partiels = {
+        'Page_Active': ['Page', 'Bloc'],
+        'GroupeBlocs': ['Bloc'],
+        'Utilisateur': ['Utilisateur'],
+        'Langue': ['Langue'],
+        'Categorie': ['Categorie'],
+        'TypeCategorie': ['TypeCategorie'],
+    }[entite|default('')]|default(jsPartiel is defined ? [jsPartiel] : []) %}
+    {% for partiel in partiels %}
+        <script src="{{ asset('assets/js/partials/jsBack' ~ partiel ~ '.min.js') }}"></script>
+    {% endfor %}
+{% endblock %}

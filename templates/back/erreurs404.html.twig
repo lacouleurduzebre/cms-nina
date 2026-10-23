@@ -26,7 +26,7 @@
             <div id="imagesMediatheque-tab" class="tab-pane active">
                 {% for page in erreurs.images404 %}
                     {% block erreur %}
-                        <h3><a href="{{ path('easyadmin', {action: 'edit', entity: 'Page_Active', id: page.page.id}) }}" target="_blank">{{ page.page.titre }}</a></h3>
+                        <h3><a href="{{ admin_url('Page_Active', 'edit', page.page.id) }}" target="_blank">{{ page.page.titre }}</a></h3>
                         <ul>
                             {% for erreur in page.erreurs %}
                                 {% if erreur.url|slice(0,8) == '/uploads' %}

@@ -1,6 +1,6 @@
 {% extends 'back/base.html.twig' %}
 
-{% block content %}
+{% block main %}
     <h1>Traduction des pages</h1>
 
     {% if pages is not empty %}
@@ -19,14 +19,14 @@
                                 <tr>
                                     {% for langue in langues %}
                                         {% if langue == page.langue %}
-                                            <td><a href="{{ path('easyadmin', {'action':'edit', 'entity':'Page_Active', 'id':page.id}) }}">{{ page.titre }}</a></td>
+                                            <td><a href="{{ admin_url('Page_Active', 'edit', page.id) }}">{{ page.titre }}</a></td>
                                         {% else %}
                                             <td>
                                                 {% if page.traductions is not empty and page.traductions[langue.id] is defined and page.traductions[langue.id] is not empty %}
                                                     {% set traduction = getTraduction(page.traductions[langue.id]) %}
-                                                    <a href="{{ path('easyadmin', {'action':'edit', 'entity':'Page_Active', 'id':traduction.id}) }}">{{ traduction.titre }}</a>
+                                                    <a href="{{ admin_url('Page_Active', 'edit', traduction.id) }}">{{ traduction.titre }}</a>
                                                 {% else %}
-                                                    <a class="vert" href="{{ path('easyadmin', { action: 'new', entity: 'Page_Active', pageOriginale: page.id, langue: langue.id, 'confirmation': 'oui' }) }}"><i class="fas fa-plus"></i> {{ "Créer une traduction"|trans }}</a>
+                                                    <a class="vert" href="{{ admin_url('Page_Active', 'new', null, { 'pageOriginale': page.id, 'langue': langue.id, 'confirmation': 'oui' }) }}"><i class="fas fa-plus"></i> {{ "Créer une traduction"|trans }}</a>
                                                 {% endif %}
                                             </td>
                                         {% endif %}

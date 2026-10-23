@@ -1,108 +1,49 @@
-{% macro render_menu_item(item, translation_domain) %}
-    {% if item.type == 'divider' %}
-        {{ item.label|trans(domain = translation_domain) }}
-    {% else %}
-        {% set menu_params = { menuIndex: item.menu_index, submenuIndex: item.submenu_index } %}
-        {% set path =
-            item.type == 'link' ? item.url :
-            item.type == 'route' ? path(item.route, item.params) :
-            item.type == 'entity' ? path('easyadmin', { entity: item.entity, action: 'list' }|merge(menu_params)|merge(item.params)) :
-            item.type == 'empty' ? '#' : ''
-        %}
-
-        {# if the URL generated for the route belongs to the backend, regenerate
-           the URL to include the menu_params to display the selected menu item
-           (this is checked comparing the beginning of the route URL with the backend homepage URL)
-        #}
-        {% if item.type == 'route' and (path starts with path('easyadmin')) %}
-            {% set path = path(item.route, menu_params|merge(item.params)) %}
-        {% endif %}
-
-        {% if item['css_class'] is not defined or item['css_class'] != 'traductions' or langues|length > 1 %}
-            <a href="{{ path }}" {% if item.target|default(false) %}target="{{ item.target }}"{% endif %}>
-                {% if item.icon is not empty %}<i class="fa {{ item.icon }}"></i>{% endif %}
-                <span>{{ item.label|trans(domain = translation_domain) }}</span>
-                {% if item.children|default([]) is not empty %}<i class="fas fa-angle-down mls"></i>{% endif %}
-            </a>
-        {% endif %}
-    {% endif %}
+{# Menu du back-office (cf. App\Service\MenuAdmin), affiché dans la barre d'administration du front #}
+{% macro render_menu_item(item) %}
+    <a href="{{ item.url ?? '#' }}" {% if item.css_class is not empty %}class="{{ item.css_class }}"{% endif %}>
+        {% if item.icon is not empty %}<i class="{{ item.icon }}"></i>{% endif %}
+        <span>{{ item.label|trans }}</span>
+        {% if item.enfants is not empty %}<i class="fas fa-angle-down mls"></i>{% endif %}
+    </a>
 {% endmacro %}
-
-{% set accesOutils = true %}
-{% if not checkDroit('config') and not checkDroit('themes') and not checkDroit('configBlocs') and not checkDroit('sauvegardes') and not checkDroit('droits') %}
-    {% set accesOutils = false %}
-{% endif %}
 
 {% import _self as helper %}
 
-{% block main_menu_before %}{% endblock %}
-
 <ul class="sidebar-menu">
-    {% set _menu_items = easyadmin_config('design.menu') %}
-
     {% block main_menu %}
-        {% for item in _menu_items %}
-            {% if item.menu_index != 4 or accesOutils %}
-                {% set acces = true %}
-                {% if item.droit is defined %}
-                    {% set acces = checkDroit(item.droit) %}
-                {% endif %}
-                {% if acces %}
-                    {% block menu_item %}
-                        <li class="{{ item.type == 'divider' ? 'header' }} {{ item.children is not empty ? 'treeview' }} {{ app.request.query.get('menuIndex')|default(-1) == loop.index0 ? 'active' }} {{ app.request.query.get('submenuIndex')|default(-1) != -1 ? 'submenu-active' }}">
-                            {{ helper.render_menu_item(item, _entity_config.translation_domain|default('messages')) }}
+        {% for item in menuAdmin() %}
+            <li class="{{ item.enfants is not empty ? 'treeview' }}">
+                {{ helper.render_menu_item(item) }}
 
-                            {% if item.children|default([]) is not empty %}
-                                <ul class="treeview-menu">
-                                    {% for subitem in item.children %}
-                                        {% block menu_subitem %}
-                                            {% set acces = true %}
-                                            {% if subitem.droit is defined %}
-                                                {% set acces = checkDroit(subitem.droit) %}
-                                            {% endif %}
-                                            {% if acces %}
-                                                <li class="{{ subitem.type == 'divider' ? 'header' }} {{ app.request.query.get('menuIndex')|default(-1) == loop.parent.loop.index0 and app.request.query.get('submenuIndex')|default(-1) == loop.index0 ? 'active' }}">
-                                                    {{ helper.render_menu_item(subitem, _entity_config.translation_domain|default('messages')) }}
-                                                    {# Sub-sub item #}
-                                                    {% if subitem.children|default([]) is not empty %}
-                                                        <ul class="treeview-menu">
-                                                            {% for subitem in subitem.children %}
-                                                                {% set acces = true %}
-                                                                {% if subitem.droit is defined %}
-                                                                    {% set acces = checkDroit(subitem.droit) %}
-                                                                {% endif %}
-                                                                {% if acces %}
-                                                                    {% block menu_subsubitem %}
-                                                                        <li class="{{ subitem.type == 'divider' ? 'header' }} {{ app.request.query.get('menuIndex')|default(-1) == loop.parent.loop.index0 and app.request.query.get('submenuIndex')|default(-1) == loop.index0 ? 'active' }}">
-                                                                            {{ helper.render_menu_item(subitem, _entity_config.translation_domain|default('messages')) }}
-                                                                        </li>
-                                                                    {% endblock menu_subsubitem %}
-                                                                {% endif %}
-                                                            {% endfor %}
-                                                        </ul>
-                                                    {% endif %}
-                                                    {# /Sub-sub item #}
-                                                </li>
-                                            {% endif %}
-                                        {% endblock menu_subitem %}
-                                    {% endfor %}
-                                </ul>
-                            {% endif %}
-                        </li>
-                    {% endblock menu_item %}
+                {% if item.enfants is not empty %}
+                    <ul class="treeview-menu">
+                        {% for subitem in item.enfants %}
+                            <li>
+                                {{ helper.render_menu_item(subitem) }}
+
+                                {% if subitem.enfants is not empty %}
+                                    <ul class="treeview-menu">
+                                        {% for subsubitem in subitem.enfants %}
+                                            <li>{{ helper.render_menu_item(subsubitem) }}</li>
+                                        {% endfor %}
+                                    </ul>
+                                {% endif %}
+                            </li>
+                        {% endfor %}
+                    </ul>
                 {% endif %}
-            {% endif %}
+            </li>
         {% endfor %}
     {% endblock main_menu %}
     {% block header_custom_menu %}
         <li>
-            {% set _logout_path = easyadmin_logout_path() %}
+            {% set _logout_path = path('fos_user_security_logout') %}
             {% if app.user|default(false) == false %}
                 <i class="hidden-xs fa fa-user-times"></i>
-                {{ 'user.anonymous'|trans(domain = 'EasyAdminBundle') }}
+                {{ 'Anonyme'|trans }}
             {% elseif not _logout_path %}
                 <i class="hidden-xs fa fa-user"></i>
-                {{ app.user.username|default('user.unnamed'|trans(domain = 'EasyAdminBundle')) }}
+                {{ app.user.username }}
             {% else %}
                 <a href="#">
                     {% if app.user.imageProfil is not empty %}
@@ -110,11 +51,11 @@
                     {% else %}
                         <i id="header-sansImageProfil" class="fas fa-user-circle"></i>
                     {% endif %}
-                    <span>{{ app.user.username|default('user.unnamed'|trans(domain = 'EasyAdminBundle')) }}</span>
+                    <span>{{ app.user.username }}</span>
                 </a>
                 <ul>
                     <li>
-                        <a href="{{ path('easyadmin', { action: 'edit', entity: 'Utilisateur', id: app.user.id }) }}"><span>{% trans %}Mon profil{% endtrans %}</span></a>
+                        <a href="{{ admin_url('Utilisateur', 'edit', app.user.id) }}"><span>{% trans %}Mon profil{% endtrans %}</span></a>
                     </li>
                     <li>
                         <a href="{{ _logout_path }}"><span><i class="fas fa-power-off mrs"></i>{% trans %}Déconnexion{% endtrans %}</span></a>
@@ -125,7 +66,7 @@
     {% endblock header_custom_menu %}
 </ul>
 {% if page.id is defined %}
-    <a id="voirSite" href="{{ path('easyadmin', { entity: 'Page_Active', action: 'edit', id: page.id }) }}" title="{{ "Éditer cette page"|trans }}"><i class="fas fa-pencil-alt"></i></a>
+    <a id="voirSite" href="{{ admin_url('Page_Active', 'edit', page.id) }}" title="{{ "Éditer cette page"|trans }}"><i class="fas fa-pencil-alt"></i></a>
 {% else %}
     <a id="voirSite" href="
         {% if langues|length > 1 %}

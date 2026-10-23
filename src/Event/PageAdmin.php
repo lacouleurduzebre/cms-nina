@@ -13,7 +13,10 @@ use App\Entity\MenuPage;
 use App\Entity\Page;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use Symfony\Component\EventDispatcher\GenericEvent;
+use EasyCorp\Bundle\EasyAdminBundle\Event\AbstractLifecycleEvent;
+use EasyCorp\Bundle\EasyAdminBundle\Event\AfterEntityPersistedEvent;
+use EasyCorp\Bundle\EasyAdminBundle\Event\BeforeEntityPersistedEvent;
+use EasyCorp\Bundle\EasyAdminBundle\Event\BeforeEntityUpdatedEvent;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
 class PageAdmin implements EventSubscriberInterface
@@ -27,15 +30,15 @@ class PageAdmin implements EventSubscriberInterface
     public static function getSubscribedEvents(): array
     {
         return array(
-            'easy_admin.post_persist' => array('creerMenuPage'),
-            'easy_admin.pre_persist' => array('auteurs', 10),
-            'easy_admin.pre_update' => array('auteurs', 10),
+            AfterEntityPersistedEvent::class => array('creerMenuPage'),
+            BeforeEntityPersistedEvent::class => array('auteurs', 10),
+            BeforeEntityUpdatedEvent::class => array('auteurs', 10),
         );
     }
 
-    public function creerMenuPage(GenericEvent $event)
+    public function creerMenuPage(AfterEntityPersistedEvent $event)
     {
-        $entity = $event->getSubject();
+        $entity = $event->getEntityInstance();
 
         if (!($entity instanceof Page)) {
             return;
@@ -51,14 +54,15 @@ class PageAdmin implements EventSubscriberInterface
 
         $menuPage = new MenuPage();
         $menuPage->setPage($entity)->setPosition(0);
-        $event['em']->persist($menuPage);
-        $event['em']->flush();
+        $em = $this->doctrine->getManager();
+        $em->persist($menuPage);
+        $em->flush();
 
         return;
     }
 
-    public function auteurs(GenericEvent $event){
-        $entity = $event->getSubject();
+    public function auteurs(AbstractLifecycleEvent $event){
+        $entity = $event->getEntityInstance();
 
         if (!($entity instanceof Page)) {
             return;

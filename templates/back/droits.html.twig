@@ -7,7 +7,7 @@
     {% endif %}
     <p><button data-modal="creationRole">{{ "Créer un rôle"|trans }}</button></p>
     {% if roles is not empty %}
-        <form action="{{ path('droits') }}" method="post" class="popupDesactive">
+        <form action="{{ admin_route('droits') }}" method="post" class="popupDesactive">
             <table class="tableauDroits">
                 <thead>
                     <th></th>

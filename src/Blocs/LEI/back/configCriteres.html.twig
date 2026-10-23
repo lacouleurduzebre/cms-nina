@@ -1,5 +1,5 @@
 {% extends 'back/base.html.twig' %}
-{% form_theme form with easyadmin_config('design.form_theme') %}
+{% form_theme form with 'back/form/theme.html.twig' %}
 
 {% block main %}
     <h1>{{ "Modifier les critères LEI"|trans }}</h1>

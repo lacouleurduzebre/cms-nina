@@ -1,0 +1,67 @@
+{# Formulaire d'édition / de création d'un CRUD, avec la barre d'actions et la palette de blocs du CMS #}
+
+{# Champs propres au CMS (blocs, SEO, médiathèque...) : rendus avec le thème de formulaire du CMS #}
+{% for champ in champsThemeCms|default([]) %}
+    {% if form[champ] is defined %}
+        {% form_theme form[champ] 'back/form/theme.html.twig' %}
+    {% endif %}
+{% endfor %}
+
+{% if blocs is defined %}
+    {% include('back/blocs/liste.html.twig') with { 'blocs': blocs, 'typeBlocs': 'Blocs' } only %}
+{% endif %}
+
+{% if blocsAnnexes is defined %}
+    {% include('back/blocs/liste.html.twig') with { 'blocs': blocsAnnexes, 'typeBlocs': 'BlocsAnnexes' } only %}
+{% endif %}
+
+{{ include('back/form/javascript_ajout.html.twig') }}
+
+{{ form_start(form) }}
+    {{ form_widget(form) }}
+
+    <div class="formulaire-actions">
+        <button type="submit" class="formulaire-actions-enregistrer" disabled>
+            <i class="fas fa-check-circle"></i><span>{% trans %}Enregistrer{% endtrans %}</span>
+        </button>
+
+        {% for action in entity.actions|filter(action => action.name == 'voir') %}
+            {{ include(action.templatePath, { action: action }, with_context = false) }}
+        {% endfor %}
+
+        <div class="formulaire-actions-liste">
+            <i class="fas fa-ellipsis-v"></i>
+            <div>
+                <div class="ombre">
+                    {% for action in entity.actions|filter(action => action.name != 'voir') %}
+                        {{ include(action.templatePath, { action: action }, with_context = false) }}
+                    {% endfor %}
+                    {% if entite == 'Page_Active' and entity.primaryKeyValue is not empty %}
+                        <a href="{{ admin_url('Page_Active', 'activer', entity.primaryKeyValue) }}">
+                            <i class="fas fa-power-off"></i>
+                            {% if pageActive(entity.primaryKeyValue) %}
+                                {{ 'Désactiver'|trans }}
+                            {% else %}
+                                {{ 'Activer'|trans }}
+                            {% endif %}
+                        </a>
+                        <span id="apercuMobile"><i class="fas fa-mobile-alt"></i> Aperçu au format mobile</span>
+                        <span id="apercuTablette"><i class="fas fa-tablet-alt"></i> Aperçu au format tablette</span>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+{{ form_end(form) }}
+
+{# Onglet Traductions masqué s'il n'y a qu'une langue active (ses champs restent soumis) #}
+{% if langues|default([])|length <= 1 %}
+    <script>
+        document.querySelectorAll('.tab-pane.traductions').forEach(function (onglet) {
+            var lien = document.querySelector('.nav-tabs a[href="#' + onglet.id + '"]');
+            if (lien) {
+                lien.closest('li').style.display = 'none';
+            }
+        });
+    </script>
+{% endif %}

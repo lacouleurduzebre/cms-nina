@@ -1,0 +1,13 @@
+{# Conteneur toujours présent : jsBack.js y ajoute les messages d'enregistrement #}
+<div id="flash-messages">
+    {% if app.session is not null and app.session.started %}
+        {% for label, messages in app.session.flashbag.all %}
+            {% for message in messages %}
+                <div class="alert alert-{{ label }}">
+                    {{ message|raw }}
+                    <i class="fas fa-times"></i>
+                </div>
+            {% endfor %}
+        {% endfor %}
+    {% endif %}
+</div>

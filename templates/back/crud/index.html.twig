@@ -1,0 +1,17 @@
+{% extends '@EasyAdmin/crud/index.html.twig' %}
+
+{% block body_class %}{{ parent() }} list list-{{ entite|lower }}{% endblock %}
+
+{% block content_title %}
+    {{ parent() }}
+    {% if filtreCategorie is defined and filtreCategorie %}
+        {{ "dans la catégorie \""~filtreCategorie.nom~"\"" }}
+    {% endif %}
+{% endblock %}
+
+{% block page_actions %}
+    {% if filtreCategorie is defined and filtreCategorie %}
+        <a class="btn mts mbm" href="{{ admin_url('Page_Active') }}"><i class="fas fa-arrow-left mrs"></i>{{ "Retour à la liste de toutes les pages"|trans }}</a>
+    {% endif %}
+    {{ parent() }}
+{% endblock %}

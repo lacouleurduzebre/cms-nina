@@ -47,9 +47,7 @@ class ThemeController extends AbstractController
 
         $themes = $this->listeThemes();
 
-        $entityConfig = ['name' => 'Theme'];
-
-        return $this->render('back/themes/themes.html.twig', array('themesInstalles' => $themes['installes'], 'themesDisponibles' => $themes['disponibles'], '_entity_config' => $entityConfig));
+        return $this->render('back/themes/themes.html.twig', array('themesInstalles' => $themes['installes'], 'themesDisponibles' => $themes['disponibles'], 'jsPartiel' => 'Theme'));
     }
 
     /**

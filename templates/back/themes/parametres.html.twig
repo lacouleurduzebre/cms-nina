@@ -1,9 +1,9 @@
 {% extends 'back/base.html.twig' %}
 {% if form is not empty %}
-    {% form_theme form with easyadmin_config('design.form_theme') %}
+    {% form_theme form with 'back/form/theme.html.twig' %}
 {% endif %}
 
-{% block content %}
+{% block main %}
     <h1>{{ "Paramètres du thème"|trans }} "{{ nom }}"</h1>
     {% if form is not empty %}
         {{ form(form) }}

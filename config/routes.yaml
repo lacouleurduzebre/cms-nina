@@ -42,6 +42,10 @@ controllersBack:
     resource: "../src/Controller/Back"
     type: annotation
 
+admin:
+    resource: "../src/Controller/Admin"
+    type: annotation
+
 SEO:
     resource: "../src/Controller/SEOController.php"
     type: annotation

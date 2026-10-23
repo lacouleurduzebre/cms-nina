@@ -1,0 +1,25 @@
+{% extends '@EasyAdmin/crud/new.html.twig' %}
+
+{% block body_class %}{{ parent() }} new new-{{ entite|lower }}{% endblock %}
+
+{# Actions affichées dans la barre d'actions du formulaire (cf. _formulaire.html.twig) #}
+{% block page_actions %}{% endblock %}
+
+{% block new_form %}
+    {{ include('back/crud/_formulaire.html.twig', { form: new_form }) }}
+{% endblock new_form %}
+
+{% block body_javascript %}
+    {{ parent() }}
+
+    <script type="text/javascript">
+        $(function() {
+            $('.new-form').areYouSure({ 'message': '{{ 'form.are_you_sure'|trans({}, 'EasyAdminBundle')|e('js') }}' });
+        });
+
+        function responsive_filemanager_callback(field_id){
+            $('#'+field_id).val($('#'+field_id).val().replace(window.origin, ''));
+        }
+    </script>
+    <div id="mediatheque"></div>
+{% endblock %}

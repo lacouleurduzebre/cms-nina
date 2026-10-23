@@ -89,13 +89,7 @@ $(document).ready(function() {
 
     //Voir la page
     $('.listeSEO-action-voirPage').click(function(){
-        type = $(this).closest('.listeSEO-SEO').data('entite');
-        if(type === 'categories'){
-            onglet = 6;
-        }else{
-            onglet = 4;
-        }
-        Cookies.set('ongletActif', '_easyadmin_form_design_element_'+onglet+'-tab', { expires: 7 });
+        Cookies.set('ongletActif', 1, { expires: 7 });
     });
 
     //Réinitialisation

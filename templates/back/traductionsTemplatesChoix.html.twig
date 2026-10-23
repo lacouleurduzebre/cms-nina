@@ -1,6 +1,6 @@
 {% extends 'back/base.html.twig' %}
 
-{% block content %}
+{% block main %}
     {% for message in app.session.flashbag.get('tradOK') %}
         <p class="messageY"><i class="fas fa-check"></i>{{ message }}</p>
     {% endfor %}

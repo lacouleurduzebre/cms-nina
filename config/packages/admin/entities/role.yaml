@@ -1,9 +1,0 @@
-easy_admin:
-    entities:
-        role:
-            class: App\Entity\Role
-            controller: App\Controller\Back\AdminController
-            label: 'Rôle'
-            labels: 'Rôles'
-            labelDeterminant: 'un rôle'
-            disabled_actions: ['edit', 'search', 'show', 'list', 'new']

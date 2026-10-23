@@ -118,9 +118,7 @@ class DroitsController extends AbstractController
             $this->addFlash('enregistrement', 'Les droits ont été enregistrés');
         }
 
-        $entityConfig = ['name' => 'Droit'];
-
-        return $this->render('back/droits.html.twig', ['roles' => $roles, 'droits' => $droits, 'formCreationRole' => $formCreationRole->createView(), '_entity_config' => $entityConfig]);
+        return $this->render('back/droits.html.twig', ['roles' => $roles, 'droits' => $droits, 'formCreationRole' => $formCreationRole->createView(), 'jsPartiel' => 'Droit']);
     }
 
     /**

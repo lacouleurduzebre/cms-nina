@@ -33,11 +33,11 @@
     <span class="listeSEO-action-voirPage" title="{{ "Voir la page"|trans }}">
     <a
         {% if seo.page is defined %}
-            href="{{ path('easyadmin', { 'action': 'edit', 'entity': 'Page_Active', 'id' : seo.page.id }) }}" title="{{ "Voir la page"|trans }}"
+            href="{{ admin_url('Page_Active', 'edit', seo.page.id) }}" title="{{ "Voir la page"|trans }}"
         {% elseif seo.categorie is defined %}
-            href="{{ path('easyadmin', { 'action': 'edit', 'entity': 'Categorie', 'id' : seo.categorie.id }) }}" title="{{ "Voir la catégorie"|trans }}"
+            href="{{ admin_url('Categorie', 'edit', seo.categorie.id) }}" title="{{ "Voir la catégorie"|trans }}"
         {% else %}
-            href="{{ path('easyadmin', { 'action': 'edit', 'entity': 'TypeCategorie', 'id' : seo.typeCategorie.id }) }}" title="{{ "Voir le type de catégorie"|trans }}"
+            href="{{ admin_url('TypeCategorie', 'edit', seo.typeCategorie.id) }}" title="{{ "Voir le type de catégorie"|trans }}"
         {% endif %}
         target="_blank" ><i class="fas fa-file-alt"></i></a>
 </span>

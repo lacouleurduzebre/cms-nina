@@ -1,0 +1,4 @@
+{# Image issue de la médiathèque (chemin relatif à la racine du site) #}
+{% if field.value is not empty %}
+    <img src="{{ field.value }}" alt="" style="max-height: 50px; max-width: 100px;">
+{% endif %}

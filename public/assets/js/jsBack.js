@@ -19,16 +19,10 @@ $(document).ready(function(){
     tinymce.init(optionsTinyMCEParagraphe);
     tinymce.init(optionsTinyMCE);
 
-    /* Pop-up pour confirmer une suppression */
-    $('.action-delete').click(function(e){
-        e.preventDefault();
-        $('#modal-delete').css('display', 'flex');
-    });
-
     /* Résolution du problème de textarea vide avec tinymce + enregistrement onglet actif */
     $('.formulaire-actions-enregistrer').click(function(){
-        if($('.nav-tabs li.active').length > 0){
-            Cookies.set('ongletActif', $('.nav-tabs li.active a').attr('id'), { expires: 7 });
+        if($('.nav-tabs .nav-link.active').length > 0){
+            Cookies.set('ongletActif', $('.nav-tabs .nav-link').index($('.nav-tabs .nav-link.active')), { expires: 7 });
         }
         clicEnregistrement = true;
         tinyMCE.triggerSave();
@@ -40,7 +34,7 @@ $(document).ready(function(){
 
     /* Restauration de l'onglet actif */
     if(Cookies.get('ongletActif')){
-        $('#'+Cookies.get('ongletActif')).click();
+        $('.nav-tabs .nav-link').eq(Cookies.get('ongletActif')).each(function(){ this.click(); });
         Cookies.remove('ongletActif');
     }
 
@@ -385,7 +379,7 @@ $(document).ready(function(){
     get = parseURLParams(location.href);
     if(typeof(get) != 'undefined'){
         if(get.activeTab){
-            $('.nav-tabs li:nth-of-type('+get.activeTab[0]+') > a').click();
+            $('.nav-tabs li:nth-of-type('+get.activeTab[0]+') > a').each(function(){ this.click(); });
         }
     }
 

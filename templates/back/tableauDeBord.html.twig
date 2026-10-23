@@ -1,6 +1,6 @@
 {% extends 'back/base.html.twig' %}
 
-{% block content %}
+{% block main %}
     <div id="tdb">
         <h1>{{ "Tableau de bord - Bienvenue "|trans~app.user.username }}</h1>
         {% if version is not empty %}
@@ -74,7 +74,7 @@
             <tbody>
             {% for commentaire in contenuBloc %}
                 <tr>
-                    <td><a href="{{ path('easyadmin', { action: 'edit', entity: 'Page_Active', id: commentaire.page.id}) }}">{{ commentaire.page.titre }}</a></td>
+                    <td><a href="{{ admin_url('Page_Active', 'edit', commentaire.page.id) }}">{{ commentaire.page.titre }}</a></td>
                     <td>{{ commentaire.auteur }}</td>
                     <td>{{ commentaire.date|date("d/m/Y") }}</td>
                 </tr>
@@ -92,7 +92,7 @@
         <ul>
             {% for page in contenuBloc %}
                 <li>
-                    <a href="{{ path('easyadmin', { 'action': 'edit', 'entity': 'Page_Active', 'id': page.id }) }}">{{ page.titre }}</a> publiée le {{ page.datePublication|date("d/m/Y") }} / {{ page.auteurDerniereModification|default('compte supprimé') }}
+                    <a href="{{ admin_url('Page_Active', 'edit', page.id) }}">{{ page.titre }}</a> publiée le {{ page.datePublication|date("d/m/Y") }} / {{ page.auteurDerniereModification|default('compte supprimé') }}
                 </li>
             {% endfor %}
         </ul>
@@ -109,7 +109,7 @@
                 {% else %}
                     <i id="header-sansImageProfil" class="fas fa-user-circle"></i>
                 {% endif %}
-                <a href="{{ path('easyadmin', { 'action': 'edit', 'entity': 'Utilisateur', 'id': user.id }) }}">{{ user.username }}</a>
+                <a href="{{ admin_url('Utilisateur', 'edit', user.id) }}">{{ user.username }}</a>
                 {% if user.lastLogin %}
                     {% trans %}dernière connexion le{% endtrans %} {{ user.lastLogin|date('d/m/Y') }}
                 {% else %}
@@ -158,7 +158,7 @@
         <ul>
             {% for page in contenuBloc %}
                 <li>
-                    <a href="{{ path('easyadmin', { 'action': 'edit', 'entity': 'Page_Active', 'id': page.id }) }}">{{ page.titre }}</a> publiée le {{ page.datePublication|date("d/m/Y") }} / {{ page.auteurDerniereModification|default('compte supprimé') }}
+                    <a href="{{ admin_url('Page_Active', 'edit', page.id) }}">{{ page.titre }}</a> publiée le {{ page.datePublication|date("d/m/Y") }} / {{ page.auteurDerniereModification|default('compte supprimé') }}
                 </li>
             {% endfor %}
         </ul>

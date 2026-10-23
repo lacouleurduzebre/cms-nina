@@ -1,0 +1,43 @@
+{% extends '@EasyAdmin/crud/edit.html.twig' %}
+
+{% block body_class %}{{ parent() }} edit edit-{{ entite|lower }}{% endblock %}
+
+{# Actions affichées dans la barre d'actions du formulaire (cf. _formulaire.html.twig) #}
+{% block page_actions %}{% endblock %}
+
+{% block edit_form %}
+    {{ include('back/crud/_formulaire.html.twig', { form: edit_form }) }}
+{% endblock edit_form %}
+
+{% block body_javascript %}
+    {{ parent() }}
+
+    <script type="text/javascript">
+        $.fn.serializeObject = function()
+        {
+            var o = {};
+            var a = this.serializeArray();
+            $.each(a, function() {
+                if (o[this.name] !== undefined) {
+                    if (!o[this.name].push) {
+                        o[this.name] = [o[this.name]];
+                    }
+                    o[this.name].push(this.value || '');
+                } else {
+                    o[this.name] = this.value || '';
+                }
+            });
+            return o;
+        };
+
+        $(function() {
+            $('.edit-form').areYouSure({ 'message': '{{ 'form.are_you_sure'|trans({}, 'EasyAdminBundle')|e('js') }}' });
+        });
+
+        function responsive_filemanager_callback(field_id){
+            $('#'+field_id).val($('#'+field_id).val().replace(window.origin, ''));
+        }
+    </script>
+    <div id="mediatheque"></div>
+    <div id="conteneurApercu"></div>
+{% endblock %}

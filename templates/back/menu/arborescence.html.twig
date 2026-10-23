@@ -10,8 +10,8 @@
 <div class="sidebar-menus{% if langues|length == 1 %} langueUnique{% endif %}">
     <div class="arbo-langues{% if langues|length == 1 %} hidden{% endif %}">
         {% for langue in langues %}
-            <span {% if langueArbo == langue %}class="current"{% endif %}>
-                <a class="{{ langue.id }}" href="{{ path('easyadmin', { 'action': 'search', 'entity': 'Page_Active', 'query': langue.nom}) }}">{{ langue.abreviation|upper }}</a>
+            <span {% if langueArbo.id == langue.id %}class="current"{% endif %}>
+                <a class="{{ langue.id }}" href="{{ admin_url('Page_Active', 'search', null, { 'query': langue.nom }) }}">{{ langue.abreviation|upper }}</a>
             </span>
         {% endfor %}
     </div>
