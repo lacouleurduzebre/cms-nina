@@ -16,6 +16,10 @@ use Twig\TwigFunction;
 
 class MenuTwig extends AbstractExtension
 {
+    private $cache;
+    private $doctrine;
+    private $twig;
+
     public function __construct(ManagerRegistry $doctrine, Environment $twig, CacheInterface $cache)
     {
         $this->doctrine = $doctrine;

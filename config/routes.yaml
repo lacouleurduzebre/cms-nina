@@ -46,6 +46,13 @@ admin:
     resource: "../src/Controller/Admin"
     type: annotation
 
+#EasyAdmin (pretty URLs) : routes du tableau de bord et des CRUD (/admin/page/1/edit...).
+#Après les contrôleurs du back-office, pour que leurs routes sous /admin (ex : /admin/menu/enregistrer) restent
+#prioritaires sur les routes génériques des CRUD (ex : /admin/menu/{entityId}), et avant les routes du front (ex : /{url})
+easyadmin_routes:
+    resource: .
+    type: easyadmin.routes
+
 SEO:
     resource: "../src/Controller/SEOController.php"
     type: annotation

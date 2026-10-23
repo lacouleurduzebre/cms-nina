@@ -13,6 +13,8 @@ use Doctrine\Persistence\ManagerRegistry;
 
 class Configuration
 {
+    private $doctrine;
+
     public function __construct(ManagerRegistry $doctrine){
         $this->doctrine = $doctrine;
     }

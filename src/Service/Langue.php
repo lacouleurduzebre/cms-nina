@@ -15,6 +15,9 @@ use Symfony\Component\Routing\RouterInterface;
 
 class Langue
 {
+    private $doctrine;
+    private $router;
+
     public function __construct(ManagerRegistry $doctrine, RouterInterface $router)
     {
         $this->doctrine = $doctrine;

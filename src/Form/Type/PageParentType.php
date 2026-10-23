@@ -19,6 +19,8 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class PageParentType extends AbstractType
 {
+    private $em;
+
     public function __construct(EntityManagerInterface $em)
     {
         $this->em = $em;

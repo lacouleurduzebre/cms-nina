@@ -15,6 +15,8 @@ use Twig\TwigFunction;
 
 class Assets extends AbstractExtension
 {
+    private $doctrine;
+
     public function __construct(ManagerRegistry $doctrine)
     {
         $this->doctrine = $doctrine;

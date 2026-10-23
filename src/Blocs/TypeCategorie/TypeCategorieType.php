@@ -20,6 +20,8 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class TypeCategorieType extends AbstractType
 {
+    private $em;
+
     public function __construct(EntityManagerInterface $em)
     {
         $this->em = $em;

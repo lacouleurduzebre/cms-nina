@@ -18,6 +18,9 @@ use Symfony\Component\Security\Core\Security;
 
 class Langue implements EventSubscriberInterface
 {
+    private $doctrine;
+    private $security;
+
     public function __construct(Security $security, ManagerRegistry $doctrine)
     {
         $this->doctrine = $doctrine;

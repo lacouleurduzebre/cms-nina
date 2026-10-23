@@ -3,6 +3,10 @@
 namespace App\Controller\Admin;
 
 use App\Admin\Field\Champ;
+use App\Controller\Admin\Action\ActionActiver;
+use App\Controller\Admin\Action\ActionCorbeille;
+use App\Controller\Admin\Action\ActionDupliquer;
+use App\Controller\Admin\Action\ActionVoir;
 use App\Entity\Categorie;
 use App\Entity\Configuration;
 use App\Entity\Langue;
@@ -31,6 +35,11 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 class PageCrudController extends BaseCrudController
 {
+    use ActionActiver;
+    use ActionCorbeille;
+    use ActionDupliquer;
+    use ActionVoir;
+
     public const ENTITE = 'Page_Active';
     protected const CHAMPS_THEME_CMS = ['blocs', 'blocsAnnexes', 'SEO', 'auteur', 'commentaires'];
     protected const AVEC_BLOCS = true;

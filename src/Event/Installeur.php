@@ -19,6 +19,8 @@ use Symfony\Component\HttpKernel\KernelEvents;
 
 class Installeur implements EventSubscriberInterface
 {
+    private $cache;
+    private $doctrine;
     private $installeurActive;
 
     public function __construct(ManagerRegistry $doctrine, CacheInterface $cache, $installeurActive)

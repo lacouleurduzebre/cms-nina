@@ -22,6 +22,8 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class GalerieImageType extends AbstractType
 {
+    private $em;
+
     public function __construct(EntityManagerInterface $em)
     {
         $this->em = $em;

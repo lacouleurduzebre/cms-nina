@@ -21,6 +21,8 @@ use Twig\Extension\GlobalsInterface;
 
 class Globals extends AbstractExtension implements GlobalsInterface
 {
+    private $request;
+    private $servicePage;
     private $doctrine;
 
     public function __construct(ManagerRegistry $doctrine, Page $page, RequestStack $request)

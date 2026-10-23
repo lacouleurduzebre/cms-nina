@@ -17,6 +17,11 @@ use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 
 class Droits
 {
+    private $authorizationChecker;
+    private $doctrine;
+    private $request;
+    private $token;
+
     public function __construct(RequestStack $request, ManagerRegistry $doctrine, TokenStorageInterface $token, AuthorizationCheckerInterface $authorizationChecker)
     {
         $this->request = $request;

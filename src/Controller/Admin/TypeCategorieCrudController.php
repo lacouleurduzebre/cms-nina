@@ -3,6 +3,7 @@
 namespace App\Controller\Admin;
 
 use App\Admin\Field\Champ;
+use App\Controller\Admin\Action\ActionVoir;
 use App\Entity\TypeCategorie;
 use App\Form\Type\SEOTypeCategorieType;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
@@ -11,6 +12,8 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 
 class TypeCategorieCrudController extends BaseCrudController
 {
+    use ActionVoir;
+
     public const ENTITE = 'TypeCategorie';
     protected const CHAMPS_THEME_CMS = ['SEO'];
 

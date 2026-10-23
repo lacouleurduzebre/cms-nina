@@ -13,6 +13,8 @@ use Twig\Environment;
 
 class Pagination
 {
+    private $twig;
+
     public function __construct(Environment $twig)
     {
         $this->twig = $twig;

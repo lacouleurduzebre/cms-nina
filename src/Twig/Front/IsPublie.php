@@ -16,6 +16,8 @@ use Twig\TwigFunction;
 
 class IsPublie extends AbstractExtension
 {
+    private $twig;
+
     public function __construct(Environment $twig)
     {
         $this->twig = $twig;

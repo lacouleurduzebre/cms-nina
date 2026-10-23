@@ -58,7 +58,7 @@ class AdminUrl
 
     public static function existe(?string $entite): bool
     {
-        return isset(self::CRUDS[$entite]);
+        return null !== $entite && isset(self::CRUDS[$entite]);
     }
 
     public function crud(string $entite, string $action = Action::INDEX, $id = null, array $parametres = []): string
@@ -69,7 +69,6 @@ class AdminUrl
 
         $url = $this->adminUrlGenerator
             ->unsetAll()
-            ->addSignature(false)
             ->setController(self::CRUDS[$entite])
             ->setAction(self::ACTIONS[$action] ?? $action);
 
@@ -87,7 +86,7 @@ class AdminUrl
     //Page du back-office hors CRUD (tableau de bord, droits, thèmes...) affichée dans le layout d'EasyAdmin
     public function route(string $route, array $parametresRoute = [], array $query = []): string
     {
-        $url = $this->adminUrlGenerator->unsetAll()->addSignature(false)->setRoute($route, $parametresRoute);
+        $url = $this->adminUrlGenerator->unsetAll()->setRoute($route, $parametresRoute);
         foreach ($query as $nom => $valeur) {
             $url->set($nom, $valeur);
         }
@@ -97,7 +96,7 @@ class AdminUrl
 
     public function tableauDeBord(): string
     {
-        return $this->adminUrlGenerator->unsetAll()->addSignature(false)->generateUrl();
+        return $this->adminUrlGenerator->unsetAll()->generateUrl();
     }
 
     //Ancienne URL d'EasyAdmin 2 (/admin/?entity=Page_Active&action=edit&id=1) : URL équivalente d'EasyAdmin 3, ou null

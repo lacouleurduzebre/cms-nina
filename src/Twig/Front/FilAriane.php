@@ -18,6 +18,9 @@ use Twig\TwigFunction;
 
 class FilAriane extends AbstractExtension
 {
+    private $doctrine;
+    private $twig;
+
     public function __construct(ManagerRegistry $doctrine, Environment $twig)
     {
         $this->doctrine = $doctrine;

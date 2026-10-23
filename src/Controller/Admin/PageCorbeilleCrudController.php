@@ -2,6 +2,7 @@
 
 namespace App\Controller\Admin;
 
+use App\Controller\Admin\Action\ActionCorbeille;
 use App\Entity\Page;
 use Doctrine\ORM\QueryBuilder;
 use EasyCorp\Bundle\EasyAdminBundle\Collection\FieldCollection;
@@ -17,6 +18,8 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 
 class PageCorbeilleCrudController extends BaseCrudController
 {
+    use ActionCorbeille;
+
     public const ENTITE = 'Page_Corbeille';
 
     public static function getEntityFqcn(): string

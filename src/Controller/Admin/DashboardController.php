@@ -9,6 +9,7 @@ use App\Entity\Utilisateur;
 use App\Service\AdminUrl;
 use App\Service\MenuAdmin;
 use Doctrine\Persistence\ManagerRegistry;
+use EasyCorp\Bundle\EasyAdminBundle\Attribute\AdminDashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Assets;
@@ -22,6 +23,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\User\UserInterface;
 
+#[AdminDashboard(routePath: '/admin', routeName: 'admin')]
 class DashboardController extends AbstractDashboardController
 {
     private $doctrine;
@@ -35,10 +37,7 @@ class DashboardController extends AbstractDashboardController
         $this->adminUrl = $adminUrl;
     }
 
-    /**
-     * Tableau de bord
-     * @Route("/admin", name="admin")
-     */
+    //Tableau de bord (route "admin" définie par #[AdminDashboard])
     public function index(): Response
     {
         $request = $this->container->get('request_stack')->getCurrentRequest();
@@ -214,9 +213,7 @@ class DashboardController extends AbstractDashboardController
         return Dashboard::new()
             ->setTitle('<img src="/assets/img/logoNinaBlanc.png" alt="CMS Nina 3">')
             ->setFaviconPath('assets/img/favicon.ico')
-            ->setTranslationDomain('messages')
-            //Les URL d'administration sont aussi construites par le JS (arborescence, blocs...)
-            ->disableUrlSignatures();
+            ->setTranslationDomain('messages');
     }
 
     public function configureMenuItems(): iterable

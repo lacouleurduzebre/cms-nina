@@ -23,6 +23,8 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class SlideType extends AbstractType
 {
+    private $em;
+
     public function __construct(EntityManagerInterface $em)
     {
         $this->em = $em;

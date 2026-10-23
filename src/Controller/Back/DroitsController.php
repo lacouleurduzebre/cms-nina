@@ -62,6 +62,10 @@ class DroitsController extends AbstractController
         $formCreationRole->get('nom')
             ->addModelTransformer(new CallbackTransformer(
                 function ($role) {
+                    if (null === $role) {
+                        return null;
+                    }
+
                     return substr($role, 5, strlen($role));
                 },
                 function ($role) {

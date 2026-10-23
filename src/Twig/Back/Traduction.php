@@ -18,6 +18,10 @@ use Twig\TwigFunction;
 
 class Traduction extends AbstractExtension
 {
+    private $doctrine;
+    private $request;
+    private $twig;
+
     public function __construct(ManagerRegistry $doctrine, RequestStack $requestStack, Environment $twig)
     {
         $this->doctrine = $doctrine;

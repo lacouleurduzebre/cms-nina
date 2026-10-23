@@ -3,6 +3,7 @@
 namespace App\Controller\Admin;
 
 use App\Admin\Field\Champ;
+use App\Controller\Admin\Action\ActionCorbeille;
 use App\Entity\Commentaire;
 use App\Entity\Page;
 use Doctrine\ORM\QueryBuilder;
@@ -21,6 +22,8 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 class CommentaireCrudController extends BaseCrudController
 {
+    use ActionCorbeille;
+
     public const ENTITE = 'Commentaire_Actif';
     protected const CORBEILLE = false;
 

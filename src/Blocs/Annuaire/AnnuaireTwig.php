@@ -17,6 +17,9 @@ use Twig\TwigFunction;
 
 class AnnuaireTwig extends AbstractExtension
 {
+    private $doctrine;
+    private $pagination;
+
     public function __construct(ManagerRegistry $doctrine, Pagination $pagination)
     {
         $this->doctrine = $doctrine;

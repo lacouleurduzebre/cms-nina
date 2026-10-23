@@ -19,6 +19,7 @@ use Symfony\Component\HttpKernel\KernelEvents;
 
 class AccesBO implements EventSubscriberInterface
 {
+    private $doctrine;
     private $droits;
 
     public function __construct(Droits $droits, ManagerRegistry $doctrine)

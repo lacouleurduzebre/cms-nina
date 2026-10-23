@@ -19,6 +19,11 @@ use Symfony\Component\Routing\RouterInterface;
 
 class Page
 {
+    private $doctrine;
+    private $request;
+    private $router;
+    private $sDroits;
+
     public function __construct(ManagerRegistry $doctrine, RequestStack $request, RouterInterface $router, Droits $sDroits)
     {
         $this->doctrine = $doctrine;

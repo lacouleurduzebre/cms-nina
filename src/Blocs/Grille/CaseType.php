@@ -24,6 +24,8 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class CaseType extends AbstractType
 {
+    private $em;
+
     public function __construct(EntityManagerInterface $em)
     {
         $this->em = $em;

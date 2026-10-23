@@ -20,14 +20,14 @@
         "email": "contact@cms-nina.fr"
     },
     "require": {
-        "php": "^7.4",
+        "php": ">=8.2",
         "ext-iconv": "*",
         "doctrine/annotations": "^1.0",
         "doctrine/dbal": "^2.13",
         "doctrine/doctrine-bundle": "^2.7",
         "doctrine/doctrine-migrations-bundle": "^2.2",
         "doctrine/orm": "^2.20",
-        "easycorp/easyadmin-bundle": "^3.5",
+        "easycorp/easyadmin-bundle": "^4.0",
         "friendsofsymfony/jsrouting-bundle": "^2.2",
         "friendsofsymfony/user-bundle": "^3.4",
         "mpdf/mpdf": "^8.0",
@@ -73,20 +73,12 @@
             "*": "dist"
         },
         "sort-packages": true,
-        "policy": {
-            "advisories": {
-                "ignore": {
-                    "twig/twig": {
-                        "constraint": "3.11.*",
-                        "reason": "Dernière version compatible PHP 7.4, conservée le temps de la migration vers Symfony 8",
-                        "on-audit": false
-                    }
-                }
-            }
-        },
         "allow-plugins": {
             "symfony/flex": true,
             "composer/package-versions-deprecated": true
+        },
+        "platform": {
+            "php": "8.2.0"
         }
     },
     "autoload": {

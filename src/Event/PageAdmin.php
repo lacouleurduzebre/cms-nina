@@ -21,6 +21,9 @@ use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInt
 
 class PageAdmin implements EventSubscriberInterface
 {
+    private $doctrine;
+    private $tokenStorage;
+
     public function __construct(ManagerRegistry $doctrine, TokenStorageInterface $tokenStorage)
     {
         $this->doctrine = $doctrine;

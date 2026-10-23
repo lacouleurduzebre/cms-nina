@@ -4,11 +4,7 @@ namespace App\Controller\Admin;
 
 use App\Admin\Field\Champ;
 use App\Entity\BlocAnnexe;
-use App\Entity\Categorie;
-use App\Entity\MenuPage;
 use App\Entity\Page;
-use App\Entity\SEOPage;
-use App\Entity\TypeCategorie;
 use App\Service\AdminUrl;
 use App\Service\Droits;
 use Doctrine\ORM\EntityManagerInterface;
@@ -26,7 +22,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Event\BeforeEntityPersistedEvent;
 use EasyCorp\Bundle\EasyAdminBundle\Event\BeforeEntityUpdatedEvent;
 use EasyCorp\Bundle\EasyAdminBundle\Exception\ForbiddenActionException;
 use EasyCorp\Bundle\EasyAdminBundle\Exception\InsufficientEntityPermissionException;
-use EasyCorp\Bundle\EasyAdminBundle\Factory\EntityFactory;
+use EasyCorp\Bundle\EasyAdminBundle\Factory\FieldFactory;
 use EasyCorp\Bundle\EasyAdminBundle\Field\FormField;
 use EasyCorp\Bundle\EasyAdminBundle\Form\Type\CrudFormType;
 use EasyCorp\Bundle\EasyAdminBundle\Security\Permission;
@@ -35,7 +31,6 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\Yaml\Yaml;
 
@@ -273,7 +268,7 @@ abstract class BaseCrudController extends AbstractCrudController
 
     private function formulaireSoumis(AdminContext $context, string $page): FormInterface
     {
-        $this->container->get(EntityFactory::class)->processFields($context->getEntity(), FieldCollection::new($this->configureFields($page)));
+        $this->container->get(FieldFactory::class)->processFields($context->getEntity(), FieldCollection::new($this->configureFields($page)), $page);
 
         $form = Crud::PAGE_EDIT === $page
             ? $this->createEditForm($context->getEntity(), $context->getCrud()->getEditFormOptions(), $context)
@@ -360,178 +355,11 @@ abstract class BaseCrudController extends AbstractCrudController
 
     protected function groupe(string $label, ?string $icone = null, ?string $aide = null, string $cssClass = ''): FormField
     {
-        $groupe = FormField::addPanel($label, $icone ? 'fas fa-'.$icone : null);
+        $groupe = FormField::addFieldset($label, $icone ? 'fas fa-'.$icone : null);
         if ($aide) {
             $groupe->setHelp($aide);
         }
 
         return $cssClass ? $groupe->setCssClass($cssClass) : $groupe;
-    }
-
-    /* Actions personnalisées */
-
-    public function corbeille(AdminContext $context)
-    {
-        $entity = $context->getEntity()->getInstance();
-        $em = $this->em();
-
-        if($entity->getCorbeille()){
-            $entity->setCorbeille(false);
-
-            if($entity instanceof Page){
-                $menuPage = new MenuPage();
-                $menuPage->setPage($entity)->setPosition(0);
-                $em->persist($menuPage);
-                $em->flush();
-            }
-
-            //Message flash
-            $this->addFlash( 'success',
-                'L\'élément a été restauré.'
-            );
-        }else{
-            $entity->setCorbeille(true);
-
-            if($entity instanceof Page){
-                $repoMenuPage = $em->getRepository(MenuPage::class);
-                $menuPages = $repoMenuPage->findBy(array('page' => $entity));
-
-                foreach($menuPages as $menuPage){
-                    $em->remove($menuPage);
-
-                    //Si la page était parent d'une autre, on remonte ses enfants à la racine du menu
-                    $menuPagesOrphelines = $repoMenuPage->findBy(array('parent' => $menuPage));
-                    foreach($menuPagesOrphelines as $menuPage){
-                        $menuPage->setParent(null);
-                    }
-
-                    //Si la page était la page d'accueil, la langue de la page n'a plus de page d'accueil
-                    $langue = $menuPage->getPage()->getLangue();
-                    if($langue->getPageAccueil() == $menuPage->getPage()){
-                        $langue->setPageAccueil(null);
-                    }
-                }
-
-                $em->flush();
-            }
-
-            //Message flash
-            $url = $this->adminUrl->crud(static::ENTITE, 'corbeille', $entity->getId());
-            $this->addFlash( 'success',
-                sprintf('L\'élément a été mis à la corbeille. <a href="%s">Annuler</a>', $url)
-            );
-        }
-        $em->flush();
-
-        if(!$context->getRequest()->isXmlHttpRequest()){
-            return $this->redirect($this->adminUrl->crud(static::ENTITE));
-        }
-
-        return new Response('ok');
-    }
-
-    public function dupliquer(AdminContext $context)
-    {
-        $em = $this->em();
-        $pageOriginale = $context->getEntity()->getInstance();
-
-        $nouvellePage = clone $pageOriginale;
-
-        //SEO
-        $ancienSEO = $pageOriginale->getSEO();
-        $nouveauSEO = clone $ancienSEO;
-        $nouvellePage->setSEO($nouveauSEO);
-            //Vérif url
-        $repoSEO = $em->getRepository(SEOPage::class);
-        $url = $nouvellePage->getSEO()->getUrl().'-copie';
-        while($repoSEO->findOneBy(array('url' => $url))){
-            $url = $url.'-copie';
-        }
-        if(strlen($url) > 190){//Nouvelle url trop longue -> erreur, on arrête la duplication
-            $this->addFlash('-danger', "L'url du nouveau contenu serait trop longue, réduisez la longueur de l'url du contenu que vous souhaitez dupliquer");
-            return $this->redirect($context->getReferrer() ?? $this->adminUrl->crud(static::ENTITE, Action::EDIT, $pageOriginale->getId()));
-        }
-        $nouvellePage->getSEO()->setUrl($url);
-        $em->persist($nouveauSEO);
-
-        //Menu page
-        $menuPage = new MenuPage();
-        $menuPage->setPage($nouvellePage)->setPosition(0);
-        $em->persist($menuPage);
-
-        //Blocs
-        $blocs = $pageOriginale->getBlocs();
-        foreach($blocs as $ancienBloc){
-            $nouveauBloc = clone $ancienBloc;
-            $nouvellePage->addBloc($nouveauBloc);
-            $em->persist($nouveauBloc);
-
-            if($nouveauBloc->getType() == 'Section'){
-                $this->duplicationBlocsEnfants($nouveauBloc);
-            }
-        }
-
-        $em->persist($nouvellePage);
-        $em->flush();
-
-        return $this->redirect($this->adminUrl->crud('Page_Active', Action::EDIT, $nouvellePage->getId()));
-    }
-
-    private function duplicationBlocsEnfants($bloc){
-        $blocsEnfants = $bloc->getBlocsEnfants();
-        foreach($blocsEnfants as $blocEnfant){
-            $nouveauBlocEnfant = clone $blocEnfant;
-            $nouveauBlocEnfant->setBlocParent($bloc);
-            $this->em()->persist($nouveauBlocEnfant);
-
-            if($nouveauBlocEnfant->getType() == 'Section'){
-                $this->duplicationBlocsEnfants($nouveauBlocEnfant);
-            }
-        }
-    }
-
-    public function voir(AdminContext $context)
-    {
-        $entity = $context->getEntity()->getInstance();
-
-        if($entity instanceof Categorie){
-            $urlCategorie = $entity->getSEO()->getUrl();
-            $urlTypeCategorie = $entity->getTypeCategorie()->getSEO()->getUrl();
-            return $this->redirectToRoute('voirCategorie', array('urlTypeCategorie' => $urlTypeCategorie, 'urlCategorie' => $urlCategorie));
-        }
-        else if($entity instanceof TypeCategorie){
-            $urlTypeCategorie = $entity->getSEO()->getUrl();
-            return $this->redirectToRoute('voirTypeCategorie', array('urlTypeCategorie' => $urlTypeCategorie));
-        }else{
-            $url = $entity->getSeo()->getUrl();
-            $locale = $entity->getLangue()->getAbreviation();
-            return $this->redirectToRoute('voirPageLocale', array('_locale' => $locale, 'url' => $url));
-        }
-    }
-
-    public function activer(AdminContext $context)
-    {
-        $page = $context->getEntity()->getInstance();
-
-        $activation = $page->getActive();
-        if($activation){
-            $this->addFlash( 'success',
-                'La page a été désactivée.'
-            );
-        }else{
-            $this->addFlash( 'success',
-                'La page a été activée.'
-            );
-        }
-        $page->setActive(!$activation);
-        $this->em()->persist($page);
-        $this->em()->flush();
-
-        return $this->redirect($this->adminUrl->crud('Page_Active', Action::EDIT, $page->getId()));
-    }
-
-    public function voirPages(AdminContext $context)
-    {
-        return $this->redirect($this->adminUrl->crud('Page_Active', Action::INDEX, null, ['categorie' => $context->getEntity()->getPrimaryKeyValue()]));
     }
 }

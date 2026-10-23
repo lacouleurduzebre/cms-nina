@@ -3,6 +3,8 @@
 namespace App\Controller\Admin;
 
 use App\Admin\Field\Champ;
+use App\Controller\Admin\Action\ActionVoir;
+use App\Controller\Admin\Action\ActionVoirPages;
 use App\Entity\Categorie;
 use App\Form\Type\SEOCategorieType;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
@@ -13,6 +15,9 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
 class CategorieCrudController extends BaseCrudController
 {
+    use ActionVoir;
+    use ActionVoirPages;
+
     public const ENTITE = 'Categorie';
     protected const CHAMPS_THEME_CMS = ['SEO'];
 
