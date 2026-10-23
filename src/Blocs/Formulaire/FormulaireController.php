@@ -31,8 +31,8 @@ class FormulaireController extends AbstractController
     #[Route(path: '/envoiMail', name: 'envoiMail')]
     public function envoiMailAction(Request $request, MailerInterface $mailer){
         if($request->isXmlHttpRequest()){
-            $donnees = $request->get('donnees');
-            $idBloc = $request->get('idBloc');
+            $donnees = $request->request->all('donnees');
+            $idBloc = $request->request->get('idBloc');
 
             //Antispam
             $mielValeur = array_values(array_filter($donnees, function($ar) {

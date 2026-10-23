@@ -23,10 +23,10 @@
             <a class="pageFiche-navigation--retourListe" href="{{ lienPage(liste) }}">{{ "Retour à la liste"|trans }}</a>
             <div class="flex-container">
                 {% if fichePrecedente %}
-                    <a class="mrauto" href="{% if langues|length > 1 %}/{{ langueActive.abreviation }}{% endif %}/fiche/{{ fichePrecedente.NOM|replace({' ':'-'}) }}/{{ fichePrecedente.PRODUIT }}/{{ app.request.get('idBloc') }}">< {{ fichePrecedente.NOM }}</a>
+                    <a class="mrauto" href="{% if langues|length > 1 %}/{{ langueActive.abreviation }}{% endif %}/fiche/{{ fichePrecedente.NOM|replace({' ':'-'}) }}/{{ fichePrecedente.PRODUIT }}/{{ app.request.attributes.get('idBloc') }}">< {{ fichePrecedente.NOM }}</a>
                 {% endif %}
                 {% if ficheSuivante %}
-                    <a class="mlauto" href="{% if langues|length > 1 %}/{{ langueActive.abreviation }}{% endif %}/fiche/{{ ficheSuivante.NOM|replace({' ':'-'}) }}/{{ ficheSuivante.PRODUIT }}/{{ app.request.get('idBloc') }}">{{ ficheSuivante.NOM }} ></a>
+                    <a class="mlauto" href="{% if langues|length > 1 %}/{{ langueActive.abreviation }}{% endif %}/fiche/{{ ficheSuivante.NOM|replace({' ':'-'}) }}/{{ ficheSuivante.PRODUIT }}/{{ app.request.attributes.get('idBloc') }}">{{ ficheSuivante.NOM }} ></a>
                 {% endif %}
             </div>
         </div>

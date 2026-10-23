@@ -166,7 +166,7 @@ class Commentaire
      *
      * @return Commentaire
      */
-    public function setPage(\App\Entity\Page $page = null)
+    public function setPage(?\App\Entity\Page $page = null)
     {
         $this->page = $page;
 

@@ -132,8 +132,8 @@ class TraductionController extends AbstractController
         //Enregistrement via ajax
         if($request->isXmlHttpRequest()){
             $dossier = $this->getDossierByDomaine($app, $domaine);
-            $fichier = $request->get('fichier');
-            $segments = $request->get('segments');
+            $fichier = $request->request->get('fichier');
+            $segments = $request->request->all('segments');
 
             $document = simplexml_load_file($dossier.'/'.$fichier.'.'.strtolower($abreviation).'.xlf');
             $document->registerXPathNamespace('u', 'urn:oasis:names:tc:xliff:document:2.0');

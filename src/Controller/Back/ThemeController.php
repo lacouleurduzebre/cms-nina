@@ -51,7 +51,7 @@ class ThemeController extends AbstractController
     #[Route(path: '/theme/changer', name: 'changerTheme')]
     public function changerThemeAction(Request $request, Filesystem $filesystem){
         if($request->isXmlHttpRequest()){
-            $theme = $request->get('theme');
+            $theme = $request->request->get('theme');
 
             //Enregistrement du thème en bdd
             $em=$this->doctrine->getManager();
@@ -75,8 +75,8 @@ class ThemeController extends AbstractController
     #[Route(path: '/theme/installer', name: 'installerTheme')]
     public function installerThemeAction(Request $request, Filesystem $filesystem){
         if($request->isXmlHttpRequest()){
-            $lien = $request->get('lien');
-            $theme = $request->get('nom');
+            $lien = $request->request->get('lien');
+            $theme = $request->request->get('nom');
 
             if(ThemeController::installationTheme($theme, $lien, $filesystem)){
                 return new Response('ok');
@@ -89,7 +89,7 @@ class ThemeController extends AbstractController
     #[Route(path: '/theme/desinstaller', name: 'desinstallerTheme')]
     public function desinstallerThemeAction(Request $request, Filesystem $filesystem){
         if($request->isXmlHttpRequest()){
-            $nom = $request->get('nom');
+            $nom = $request->request->get('nom');
 
             if(strpos(php_uname('s'), 'Win') !== false){
                 exec('echo %cd%', $pwd);

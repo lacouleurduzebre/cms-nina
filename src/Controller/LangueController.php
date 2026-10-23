@@ -48,7 +48,7 @@ class LangueController extends AbstractController
         $nvlocale = $nvLangue->getAbreviation();
         $request->getSession()->set('_locale', $nvlocale);
 
-        $url = $request->get('url');
+        $url = $request->query->get('url');
 
         if($url != null){
             $repoSEO = $this->doctrine->getRepository(SEOPage::class);

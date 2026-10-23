@@ -59,9 +59,9 @@ class SEOController extends AbstractController
         if($request->isXmlHttpRequest()){
             $em = $this->doctrine->getManager();
 
-            $id = $request->get('id');
-            $type = $request->get('type');
-            $donnees = $request->get('donnees');
+            $id = $request->request->get('id');
+            $type = $request->request->get('type');
+            $donnees = $request->request->all('donnees');
 
             $SEO = $this->getSEO($type, $id);
 
@@ -96,8 +96,8 @@ class SEOController extends AbstractController
         if($request->isXmlHttpRequest()){
             $em = $this->doctrine->getManager();
 
-            $id = $request->get('id');
-            $type = $request->get('type');
+            $id = $request->request->get('id');
+            $type = $request->request->get('type');
 
             $SEO = $this->getSEO($type, $id);
 

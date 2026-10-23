@@ -1,4 +1,4 @@
-{% set recherche = app.request.get('recherche') is not empty ? '&recherche='~app.request.get('recherche')|replace({' ': '+'}) : '' %}
+{% set recherche = app.request.query.get('recherche') is not empty ? '&recherche='~app.request.query.get('recherche')|replace({' ': '+'}) : '' %}
 
 <ul class="unstyled flex-container">
     {# Lien première page - texte #}

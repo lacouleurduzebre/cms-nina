@@ -3,8 +3,8 @@
         <ul class="flex-container menuLangues">
             {% for langue in langues %}
                 <li {% if app.request.locale == langue.abreviation %}class="active"{% endif %}>
-                    {% if app.request.get('url') is defined %}
-                        <a href="{{ path('changerLangue', {'id':langue.id, 'url':app.request.get('url')}) }}">{{ langue.abreviation|upper }}</a>
+                    {% if app.request.attributes.get('url') is defined %}
+                        <a href="{{ path('changerLangue', {'id':langue.id, 'url':app.request.attributes.get('url')}) }}">{{ langue.abreviation|upper }}</a>
                     {% else %}
                         <a href="{{ path('changerLangue', {'id':langue.id}) }}">{{ langue.abreviation|upper }}</a>
                     {% endif %}

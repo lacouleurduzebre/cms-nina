@@ -107,8 +107,8 @@ class SauvegardeController extends AbstractController
     #[Route(path: '/sauvegarde/supprimerDumps', name: 'supprimerDumps')]
     public function supprimerDumpsAction(Request $request){
         if($request->isXmlHttpRequest()){
-            $type = $request->get('type');
-            $fichier = $request->get('fichier');
+            $type = $request->request->get('type');
+            $fichier = $request->request->get('fichier');
 
             if($type == 'bdd'){
                 array_map('unlink', glob("../sauvegardes/bdd/".$fichier));
@@ -150,8 +150,8 @@ class SauvegardeController extends AbstractController
             throw new AccessDeniedHttpException("Vous n'êtes pas autorisé à accéder à cette page");
         }
 
-        $type = $request->get('type');
-        $fichier = $request->get('fichier');
+        $type = $request->query->get('type');
+        $fichier = $request->query->get('fichier');
 
         $response = new BinaryFileResponse('../sauvegardes/'.$type.'/'.$fichier);
         $response->setContentDisposition(

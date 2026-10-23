@@ -152,7 +152,7 @@ class Categorie
      *
      * @return Categorie
      */
-    public function setTypeCategorie(\App\Entity\TypeCategorie $typeCategorie = null)
+    public function setTypeCategorie(?\App\Entity\TypeCategorie $typeCategorie = null)
     {
         $this->typeCategorie = $typeCategorie;
 
@@ -230,7 +230,7 @@ class Categorie
      *
      * @return Categorie
      */
-    public function setSeo(\App\Entity\SEOCategorie $seo = null)
+    public function setSeo(?\App\Entity\SEOCategorie $seo = null)
     {
         $this->seo = $seo;
 

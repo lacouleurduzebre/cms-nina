@@ -31,8 +31,8 @@ class BlocController extends AbstractController
     #[Route(path: '/bloc/ajouterBloc', name: 'ajouterBloc')]
     public function ajouterBlocAction(Request $request){
         if($request->isXmlHttpRequest()){
-            $type = $request->get('type');
-            $typeBloc = $request->get('typeBloc');
+            $type = $request->request->get('type');
+            $typeBloc = $request->request->get('typeBloc');
 
             $form = $this->createForm("App\Form\Type\\".$typeBloc."Type", null, array('type' => $type, 'block_name' => $type));
             return $this->render('back/blocs/formulaire.html.twig', array('form'=>$form->createView()));
@@ -52,10 +52,10 @@ class BlocController extends AbstractController
         }
 
         if($request->isXmlHttpRequest()){
-            $action = $request->get('action');
+            $action = $request->query->get('action');
             if($action == 'actif'){
-                $type = $request->get('type');
-                $actif = $request->get('actif');
+                $type = $request->query->get('type');
+                $actif = $request->query->get('actif');
 
                 $infos = Yaml::parseFile('../src/Blocs/configBlocs.yaml');
 
@@ -67,7 +67,7 @@ class BlocController extends AbstractController
 
                 return new Response ('ok');
             }else if($action == 'priorite'){
-                $blocs = $request->get('blocs');
+                $blocs = $request->query->all('blocs');
 
                 foreach($blocs as $type => $priorite){
                     $infos = Yaml::parseFile('../src/Blocs/configBlocs.yaml');

@@ -23,7 +23,7 @@ class SEOPage extends SEO
      *
      * @return SEO
      */
-    public function setPage(\App\Entity\Page $page = null)
+    public function setPage(?\App\Entity\Page $page = null)
     {
         $this->page = $page;
 

@@ -197,14 +197,14 @@ class Front extends AbstractExtension
         $cleCache = 'page_'.$page->getId().'_blocs';
         $blocs = $page->getBlocs();
 
-        if($_ENV['APP_ENV'] == 'prod' && !$this->request->get('page')) {
+        if($_ENV['APP_ENV'] == 'prod' && !$this->request->query->get('page')) {
             $tpl = $this->cache->get($cleCache);
         }
 
         if(!isset($tpl)){
             $tpl = $this->twig->render('front/blocs.html.twig', array('blocs' => $blocs));
 
-            if($_ENV['APP_ENV'] == 'prod' && !$this->contientBlocLEIRechercheTexte($blocs) && !$this->request->get('page')){
+            if($_ENV['APP_ENV'] == 'prod' && !$this->contientBlocLEIRechercheTexte($blocs) && !$this->request->query->get('page')){
                 $this->cache->set($cleCache, $tpl, 86400);
             }
         }

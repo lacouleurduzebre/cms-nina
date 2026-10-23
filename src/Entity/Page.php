@@ -276,7 +276,7 @@ class Page
      *
      * @return Page
      */
-    public function setSeo(\App\Entity\SEOPage $seo = null)
+    public function setSeo(?\App\Entity\SEOPage $seo = null)
     {
         $this->seo = $seo;
 
@@ -358,7 +358,7 @@ class Page
      *
      * @return Page
      */
-    public function setLangue(\App\Entity\Langue $langue = null)
+    public function setLangue(?\App\Entity\Langue $langue = null)
     {
         $this->langue = $langue;
     
@@ -382,7 +382,7 @@ class Page
      *
      * @return Page
      */
-    public function setAuteur(\App\Entity\Utilisateur $auteur = null)
+    public function setAuteur(?\App\Entity\Utilisateur $auteur = null)
     {
         $this->auteur = $auteur;
     
@@ -406,7 +406,7 @@ class Page
      *
      * @return Page
      */
-    public function setAuteurDerniereModification(\App\Entity\Utilisateur $auteurDerniereModification = null)
+    public function setAuteurDerniereModification(?\App\Entity\Utilisateur $auteurDerniereModification = null)
     {
         $this->auteurDerniereModification = $auteurDerniereModification;
     

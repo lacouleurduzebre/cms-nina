@@ -100,7 +100,7 @@ class MenuPage
      *
      * @return MenuPage
      */
-    public function setMenu(\App\Entity\Menu $menu = null)
+    public function setMenu(?\App\Entity\Menu $menu = null)
     {
         $this->menu = $menu;
 

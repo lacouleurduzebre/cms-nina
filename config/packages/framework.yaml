@@ -20,6 +20,9 @@ framework:
     validation:
         email_validation_mode: html5
 
+    property_info:
+        with_constructor_extractor: true
+
     #esi: true
     #fragments: true
     php_errors:

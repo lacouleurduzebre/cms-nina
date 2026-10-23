@@ -169,7 +169,7 @@ class TypeCategorie
      *
      * @return TypeCategorie
      */
-    public function setSeo(\App\Entity\SEOTypeCategorie $seo = null)
+    public function setSeo(?\App\Entity\SEOTypeCategorie $seo = null)
     {
         $this->seo = $seo;
 

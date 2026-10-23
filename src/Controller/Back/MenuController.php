@@ -44,7 +44,7 @@ class MenuController extends AbstractController
     #[Route(path: '/menu/enregistrer', name: 'enregistrerMenu')]
     public function enregistrerAction(Request $request){
         if($request->isXmlHttpRequest()){
-            $arbo = $request->get('arbo');
+            $arbo = $request->request->all('arbo');
             $repositoryMenuPage = $this->doctrine->getRepository(MenuPage::class);
             $em = $this->doctrine->getManager();
 
@@ -91,7 +91,7 @@ class MenuController extends AbstractController
     public function ajouterPageEnfantAction(Request $request, UserInterface $user){
         if($request->isXmlHttpRequest()){
             //Infos pop-up
-            $data = $request->get('donneesFormulaire');
+            $data = $request->request->all('donneesFormulaire');
             $titre = $data[array_search('ajoutPage-titre', array_column($data, 'name'))]['value'];
             $titreMenu = $data[array_search('ajoutPage-titreMenu', array_column($data, 'name'))]['value'];
             $url = SEOController::slugify($titre);
@@ -168,18 +168,18 @@ class MenuController extends AbstractController
             $repoMenuPage = $em->getRepository(MenuPage::class);
 
             //Page copiée à partir des pages orphelines ?
-            $idAncienMenuComplet = $request->get('idAncienMenuComplet');
+            $idAncienMenuComplet = $request->request->get('idAncienMenuComplet');
             if($idAncienMenuComplet == 'menu-0'){//Si oui on modifie menuPage
-                $idAnciendMenuPage = $request->get('idAnciendMenuPage');
+                $idAnciendMenuPage = $request->request->get('idAnciendMenuPage');
                 $menuPage = $repoMenuPage->find($idAnciendMenuPage);
                 $menuPage->setMenu(null);
             }else{//Si non on créé un nouveau menuPage
                 $menuPage = new MenuPage();
 
-                $idPage = $request->get('idPage');
+                $idPage = $request->request->get('idPage');
                 $page = $repoPage->find($idPage);
 
-                $idMenu = $request->get('idMenu');
+                $idMenu = $request->request->get('idMenu');
                 $menu = $repoMenu->find($idMenu);
 
                 $menuPage->setPosition(0)->setPage($page)->setParent(null)->setMenu($menu);
@@ -208,7 +208,7 @@ class MenuController extends AbstractController
             $em = $this->doctrine->getManager();
             $repoPage = $em->getRepository(Page::class);
 
-            $idPage = $request->get('idPage');
+            $idPage = $request->request->get('idPage');
             $page = $repoPage->find($idPage);
             $locale = $page->getLangue()->getAbreviation();
             $url = $page->getSeo()->getUrl();
@@ -230,7 +230,7 @@ class MenuController extends AbstractController
 
             //Page
             $repoPage = $em->getRepository(Page::class);
-            $idPage = $request->get('idPage');
+            $idPage = $request->request->get('idPage');
             $page = $repoPage->find($idPage);
             $titrePage = $page->getTitre();
 
@@ -263,12 +263,12 @@ class MenuController extends AbstractController
         if($request->isXmlHttpRequest()){
             $em = $this->doctrine->getManager();
 
-            $id = $request->get('id');
+            $id = $request->request->get('id');
 
             $repoMenu = $em->getRepository(Menu::class);
             $menu = $repoMenu->find($id);
 
-            $valeur = $request->get('valeur');
+            $valeur = $request->request->get('valeur');
 
             if($valeur == false){
                 $menu->setDefaut(0);
@@ -310,8 +310,8 @@ class MenuController extends AbstractController
     #[Route(path: '/menu/filtreArbo', name: 'filtreArbo')]
     public function filtreArbo(Request $request){
         if($request->isXmlHttpRequest()){
-            $langue = $request->get('langue');
-            $recherche = $request->get('recherche');
+            $langue = $request->request->get('langue');
+            $recherche = $request->request->get('recherche');
 
             $repoPage = $this->doctrine->getRepository(Page::class);
             $pages = $repoPage->titreMenuLike($langue, $recherche);

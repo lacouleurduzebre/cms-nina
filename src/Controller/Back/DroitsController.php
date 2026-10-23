@@ -132,7 +132,7 @@ class DroitsController extends AbstractController
     #[Route(path: '/droits/suppressionRole', name: 'suppressionRole')]
     public function suppressionRole(Request $request){
         if($request->isXmlHttpRequest()){
-            $idRole = $request->get('idRole');
+            $idRole = $request->request->get('idRole');
 
             //Suppression du rôle
             $em = $this->doctrine->getManager();

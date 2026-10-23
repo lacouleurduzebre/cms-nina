@@ -178,8 +178,8 @@ class PageCrudController extends BaseCrudController
         $request = $this->getContext()->getRequest();
         $em = $this->em();
 
-        if($request->get('pageOriginale')){
-            $pageOriginale = $em->getRepository(Page::class)->find($request->get('pageOriginale'));
+        if($request->query->get('pageOriginale')){
+            $pageOriginale = $em->getRepository(Page::class)->find($request->query->get('pageOriginale'));
 
             $nvPage = new Page();
 
@@ -210,11 +210,11 @@ class PageCrudController extends BaseCrudController
                 $nvPage->addCategory($categorie);
             }
 
-            $langue = $em->getRepository(Langue::class)->find($request->get('langue'));
+            $langue = $em->getRepository(Langue::class)->find($request->query->get('langue'));
             $nvPage->setLangue($langue);
 
             $trads = $nvPage->getTraductions();
-            $trads[$pageOriginale->getLangue()->getId()] = $request->get('pageOriginale');
+            $trads[$pageOriginale->getLangue()->getId()] = $request->query->get('pageOriginale');
             $nvPage->setTraductions($trads);
         }else{
             $nvPage = new Page();

@@ -35,7 +35,7 @@ class Installeur implements EventSubscriberInterface
         $request = $event->getRequest();
 
         if($this->installeurActive == "1"){
-            $route = $request->get('_route');
+            $route = $request->attributes->get('_route');
 
             $routesInstalleur = ['installeur', 'installeurTestConnexion', 'installeurEnregistrementPage', 'installeurSuppressionPage'];
 

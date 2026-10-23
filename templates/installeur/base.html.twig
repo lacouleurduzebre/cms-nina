@@ -25,7 +25,7 @@
         </header>
 
         <main class="center">
-            {% if app.request.get('etape') != 7 %}
+            {% if app.request.attributes.get('etape') != 7 %}
                 <div class="tunnel flex-container">
                     <ul>
                         {% set etapeDesactivee = false %}
@@ -49,8 +49,8 @@
                     </ul>
                 </div>
             {% endif %}
-            <div class="contenu etape-{{ app.request.get('etape') }}">
-                <h1><i class="fas fa-{{ etapes[app.request.get('etape')].icone }}"></i>{{ etapes[app.request.get('etape')].titreComplet }}</h1>
+            <div class="contenu etape-{{ app.request.attributes.get('etape') }}">
+                <h1><i class="fas fa-{{ etapes[app.request.attributes.get('etape')].icone }}"></i>{{ etapes[app.request.attributes.get('etape')].titreComplet }}</h1>
                 {% for message in app.flashes('error') %}
                     <div class="erreur">
                         <i class="fas fa-exclamation-circle"></i> {{ message }}

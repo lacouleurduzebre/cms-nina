@@ -23,7 +23,7 @@ class SEOTypeCategorie extends SEO
      *
      * @return SEO
      */
-    public function setTypeCategorie(\App\Entity\TypeCategorie $typeCategorie = null)
+    public function setTypeCategorie(?\App\Entity\TypeCategorie $typeCategorie = null)
     {
         $this->typeCategorie = $typeCategorie;
 

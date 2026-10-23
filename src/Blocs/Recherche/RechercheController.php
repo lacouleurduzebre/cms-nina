@@ -36,7 +36,7 @@ class RechercheController extends AbstractController
             return $redirection;
         }
 
-        $recherche = $request->get('recherche');
+        $recherche = $request->query->get('recherche');
 
         if(strlen($recherche) < 2){
             return $this->render('Blocs/Recherche/ResultatsRecherche.html.twig', array('resultats' => false));

@@ -456,7 +456,7 @@ class InstalleurController extends AbstractController
         $path = '../.env';
         if (file_exists($path)) {
             if ($request->isXmlHttpRequest()) {
-                $data = $request->get('form');
+                $data = $request->request->all('form');
 
                 foreach ($data as $donnee) {
                     preg_match_all("/\\[(.*?)\\]/", $donnee['name'], $matches);
@@ -504,13 +504,13 @@ class InstalleurController extends AbstractController
     #[Route(path: '/installeur/7', name: 'installeurEnregistrementPage')]
     public function enregistrementPage(Request $request, SEOController $seoController){
         if ($request->isXmlHttpRequest()) {
-            $titre = $request->get('titre');
+            $titre = $request->request->get('titre');
 
             $em = $this->doctrine->getManager();
 
-            if($request->get('idPage')){//Édition
+            if($request->request->get('idPage')){//Édition
                 $repoPage = $this->doctrine->getRepository(Page::class);
-                $page = $repoPage->find($request->get('idPage'));
+                $page = $repoPage->find($request->request->get('idPage'));
 
                 $page->setTitre($titre);
 
@@ -523,7 +523,7 @@ class InstalleurController extends AbstractController
                 ->setMetaTitre($titre)
                 ->setMetaDescription($titre);
 
-            if(!$request->get('idPage')){//Ajout
+            if(!$request->request->get('idPage')){//Ajout
                 $utilisateur = $this->doctrine->getRepository(Utilisateur::class)->find(1);
                 $langue = $this->doctrine->getRepository(Langue::class)->find(1);
                 $date = new \DateTime();
@@ -538,7 +538,7 @@ class InstalleurController extends AbstractController
                     ->setLangue($langue)
                     ->setSEO($seo);
 
-                $idMenu = $request->get('menu');
+                $idMenu = $request->request->get('menu');
                 $menu = $this->doctrine->getRepository(Menu::class)->find($idMenu);
 
                 $menuPage = new MenuPage();
@@ -572,7 +572,7 @@ class InstalleurController extends AbstractController
             $em = $this->doctrine->getManager();
 
             $repoPage = $this->doctrine->getRepository(Page::class);
-            $page = $repoPage->find($request->get('idPage'));
+            $page = $repoPage->find($request->request->get('idPage'));
 
             $em->remove($page);
 
