@@ -13,9 +13,17 @@ use App\Entity\Langue;
 use App\Entity\Page;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
+use Doctrine\Persistence\ManagerRegistry;
 
 class SitemapController extends AbstractController
 {
+    private $doctrine;
+
+    public function __construct(ManagerRegistry $doctrine)
+    {
+        $this->doctrine = $doctrine;
+    }
+
     /**
      * @Route("/sitemap.xml", defaults={"_format"="xml"}, name="sitemap")
      * @Route("/{_locale}/sitemap.xml", defaults={"_format"="xml"}, name="sitemapLocale", requirements={
@@ -29,9 +37,9 @@ class SitemapController extends AbstractController
             return $redirection;
         }
 
-        $repoPage = $this->getDoctrine()->getRepository(Page::class);
+        $repoPage = $this->doctrine->getRepository(Page::class);
 
-        $repoLangue = $this->getDoctrine()->getRepository(Langue::class);
+        $repoLangue = $this->doctrine->getRepository(Langue::class);
         $langue = $repoLangue->findOneBy(array('abreviation' => $_locale));
         if(!$langue){
             $langue = $repoLangue->findOneBy(array('defaut' => true));

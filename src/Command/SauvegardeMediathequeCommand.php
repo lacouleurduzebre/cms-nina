@@ -24,7 +24,7 @@ class SauvegardeMediathequeCommand extends Command
             ->setHelp('Créé un fichier zip du dossier "uploads" dans le dossier sauvegardes');
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $timestamp = time();
         SauvegardeController::zip(__DIR__.'/../../public/uploads', __DIR__.'/../../sauvegardes/mediatheque/mediatheque'.$timestamp.'.zip');

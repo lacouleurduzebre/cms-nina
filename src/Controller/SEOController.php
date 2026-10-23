@@ -19,22 +19,30 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Doctrine\Persistence\ManagerRegistry;
 
 class SEOController extends AbstractController
 {
+    private $doctrine;
+
+    public function __construct(ManagerRegistry $doctrine)
+    {
+        $this->doctrine = $doctrine;
+    }
+
     /**
      * @Route("/admin/seo", name="referencement")
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
     public function liste(){
-        $repoSEOPage = $this->getDoctrine()->getRepository(SEOPage::class);
+        $repoSEOPage = $this->doctrine->getRepository(SEOPage::class);
         $SEOPage = $repoSEOPage->SEOPagesHorsCorbeille();
 
-        $repoSEOCategorie = $this->getDoctrine()->getRepository(SEOCategorie::class);
+        $repoSEOCategorie = $this->doctrine->getRepository(SEOCategorie::class);
         $SEOCategorie = $repoSEOCategorie->findAll();
 
-        $repoSEOTypeCategorie = $this->getDoctrine()->getRepository(SEOTypeCategorie::class);
+        $repoSEOTypeCategorie = $this->doctrine->getRepository(SEOTypeCategorie::class);
         $SEOTypeCategorie = $repoSEOTypeCategorie->findAll();
 
         $SEO = ['Pages' => $SEOPage, 'Catégories' => $SEOCategorie, 'Types de catégories' => $SEOTypeCategorie];
@@ -49,7 +57,7 @@ class SEOController extends AbstractController
      */
     public function edition(Request $request){
         if($request->isXmlHttpRequest()){
-            $em = $this->getDoctrine()->getManager();
+            $em = $this->doctrine->getManager();
 
             $id = $request->get('id');
             $type = $request->get('type');
@@ -86,7 +94,7 @@ class SEOController extends AbstractController
      */
     public function raz(Request $request){
         if($request->isXmlHttpRequest()){
-            $em = $this->getDoctrine()->getManager();
+            $em = $this->doctrine->getManager();
 
             $id = $request->get('id');
             $type = $request->get('type');
@@ -136,7 +144,7 @@ class SEOController extends AbstractController
     }
 
     private function getSEO($type, $id){
-        $doctrine = $this->getDoctrine();
+        $doctrine = $this->doctrine;
 
         if($type == 'pages'){
             $repoSEO = $doctrine->getRepository(SEOPage::class);

@@ -14,14 +14,24 @@ use App\Entity\Configuration;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Component\Mime\Email;
 use Symfony\Component\Routing\Annotation\Route;
+use Doctrine\Persistence\ManagerRegistry;
 
 class FormulaireController extends AbstractController
 {
+    private $doctrine;
+
+    public function __construct(ManagerRegistry $doctrine)
+    {
+        $this->doctrine = $doctrine;
+    }
+
     /**
      * @Route("/envoiMail", name="envoiMail")
      */
-    public function envoiMailAction(Request $request, \Swift_Mailer $mailer){
+    public function envoiMailAction(Request $request, MailerInterface $mailer){
         if($request->isXmlHttpRequest()){
             $donnees = $request->get('donnees');
             $idBloc = $request->get('idBloc');
@@ -38,11 +48,11 @@ class FormulaireController extends AbstractController
             }));
 
             if($mielValeur[0]['value'] === $mielRempli[0]['value'] && $mielVide[0]['value'] == ''){
-                $bloc = $this->getDoctrine()->getRepository(Bloc::class)->find($idBloc);
+                $bloc = $this->doctrine->getRepository(Bloc::class)->find($idBloc);
                 $destinataires = $bloc->getContenu()['destinataires'];
                 $objet = $bloc->getContenu()['objet'];
 
-                $config = $this->getDoctrine()->getRepository(Configuration::class)->find(1);
+                $config = $this->doctrine->getRepository(Configuration::class)->find(1);
                 $expediteur = $config->getEmailContact();
 
                 //Suppression des champs antispam
@@ -51,10 +61,11 @@ class FormulaireController extends AbstractController
                 });
 
                 //Préparation mail
-                $mail = new \Swift_Message($objet);
-                $mail->setFrom($expediteur)
-                    ->setTo($destinataires)
-                    ->setBody($this->renderView('Blocs/Formulaire/Mail.html.twig', array('donnees' => $donnees)), 'text/html');
+                $mail = (new Email())
+                    ->subject($objet)
+                    ->from($expediteur)
+                    ->to(...array_values(array_filter($destinataires)))
+                    ->html($this->renderView('Blocs/Formulaire/Mail.html.twig', array('donnees' => $donnees)));
 
                 $mailer->send($mail);
 

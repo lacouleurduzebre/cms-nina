@@ -13,6 +13,7 @@ use App\Entity\Bloc;
 use App\Entity\BlocAnnexe;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
+use Doctrine\Persistence\ManagerRegistry;
 
 /**
  * Class Erreurs404Controller
@@ -25,8 +26,11 @@ class Erreurs404Controller extends AbstractController
     private $bloc;
     private $element;
 
-    public function __construct()
+    private $doctrine;
+
+    public function __construct(ManagerRegistry $doctrine)
     {
+        $this->doctrine = $doctrine;
         $this->erreurs = [];
         $this->bloc = null;
         $this->element = null;
@@ -36,10 +40,10 @@ class Erreurs404Controller extends AbstractController
      * @Route("/erreurs404/liste", name="listeErreurs404")
      */
     public function listeErreurs404(){
-        $repoBlocs = $this->getDoctrine()->getRepository(Bloc::class);
+        $repoBlocs = $this->doctrine->getRepository(Bloc::class);
         $blocsAvecLiens = $repoBlocs->blocsAvecLiensMediatheque();
 
-        $repoBlocsAnnexes = $this->getDoctrine()->getRepository(BlocAnnexe::class);
+        $repoBlocsAnnexes = $this->doctrine->getRepository(BlocAnnexe::class);
         $blocsAnnexesAvecLiens = $repoBlocsAnnexes->blocsAnnexesAvecLiensMediatheque();
 
         //Blocs
@@ -118,7 +122,7 @@ class Erreurs404Controller extends AbstractController
 
         //Correction Filemanager
         if(isset($_GET['correctionFilemanager']) && $_GET['correctionFilemanager'] == 1){
-            $em = $this->getDoctrine()->getManager();
+            $em = $this->doctrine->getManager();
             foreach($this->erreurs as $type => $pages){
                 foreach($pages as $idPage => $infos){
                     foreach($infos['erreurs'] as $erreur){

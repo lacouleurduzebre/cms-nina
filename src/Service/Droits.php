@@ -26,9 +26,8 @@ class Droits
     }
 
     public function checkDroit($droit){
-        $user = $this->token->getToken()->getUser();
-
         if($this->authorizationChecker->isGranted('IS_AUTHENTICATED_REMEMBERED')){
+            $user = $this->token->getToken()->getUser();
 
             if($this->authorizationChecker->isGranted('ROLE_ADMIN')){
                 return true;

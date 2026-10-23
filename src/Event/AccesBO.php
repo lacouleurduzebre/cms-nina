@@ -52,7 +52,7 @@ class AccesBO implements EventSubscriberInterface
         }
     }
 
-    public static function getSubscribedEvents()
+    public static function getSubscribedEvents(): array
     {
         return array(
             KernelEvents::CONTROLLER => array(array('verificationAccesBO', 10)),

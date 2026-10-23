@@ -75,7 +75,7 @@ class Installeur implements EventSubscriberInterface
         }
     }
 
-    public static function getSubscribedEvents()
+    public static function getSubscribedEvents(): array
     {
         return array(
             KernelEvents::CONTROLLER => array(array('onKernelController', 20)),

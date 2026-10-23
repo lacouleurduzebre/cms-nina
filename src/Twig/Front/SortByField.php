@@ -15,7 +15,7 @@ use Twig\TwigFilter;
 
 class SortByField extends AbstractExtension
 {
-    public function getFilters() {
+    public function getFilters(): array {
         return array(
             new TwigFilter('sortBy', array($this, 'sortByFieldFilter'))
         );

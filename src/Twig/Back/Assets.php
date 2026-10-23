@@ -20,7 +20,7 @@ class Assets extends AbstractExtension
         $this->doctrine = $doctrine;
     }
 
-    public function getFunctions()
+    public function getFunctions(): array
     {
         return array(
             new TwigFunction('assetExists', array($this, 'assetExists')),

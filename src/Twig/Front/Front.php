@@ -36,7 +36,7 @@ class Front extends AbstractExtension
         $this->cache = $cache;
     }
 
-    public function getFunctions()
+    public function getFunctions(): array
     {
         return array(
             new TwigFunction('regions', array($this, 'getRegions'), array('is_safe' => ['html'])),

@@ -25,7 +25,7 @@ class Traduction extends AbstractExtension
         $this->twig = $twig;
     }
 
-    public function getFunctions()
+    public function getFunctions(): array
     {
         return array(
             new TwigFunction('getTraduction', array($this, 'getTraduction')),

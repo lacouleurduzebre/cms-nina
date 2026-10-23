@@ -79,7 +79,7 @@ class SauvegardeController extends AbstractController
             $date = date('d/m/Y H:i', $timestamp);
 
             $env = new Dotenv();
-            $env->load('../.env');
+            $env->usePutenv()->load('../.env');
             $mysqlUserName      = getenv('USERDB');
             $mysqlPassword      = getenv('PASSWORD');
             $mysqlHostName      = getenv('HOST');

@@ -21,7 +21,7 @@ class IsPublie extends AbstractExtension
         $this->twig = $twig;
     }
 
-    public function getFunctions()
+    public function getFunctions(): array
     {
         return array(
             new TwigFunction('isPublie', array($this, 'isPublie')),

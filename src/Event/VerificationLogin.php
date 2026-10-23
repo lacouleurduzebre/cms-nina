@@ -14,41 +14,46 @@ use App\Entity\Utilisateur;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
-use Symfony\Component\HttpFoundation\Session\Flash\FlashBagInterface;
-use Symfony\Component\Security\Core\AuthenticationEvents;
-use Symfony\Component\Security\Core\Event\AuthenticationFailureEvent;
+use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Component\Mime\Email;
+use Symfony\Component\Security\Http\Authenticator\Passport\Badge\UserBadge;
 use Symfony\Component\Security\Http\Event\InteractiveLoginEvent;
+use Symfony\Component\Security\Http\Event\LoginFailureEvent;
 use Symfony\Component\Security\Http\SecurityEvents;
 use Twig\Environment;
 
 class VerificationLogin implements EventSubscriberInterface
 {
     private $em;
-    private $request;
-    private $flash;
+    private $requestStack;
     private $mailer;
     private $twig;
 
-    public function __construct(EntityManagerInterface $em, RequestStack $request, FlashBagInterface $flash, \Swift_Mailer $mailer, Environment $twig)
+    public function __construct(EntityManagerInterface $em, RequestStack $requestStack, MailerInterface $mailer, Environment $twig)
     {
         $this->em = $em;
-        $this->request = $request->getCurrentRequest();
-        $this->flash = $flash;
+        $this->requestStack = $requestStack;
         $this->mailer = $mailer;
         $this->twig = $twig;
     }
 
-    public static function getSubscribedEvents()
+    public static function getSubscribedEvents(): array
     {
         return array(
-            AuthenticationEvents::AUTHENTICATION_FAILURE => array(array('echecConnexion', 15)),
+            LoginFailureEvent::class => array(array('echecConnexion', 15)),
             SecurityEvents::INTERACTIVE_LOGIN => array(array('connexion', 15)),
         );
     }
 
-    public function echecConnexion(AuthenticationFailureEvent $event)
+    public function echecConnexion(LoginFailureEvent $event)
     {
-        $identifiant = $event->getAuthenticationToken()->getUsername();
+        $passport = $event->getPassport();
+        if($passport && $passport->hasBadge(UserBadge::class)){
+            $identifiant = $passport->getBadge(UserBadge::class)->getUserIdentifier();
+        }else{
+            $identifiant = $event->getRequest()->request->get('_username');
+        }
+        $flash = $this->requestStack->getSession()->getFlashBag();
         $user = $this->em->getRepository(Utilisateur::class)->findOneByUsername($identifiant);
 
         if(!$user){
@@ -72,20 +77,21 @@ class VerificationLogin implements EventSubscriberInterface
             $tentativesRestantes = 3 - $user->getTentativesConnexion();
 
             if($tentativesRestantes > 0){
-                $this->flash->add('error', 'Identifiants invalides. Essais restants : '. $tentativesRestantes);
+                $flash->add('error', 'Identifiants invalides. Essais restants : '. $tentativesRestantes);
             }elseif($tentativesRestantes == 0){
-                $this->flash->add('error', 'Identifiants invalides. Votre compte a été suspendu pour 10min');
+                $flash->add('error', 'Identifiants invalides. Votre compte a été suspendu pour 10min');
 
                 //Mail d'avertissement
                 $config = $this->em->getRepository(Configuration::class)->find(1);
                 $expediteur = $config->getEmailMaintenance();
-                $ip = $this->request->getClientIp();
+                $ip = $event->getRequest()->getClientIp();
                 $mailUtilisateur = $user->getEmail();
 
-                $mail = new \Swift_Message('Blocage du compte '.$mailUtilisateur.' sur le site '.$config->getNom());
-                $mail->setFrom($expediteur)
-                    ->setTo([$expediteur, $mailUtilisateur])
-                    ->setBody($this->twig->render('back/mails/blocageCompte.html.twig', array('mail' => $mailUtilisateur, 'ip' => $ip)), 'text/html');
+                $mail = (new Email())
+                    ->subject('Blocage du compte '.$mailUtilisateur.' sur le site '.$config->getNom())
+                    ->from($expediteur)
+                    ->to($expediteur, $mailUtilisateur)
+                    ->html($this->twig->render('back/mails/blocageCompte.html.twig', array('mail' => $mailUtilisateur, 'ip' => $ip)));
 
                 $this->mailer->send($mail);
             }
@@ -99,7 +105,7 @@ class VerificationLogin implements EventSubscriberInterface
 
     public function connexion(InteractiveLoginEvent $event)
     {
-        $identifiant = $event->getAuthenticationToken()->getUsername();
+        $identifiant = $event->getAuthenticationToken()->getUserIdentifier();
         $user = $this->em->getRepository(Utilisateur::class)->findOneByUsername($identifiant);
 
         if(!$user){

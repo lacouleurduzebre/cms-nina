@@ -16,9 +16,17 @@ use App\Entity\Page;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
+use Doctrine\Persistence\ManagerRegistry;
 
 class RSSController extends AbstractController
 {
+    private $doctrine;
+
+    public function __construct(ManagerRegistry $doctrine)
+    {
+        $this->doctrine = $doctrine;
+    }
+
     /**
      * @Route("/rss.xml", defaults={"_format"="xml"}, name="rss")
      * @Route("/{_locale}/rss.xml", defaults={"_format"="xml"}, name="rssLocale", requirements={
@@ -34,23 +42,23 @@ class RSSController extends AbstractController
             return $redirection;
         }
 
-        $repoPage = $this->getDoctrine()->getRepository(Page::class);
+        $repoPage = $this->doctrine->getRepository(Page::class);
 
         //Nombre de pages à afficher dans la config
-        $repoConfig = $this->getDoctrine()->getRepository(Configuration::class);
+        $repoConfig = $this->doctrine->getRepository(Configuration::class);
         $config = $repoConfig->find(1);
         $nbPages = $config->getNbArticlesFluxRSS();
 
         $nbPages = $nbPages ?? 20;
 
-        $repoLangue = $this->getDoctrine()->getRepository(Langue::class);
+        $repoLangue = $this->doctrine->getRepository(Langue::class);
         $langue = $repoLangue->findOneBy(array('abreviation' => $_locale));
         if(!$langue){
             $langue = $repoLangue->findOneBy(array('defaut' => true));
         }
         $pages = $repoPage->pagesPublieesCategorie(0, $langue, $nbPages);
 
-        $repoBlocAnnexe = $this->getDoctrine()->getRepository(BlocAnnexe::class);
+        $repoBlocAnnexe = $this->doctrine->getRepository(BlocAnnexe::class);
         $vignettes = [];
         foreach($pages as $page){
             $vignette = $repoBlocAnnexe->findOneBy(array('page' => $page, 'type' => 'Vignette'));

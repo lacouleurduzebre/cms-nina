@@ -3,4 +3,3 @@ twig:
     debug: '%kernel.debug%'
     strict_variables: '%kernel.debug%'
     cache: '%kernel.project_dir%/var/cache/twig'
-    exception_controller: null

@@ -35,7 +35,7 @@ class LEITwig extends AbstractExtension
         $this->configLEI = Yaml::parseFile(__DIR__.'/configLEI.yaml');
     }
 
-    public function getFunctions()
+    public function getFunctions(): array
     {
         return array(
             new TwigFunction('listeLEI', array($this, 'listeLEI')),

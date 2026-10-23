@@ -23,7 +23,7 @@ class VideosTwig extends AbstractExtension
         $this->pagination = $pagination;
     }
 
-    public function getFunctions()
+    public function getFunctions(): array
     {
         return array(
             new TwigFunction('listeVideos', array($this, 'listeVideos')),

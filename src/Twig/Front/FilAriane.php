@@ -24,7 +24,7 @@ class FilAriane extends AbstractExtension
         $this->twig = $twig;
     }
 
-    public function getFunctions()
+    public function getFunctions(): array
     {
         return array(
             new TwigFunction('ariane', array($this, 'ariane'), array('is_safe' => ['html'])),

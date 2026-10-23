@@ -10,16 +10,18 @@ namespace App\Security;
 
 
 use App\Entity\Utilisateur;
-use Symfony\Component\HttpFoundation\Session\Flash\FlashBagInterface;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
 use Symfony\Component\Security\Core\User\UserCheckerInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 class VerificationLogin implements UserCheckerInterface
 {
-    public function __construct(FlashBagInterface $flash)
+    private $requestStack;
+
+    public function __construct(RequestStack $requestStack)
     {
-        $this->flash = $flash;
+        $this->requestStack = $requestStack;
     }
 
     public function checkPreAuth(UserInterface $user)
@@ -36,7 +38,7 @@ class VerificationLogin implements UserCheckerInterface
 
         if($user->getTentativesConnexion() > 2 && $derniereTentative && ($now - $derniereTentative < 600)){
             $tempsRestant = round(($derniereTentative + 600 - $now) / 60);
-            $this->flash->add('error', 'Votre compte est suspendu pour '.$tempsRestant.' minutes');
+            $this->requestStack->getSession()->getFlashBag()->add('error', 'Votre compte est suspendu pour '.$tempsRestant.' minutes');
             throw new AuthenticationException();
         }
 

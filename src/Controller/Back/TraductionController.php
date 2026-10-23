@@ -23,6 +23,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\KernelInterface;
 use Symfony\Component\Routing\Annotation\Route;
+use Doctrine\Persistence\ManagerRegistry;
 
 /**
  * Class TraductionController
@@ -31,13 +32,20 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class TraductionController extends AbstractController
 {
+    private $doctrine;
+
+    public function __construct(ManagerRegistry $doctrine)
+    {
+        $this->doctrine = $doctrine;
+    }
+
     /**
      * @Route("/traductions/pages", name="traductionsPages")
      * @return Response
      */
     public function traductionsPagesAction(){
-        $repoPage = $this->getDoctrine()->getRepository(Page::class);
-        $repoLangue = $this->getDoctrine()->getRepository(Langue::class);
+        $repoPage = $this->doctrine->getRepository(Page::class);
+        $repoLangue = $this->doctrine->getRepository(Langue::class);
 
         $langues = $repoLangue->findAll();
         uasort ($langues, function($a, $b) {
@@ -153,7 +161,7 @@ class TraductionController extends AbstractController
         );
 
         //Ligne de commande générant les fichiers de traduction
-        $repoLangue = $this->getDoctrine()->getRepository(Langue::class);
+        $repoLangue = $this->doctrine->getRepository(Langue::class);
         $langue = $repoLangue->findOneBy(array('abreviation' => $abreviation));
 
         $application = new Application($kernel);
@@ -193,7 +201,7 @@ class TraductionController extends AbstractController
         }else if($domaine == 'front'){
             $dossier = $app.'/translations/front';
         }else{
-            $repoConfig = $this->getDoctrine()->getRepository(Configuration::class);
+            $repoConfig = $this->doctrine->getRepository(Configuration::class);
             $theme = $repoConfig->find(1)->getTheme();
             $dossier = $app.'/themes/'.$theme.'/translations';
         }

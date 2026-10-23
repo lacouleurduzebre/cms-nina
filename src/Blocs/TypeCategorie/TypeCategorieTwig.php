@@ -24,7 +24,7 @@ class TypeCategorieTwig extends AbstractExtension
         $this->doctrine = $doctrine;
     }
 
-    public function getFunctions()
+    public function getFunctions(): array
     {
         return array(
             new TwigFunction('categoriesDeType', array($this, 'categoriesDeType')),

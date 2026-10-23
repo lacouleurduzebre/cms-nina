@@ -14,7 +14,7 @@ use Twig\TwigFilter;
 
 class Accents extends AbstractExtension
 {
-    public function getFilters()
+    public function getFilters(): array
     {
         return array(
             new TwigFilter('supprimerAccents', array($this, 'supprimerAccents')),

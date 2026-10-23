@@ -29,7 +29,7 @@
         "doctrine/orm": "^2.20",
         "easycorp/easyadmin-bundle": "^2.3",
         "friendsofsymfony/jsrouting-bundle": "^2.2",
-        "friendsofsymfony/user-bundle": "^2.2",
+        "friendsofsymfony/user-bundle": "^3.4",
         "mpdf/mpdf": "^8.0",
         "php-translation/symfony-bundle": "^0.12",
         "phpdocumentor/reflection-docblock": "^6.0",
@@ -37,36 +37,36 @@
         "psr/simple-cache": "^1.0",
         "sensio/framework-extra-bundle": "^5.1",
         "symfony/apache-pack": "^1.0",
-        "symfony/asset": "4.4.*",
-        "symfony/console": "4.4.*",
-        "symfony/expression-language": "4.4.*",
+        "symfony/asset": "5.4.*",
+        "symfony/console": "5.4.*",
+        "symfony/expression-language": "5.4.*",
         "symfony/flex": "^1.21",
-        "symfony/form": "4.4.*",
-        "symfony/framework-bundle": "4.4.*",
-        "symfony/mime": "4.4.*",
+        "symfony/form": "5.4.*",
+        "symfony/framework-bundle": "5.4.*",
+        "symfony/mailer": "5.4.*",
+        "symfony/mime": "5.4.*",
         "symfony/monolog-bundle": "^3.1",
-        "symfony/process": "4.4.*",
-        "symfony/property-access": "4.4.*",
-        "symfony/property-info": "4.4.*",
-        "symfony/security-bundle": "4.4.*",
-        "symfony/serializer": "4.4.*",
-        "symfony/swiftmailer-bundle": "^3.1",
-        "symfony/validator": "4.4.*",
-        "symfony/web-link": "4.4.*",
-        "symfony/yaml": "4.4.*",
+        "symfony/process": "5.4.*",
+        "symfony/property-access": "5.4.*",
+        "symfony/property-info": "5.4.*",
+        "symfony/security-bundle": "5.4.*",
+        "symfony/serializer": "5.4.*",
+        "symfony/validator": "5.4.*",
+        "symfony/web-link": "5.4.*",
+        "symfony/yaml": "5.4.*",
         "twig/extra-bundle": "^3.0",
         "twig/string-extra": "^3.0"
     },
     "require-dev": {
         "doctrine/doctrine-fixtures-bundle": "^3.0",
-        "symfony/browser-kit": "4.4.*",
-        "symfony/css-selector": "4.4.*",
-        "symfony/debug-bundle": "4.4.*",
-        "symfony/dotenv": "4.4.*",
+        "symfony/browser-kit": "5.4.*",
+        "symfony/css-selector": "5.4.*",
+        "symfony/debug-bundle": "5.4.*",
+        "symfony/dotenv": "5.4.*",
         "symfony/maker-bundle": "^1.0",
-        "symfony/phpunit-bridge": "^4.0",
-        "symfony/stopwatch": "4.4.*",
-        "symfony/web-profiler-bundle": "4.4.*"
+        "symfony/phpunit-bridge": "5.4.*",
+        "symfony/stopwatch": "5.4.*",
+        "symfony/web-profiler-bundle": "5.4.*"
     },
     "config": {
         "preferred-install": {
@@ -76,66 +76,6 @@
         "policy": {
             "advisories": {
                 "ignore": {
-                    "symfony/cache": {
-                        "constraint": "4.4.*",
-                        "reason": "Branche 4.4 en fin de vie, conservée le temps de la migration vers Symfony 8",
-                        "on-audit": false
-                    },
-                    "symfony/dom-crawler": {
-                        "constraint": "4.4.*",
-                        "reason": "Branche 4.4 en fin de vie, conservée le temps de la migration vers Symfony 8",
-                        "on-audit": false
-                    },
-                    "symfony/expression-language": {
-                        "constraint": "4.4.*",
-                        "reason": "Branche 4.4 en fin de vie, conservée le temps de la migration vers Symfony 8",
-                        "on-audit": false
-                    },
-                    "symfony/http-client": {
-                        "constraint": "4.4.*",
-                        "reason": "Branche 4.4 en fin de vie, conservée le temps de la migration vers Symfony 8",
-                        "on-audit": false
-                    },
-                    "symfony/http-foundation": {
-                        "constraint": "4.4.*",
-                        "reason": "Branche 4.4 en fin de vie, conservée le temps de la migration vers Symfony 8",
-                        "on-audit": false
-                    },
-                    "symfony/mime": {
-                        "constraint": "4.4.*",
-                        "reason": "Branche 4.4 en fin de vie, conservée le temps de la migration vers Symfony 8",
-                        "on-audit": false
-                    },
-                    "symfony/monolog-bridge": {
-                        "constraint": "4.4.*",
-                        "reason": "Branche 4.4 en fin de vie, conservée le temps de la migration vers Symfony 8",
-                        "on-audit": false
-                    },
-                    "symfony/process": {
-                        "constraint": "4.4.*",
-                        "reason": "Branche 4.4 en fin de vie, conservée le temps de la migration vers Symfony 8",
-                        "on-audit": false
-                    },
-                    "symfony/routing": {
-                        "constraint": "4.4.*",
-                        "reason": "Branche 4.4 en fin de vie, conservée le temps de la migration vers Symfony 8",
-                        "on-audit": false
-                    },
-                    "symfony/security-http": {
-                        "constraint": "4.4.*",
-                        "reason": "Branche 4.4 en fin de vie, conservée le temps de la migration vers Symfony 8",
-                        "on-audit": false
-                    },
-                    "symfony/validator": {
-                        "constraint": "4.4.*",
-                        "reason": "Branche 4.4 en fin de vie, conservée le temps de la migration vers Symfony 8",
-                        "on-audit": false
-                    },
-                    "symfony/yaml": {
-                        "constraint": "4.4.*",
-                        "reason": "Branche 4.4 en fin de vie, conservée le temps de la migration vers Symfony 8",
-                        "on-audit": false
-                    },
                     "twig/twig": {
                         "constraint": "3.11.*",
                         "reason": "Dernière version compatible PHP 7.4, conservée le temps de la migration vers Symfony 8",
@@ -186,7 +126,7 @@
         "symfony": {
             "id": "01C69V525Z6GW3M3F0WPAEA0AA",
             "allow-contrib": false,
-            "require": "4.4.*"
+            "require": "5.4.*"
         }
     }
 }

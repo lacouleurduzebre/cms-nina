@@ -61,7 +61,7 @@ class TypeCategorieType extends AbstractType
         ));
     }
 
-    public function getParent(){
+    public function getParent(): ?string{
         return FormType::class;
     }
 }

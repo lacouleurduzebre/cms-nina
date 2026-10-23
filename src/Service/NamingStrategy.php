@@ -44,7 +44,7 @@ class NamingStrategy implements \Doctrine\ORM\Mapping\NamingStrategy
     /**
      * {@inheritdoc}
      */
-    public function classToTableName($className)
+    public function classToTableName($className): string
     {
         if (strpos($className, '\\') !== false) {
             $className = substr($className, strrpos($className, '\\') + 1);
@@ -69,7 +69,7 @@ class NamingStrategy implements \Doctrine\ORM\Mapping\NamingStrategy
     /**
      * {@inheritdoc}
      */
-    public function propertyToColumnName($propertyName, $className = null)
+    public function propertyToColumnName($propertyName, $className = null): string
     {
         return $this->underscore($propertyName);
     }
@@ -77,7 +77,7 @@ class NamingStrategy implements \Doctrine\ORM\Mapping\NamingStrategy
     /**
      * {@inheritdoc}
      */
-    public function embeddedFieldToColumnName($propertyName, $embeddedColumnName, $className = null, $embeddedClassName = null)
+    public function embeddedFieldToColumnName($propertyName, $embeddedColumnName, $className = null, $embeddedClassName = null): string
     {
         return $this->underscore($propertyName).'_'.$embeddedColumnName;
     }
@@ -85,7 +85,7 @@ class NamingStrategy implements \Doctrine\ORM\Mapping\NamingStrategy
     /**
      * {@inheritdoc}
      */
-    public function referenceColumnName()
+    public function referenceColumnName(): string
     {
         return $this->case === CASE_UPPER ?  'ID' : 'id';
     }
@@ -93,7 +93,7 @@ class NamingStrategy implements \Doctrine\ORM\Mapping\NamingStrategy
     /**
      * {@inheritdoc}
      */
-    public function joinColumnName($propertyName, $className = null)
+    public function joinColumnName($propertyName, $className = null): string
     {
         return $this->underscore($propertyName) . '_' . $this->referenceColumnName();
     }
@@ -101,7 +101,7 @@ class NamingStrategy implements \Doctrine\ORM\Mapping\NamingStrategy
     /**
      * {@inheritdoc}
      */
-    public function joinTableName($sourceEntity, $targetEntity, $propertyName = null)
+    public function joinTableName($sourceEntity, $targetEntity, $propertyName = null): string
     {
         $prefixe = getenv('PREFIXE') ?? 'nina';
         return $prefixe . '_' . $this->classToJoinTableName($sourceEntity) . '_' . $this->classToJoinTableName($targetEntity);
@@ -110,7 +110,7 @@ class NamingStrategy implements \Doctrine\ORM\Mapping\NamingStrategy
     /**
      * {@inheritdoc}
      */
-    public function joinKeyColumnName($entityName, $referencedColumnName = null)
+    public function joinKeyColumnName($entityName, $referencedColumnName = null): string
     {
         return $this->classToTableName($entityName) . '_' .
                 ($referencedColumnName ?: $this->referenceColumnName());

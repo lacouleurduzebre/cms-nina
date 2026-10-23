@@ -6,7 +6,6 @@ use App\Entity\Commentaire;
 use App\Service\Page;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
-use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
@@ -15,9 +14,17 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
+use Doctrine\Persistence\ManagerRegistry;
 
 class PageController extends AbstractController
 {
+    private $doctrine;
+
+    public function __construct(ManagerRegistry $doctrine)
+    {
+        $this->doctrine = $doctrine;
+    }
+
     /**
      * @Route("/{url}", name="voirPage")
      * @Route("/{_locale}/{url}", name="voirPageLocale", requirements={
@@ -62,7 +69,7 @@ class PageController extends AbstractController
 
             $commentaire->setPage($page);
 
-            $formBuilder = $this->get('form.factory')->createBuilder(FormType::class, $commentaire);
+            $formBuilder = $this->createFormBuilder($commentaire);
 
             $formBuilder
                 ->add('auteur', TextType::class, array('label' => 'Votre nom :'))
@@ -103,7 +110,7 @@ class PageController extends AbstractController
                     $mielVide = $form->get('miel_vide')->getData();
 
                     if($mielValeur === $mielRempli && $mielVide == '') {
-                        $em = $this->getDoctrine()->getManager();
+                        $em = $this->doctrine->getManager();
                         $em->persist($commentaire);
                         $em->flush();
 

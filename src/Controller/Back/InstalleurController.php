@@ -32,9 +32,17 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Yaml\Yaml;
+use Doctrine\Persistence\ManagerRegistry;
 
 class InstalleurController extends AbstractController
 {
+    private $doctrine;
+
+    public function __construct(ManagerRegistry $doctrine)
+    {
+        $this->doctrine = $doctrine;
+    }
+
     /**
      * @Route("/installeur/{etape}", name="installeur", requirements={
      *     "etape"="^[1-6]{1,1}$"
@@ -43,17 +51,17 @@ class InstalleurController extends AbstractController
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function installeur($etape, Request $request, Filesystem $filesystem, EntityManagerInterface $manager, AppFixtures $fixtures){
-        $repoConfig = $this->getDoctrine()->getRepository(Configuration::class);
+        $repoConfig = $this->doctrine->getRepository(Configuration::class);
 
         //Redirection vers étape 1 ou 2 si prob de connexion BDD
         if($etape != 1){
             try {
-                $this->getDoctrine()->getConnection()->connect();
+                $this->doctrine->getConnection()->connect();
             } catch (\Exception $e) {
                 return $this->redirectToRoute('installeur', ['etape' => 1]);
             }
 
-            $repoLangue = $this->getDoctrine()->getRepository(Langue::class);
+            $repoLangue = $this->doctrine->getRepository(Langue::class);
 
             try {
                 $repoConfig->find(1);
@@ -111,7 +119,7 @@ class InstalleurController extends AbstractController
                 //Vérif étape
                 $exception = false;
                 try {
-                    $this->getDoctrine()->getConnection()->connect();
+                    $this->doctrine->getConnection()->connect();
                 } catch (\Exception $e) {
                     $exception = true;
                 }
@@ -191,7 +199,7 @@ class InstalleurController extends AbstractController
 
                 //Vérif étape
                 try {
-                    $this->getDoctrine()->getConnection()->connect();
+                    $this->doctrine->getConnection()->connect();
                 } catch (\Exception $e) {
                     $this->redirectToRoute('installeur', ['etape' => 1]);
                 }
@@ -263,7 +271,7 @@ class InstalleurController extends AbstractController
                     $config->setLogo('uploads/logo.'.$format);
                     //Fin logo
 
-                    $em = $this->getDoctrine()->getManager();
+                    $em = $this->doctrine->getManager();
 
                     $em->persist($config);
                     $em->flush();
@@ -304,7 +312,7 @@ class InstalleurController extends AbstractController
                     $this->redirectToRoute('installeur', ['etape' => 2]);
                 }
 
-                $repoUtilisateur = $this->getDoctrine()->getRepository(Utilisateur::class);
+                $repoUtilisateur = $this->doctrine->getRepository(Utilisateur::class);
                 if($repoUtilisateur->find(1)){
                     $user = $repoUtilisateur->find(1);
                 }else{
@@ -323,7 +331,7 @@ class InstalleurController extends AbstractController
                 if ($form->isSubmitted() && $form->isValid()) {
                     $user = $form->getData();
 
-                    $em = $this->getDoctrine()->getManager();
+                    $em = $this->doctrine->getManager();
 
                     $user->setEnabled(1)
                         ->addRole('ROLE_ADMIN');
@@ -338,7 +346,7 @@ class InstalleurController extends AbstractController
             case 4: //Choix du thème
 
                 //Vérif étape
-                $repoUtilisateur = $this->getDoctrine()->getRepository(Utilisateur::class);
+                $repoUtilisateur = $this->doctrine->getRepository(Utilisateur::class);
                 if(!$repoUtilisateur->find(1)){
                     $this->redirectToRoute('installeur', ['etape' => 3]);
                 }
@@ -358,7 +366,7 @@ class InstalleurController extends AbstractController
                     //Enregistrement du thème
                     $config = $form->getData();
 
-                    $em = $this->getDoctrine()->getManager();
+                    $em = $this->doctrine->getManager();
 
                     $em->persist($config);
                     $em->flush();
@@ -381,7 +389,7 @@ class InstalleurController extends AbstractController
                     $this->redirectToRoute('installeur', ['etape' => 4]);
                 }
 
-                $repoMenuPage = $this->getDoctrine()->getRepository(MenuPage::class);
+                $repoMenuPage = $this->doctrine->getRepository(MenuPage::class);
 
                 $menusPagesHeader = $repoMenuPage->findBy(['menu' => 1], ['position' => 'ASC']);
                 $pagesHeader = [];
@@ -404,7 +412,7 @@ class InstalleurController extends AbstractController
                     $this->redirectToRoute('installeur', ['etape' => 5]);
                 }
 
-                $em = $this->getDoctrine()->getManager();
+                $em = $this->doctrine->getManager();
                 $config = $repoConfig->find(1);
 
                 $config->setInstalle(1);
@@ -430,7 +438,7 @@ class InstalleurController extends AbstractController
      */
     public function testConnexion(Request $request, $data = null){
         if(!$request->isXmlHttpRequest()){
-            $repoConfig = $this->getDoctrine()->getRepository(Configuration::class);
+            $repoConfig = $this->doctrine->getRepository(Configuration::class);
 
             $exception = false;
 
@@ -474,7 +482,7 @@ class InstalleurController extends AbstractController
             $dotenv->overload('../.env');*/
 
             try {
-                $this->getDoctrine()->getConnection()->connect();
+                $this->doctrine->getConnection()->connect();
             } catch (\Exception $e) {
                 if ($request->isXmlHttpRequest()) {
                     return new Response('echec');
@@ -500,10 +508,10 @@ class InstalleurController extends AbstractController
         if ($request->isXmlHttpRequest()) {
             $titre = $request->get('titre');
 
-            $em = $this->getDoctrine()->getManager();
+            $em = $this->doctrine->getManager();
 
             if($request->get('idPage')){//Édition
-                $repoPage = $this->getDoctrine()->getRepository(Page::class);
+                $repoPage = $this->doctrine->getRepository(Page::class);
                 $page = $repoPage->find($request->get('idPage'));
 
                 $page->setTitre($titre);
@@ -518,8 +526,8 @@ class InstalleurController extends AbstractController
                 ->setMetaDescription($titre);
 
             if(!$request->get('idPage')){//Ajout
-                $utilisateur = $this->getDoctrine()->getRepository(Utilisateur::class)->find(1);
-                $langue = $this->getDoctrine()->getRepository(Langue::class)->find(1);
+                $utilisateur = $this->doctrine->getRepository(Utilisateur::class)->find(1);
+                $langue = $this->doctrine->getRepository(Langue::class)->find(1);
                 $date = new \DateTime();
 
                 $page = new Page();
@@ -533,11 +541,11 @@ class InstalleurController extends AbstractController
                     ->setSEO($seo);
 
                 $idMenu = $request->get('menu');
-                $menu = $this->getDoctrine()->getRepository(Menu::class)->find($idMenu);
+                $menu = $this->doctrine->getRepository(Menu::class)->find($idMenu);
 
                 $menuPage = new MenuPage();
 
-                $position = $this->getDoctrine()->getRepository(MenuPage::class)->positionMax($idMenu)->getPosition();
+                $position = $this->doctrine->getRepository(MenuPage::class)->positionMax($idMenu)->getPosition();
 
                 $menuPage->setPosition($position + 1)
                     ->setMenu($menu)
@@ -563,9 +571,9 @@ class InstalleurController extends AbstractController
      */
     public function suppressionPage(Request $request){
         if ($request->isXmlHttpRequest()) {
-            $em = $this->getDoctrine()->getManager();
+            $em = $this->doctrine->getManager();
 
-            $repoPage = $this->getDoctrine()->getRepository(Page::class);
+            $repoPage = $this->doctrine->getRepository(Page::class);
             $page = $repoPage->find($request->get('idPage'));
 
             $em->remove($page);

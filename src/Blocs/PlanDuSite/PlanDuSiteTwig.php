@@ -23,7 +23,7 @@ class PlanDuSiteTwig extends AbstractExtension
         $this->twig = $twig;
     }
 
-    public function getFunctions()
+    public function getFunctions(): array
     {
         return array(
             new TwigFunction('planDuSite', array($this, 'planDuSite')),

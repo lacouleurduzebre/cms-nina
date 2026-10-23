@@ -18,9 +18,17 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
+use Doctrine\Persistence\ManagerRegistry;
 
 class CategorieController extends AbstractController
 {
+    private $doctrine;
+
+    public function __construct(ManagerRegistry $doctrine)
+    {
+        $this->doctrine = $doctrine;
+    }
+
     /**
      * @Route("/categorie/{urlTypeCategorie}/{urlCategorie}", name="voirCategorie")
      * @Route("/{_locale}/categorie/{urlTypeCategorie}/{urlCategorie}", name="voirCategorieLocale", requirements={
@@ -38,7 +46,7 @@ class CategorieController extends AbstractController
             return $redirection;
         }
 
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->doctrine->getManager();
 
         $SEOTypeCategorie = $em->getRepository(SEOTypeCategorie::class)->findOneBy(array('url'=>$urlTypeCategorie));
         $SEOCategorie = $em->getRepository(SEOCategorie::class)->findOneBy(array('url'=>$urlCategorie));
@@ -51,7 +59,7 @@ class CategorieController extends AbstractController
         $categorie = $SEOCategorie->getCategorie();
 
         if($categorie->getTypeCategorie() == $typeCategorie){
-            $repoLangue = $this->getDoctrine()->getRepository(Langue::class);
+            $repoLangue = $this->doctrine->getRepository(Langue::class);
             $locale = $request->getLocale();
             $langue = $repoLangue->findOneBy(array('abreviation' => $locale));
 
@@ -90,7 +98,7 @@ class CategorieController extends AbstractController
             return $redirection;
         }
 
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->doctrine->getManager();
 
         $SEOTypeCategorie = $em->getRepository(SEOTypeCategorie::class)->findOneBy(array('url'=>$urlTypeCategorie));
 
@@ -101,7 +109,7 @@ class CategorieController extends AbstractController
         $typeCategorie = $SEOTypeCategorie->getTypeCategorie();
 
         if($typeCategorie){
-            $repoLangue = $this->getDoctrine()->getRepository(Langue::class);
+            $repoLangue = $this->doctrine->getRepository(Langue::class);
             $locale = $request->getLocale();
             $langue = $repoLangue->findOneBy(array('abreviation' => $locale));
 

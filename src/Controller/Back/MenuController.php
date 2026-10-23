@@ -21,6 +21,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Doctrine\Persistence\ManagerRegistry;
 
 /**
  * Class MenuController
@@ -29,6 +30,13 @@ use Symfony\Component\Security\Core\User\UserInterface;
  */
 class MenuController extends AbstractController
 {
+    private $doctrine;
+
+    public function __construct(ManagerRegistry $doctrine)
+    {
+        $this->doctrine = $doctrine;
+    }
+
     /**
      * @Route("/menu/enregistrer", name="enregistrerMenu")
      * @param Request $request
@@ -37,8 +45,8 @@ class MenuController extends AbstractController
     public function enregistrerAction(Request $request){
         if($request->isXmlHttpRequest()){
             $arbo = $request->get('arbo');
-            $repositoryMenuPage = $this->getDoctrine()->getRepository(MenuPage::class);
-            $em = $this->getDoctrine()->getManager();
+            $repositoryMenuPage = $this->doctrine->getRepository(MenuPage::class);
+            $em = $this->doctrine->getManager();
 
             //$item[0] menuPage
             //$item[1] page
@@ -48,9 +56,9 @@ class MenuController extends AbstractController
             foreach($arbo as $item){
                 $menuPage = $repositoryMenuPage->find($item[0]);
 
-                $repositoryMenu = $this->getDoctrine()->getRepository(Menu::class);
-                $repositoryPage = $this->getDoctrine()->getRepository(Page::class);
-                $repositoryMenuPage = $this->getDoctrine()->getRepository(MenuPage::class);
+                $repositoryMenu = $this->doctrine->getRepository(Menu::class);
+                $repositoryPage = $this->doctrine->getRepository(Page::class);
+                $repositoryMenuPage = $this->doctrine->getRepository(MenuPage::class);
 
                 if($item[4] == 0){
                     $menuPage->setMenu(null);
@@ -89,7 +97,7 @@ class MenuController extends AbstractController
             $url = SEOController::slugify($titre);
             //Infos pop-up
 
-            $em = $this->getDoctrine()->getManager();
+            $em = $this->doctrine->getManager();
             $repoSEO = $em->getRepository(SEOPage::class);
             $repoMenu = $em->getRepository(Menu::class);
             $repoMenuPage = $em->getRepository(MenuPage::class);
@@ -154,7 +162,7 @@ class MenuController extends AbstractController
      */
     public function creerAlias(Request $request){
         if($request->isXmlHttpRequest()){
-            $em = $this->getDoctrine()->getManager();
+            $em = $this->doctrine->getManager();
             $repoMenu = $em->getRepository(Menu::class);
             $repoPage = $em->getRepository(Page::class);
             $repoMenuPage = $em->getRepository(MenuPage::class);
@@ -197,7 +205,7 @@ class MenuController extends AbstractController
      */
     public function urlPageAction(Request $request){
         if($request->isXmlHttpRequest()){
-            $em = $this->getDoctrine()->getManager();
+            $em = $this->doctrine->getManager();
             $repoPage = $em->getRepository(Page::class);
 
             $idPage = $request->get('idPage');
@@ -218,7 +226,7 @@ class MenuController extends AbstractController
      */
     public function definirPageAccueilAction(Request $request){
         if($request->isXmlHttpRequest()){
-            $em = $this->getDoctrine()->getManager();
+            $em = $this->doctrine->getManager();
 
             //Page
             $repoPage = $em->getRepository(Page::class);
@@ -253,7 +261,7 @@ class MenuController extends AbstractController
      */
     public function changerMenuPrincipalAction(Request $request){
         if($request->isXmlHttpRequest()){
-            $em = $this->getDoctrine()->getManager();
+            $em = $this->doctrine->getManager();
 
             $id = $request->get('id');
 
@@ -305,7 +313,7 @@ class MenuController extends AbstractController
             $langue = $request->get('langue');
             $recherche = $request->get('recherche');
 
-            $repoPage = $this->getDoctrine()->getRepository(Page::class);
+            $repoPage = $this->doctrine->getRepository(Page::class);
             $pages = $repoPage->titreMenuLike($langue, $recherche);
 
             $tpl = $this->render('/back/menu/pagesFiltrees.html.twig', array('pages' => $pages))->getContent();

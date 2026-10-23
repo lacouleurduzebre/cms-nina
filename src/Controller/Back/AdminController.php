@@ -26,6 +26,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\PropertyAccess\PropertyAccess;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Yaml\Yaml;
+use Doctrine\Persistence\ManagerRegistry;
 
 /**
  * Class AdminController
@@ -34,6 +35,16 @@ use Symfony\Component\Yaml\Yaml;
  */
 class AdminController extends BaseAdminController
 {
+    protected $doctrine;
+
+    /**
+     * @required
+     */
+    public function setDoctrine(ManagerRegistry $doctrine): void
+    {
+        $this->doctrine = $doctrine;
+    }
+
     protected function editAction($listeBlocs = false)
     {
         $this->dispatch(EasyAdminEvents::PRE_EDIT);
@@ -169,7 +180,7 @@ class AdminController extends BaseAdminController
         unset($types["configBlocs.yaml"]);
         $config = Yaml::parseFile('../src/Blocs/configBlocs.yaml');
 
-        $repoBlocAnnexe = $this->getDoctrine()->getRepository(BlocAnnexe::class);
+        $repoBlocAnnexe = $this->doctrine->getRepository(BlocAnnexe::class);
 
         $blocs = [];
         foreach($types as $type){
@@ -225,7 +236,7 @@ class AdminController extends BaseAdminController
      * @Route("/accueil", name="tableauDeBord")
      */
     public function tableauDeBordAction(Request $request){
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->doctrine->getManager();
         $repositoryLangue = $em->getRepository(Langue::class);
         $repositoryPage = $em->getRepository(Page::class);
         $user = $this->getUser();
@@ -461,7 +472,7 @@ class AdminController extends BaseAdminController
             $entity->setCorbeille(true);
 
             if($class == 'Page'){
-                $repoMenuPage = $this->getDoctrine()->getRepository(MenuPage::class);
+                $repoMenuPage = $this->doctrine->getRepository(MenuPage::class);
                 $menuPages = $repoMenuPage->findBy(array('page' => $entity));
 
                 foreach($menuPages as $menuPage){

@@ -1,0 +1,7 @@
+parameters:
+    # Transport utilisé si MAILER_DSN n'est pas défini (identique à l'ancienne config Swiftmailer)
+    env(MAILER_DSN): 'sendmail://default'
+
+framework:
+    mailer:
+        dsn: '%env(MAILER_DSN)%'

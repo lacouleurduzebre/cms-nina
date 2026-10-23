@@ -1,8 +1,10 @@
 # To get started with security, check out the documentation:
 # https://symfony.com/doc/current/security.html
 security:
-    encoders:
-        FOS\UserBundle\Model\UserInterface: bcrypt
+    enable_authenticator_manager: true
+
+    password_hashers:
+        FOS\UserBundle\Model\UserInterface: auto
 
     # https://symfony.com/doc/current/security.html#b-configuring-how-users-are-loaded
     providers:
@@ -17,7 +19,6 @@ security:
 
         principal:
             pattern: ^/
-            anonymous: true
             provider: fos_user
             form_login:
                 login_path: fos_user_security_login
@@ -31,9 +32,9 @@ security:
             user_checker: App\Security\VerificationLogin
             # activate different ways to authenticate
     access_control:
-        - { path: ^/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/register, role: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/login$, role: PUBLIC_ACCESS }
+        - { path: ^/register, role: PUBLIC_ACCESS }
+        - { path: ^/resetting, role: PUBLIC_ACCESS }
         - { path: ^/admin/, role: IS_AUTHENTICATED_REMEMBERED }
         - { path: ^/admin, role: IS_AUTHENTICATED_REMEMBERED }
             # https://symfony.com/doc/current/security.html#a-configuring-how-your-users-will-authenticate

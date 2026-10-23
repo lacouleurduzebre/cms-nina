@@ -1,12 +1,12 @@
 <?php
 
-include(__DIR__.'/../vendor/symfony/dotenv/Dotenv.php');
+require __DIR__.'/../vendor/autoload.php';
 
 $timestamp = time();
 $date = date('d/m/Y H:i', $timestamp);
 
 $env = new Symfony\Component\Dotenv\Dotenv();
-$env->load(__DIR__.'/../.env');
+$env->usePutenv()->load(__DIR__.'/../.env');
 $mysqlUserName      = getenv('USERDB');
 $mysqlPassword      = getenv('PASSWORD');
 $mysqlHostName      = getenv('HOST');

@@ -14,7 +14,7 @@ use Twig\TwigFilter;
 
 class LienExterne extends AbstractExtension
 {
-    public function getFilters() {
+    public function getFilters(): array {
         return array(
             new TwigFilter('lienExterne', array($this, 'lienExterne'))
         );

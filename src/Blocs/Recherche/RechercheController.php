@@ -16,9 +16,17 @@ use App\Service\Pagination;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
+use Doctrine\Persistence\ManagerRegistry;
 
 class RechercheController extends AbstractController
 {
+    private $doctrine;
+
+    public function __construct(ManagerRegistry $doctrine)
+    {
+        $this->doctrine = $doctrine;
+    }
+
     /**
      * @Route("/recherche/resultats", name="recherche")
      * @Route("/{_locale}/recherche/resultats", name="rechercheLocale", requirements={
@@ -40,7 +48,7 @@ class RechercheController extends AbstractController
 
         $motsCles = explode(' ', $recherche);
 
-        $repoPage = $this->getDoctrine()->getRepository(Page::class);
+        $repoPage = $this->doctrine->getRepository(Page::class);
         $pages = $repoPage->recherche($motsCles);
 
         //Poids des pages dont un des mots-clés est dans le titre
@@ -49,7 +57,7 @@ class RechercheController extends AbstractController
         }
         //Poids des pages dont un des mots-clés est dans le titre
 
-        $repoBloc = $this->getDoctrine()->getRepository(Bloc::class);
+        $repoBloc = $this->doctrine->getRepository(Bloc::class);
         $blocs = $repoBloc->recherche($motsCles);
 
         $pages = array_merge($pages, $blocs);

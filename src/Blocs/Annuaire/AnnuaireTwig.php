@@ -23,7 +23,7 @@ class AnnuaireTwig extends AbstractExtension
         $this->pagination = $pagination;
     }
 
-    public function getFunctions()
+    public function getFunctions(): array
     {
         return array(
             new TwigFunction('listeUtilisateurs', [$this, 'listeUtilisateurs']),

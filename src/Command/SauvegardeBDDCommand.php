@@ -25,12 +25,12 @@ class SauvegardeBDDCommand extends Command
             ->setHelp('Créé un fichier zip de l\'export de la bdd dans le dossier sauvegardes');
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $timestamp = time();
 
         $env = new Dotenv();
-        $env->load(__DIR__.'/../../.env');
+        $env->usePutenv()->load(__DIR__.'/../../.env');
         $mysqlUserName      = getenv('USERDB');
         $mysqlPassword      = getenv('PASSWORD');
         $mysqlHostName      = getenv('HOST');

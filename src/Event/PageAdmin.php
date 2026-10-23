@@ -24,7 +24,7 @@ class PageAdmin implements EventSubscriberInterface
         $this->tokenStorage = $tokenStorage;
     }
 
-    public static function getSubscribedEvents()
+    public static function getSubscribedEvents(): array
     {
         return array(
             'easy_admin.post_persist' => array('creerMenuPage'),

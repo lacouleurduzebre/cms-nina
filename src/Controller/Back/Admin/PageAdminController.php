@@ -26,12 +26,12 @@ class PageAdminController extends AdminController
     //Afficher toutes les pages d'une catégorie avec ?categorie=X
     protected function createListQueryBuilder($entityClass, $sortDirection, $sortField = null, $dqlFilter = null)
     {
-        $em = $this->getDoctrine()->getManagerForClass($this->entity['class']);
+        $em = $this->doctrine->getManagerForClass($this->entity['class']);
         $qb = $em->createQueryBuilder()
             ->select('entity')
             ->from($this->entity['class'], 'entity');
 
-        $request = $this->get('request_stack')->getCurrentRequest();
+        $request = $this->container->get('request_stack')->getCurrentRequest();
         $categorie = $request->get('categorie');
         if ($categorie) {
             $qb->andWhere(':categorie MEMBER OF entity.categories');
@@ -55,7 +55,7 @@ class PageAdminController extends AdminController
 
         $this->setTraductions($entity);
 
-        $this->getDoctrine()->getManager()->flush();
+        $this->doctrine->getManager()->flush();
     }
 
     protected function updatePage_ActiveEntity($entity)//edit
@@ -70,7 +70,7 @@ class PageAdminController extends AdminController
         $formBuilder = parent::createEntityFormBuilder($entity, $view);
 
         if($view == "new") {
-            $config = $this->getDoctrine()->getRepository(Configuration::class)->find(1);
+            $config = $this->doctrine->getRepository(Configuration::class)->find(1);
             $page = $formBuilder->getData();
 
             $page->setAffichageCommentaires($config->getAffichageCommentaires());
@@ -94,7 +94,7 @@ class PageAdminController extends AdminController
     protected function createNewPage_ActiveEntity()
     {
         if($this->request->get('pageOriginale')){
-            $pageOriginale = $this->getDoctrine()->getRepository(Page::class)->find($this->request->get('pageOriginale'));
+            $pageOriginale = $this->doctrine->getRepository(Page::class)->find($this->request->get('pageOriginale'));
 
             $nvPage = new Page();
 
@@ -125,7 +125,7 @@ class PageAdminController extends AdminController
                 $nvPage->addCategory($categorie);
             }
 
-            $langue = $this->getDoctrine()->getRepository(Langue::class)->find($this->request->get('langue'));
+            $langue = $this->doctrine->getRepository(Langue::class)->find($this->request->get('langue'));
             $nvPage->setLangue($langue);
 
             $trads = $nvPage->getTraductions();
@@ -139,11 +139,11 @@ class PageAdminController extends AdminController
     }
 
     protected function renderPage_ActiveTemplate($actionName, $templatePath, $parameters){
-        $request = $this->get('request_stack')->getCurrentRequest();
+        $request = $this->container->get('request_stack')->getCurrentRequest();
         $idCategorie = $request->get('categorie');
 
         if($actionName == 'list' && $idCategorie){
-            $repoCategorie = $this->getDoctrine()->getRepository(Categorie::class);
+            $repoCategorie = $this->doctrine->getRepository(Categorie::class);
             $categorie = $repoCategorie->find($idCategorie);
             $parameters['filtreCategorie'] = $categorie;
         }
@@ -152,8 +152,8 @@ class PageAdminController extends AdminController
     }
 
     protected function setTraductions($entity){
-        $em = $this->getDoctrine()->getManager();
-        $repoPage = $this->getDoctrine()->getRepository(Page::class);
+        $em = $this->doctrine->getManager();
+        $repoPage = $this->doctrine->getRepository(Page::class);
 
         $langue = $entity->getLangue()->getId();
         $id = $entity->getId();

@@ -20,6 +20,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Yaml\Yaml;
+use Doctrine\Persistence\ManagerRegistry;
 
 /**
  * Class DroitsController
@@ -28,6 +29,13 @@ use Symfony\Component\Yaml\Yaml;
  */
 class DroitsController extends AbstractController
 {
+    private $doctrine;
+
+    public function __construct(ManagerRegistry $doctrine)
+    {
+        $this->doctrine = $doctrine;
+    }
+
     /**
      * @Route("/droits", name="droits")
      * @param Request $request
@@ -39,7 +47,7 @@ class DroitsController extends AbstractController
         }
 
         //Rôles
-        $repoRoles = $this->getDoctrine()->getRepository(Role::class);
+        $repoRoles = $this->doctrine->getRepository(Role::class);
         $roles = $repoRoles->findAll();
 
         //Droits
@@ -68,8 +76,8 @@ class DroitsController extends AbstractController
 
         //Enregistrement nouveau rôle
         if ($formCreationRole->isSubmitted() && $formCreationRole->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $repoRole = $this->getDoctrine()->getRepository(Role::class);
+            $em = $this->doctrine->getManager();
+            $repoRole = $this->doctrine->getRepository(Role::class);
 
             $role = $formCreationRole->getData();
 
@@ -88,7 +96,7 @@ class DroitsController extends AbstractController
 
         //Enregistrement droits
         if($request->isMethod('POST')){
-            $em = $this->getDoctrine()->getManager();
+            $em = $this->doctrine->getManager();
 
             foreach($roles as $role){
                 foreach($droits as $categorie){
@@ -125,8 +133,8 @@ class DroitsController extends AbstractController
             $idRole = $request->get('idRole');
 
             //Suppression du rôle
-            $em = $this->getDoctrine()->getManager();
-            $repoRole = $this->getDoctrine()->getRepository(Role::class);
+            $em = $this->doctrine->getManager();
+            $repoRole = $this->doctrine->getRepository(Role::class);
             $role = $repoRole->find($idRole);
             $nomRole = $role->getNom();
 
@@ -135,7 +143,7 @@ class DroitsController extends AbstractController
             $this->addFlash('enregistrement', 'Le rôle "'.$nomRole.'" a été supprimé');
 
             //Suppression du rôle chez les utilisateurs
-            $repoUtilisateur = $this->getDoctrine()->getRepository(Utilisateur::class);
+            $repoUtilisateur = $this->doctrine->getRepository(Utilisateur::class);
             $utilisateurs = $repoUtilisateur->getUtilisateursAvecRole($nomRole);
 
             foreach($utilisateurs as $utilisateur){

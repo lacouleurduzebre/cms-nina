@@ -20,7 +20,7 @@ class Droits extends AbstractExtension
         $this->droits = $droits;
     }
 
-    public function getFunctions()
+    public function getFunctions(): array
     {
         return array(
             new TwigFunction('checkDroit', array($this, 'checkDroit'))

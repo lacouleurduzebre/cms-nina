@@ -16,9 +16,17 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Doctrine\Persistence\ManagerRegistry;
 
 class LangueController extends AbstractController
 {
+    private $doctrine;
+
+    public function __construct(ManagerRegistry $doctrine)
+    {
+        $this->doctrine = $doctrine;
+    }
+
     /**
      * @Route("/langue/{id}", name="changerLangue")
      * @param $id
@@ -26,7 +34,7 @@ class LangueController extends AbstractController
      * @return Response
      */
     public function changerAction($id, Request $request){
-        $repoLangue = $this->getDoctrine()->getRepository(Langue::class);
+        $repoLangue = $this->doctrine->getRepository(Langue::class);
 
         $locale = $request->getLocale();
         $ancienneLangue = $repoLangue->findOneBy(array('abreviation' => $locale));
@@ -43,11 +51,11 @@ class LangueController extends AbstractController
         $url = $request->get('url');
 
         if($url != null){
-            $repoSEO = $this->getDoctrine()->getRepository(SEOPage::class);
+            $repoSEO = $this->doctrine->getRepository(SEOPage::class);
             $SEOS = $repoSEO->findBy(array('url' => $url));
 
             if($SEOS){
-                $repoPage = $this->getDoctrine()->getRepository(Page::class);
+                $repoPage = $this->doctrine->getRepository(Page::class);
                 foreach($SEOS as $SEO){
                     $page = $SEO->getPage();
                     if($page->getLangue() == $ancienneLangue){

@@ -22,9 +22,17 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Yaml\Yaml;
+use Doctrine\Persistence\ManagerRegistry;
 
 class LEIController extends AbstractController
 {
+    private $doctrine;
+
+    public function __construct(ManagerRegistry $doctrine)
+    {
+        $this->doctrine = $doctrine;
+    }
+
     /**
      * @Route("/fiche/{url}/{idFiche}/{idBloc}", name="voirFicheLEI")
      * @Route("/{_locale}/fiche/{url}/{idFiche}/{idBloc}", name="voirFicheLEILocale", requirements={
@@ -43,11 +51,11 @@ class LEIController extends AbstractController
             return $redirection;
         }
 
-        $repoBloc = $this->getDoctrine()->getRepository(Bloc::class);
+        $repoBloc = $this->doctrine->getRepository(Bloc::class);
         $bloc = $repoBloc->find($idBloc);
 
         //Langue
-        $repoLangue = $this->getDoctrine()->getRepository(\App\Entity\Langue::class);
+        $repoLangue = $this->doctrine->getRepository(\App\Entity\Langue::class);
         $locale = $request->getLocale();
         if($locale){
             $langue = $repoLangue->findOneBy(array('abreviation'=>$locale));
@@ -112,7 +120,7 @@ class LEIController extends AbstractController
         if(is_null($liste)){
             //Groupe de blocs -> Accueil
             if(!is_null($bloc->getGroupeBlocs())){
-                $repoLangue = $this->getDoctrine()->getRepository(\App\Entity\Langue::class);
+                $repoLangue = $this->doctrine->getRepository(\App\Entity\Langue::class);
                 $locale = $request->getLocale();
                 if($locale){
                     $langue = $repoLangue->findOneBy(array('abreviation'=>$locale));
