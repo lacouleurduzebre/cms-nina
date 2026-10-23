@@ -10,12 +10,13 @@ namespace App\Twig\Front;
 
 
 use Twig\Extension\AbstractExtension;
+use Twig\TwigFilter;
 
 class LienExterne extends AbstractExtension
 {
     public function getFilters() {
         return array(
-            new \Twig_SimpleFilter('lienExterne', array($this, 'lienExterne'))
+            new TwigFilter('lienExterne', array($this, 'lienExterne'))
         );
     }
 

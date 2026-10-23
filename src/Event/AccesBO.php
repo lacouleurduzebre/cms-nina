@@ -9,16 +9,13 @@
 namespace App\Event;
 
 
-use App\Controller\AccueilController;
 use App\Entity\Configuration;
 use App\Service\Droits;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpKernel\Event\ControllerEvent;
-use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\KernelEvents;
-use Symfony\Component\Security\Core\Security;
 
 class AccesBO implements EventSubscriberInterface
 {

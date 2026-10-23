@@ -12,12 +12,13 @@ namespace App\Twig\Back;
 use App\Entity\Langue;
 use App\Entity\Menu;
 use App\Entity\MenuPage;
-use App\Entity\Page;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Twig\Environment;
+use Twig\Extension\AbstractExtension;
+use Twig\TwigFunction;
 
-class Arborescence extends \Twig_Extension
+class Arborescence extends AbstractExtension
 {
     public function __construct(ManagerRegistry $doctrine, RequestStack $requestStack, Environment $twig)
     {
@@ -29,11 +30,11 @@ class Arborescence extends \Twig_Extension
     public function getFunctions()
     {
         return array(
-            new \Twig_SimpleFunction('menusBack', array($this, 'menusBack')),
-            new \Twig_SimpleFunction('pagesOrphelines', array($this, 'pagesOrphelines')),
-            new \Twig_SimpleFunction('sousMenu', array($this, 'sousMenu')),
-            new \Twig_SimpleFunction('isParent', array($this, 'isParent')),
-            new \Twig_SimpleFunction('pageAccueil', array($this, 'pageAccueil')),
+            new TwigFunction('menusBack', array($this, 'menusBack')),
+            new TwigFunction('pagesOrphelines', array($this, 'pagesOrphelines')),
+            new TwigFunction('sousMenu', array($this, 'sousMenu')),
+            new TwigFunction('isParent', array($this, 'isParent')),
+            new TwigFunction('pageAccueil', array($this, 'pageAccueil')),
         );
     }
 

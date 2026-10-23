@@ -9,12 +9,13 @@
 namespace App\Blocs\Categorie;
 
 
-use App\Entity\Categorie;
 use App\Entity\Page;
 use App\Service\Pagination;
 use Doctrine\Persistence\ManagerRegistry;
+use Twig\Extension\AbstractExtension;
+use Twig\TwigFunction;
 
-class CategorieTwig extends \Twig_Extension
+class CategorieTwig extends AbstractExtension
 {
     public function __construct(ManagerRegistry $doctrine, Pagination $pagination)
     {
@@ -25,7 +26,7 @@ class CategorieTwig extends \Twig_Extension
     public function getFunctions()
     {
         return array(
-            new \Twig_SimpleFunction('pagesDeLaCategorie', array($this, 'pagesDeLaCategorie')),
+            new TwigFunction('pagesDeLaCategorie', array($this, 'pagesDeLaCategorie')),
         );
     }
 

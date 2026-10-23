@@ -12,7 +12,6 @@ namespace App\Blocs\Grille;
 use App\Blocs\Bouton\BoutonType;
 use App\Entity\Page;
 use App\Form\Type\ImageDefautType;
-use App\Repository\PageRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;

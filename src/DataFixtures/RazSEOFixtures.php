@@ -10,15 +10,12 @@ namespace App\DataFixtures;
 
 
 use App\Controller\SEOController;
-use App\Entity\Bloc;
 use App\Entity\Categorie;
-use App\Entity\Page;
 use App\Entity\SEOCategorie;
-use App\Entity\SEOPage;
 use App\Entity\SEOTypeCategorie;
 use App\Entity\TypeCategorie;
 use Doctrine\Bundle\FixturesBundle\Fixture;
-use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\Persistence\ObjectManager;
 
 class RazSEOFixtures extends Fixture
 {

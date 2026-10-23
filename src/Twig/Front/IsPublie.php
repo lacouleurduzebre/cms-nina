@@ -11,8 +11,10 @@ namespace App\Twig\Front;
 
 use App\Service\Page;
 use Twig\Environment;
+use Twig\Extension\AbstractExtension;
+use Twig\TwigFunction;
 
-class IsPublie extends \Twig_Extension
+class IsPublie extends AbstractExtension
 {
     public function __construct(Environment $twig)
     {
@@ -22,7 +24,7 @@ class IsPublie extends \Twig_Extension
     public function getFunctions()
     {
         return array(
-            new \Twig_SimpleFunction('isPublie', array($this, 'isPublie')),
+            new TwigFunction('isPublie', array($this, 'isPublie')),
         );
     }
 

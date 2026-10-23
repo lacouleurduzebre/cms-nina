@@ -14,7 +14,7 @@ use App\Entity\SEOPage;
 use App\Entity\Role;
 use App\Entity\Utilisateur;
 use Doctrine\Bundle\FixturesBundle\Fixture;
-use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\Persistence\ObjectManager;
 use Symfony\Component\Yaml\Yaml;
 
 class AppFixtures extends Fixture

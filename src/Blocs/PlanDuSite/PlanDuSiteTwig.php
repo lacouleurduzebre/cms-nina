@@ -10,12 +10,12 @@ namespace App\Blocs\PlanDuSite;
 
 
 use App\Entity\Menu;
-use App\Entity\MenuPage;
-use App\Entity\Bloc;
 use Doctrine\Persistence\ManagerRegistry;
 use Twig\Environment;
+use Twig\Extension\AbstractExtension;
+use Twig\TwigFunction;
 
-class PlanDuSiteTwig extends \Twig_Extension
+class PlanDuSiteTwig extends AbstractExtension
 {
     public function __construct(ManagerRegistry $doctrine, Environment $twig)
     {
@@ -26,7 +26,7 @@ class PlanDuSiteTwig extends \Twig_Extension
     public function getFunctions()
     {
         return array(
-            new \Twig_SimpleFunction('planDuSite', array($this, 'planDuSite')),
+            new TwigFunction('planDuSite', array($this, 'planDuSite')),
         );
     }
 

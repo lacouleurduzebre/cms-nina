@@ -9,7 +9,6 @@
 namespace App\Controller;
 
 
-use App\Entity\Bloc;
 use App\Entity\SEO;
 use App\Entity\SEOCategorie;
 use App\Entity\SEOPage;

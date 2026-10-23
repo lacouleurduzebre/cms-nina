@@ -19,7 +19,7 @@
         {{ form(form) }}
     </div>
 
-    {% for commentaire in commentaires if commentaire.corbeille == false and commentaire.valide == true %}
+    {% for commentaire in commentaires|filter(commentaire => commentaire.corbeille == false and commentaire.valide == true) %}
         <div class="commentaire">
             <p>Par <strong>{{ commentaire.auteur }}</strong> le {{ commentaire.date|date("d/m/Y") }} à {{ commentaire.date|date("G:i") }}</p>
             <p class="pas">{{ commentaire.contenu|raw }}</p>

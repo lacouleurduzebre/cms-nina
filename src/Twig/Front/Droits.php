@@ -8,8 +8,11 @@
 
 namespace App\Twig\Front;
 
+use Twig\Extension\AbstractExtension;
+use Twig\TwigFunction;
 
-class Droits extends \Twig_Extension
+
+class Droits extends AbstractExtension
 {
     private $droits;
 
@@ -20,7 +23,7 @@ class Droits extends \Twig_Extension
     public function getFunctions()
     {
         return array(
-            new \Twig_SimpleFunction('checkDroit', array($this, 'checkDroit'))
+            new TwigFunction('checkDroit', array($this, 'checkDroit'))
         );
     }
 

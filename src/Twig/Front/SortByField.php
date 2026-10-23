@@ -11,12 +11,13 @@ namespace App\Twig\Front;
 
 use Symfony\Component\Config\Definition\Exception\Exception;
 use Twig\Extension\AbstractExtension;
+use Twig\TwigFilter;
 
 class SortByField extends AbstractExtension
 {
     public function getFilters() {
         return array(
-            new \Twig_SimpleFilter('sortBy', array($this, 'sortByFieldFilter'))
+            new TwigFilter('sortBy', array($this, 'sortByFieldFilter'))
         );
     }
 

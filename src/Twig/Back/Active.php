@@ -11,8 +11,10 @@ namespace App\Twig\Back;
 
 use App\Entity\Page;
 use Doctrine\Persistence\ManagerRegistry;
+use Twig\Extension\AbstractExtension;
+use Twig\TwigFunction;
 
-class Active extends \Twig_Extension
+class Active extends AbstractExtension
 {
     public function __construct(ManagerRegistry $doctrine)
     {
@@ -22,7 +24,7 @@ class Active extends \Twig_Extension
     public function getFunctions()
     {
         return array(
-            new \Twig_SimpleFunction('pageActive', array($this, 'pageActive')),
+            new TwigFunction('pageActive', array($this, 'pageActive')),
         );
     }
 

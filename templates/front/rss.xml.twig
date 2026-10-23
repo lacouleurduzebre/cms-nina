@@ -46,7 +46,7 @@
                 </link>
                 <description>
                     {% if page.blocs is not empty %}
-                        {% set contenu = blocs(page)|striptags|truncate(500) %}
+                        {% set contenu = blocs(page)|striptags|u.truncate(500, '...') %}
                         {{ contenu }}
                     {% endif %}
                 </description>

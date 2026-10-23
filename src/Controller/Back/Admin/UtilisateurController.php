@@ -10,7 +10,6 @@ namespace App\Controller\Back\Admin;
 
 use App\Controller\Back\AdminController;
 use App\Service\Droits;
-use EasyCorp\Bundle\EasyAdminBundle\Controller\EasyAdminController as BaseAdminController;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 

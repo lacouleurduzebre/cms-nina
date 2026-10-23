@@ -2,19 +2,10 @@
 
 namespace App\DataFixtures;
 
-use App\Entity\Bloc;
-use App\Entity\Configuration;
-use App\Entity\GroupeBlocs;
-use App\Entity\Langue;
-use App\Entity\Menu;
-use App\Entity\MenuPage;
-use App\Entity\Page;
-use App\Entity\Region;
-use App\Entity\SEOPage;
 use App\Entity\Role;
 use App\Entity\Utilisateur;
 use Doctrine\Bundle\FixturesBundle\Fixture;
-use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\Persistence\ObjectManager;
 use Symfony\Component\Yaml\Yaml;
 
 class RolesFixtures extends Fixture

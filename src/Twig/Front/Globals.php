@@ -30,7 +30,7 @@ class Globals extends AbstractExtension implements GlobalsInterface
         $this->request = $request->getCurrentRequest();
     }
 
-    public function getGlobals()
+    public function getGlobals(): array
     {
         if($this->doctrine->getConnection()->isConnected()){
             //Config

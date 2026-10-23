@@ -10,8 +10,10 @@ namespace App\Twig\Back;
 
 
 use Doctrine\Persistence\ManagerRegistry;
+use Twig\Extension\AbstractExtension;
+use Twig\TwigFunction;
 
-class Assets extends \Twig_Extension
+class Assets extends AbstractExtension
 {
     public function __construct(ManagerRegistry $doctrine)
     {
@@ -21,9 +23,9 @@ class Assets extends \Twig_Extension
     public function getFunctions()
     {
         return array(
-            new \Twig_SimpleFunction('assetExists', array($this, 'assetExists')),
-            new \Twig_SimpleFunction('getTaille', array($this, 'getTaille')),
-            new \Twig_SimpleFunction('getSrcSet', array($this, 'getSrcSet')),
+            new TwigFunction('assetExists', array($this, 'assetExists')),
+            new TwigFunction('getTaille', array($this, 'getTaille')),
+            new TwigFunction('getSrcSet', array($this, 'getSrcSet')),
         );
     }
 

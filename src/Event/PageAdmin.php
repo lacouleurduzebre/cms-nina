@@ -10,14 +10,10 @@ namespace App\Event;
 
 
 use App\Entity\MenuPage;
-use App\Entity\Bloc;
 use App\Entity\Page;
-use App\Service\Configuration;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\EventDispatcher\GenericEvent;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
 class PageAdmin implements EventSubscriberInterface

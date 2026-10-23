@@ -17,8 +17,9 @@ use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Twig\Environment;
 use Twig\TwigFunction;
+use Twig\Extension\AbstractExtension;
 
-class Front extends \Twig_Extension
+class Front extends AbstractExtension
 {
     private $doctrine;
     private $twig;

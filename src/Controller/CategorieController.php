@@ -13,7 +13,6 @@ use App\Entity\Categorie;
 use App\Entity\Langue;
 use App\Entity\SEOCategorie;
 use App\Entity\SEOTypeCategorie;
-use App\Entity\TypeCategorie;
 use App\Service\Page;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;

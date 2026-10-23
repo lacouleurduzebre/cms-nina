@@ -12,8 +12,10 @@ namespace App\Blocs\Videos;
 use App\Entity\Bloc;
 use App\Service\Pagination;
 use Doctrine\Persistence\ManagerRegistry;
+use Twig\Extension\AbstractExtension;
+use Twig\TwigFunction;
 
-class VideosTwig extends \Twig_Extension
+class VideosTwig extends AbstractExtension
 {
     public function __construct(ManagerRegistry $doctrine, Pagination $pagination)
     {
@@ -24,7 +26,7 @@ class VideosTwig extends \Twig_Extension
     public function getFunctions()
     {
         return array(
-            new \Twig_SimpleFunction('listeVideos', array($this, 'listeVideos')),
+            new TwigFunction('listeVideos', array($this, 'listeVideos')),
         );
     }
 

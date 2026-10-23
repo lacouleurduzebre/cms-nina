@@ -37,7 +37,7 @@ class TypeCategorie
     private $description;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Categorie", mappedBy="typeCategorie", cascade="remove")
+     * @ORM\OneToMany(targetEntity="App\Entity\Categorie", mappedBy="typeCategorie", cascade={"remove"})
      */
     private $categories;
 

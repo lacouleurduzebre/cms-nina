@@ -460,7 +460,7 @@
     {% set error_count = errors|length %}
     {% if error_count >= 1 %}
         <div class="error-block">
-            <span class="label label-danger">{{ 'errors'|transchoice(error_count, {}, 'EasyAdminBundle') }}</span>
+            <span class="label label-danger">{{ 'errors'|trans({'%count%': error_count}, 'EasyAdminBundle') }}</span>
             {% if error_count == 1 %}
                 {{ errors|first.message }}
             {% else %}
@@ -558,7 +558,7 @@
                                         {% endif %}
                                         {{ tab_config['label'] }}
                                         {% if tab_config.errors > 0 %}
-                                            <span class="label label-danger" title="{{ 'form.tab.error_badge_title'|transchoice(tab_config.errors, {}, 'EasyAdminBundle') }}">
+                                            <span class="label label-danger" title="{{ 'form.tab.error_badge_title'|trans({'%count%': tab_config.errors}, 'EasyAdminBundle') }}">
                                                 {{ tab_config.errors }}
                                             </span>
                                         {% endif %}
@@ -585,7 +585,7 @@
 {% endblock easyadmin_widget %}
 
 {% block easyadmin_widget_groups %}
-    {% for group_name, group_config in easyadmin_form_groups if not group_config.form_tab or group_config.form_tab == tab_name %}
+    {% for group_name, group_config in easyadmin_form_groups|filter(group_config => not group_config.form_tab or group_config.form_tab == tab_name) %}
         <div class="field-group col-xs-12 {{ group_config.css_class|default('') }}">
             <div class="box box-default {% if group_config.label|default(false) or group_config.icon|default(false) %}groupeDeChamps{% endif %}">
                 {% if group_config.label|default(false) or group_config.icon|default(false) %}
@@ -605,7 +605,7 @@
                     {% endif %}
 
                     <div class="row">
-                        {% for field in form if 'hidden' not in field.vars.block_prefixes and field.vars.easyadmin.form_group == group_name %}
+                        {% for field in form|filter(field => 'hidden' not in field.vars.block_prefixes and field.vars.easyadmin.form_group == group_name) %}
                             {% if not field.vars.easyadmin.form_tab or field.vars.easyadmin.form_tab == tab_name %}
                                 <div class="col-xs-12 {{ field.vars.easyadmin.field.css_class|default('') }}">
                                     {{ form_row(field) }}
@@ -617,7 +617,7 @@
             </div>
         </div>
     {% else %}
-        {% for field in form if 'hidden' not in field.vars.block_prefixes and (not field.vars.easyadmin.form_tab or field.vars.easyadmin.form_tab == tab_name) %}
+        {% for field in form|filter(field => 'hidden' not in field.vars.block_prefixes and (not field.vars.easyadmin.form_tab or field.vars.easyadmin.form_tab == tab_name)) %}
             <div class="col-xs-12 {{ field.vars.easyadmin.field.css_class|default('') }}">
                 {{ form_row(field) }}
             </div>
@@ -734,20 +734,20 @@
                 <div class="listeSEO-SEO">
                     <div class="metaTitre">
                         {% if data.metaTitre is defined %}
-                            {{ data.metaTitre|truncate(65) }}
+                            {{ data.metaTitre|u.truncate(65, '...') }}
                         {% endif %}
                     </div>
 
                     <div class="url">
                         <span>{{ app.request.isSecure ? 'https' : 'http' }}{{ '://'~app.request.headers.get('host') }} > </span>
                         {% if data.url is defined %}
-                            {{ data.url|truncate(75) }}
+                            {{ data.url|u.truncate(75, '...') }}
                         {% endif %}
                     </div>
 
                     <div class="metaDescription">
                         {% if data.metaDescription is defined %}
-                            {{ data.metaDescription|truncate(150)|raw }}
+                            {{ data.metaDescription|u.truncate(150, '...')|raw }}
                         {% endif %}
                     </div>
                 </div>

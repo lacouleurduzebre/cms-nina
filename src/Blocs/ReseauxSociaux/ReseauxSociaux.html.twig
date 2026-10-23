@@ -23,7 +23,7 @@
                 </a>
             {% endif %}
             {% if bloc.contenu.linkedIn.0 is defined %}
-                <a class="bouton" href="https://www.linkedin.com/shareArticle?mini=true&url={{ lienPage }}&title={{ page.titre|truncate(200) }}{% if blocAnnexe(page, 'Resume') %}&summary={{ blocAnnexe(page, 'Resume', false)|striptags|truncate(256) }}{% endif %}" target="_blank" alt="{{ "Partager sur LinkedIn"|trans }}">
+                <a class="bouton" href="https://www.linkedin.com/shareArticle?mini=true&url={{ lienPage }}&title={{ page.titre|u.truncate(200, '...') }}{% if blocAnnexe(page, 'Resume') %}&summary={{ blocAnnexe(page, 'Resume', false)|striptags|u.truncate(256, '...') }}{% endif %}" target="_blank" alt="{{ "Partager sur LinkedIn"|trans }}">
                     <i class="fab fa-linkedin-in"></i> {{ "Partager sur LinkedIn"|trans }}
                 </a>
             {% endif %}

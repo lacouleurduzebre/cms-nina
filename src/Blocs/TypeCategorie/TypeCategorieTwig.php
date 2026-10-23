@@ -14,8 +14,10 @@ use App\Entity\Categorie;
 use App\Service\Page;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Persistence\ManagerRegistry;
+use Twig\Extension\AbstractExtension;
+use Twig\TwigFunction;
 
-class TypeCategorieTwig extends \Twig_Extension
+class TypeCategorieTwig extends AbstractExtension
 {
     public function __construct(ManagerRegistry $doctrine)
     {
@@ -25,8 +27,8 @@ class TypeCategorieTwig extends \Twig_Extension
     public function getFunctions()
     {
         return array(
-            new \Twig_SimpleFunction('categoriesDeType', array($this, 'categoriesDeType')),
-            new \Twig_SimpleFunction('pagesDeType', array($this, 'pagesDeType')),
+            new TwigFunction('categoriesDeType', array($this, 'categoriesDeType')),
+            new TwigFunction('pagesDeType', array($this, 'pagesDeType')),
         );
     }
 

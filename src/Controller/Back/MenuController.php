@@ -15,7 +15,6 @@ use App\Entity\Langue;
 use App\Entity\Menu;
 use App\Entity\MenuPage;
 use App\Entity\Page;
-use App\Entity\SEO;
 use App\Entity\SEOPage;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;

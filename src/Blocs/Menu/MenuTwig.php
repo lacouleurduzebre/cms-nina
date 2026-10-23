@@ -11,8 +11,10 @@ namespace App\Blocs\Menu;
 use Psr\SimpleCache\CacheInterface;
 use Doctrine\Persistence\ManagerRegistry;
 use Twig\Environment;
+use Twig\Extension\AbstractExtension;
+use Twig\TwigFunction;
 
-class MenuTwig extends \Twig_Extension
+class MenuTwig extends AbstractExtension
 {
     public function __construct(ManagerRegistry $doctrine, Environment $twig, CacheInterface $cache)
     {
@@ -24,7 +26,7 @@ class MenuTwig extends \Twig_Extension
     public function getFunctions()
     {
         return array(
-            new \Twig_SimpleFunction('menu', array($this, 'menu'), array('is_safe' => ['html'])),
+            new TwigFunction('menu', array($this, 'menu'), array('is_safe' => ['html'])),
         );
     }
 

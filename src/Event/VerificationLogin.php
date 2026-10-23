@@ -19,7 +19,7 @@ use Symfony\Component\Security\Core\AuthenticationEvents;
 use Symfony\Component\Security\Core\Event\AuthenticationFailureEvent;
 use Symfony\Component\Security\Http\Event\InteractiveLoginEvent;
 use Symfony\Component\Security\Http\SecurityEvents;
-use Symfony\Component\Templating\EngineInterface;
+use Twig\Environment;
 
 class VerificationLogin implements EventSubscriberInterface
 {
@@ -29,7 +29,7 @@ class VerificationLogin implements EventSubscriberInterface
     private $mailer;
     private $twig;
 
-    public function __construct(EntityManagerInterface $em, RequestStack $request, FlashBagInterface $flash, \Swift_Mailer $mailer, EngineInterface $twig)
+    public function __construct(EntityManagerInterface $em, RequestStack $request, FlashBagInterface $flash, \Swift_Mailer $mailer, Environment $twig)
     {
         $this->em = $em;
         $this->request = $request->getCurrentRequest();

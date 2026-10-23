@@ -13,8 +13,10 @@ use App\Entity\MenuPage;
 use App\Entity\Page;
 use Doctrine\Persistence\ManagerRegistry;
 use Twig\Environment;
+use Twig\Extension\AbstractExtension;
+use Twig\TwigFunction;
 
-class FilAriane extends \Twig_Extension
+class FilAriane extends AbstractExtension
 {
     public function __construct(ManagerRegistry $doctrine, Environment $twig)
     {
@@ -25,7 +27,7 @@ class FilAriane extends \Twig_Extension
     public function getFunctions()
     {
         return array(
-            new \Twig_SimpleFunction('ariane', array($this, 'ariane'), array('is_safe' => ['html'])),
+            new TwigFunction('ariane', array($this, 'ariane'), array('is_safe' => ['html'])),
         );
     }
 

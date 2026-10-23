@@ -9,15 +9,14 @@
 namespace App\Twig\Back;
 
 
-use App\Entity\Langue;
-use App\Entity\Menu;
-use App\Entity\MenuPage;
 use App\Entity\Page;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Twig\Environment;
+use Twig\Extension\AbstractExtension;
+use Twig\TwigFunction;
 
-class Traduction extends \Twig_Extension
+class Traduction extends AbstractExtension
 {
     public function __construct(ManagerRegistry $doctrine, RequestStack $requestStack, Environment $twig)
     {
@@ -29,7 +28,7 @@ class Traduction extends \Twig_Extension
     public function getFunctions()
     {
         return array(
-            new \Twig_SimpleFunction('getTraduction', array($this, 'getTraduction')),
+            new TwigFunction('getTraduction', array($this, 'getTraduction')),
         );
     }
 

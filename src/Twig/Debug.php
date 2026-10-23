@@ -13,7 +13,7 @@ use Twig\Template;
 
 abstract class Debug extends Template
 {
-    public function display(array $context, array $blocks = [])
+    public function display(array $context, array $blocks = []): void
     {
         $racine =  dirname(dirname(__DIR__));
         $cheminTPL = str_replace($racine, '', $this->getSourceContext()->getPath());

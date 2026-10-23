@@ -23,6 +23,15 @@
     "doctrine/dbal": {
         "version": "v2.6.3"
     },
+    "doctrine/deprecations": {
+        "version": "1.1",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "main",
+            "version": "1.0",
+            "ref": "fdd756167454623e21f1d769c5b814b243782a67"
+        }
+    },
     "doctrine/doctrine-bundle": {
         "version": "1.6",
         "recipe": {
@@ -73,15 +82,6 @@
     },
     "doctrine/reflection": {
         "version": "v1.0.0"
-    },
-    "easycorp/easy-log-handler": {
-        "version": "1.0",
-        "recipe": {
-            "repo": "github.com/symfony/recipes",
-            "branch": "master",
-            "version": "1.0",
-            "ref": "70062abc2cd58794d2a90274502f81b55cd9951b"
-        }
     },
     "easycorp/easyadmin-bundle": {
         "version": "1.17",
@@ -245,9 +245,6 @@
             "ref": "71d29aaf710fd59cd3abff2b1ade907ed73103c6"
         }
     },
-    "symfony/debug-pack": {
-        "version": "v1.0.4"
-    },
     "symfony/dependency-injection": {
         "version": "v4.0.4"
     },
@@ -341,9 +338,6 @@
     "symfony/options-resolver": {
         "version": "v4.0.4"
     },
-    "symfony/orm-pack": {
-        "version": "v1.0.5"
-    },
     "symfony/phpunit-bridge": {
         "version": "3.3",
         "recipe": {
@@ -383,9 +377,6 @@
     "symfony/process": {
         "version": "v4.0.4"
     },
-    "symfony/profiler-pack": {
-        "version": "v1.0.3"
-    },
     "symfony/property-access": {
         "version": "v4.0.4"
     },
@@ -424,9 +415,6 @@
     },
     "symfony/serializer": {
         "version": "v4.0.4"
-    },
-    "symfony/serializer-pack": {
-        "version": "v1.0.1"
     },
     "symfony/service-contracts": {
         "version": "v1.1.5"
@@ -508,6 +496,9 @@
         "files": [
             "config/packages/twig_extensions.yaml"
         ]
+    },
+    "twig/extra-bundle": {
+        "version": "v3.7.0"
     },
     "twig/twig": {
         "version": "v2.4.4"
