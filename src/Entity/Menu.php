@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use SortDirection;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -29,7 +30,7 @@ class Menu
 
     #[ORM\OneToMany(targetEntity: \App\Entity\MenuPage::class, mappedBy: 'menu', cascade: ['persist', 'remove'])]
     #[ORM\JoinColumn(nullable: false)]
-    #[ORM\OrderBy(['position' => 'ASC'])]
+    #[ORM\OrderBy(['position' => SortDirection::Ascending])]
     private $menuPage;
 
     #[ORM\Column(type: 'boolean', nullable: true)]

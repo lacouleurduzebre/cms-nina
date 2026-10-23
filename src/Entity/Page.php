@@ -5,6 +5,7 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use SortDirection;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -58,7 +59,7 @@ class Page
     /**
      * @var string
      */
-    #[ORM\Column(name: 'image', type: 'string', nullable: true)]
+    #[ORM\Column(name: 'image', type: 'string', length: 255, nullable: true)]
     private $image;
 
     #[ORM\ManyToOne(targetEntity: \App\Entity\Langue::class, inversedBy: 'pages')]
@@ -89,7 +90,7 @@ class Page
     private $categories;
 
     #[ORM\OneToMany(targetEntity: \App\Entity\Bloc::class, mappedBy: 'page', orphanRemoval: true, cascade: ['persist'])]
-    #[ORM\OrderBy(['position' => 'ASC'])]
+    #[ORM\OrderBy(['position' => SortDirection::Ascending])]
     private $blocs;
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]

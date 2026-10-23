@@ -5,6 +5,7 @@ namespace App\Repository;
 use App\Entity\GroupeBlocs;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use SortDirection;
 
 /**
  * @method GroupeBlocs|null find($id, $lockMode = null, $lockVersion = null)
@@ -28,7 +29,7 @@ class GroupeBlocsRepository extends ServiceEntityRepository
         return $this->createQueryBuilder('g')
             ->andWhere('g.exampleField = :val')
             ->setParameter('val', $value)
-            ->orderBy('g.id', 'ASC')
+            ->orderBy('g.id', SortDirection::Ascending)
             ->setMaxResults(10)
             ->getQuery()
             ->getResult()

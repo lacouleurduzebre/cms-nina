@@ -6,17 +6,6 @@
         <link rel="stylesheet" href="{{ asset('assets/css/knacss.min.css') }}">
     </head>
     <body>
-        {#<div>#}
-            {#{% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}#}
-                {#{{ 'layout.logged_in_as'|trans({'%username%': app.user.username}, 'FOSUserBundle') }} |#}
-                {#<a href="{{ path('fos_user_security_logout') }}">#}
-                    {#{{ 'layout.logout'|trans({}, 'FOSUserBundle') }}#}
-                {#</a>#}
-            {#{% else %}#}
-                {#<a href="{{ path('fos_user_security_login') }}">{{ 'layout.login'|trans({}, 'FOSUserBundle') }}</a>#}
-            {#{% endif %}#}
-        {#</div>#}
-
         <div id="loginPage">
             {% if app.request.hasPreviousSession %}
                 {% for type, messages in app.session.flashbag.all() %}
@@ -31,8 +20,8 @@
                 {% endfor %}
             {% endif %}
 
-            {% block fos_user_content %}
-            {% endblock fos_user_content %}
+            {% block contenu %}
+            {% endblock contenu %}
         </div>
 
         <script src="{{ asset('assets/js/jquery-3.2.1.min.js') }}"></script>

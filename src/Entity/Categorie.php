@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use SortDirection;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -43,7 +44,7 @@ class Categorie
     private $typeCategorie;
 
     #[ORM\ManyToMany(targetEntity: \App\Entity\Page::class, mappedBy: 'categories')]
-    #[ORM\OrderBy(['datePublication' => 'DESC'])]
+    #[ORM\OrderBy(['datePublication' => SortDirection::Descending])]
     private $pages;
 
     #[ORM\ManyToOne(targetEntity: \App\Entity\Langue::class)]

@@ -5,6 +5,7 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use SortDirection;
 use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: \App\Repository\RegionRepository::class)]
@@ -23,7 +24,7 @@ class Region
     private $position;
 
     #[ORM\OneToMany(targetEntity: \App\Entity\GroupeBlocs::class, mappedBy: 'region', orphanRemoval: true, cascade: ['persist'])]
-    #[ORM\OrderBy(['position' => 'ASC'])]
+    #[ORM\OrderBy(['position' => SortDirection::Ascending])]
     private $groupesBlocs;
 
     #[Assert\NotBlank]

@@ -5,6 +5,7 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use SortDirection;
 
 #[ORM\Entity(repositoryClass: \App\Repository\BlocRepository::class)]
 class Bloc
@@ -41,7 +42,7 @@ class Bloc
     private $blocParent;
 
     #[ORM\OneToMany(targetEntity: \App\Entity\Bloc::class, mappedBy: 'blocParent', orphanRemoval: true, cascade: ['persist'])]
-    #[ORM\OrderBy(['position' => 'ASC'])]
+    #[ORM\OrderBy(['position' => SortDirection::Ascending])]
     private $blocsEnfants;
 
     public function __construct()

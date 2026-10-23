@@ -1,0 +1,10 @@
+{% extends "securite/layout.html.twig" %}
+
+{% block contenu %}
+    <p class="mw960p center">
+        {{ "Un e-mail a été envoyé. Il contient un lien sur lequel il vous faudra cliquer pour réinitialiser votre mot de passe."|trans }}<br>
+        {{ "Remarque : vous ne pouvez demander un nouveau mot de passe que toutes les %duree% heures."|trans({'%duree%': dureeAvantNouvelleDemande}) }}<br>
+        <br>
+        {{ "Si vous ne recevez pas d'e-mail, vérifiez votre dossier spam ou essayez à nouveau."|trans }}
+    </p>
+{% endblock contenu %}

@@ -2,12 +2,14 @@
 # https://symfony.com/doc/current/security.html
 security:
     password_hashers:
-        FOS\UserBundle\Model\UserInterface: auto
+        App\Entity\Utilisateur: auto
 
     # https://symfony.com/doc/current/security.html#b-configuring-how-users-are-loaded
     providers:
-        fos_user:
-            id: fos_user.user_provider.username_email
+        #Connexion par identifiant ou e-mail (cf. UtilisateurRepository::loadUserByIdentifier)
+        utilisateurs:
+            entity:
+                class: App\Entity\Utilisateur
 
     firewalls:
         # disables authentication for assets and the profiler, adapt it according to your needs
@@ -17,16 +19,17 @@ security:
 
         principal:
             pattern: ^/
-            provider: fos_user
+            provider: utilisateurs
             form_login:
-                login_path: fos_user_security_login
-                check_path: fos_user_security_check
+                login_path: connexion
+                check_path: connexion_verification
+                enable_csrf: true
                 always_use_default_target_path: true
                 default_target_path: admin
-                provider: fos_user
+                provider: utilisateurs
             logout:
-                path: fos_user_security_logout
-                target: fos_user_security_login
+                path: deconnexion
+                target: connexion
             user_checker: App\Security\VerificationLogin
             # activate different ways to authenticate
     access_control:

@@ -11,6 +11,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use SortDirection;
 
 class LangueCrudController extends BaseCrudController
 {
@@ -71,8 +72,8 @@ class LangueCrudController extends BaseCrudController
                     return $er->createQueryBuilder('p')
                         ->andWhere('p.langue = :langue')
                         ->andWhere('p.corbeille = 0')
-                        ->setParameters(array('langue' => $langue))
-                        ->orderBy('p.titreMenu', 'ASC');
+                        ->setParameter('langue', $langue)
+                        ->orderBy('p.titreMenu', SortDirection::Ascending);
                 },
             ]);
         }

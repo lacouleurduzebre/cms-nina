@@ -2,6 +2,8 @@
 
 namespace App\Repository;
 
+use SortDirection;
+
 /**
  * PageRepository
  *
@@ -17,7 +19,7 @@ class PageRepository extends \Doctrine\ORM\EntityRepository
                 ->andWhere('p.active = 1')
                 //->andWhere('p.langue = :langue')
                 //->setParameter('langue', $langue)
-                ->orderBy('p.datePublication', 'DESC');
+                ->orderBy('p.datePublication', SortDirection::Descending);
     }
 
     public function pagesPubliees($langue = null, $limite = null, $offset = null){
@@ -33,12 +35,12 @@ class PageRepository extends \Doctrine\ORM\EntityRepository
 
         if($langue){
             $qb->andWhere('p.langue = :langue')
-                ->setParameters(array('langue' => $langue, 'date' => $date));
+                ->setParameter('langue', $langue)->setParameter('date', $date);
         }else{
-            $qb->setParameters(array('date' => $date));
+            $qb->setParameter('date', $date);
         }
 
-        $qb->orderBy('p.datePublication', 'DESC');
+        $qb->orderBy('p.datePublication', SortDirection::Descending);
 
         if($limite){
             $qb->setMaxResults($limite);
@@ -68,16 +70,16 @@ class PageRepository extends \Doctrine\ORM\EntityRepository
 
         if($categorie != 0){
             $qb->andWhere(':categorie MEMBER OF p.categories');
-            $qb->setParameters(array('langue' => $langue, 'date' => $date, 'categorie' => $categorie));
+            $qb->setParameter('langue', $langue)->setParameter('date', $date)->setParameter('categorie', $categorie);
         }else{
             $qb->andWhere('c IS NOT NULL');
-            $qb->setParameters(array('langue' => $langue, 'date' => $date));
+            $qb->setParameter('langue', $langue)->setParameter('date', $date);
         }
 
         if($tri == 'alpha'){
-            $qb->orderBy('p.titre', 'ASC');
+            $qb->orderBy('p.titre', SortDirection::Ascending);
         }else{
-            $qb->orderBy('p.datePublication', 'DESC');
+            $qb->orderBy('p.datePublication', SortDirection::Descending);
         }
 
         if($limite){
@@ -109,9 +111,9 @@ class PageRepository extends \Doctrine\ORM\EntityRepository
 
         if($langue){
             $qb->andWhere('p.langue = :langue')
-                ->setParameters(array('langue' => $langue, 'date' => $date));
+                ->setParameter('langue', $langue)->setParameter('date', $date);
         }else{
-            $qb->setParameters(array('date' => $date));
+            $qb->setParameter('date', $date);
         }
 
         $nbResultats = $qb->getQuery()->getSingleScalarResult();
@@ -129,7 +131,7 @@ class PageRepository extends \Doctrine\ORM\EntityRepository
             ->where('p.langue = :langue')
             ->andwhere('p.titreMenu LIKE :recherche')
             ->andWhere('p.corbeille = 0')
-            ->setParameters(array('langue' => $langue, 'recherche' => '%'.$recherche.'%'));
+            ->setParameter('langue', $langue)->setParameter('recherche', '%'.$recherche.'%');
 
         return $qb->getQuery()->getResult();
     }
@@ -150,7 +152,7 @@ class PageRepository extends \Doctrine\ORM\EntityRepository
                     ->andWhere('p.active = 1')
                     ->andWhere('p.datePublication < :date')
                     ->andWhere('p.dateDepublication > :date OR p.dateDepublication IS NULL')
-                    ->setParameters(array('motCle' => '%'.$motCle.'%', 'date' => $date));
+                    ->setParameter('motCle', '%'.$motCle.'%')->setParameter('date', $date);
 
                 $pages = $qb->getQuery()->getResult();
                 foreach($pages as $page){

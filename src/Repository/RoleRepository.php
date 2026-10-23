@@ -5,6 +5,7 @@ namespace App\Repository;
 use App\Entity\Role;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use SortDirection;
 
 /**
  * @method Role|null find($id, $lockMode = null, $lockVersion = null)
@@ -28,7 +29,7 @@ class RoleRepository extends ServiceEntityRepository
         return $this->createQueryBuilder('r')
             ->andWhere('r.exampleField = :val')
             ->setParameter('val', $value)
-            ->orderBy('r.id', 'ASC')
+            ->orderBy('r.id', SortDirection::Ascending)
             ->setMaxResults(10)
             ->getQuery()
             ->getResult()

@@ -37,7 +37,7 @@
     {% endblock main_menu %}
     {% block header_custom_menu %}
         <li>
-            {% set _logout_path = path('fos_user_security_logout') %}
+            {% set _logout_path = path('deconnexion') %}
             {% if app.user|default(false) == false %}
                 <i class="hidden-xs fa fa-user-times"></i>
                 {{ 'Anonyme'|trans }}

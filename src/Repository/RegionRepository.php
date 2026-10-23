@@ -5,6 +5,7 @@ namespace App\Repository;
 use App\Entity\Region;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use SortDirection;
 
 /**
  * @method Region|null find($id, $lockMode = null, $lockVersion = null)
@@ -27,7 +28,7 @@ class RegionRepository extends ServiceEntityRepository
         return $this->createQueryBuilder('r')
             ->andWhere('r.position < :val')
             ->setParameter('val', $position)
-            ->orderBy('r.position', 'ASC')
+            ->orderBy('r.position', SortDirection::Ascending)
             ->getQuery()
             ->getResult()
         ;
@@ -41,7 +42,7 @@ class RegionRepository extends ServiceEntityRepository
         return $this->createQueryBuilder('r')
             ->andWhere('r.position > :val')
             ->setParameter('val', $position)
-            ->orderBy('r.position', 'ASC')
+            ->orderBy('r.position', SortDirection::Ascending)
             ->getQuery()
             ->getResult()
         ;

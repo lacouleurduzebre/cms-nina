@@ -1,0 +1,8 @@
+{% autoescape false %}
+{{ 'Bonjour %username% !'|trans({'%username%': user.username}) }}
+
+{{ 'Pour réinitialiser votre mot de passe, merci de vous rendre sur %lien%'|trans({'%lien%': lien}) }}
+
+{{ 'Cordialement,'|trans }}
+{{ "L'équipe"|trans }}
+{% endautoescape %}

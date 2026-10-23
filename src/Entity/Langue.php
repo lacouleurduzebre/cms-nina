@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use SortDirection;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -41,7 +42,7 @@ class Langue
     private $active = true;
 
     #[ORM\OneToMany(targetEntity: \App\Entity\Page::class, mappedBy: 'langue', cascade: ['persist', 'remove'])]
-    #[ORM\OrderBy(['titre' => 'ASC'])]
+    #[ORM\OrderBy(['titre' => SortDirection::Ascending])]
     private $pages;
 
     #[ORM\Column(type: 'boolean')]

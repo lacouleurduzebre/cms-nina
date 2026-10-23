@@ -12,6 +12,7 @@ namespace App\Controller\Back;
 use App\Entity\Configuration;
 use App\Entity\Langue;
 use App\Entity\Page;
+use App\Service\ExtractionTraductions;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Bundle\FrameworkBundle\Console\Application;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -120,11 +121,11 @@ class TraductionController extends AbstractController
 
     /**
      * @param Request $request
-     * @param KernelInterface $kernel
+     * @param ExtractionTraductions $extraction
      * @return Response
      */
     #[Route(path: '/traductions/templates/modifier/{domaine}/{abreviation}', name: 'modifierTraductionsTemplates')]
-    public function modifierAction(Request $request, KernelInterface $kernel, $domaine, $abreviation){
+    public function modifierAction(Request $request, ExtractionTraductions $extraction, $domaine, $abreviation){
         $app = getcwd().'/../';
 
         $abreviation = strtolower($abreviation);
@@ -160,17 +161,8 @@ class TraductionController extends AbstractController
         $repoLangue = $this->doctrine->getRepository(Langue::class);
         $langue = $repoLangue->findOneBy(array('abreviation' => $abreviation));
 
-        $application = new Application($kernel);
-        $application->setAutoExit(false);
-
-        $input = new ArrayInput(array(
-            'command' => 'translation:extract',
-            'configuration' => $domaine,
-            'locale' => strtolower($abreviation),
-        ));
-
-        $output = new NullOutput();
-        $application->run($input, $output);
+        $theme = $this->doctrine->getRepository(Configuration::class)->find(1)->getTheme();
+        $extraction->extraire($domaine, strtolower($abreviation), $theme);
 
         //Recherche du dossier contenant les traductions, en fonction du domaine
         $dossier = $this->getDossierByDomaine($app, $domaine);

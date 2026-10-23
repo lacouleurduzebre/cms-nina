@@ -25,7 +25,7 @@ class BlocAnnexeRepository extends ServiceEntityRepository
             ->join('b.page', 'p')
             ->where('p.corbeille = 0')
             ->andWhere('b.contenu LIKE :motCle')
-            ->setParameters(array('motCle' => '%/uploads/%'));
+            ->setParameter('motCle', '%/uploads/%');
 
         return $qb->getQuery()->getResult();
     }

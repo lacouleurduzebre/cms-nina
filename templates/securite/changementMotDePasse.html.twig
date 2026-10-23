@@ -1,0 +1,10 @@
+{% extends "securite/layout.html.twig" %}
+
+{% block contenu %}
+    {{ form_start(form, { 'action': path('profil_mot_de_passe'), 'attr': { 'class': 'fos_user_change_password' } }) }}
+        {{ form_widget(form) }}
+        <div>
+            <input type="submit" value="{{ 'Modifier le mot de passe'|trans }}" />
+        </div>
+    {{ form_end(form) }}
+{% endblock contenu %}

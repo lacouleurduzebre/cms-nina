@@ -24,7 +24,7 @@
                     {% for segment in segments.unit %}
                         <div class="flex-container mw1140p mbs">
                             <label class="w30 prs" for="{{ segment.attributes.id }}">{{ segment.segment.source }}</label>
-                            <input class="w70" type="text" name="{{ segment.attributes.id }}" id="{{ segment.attributes.id }}" value="{{ segment.segment.target }}">
+                            <input class="w70" type="text" name="{{ segment.attributes.id }}" id="{{ segment.attributes.id }}" value="{{ segment.segment.target|default('') }}">
                         </div>
                     {% endfor %}
                     <a href="#" class="mts btn traductionTemplate" data-fichier="{{ nom }}">{{ "Enregistrer les traductions"|trans }}</a>

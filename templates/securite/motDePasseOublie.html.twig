@@ -1,0 +1,9 @@
+{% extends "securite/layout.html.twig" %}
+
+{% block contenu %}
+    <form action="{{ path('mot_de_passe_oublie_envoi') }}" method="POST" class="fos_user_resetting_request mw960p center">
+        <label for="username">{{ "Nom d'utilisateur ou adresse e-mail"|trans }}</label>
+        <input type="text" id="username" name="username" required="required" />
+        <input type="submit" value="{{ 'Réinitialiser le mot de passe'|trans }}" class="center" />
+    </form>
+{% endblock contenu %}

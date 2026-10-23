@@ -2,6 +2,8 @@
 
 namespace App\Repository;
 
+use SortDirection;
+
 /**
  * CommentaireRepository
  *
@@ -15,7 +17,7 @@ class CommentaireRepository extends \Doctrine\ORM\EntityRepository
             ->createQueryBuilder('c')
             ->where('c.valide = 0')
             ->andWhere('c.corbeille = 0')
-            ->orderBy('c.date', 'DESC');
+            ->orderBy('c.date', SortDirection::Descending);
 
         return $qb->getQuery()->getResult();
     }

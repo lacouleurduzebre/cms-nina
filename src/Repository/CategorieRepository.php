@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 use Doctrine\ORM\EntityRepository;
+use SortDirection;
 
 /**
  * CategorieRepository
@@ -13,6 +14,6 @@ class CategorieRepository extends \Doctrine\ORM\EntityRepository
 {
     public static function orderByNom(EntityRepository $er){
         return $er->createQueryBuilder('c')
-            ->orderBy('c.nom', 'ASC');
+            ->orderBy('c.nom', SortDirection::Ascending);
     }
 }

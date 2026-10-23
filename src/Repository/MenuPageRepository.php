@@ -2,6 +2,8 @@
 
 namespace App\Repository;
 
+use SortDirection;
+
 /**
  * MenuPageRepository
  *
@@ -15,7 +17,7 @@ class MenuPageRepository extends \Doctrine\ORM\EntityRepository
             ->createQueryBuilder('m')
             ->where('m.menu = :idMenu')
             ->setParameter('idMenu', $idMenu)
-            ->orderBy('m.position', 'DESC')
+            ->orderBy('m.position', SortDirection::Descending)
             ->setMaxResults(1);
 
         return $qb->getQuery()->getResult()[0];

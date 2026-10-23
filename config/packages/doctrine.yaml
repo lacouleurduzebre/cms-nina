@@ -15,13 +15,11 @@ doctrine:
 
         # With Symfony 3.3, remove the `resolve:` prefix
         url: '%env(resolve:DATABASE_URL)%'
+
+        #Type "array" (tableau PHP sérialisé) supprimé de DBAL 4
+        types:
+            array: App\Doctrine\Type\TableauSerialiseType
     orm:
-        auto_generate_proxy_classes: '%kernel.debug%'
-        enable_lazy_ghost_objects: true
-        report_fields_where_declared: true
-        #Aucun contrôleur ne reçoit d'entité en argument
-        controller_resolver:
-            auto_mapping: false
         naming_strategy: 'App\Service\NamingStrategy'
         auto_mapping: true
         mappings:
@@ -30,10 +28,8 @@ doctrine:
                 type: attribute
                 dir: '%kernel.project_dir%/src/Entity'
                 prefix: 'App\Entity'
-                alias: App
             Theme:
                 is_bundle: false
                 type: attribute
                 dir: '%kernel.project_dir%/themes'
                 prefix: 'Theme'
-                alias: Theme

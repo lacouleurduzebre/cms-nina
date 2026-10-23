@@ -6,6 +6,7 @@ use App\Entity\Bloc;
 use App\Service\Page;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use SortDirection;
 
 /**
  * @method Bloc|null find($id, $lockMode = null, $lockVersion = null)
@@ -32,7 +33,7 @@ class BlocRepository extends ServiceEntityRepository
                         ->createQueryBuilder('b')
                         ->where('b.type = :type')
                         ->andWhere('b.contenu LIKE :motCle')
-                        ->setParameters(array('motCle' => '%'.$motCle.'%', 'type' => $typeBloc));
+                        ->setParameter('motCle', '%'.$motCle.'%')->setParameter('type', $typeBloc);
 
                     $blocsTrouves = $qb->getQuery()->getResult();
                     $blocs = array_merge($blocs, $blocsTrouves);
@@ -72,8 +73,8 @@ class BlocRepository extends ServiceEntityRepository
             ->andWhere('p.langue = :langue')
             ->andWhere('p.datePublication < :date')
             ->andWhere('p.dateDepublication > :date OR p.dateDepublication IS NULL')
-            ->setParameters(array('langue' => $langue, 'date' => $date, 'type' => 'Video'))
-            ->orderBy('p.datePublication', 'DESC');
+            ->setParameter('langue', $langue)->setParameter('date', $date)->setParameter('type', 'Video')
+            ->orderBy('p.datePublication', SortDirection::Descending);
 
         return $qb->getQuery()->getResult();
     }
@@ -84,7 +85,7 @@ class BlocRepository extends ServiceEntityRepository
             ->join('b.page', 'p')
             ->where('p.corbeille = 0')
             ->andWhere('b.contenu LIKE :motCle')
-            ->setParameters(array('motCle' => '%/uploads/%'));
+            ->setParameter('motCle', '%/uploads/%');
 
         return $qb->getQuery()->getResult();
     }

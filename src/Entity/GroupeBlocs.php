@@ -5,6 +5,7 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use SortDirection;
 use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: \App\Repository\GroupeBlocsRepository::class)]
@@ -27,7 +28,7 @@ class GroupeBlocs
     private $langue;
 
     #[ORM\OneToMany(targetEntity: \App\Entity\Bloc::class, mappedBy: 'groupeBlocs', orphanRemoval: true, cascade: ['persist', 'remove'])]
-    #[ORM\OrderBy(['position' => 'ASC'])]
+    #[ORM\OrderBy(['position' => SortDirection::Ascending])]
     private $blocs;
 
     #[ORM\ManyToOne(targetEntity: \App\Entity\Region::class, inversedBy: 'groupesBlocs')]

@@ -1,0 +1,46 @@
+{% extends "securite/layout.html.twig" %}
+
+{% block contenu %}
+    {#{% if error %}
+        <div class="errors"><i class="fas fa-exclamation-circle"></i>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+    {% endif %}#}
+
+    <form class="mw960p center" action="{{ path("connexion_verification") }}" method="post">
+
+        <div id="animation_container" style="width:350px; height:350px">
+            <div class="fond"></div>
+            <canvas id="canvas" width="350" height="350" style="position: absolute;"></canvas>
+            <div id="dom_overlay_container" style="pointer-events:none; overflow:hidden; width:350px; height:350px; position: absolute; left: 0px; top: 0px;">
+            </div>
+        </div>
+
+        <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}" />
+
+        <label for="username">{{ 'E-mail ou identifiant'|trans }}</label>
+        <input type="text" id="username" name="_username" value="{{ last_username }}" required="required" autocomplete="username" />
+
+        <label for="password">{{ 'Mot de passe'|trans }}</label>
+        <input type="password" id="password" name="_password" required="required" autocomplete="current-password" />
+
+        <div class="mts">
+            <a href="
+                {% if langues|length > 1 %}
+                    {{ path('accueilLocale', { '_locale': langueActive.abreviation }) }}
+                {% else %}
+                    {{ path('accueil') }}
+                {% endif %}
+            " class="retourAccueil">
+                {{ "Retour au site"|trans }}
+            </a>
+            <a href="{{ path("mot_de_passe_oublie") }}" class="mdpOublie fr">{% trans %}Mot de passe oublié ?{% endtrans %}</a>
+        </div>
+
+        <input type="submit" id="_submit" class="center" name="_submit" value="{{ 'Connexion'|trans }}" />
+
+    </form>
+{% endblock contenu %}
+
+{% block scripts %}
+    <script src="https://code.createjs.com/1.0.0/createjs.min.js"></script>
+    <script src="{{ asset('assets/js/jsLogin.min.js') }}"></script>
+{% endblock %}

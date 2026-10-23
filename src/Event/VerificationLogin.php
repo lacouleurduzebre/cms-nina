@@ -115,6 +115,7 @@ class VerificationLogin implements EventSubscriberInterface
         if($user){
             $user->setTentativesConnexion(0);
             $user->setDateDerniereTentativeConnexion(null);
+            $user->setLastLogin(new \DateTime());
 
             $this->em->persist($user);
             $this->em->flush();
